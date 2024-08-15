@@ -1,9 +1,7 @@
-import React from 'react'
-
+import React from 'react';
+import { Box } from '@mui/material';
 function Header() {
-  return (
-    <Box>Header</Box>
-  )
+    return <Box>Header</Box>;
 }
 
-export default Header
+export default Header;
