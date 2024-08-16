@@ -1,10 +1,13 @@
 import { createTheme } from '@mui/material';
 
 export const theme = createTheme({
+    // define colors
     palette: {
         primaryText: '#fff',
         secondaryText: '#AB572D',
     },
+
+    // breakpoints for responsive
     breakpoints: {
         values: {
             xs: 0, // Extra small devices (phones, 600px and down)

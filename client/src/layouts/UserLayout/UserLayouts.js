@@ -1,14 +1,18 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
+import Copyrights from '../../components/Copyrights/Copyrights';
 
 function UserLayouts({ children }) {
     return (
-        <Box sx={{ minHeight: '200vh' }}>
-            <Header />
+        <Box sx={{ height: '400vh', bgcolor: '#000' }}>
             {/* pre-defined layout */}
-            UserLayouts
+            <Header />
             {/* any components call this layout */}
+            {/* {children} */}
+
+            <Footer />
         </Box>
     );
 }
