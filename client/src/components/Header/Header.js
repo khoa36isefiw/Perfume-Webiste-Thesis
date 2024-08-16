@@ -1,4 +1,4 @@
-import { Avatar, Box, Container, IconButton } from '@mui/material';
+import { Box, Container, IconButton } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { theme } from '../../Theme/Theme';
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
     { headerText: 'Shop', headerLink: '/shop' },
@@ -44,14 +45,15 @@ function Header() {
             <Container
                 sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
             >
-                <Box sx={{ height: '48px', width: '48px' }}>
-                    <Avatar
-                        sx={{ height: '100%', width: '100%', borderRadius: 0 }}
-                        src={
-                            'https://media.licdn.com/dms/image/v2/D5603AQHN6UEnO4czcw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1720448281679?e=1729123200&v=beta&t=DZhDUnBbXmK-nc1Bz5Yxc9GOpXNsNa6lgBg70KgnSug'
-                        }
-                    />
-                </Box>
+                <CustomizeTypography
+                    sx={{
+                        fontSize: '20px',
+                        fontWeight: 'bold',
+                        color: theme.palette.secondaryText,
+                    }}
+                >
+                    Tomtoc Perfumes
+                </CustomizeTypography>
                 <Box
                     flexGrow={1}
                     sx={{
@@ -65,6 +67,7 @@ function Header() {
                             key={index}
                             onClick={() => navigate(header.headerLink)}
                             sx={{
+                                fontSize: '16px',
                                 color: 'white',
                                 margin: '0 32px',
                                 '&:hover': {

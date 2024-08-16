@@ -2,7 +2,6 @@ import { Box } from '@mui/material';
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import Copyrights from '../../components/Copyrights/Copyrights';
 
 function UserLayouts({ children }) {
     return (
