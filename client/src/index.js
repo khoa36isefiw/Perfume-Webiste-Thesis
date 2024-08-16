@@ -4,12 +4,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@mui/material/CssBaseline';
-
+import { ThemeProvider } from '@mui/material';
+import { unstable_createMuiStrictModeTheme } from '@mui/material/styles';
+import { theme } from './Theme/Theme';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const mergeTheme = {
+    theme,
+    ...unstable_createMuiStrictModeTheme(),
+};
 root.render(
     <React.StrictMode>
         <CssBaseline>
-            <App />
+            <ThemeProvider theme={mergeTheme}>
+                <App />
+            </ThemeProvider>
         </CssBaseline>
     </React.StrictMode>,
 );
