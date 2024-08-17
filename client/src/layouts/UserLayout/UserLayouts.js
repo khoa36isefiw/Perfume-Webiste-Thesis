@@ -9,8 +9,7 @@ function UserLayouts({ children }) {
             {/* pre-defined layout */}
             <Header />
             {/* any components call this layout */}
-            {/* {children} */}
-
+            <Box sx={{ mt: 10 }}>{children}</Box>
             <Footer />
         </Box>
     );
