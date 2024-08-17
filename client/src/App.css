@@ -9,6 +9,7 @@
 
 html {
   font-size: 62.5%;
+  background-color: #000;
 
 }
 
@@ -26,11 +27,13 @@ body {
   text-rendering: optimizeSpeed;
   color: var(--text-color);
 
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+
 }
 
 
