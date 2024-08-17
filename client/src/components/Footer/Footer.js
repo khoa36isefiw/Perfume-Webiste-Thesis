@@ -20,7 +20,7 @@ function Footer() {
             sx={{
                 position: 'relative',
                 top: '100%',
-                bottom: '100%',
+                bottom: '0',
                 bgcolor: 'black',
                 minHeight: '100px',
             }}
