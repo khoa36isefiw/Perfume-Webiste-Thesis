@@ -33,6 +33,7 @@ function Header() {
                 height: '80px',
                 width: '100%',
                 position: 'fixed',
+                backgroundColor: 'black',
                 top: 0,
                 left: 0,
                 right: 0,
