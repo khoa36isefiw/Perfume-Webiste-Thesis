@@ -2,7 +2,7 @@ import React from 'react';
 import NewArrival from '../../assets/images/homepage_new_arrivals.png';
 import { Box, Button, Container, Grid } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import CustomizeButton from '../Copyrights/CustomizeButton/CustomizeButton';
+import CustomizeButton from '../CustomizeButton/CustomizeButton';
 
 function NewArrivals() {
     return (
