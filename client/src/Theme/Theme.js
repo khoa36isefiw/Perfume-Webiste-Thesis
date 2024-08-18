@@ -6,6 +6,9 @@ export const theme = createTheme({
         primaryText: '#fff',
         secondaryText: '#AB572D',
     },
+    spacingAxis: {
+        boxVerticalAxis: 8,
+    },
 
     // breakpoints for responsive
     breakpoints: {
