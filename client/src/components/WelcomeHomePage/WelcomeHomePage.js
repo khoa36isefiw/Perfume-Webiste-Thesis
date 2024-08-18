@@ -6,14 +6,27 @@ import { theme } from '../../Theme/Theme';
 
 function WelcomeHomePage() {
     return (
-        <Box sx={{ height: '600px', position: 'relative' }}>
+        <Box
+            sx={{
+                height: '600px',
+                backgroundImage: `url(${bg})`,
+                position: 'relative',
+                width: '100%',
+            }}
+        >
+            {/* make overlay above background image */}
             <Box
-                component={'img'}
-                src={bg}
-                sx={{ height: '100%', opacity: '0.15' }}
-                alt={'Home Page Image'}
+                sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    // overlay modal
+                    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                    zIndex: 1,
+                }}
             />
-
             <Box
                 sx={{
                     position: 'absolute',
@@ -21,6 +34,7 @@ function WelcomeHomePage() {
                     right: '50%',
                     transform: 'translate(50%,-50%)',
                     textAlign: 'center',
+                    zIndex: 2,
                 }}
             >
                 <CustomizeTypography
@@ -33,7 +47,7 @@ function WelcomeHomePage() {
                 >
                     Welcome to Tomtoc Perfumes
                 </CustomizeTypography>
-                <CustomizeTypography sx={{ fontSize: '18px' }}>
+                <CustomizeTypography sx={{ fontSize: '18px', color: '#FFFFFF' }}>
                     Welcome to Tomtoc Perfumes, where the spirit of victory and triumph come alive
                     through scents that empower and inspire. Our curated collection, aptly named
                     "Victory Scented," is a celebration of success and elegance, designed to unleash
