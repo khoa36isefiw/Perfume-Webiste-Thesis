@@ -5,6 +5,9 @@ export const theme = createTheme({
     palette: {
         primaryText: '#fff',
         secondaryText: '#AB572D',
+        bestSelling: '#3D3D3D',
+        bestSelling2: '#858585',
+        // : '#858585',
     },
     spacingAxis: {
         boxVerticalAxis: 8,
