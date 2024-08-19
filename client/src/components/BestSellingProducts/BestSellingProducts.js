@@ -83,7 +83,18 @@ function BestSellingProducts() {
             <Box sx={{ mt: 4 }}>
                 <Slider {...settings}>
                     {perfumesData.map((perfume, index) => (
-                        <Box key={index} sx={{ p: 2, width: '180px' }}>
+                        <Box
+                            key={index}
+                            sx={{
+                                p: 2,
+                                width: '180px',
+                                // transition: 'transform 0.3s ease',
+                                // '&:hover': {
+                                //     cursor: 'pointer',
+                                //     transform: 'translateY(-20px)',
+                                // },
+                            }}
+                        >
                             <Grid
                                 container
                                 sx={{
