@@ -38,7 +38,10 @@ function LatestArticle() {
                             },
                             '&:hover': {
                                 cursor: 'pointer',
+                                transform: 'translateY(-20px)',
                             },
+
+                            transition: 'transform 0.3s ease',
                         }}
                     >
                         <Avatar
