@@ -22,6 +22,12 @@ const aboutUsUnique = [
     },
 ];
 
+const thanks = [
+    'Join us on this olfactory adventure as we celebrate the diverse tapestry of scents from around the world. Discover the captivating aromas that embrace the essence of local cultures and connect with the beauty of our shared humanity.',
+    'Thank you for being a part of our journey.',
+    'With love and gratitude, The Tomtoc Perfumes Team',
+];
+
 function WhyWeUnique() {
     return (
         <Container sx={{ my: 4 }}>
@@ -74,6 +80,13 @@ function WhyWeUnique() {
                     </Grid>
                 ))}
             </Grid>
+            <Box sx={{ my: 4 }}>
+                {thanks.map((thank, index) => (
+                    <CustomizeTypography sx={{ mb: 2, fontSize: '16px' }}>
+                        {thank}
+                    </CustomizeTypography>
+                ))}
+            </Box>
         </Container>
     );
 }
