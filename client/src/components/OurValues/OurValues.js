@@ -1,4 +1,4 @@
-import { Avatar, Box, Container, Grid } from '@mui/material';
+import { Avatar, Box, Grid } from '@mui/material';
 import React from 'react';
 import ourValues from '../../assets/images/our_values.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';

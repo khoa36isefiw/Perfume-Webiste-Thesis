@@ -1,9 +1,6 @@
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
 import { Box, Container, Grid } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { groupCollection1, groupCollection2, groupCollection3 } from './collectionsData';
 

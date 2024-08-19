@@ -1,6 +1,5 @@
 import { Avatar, Box, Button, Container, Grid } from '@mui/material';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
 import {
@@ -14,7 +13,6 @@ import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { theme } from '../../Theme/Theme';
 
 function Footer() {
-    const navigate = useNavigate();
     return (
         <Box
             sx={{
