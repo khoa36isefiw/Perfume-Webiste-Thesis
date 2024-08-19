@@ -5,7 +5,7 @@ import Footer from '../../components/Footer/Footer';
 
 function UserLayouts({ children }) {
     return (
-        <Box sx={{ height: '400vh', bgcolor: '#000' }}>
+        <Box sx={{ minHeight: '100vh', bgcolor: '#000' }}>
             {/* pre-defined layout */}
             <Header />
             {/* any components call this layout */}
