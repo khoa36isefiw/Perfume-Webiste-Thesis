@@ -69,7 +69,7 @@ function BestSellingProducts() {
     };
 
     return (
-        <Container sx={{ height: '600px', py: theme.spacingAxis.boxVerticalAxis }}>
+        <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
             <CustomizeTypography
                 sx={{
                     fontSize: '46px',
@@ -80,7 +80,7 @@ function BestSellingProducts() {
             >
                 Best Selling Products
             </CustomizeTypography>
-            <Box sx={{ height: '600px', mt: 4 }}>
+            <Box sx={{ mt: 4 }}>
                 <Slider {...settings}>
                     {perfumesData.map((perfume, index) => (
                         <Box key={index} sx={{ p: 2, width: '180px' }}>
