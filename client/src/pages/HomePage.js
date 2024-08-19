@@ -4,6 +4,8 @@ import WelcomeHomePage from '../components/WelcomeHomePage/WelcomeHomePage';
 import OurValues from '../components/OurValues/OurValues';
 import BestSellingProducts from '../components/BestSellingProducts/BestSellingProducts';
 import OurCollections from '../components/OurCollections/OurCollections';
+import SaleOff from '../components/SaleOff/SaleOff';
+import LatestArticle from '../components/LatestArticle/LatestArticle';
 
 function HomePage() {
     return (
@@ -13,6 +15,8 @@ function HomePage() {
             <OurValues />
             <BestSellingProducts />
             <OurCollections />
+            <SaleOff />
+            <LatestArticle />
         </div>
     );
 }
