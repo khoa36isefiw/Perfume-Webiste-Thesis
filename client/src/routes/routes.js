@@ -2,12 +2,14 @@ import UserLayouts from '../layouts/UserLayout/UserLayouts';
 import AboutUs from '../pages/AboutUs';
 import HomePage from '../pages/HomePage';
 import Services from '../pages/Services';
+import Shop from '../pages/Shop';
 
 // not sign into this website
 const publicRoutes = [
     { path: '/', component: HomePage, layout: UserLayouts },
     { path: '/about-us', component: AboutUs, layout: UserLayouts },
     { path: '/our-services', component: Services, layout: UserLayouts },
+    { path: '/shop', component: Shop, layout: UserLayouts },
 ];
 
 // must signed into
