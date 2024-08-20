@@ -5,6 +5,10 @@ export const theme = createTheme({
     palette: {
         primaryText: '#fff',
         secondaryText: '#AB572D',
+        thirth: {
+            main: '#d57748',
+        },
+
         bestSelling: '#3D3D3D',
         bestSelling2: '#858585',
         // : '#858585',
