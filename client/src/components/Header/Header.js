@@ -11,7 +11,7 @@ const headerData = [
     { headerText: 'Home', headerLink: '/' },
     { headerText: 'Shop', headerLink: '/shop' },
     { headerText: 'About Us', headerLink: '/about-us' },
-    { headerText: 'Services', headerLink: '/services' },
+    { headerText: 'Services', headerLink: '/our-services' },
     { headerText: 'Blog', headerLink: '/blog' },
 ];
 
