@@ -9,7 +9,11 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { theme } from '../../Theme/Theme';
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
+    // { headerText: 'Women', headerLink: '/women-perfumes' },
+    // { headerText: 'Men', headerLink: '/men-perfumes' },
+    // { headerText: 'Unisex', headerLink: '/unisex-perfumes' },
     { headerText: 'Shop', headerLink: '/shop' },
+
     { headerText: 'About Us', headerLink: '/about-us' },
     { headerText: 'Services', headerLink: '/our-services' },
     { headerText: 'Blog', headerLink: '/blog' },
