@@ -7,13 +7,11 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import Rating from '@mui/material/Rating';
 
 function PerfumesCard() {
-    const [value, setValue] = React.useState(2);
-    const discount = true;
     return (
         <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
             <Grid container spacing={4}>
                 {perfumeData.map((perfume, index) => (
-                    <Grid item lg={3}>
+                    <Grid item lg={3} key={index}>
                         <Box
                             sx={{
                                 minHeight: '50px',
@@ -82,10 +80,7 @@ function PerfumesCard() {
                                     }}
                                 >
                                     <Rating
-                                        value={value}
-                                        onChange={(event, newValue) => {
-                                            setValue(newValue);
-                                        }}
+                                        value={perfume.perfumeRating}
                                         // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                         sx={{
                                             fontSize: '18px',
