@@ -44,3 +44,13 @@ function Comments() {
 }
 
 export default Comments;
+
+
+
+client/src/components/BestSellingProducts/BestSellingProducts.js
+	client/src/components/Copyrights/Copyrights.js
+	client/src/components/CustomizeButton/CustomizeButton.js
+	client/src/components/CustomizeTypography/CustomizeTypography.js
+	client/src/components/Footer/Footer.js
+	client/src/components/ListServices/ListServices.js
+	client/src/components/Missions/Missions.js

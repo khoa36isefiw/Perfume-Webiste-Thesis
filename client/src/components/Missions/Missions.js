@@ -58,7 +58,6 @@ function Missions() {
                             <CustomizeTypography
                                 sx={{
                                     textAlign: 'justify',
-                                    fontSize: '16px',
                                 }}
                             >
                                 {mission.missionContent}
@@ -68,18 +67,18 @@ function Missions() {
                 ))}
             </Grid>
             <Box sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
-                <CustomizeTypography sx={{ mb: 4, fontSize: '16px' }}>
+                <CustomizeTypography sx={{ mb: 2 }}>
                     At Tomtoc, our passion for perfumery drives us to go above and beyond to serve
                     you better. We invite you to experience our exceptional services and indulge in
                     the world of luxurious scents. Let us be your trusted fragrance destination,
                     where your olfactory dreams come to life.
                 </CustomizeTypography>
-                <CustomizeTypography sx={{ mb: 4, fontSize: '16px' }}>
+                <CustomizeTypography sx={{ mb: 2 }}>
                     If you have any questions or need assistance, please do not hesitate to reach
                     out to our friendly team. We're here to make your fragrance exploration a truly
                     memorable one.
                 </CustomizeTypography>
-                <CustomizeTypography sx={{ fontSize: '16px' }}>Tomtoc Team.</CustomizeTypography>
+                <CustomizeTypography>Tomtoc Team.</CustomizeTypography>
             </Box>
         </Container>
     );

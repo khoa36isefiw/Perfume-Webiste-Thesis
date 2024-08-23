@@ -4,6 +4,7 @@ import React from 'react';
 export const TextFieldCustomize = ({ inputValue, onChangeValue, placeholder, onHandleKeyDown }) => {
     return (
         <TextField
+            // inputProps={}
             variant="outlined"
             // fullWidth
             placeholder={placeholder}

@@ -25,3 +25,28 @@ function CustomizeButton({ onHandleClick, textAction }) {
 }
 
 export default CustomizeButton;
+
+export const CustomizeButtonOutlined = ({ textAction, onHandleClick }) => {
+    return (
+        <Button
+            onClick={onHandleClick}
+            variant="outlined"
+            sx={{
+                py: 1,
+                borderRadius: '8px',
+                color: '#fff',
+                // bgcolor: theme.palette.secondaryText,
+                fontSize: '14px',
+                fontWeight: 'bold',
+                textTransform: 'initial',
+                borderColor: theme.palette.text.main,
+                '&:hover': {
+                    cursor: 'pointer',
+                    borderColor: theme.palette.text.main,
+                },
+            }}
+        >
+            {textAction}
+        </Button>
+    );
+};

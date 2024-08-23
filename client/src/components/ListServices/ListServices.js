@@ -37,14 +37,13 @@ function ListServices() {
                                         0{index + 1}.
                                     </CustomizeTypography>
                                     <CustomizeTypography
-                                        sx={{ fontSize: '32px', fontWeight: 'bold', mb: 8 }}
+                                        sx={{ fontSize: '32px', fontWeight: 'bold', mb: 6 }}
                                     >
                                         {service.serviceTitle}
                                     </CustomizeTypography>
                                     <CustomizeTypography
                                         sx={{
                                             textAlign: 'justify',
-                                            fontSize: '16px',
                                         }}
                                     >
                                         {service.serviceContent}

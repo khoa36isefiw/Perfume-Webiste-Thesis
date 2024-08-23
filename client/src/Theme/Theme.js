@@ -3,6 +3,12 @@ import { createTheme } from '@mui/material';
 export const theme = createTheme({
     // define colors
     palette: {
+        text: {
+            main: '#AB572D',
+            primary: '#e38454',
+            secondary: '#fe9727',
+        },
+        background: { main: '#3D3D3D', primary: '#858585' },
         primaryText: '#fff',
         secondaryText: '#AB572D',
         thirth: {

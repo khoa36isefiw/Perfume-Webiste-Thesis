@@ -36,11 +36,11 @@ function Footer() {
                         >
                             Tomtoc Perfumes
                         </CustomizeTypography>
-                        <CustomizeTypography sx={{ py: 1, fontSize: '18px', fontWeight: '600' }}>
+                        <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600' }}>
                             Subscribe to Our Newsletter:
                         </CustomizeTypography>
                         <Box sx={{ width: '250px' }}>
-                            <CustomizeTypography sx={{ py: 1 }}>
+                            <CustomizeTypography>
                                 Receive Updates on New Arrivals and Special Promotions!
                             </CustomizeTypography>
                         </Box>
@@ -90,7 +90,7 @@ function Footer() {
                                 Shopping
                             </CustomizeTypography>
                             {shoppingFooterData.map((shopping, index) => (
-                                <CustomizeTypography key={index} sx={{ color: 'white', py: 1 }}>
+                                <CustomizeTypography key={index} sx={{ color: 'white' }}>
                                     {shopping}
                                 </CustomizeTypography>
                             ))}
@@ -101,7 +101,7 @@ function Footer() {
                                 Customer care
                             </CustomizeTypography>
                             {customersFooterData.map((customer, index) => (
-                                <CustomizeTypography key={index} sx={{ color: 'white', py: 1 }}>
+                                <CustomizeTypography key={index} sx={{ color: 'white' }}>
                                     {customer}
                                 </CustomizeTypography>
                             ))}
@@ -111,7 +111,7 @@ function Footer() {
                                 Pages
                             </CustomizeTypography>
                             {pagesFooterData.map((page, index) => (
-                                <CustomizeTypography key={index} sx={{ color: 'white', py: 1 }}>
+                                <CustomizeTypography key={index} sx={{ color: 'white' }}>
                                     {page}
                                 </CustomizeTypography>
                             ))}

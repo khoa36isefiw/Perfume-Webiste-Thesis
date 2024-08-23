@@ -2,11 +2,12 @@ import { Box, Container, Grid } from '@mui/material';
 import React from 'react';
 import { perfumeData } from './perfumeData';
 import { theme } from '../../Theme/Theme';
-import im from '../../assets/images/Acqua Di Gio Pour Homme.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import Rating from '@mui/material/Rating';
+import { useNavigate } from 'react-router-dom';
 
 function PerfumesCard() {
+    const navigate = useNavigate();
     return (
         <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
             <Grid container spacing={4}>
@@ -22,6 +23,7 @@ function PerfumesCard() {
                                     cursor: 'pointer',
                                 },
                             }}
+                            onClick={() => navigate(`/product/${perfume.perfumeName}`)}
                         >
                             {perfume.discount && (
                                 <Box
@@ -61,12 +63,12 @@ function PerfumesCard() {
                                 }}
                             >
                                 {/* brand */}
-                                <CustomizeTypography sx={{ mb: 1 }}>
+                                <CustomizeTypography>
                                     {/* Dior */}
                                     {perfume.perfumeBrand}
                                 </CustomizeTypography>
                                 {/* perfume name */}
-                                <CustomizeTypography sx={{ mb: 1 }}>
+                                <CustomizeTypography>
                                     {/* Homme Intense */}
                                     {perfume.perfumeName}
                                 </CustomizeTypography>
@@ -76,7 +78,7 @@ function PerfumesCard() {
                                         display: 'flex',
                                         // justifyContent: 'space-between',
                                         alignItems: 'center',
-                                        mb: 1,
+                                        // mb: 1,
                                     }}
                                 >
                                     <Rating
@@ -88,6 +90,7 @@ function PerfumesCard() {
                                             '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
                                                 color: theme.palette.thirth.main,
                                             },
+                                            mb: 1,
                                         }}
                                     />
                                     {/* number of rating */}
@@ -100,7 +103,7 @@ function PerfumesCard() {
                                         display: 'flex',
                                         // justifyContent: 'space-between',
                                         alignItems: 'center',
-                                        mb: 2,
+                                        // mb: 2,
                                     }}
                                 >
                                     <CustomizeTypography
