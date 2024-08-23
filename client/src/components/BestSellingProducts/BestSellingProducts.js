@@ -117,7 +117,7 @@ function BestSellingProducts() {
                                     textAlign={'center'}
                                     sx={{
                                         textAlign: 'center',
-                                        my: 2,
+                                        // my: 2,
                                         fontSize: '18px',
                                         fontWeight: 'bold',
                                     }}
