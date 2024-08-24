@@ -7,8 +7,13 @@ import {
 } from '../CustomizeTypography/CustomizeTypography';
 import { policyData, productInformationData } from './productInformationData';
 import { theme } from '../../Theme/Theme';
+import { useLocation } from 'react-router-dom';
 
 function ProductInformation() {
+    const location = useLocation();
+    // get the perfume data passed from navigation
+    const { perfume } = location.state || {};
+    console.log('data: ', perfume);
     return (
         <Container>
             <Grid container>
@@ -24,115 +29,118 @@ function ProductInformation() {
                             Chi tiết về sản phẩm
                         </CustomizeTypography>
 
-                        {productInformationData.map((product, index) => (
-                            <Box key={index}>
-                                {[
-                                    'Thương hiệu',
-                                    'Xuất xứ',
-                                    'Năm sản xuất',
-                                    'Nồng độ',
-                                    'Nhóm hương',
-                                    'Nhà chế tác',
-                                ].map((title, i) => (
-                                    <CustomizeProductDescriptionText
-                                        key={i}
-                                        title={title}
-                                        // get value through key
-                                        text={product[Object.keys(product)[i]]}
-                                    />
-                                ))}
+                        <CustomizeProductDescriptionText
+                            title={'Thương hiệu'}
+                            // get value through key
+                            text={perfume.brand}
+                        />
+                        <CustomizeProductDescriptionText
+                            title={'Xuất xứ'}
+                            // get value through key
+                            text={perfume.origin}
+                        />
+                        <CustomizeProductDescriptionText
+                            title={'Năm sản xuất'}
+                            // get value through key
+                            text={perfume.yearOfRelease}
+                        />
+                        <CustomizeProductDescriptionText
+                            title={'Nồng độ'}
+                            // get value through key
+                            text={perfume.concentration}
+                        />
+                        <CustomizeProductDescriptionText
+                            title={'Nhóm hương'}
+                            // get value through key
+                            text={perfume.fragranceGroup}
+                        />
+                        <CustomizeProductDescriptionText
+                            title={'Nhà chế tác'}
+                            // get value through key
+                            text={perfume.manufacturer}
+                        />
 
-                                <CustomizeTypography
+                        <CustomizeTypography
+                            sx={{
+                                mt: 4,
+                                fontSize: '32px',
+                                fontWeight: 'bold',
+                                color: theme.palette.text.primary,
+                            }}
+                        >
+                            Mô tả sản phẩm
+                        </CustomizeTypography>
+                        <CustomizeTypography sx={{ mt: 2 }}>
+                            {perfume.content.description}
+                        </CustomizeTypography>
+
+                        {/* loop object */}
+                        {Object.entries(perfume.content.notes).map(([noteType, notes], index) => (
+                            // noteType: key
+                            // notes: value
+                            <Box
+                                key={index}
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    mb: 1,
+                                    pl: '20px',
+                                }}
+                            >
+                                <Box
                                     sx={{
-                                        mt: 4,
-                                        fontSize: '32px',
-                                        fontWeight: 'bold',
-                                        color: theme.palette.text.primary,
+                                        height: '10px',
+                                        width: '10px',
+                                        bgcolor: '#fff',
+                                        borderRadius: '50%',
+                                        mb: 1,
+                                        mr: 2,
                                     }}
-                                >
-                                    Mô tả sản phẩm
-                                </CustomizeTypography>
-                                <CustomizeTypography sx={{ mt: 2 }}>
-                                    {product.content.description}
-                                </CustomizeTypography>
-
-                                <ul
-                                    style={{
-                                        listStyleType: 'disc',
-                                        paddingLeft: '20px',
-                                    }}
-                                >
-                                    {[
-                                        'Top note (hương đầu)',
-                                        'Heart note (hương giữa)',
-                                        'Base note (hương cuối)',
-                                    ].map((title, i) => (
-                                        <li
-                                            key={i}
-                                            style={{ display: 'flex', alignItems: 'center' }}
-                                        >
-                                            <Box
-                                                sx={{
-                                                    height: '10px',
-                                                    width: '10px',
-                                                    bgcolor: '#fff',
-                                                    borderRadius: '50%',
-                                                    mb: 1,
-                                                    mr: 2,
-                                                }}
-                                            />
-                                            <CustomizeListText
-                                                title={title}
-                                                text={product.content.notes[
-                                                    Object.keys(product.content.notes)[i]
-                                                ].join(', ')}
-                                            />
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <CustomizeTypography sx={{ mt: 2 }}>
-                                    {product.content.scentProfile}
-                                </CustomizeTypography>
-
-                                <CustomizeTypography sx={{ mt: 2 }}>
-                                    {product.content.impression}
-                                </CustomizeTypography>
-
-                                <CustomizeTypography sx={{ mt: 2 }}>
-                                    {product.content.targetAudience}
-                                </CustomizeTypography>
-
-                                <CustomizeTypography sx={{ mt: 2 }}>
-                                    {product.content.usage}
-                                </CustomizeTypography>
-
-                                <Box sx={{ paddingLeft: '20px' }}>
-                                    <Ratings
-                                        title={'Độ lưu hương'}
-                                        text={`${product.content.ratings.longevity}/5`}
-                                    />
-                                    <Ratings
-                                        title={'Độ tỏa hương'}
-                                        text={`${product.content.ratings.sillage}/5`}
-                                    />
-                                    <Ratings
-                                        title={'Nịnh mũi'}
-                                        text={`${product.content.ratings.likability}/5`}
-                                    />
-                                    <Ratings
-                                        title={'Thời điểm'}
-                                        text={`${product.content.occasion}`}
-                                    />
-                                </Box>
-                                {/* <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul> */}
+                                />
+                                <CustomizeListText
+                                    title={`${
+                                        noteType?.includes('topNotes')
+                                            ? 'Top note (hương đầu)'
+                                            : noteType?.includes('heartNotes')
+                                            ? 'Top note (hương giữa)'
+                                            : 'Base note (hương cuối)'
+                                    }`}
+                                    text={notes.join(', ')}
+                                />
                             </Box>
                         ))}
+
+                        <CustomizeTypography sx={{ mt: 2 }}>
+                            {perfume.content.scentProfile}
+                        </CustomizeTypography>
+
+                        <CustomizeTypography sx={{ mt: 2 }}>
+                            {perfume.content.impression}
+                        </CustomizeTypography>
+
+                        <CustomizeTypography sx={{ mt: 2 }}>
+                            {perfume.content.targetAudience}
+                        </CustomizeTypography>
+
+                        <CustomizeTypography sx={{ mt: 2 }}>
+                            {perfume.content.usage}
+                        </CustomizeTypography>
+
+                        <Box sx={{ paddingLeft: '20px' }}>
+                            <Ratings
+                                title={'Độ lưu hương'}
+                                text={`${perfume.content.ratings.longevity}/5`}
+                            />
+                            <Ratings
+                                title={'Độ tỏa hương'}
+                                text={`${perfume.content.ratings.sillage}/5`}
+                            />
+                            <Ratings
+                                title={'Nịnh mũi'}
+                                text={`${perfume.content.ratings.likability}/5`}
+                            />
+                            <Ratings title={'Thời điểm'} text={`${perfume.content.occasion}`} />
+                        </Box>
                     </Box>
                 </Grid>
                 <Grid item lg={3}>

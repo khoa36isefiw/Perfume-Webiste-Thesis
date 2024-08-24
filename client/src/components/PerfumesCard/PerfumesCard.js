@@ -8,6 +8,10 @@ import { useNavigate } from 'react-router-dom';
 
 function PerfumesCard() {
     const navigate = useNavigate();
+    const handleNavigationProductDetail = (perfume) => {
+        // navigate to the product detail page and pass the perfume data as state
+        navigate(`/product/${perfume.perfumeID}`, { state: { perfume } });
+    };
     return (
         <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
             <Grid container spacing={4}>
@@ -23,7 +27,8 @@ function PerfumesCard() {
                                     cursor: 'pointer',
                                 },
                             }}
-                            onClick={() => navigate(`/product/${perfume.perfumeName}`)}
+                            // onClick={() => navigate(`/product/${perfume.perfumeID}`)}
+                            onClick={() => handleNavigationProductDetail(perfume)}
                         >
                             {perfume.discount && (
                                 <Box

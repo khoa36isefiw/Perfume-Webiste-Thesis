@@ -7,8 +7,13 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { theme } from '../../Theme/Theme';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { quickViewImage } from './perfumeDetailData';
+import { useLocation } from 'react-router-dom';
 
 function PerfumeDetail() {
+    const location = useLocation();
+    // get the perfume data passed from navigation
+    const { perfume } = location.state || {};
+
     console.log('length of list: ', quickViewImage.length);
     const [selectedImage, setSelectedImage] = React.useState(0);
 
@@ -25,8 +30,10 @@ function PerfumeDetail() {
     };
 
     console.log('setSelectedImage', selectedImage);
+    console.log('perfume: ', perfume);
+
     return (
-        <Container sx={{ mt: 8 }}>
+        <Container sx={{ mt: 16 }}>
             <Grid container>
                 <Grid
                     container
@@ -50,27 +57,31 @@ function PerfumeDetail() {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <Box
-                                    sx={{
-                                        position: 'absolute',
-                                        top: '10%',
-                                        left: '10%',
-                                        height: '30px',
-                                        width: '60px',
-                                        // bgcolor: 'red',
-                                        backgroundImage: `linear-gradient(-60deg, #b31217 0%, #e52d27 100%)`,
-                                        borderRadius: '8px',
-                                        fontSize: '14px',
-                                        color: '#fff',
-                                        fontWeight: 'bold',
-                                        textAlign: 'center',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    - 15%
-                                </Box>
+                                {/* discount must !== 0 */}
+                                {perfume.perfumeDiscount !== 0 && (
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '10%',
+                                            left: '10%',
+                                            height: '30px',
+                                            width: '60px',
+                                            // bgcolor: 'red',
+                                            backgroundImage: `linear-gradient(-60deg, #b31217 0%, #e52d27 100%)`,
+                                            borderRadius: '8px',
+                                            fontSize: '14px',
+                                            color: '#fff',
+                                            fontWeight: 'bold',
+                                            textAlign: 'center',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        {/* - 15% */}- {perfume.perfumeDiscount}%
+                                    </Box>
+                                )}
+
                                 <IconButton onClick={handlePrevious}>
                                     <ArrowBackIosIcon
                                         sx={{
@@ -84,10 +95,8 @@ function PerfumeDetail() {
                                 </IconButton>
                                 <Box
                                     component={'img'}
-                                    // src={
-                                    //     'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png'
-                                    // }
-                                    src={quickViewImage[selectedImage]}
+                                    // src={perfume.perfumeImage}
+                                    src={perfume.quickViewImage[selectedImage]}
                                     sx={{
                                         height: '100%',
                                         objectFit: 'cover',
@@ -110,7 +119,7 @@ function PerfumeDetail() {
                             </Box>
 
                             <Box sx={{ display: 'flex', overflowX: 'scroll' }}>
-                                {quickViewImage.map((image, index) => (
+                                {perfume.quickViewImage.map((image, index) => (
                                     <Box
                                         key={index}
                                         alt="Quick View Image"
@@ -142,28 +151,35 @@ function PerfumeDetail() {
                         </Box>
                     </Grid>
                     <Grid item md={6} lg={6}>
+                        {/* product name */}
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
-                            Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum
+                            {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
+                            {perfume.perfumeName}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 1 }}>
                             <strong>Thương hiệu: </strong>
-                            <span>Maison Francis Kurkdjian Paris</span>
+                            <span>{perfume.brand}</span>
+                            {/* <span>Maison Francis Kurkdjian Paris</span> */}
                         </CustomizeTypography>
                         <CustomizeTypography>
                             <strong>Tình trạng: </strong>
                             <span
                                 style={{
-                                    color: theme.palette.text.primary,
+                                    color:
+                                        perfume.perfumeQuantity !== 0
+                                            ? theme.palette.text.verified
+                                            : theme.palette.text.primary,
                                     fontWeight: 'bold',
                                 }}
                             >
-                                Còn hàng
+                                {perfume.perfumeQuantity !== 0 ? 'Còn hàng' : 'Hết Hàng'}
                             </span>
                         </CustomizeTypography>
 
                         <CustomizeTypography>
-                            Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và
-                            tiệc tối đẳng cấp.
+                            {/* Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và
+                            tiệc tối đẳng cấp. */}
+                            {perfume.shortDescription}
                         </CustomizeTypography>
                         <Box
                             sx={{
@@ -215,21 +231,27 @@ function PerfumeDetail() {
                         </Box>
 
                         <Box sx={{ display: 'flex' }}>
+                            {/* original price */}
                             <CustomizeTypography
                                 fontBold={true}
-                                sx={{ textDecoration: 'line-through' }}
+                                sx={{ textDecoration: perfume.discount ? 'line-through' : null }}
                             >
-                                10.500.000 ₫
+                                {/* 10.500.000 ₫ */}
+                                {perfume.perfumePriceVND}đ
                             </CustomizeTypography>
-                            <CustomizeTypography
-                                sx={{
-                                    color: theme.palette.text.primary,
-                                    fontWeight: 'bold',
-                                    ml: 1,
-                                }}
-                            >
-                                9.980.000 ₫
-                            </CustomizeTypography>
+                            {/* price sale off */}
+                            {perfume.discount && perfume.perfumePriceDiscount !== null && (
+                                <CustomizeTypography
+                                    sx={{
+                                        color: theme.palette.text.primary,
+                                        fontWeight: 'bold',
+                                        ml: 2,
+                                    }}
+                                >
+                                    {/* 9.980.000 ₫ */}
+                                    {perfume.perfumePriceDiscount}đ
+                                </CustomizeTypography>
+                            )}
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', my: 2 }}>
                             <CustomizeButtonOutlined textAction={'Add to cart'} />

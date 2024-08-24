@@ -12,8 +12,8 @@ const publicRoutes = [
     { path: '/about-us', component: AboutUs, layout: UserLayouts },
     { path: '/our-services', component: Services, layout: UserLayouts },
     { path: '/shop', component: Shop, layout: UserLayouts },
-    // navigate to product has name...
-    { path: `/product/:perfumeName`, component: ProductDetail, layout: UserLayouts },
+    // navigate to product has id...
+    { path: `/product/:id`, component: ProductDetail, layout: UserLayouts },
 ];
 
 // must signed into
