@@ -1,11 +1,30 @@
-import { Avatar, Box, Button, Container, Divider, Grid, Rating, Typography } from '@mui/material';
+import { Avatar, Box, Button, Container, Divider, Grid, IconButton, Rating } from '@mui/material';
 import React from 'react';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { theme } from '../../Theme/Theme';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
+import { quickViewImage } from './perfumeDetailData';
 
 function PerfumeDetail() {
+    console.log('length of list: ', quickViewImage.length);
+    const [selectedImage, setSelectedImage] = React.useState(0);
+
+    // Handle Previous button click
+    const handlePrevious = () => {
+        setSelectedImage(
+            (prevIndex) => (prevIndex - 1 + quickViewImage.length) % quickViewImage.length,
+        );
+    };
+
+    // Handle Next button click
+    const handleNext = () => {
+        setSelectedImage((prevIndex) => (prevIndex + 1) % quickViewImage.length);
+    };
+
+    console.log('setSelectedImage', selectedImage);
     return (
         <Container sx={{ mt: 8 }}>
             <Grid container>
@@ -14,7 +33,7 @@ function PerfumeDetail() {
                     item
                     spacing={4}
                     md={8}
-                    lg={8}
+                    lg={12}
                     sx={{ height: '600px', overflowY: 'scroll', p: 1 }}
                 >
                     <Grid item md={6} lg={6}>
@@ -22,15 +41,20 @@ function PerfumeDetail() {
                             <Box
                                 sx={{
                                     height: '400px',
+                                    // width: '400px',
                                     bgcolor: theme.palette.background.main,
                                     borderRadius: '8px',
                                     position: 'relative',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
                                 }}
                             >
                                 <Box
                                     sx={{
                                         position: 'absolute',
-                                        top: '4%',
+                                        top: '10%',
+                                        left: '10%',
                                         height: '30px',
                                         width: '60px',
                                         // bgcolor: 'red',
@@ -47,34 +71,74 @@ function PerfumeDetail() {
                                 >
                                     - 15%
                                 </Box>
+                                <IconButton onClick={handlePrevious}>
+                                    <ArrowBackIosIcon
+                                        sx={{
+                                            fontSize: '28px',
+                                            color: '#fff',
+                                            '&:hover': {
+                                                color: theme.palette.text.primary.primary,
+                                            },
+                                        }}
+                                    />
+                                </IconButton>
                                 <Box
                                     component={'img'}
-                                    src={
-                                        'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png'
-                                    }
+                                    // src={
+                                    //     'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png'
+                                    // }
+                                    src={quickViewImage[selectedImage]}
                                     sx={{
-                                        height: '400px',
+                                        height: '100%',
                                         objectFit: 'cover',
                                         '&:hover': {
                                             cursor: 'pointer',
                                         },
                                     }}
                                 />
+                                <IconButton onClick={handleNext}>
+                                    <ArrowForwardIosIcon
+                                        sx={{
+                                            fontSize: '28px',
+                                            color: '#fff',
+                                            '&:hover': {
+                                                color: theme.palette.text.primary,
+                                            },
+                                        }}
+                                    />
+                                </IconButton>
                             </Box>
 
-                            <Box
-                                component={'img'}
-                                src={
-                                    'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png'
-                                }
-                                sx={{
-                                    p: 1,
-                                    mt: 1,
-                                    height: '100px',
-                                    objectFit: 'cover',
-                                    border: '1px solid #333',
-                                }}
-                            />
+                            <Box sx={{ display: 'flex', overflowX: 'scroll' }}>
+                                {quickViewImage.map((image, index) => (
+                                    <Box
+                                        key={index}
+                                        alt="Quick View Image"
+                                        component={'img'}
+                                        src={
+                                            // 'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png'
+                                            image
+                                        }
+                                        sx={{
+                                            p: 1,
+                                            mt: 1,
+                                            ml: 1,
+                                            height: '100px',
+                                            objectFit: 'cover',
+                                            border:
+                                                selectedImage === index
+                                                    ? `2px solid ${theme.palette.text.primary}`
+                                                    : '',
+                                            // border: '1px solid #333',
+                                            transition: 'border 0.3s ease',
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                            },
+                                        }}
+                                        onClick={() => setSelectedImage(index)}
+                                    />
+                                ))}
+                            </Box>
                         </Box>
                     </Grid>
                     <Grid item md={6} lg={6}>
@@ -110,6 +174,7 @@ function PerfumeDetail() {
                         >
                             <CustomizeTypography>5.0</CustomizeTypography>
                             <Rating
+                                readOnly
                                 value={5}
                                 // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                 sx={{
@@ -137,7 +202,15 @@ function PerfumeDetail() {
                             >
                                 (2 đánh giá)
                             </CustomizeTypography>
-                            <Box sx={{ height: '20px', bgcolor: '#fff', width: '1px', ml: 1 }} />
+                            <Box
+                                sx={{
+                                    height: '20px',
+                                    bgcolor: '#fff',
+                                    width: '1px',
+                                    ml: 1,
+                                    mb: 1,
+                                }}
+                            />
                             <CustomizeTypography sx={{ ml: 1 }}>295 đã bán</CustomizeTypography>
                         </Box>
 
@@ -170,7 +243,7 @@ function PerfumeDetail() {
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
                             {/* ..... don't know what is it :) */}
                             <Avatar
-                                sx={{ height: '15px', width: '15px', mr: 1 }}
+                                sx={{ height: '15px', width: '15px', mr: 1, mb: 1 }}
                                 src={'https://orchard.vn/wp-content/uploads/2018/04/red-dot.gif'}
                             />
                             <CustomizeTypography>
@@ -207,9 +280,6 @@ function PerfumeDetail() {
                             </Button>
                         </Box>
                     </Grid>
-                </Grid>
-                <Grid item md={4} lg={4} sx={{ bgcolor: '#fff' }}>
-                    something is here?
                 </Grid>
             </Grid>
         </Container>
