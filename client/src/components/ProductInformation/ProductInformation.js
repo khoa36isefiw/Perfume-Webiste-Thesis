@@ -106,32 +106,31 @@ function ProductInformation() {
                                 <CustomizeTypography sx={{ mt: 2 }}>
                                     {product.content.usage}
                                 </CustomizeTypography>
-                                <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
-                                    <li>
-                                        <Ratings
-                                            title={'Độ lưu hương'}
-                                            text={`${product.content.ratings.longevity}/5`}
-                                        />
-                                    </li>
-                                    <li>
-                                        <Ratings
-                                            title={'Độ tỏa hương'}
-                                            text={`${product.content.ratings.sillage}/5`}
-                                        />
-                                    </li>
-                                    <li>
-                                        <Ratings
-                                            title={'Nịnh mũi'}
-                                            text={`${product.content.ratings.likability}/5`}
-                                        />
-                                    </li>
-                                    <li>
-                                        <Ratings
-                                            title={'Thời điểm'}
-                                            text={`${product.content.occasion}`}
-                                        />
-                                    </li>
-                                </ul>
+
+                                <Box sx={{ paddingLeft: '20px' }}>
+                                    <Ratings
+                                        title={'Độ lưu hương'}
+                                        text={`${product.content.ratings.longevity}/5`}
+                                    />
+                                    <Ratings
+                                        title={'Độ tỏa hương'}
+                                        text={`${product.content.ratings.sillage}/5`}
+                                    />
+                                    <Ratings
+                                        title={'Nịnh mũi'}
+                                        text={`${product.content.ratings.likability}/5`}
+                                    />
+                                    <Ratings
+                                        title={'Thời điểm'}
+                                        text={`${product.content.occasion}`}
+                                    />
+                                </Box>
+                                {/* <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul> */}
                             </Box>
                         ))}
                     </Box>

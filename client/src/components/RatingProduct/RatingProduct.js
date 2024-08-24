@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Divider, Grid } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
 import StarIcon from '@mui/icons-material/Star';
@@ -66,7 +66,7 @@ function RatingProduct() {
                     >
                         <Box>
                             {ratingData.map((rating, index) => (
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }} key={index}>
                                     <CustomizeTypography>
                                         {rating.numberOfRating}
                                     </CustomizeTypography>
