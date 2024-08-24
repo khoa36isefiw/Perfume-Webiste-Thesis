@@ -1,5 +1,6 @@
 export const perfumeData = [
     {
+        perfumeID: 1,
         perfumeBrand: 'Dior',
         perfumeName: 'Homme Intense',
         perfumeRating: 3,
@@ -7,12 +8,45 @@ export const perfumeData = [
         perfumePriceVND: '3.280.000',
         perfumePriceDiscount: '2.788.000', // 15% off
         discount: true,
-        perfumeDiscount: '15',
+        perfumeDiscount: 15,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
-        perfumeQuantity: 10,
+        perfumeQuantity: 0,
+        quickViewImage: [
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
+            'https://orchard.vn/wp-content/smush-webp/2015/04/dior-homme-intense_2.jpg.webp',
+            'https://orchard.vn/wp-content/smush-webp/2015/04/dior-homme-intense_3.jpg.webp',
+            'https://orchard.vn/wp-content/smush-webp/2015/04/dior-homme-intense_4.jpg.webp',
+        ],
+        shortDescription:
+            'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
+        brand: 'Maison Francis Kurkdjian Paris', // thương hiệu
+        origin: 'Pháp', // xuất xứ
+        yearOfRelease: '2017', // năm sản xuất
+        concentration: 'Extrait de Parfum (EDP)', // nồng độ
+        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        manufacturer: 'Francis Kurkdjian', // nhà chế tác
+        content: {
+            description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
+            notes: {
+                topNotes: ['Nghệ tây', 'Hạnh nhân đắng'],
+                heartNotes: ['Hoa nhài Ai Cập', 'Gỗ tuyết tùng'],
+                baseNotes: ['Hương gỗ', 'Hổ phách', 'Xạ hương'],
+            },
+            scentProfile: `Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.`,
+            impression: `Baccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.`,
+            targetAudience: `Thuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.`,
+            usage: `Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.`,
+            ratings: {
+                longevity: 5,
+                sillage: 5,
+                likability: 4,
+            },
+            occasion: `Thích hợp cho những dịp đặc biệt, tiệc tối, sự kiện đẳng cấp và những buổi gặp gỡ quan trọng.`,
+        },
     },
     {
+        perfumeID: 2,
         perfumeBrand: 'Chanel',
         perfumeName: 'Allure Homme Sport Eau Extreme',
         perfumeRating: 5,
@@ -20,12 +54,42 @@ export const perfumeData = [
         perfumePriceVND: '3.780.000',
         perfumePriceDiscount: '', // No discount
         discount: false,
-        perfumeDiscount: '15',
+        perfumeDiscount: 0,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
         perfumeQuantity: 10,
+        quickViewImage: [
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
+        ],
+        shortDescription:
+            'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
+        brand: 'Maison Francis Kurkdjian Paris', // thương hiệu
+        origin: 'Pháp', // xuất xứ
+        yearOfRelease: '2017', // năm sản xuất
+        concentration: 'Extrait de Parfum (EDP)', // nồng độ
+        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        manufacturer: 'Francis Kurkdjian', // nhà chế tác
+        content: {
+            description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
+            notes: {
+                topNotes: ['Nghệ tây', 'Hạnh nhân đắng'],
+                heartNotes: ['Hoa nhài Ai Cập', 'Gỗ tuyết tùng'],
+                baseNotes: ['Hương gỗ', 'Hổ phách', 'Xạ hương'],
+            },
+            scentProfile: `Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.`,
+            impression: `Baccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.`,
+            targetAudience: `Thuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.`,
+            usage: `Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.`,
+            ratings: {
+                longevity: 5,
+                sillage: 5,
+                likability: 4,
+            },
+            occasion: `Thích hợp cho những dịp đặc biệt, tiệc tối, sự kiện đẳng cấp và những buổi gặp gỡ quan trọng.`,
+        },
     },
     {
+        perfumeID: 3,
         perfumeBrand: 'Chanel',
         perfumeName: 'Allure Homme Sport',
         perfumeRating: 3,
@@ -33,12 +97,42 @@ export const perfumeData = [
         perfumePriceVND: '3.480.000',
         perfumePriceDiscount: '',
         discount: false,
-        perfumeDiscount: '0',
+        perfumeDiscount: 0,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
         perfumeQuantity: 10,
+        quickViewImage: [
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
+        ],
+        shortDescription:
+            'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
+        brand: 'Maison Francis Kurkdjian Paris', // thương hiệu
+        origin: 'Pháp', // xuất xứ
+        yearOfRelease: '2017', // năm sản xuất
+        concentration: 'Extrait de Parfum (EDP)', // nồng độ
+        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        manufacturer: 'Francis Kurkdjian', // nhà chế tác
+        content: {
+            description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
+            notes: {
+                topNotes: ['Nghệ tây', 'Hạnh nhân đắng'],
+                heartNotes: ['Hoa nhài Ai Cập', 'Gỗ tuyết tùng'],
+                baseNotes: ['Hương gỗ', 'Hổ phách', 'Xạ hương'],
+            },
+            scentProfile: `Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.`,
+            impression: `Baccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.`,
+            targetAudience: `Thuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.`,
+            usage: `Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.`,
+            ratings: {
+                longevity: 5,
+                sillage: 5,
+                likability: 4,
+            },
+            occasion: `Thích hợp cho những dịp đặc biệt, tiệc tối, sự kiện đẳng cấp và những buổi gặp gỡ quan trọng.`,
+        },
     },
     {
+        perfumeID: 4,
         perfumeBrand: 'Chanel',
         perfumeName: 'Sauvage EDT',
         perfumeRating: 2,
@@ -46,13 +140,43 @@ export const perfumeData = [
         perfumePriceVND: '3.380.000',
         perfumePriceDiscount: '',
         discount: false,
-        perfumeDiscount: '0',
+        perfumeDiscount: 0,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Sauvage_EDT_vucd51.png',
         perfumeQuantity: 10,
+        quickViewImage: [
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Sauvage_EDT_vucd51.png',
+        ],
+        shortDescription:
+            'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
+        brand: 'Maison Francis Kurkdjian Paris', // thương hiệu
+        origin: 'Pháp', // xuất xứ
+        yearOfRelease: '2017', // năm sản xuất
+        concentration: 'Extrait de Parfum (EDP)', // nồng độ
+        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        manufacturer: 'Francis Kurkdjian', // nhà chế tác
+        content: {
+            description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
+            notes: {
+                topNotes: ['Nghệ tây', 'Hạnh nhân đắng'],
+                heartNotes: ['Hoa nhài Ai Cập', 'Gỗ tuyết tùng'],
+                baseNotes: ['Hương gỗ', 'Hổ phách', 'Xạ hương'],
+            },
+            scentProfile: `Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.`,
+            impression: `Baccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.`,
+            targetAudience: `Thuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.`,
+            usage: `Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.`,
+            ratings: {
+                longevity: 5,
+                sillage: 5,
+                likability: 4,
+            },
+            occasion: `Thích hợp cho những dịp đặc biệt, tiệc tối, sự kiện đẳng cấp và những buổi gặp gỡ quan trọng.`,
+        },
     },
     // same data
     {
+        perfumeID: 5,
         perfumeBrand: 'Dior',
         perfumeName: 'Homme Intense',
         perfumeRating: 3,
@@ -60,12 +184,42 @@ export const perfumeData = [
         perfumePriceVND: '3.280.000',
         perfumePriceDiscount: '2.788.000', // 15% off
         discount: true,
-        perfumeDiscount: '15',
+        perfumeDiscount: 15,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
         perfumeQuantity: 10,
+        quickViewImage: [
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
+        ],
+        shortDescription:
+            'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
+        brand: 'Maison Francis Kurkdjian Paris', // thương hiệu
+        origin: 'Pháp', // xuất xứ
+        yearOfRelease: '2017', // năm sản xuất
+        concentration: 'Extrait de Parfum (EDP)', // nồng độ
+        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        manufacturer: 'Francis Kurkdjian', // nhà chế tác
+        content: {
+            description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
+            notes: {
+                topNotes: ['Nghệ tây', 'Hạnh nhân đắng'],
+                heartNotes: ['Hoa nhài Ai Cập', 'Gỗ tuyết tùng'],
+                baseNotes: ['Hương gỗ', 'Hổ phách', 'Xạ hương'],
+            },
+            scentProfile: `Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.`,
+            impression: `Baccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.`,
+            targetAudience: `Thuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.`,
+            usage: `Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.`,
+            ratings: {
+                longevity: 5,
+                sillage: 5,
+                likability: 4,
+            },
+            occasion: `Thích hợp cho những dịp đặc biệt, tiệc tối, sự kiện đẳng cấp và những buổi gặp gỡ quan trọng.`,
+        },
     },
     {
+        perfumeID: 6,
         perfumeBrand: 'Chanel',
         perfumeName: 'Allure Homme Sport Eau Extreme',
         perfumeRating: 4, // ??? stars?
@@ -73,12 +227,42 @@ export const perfumeData = [
         perfumePriceVND: '3.780.000',
         perfumePriceDiscount: '', // 15% off
         discount: false,
-        perfumeDiscount: '15',
+        perfumeDiscount: 15,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
         perfumeQuantity: 10,
+        quickViewImage: [
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
+        ],
+        shortDescription:
+            'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
+        brand: 'Maison Francis Kurkdjian Paris', // thương hiệu
+        origin: 'Pháp', // xuất xứ
+        yearOfRelease: '2017', // năm sản xuất
+        concentration: 'Extrait de Parfum (EDP)', // nồng độ
+        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        manufacturer: 'Francis Kurkdjian', // nhà chế tác
+        content: {
+            description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
+            notes: {
+                topNotes: ['Nghệ tây', 'Hạnh nhân đắng'],
+                heartNotes: ['Hoa nhài Ai Cập', 'Gỗ tuyết tùng'],
+                baseNotes: ['Hương gỗ', 'Hổ phách', 'Xạ hương'],
+            },
+            scentProfile: `Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.`,
+            impression: `Baccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.`,
+            targetAudience: `Thuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.`,
+            usage: `Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.`,
+            ratings: {
+                longevity: 5,
+                sillage: 5,
+                likability: 4,
+            },
+            occasion: `Thích hợp cho những dịp đặc biệt, tiệc tối, sự kiện đẳng cấp và những buổi gặp gỡ quan trọng.`,
+        },
     },
     {
+        perfumeID: 7,
         perfumeBrand: 'Chanel',
         perfumeName: 'Allure Homme Sport',
         perfumeRating: 5,
@@ -86,12 +270,42 @@ export const perfumeData = [
         perfumePriceVND: '3.480.000',
         perfumePriceDiscount: '3.062.400',
         discount: true,
-        perfumeDiscount: '12',
+        perfumeDiscount: 12,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
         perfumeQuantity: 10,
+        quickViewImage: [
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
+        ],
+        shortDescription:
+            'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
+        brand: 'Maison Francis Kurkdjian Paris', // thương hiệu
+        origin: 'Pháp', // xuất xứ
+        yearOfRelease: '2017', // năm sản xuất
+        concentration: 'Extrait de Parfum (EDP)', // nồng độ
+        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        manufacturer: 'Francis Kurkdjian', // nhà chế tác
+        content: {
+            description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
+            notes: {
+                topNotes: ['Nghệ tây', 'Hạnh nhân đắng'],
+                heartNotes: ['Hoa nhài Ai Cập', 'Gỗ tuyết tùng'],
+                baseNotes: ['Hương gỗ', 'Hổ phách', 'Xạ hương'],
+            },
+            scentProfile: `Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.`,
+            impression: `Baccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.`,
+            targetAudience: `Thuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.`,
+            usage: `Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.`,
+            ratings: {
+                longevity: 5,
+                sillage: 5,
+                likability: 4,
+            },
+            occasion: `Thích hợp cho những dịp đặc biệt, tiệc tối, sự kiện đẳng cấp và những buổi gặp gỡ quan trọng.`,
+        },
     },
     {
+        perfumeID: 8,
         perfumeBrand: 'Chanel',
         perfumeName: 'Sauvage EDT',
         perfumeRating: 4,
@@ -99,13 +313,43 @@ export const perfumeData = [
         perfumePriceVND: '3.380.000',
         perfumePriceDiscount: '',
         discount: false,
-        perfumeDiscount: '0',
+        perfumeDiscount: 0,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Sauvage_EDT_vucd51.png',
         perfumeQuantity: 10,
+        quickViewImage: [
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Sauvage_EDT_vucd51.png',
+        ],
+        shortDescription:
+            'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
+        brand: 'Maison Francis Kurkdjian Paris', // thương hiệu
+        origin: 'Pháp', // xuất xứ
+        yearOfRelease: '2017', // năm sản xuất
+        concentration: 'Extrait de Parfum (EDP)', // nồng độ
+        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        manufacturer: 'Francis Kurkdjian', // nhà chế tác
+        content: {
+            description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
+            notes: {
+                topNotes: ['Nghệ tây', 'Hạnh nhân đắng'],
+                heartNotes: ['Hoa nhài Ai Cập', 'Gỗ tuyết tùng'],
+                baseNotes: ['Hương gỗ', 'Hổ phách', 'Xạ hương'],
+            },
+            scentProfile: `Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.`,
+            impression: `Baccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.`,
+            targetAudience: `Thuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.`,
+            usage: `Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.`,
+            ratings: {
+                longevity: 5,
+                sillage: 5,
+                likability: 4,
+            },
+            occasion: `Thích hợp cho những dịp đặc biệt, tiệc tối, sự kiện đẳng cấp và những buổi gặp gỡ quan trọng.`,
+        },
     },
 ];
 
+// both women and men
 export const unisexInformation = [
     {
         title: 'Unisex Perfume - Fragrance Without Boundaries',
