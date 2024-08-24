@@ -10,6 +10,7 @@ export const perfumeData = [
         perfumeDiscount: '15',
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
+        perfumeQuantity: 10,
     },
     {
         perfumeBrand: 'Chanel',
@@ -22,6 +23,7 @@ export const perfumeData = [
         perfumeDiscount: '15',
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
+        perfumeQuantity: 10,
     },
     {
         perfumeBrand: 'Chanel',
@@ -34,6 +36,7 @@ export const perfumeData = [
         perfumeDiscount: '0',
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
+        perfumeQuantity: 10,
     },
     {
         perfumeBrand: 'Chanel',
@@ -46,6 +49,7 @@ export const perfumeData = [
         perfumeDiscount: '0',
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Sauvage_EDT_vucd51.png',
+        perfumeQuantity: 10,
     },
     // same data
     {
@@ -59,6 +63,7 @@ export const perfumeData = [
         perfumeDiscount: '15',
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
+        perfumeQuantity: 10,
     },
     {
         perfumeBrand: 'Chanel',
@@ -71,6 +76,7 @@ export const perfumeData = [
         perfumeDiscount: '15',
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
+        perfumeQuantity: 10,
     },
     {
         perfumeBrand: 'Chanel',
@@ -83,6 +89,7 @@ export const perfumeData = [
         perfumeDiscount: '12',
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
+        perfumeQuantity: 10,
     },
     {
         perfumeBrand: 'Chanel',
@@ -95,6 +102,7 @@ export const perfumeData = [
         perfumeDiscount: '0',
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Sauvage_EDT_vucd51.png',
+        perfumeQuantity: 10,
     },
 ];
 
