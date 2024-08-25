@@ -1,7 +1,13 @@
 import { TextField } from '@mui/material';
 import React from 'react';
 
-export const TextFieldCustomize = ({ inputValue, onChangeValue, placeholder, onHandleKeyDown }) => {
+export const TextFieldCustomize = ({
+    inputValue,
+    onChangeValue,
+    placeholder,
+    onHandleKeyDown,
+    width,
+}) => {
     return (
         <TextField
             // inputProps={}
@@ -16,7 +22,7 @@ export const TextFieldCustomize = ({ inputValue, onChangeValue, placeholder, onH
             onKeyDown={onHandleKeyDown}
             sx={{
                 '.MuiInputBase-root': {
-                    width: '220px',
+                    width: width ? width : '220px',
                     fontSize: '14px',
                     height: '40px',
                     color: 'white',

@@ -5,6 +5,7 @@ import HomePage from '../pages/HomePage';
 import ProductDetail from '../pages/ProductDetail';
 import Services from '../pages/Services';
 import Shop from '../pages/Shop';
+import ShoppingCart from '../pages/ShoppingCart';
 
 // not sign into this website
 const publicRoutes = [
@@ -14,6 +15,7 @@ const publicRoutes = [
     { path: '/shop', component: Shop, layout: UserLayouts },
     // navigate to product has id...
     { path: `/product/:id`, component: ProductDetail, layout: UserLayouts },
+    { path: '/shopping-cart', component: ShoppingCart, layout: UserLayouts },
 ];
 
 // must signed into
