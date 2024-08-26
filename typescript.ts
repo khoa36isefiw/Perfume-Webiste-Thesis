@@ -1,5 +1,3 @@
-import { lchown } from 'fs';
-
 // hello world
 const mess: string = 'hello world';
 console.log(mess);
@@ -76,3 +74,86 @@ let skill: [number, string, boolean] = [1, 'string', true];
 // optional elements in tuple
 // có hoặc không cũng được, và optional luôn phải đặt cuối
 let skill2: [string, number?, boolean?] = ['must have'];
+
+// enum: liệt kê 1 nhóm các giá trị hằng số
+enum API_STATUS { // constant
+    PEDING, // index: 0
+    FULFILLED, // index: 1
+    REJECTED, // index: 2
+}
+
+// string enum
+enum STRING_ENUM { // constant
+    PEDING = 'PEDING', // index: 0
+    FULFILLED = 'FULFILLED', // index: 1
+    REJECTED = 'REJECTED', // index: 2
+}
+
+// ANY TYPES, không check type của data === don't check data type
+//
+let namev2: any = 'Kei';
+namev2 = 69;
+console.log(namev2); //69
+
+// Void >< Any
+// không trả về gì cả
+// use with function, không cần trả về return
+const handleLogs = (message: string): void => {
+    console.log(message);
+};
+
+// data type - never
+// không bao giờ trả ra giá trị
+// dùng khi chắc chắn rằng một điều gì đó không bao giờ xảy ra
+
+function handleException(str: string): never {
+    throw Error(str);
+}
+
+// handleException('error message'); // quăng ra lỗi: error message
+
+// union type: gộp nhiều kiểu dữ liệu lại
+// ex: a: string | number | boolean
+
+function addNumberOrString(a: string | number, b: string | number) {
+    if (typeof a === 'number' && typeof b === 'number') {
+        return a + b;
+    }
+
+    if (typeof a === 'string' && typeof b === 'string') {
+        return a.concat(b);
+    }
+    throw new Error('Parameters must be numbers or strings');
+}
+
+console.log('Test a: ', addNumberOrString(6, 9));
+
+// Type Aliases for union
+type addNumString = string | number;
+function addNumberOrString2(a: addNumString, b: addNumString) {
+    if (typeof a === 'number' && typeof b === 'number') {
+        return a + b;
+    }
+
+    if (typeof a === 'string' && typeof b === 'string') {
+        return a.concat(b);
+    }
+    throw new Error('Parameters must be numbers or strings');
+}
+
+console.log('Test a: ', addNumberOrString2('2', '4'));
+
+// function in ts
+// optional parameters
+const sum1 = (a: number, b: number, c?: number) => {
+    // para c: is optional, not required
+    if (c) return a + b + c;
+    return a + b;
+};
+
+console.log('sum1: ', sum1(1, 2, 5));
+
+// rest
+// 1 function chỉ dùng được 1 toán tử rest
+// chỉ sử dụng với array type
+// phải là tham số cuối cùng trong danh sách tham số
