@@ -1,6 +1,7 @@
 import PerfumeDetail from '../components/PerfumeDetail/PerfumeDetail';
 import UserLayouts from '../layouts/UserLayout/UserLayouts';
 import AboutUs from '../pages/AboutUs';
+import Checkout from '../pages/Checkout';
 import HomePage from '../pages/HomePage';
 import ProductDetail from '../pages/ProductDetail';
 import Services from '../pages/Services';
@@ -16,6 +17,7 @@ const publicRoutes = [
     // navigate to product has id...
     { path: `/product/:id`, component: ProductDetail, layout: UserLayouts },
     { path: '/shopping-cart', component: ShoppingCart, layout: UserLayouts },
+    { path: '/checkout', component: Checkout, layout: UserLayouts },
 ];
 
 // must signed into

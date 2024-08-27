@@ -10,7 +10,6 @@ export const TextFieldCustomize = ({
 }) => {
     return (
         <TextField
-            // inputProps={}
             variant="outlined"
             // fullWidth
             placeholder={placeholder}

@@ -101,7 +101,7 @@ function Cart() {
                             <CustomizeButtonInCart
                                 variant="outlined"
                                 textAction="Procced to checkout"
-                                onHandleClick={''}
+                                onHandleClick={() => navigate('/checkout')}
                                 // show animation
                                 isReverseAnimation={false}
                             />
