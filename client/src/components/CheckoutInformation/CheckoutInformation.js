@@ -161,7 +161,7 @@ import { addressApi } from '../api/addressApi';
 import SelectAddress from '../SelectAddress/SelectAddress';
 import CreditCard from '../CreditCard/CreditCard';
 import { theme } from '../../Theme/Theme';
-import { PayPalButton } from 'react-paypal-button-v2';
+// import { PayPalButton } from 'react-paypal-button-v2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -330,7 +330,7 @@ function CheckoutInformation() {
                         {paymentMethod === 'paypal' ? (
                             // {paymentMethod === 'cod' && (
                             <Box sx={{ mt: 3, bgcolor: '#fff' }}>
-                                <PayPalButton
+                                {/* <PayPalButton
                                     amount="0.01"
                                     // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                                     onSuccess={(details, data) => {
@@ -348,7 +348,8 @@ function CheckoutInformation() {
                                         });
                                     }}
                                     onError={() => alert('Transaction failed!')}
-                                />
+                                /> */}
+                                ahiahi
                             </Box>
                         ) : (
                             <Box sx={{ mt: 2, width: '200px' }}>
