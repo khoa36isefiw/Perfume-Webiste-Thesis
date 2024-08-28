@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 import service from '../../assets/images/our_services_1.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 
 function ServicesIntroduction() {

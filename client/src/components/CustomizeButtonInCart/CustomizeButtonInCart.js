@@ -6,13 +6,15 @@ export const CustomizeButtonInCart = ({
     onHandleClick,
     variant = 'contained',
     isReverseAnimation,
+    fullWidth = true,
 }) => {
     return (
         <Button
             onClick={onHandleClick}
             variant={variant}
-            fullWidth
+            fullWidth={fullWidth}
             sx={{
+                fontWeight: 'bold',
                 mb: 1,
                 position: 'relative',
                 width: '100%',

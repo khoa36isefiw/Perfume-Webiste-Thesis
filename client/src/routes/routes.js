@@ -1,4 +1,3 @@
-import PerfumeDetail from '../components/PerfumeDetail/PerfumeDetail';
 import UserLayouts from '../layouts/UserLayout/UserLayouts';
 import AboutUs from '../pages/AboutUs';
 import Checkout from '../pages/Checkout';

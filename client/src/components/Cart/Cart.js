@@ -10,6 +10,9 @@ import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonI
 import { ProductInCart } from './ProductInCart';
 import { SummaryRowInCart } from './SummaryRowInCart';
 import { CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
+import NotificationMessage, {
+    PositionedSnackbar,
+} from '../NotificationMessage/NotificationMessage';
 
 function Cart() {
     const navigate = useNavigate();
@@ -110,6 +113,26 @@ function Cart() {
                                 onHandleClick={() => navigate('/shop')}
                                 // hide animation
                                 isReverseAnimation={true}
+                            />
+                            <NotificationMessage
+                                msgType={'success'}
+                                msgTitle={'Success Title'}
+                                msgContent={'Content'}
+                            />
+                            <NotificationMessage
+                                msgType={'warning'}
+                                msgTitle={'warning Title'}
+                                msgContent={'Content'}
+                            />
+                            <NotificationMessage
+                                msgType={'infor'}
+                                msgTitle={'infor Title'}
+                                msgContent={'Content'}
+                            />
+                            <NotificationMessage
+                                msgType={'error'}
+                                msgTitle={'error Title'}
+                                msgContent={'Content'}
                             />
                         </Box>
                     </Grid>
