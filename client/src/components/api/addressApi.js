@@ -36,4 +36,9 @@ export const addressApi = {
         const url = `/province/district/${provinceID}`;
         return axiosClient.get(url);
     },
+
+    getWardTownApi(districtID) {
+        const url = `/province/ward/${districtID}`;
+        return axiosClient.get(url);
+    },
 };
