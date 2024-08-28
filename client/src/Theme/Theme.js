@@ -15,6 +15,20 @@ export const theme = createTheme({
         thirth: {
             main: '#d57748',
         },
+        notification: {
+            successBg: '#E4F5E2',
+            successIcon: '#39BF2D',
+            successBorder: '#18920D',
+            errorBg: '#F7E4E4',
+            errorIcon: '#EC0C0C',
+            warningBg: '#F5EDDA',
+            warningBorder: '#D6B464',
+            warningIcon: '#FAAD14',
+            inforBg: '#E9EBF5',
+
+            inforBorder: '#8BADF0',
+            inforIcon: '#4F78E8',
+        },
 
         bestSelling: '#3D3D3D',
         bestSelling2: '#858585',
