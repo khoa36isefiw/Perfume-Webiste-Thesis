@@ -112,3 +112,42 @@ export const CustomizeTextFieldCreditCard = ({
         />
     );
 };
+
+export const TextFieldLogin = ({ inputValue, onChangeValue, placeholder, onHandleKeyDown }) => {
+    return (
+        <TextField
+            variant="outlined"
+            fullWidth
+            placeholder={placeholder}
+            value={inputValue}
+            // value current value in text field
+            // onChange={(e) => setCityName(e.target.value)}
+            onChange={onChangeValue}
+            onKeyDown={onHandleKeyDown}
+            sx={{
+                '.MuiInputBase-root': {
+                    fontSize: '14px',
+                    height: '40px',
+                    color: 'white',
+                    borderRadius: '12px',
+                },
+                '& .MuiFormHelperText-root': {
+                    fontSize: '12.5px',
+                    color: 'red',
+                    mx: 1,
+                },
+                '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                        borderColor: '#d9d9d9',
+                    },
+                    '&:hover fieldset': {
+                        borderColor: '#d9d9d9',
+                    },
+                    '&.Mui-focused fieldset': {
+                        borderColor: '#d9d9d9',
+                    },
+                },
+            }}
+        />
+    );
+};
