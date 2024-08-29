@@ -4,7 +4,7 @@ import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { latestArticlesData } from './latestArticlesData';
 import { theme } from '../../Theme/Theme';
-import CustomizeButton from '../CustomizeButton/CustomizeButton';
+
 
 function LatestArticle() {
     return (

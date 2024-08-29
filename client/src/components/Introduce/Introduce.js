@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 import bg from '../../assets/images/about_us-bg.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 
 function Introduce() {

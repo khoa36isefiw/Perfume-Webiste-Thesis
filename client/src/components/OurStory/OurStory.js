@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { Container, Box } from '@mui/material';
+import { Box } from '@mui/material';
 
 function OurStory() {
     return (

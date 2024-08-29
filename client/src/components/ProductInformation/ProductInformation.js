@@ -5,7 +5,7 @@ import {
     CustomizeProductDescriptionText,
     CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
-import { policyData, productInformationData } from './productInformationData';
+import { policyData } from './productInformationData';
 import { theme } from '../../Theme/Theme';
 import { useLocation } from 'react-router-dom';
 

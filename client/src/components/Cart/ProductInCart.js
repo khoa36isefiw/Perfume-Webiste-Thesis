@@ -3,7 +3,6 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
 
 export const ProductInCart = () => {
     return (

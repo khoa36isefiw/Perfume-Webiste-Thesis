@@ -10,9 +10,7 @@ import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonI
 import { ProductInCart } from './ProductInCart';
 import { SummaryRowInCart } from './SummaryRowInCart';
 import { CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
-import NotificationMessage, {
-    PositionedSnackbar,
-} from '../NotificationMessage/NotificationMessage';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 function Cart() {
     const navigate = useNavigate();
