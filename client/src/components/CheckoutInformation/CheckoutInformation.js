@@ -164,6 +164,7 @@ import { theme } from '../../Theme/Theme';
 // import { PayPalButton } from 'react-paypal-button-v2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import CloseIcon from '@mui/icons-material/Close';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 function CheckoutInformation() {
     const [listProvince, setListProvince] = useState([]);
@@ -173,6 +174,8 @@ function CheckoutInformation() {
     const [selectedDistrict, setSelectedDistrict] = useState(''); // return district_id
     const [selectedWardTown, setSelectedWardTown] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('cod'); // Default payment method
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
 
     // get province
     useEffect(() => {
@@ -205,8 +208,21 @@ function CheckoutInformation() {
         }
     }, [selectedProvince, selectedDistrict]);
 
+    // show notification
+    const handleShowNotification = () => {
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
+    };
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
+    };
+
     return (
-        <Container>
+        <Container sx={{ position: 'relative' }}>
             <Grid container spacing={4}>
                 <Grid item lg={6}>
                     <Box sx={{ minHeight: '200px', p: 2 }}>
@@ -359,6 +375,7 @@ function CheckoutInformation() {
                                     // show animation
                                     isReverseAnimation={false}
                                     fullWidth={false}
+                                    onHandleClick={handleShowNotification}
                                 />
                             </Box>
                         )}
@@ -432,6 +449,20 @@ function CheckoutInformation() {
                     </Box>
                 </Grid>
             </Grid>
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={'success'}
+                        msgTitle={'Buy products'}
+                        msgContent={'Checkout successfully!'}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Container>
     );
 }
