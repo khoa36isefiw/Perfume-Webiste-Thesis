@@ -1,20 +1,23 @@
 import * as React from 'react';
-import Grid from '@mui/material/Grid';
-
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
 import { Box, IconButton, Typography } from '@mui/material';
-
 import CloseIcon from '@mui/icons-material/Close';
-import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import WarningIcon from '@mui/icons-material/Warning';
-import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InfoIcon from '@mui/icons-material/Info';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { theme } from '../../Theme/Theme';
 
-function NotificationMessage({ msgType, msgTitle, msgContent }) {
+function NotificationMessage({ msgType, msgTitle, msgContent, autoHideDuration, onClose }) {
+    // auto-hide the notification after the specified duration
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            onClose();
+        }, autoHideDuration);
+
+        // clean up the timer on unmount
+        return () => clearTimeout(timer);
+    }, [autoHideDuration, onClose]);
+
     const getNotificationStyles = (type) => {
         // get from styles
         switch (type) {
@@ -87,7 +90,7 @@ function NotificationMessage({ msgType, msgTitle, msgContent }) {
                 </Box>
             </Box>
             <IconButton sx={{ padding: 0 }}>
-                <CloseIcon sx={{ fontSize: '20px' }} />
+                <CloseIcon sx={{ fontSize: '20px' }} onClick={onClose} />
             </IconButton>
         </Box>
     );
