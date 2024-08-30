@@ -1,6 +1,8 @@
+import ProfileSettings from '../components/ProfileSettings/ProfileSettings';
 import UserLayouts from '../layouts/UserLayout/UserLayouts';
 import AboutUs from '../pages/AboutUs';
 import Checkout from '../pages/Checkout';
+import CreateAccount from '../pages/CreateAccount';
 import HomePage from '../pages/HomePage';
 import ProductDetail from '../pages/ProductDetail';
 import Services from '../pages/Services';
@@ -19,6 +21,8 @@ const publicRoutes = [
     { path: '/shopping-cart', component: ShoppingCart, layout: UserLayouts },
     { path: '/checkout', component: Checkout, layout: UserLayouts },
     { path: '/sign-in', component: SignInPage, layout: UserLayouts },
+    { path: '/create-account', component: CreateAccount, layout: UserLayouts },
+    { path: '/profile-settings', component: ProfileSettings, layout: UserLayouts },
 ];
 
 // must signed into

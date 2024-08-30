@@ -1,5 +1,5 @@
-import { Box, Container, IconButton } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
+import { Box, Container, IconButton, Menu, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import SearchIcon from '@mui/icons-material/Search';
@@ -7,13 +7,10 @@ import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { theme } from '../../Theme/Theme';
+
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
-    // { headerText: 'Women', headerLink: '/women-perfumes' },
-    // { headerText: 'Men', headerLink: '/men-perfumes' },
-    // { headerText: 'Unisex', headerLink: '/unisex-perfumes' },
     { headerText: 'Shop', headerLink: '/shop' },
-
     { headerText: 'About Us', headerLink: '/about-us' },
     { headerText: 'Services', headerLink: '/our-services' },
     { headerText: 'Blog', headerLink: '/blog' },
@@ -31,6 +28,24 @@ const headerActionButton = [
 
 function Header() {
     const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    // open menu setting
+    const handleMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    // close menu setting
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    // click into menu item
+    const handleMenuClick = (path) => {
+        navigate(path);
+        handleMenuClose();
+    };
+
     return (
         <Box
             sx={{
@@ -90,10 +105,14 @@ function Header() {
                     {headerActionButton.map((action, index) => (
                         <IconButton
                             key={index}
-                            onClick={() => navigate(action.headerIconDest)}
+                            onClick={(event) =>
+                                action.headerIconDest === '/sign-in'
+                                    ? handleMenuOpen(event)
+                                    : navigate(action.headerIconDest)
+                            }
                             sx={{
                                 color: 'white',
-
+                                mr: 1,
                                 '&:hover': {
                                     cursor: 'pointer',
                                     fontWeight: 'bold',
@@ -104,6 +123,44 @@ function Header() {
                         </IconButton>
                     ))}
                 </Box>
+
+                <Menu
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleMenuClose}
+                    MenuListProps={{
+                        onMouseLeave: handleMenuClose,
+                    }}
+                    sx={{
+                        '& .MuiPaper-root': {
+                            backgroundColor: theme.palette.background.paper,
+                            // color: theme.palette.text.primary,
+                            width: '150px',
+                        },
+                    }}
+                >
+                    <MenuItem sx={{ fontSize: '14px' }} onClick={() => handleMenuClick('/sign-in')}>
+                        Sign In
+                    </MenuItem>
+                    <MenuItem
+                        sx={{ fontSize: '14px' }}
+                        onClick={() => handleMenuClick('/create-account')}
+                    >
+                        Create account
+                    </MenuItem>
+                    <MenuItem
+                        sx={{ fontSize: '14px' }}
+                        onClick={() => handleMenuClick('/settings')}
+                    >
+                        Favorite list
+                    </MenuItem>
+                    <MenuItem
+                        sx={{ fontSize: '14px' }}
+                        onClick={() => handleMenuClick('/profile-settings')}
+                    >
+                        My Account
+                    </MenuItem>
+                </Menu>
             </Container>
         </Box>
     );

@@ -37,3 +37,8 @@ export const CustomizeListText = ({ title, text }) => {
         </CustomizeTypography>
     );
 };
+
+export const CustomizeAccountText = styled(Typography)(({ fontSize, color }) => ({
+    fontSize: fontSize || '16px',
+    color: color ? color : 'white',
+}));
