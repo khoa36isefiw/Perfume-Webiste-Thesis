@@ -8,24 +8,17 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    IconButton,
-    InputAdornment,
     Container,
     Paper,
     createTheme,
     ThemeProvider,
     Grid,
 } from '@mui/material';
-import {
-    AccountCircle,
-    Edit,
-    VpnKey,
-    ExitToApp,
-    Visibility,
-    VisibilityOff,
-} from '@mui/icons-material';
-import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import { AccountCircle, Edit, VpnKey, ExitToApp } from '@mui/icons-material';
 import AccountInfo from './AccountInfo';
+import ChangePassword from './ChangePassword';
+import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import MyPurchase from './MyPurchase';
 
 const darkTheme = createTheme({
     palette: {
@@ -46,160 +39,95 @@ const darkTheme = createTheme({
 
 const ProfileSettings = () => {
     const [activeComponent, setActiveComponent] = useState('accountInfo');
-    const [showPassword, setShowPassword] = useState(false);
-    const [showNewPassword, setShowNewPassword] = useState(false);
-
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const handleClickShowNewPassword = () => setShowNewPassword((show) => !show);
 
     const handleMenuClick = (component) => {
         setActiveComponent(component);
     };
 
-    const EditAccount = () => (
-        <Box>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-                Edit Account
-            </Typography>
-            <TextField
-                fullWidth
-                variant="outlined"
-                placeholder="hisalim.ux@gmail.com"
-                margin="normal"
-            />
-            <TextField
-                fullWidth
-                label="First Name"
-                variant="outlined"
-                defaultValue="Muhammad"
-                margin="normal"
-            />
-            <TextField
-                fullWidth
-                label="Last Name"
-                variant="outlined"
-                defaultValue="Salim"
-                margin="normal"
-            />
-            <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-                Update
-            </Button>
-        </Box>
-    );
-
-    const ChangePassword = () => (
-        <Box>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-                Change Password
-            </Typography>
-            <TextField
-                fullWidth
-                label="Current Password"
-                type={showPassword ? 'text' : 'password'}
-                variant="outlined"
-                margin="normal"
-                InputProps={{
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <IconButton onClick={handleClickShowPassword} edge="end">
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                    ),
-                }}
-            />
-            <TextField
-                fullWidth
-                label="New Password"
-                type={showNewPassword ? 'text' : 'password'}
-                variant="outlined"
-                margin="normal"
-                InputProps={{
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <IconButton onClick={handleClickShowNewPassword} edge="end">
-                                {showNewPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                    ),
-                }}
-            />
-            <TextField
-                fullWidth
-                label="Confirm New Password"
-                type={showNewPassword ? 'text' : 'password'}
-                variant="outlined"
-                margin="normal"
-            />
-            <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-                Change Password
-            </Button>
-        </Box>
-    );
-
     return (
         <ThemeProvider theme={darkTheme}>
             <Container
-                sx={{ display: 'flex', height: '100vh', bgcolor: 'background.default', mt: 12 }}
+                sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default', mt: 12 }}
             >
-                <Grid container spacing={0}>
+                <Grid container spacing={2}>
                     {/* Sidebar */}
-                    <Grid item md={4} lg={4}>
+                    <Grid item md={4} lg={3}>
                         <Paper
                             elevation={3}
                             sx={{
-                                width: 240,
+                                width: '100%',
                                 p: 2,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 bgcolor: 'background.paper',
                             }}
                         >
-                            <Typography variant="h6" sx={{ mb: 2, color: 'text.primary' }}>
+                            <CustomizeTypography
+                                sx={{ mb: 0, color: 'text.primary', fontWeight: 'bold' }}
+                            >
                                 Profile Settings
-                            </Typography>
+                            </CustomizeTypography>
 
                             <List component="nav" sx={{ width: '100%' }}>
                                 <ListItem button onClick={() => handleMenuClick('accountInfo')}>
                                     <ListItemIcon sx={{ color: 'text.primary' }}>
                                         <AccountCircle />
                                     </ListItemIcon>
-                                    <ListItemText primary="Account Info" />
+                                    <ListItemText
+                                        primary={
+                                            <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
+                                                Account Info
+                                            </CustomizeTypography>
+                                        }
+                                    />
                                 </ListItem>
-                                <ListItem button onClick={() => handleMenuClick('editAccount')}>
-                                    <ListItemIcon sx={{ color: 'text.primary' }}>
-                                        <Edit />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Edit Account" />
-                                </ListItem>
+
                                 <ListItem button onClick={() => handleMenuClick('changePassword')}>
                                     <ListItemIcon sx={{ color: 'text.primary' }}>
                                         <VpnKey />
                                     </ListItemIcon>
-                                    <ListItemText primary="Change Password" />
+                                    <ListItemText
+                                        primary={
+                                            <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
+                                                Change Password
+                                            </CustomizeTypography>
+                                        }
+                                    />
                                 </ListItem>
-                                <ListItem button onClick={() => handleMenuClick('accountInfo')}>
+                                <ListItem button onClick={() => handleMenuClick('myPurchase')}>
                                     <ListItemIcon sx={{ color: 'text.primary' }}>
                                         <AccountCircle />
                                     </ListItemIcon>
-                                    <ListItemText primary="My Purchase" />
+                                    <ListItemText
+                                        primary={
+                                            <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
+                                                My Purchase
+                                            </CustomizeTypography>
+                                        }
+                                    />
                                 </ListItem>
                                 <ListItem button onClick={() => console.log('Logout clicked')}>
                                     <ListItemIcon sx={{ color: 'text.primary' }}>
                                         <ExitToApp />
                                     </ListItemIcon>
-                                    <ListItemText primary="Logout" />
+                                    <ListItemText
+                                        primary={
+                                            <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
+                                                Logout
+                                            </CustomizeTypography>
+                                        }
+                                    />
                                 </ListItem>
                             </List>
                         </Paper>
                     </Grid>
 
                     {/* Main content */}
-                    <Grid container item md={8} lg={8}>
-                        <Box sx={{ flexGrow: 1, p: 3, bgcolor: 'background.default' }}>
+                    <Grid container item md={8} lg={9}>
+                        <Box sx={{ flexGrow: 1, p: 2, bgcolor: 'background.default' }}>
                             {activeComponent === 'accountInfo' && <AccountInfo />}
-                            {activeComponent === 'editAccount' && <EditAccount />}
                             {activeComponent === 'changePassword' && <ChangePassword />}
+                            {activeComponent === 'myPurchase' && <MyPurchase />}
                         </Box>
                     </Grid>
                 </Grid>
