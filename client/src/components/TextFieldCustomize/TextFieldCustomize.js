@@ -1,5 +1,6 @@
-import { TextField } from '@mui/material';
+import { TextField, IconButton, InputAdornment } from '@mui/material';
 import React from 'react';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const TextFieldCustomize = ({
     inputValue,
@@ -113,7 +114,60 @@ export const CustomizeTextFieldCreditCard = ({
     );
 };
 
-export const TextFieldLogin = ({ inputValue, onChangeValue, placeholder, onHandleKeyDown }) => {
+export const TextFieldLogin = ({
+    inputValue,
+    onChangeValue,
+    placeholder,
+    onHandleKeyDown,
+    disabled = false,
+}) => {
+    return (
+        <TextField
+            disabled={disabled}
+            variant="outlined"
+            fullWidth
+            placeholder={placeholder}
+            value={inputValue}
+            // value current value in text field
+            // onChange={(e) => setCityName(e.target.value)}
+            onChange={onChangeValue}
+            onKeyDown={onHandleKeyDown}
+            sx={{
+                '.MuiInputBase-root': {
+                    fontSize: '14px',
+                    height: '40px',
+                    color: 'white',
+                    borderRadius: '12px',
+                },
+                '& .MuiFormHelperText-root': {
+                    fontSize: '12.5px',
+                    color: 'red',
+                    mx: 1,
+                },
+                '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                        borderColor: '#d9d9d9',
+                    },
+                    '&:hover fieldset': {
+                        borderColor: '#d9d9d9',
+                    },
+                    '&.Mui-focused fieldset': {
+                        borderColor: '#d9d9d9',
+                    },
+                },
+            }}
+        />
+    );
+};
+
+export const TextFieldPassword = ({
+    inputValue,
+    onChangeValue,
+    placeholder,
+    onHandleKeyDown,
+    showPassword,
+    onHandleClick,
+}) => {
     return (
         <TextField
             variant="outlined"
@@ -147,6 +201,16 @@ export const TextFieldLogin = ({ inputValue, onChangeValue, placeholder, onHandl
                         borderColor: '#d9d9d9',
                     },
                 },
+            }}
+            type={showPassword ? 'text' : 'password'}
+            InputProps={{
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton onClick={onHandleClick} edge="end">
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                ),
             }}
         />
     );
