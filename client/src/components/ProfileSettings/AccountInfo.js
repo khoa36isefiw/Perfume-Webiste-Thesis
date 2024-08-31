@@ -1,20 +1,43 @@
-import { Box, Grid } from '@mui/material';
-import React from 'react';
-import {
-    CustomizeAccountText,
-    CustomizeTypography,
-} from '../CustomizeTypography/CustomizeTypography';
+import { Container, Grid } from '@mui/material';
+import React, { useState } from 'react';
+import { CustomizeAccountText } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 import { theme } from '../../Theme/Theme';
+import { CustomizeHoverButton, CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
+import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 
 function AccountInfo() {
+    const [editAccount, setEditAccount] = useState(true);
+
+    const handleClickEdit = () => {
+        setEditAccount(false);
+    };
+
+    const handleClickSave = () => {
+        setEditAccount(true);
+    };
+
     return (
-        <Grid container spacing={2}>
-            <Grid lg={12}>
-                <CustomizeAccountText variant="h6" sx={{ mb: 2 }}>
+        <Container>
+            <Grid item lg={12}>
+                <CustomizeAccountText
+                    variant="h6"
+                    sx={{
+                        fontSize: '18px',
+                        mb: 2,
+                        color: theme.palette.text.secondary,
+                        fontWeight: 'bold',
+                    }}
+                >
                     Account Information
                 </CustomizeAccountText>
             </Grid>
+            <Grid item lg={12}>
+                <CustomizeAccountText variant="h6" sx={{ mb: 2 }}>
+                    Your profile is a record of your information that defines who you are.
+                </CustomizeAccountText>
+            </Grid>
+            <CustomizeDividerVertical8 />
             <Grid container item spacing={2} sx={{ mb: 4 }}>
                 <Grid item md={4} lg={4}>
                     <CustomizeAccountText
@@ -29,7 +52,11 @@ function AccountInfo() {
                     </CustomizeAccountText>
                 </Grid>
                 <Grid item md={8} lg={8}>
-                    <TextFieldLogin fullWidth placeholder="hisalim.ux@gmail.com" />
+                    <TextFieldLogin
+                        disabled={editAccount}
+                        fullWidth
+                        placeholder="hisalim.ux@gmail.com"
+                    />
                 </Grid>
             </Grid>
 
@@ -47,7 +74,7 @@ function AccountInfo() {
                     </CustomizeAccountText>
                 </Grid>
                 <Grid item md={8} lg={8}>
-                    <TextFieldLogin fullWidth placeholder="Muhammad" />
+                    <TextFieldLogin disabled={editAccount} fullWidth placeholder="Muhammad" />
                 </Grid>
             </Grid>
 
@@ -65,10 +92,15 @@ function AccountInfo() {
                     </CustomizeAccountText>
                 </Grid>
                 <Grid item md={8} lg={8}>
-                    <TextFieldLogin fullWidth placeholder="Salim" />
+                    <TextFieldLogin disabled={editAccount} fullWidth placeholder="Salim" />
                 </Grid>
             </Grid>
-        </Grid>
+            {editAccount ? (
+                <CustomizeHoverButtonV2 textAction={'Edit'} onHandleClick={handleClickEdit} />
+            ) : (
+                <CustomizeHoverButton textAction={'Save'} onHandleClick={handleClickSave} />
+            )}
+        </Container>
     );
 }
 
