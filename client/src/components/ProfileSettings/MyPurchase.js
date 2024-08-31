@@ -26,6 +26,7 @@ const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
                     bgcolor: iconBgColor,
                     '&:hover': {
                         bgcolor: iconBgColor,
+                        cursor: 'default',
                     },
                 }}
             >
@@ -51,33 +52,33 @@ const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
 );
 
 const OrderInfo = ({ label, value }) => (
-    <Box sx={{ textAlign: 'center' }}>
-        <CustomizeTypography sx={{ color: theme.palette.text.secondary, fontWeight: 'bold' }}>
+    <Box sx={{ textAlign: 'center', width: '25%' }}>
+        <CustomizeTypography
+            sx={{ mb: 0, color: theme.palette.text.secondary, fontWeight: 'bold' }}
+        >
             {label}
         </CustomizeTypography>
-        <CustomizeTypography sx={{ color: '#d9d9d9' }}>{value}</CustomizeTypography>
+        {/* <CustomizeTypography sx={{ color: '#d9d9d9', flexWrap: 'wrap' }}>
+            {value}
+        </CustomizeTypography> */}
+        <CustomizeTypography
+            sx={{
+                color: '#d9d9d9',
+                flexWrap: 'wrap',
+                width: '100%',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+                padding: '0 8px',
+            }}
+        >
+            {value}
+        </CustomizeTypography>
     </Box>
 );
 
 const VerticalDivider = () => <Box sx={{ width: '1px', height: '40px', bgcolor: '#d9d9d9' }} />;
 
-const listOrderItem = [
-    {
-        orderImage: 'https://orchard.vn/wp-content/uploads/2018/04/dior-sauvage-edp_1.jpg',
-        orderName: 'Dior Sauvage EDP',
-        orderBrand: 'Dior',
-        orderSize: '125',
-        orderPrice: '80.00',
-    },
-    {
-        orderImage:
-            'https://orchard.vn/wp-content/uploads/2019/11/yves-saint-laurent-la-nuit-de-lhomme-edt_1.jpg',
-        orderName: "Yves Saint Laurent La Nuit De L'Homme EDT",
-        orderBrand: 'Yves Saint Laurent',
-        orderSize: '60',
-        orderPrice: '105.00',
-    },
-];
 const OrderItem = ({ listData }) => (
     <>
         {listData.map((item, index) => (
@@ -130,7 +131,10 @@ const OrderLists = ({ ordersListData }) => {
     return (
         <>
             {ordersListData.map((order, index) => (
-                <Box sx={{ bgcolor: '#555', minHeight: '20px', borderRadius: 1, p: 2, my: 4 }}>
+                <Box
+                    sx={{ bgcolor: '#555', minHeight: '20px', borderRadius: 1, p: 2, my: 4 }}
+                    key={index}
+                >
                     <Box
                         sx={{
                             display: 'flex',
@@ -138,16 +142,16 @@ const OrderLists = ({ ordersListData }) => {
                             alignItems: 'center',
                         }}
                     >
-                        <OrderInfo label="Order Number" value="#001" />
+                        <OrderInfo label="Order Number" value={`#${order.orderNumber}`} />
                         <VerticalDivider />
-                        <OrderInfo label="Order Date" value="Apr 18, 2024" />
+                        <OrderInfo label="Order Date" value={order.orderDate} />
                         <VerticalDivider />
-                        <OrderInfo label="Delivery Date" value="Apr 21, 2024" />
+                        <OrderInfo label="Delivery Date" value={order.deliveryDate} />
                         <VerticalDivider />
-                        <OrderInfo label="Ship To" value="Số 1 Võ Văn Ngân" />
+                        <OrderInfo label="Ship To" value={order.orderAddress} />
                     </Box>
                     <CustomizeDividerVertical8 />
-                    <OrderItem listData={listOrderItem} />
+                    <OrderItem listData={order.orderData} />
                     <CustomizeDividerVertical8 />
                     <Box
                         sx={{
@@ -158,7 +162,7 @@ const OrderLists = ({ ordersListData }) => {
                     >
                         <CustomizeTypography sx={{ mb: 0 }}>
                             <span style={{ color: '#d9d9d9' }}>Total Amount:</span>{' '}
-                            <strong>$160</strong>
+                            <strong>${order.orderTotal}</strong>
                         </CustomizeTypography>
                         <Button
                             startIcon={<SystemUpdateAltIcon />}
