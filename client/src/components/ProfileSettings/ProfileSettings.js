@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import {
     Box,
-    Typography,
-    TextField,
-    Button,
     List,
     ListItem,
     ListItemIcon,
@@ -14,7 +11,7 @@ import {
     ThemeProvider,
     Grid,
 } from '@mui/material';
-import { AccountCircle, Edit, VpnKey, ExitToApp } from '@mui/icons-material';
+import { AccountCircle, VpnKey, ExitToApp } from '@mui/icons-material';
 import AccountInfo from './AccountInfo';
 import ChangePassword from './ChangePassword';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
