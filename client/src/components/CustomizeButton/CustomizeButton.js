@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import React from 'react';
 import { theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -58,20 +58,22 @@ export const CustomizeHoverButton = ({ textAction, onHandleClick }) => {
             onClick={onHandleClick}
             sx={{
                 position: 'relative',
+
                 display: 'block',
                 color: '#fff',
                 fontSize: '14px',
                 textDecoration: 'none',
+                // border: `2px solid ${theme.palette.text.secondary}`,
+                border: `2px solid #fff`,
 
-                margin: '30px 0',
-                border: '2px solid #ff7675',
-                padding: '14px 60px',
+                padding: '8px 32px',
                 textTransform: 'uppercase',
                 overflow: 'hidden',
                 transition: '1s all ease',
                 zIndex: 1,
                 '&::before': {
-                    backgroundColor: '#ff7675',
+                    // backgroundColor: theme.palette.text.secondary,
+                    backgroundColor: '#fff',
                     content: '""',
                     position: 'absolute',
                     top: '50%',
@@ -91,15 +93,18 @@ export const CustomizeHoverButton = ({ textAction, onHandleClick }) => {
                 },
             }}
         >
-            <CustomizeTypography
+            <Typography
                 sx={{
+                    textTransform: 'initial',
                     position: 'relative',
                     zIndex: 2,
-                    color: '#fff',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    color: theme.palette.text.secondary,
                 }}
             >
                 {textAction}
-            </CustomizeTypography>
+            </Typography>
         </Button>
     );
 };
@@ -112,17 +117,19 @@ export const CustomizeHoverButtonV2 = ({ textAction, onHandleClick }) => {
                 position: 'relative',
                 textTransform: 'initial',
                 overflow: 'hidden',
-                border: '1px solid #eeeeee',
+                border: `1px solid ${theme.palette.text.secondary}`,
                 color: '#fff',
+
+                padding: '8px 32px',
                 '&::before, &::after': {
                     content: '""',
                     position: 'absolute',
                     top: 0,
                     height: '100%',
                     width: '150%',
-                    background: '#259f6c',
+                    background: theme.palette.text.secondary,
                     zIndex: 0,
-                    transition: 'transform .8s ease',
+                    transition: 'transform 1s ease',
                 },
                 '&::before': {
                     left: 0,
@@ -139,9 +146,6 @@ export const CustomizeHoverButtonV2 = ({ textAction, onHandleClick }) => {
                 },
                 '&:hover::after': {
                     transform: 'translateX(0) rotate(0deg)',
-                },
-                '&:hover': {
-                    color: '#fff',
                 },
             }}
         >
