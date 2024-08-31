@@ -30,6 +30,25 @@ export const theme = createTheme({
             inforBorder: '#8BADF0',
             inforIcon: '#4F78E8',
         },
+        // just color
+        orderHistory: {
+            total: {
+                icon: '#4F46E5',
+                bg: '#EEF2FF',
+            },
+            deliveried: {
+                icon: '#059669',
+                bg: '#ECFDF5',
+            },
+            pending: {
+                icon: '#D97706',
+                bg: '#FFFBEB',
+            },
+            cancel: {
+                icon: '#DC2626',
+                bg: '#FEF2F2',
+            },
+        },
 
         bestSelling: '#3D3D3D',
         bestSelling2: '#858585',
