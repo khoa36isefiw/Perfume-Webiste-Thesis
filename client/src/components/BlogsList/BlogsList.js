@@ -1,0 +1,168 @@
+import React, { useEffect, useState, useRef, useId } from 'react';
+import { Avatar, Box, Container, Grid } from '@mui/material';
+
+import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import { useNavigate } from 'react-router-dom';
+
+const blogsData = [
+    {
+        blogId: 1,
+        blogImage:
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/12/Untitled-design-39.png',
+        blogTitle: 'Why doesn’t my perfume last long enough?',
+        blogContent: '',
+    },
+    {
+        blogId: 2,
+        blogImage:
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/drink-3025022_1920.jpg',
+        blogTitle: 'How to Choose your Perfume Palettes for the Changing Seasons',
+    },
+    {
+        blogId: 3,
+        blogImage:
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/1Y7A1148.jpg',
+        blogTitle: 'How to Make Your Bespoke Perfume',
+    },
+    {
+        blogId: 4,
+        blogImage:
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2020/11/braydon-anderson-wOHH-NUTvVc-unsplash-web-res.jpg',
+        blogTitle: 'How To Choose A Perfume For Someone Else',
+    },
+    {
+        blogId: 5,
+        blogImage:
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2020/11/EPC-Still-Life-3_V1-1.jpg',
+        blogTitle: 'Understand Your Fragrance Family And Find Your Perfect Match',
+    },
+    {
+        blogId: 6,
+        blogImage:
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/08/sara-depraetere-heBhO0Lr15k-unsplash-scaled.jpg',
+        blogTitle:
+            'What Are Top, Middle and Base Notes in Perfume? A Pyramid From Fresh to Deep scents',
+    },
+    {
+        blogId: 7,
+        blogImage:
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/06/etienne-girardet-Xh6BpT-1tXo-unsplash-scaled.jpg',
+        blogTitle: 'Our best three fragrances for this summer',
+    },
+    {
+        blogId: 8,
+        blogImage:
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/05/jurien-huggins-jLWlA1HQMbE-unsplash-copy-scaled.jpg',
+        blogTitle: 'Redefining masculinity in perfumery',
+    },
+    {
+        blogId: 9,
+        blogImage:
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/05/maddi-bazzocco-UhrHTmVBzzE-unsplash-scaled.jpg',
+        blogTitle: 'We are nuts about nutty scents',
+    },
+];
+
+function BlogsList() {
+    return (
+        <Container>
+            <Grid container spacing={2}>
+                <BlogItem listData={blogsData} />
+            </Grid>
+        </Container>
+    );
+}
+
+export default BlogsList;
+
+const BlogItem = ({ listData }) => {
+    const navigate = useNavigate();
+    const handleNavigationProductDetail = (blog) => {
+        navigate(`/blog-detail/${blog.blogId}`, { state: { blog } });
+    };
+    return (
+        <>
+            {listData.map((blog, index) => (
+                <Grid item lg={4} key={index} onClick={() => handleNavigationProductDetail(blog)}>
+                    <Box
+                        sx={{
+                            textAlign: 'center',
+                            width: '350px',
+                            height: '250px',
+                            position: 'relative',
+                            cursor: 'pointer',
+                            padding: '4px',
+                            //
+                            // backgroundColor: '#d9d9d9',
+                            backgroundColor: 'orange',
+                            borderTopRightRadius: '10px',
+                            borderBottomLeftRadius: '10px',
+                            transition: 'all 1s',
+                            '&:after, &:before': {
+                                content: '""',
+                                width: '10px',
+                                height: '10px',
+                                position: 'absolute',
+                                border: '0px solid #fff',
+                                transition: 'all 1s',
+                            },
+                            '&:after': {
+                                top: '-1px',
+                                left: '-1px',
+                                borderTop: '5px solid black',
+                                borderLeft: '5px solid black',
+                            },
+                            '&:before': {
+                                bottom: '-1px',
+                                right: '-1px',
+                                borderBottom: '5px solid black',
+                                borderRight: '5px solid black',
+                            },
+                            '&:hover': {
+                                borderTopRightRadius: '0px',
+                                borderBottomLeftRadius: '0px',
+                                '&:before, &:after': {
+                                    width: '100%',
+                                    height: '100%',
+                                    // borderColor: 'white', // Uncomment if you want to change the border color on hover
+                                },
+                            },
+                        }}
+                    >
+                        <Avatar
+                            src={blog.blogImage}
+                            alt={'Blog'}
+                            sx={{
+                                borderRadius: 0,
+                                height: '250px',
+                                width: '350px',
+                                objectFit: 'cover',
+                                transition: '0.3s ease-in-out',
+                            }}
+                        />
+                        {/* show overplay on image */}
+                        <Box
+                            sx={{
+                                cursor: 'pointer',
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                bgcolor: 'rgba(0, 0, 0, 0.15)',
+                                opacity: 0,
+                                transition: '0.3s ease-in-out',
+                                '&:hover': {
+                                    opacity: 1,
+                                },
+                            }}
+                        />
+                    </Box>
+                    <CustomizeTypography sx={{ fontSize: '18px', my: 3, textAlign: 'center' }}>
+                        {blog.blogTitle}
+                    </CustomizeTypography>
+                </Grid>
+            ))}
+        </>
+    );
+};
