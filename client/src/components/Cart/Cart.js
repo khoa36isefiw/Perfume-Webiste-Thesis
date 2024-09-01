@@ -112,7 +112,7 @@ function Cart() {
                                 // hide animation
                                 isReverseAnimation={true}
                             />
-                            <NotificationMessage
+                            {/* <NotificationMessage
                                 msgType={'success'}
                                 msgTitle={'Success Title'}
                                 msgContent={'Content'}
@@ -131,7 +131,7 @@ function Cart() {
                                 msgType={'error'}
                                 msgTitle={'error Title'}
                                 msgContent={'Content'}
-                            />
+                            /> */}
                         </Box>
                     </Grid>
                 </Grid>
