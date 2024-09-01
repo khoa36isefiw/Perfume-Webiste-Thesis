@@ -1,6 +1,8 @@
 import ProfileSettings from '../components/ProfileSettings/ProfileSettings';
 import UserLayouts from '../layouts/UserLayout/UserLayouts';
 import AboutUs from '../pages/AboutUs';
+import Blog from '../pages/Blog';
+import BlogDetail from '../pages/BlogDetail';
 import Checkout from '../pages/Checkout';
 import CreateAccount from '../pages/CreateAccount';
 import HomePage from '../pages/HomePage';
@@ -23,6 +25,8 @@ const publicRoutes = [
     { path: '/sign-in', component: SignInPage, layout: UserLayouts },
     { path: '/create-account', component: CreateAccount, layout: UserLayouts },
     { path: '/profile-settings', component: ProfileSettings, layout: UserLayouts },
+    { path: '/blog', component: Blog, layout: UserLayouts },
+    { path: '/blog-detail/:id', component: BlogDetail, layout: UserLayouts },
 ];
 
 // must signed into
