@@ -42,3 +42,14 @@ export const CustomizeAccountText = styled(Typography)(({ fontSize, color }) => 
     fontSize: fontSize || '16px',
     color: color ? color : 'white',
 }));
+
+export const CustomizeTypographyBlog = styled(Typography)(
+    ({ fontSize, fontBold = false, color }) => ({
+        textAlign: 'justify',
+        fontSize: '18px',
+        fontWeight: fontBold ? 'bold' : 'normal',
+        color: color ? color : 'white',
+        // marginBottom: 16,
+        marginBottom: '8px',
+    }),
+);
