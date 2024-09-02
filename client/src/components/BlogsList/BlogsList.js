@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef, useId } from 'react';
-import { Avatar, Box, Container, Grid } from '@mui/material';
+import { Avatar, Box, Container, Grid, IconButton, Typography } from '@mui/material';
 
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
+import BlogContentTest from './BlogContentTest';
 
 const blogsData = [
     {
@@ -10,7 +11,6 @@ const blogsData = [
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/12/Untitled-design-39.png',
         blogTitle: 'Why doesn’t my perfume last long enough?',
-        blogContent: '',
     },
     {
         blogId: 2,
@@ -18,6 +18,7 @@ const blogsData = [
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/drink-3025022_1920.jpg',
         blogTitle: 'How to Choose your Perfume Palettes for the Changing Seasons',
     },
+
     {
         blogId: 3,
         blogImage:
@@ -65,11 +66,14 @@ const blogsData = [
 
 function BlogsList() {
     return (
-        <Container>
-            <Grid container spacing={2}>
-                <BlogItem listData={blogsData} />
-            </Grid>
-        </Container>
+        <Box>
+            <Container>
+                <Grid container spacing={2}>
+                    <BlogItem listData={blogsData} />
+                </Grid>
+            </Container>
+            <BlogContentTest />
+        </Box>
     );
 }
 
@@ -77,6 +81,7 @@ export default BlogsList;
 
 const BlogItem = ({ listData }) => {
     const navigate = useNavigate();
+
     const handleNavigationProductDetail = (blog) => {
         navigate(`/blog-detail/${blog.blogId}`, { state: { blog } });
     };
@@ -138,6 +143,7 @@ const BlogItem = ({ listData }) => {
                                 width: '350px',
                                 objectFit: 'cover',
                                 transition: '0.3s ease-in-out',
+                                borderRadius: 2,
                             }}
                         />
                         {/* show overplay on image */}
