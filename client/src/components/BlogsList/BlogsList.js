@@ -40,9 +40,8 @@ const blogsData = [
     {
         blogId: 6,
         blogImage:
-            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/08/sara-depraetere-heBhO0Lr15k-unsplash-scaled.jpg',
-        blogTitle:
-            'What Are Top, Middle and Base Notes in Perfume? A Pyramid From Fresh to Deep scents',
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/10/olia-gozha-J4kK8b9Fgj8-unsplash-scaled.jpg',
+        blogTitle: 'Our Best Perfume Books to Learn from Perfumers',
     },
     {
         blogId: 7,
