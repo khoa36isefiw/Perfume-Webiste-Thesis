@@ -46,14 +46,14 @@ const blogsData = [
     {
         blogId: 7,
         blogImage:
-            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/06/etienne-girardet-Xh6BpT-1tXo-unsplash-scaled.jpg',
-        blogTitle: 'Our best three fragrances for this summer',
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/03/Instagram-post-portrait-1.png',
+        blogTitle: 'The best scents for spring',
     },
     {
         blogId: 8,
         blogImage:
-            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/05/jurien-huggins-jLWlA1HQMbE-unsplash-copy-scaled.jpg',
-        blogTitle: 'Redefining masculinity in perfumery',
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/06/nathan-hurst-BgBTv96kEW0-unsplash-scaled.jpg',
+        blogTitle: 'Our Top Three Signature Blends for Summer',
     },
     {
         blogId: 9,
@@ -71,7 +71,6 @@ function BlogsList() {
                     <BlogItem listData={blogsData} />
                 </Grid>
             </Container>
-            <BlogContentTest />
         </Box>
     );
 }

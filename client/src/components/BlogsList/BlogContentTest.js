@@ -3,6 +3,7 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { CustomizeTypographyBlog } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
+import { blogDetailData8 } from './blogDetailsData';
 
 const blogDetailData7 = [
     {
@@ -45,7 +46,7 @@ function BlogContentTest() {
                 <Box sx={{ maxWidth: 750 }}>
                     <Box
                         component="img"
-                        src="https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/05/maddi-bazzocco-UhrHTmVBzzE-unsplash-scaled.jpg"
+                        src="https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/06/nathan-hurst-BgBTv96kEW0-unsplash-scaled.jpg"
                         alt="Blog Image"
                         sx={{
                             borderRadius: 0,
@@ -62,7 +63,7 @@ function BlogContentTest() {
                             fontFamily: 'Orator, Courier, sans-serif',
                         }}
                     >
-                        We are nuts about nutty scents
+                        Our Top Three Signature Blends for Summer{' '}
                     </Typography>
                 </Box>
             </Box>
@@ -95,10 +96,10 @@ function BlogContentTest() {
                             textAlign: 'center',
                         }}
                     >
-                        When we talk gourmand notes in perfumery, we often think about caramel and
-                        vanilla but what about sweet notes that are not so excessively sweet. With
-                        woody and spicy undertones, let us introduce you to some delightful nutty
-                        scents.
+                        The days are warmer, the nights are longer. Summertime is well and truly
+                        here, and it brings with it an abundance of gorgeous scents. In this post,
+                        we talk you through our top-picks for summer from our Signature Blends
+                        collection.
                     </Typography>
                 </Box>
                 <Box
@@ -129,24 +130,24 @@ function BlogContentTest() {
                                     fontWeight: 'bold',
                                 }}
                             >
-                                Three nutty notes that will give you salivating reactions:
+                                The Scents Of Summertime
                             </CustomizeTypographyBlog>
                             <CustomizeTypographyBlog>
-                                Tonka bean is a popular ingredient in gourmand fragrances and is
-                                known for its warm and spicy scent. Tonka bean fragrances typically
-                                contain notes of vanilla, caramel and almond. They offer a unique
-                                and complex scent that is perfect for those who enjoy a
-                                sophisticated gourmand.
-                            </CustomizeTypographyBlog>
-                            <CustomizeTypographyBlog>
-                                Pistachio is having its moment for those who love the small green
-                                nut. Pistachio cream fragrances typically contain notes of creamy
-                                vanilla, almond and of course, pistachio.
-                            </CustomizeTypographyBlog>
-                            <CustomizeTypographyBlog>
-                                Hazelnuts are another popular nut in gourmands. Fire-roasted
-                                hazelnuts, vanilla and caramel offer a warm and sweet scent,
-                                typically perfect for the fall or winter months.
+                                There is something so special and uplifting about the summertime: we
+                                make new memories, remember summers gone by, and enjoy all the
+                                wonderful things nature has to offer.
+                                <br />
+                                <br />
+                                Our Signature Blends for Summer 2021 are powered by the natural
+                                world, in all its wonderful versatility. From soft and sweet
+                                florals, to vibrant green scents and tart, sparkling fragrances,
+                                we’ve got you covered for every summer occasion.
+                                <br />
+                                <br />
+                                For those always travelling with a spray in their pocket, whether on
+                                staycation in your beautiful garden in bloom or right on the beach,
+                                we have shortlisted for you three of the most summery fragrances
+                                from our collection of Signature Blends.
                             </CustomizeTypographyBlog>
                         </Grid>
                     </Grid>
@@ -154,45 +155,58 @@ function BlogContentTest() {
             </Box>
             <Container>
                 <Grid container spacing={4}>
-                    {blogDetailData7.map((blog, index) => (
+                    {blogDetailData8.map((blog, index) => (
                         <Grid
-                            key={index}
                             container
-                            spacing={4}
-                            sx={{ mt: 4, display: 'flex', alignItems: 'center' }}
-                            flexDirection={index % 2 === 0 ? 'row' : 'row-reverse'}
+                            item
+                            xs={12}
+                            sm={6}
+                            md={4}
+                            lg={12}
+                            key={index}
+                            sx={{ mt: 4 }}
                         >
-                            <Grid item xs={12} sm={6} md={4} lg={6} key={index}>
-                                <Box>
+                            <Grid item xs={12} sm={6} md={4} lg={12}>
+                                <CustomizeTypographyBlog
+                                    sx={{
+                                        fontSize: '32px',
+                                        fontWeight: 'bold',
+                                        mb: 2,
+                                        textAlign: 'center',
+                                        color: theme.palette.text.secondary,
+                                    }}
+                                >
+                                    {blog.blogTitle}
+                                </CustomizeTypographyBlog>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4} lg={12}>
+                                {blog.blogContent?.map((text, index) => (
                                     <CustomizeTypographyBlog
                                         sx={{
-                                            fontSize: '32px',
-                                            fontWeight: 'bold',
+                                            textAlign: 'justify',
                                             mb: 2,
                                         }}
+                                        key={index}
                                     >
-                                        {blog.blogTitle}
+                                        {text}
                                     </CustomizeTypographyBlog>
-                                    {blog.blogContent?.map((text, index) => (
-                                        <CustomizeTypographyBlog
-                                            sx={{
-                                                textAlign: 'justify',
-                                                mb: 2,
-                                            }}
-                                        >
-                                            {text}
-                                        </CustomizeTypographyBlog>
-                                    ))}
-                                </Box>
+                                ))}
                             </Grid>
-                            <Grid item xs={12} sm={6} md={4} lg={6} key={index}>
-                                <Box
-                                    component={'img'}
-                                    alt="Blog Detail Image"
-                                    src={blog.blogImage}
-                                    sx={{ width: '100%', height: '600px' }}
-                                />
-                            </Grid>
+                            {blog.blogImage.map((img, index) => (
+                                <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
+                                    <Box
+                                        component="img"
+                                        src={img}
+                                        alt="Blog Image"
+                                        sx={{
+                                            borderRadius: 0,
+                                            width: '350px',
+                                            height: '500px',
+                                            objectFit: 'cover',
+                                        }}
+                                    />
+                                </Grid>
+                            ))}
                         </Grid>
                     ))}
                 </Grid>

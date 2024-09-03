@@ -304,7 +304,7 @@ export const blogDetailData6 = [
     },
 ];
 
-const blogDetailData7 = [
+export const blogDetailData7 = [
     {
         blogTitle: 'Ingredient Highlight: Sesame Absolute',
         blogImage:
@@ -324,6 +324,50 @@ const blogDetailData7 = [
         blogContent: [
             'Tonka Extraordinaire is born from pairing two Essentials, Tonka Sesame with Amber Iris, creating a deeper, warmer,  fire-roasted quality. It’s a perfect pairing bringing together its original nutty facets with a warm ambery and tobacco drydown. ',
             'Tonka Extraordinaire has been shortlisted for UK Fragrance Foundation’s Extraordinaire Category, a category that recognises independent perfumes for their extraordinary olfactive creations. ',
+        ],
+    },
+];
+
+export const blogDetailData8 = [
+    {
+        blogTitle: 'Jasmine Sour',
+        blogImage: [
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/07/christine-trant-aj1B4wkOCpI-unsplash-WR.png',
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/07/Jasmine-Sour-Card-2021.jpg',
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/07/Jasmine-Sour-Formula-Card-larger-2.jpg',
+        ],
+
+        blogContent: [
+            'Our new limited-edition summer blend 2021 is perfect to accompany your favourite sour cocktails! Sweet yet tart, intriguing yet refreshing. Inspired by the smell of sun-kissed skin, sun tanned lotion and cocktails on the beach, this new Signature Blend will transport you under the palm trees.',
+            'Jasmine Sour blends our Essential Jasmine Osmanthus with Bergamot Incense in this zingy and delicate cocktail of creamy white flowers – jasmine, osmanthus and frangipani with a touch of coconut – coming together with the sharpness of citrus and spices – lemon, bergamot and juniper berries.',
+            'Raise your glass to a summer full of sun, socialising and scent!',
+        ],
+    },
+    {
+        blogTitle: 'Electric Fig',
+        blogImage: [
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/07/natallia-nagorniak-YJnX-S4Ib5I-unsplash-WR.png',
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/04/Electric-Fig-Card-2021-WR.jpg',
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/04/Electric-Fig-Formula-WR.jpg',
+        ],
+
+        blogContent: [
+            'Picture a garden in bloom. There is a carpet of vibrant, green grass and pink rose bushes dotted about the scene. The air is fresh and bright, and all the colours and sounds feel heightened and enticing.',
+            'Electric Fig is this garden in a bottle, blending our Essential Fig Neroli and Rose Rhubarb, bringing together the vegetal greenness of fig and basil leaves is juxtaposed with effervescent rhubarb; the sharp petitgrain is softened by the neroli and rose.',
+            'It is a medley of nature’s finest offerings, and a total mood-enhancer for your summer days.',
+        ],
+    },
+    {
+        blogTitle: 'Bergamot Blush',
+        blogImage: [
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/07/alicja-gancarz-VS2Tdc8kYwM-unsplash-WR.png',
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2020/11/Bergamot-Blush-Card-2021.png',
+            'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/04/Bergamot-Blush-Formula-2021-WR.jpg',
+        ],
+
+        blogContent: [
+            'Think of those easy-going, lazy days spent on a beach, lying on soft sand with the sun gently warming your skin…',
+            'Bergamot Blush is a well-rounded, balanced and easy-to-wear fragrance for the summertime. Blending together three Essential: Bergamot Incense, Jasmine Osmanthus and Amber Iris, it harmonises the exotically-sweet, creamy jasmine and osmanthus with the light spice of frankincense and invigorating freshness of bergamot. It will transport you to a tropical island, somewhere serene and far away.',
         ],
     },
 ];
