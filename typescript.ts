@@ -418,6 +418,7 @@ interface IPerson {
 }
 
 function getFullNamePerson(person: IPerson) {
+    // person.firstName = 'Cant assign'; //error, cant change
     return `${person.firstName}  ${person.lastName} in ${person.address}`;
 }
 
