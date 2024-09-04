@@ -261,3 +261,35 @@ class Person1 {
 let person1 = new Person1(new Date(2024, 12, 25));
 console.log('person1: ', person1);
 // person1.birthDate = new Date(2024, 12, 22); // error
+
+// getter, setter in ts
+
+class Person2 {
+    private _age: number;
+    firstName: string;
+    lastName: string;
+
+    constructor(_age: number, firstName: string, lastName: string) {
+        this._age = _age;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    // getter
+    get age() {
+        return this._age;
+    }
+
+    // setter
+    set age(age2: number) {
+        if (age2 < 0 || age2 > 150) {
+            throw Error('Invalid age');
+        }
+        this._age = age2;
+    }
+}
+
+let per2 = new Person2(18, 'Kei', 'TS');
+console.log('before changing: ', per2);
+per2.age = 69;
+console.log('after changing: ', per2);
