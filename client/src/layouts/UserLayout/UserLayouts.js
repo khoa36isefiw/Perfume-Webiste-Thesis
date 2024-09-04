@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { theme } from '../../Theme/Theme';
+import BackToTop from '../../components/ScrollTop/ScrollTop';
 
 function UserLayouts({ children }) {
     return (
@@ -12,6 +13,7 @@ function UserLayouts({ children }) {
             {/* any components call this layout */}
             <Box sx={{ mt: 10 }}>{children}</Box>
             <Divider sx={{ p: '2px', bgcolor: theme.palette.text.secondary, my: 10 }} />
+            <BackToTop />
             <Footer />
         </Box>
     );

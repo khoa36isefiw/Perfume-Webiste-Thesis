@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef, useId } from 'react';
-import { Avatar, Box, Container, Grid, IconButton, Typography } from '@mui/material';
+import React from 'react';
+import { Avatar, Box, Container, Grid } from '@mui/material';
 
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
-import BlogContentTest from './BlogContentTest';
 
 const blogsData = [
     {
@@ -18,7 +17,6 @@ const blogsData = [
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/drink-3025022_1920.jpg',
         blogTitle: 'How to Choose your Perfume Palettes for the Changing Seasons',
     },
-
     {
         blogId: 3,
         blogImage:
@@ -136,7 +134,6 @@ const BlogItem = ({ listData }) => {
                             src={blog.blogImage}
                             alt={'Blog'}
                             sx={{
-                                borderRadius: 0,
                                 height: '250px',
                                 width: '350px',
                                 objectFit: 'cover',
