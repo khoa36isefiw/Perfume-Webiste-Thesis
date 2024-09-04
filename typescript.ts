@@ -179,3 +179,69 @@ class Person {
 const kei = new Person('123', 'Kei', 'TS');
 console.log('class kei: ', kei); // object
 console.log('full name: ', kei.getFullName());
+
+// access modifiers
+/**
+ * public
+ * private
+ * protected: lớp con không thể truy cập thuộc tính của thằng cha
+ */
+
+class Employee {
+    public empName: string;
+    empCode: string;
+    constructor(empCode: string, empName: string) {
+        this.empCode = empCode;
+        this.empName = empName;
+    }
+}
+
+let emp = new Employee('123', '433');
+console.log('Before changing: ', emp);
+emp.empCode = '456';
+emp.empName = 'Kei TS';
+console.log('After changing emp: ', emp);
+
+class Fan {
+    private price: string;
+    private name: string;
+    constructor(price: string, name: string) {
+        this.price = price;
+        this.name = name;
+    }
+}
+
+const fan = new Fan('1200', 'Senko');
+console.log('before: ', fan);
+// fan.price = '1250'; // error
+// fan.name = 'Senko-san'; // error
+// console.log('after: ', fan);
+
+console.log();
+
+class Employee2 {
+    public empName: string;
+    protected empCode: string; // lớp con không thể  truy cập thuộc tính của lớp cha
+
+    constructor(empName: string, empCode: string) {
+        this.empName = empName;
+        this.empCode = empCode;
+    }
+}
+
+class SalesEmployee extends Employee2 {
+    private department: string;
+    constructor(name: string, code: string, department: string) {
+        super(name, code);
+        this.department = department;
+    }
+}
+
+let empSale = new SalesEmployee('Kei', '123', 'Sales');
+
+console.log('before: ', empSale);
+// empSale.empName = 'KEI TS'; // can change
+// empSale.empCode = '001'; // can't change
+// empSale.department = 'IT'; // cant change
+// console.log('after: ', empSale); // cant run
+console.log();
