@@ -639,7 +639,7 @@ export const blogContent = {
                             sx={{ mt: 4, display: 'flex', alignItems: 'center' }}
                             flexDirection={index % 2 === 0 ? 'row-reverse' : 'row'}
                         >
-                            <Grid item xs={12} sm={6} md={4} lg={7} key={index}>
+                            <Grid item xs={12} sm={6} md={4} lg={7}>
                                 <Box>
                                     <CustomizeTypographyBlog
                                         sx={{
@@ -1438,7 +1438,7 @@ export const blogContent = {
                             sx={{ mt: 4, display: 'flex', alignItems: 'center' }}
                             flexDirection={index % 2 === 0 ? 'row' : 'row-reverse'}
                         >
-                            <Grid item xs={12} sm={6} md={4} lg={6} key={index}>
+                            <Grid item xs={12} sm={6} md={4} lg={6}>
                                 <Box>
                                     <CustomizeTypographyBlog
                                         sx={{
