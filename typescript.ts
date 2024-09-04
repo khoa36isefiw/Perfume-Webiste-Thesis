@@ -360,3 +360,51 @@ console.log('Area: ', Circle.calculateArea(69));
 // console.log('testPi: ', Circle.testPi); // error
 
 // Abstract Class
+abstract class Employee39 {
+    constructor(private firstName: string, private lastName: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    // abstract method
+    abstract getSalary(): number;
+
+    // normal method
+
+    get fullName(): string {
+        return this.firstName + this.lastName;
+    }
+
+    compenstationStatement(): string {
+        return `${this.fullName} makes ${this.getSalary} a month`;
+    }
+}
+
+class FullTimeEmp extends Employee39 {
+    constructor(firstName: string, lastName: string, private salary: number) {
+        super(firstName, lastName);
+        this.salary = salary;
+    }
+
+    getSalary() {
+        return this.salary;
+    }
+}
+
+class Constractor extends Employee39 {
+    constructor(firstName: string, lastName: string, private rate: number, private hours: number) {
+        super(firstName, lastName);
+        this.hours = hours;
+        this.rate = rate;
+    }
+
+    getSalary() {
+        return this.rate * this.hours;
+    }
+}
+
+const test1 = new FullTimeEmp('Kei', 'TS', 1000);
+console.log('test1: ', test1);
+
+const test2 = new Constractor('Kei', 'TS', 3.69, 100);
+console.log('test2: ', test2);
