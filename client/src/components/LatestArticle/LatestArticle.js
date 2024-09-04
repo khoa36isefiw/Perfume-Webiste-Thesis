@@ -4,9 +4,20 @@ import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { latestArticlesData } from './latestArticlesData';
 import { theme } from '../../Theme/Theme';
-
+import { useNavigate } from 'react-router-dom';
 
 function LatestArticle() {
+    const navigate = useNavigate();
+
+    const handleNavigationProductDetail = (blog) => {
+        navigate(`/blog-detail/${blog.blogId}`, { state: { blog } });
+        // back to top when navigate to another page
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+        });
+    };
     return (
         <Container>
             <CustomizeTitle heading={'Latest Articles'} />
@@ -18,9 +29,10 @@ function LatestArticle() {
                     justifyContent: 'center', // Center items on smaller screens
                 }}
             >
-                {latestArticlesData.map((article, index) => (
+                {latestArticlesData.map((article) => (
                     <Box
-                        key={index}
+                        key={article.blogId}
+                        onClick={() => handleNavigationProductDetail(article)}
                         sx={{
                             background: theme.palette.bestSelling,
                             borderRadius: 2,
