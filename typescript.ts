@@ -293,3 +293,48 @@ let per2 = new Person2(18, 'Kei', 'TS');
 console.log('before changing: ', per2);
 per2.age = 69;
 console.log('after changing: ', per2);
+
+// extends: inheritance in ts
+class Person3 {
+    firstName: string;
+    lastName: string;
+
+    constructor(firstName: string, lastName: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    getFullName(): string {
+        return this.firstName + this.lastName;
+    }
+
+    describe(): string {
+        return `This is ${this.firstName} and ${this.lastName}.`;
+    }
+}
+
+// inheritance
+class Employee3 extends Person3 {
+    private _jobTitle: string;
+    constructor(firstName: string, lastName: string, _jobTitle: string) {
+        // call the constructor of the Person class
+        super(firstName, lastName);
+        this._jobTitle = _jobTitle;
+    }
+
+    get jobTitle() {
+        return this._jobTitle;
+    }
+
+    // override
+    // gọi cha rồi mới chạy con?
+    // gọi hàm cha đã bị override bởi hàm class con thông qua supper
+    describe(): string {
+        return `${super.describe()} from parent class - Describe Kei is learning TS`;
+    }
+}
+
+let employee = new Employee3('Kei', 'TS', 'Front-end Dev');
+console.log('get fullName: ', employee.getFullName());
+console.log('describe: ', employee.describe());
+console.log('job title: ', employee.jobTitle);
