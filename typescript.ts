@@ -245,3 +245,19 @@ console.log('before: ', empSale);
 // empSale.department = 'IT'; // cant change
 // console.log('after: ', empSale); // cant run
 console.log();
+
+// readonly - immutable / không thể thay đổi được nó
+// chỉ độc không delete/update được
+// readonly khác gì với constant?
+// const: thao tác với variables
+// readonly: thao tác với lập trình hướng đối tượng, thao tác với một đối tượng, interface
+class Person1 {
+    readonly birthDate: Date;
+    constructor(birthDate: Date) {
+        this.birthDate = birthDate;
+    }
+}
+
+let person1 = new Person1(new Date(2024, 12, 25));
+console.log('person1: ', person1);
+// person1.birthDate = new Date(2024, 12, 22); // error
