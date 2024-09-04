@@ -408,3 +408,23 @@ console.log('test1: ', test1);
 
 const test2 = new Constractor('Kei', 'TS', 3.69, 100);
 console.log('test2: ', test2);
+
+// interfaces in ts
+
+interface IPerson {
+    readonly firstName: string;
+    lastName?: string; // optional
+    address: string;
+}
+
+function getFullNamePerson(person: IPerson) {
+    return `${person.firstName}  ${person.lastName} in ${person.address}`;
+}
+
+const person40 = {
+    firstName: 'Kei',
+    lastName: 'TS',
+    address: 'Số 1 VNN',
+};
+
+console.log('interface: ', getFullNamePerson(person40));
