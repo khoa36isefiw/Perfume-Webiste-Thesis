@@ -338,3 +338,25 @@ let employee = new Employee3('Kei', 'TS', 'Front-end Dev');
 console.log('get fullName: ', employee.getFullName());
 console.log('describe: ', employee.describe());
 console.log('job title: ', employee.jobTitle);
+
+// Static Methods and Properties
+
+// Để truy cập 1 thuộc tính <ClassName>.<StaticMember>
+// không cần new Object
+
+class Circle {
+    // properties
+    static pi: number = 3.14;
+    public testPi: number = 69;
+
+    // methods
+    static calculateArea(radius: number): number {
+        return this.pi * radius * radius;
+    }
+}
+
+console.log('Pi: ', Circle.pi);
+console.log('Area: ', Circle.calculateArea(69));
+// console.log('testPi: ', Circle.testPi); // error
+
+// Abstract Class
