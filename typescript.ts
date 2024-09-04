@@ -157,3 +157,25 @@ console.log('sum1: ', sum1(1, 2, 5));
 // 1 function chỉ dùng được 1 toán tử rest
 // chỉ sử dụng với array type
 // phải là tham số cuối cùng trong danh sách tham số
+
+// class
+class Person {
+    //social security network
+    ssn: string;
+    firstName: string;
+    lastName: string;
+
+    constructor(ssn: string, firstName: string, lastName: string) {
+        this.ssn = ssn;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    // get full name
+    getFullName(): string {
+        return `${this.firstName} ${this.lastName}`;
+    }
+}
+const kei = new Person('123', 'Kei', 'TS');
+console.log('class kei: ', kei); // object
+console.log('full name: ', kei.getFullName());
