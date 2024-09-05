@@ -58,14 +58,12 @@ export const CustomizeHoverButton = ({ textAction, onHandleClick }) => {
             onClick={onHandleClick}
             sx={{
                 position: 'relative',
-
                 display: 'block',
                 color: '#fff',
                 fontSize: '14px',
                 textDecoration: 'none',
                 // border: `2px solid ${theme.palette.text.secondary}`,
                 border: `2px solid #fff`,
-
                 padding: '8px 32px',
                 textTransform: 'uppercase',
                 overflow: 'hidden',
