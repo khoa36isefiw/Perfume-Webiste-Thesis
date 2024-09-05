@@ -49,6 +49,10 @@ export const theme = createTheme({
                 bg: '#FEF2F2',
             },
         },
+        flashSale: {
+            bg: '#ffe97a',
+            icon: '#f45930',
+        },
 
         bestSelling: '#3D3D3D',
         bestSelling2: '#858585',
