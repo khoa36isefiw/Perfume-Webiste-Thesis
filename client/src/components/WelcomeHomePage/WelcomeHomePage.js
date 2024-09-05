@@ -3,6 +3,7 @@ import React from 'react';
 import bg from '../../assets/images/welcome-note-hp.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
+import { scrollAppearingAnimation } from '../AnimationEffects/AnimationEffects';
 
 function WelcomeHomePage() {
     return (
@@ -12,6 +13,18 @@ function WelcomeHomePage() {
                 backgroundImage: `url(${bg})`,
                 position: 'relative',
                 width: '100%',
+
+                // '@keyframes appear': {
+                //     from: { opacity: 0, scale: 0.5 },
+                //     to: { opacity: 1, scale: 1 },
+                // },
+
+                // animation: 'appear 5s linear',
+
+                // happeans only when the particular element is visible on the screen
+                // animationTimeline: 'view()',
+                // animationRange: 'entry 30% cover 60%',
+                ...scrollAppearingAnimation,
             }}
         >
             {/* make overlay above background image */}

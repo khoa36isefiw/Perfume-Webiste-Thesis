@@ -14,7 +14,18 @@ function OurValues() {
                         alt="Our Values"
                     />
                 </Grid>
-                <Grid item lg={6} sx={{ p: 6 }}>
+                <Grid
+                    item
+                    lg={6}
+                    className="animate__animated animate__backInRight"
+                    sx={{
+                        p: 6, // apply animation
+
+                        // happeans only when the particular element is visible on the screen
+                        animationTimeline: 'view()',
+                        animationRange: 'entry 20% cover 20%',
+                    }}
+                >
                     <CustomizeTypography sx={{ textAlign: 'center', fontSize: '48px', mb: 4 }}>
                         Our Values
                     </CustomizeTypography>
