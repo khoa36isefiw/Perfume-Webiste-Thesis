@@ -15,6 +15,7 @@ function ChangePassword() {
     const handleClickShowCurrentPassword = () => {
         setShowCurrentPassword(!showCurrentPassword);
     };
+
     const handleClickShowNewPassword = () => {
         setShowNewPassword(!showNewPassword);
     };

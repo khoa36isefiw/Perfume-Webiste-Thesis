@@ -4,8 +4,10 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 import ButtonComponent from './test';
 import { theme } from '../../Theme/Theme';
+import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
+    const navigate = useNavigate();
     return (
         <Container sx={{ width: '50%' }}>
             <Grid container spacing={2}>
@@ -80,6 +82,7 @@ function SignIn() {
                                         borderBottom: `1px solid ${theme.palette.text.secondary}`,
                                     },
                                 }}
+                                onClick={() => navigate('/recover-password')}
                             >
                                 Forgot Password?
                             </CustomizeTypography>
