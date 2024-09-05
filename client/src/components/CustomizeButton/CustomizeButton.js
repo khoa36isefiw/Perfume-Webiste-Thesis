@@ -52,20 +52,24 @@ export const CustomizeButtonOutlined = ({ textAction, onHandleClick }) => {
     );
 };
 
-export const CustomizeHoverButton = ({ textAction, onHandleClick }) => {
+export const CustomizeHoverButton = ({
+    textAction,
+    onHandleClick,
+    color,
+    borderColor,
+    bgcolor,
+}) => {
     return (
         <Button
             onClick={onHandleClick}
             sx={{
                 position: 'relative',
-
                 display: 'block',
-                color: '#fff',
+                color: color ? color : '#fff',
                 fontSize: '14px',
                 textDecoration: 'none',
                 // border: `2px solid ${theme.palette.text.secondary}`,
-                border: `2px solid #fff`,
-
+                border: `2px solid ${borderColor ? borderColor : '#fff'}`,
                 padding: '8px 32px',
                 textTransform: 'uppercase',
                 overflow: 'hidden',
@@ -73,7 +77,7 @@ export const CustomizeHoverButton = ({ textAction, onHandleClick }) => {
                 zIndex: 1,
                 '&::before': {
                     // backgroundColor: theme.palette.text.secondary,
-                    backgroundColor: '#fff',
+                    backgroundColor: bgcolor ? bgcolor : '#fff',
                     content: '""',
                     position: 'absolute',
                     top: '50%',
@@ -88,9 +92,6 @@ export const CustomizeHoverButton = ({ textAction, onHandleClick }) => {
                 '&:hover::before': {
                     height: '100%',
                 },
-                '&:hover': {
-                    color: '#000',
-                },
             }}
         >
             <Typography
@@ -100,7 +101,7 @@ export const CustomizeHoverButton = ({ textAction, onHandleClick }) => {
                     zIndex: 2,
                     fontSize: '14px',
                     fontWeight: 'bold',
-                    color: theme.palette.text.secondary,
+                    color: color ? color : theme.palette.text.secondary,
                 }}
             >
                 {textAction}

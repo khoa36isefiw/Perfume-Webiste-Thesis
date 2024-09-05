@@ -3,12 +3,13 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { groupCollection1, groupCollection2, groupCollection3 } from './collectionsData';
+import { scrollAppearingAnimationV2 } from '../AnimationEffects/AnimationEffects';
 
 function OurCollections() {
     return (
         <Container>
             <CustomizeTitle heading={'Our Collections'} />
-            <Grid container spacing={4}>
+            <Grid container spacing={4} sx={{ ...scrollAppearingAnimationV2 }}>
                 {groupCollection1.map((collection, index) => (
                     <ImageGridItem
                         key={index}
@@ -17,7 +18,7 @@ function OurCollections() {
                     />
                 ))}
             </Grid>
-            <Grid container spacing={4} sx={{ mt: 1 }}>
+            <Grid container spacing={4} sx={{ mt: 1, ...scrollAppearingAnimationV2 }}>
                 {groupCollection2.map((collection, index) => (
                     <ImageGridItem
                         key={index}
@@ -26,7 +27,7 @@ function OurCollections() {
                     />
                 ))}
             </Grid>
-            <Grid container spacing={4} sx={{ mt: 1 }}>
+            <Grid container spacing={4} sx={{ mt: 1, ...scrollAppearingAnimationV2 }}>
                 {groupCollection3.map((collection, index) => (
                     <ImageGridItem key={index} collection={collection} gridSize={4} />
                 ))}

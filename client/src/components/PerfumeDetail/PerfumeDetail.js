@@ -1,5 +1,15 @@
-import { Avatar, Box, Button, Container, Divider, Grid, IconButton, Rating } from '@mui/material';
-import React from 'react';
+import {
+    Avatar,
+    Box,
+    Button,
+    Container,
+    Divider,
+    Grid,
+    IconButton,
+    Rating,
+    Typography,
+} from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -230,6 +240,43 @@ function PerfumeDetail() {
                             <CustomizeTypography sx={{ ml: 1 }}>295 đã bán</CustomizeTypography>
                         </Box>
 
+                        <Box
+                            sx={{
+                                backgroundImage: ` linear-gradient(-90deg, #f0451e 9%, #f32424 96%)`,
+                                height: '40px',
+                                backgroundRepeat: 'no-repeat',
+                                borderRadius: '8px',
+                                objectFit: 'cover',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '4px',
+                                mt: 1,
+                                mb: 2,
+                            }}
+                        >
+                            <Box
+                                component={'img'}
+                                alt="Flash Sale"
+                                src={
+                                    'https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/productdetailspage/dea74facf15efdbdb982.svg'
+                                }
+                                sx={{ height: '20px' }}
+                            />
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Box
+                                    sx={{ height: '20px', width: '20px', mr: 1 }}
+                                    component={'img'}
+                                    alt="Counter"
+                                    src={
+                                        'https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/productdetailspage/db37ab11d87a41f61b7d.svg'
+                                    }
+                                />
+                                <CustomizeTypography sx={{ mb: 0 }}>ENDS IN</CustomizeTypography>
+                                <CountdownTimer />
+                            </Box>
+                        </Box>
+
                         <Box sx={{ display: 'flex' }}>
                             {/* original price */}
                             <CustomizeTypography
@@ -309,3 +356,56 @@ function PerfumeDetail() {
 }
 
 export default PerfumeDetail;
+
+const CountdownTimer = () => {
+    const [time, setTime] = useState(300);
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTime((prevTime) => {
+                if (prevTime <= 1) {
+                    clearInterval(timer);
+                    return 0;
+                } else {
+                    return prevTime - 1;
+                }
+            });
+        }, 1000);
+
+        // clear interval when component unmounts
+        return () => clearInterval(timer);
+    }, []);
+
+    return (
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Box sx={{ height: '30px', width: '30px', bgcolor: '#000', borderRadius: 1, mx: 1 }}>
+                <CustomizeTypography
+                    sx={{ fontSize: '20px', fontWeight: 'bold', mb: 0, textAlign: 'center' }}
+                >
+                    00
+                </CustomizeTypography>
+            </Box>
+            <Box
+                sx={{
+                    height: '30px',
+                    width: '30px',
+                    bgcolor: '#000',
+                    borderRadius: 1,
+                    mr: 1,
+                }}
+            >
+                <CustomizeTypography
+                    sx={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center' }}
+                >
+                    {`${Math.floor(time / 60)}`.padStart(2, 0)}
+                </CustomizeTypography>
+            </Box>
+            <Box sx={{ height: '30px', width: '30px', bgcolor: '#000', borderRadius: 1, mr: 1 }}>
+                <CustomizeTypography
+                    sx={{ fontSize: '20px', fontWeight: 'bold', mb: 0, textAlign: 'center' }}
+                >
+                    {`${time % 60}`.padStart(2, 0)}
+                </CustomizeTypography>
+            </Box>
+        </Box>
+    );
+};

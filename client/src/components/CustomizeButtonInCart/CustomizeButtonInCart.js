@@ -7,6 +7,7 @@ export const CustomizeButtonInCart = ({
     variant = 'contained',
     isReverseAnimation,
     fullWidth = true,
+    width,
 }) => {
     return (
         <Button
@@ -17,7 +18,7 @@ export const CustomizeButtonInCart = ({
                 fontWeight: 'bold',
                 mb: 1,
                 position: 'relative',
-                width: '100%',
+                width: fullWidth ? '100%' : width,
                 height: '40px',
                 fontFamily: 'Lato, sans-serif',
                 fontSize: '14px',

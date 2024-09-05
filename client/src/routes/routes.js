@@ -1,4 +1,5 @@
 import ProfileSettings from '../components/ProfileSettings/ProfileSettings';
+import RecoverPassword from '../components/RecoverPassword/RecoverPassword';
 import UserLayouts from '../layouts/UserLayout/UserLayouts';
 import AboutUs from '../pages/AboutUs';
 import Blog from '../pages/Blog';
@@ -27,6 +28,7 @@ const publicRoutes = [
     { path: '/profile-settings', component: ProfileSettings, layout: UserLayouts },
     { path: '/blog', component: Blog, layout: UserLayouts },
     { path: '/blog-detail/:id', component: BlogDetail, layout: UserLayouts },
+    { path: '/recover-password', component: RecoverPassword, layout: UserLayouts },
 ];
 
 // must signed into
