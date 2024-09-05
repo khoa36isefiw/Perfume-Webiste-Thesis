@@ -8,6 +8,8 @@ export const perfumeData = [
         perfumePriceVND: '3.280.000',
         perfumePriceDiscount: '2.788.000', // 15% off
         discount: true,
+        flashSale: true,
+        flashSaleNumber: 25,
         perfumeDiscount: 15,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
@@ -54,6 +56,8 @@ export const perfumeData = [
         perfumePriceVND: '3.780.000',
         perfumePriceDiscount: '', // No discount
         discount: false,
+        flashSale: false,
+        flashSaleNumber: 25,
         perfumeDiscount: 0,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
@@ -97,6 +101,8 @@ export const perfumeData = [
         perfumePriceVND: '3.480.000',
         perfumePriceDiscount: '',
         discount: false,
+        flashSale: false,
+        flashSaleNumber: 25,
         perfumeDiscount: 0,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
@@ -140,6 +146,8 @@ export const perfumeData = [
         perfumePriceVND: '3.380.000',
         perfumePriceDiscount: '',
         discount: false,
+        flashSale: false,
+        flashSaleNumber: 25,
         perfumeDiscount: 0,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Sauvage_EDT_vucd51.png',
@@ -184,6 +192,8 @@ export const perfumeData = [
         perfumePriceVND: '3.280.000',
         perfumePriceDiscount: '2.788.000', // 15% off
         discount: true,
+        flashSale: false,
+        flashSaleNumber: 25,
         perfumeDiscount: 15,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
@@ -227,6 +237,8 @@ export const perfumeData = [
         perfumePriceVND: '3.780.000',
         perfumePriceDiscount: '', // 15% off
         discount: false,
+        flashSale: true,
+        flashSaleNumber: 25,
         perfumeDiscount: 15,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
@@ -270,6 +282,8 @@ export const perfumeData = [
         perfumePriceVND: '3.480.000',
         perfumePriceDiscount: '3.062.400',
         discount: true,
+        flashSale: true,
+        flashSaleNumber: 25,
         perfumeDiscount: 12,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
@@ -313,6 +327,8 @@ export const perfumeData = [
         perfumePriceVND: '3.380.000',
         perfumePriceDiscount: '',
         discount: false,
+        flashSale: true,
+        flashSaleNumber: 25,
         perfumeDiscount: 0,
         perfumeImage:
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Sauvage_EDT_vucd51.png',
