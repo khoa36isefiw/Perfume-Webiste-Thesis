@@ -251,6 +251,8 @@ function PerfumeDetail() {
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
                                 padding: '4px',
+                                mt: 1,
+                                mb: 2,
                             }}
                         >
                             <Box
