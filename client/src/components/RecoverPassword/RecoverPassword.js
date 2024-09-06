@@ -1,31 +1,43 @@
 import { Box, Container, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import {
-    TextFieldLogin,
-    TextFieldPassword,
-    TextFieldVerifyCode,
-} from '../TextFieldCustomize/TextFieldCustomize';
+import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 import { theme } from '../../Theme/Theme';
-import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
-import CustomizeButton, {
-    CustomizeButtonOutlined,
-    CustomizeButtonV2,
-    CustomizeHoverButton,
-    CustomizeHoverButtonV2,
-} from '../CustomizeButton/CustomizeButton';
+import { CustomizeButtonV2 } from '../CustomizeButton/CustomizeButton';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 function RecoverPassword() {
+    const navigate = useNavigate();
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const handleSubmitResetPassword = () => {
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
+        setTimeout(() => {
+            navigate('/sign-in');
+        }, 2000);
+    };
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
+    };
     return (
         <Container sx={{ width: '50%', mt: 10 }}>
-            const navigate = useNavigate(); return (
             <Box>
                 <Grid container spacing={2}>
                     <Grid item lg={12}>
                         <CustomizeTypography
-                            sx={{ fontSize: '48px', fontWeight: 'bold', textAlign: 'center' }}
+                            sx={{
+                                fontSize: '48px',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                color: theme.palette.text.secondary,
+                            }}
                         >
                             Reset your password
                         </CustomizeTypography>
@@ -73,13 +85,14 @@ function RecoverPassword() {
                                             textAction={'Submit'}
                                             fullWidth={false}
                                             width="120px"
+                                            onHandleClick={handleSubmitResetPassword}
                                         />
                                     </Box>
                                 </Box>
 
                                 <CustomizeButtonV2
                                     variant="outlined"
-                                    sx={{ width: '100px', padding: '8px 32px', width: '120px' }}
+                                    sx={{ padding: '8px 32px', width: '120px' }}
                                 >
                                     Cancel
                                 </CustomizeButtonV2>
@@ -88,6 +101,20 @@ function RecoverPassword() {
                     </Grid>
                 </Grid>
             </Box>
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={'success'}
+                        msgTitle={'Recovery Password'}
+                        msgContent={'New password is sent to your email. Please, check it!'}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Container>
     );
 }
