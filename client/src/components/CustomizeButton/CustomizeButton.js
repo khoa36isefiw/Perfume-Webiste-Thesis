@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Button, styled, Typography } from '@mui/material';
 import React from 'react';
 import { theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -165,3 +165,18 @@ export const CustomizeHoverButtonV2 = ({ textAction, onHandleClick }) => {
         </Button>
     );
 };
+
+export const CustomizeButtonV2 = styled(Button)(({ bgcolor }) => ({
+    py: 1,
+    borderRadius: '8px',
+    borderColor: theme.palette.text.main,
+    backgroundColor: bgcolor,
+    fontSize: '14px',
+    fontWeight: 'bold',
+    textTransform: 'initial',
+    color: '#fff',
+    '&:hover': {
+        backgroundColor: theme.palette.text.main,
+        borderColor: theme.palette.text.main,
+    },
+}));

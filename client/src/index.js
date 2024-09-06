@@ -7,6 +7,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material';
 import { unstable_createMuiStrictModeTheme } from '@mui/material/styles';
 import { theme } from './Theme/Theme';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const mergeTheme = {
@@ -16,9 +18,11 @@ const mergeTheme = {
 root.render(
     <React.StrictMode>
         <CssBaseline>
-            <ThemeProvider theme={mergeTheme}>
-                <App />
-            </ThemeProvider>
+            <Provider store={store}>
+                <ThemeProvider theme={mergeTheme}>
+                    <App />
+                </ThemeProvider>
+            </Provider>
         </CssBaseline>
     </React.StrictMode>,
 );

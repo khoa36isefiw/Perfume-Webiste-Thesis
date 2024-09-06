@@ -4,7 +4,7 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { theme } from '../../Theme/Theme';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export const ProductInCart = () => {
+export const ProductInCart = ({ productsList }) => {
     return (
         <>
             {/* First Product - In Stock */}
@@ -293,6 +293,160 @@ export const ProductInCart = () => {
                         </Button>
                     </Box>
                 </Box>
+
+                {/* render list product added  */}
+                {productsList.map((item, index) => (
+                    <Box key={item.perfumeID}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                            }}
+                        >
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Box
+                                    sx={{
+                                        bgcolor: '#333',
+                                        height: '200px',
+                                        width: '200px',
+                                        borderRadius: '8px',
+                                    }}
+                                >
+                                    <Box
+                                        loading="lazy"
+                                        src={item.perfumeImage}
+                                        component="img"
+                                        sx={{
+                                            borderRadius: 1,
+                                            height: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                        }}
+                                    />
+                                </Box>
+                                {/* name */}
+                                <Box sx={{ ml: 2 }}>
+                                    <CustomizeTypography>{item.perfumeName}</CustomizeTypography>
+                                    {/* price and stocks status */}
+                                    <CustomizeTypography
+                                        sx={{ display: 'flex', alignItems: 'center' }}
+                                    >
+                                        <span>{item.perfumePriceVND}đ</span>
+                                        <Box
+                                            sx={{
+                                                height: '20px',
+                                                width: '1px',
+                                                bgcolor: '#fff',
+                                                mx: 2,
+                                            }}
+                                        />
+                                        <span
+                                            style={{
+                                                color: theme.palette.text.verified,
+                                                fontWeight: 'bold',
+                                            }}
+                                        >
+                                            In Stock
+                                        </span>
+                                    </CustomizeTypography>
+                                    {/* increase quantity */}
+                                    <Box
+                                        sx={{
+                                            height: '30px',
+                                            width: '120px',
+                                            borderRadius: '10px',
+                                            border: '1px solid #d9d9d9',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            p: 2,
+                                        }}
+                                    >
+                                        <CustomizeTypography
+                                            sx={{
+                                                fontSize: '24px',
+                                                p: '4px',
+                                                mb: 0,
+                                                '&:hover': {
+                                                    color: theme.palette.text.secondary,
+                                                },
+                                                cursor: 'pointer',
+                                            }}
+                                        >
+                                            -
+                                        </CustomizeTypography>
+                                        <CustomizeTypography
+                                            sx={{
+                                                fontSize: '16px',
+                                                mb: 0,
+                                            }}
+                                        >
+                                            {item.quantity}
+                                        </CustomizeTypography>
+                                        <CustomizeTypography
+                                            sx={{
+                                                fontSize: '16px',
+                                                mb: 0,
+                                                p: '4px',
+                                                '&:hover': {
+                                                    color: theme.palette.text.secondary,
+                                                },
+                                                cursor: 'pointer',
+                                            }}
+                                        >
+                                            +
+                                        </CustomizeTypography>
+                                    </Box>
+                                </Box>
+                            </Box>
+                            {/* Total price, remove item */}
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <CustomizeTypography>{item.perfumePriceVND}đ</CustomizeTypography>
+                                <Button
+                                    startIcon={
+                                        <DeleteIcon
+                                            sx={{
+                                                fontSize: '24px',
+                                                color: '#fff',
+                                            }}
+                                        />
+                                    }
+                                    sx={{
+                                        fontSize: '16px',
+                                        textTransform: 'initial',
+                                        color: '#fff',
+                                        fontWeight: 'normal',
+                                        transition:
+                                            'background-color 0.3s ease, color 0.3s ease, transform 0.3s ease',
+                                        '&:hover': {
+                                            color: theme.palette.text.secondary,
+                                            fontWeight: 'bold',
+                                            // change color for icon
+                                            '& .MuiSvgIcon-root': {
+                                                color: theme.palette.text.secondary,
+                                            },
+                                        },
+                                    }}
+                                >
+                                    Delete
+                                </Button>
+                            </Box>
+                        </Box>
+
+                        {index !== productsList.length - 1 && (
+                            <Divider sx={{ bgcolor: '#333', my: 2 }} />
+                        )}
+                    </Box>
+                ))}
             </Box>
         </>
     );

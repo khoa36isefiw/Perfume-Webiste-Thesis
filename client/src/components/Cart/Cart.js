@@ -9,10 +9,11 @@ import Promocode from './Promocode';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import { ProductInCart } from './ProductInCart';
 import { SummaryRowInCart } from './SummaryRowInCart';
-import { CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { useSelector } from 'react-redux';
 
 function Cart() {
+    const productAdded = useSelector((state) => state.cartManagement.productInfor);
+    console.log('productAdded', productAdded);
     const navigate = useNavigate();
     return (
         <Container>
@@ -60,7 +61,7 @@ function Cart() {
 
                 <Grid container spacing={4} sx={{ ml: '-16px' }}>
                     <Grid item xs={12} lg={8}>
-                        <ProductInCart />
+                        <ProductInCart productsList={productAdded} />
                     </Grid>
                     <Grid item xs={12} lg={4}>
                         <Box
@@ -90,8 +91,6 @@ function Cart() {
                                 <Promocode textAction={'Apply'} />
                             </Box>
 
-                            <CustomizeHoverButtonV2 textAction={'Apply'} />
-
                             <CustomizeDividerV2 />
                             <SummaryRowInCart label="Subtotal" value="69.69" isTotal />
                             <SummaryRowInCart label="Discount" discount={'20%'} value="13.94" />
@@ -112,26 +111,6 @@ function Cart() {
                                 // hide animation
                                 isReverseAnimation={true}
                             />
-                            {/* <NotificationMessage
-                                msgType={'success'}
-                                msgTitle={'Success Title'}
-                                msgContent={'Content'}
-                            />
-                            <NotificationMessage
-                                msgType={'warning'}
-                                msgTitle={'warning Title'}
-                                msgContent={'Content'}
-                            />
-                            <NotificationMessage
-                                msgType={'infor'}
-                                msgTitle={'infor Title'}
-                                msgContent={'Content'}
-                            />
-                            <NotificationMessage
-                                msgType={'error'}
-                                msgTitle={'error Title'}
-                                msgContent={'Content'}
-                            /> */}
                         </Box>
                     </Grid>
                 </Grid>
