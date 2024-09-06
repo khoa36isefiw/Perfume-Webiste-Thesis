@@ -1,14 +1,4 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    Container,
-    Divider,
-    Grid,
-    IconButton,
-    Rating,
-    Typography,
-} from '@mui/material';
+import { Avatar, Box, Button, Container, Divider, Grid, IconButton, Rating } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -18,11 +8,21 @@ import { theme } from '../../Theme/Theme';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { quickViewImage } from './perfumeDetailData';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    addToCart,
+    increaseQuantity,
+} from '../../redux/feature/CartManagement/CartManagementSlice';
 
 function PerfumeDetail() {
     const location = useLocation();
+    const dispatch = useDispatch();
     // get the perfume data passed from navigation
     const { perfume } = location.state || {};
+
+    // get list product added to cart
+    const cartItems = useSelector((state) => state.cartManagement);
+    console.log('cartItems: ', cartItems);
 
     console.log('length of list: ', quickViewImage.length);
     const [selectedImage, setSelectedImage] = React.useState(0);
@@ -39,8 +39,32 @@ function PerfumeDetail() {
         setSelectedImage((prevIndex) => (prevIndex + 1) % quickViewImage.length);
     };
 
-    console.log('setSelectedImage', selectedImage);
-    console.log('perfume: ', perfume);
+    useEffect(() => {}, [perfume]);
+
+    const handleAddProduct = (productInfor) => {
+        const existingItem = cartItems.productInfor.find(
+            (item) => item.id === productInfor.perfumeID,
+        );
+        const productToDispatch = {
+            perfumeID: productInfor.perfumeID,
+            perfumeName: productInfor.perfumeName,
+            perfumePrice: productInfor.perfumePriceVND,
+            perfumePriceDiscount: productInfor.perfumePriceDiscount,
+            perfumeImage: productInfor.perfumeImage,
+            perfumeQuantity: 1,
+        };
+
+        console.log('product is: ', productToDispatch);
+        // check, is product existed in cart items?
+        if (cartItems.productInfor !== null) {
+            // exists in cart items
+            if (existingItem) {
+                dispatch(increaseQuantity(productInfor.perfumeID));
+            } else {
+                dispatch(addToCart({ ...productInfor, productToDispatch }));
+            }
+        }
+    };
 
     return (
         <Container sx={{ mt: 16 }}>
@@ -301,7 +325,10 @@ function PerfumeDetail() {
                             )}
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', my: 2 }}>
-                            <CustomizeButtonOutlined textAction={'Add to cart'} />
+                            <CustomizeButtonOutlined
+                                textAction={'Add to cart'}
+                                onHandleClick={() => handleAddProduct(perfume)}
+                            />
                             {/* <CustomizeButton textAction={'Add to cart'} /> */}
                             <Box sx={{ ml: 2 }}>
                                 <CustomizeButton textAction={'Buy Now'} />
