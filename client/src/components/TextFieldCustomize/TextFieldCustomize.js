@@ -121,12 +121,13 @@ export const TextFieldLogin = ({
     placeholder,
     onHandleKeyDown,
     disabled = false,
+    fullWidth = true,
 }) => {
     return (
         <TextField
             disabled={disabled}
             variant="outlined"
-            fullWidth
+            fullWidth={fullWidth}
             placeholder={placeholder}
             value={inputValue}
             // value current value in text field
