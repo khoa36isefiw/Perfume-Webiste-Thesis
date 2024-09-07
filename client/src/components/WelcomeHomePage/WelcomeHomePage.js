@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 import bg from '../../assets/images/welcome-note-hp.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import { scrollAppearingAnimation } from '../AnimationEffects/AnimationEffects';
 
 function WelcomeHomePage() {
@@ -24,7 +24,11 @@ function WelcomeHomePage() {
                 // happeans only when the particular element is visible on the screen
                 // animationTimeline: 'view()',
                 // animationRange: 'entry 30% cover 60%',
-                ...scrollAppearingAnimation,
+                // ...scrollAppearingAnimation,
+                [mobileScreen]: {
+                    height: '600px',
+                    backgroundPosition: 'center',
+                },
             }}
         >
             {/* make overlay above background image */}
@@ -48,6 +52,13 @@ function WelcomeHomePage() {
                     transform: 'translate(50%,-50%)',
                     textAlign: 'center',
                     zIndex: 2,
+                    [mobileScreen]: {
+                        top: '5%',
+                        right: 0,
+                        transform: 'translate(0%,0%)',
+                        textAlign: 'justify',
+                        p: 2,
+                    },
                 }}
             >
                 <CustomizeTypography
@@ -56,6 +67,10 @@ function WelcomeHomePage() {
                         fontSize: '46px',
                         fontWeight: 'bold',
                         color: theme.palette.secondaryText,
+                        [mobileScreen]: {
+                            fontSize: '28px',
+                            textAlign: 'center',
+                        },
                     }}
                 >
                     Welcome to Tomtoc Perfumes

@@ -633,7 +633,7 @@ export const blogContent = {
                 <Grid container spacing={4}>
                     {blogData.map((blog, index) => (
                         <Grid
-                            key={index}
+                            key={blog.blogDataID}
                             container
                             spacing={4}
                             sx={{ mt: 4, display: 'flex', alignItems: 'center' }}
@@ -650,8 +650,9 @@ export const blogContent = {
                                     >
                                         {blog.blogDetailContentTitle}
                                     </CustomizeTypographyBlog>
-                                    {blog.blogDetailContentText?.map((text, index) => (
+                                    {blog.blogDetailContentText?.map((text, indexText) => (
                                         <CustomizeTypographyBlog
+                                            key={indexText}
                                             sx={{
                                                 textAlign: 'justify',
                                                 mb: 2,

@@ -3,6 +3,7 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import saleOff from '../../assets/images/hp_sell_of.png';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
+import { mobileScreen, theme } from '../../Theme/Theme';
 
 function SaleOff() {
     return (
@@ -16,6 +17,11 @@ function SaleOff() {
                 my: 8,
                 p: 2,
                 // border: '1px solid #d1d1d1',
+                [mobileScreen]: {
+                    p: 0,
+                    height: '100%',
+                    width: '100%',
+                },
             }}
         >
             <Box sx={{ mt: 4, p: 4 }}>
@@ -25,6 +31,10 @@ function SaleOff() {
                         fontWeight: 'bold',
                         width: '40%',
                         mb: 2,
+                        [mobileScreen]: {
+                            width: '80%',
+                            fontSize: theme.fontSize.mobile.heading,
+                        },
                     }}
                 >
                     Perfume Year-End Sale! Up to 50%
@@ -34,6 +44,9 @@ function SaleOff() {
                         fontSize: '16px',
                         mb: 4,
                         width: '40%',
+                        [mobileScreen]: {
+                            width: '60%',
+                        },
                     }}
                 >
                     OFF Discover an exquisite collection of premium perfumes at unbelievable prices

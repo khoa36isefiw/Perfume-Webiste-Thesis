@@ -13,6 +13,7 @@ import {
     addToCart,
     increaseQuantity,
 } from '../../redux/feature/CartManagement/CartManagementSlice';
+import { converToVND } from '../convertToVND/convertToVND';
 
 function PerfumeDetail() {
     const location = useLocation();
@@ -310,7 +311,7 @@ function PerfumeDetail() {
                                 sx={{ textDecoration: perfume.discount ? 'line-through' : null }}
                             >
                                 {/* 10.500.000 ₫ */}
-                                {perfume.perfumePriceVND}đ
+                                {converToVND(perfume.perfumePriceVND)}
                             </CustomizeTypography>
                             {/* price sale off */}
                             {perfume.discount && perfume.perfumePriceDiscount !== null && (
@@ -322,7 +323,7 @@ function PerfumeDetail() {
                                     }}
                                 >
                                     {/* 9.980.000 ₫ */}
-                                    {perfume.perfumePriceDiscount}đ
+                                    {converToVND(perfume.perfumePriceDiscount)}
                                 </CustomizeTypography>
                             )}
                         </Box>

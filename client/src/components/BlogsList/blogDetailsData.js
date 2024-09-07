@@ -1,5 +1,6 @@
 export const blogData = [
     {
+        blogDataID: 1,
         blogDetailContentTitle: 'Tangy treasures',
         blogDetailContentImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/03/Cedre-Blond.png',
@@ -11,6 +12,7 @@ export const blogData = [
         ],
     },
     {
+        blogDataID: 2,
         blogDetailContentTitle: 'Woodland warmth',
         blogDetailContentImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/09/EPC-limited-edition-fragrance-Soleil-dhiver-2.jpg',
@@ -21,6 +23,7 @@ export const blogData = [
         ],
     },
     {
+        blogDataID: 3,
         blogDetailContentTitle: 'Festive Nuts',
         blogDetailContentImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/03/Cedre-Blond.png',

@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 
 function Cart() {
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
-    console.log('productAdded', productAdded);
+    // console.log('productAdded', productAdded);
     const navigate = useNavigate();
     return (
         <Container>

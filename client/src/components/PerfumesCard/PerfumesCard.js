@@ -7,6 +7,7 @@ import Rating from '@mui/material/Rating';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import BoltIcon from '@mui/icons-material/Bolt';
+import { converToVND } from '../convertToVND/convertToVND';
 
 function PerfumesCard() {
     const navigate = useNavigate();
@@ -154,7 +155,7 @@ function PerfumesCard() {
                                         }}
                                     >
                                         {/* 3.280.000 */}
-                                        {perfume.perfumePriceVND}
+                                        {converToVND(perfume.perfumePriceVND)}
                                     </CustomizeTypography>
 
                                     {perfume.discount && (
@@ -167,7 +168,7 @@ function PerfumesCard() {
                                             }}
                                         >
                                             {/* 2.280.000 */}
-                                            {perfume.perfumePriceDiscount}
+                                            {converToVND(perfume.perfumePriceDiscount)}
                                         </CustomizeTypography>
                                     )}
                                 </Box>
