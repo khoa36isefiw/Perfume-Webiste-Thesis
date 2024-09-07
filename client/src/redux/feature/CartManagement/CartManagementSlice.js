@@ -13,7 +13,7 @@ export const cartManagementSlice = createSlice({
             console.log('state: ', state);
             const product = action.payload;
             const existingProduct = state.productInfor.find(
-                (item) => item.id === product.perfumeID,
+                (item) => item.perfumeID === product.perfumeID,
             );
             if (existingProduct) {
                 // if product is exisited, increase the quantity
@@ -25,11 +25,11 @@ export const cartManagementSlice = createSlice({
         },
         removeProduct: (state, action) => {
             const productId = action.payload;
-            state.productInfor = state.productInfor.filter((item) => item.id === productId);
+            state.productInfor = state.productInfor.filter((item) => item.perfumeID === productId);
         },
         increaseQuantity: (state, action) => {
             const productId = action.payload;
-            const existingProduct = state.productInfor.find((item) => item.id === productId);
+            const existingProduct = state.productInfor.find((item) => item.perfumeID === productId);
             if (existingProduct) {
                 existingProduct.quantity += 1;
             }
