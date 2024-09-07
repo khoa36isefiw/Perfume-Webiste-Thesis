@@ -72,6 +72,14 @@ export const theme = createTheme({
             xl: 1025, // Extra large devices (large laptops and desktops, 1025px and up)
         },
     },
+    fontSize: {
+        mobile: {
+            heading: 28,
+            text: 18,
+            normal: 16,
+        },
+        tablet: {},
+    },
 });
 
 export const mobileScreen = `@media only screen and (max-width: ${theme.breakpoints.values.sm}px)`;

@@ -5,8 +5,8 @@ export const perfumeData = [
         perfumeName: 'Homme Intense',
         perfumeRating: 3,
         numberOfRating: '10',
-        perfumePriceVND: '3.280.000',
-        perfumePriceDiscount: '2.788.000', // 15% off
+        perfumePriceVND: 3280000,
+        perfumePriceDiscount: 2788000, // 15% off
         discount: true,
         flashSale: true,
         flashSaleNumber: 25,
@@ -53,7 +53,7 @@ export const perfumeData = [
         perfumeName: 'Allure Homme Sport Eau Extreme',
         perfumeRating: 5,
         numberOfRating: '9',
-        perfumePriceVND: '3.780.000',
+        perfumePriceVND: 3780000,
         perfumePriceDiscount: '', // No discount
         discount: false,
         flashSale: false,
@@ -98,7 +98,7 @@ export const perfumeData = [
         perfumeName: 'Allure Homme Sport',
         perfumeRating: 3,
         numberOfRating: '8',
-        perfumePriceVND: '3.480.000',
+        perfumePriceVND: 3480000,
         perfumePriceDiscount: '',
         discount: false,
         flashSale: false,
@@ -143,7 +143,7 @@ export const perfumeData = [
         perfumeName: 'Sauvage EDT',
         perfumeRating: 2,
         numberOfRating: '11',
-        perfumePriceVND: '3.380.000',
+        perfumePriceVND: 3380000,
         perfumePriceDiscount: '',
         discount: false,
         flashSale: false,
@@ -189,8 +189,8 @@ export const perfumeData = [
         perfumeName: 'Homme Intense',
         perfumeRating: 3,
         numberOfRating: '2',
-        perfumePriceVND: '3.280.000',
-        perfumePriceDiscount: '2.788.000', // 15% off
+        perfumePriceVND: 3280000,
+        perfumePriceDiscount: 2788000, // 15% off
         discount: true,
         flashSale: false,
         flashSaleNumber: 25,
@@ -234,7 +234,7 @@ export const perfumeData = [
         perfumeName: 'Allure Homme Sport Eau Extreme',
         perfumeRating: 4, // ??? stars?
         numberOfRating: '12', // total of stars???
-        perfumePriceVND: '3.780.000',
+        perfumePriceVND: 3780000,
         perfumePriceDiscount: '', // 15% off
         discount: false,
         flashSale: true,
@@ -279,8 +279,8 @@ export const perfumeData = [
         perfumeName: 'Allure Homme Sport',
         perfumeRating: 5,
         numberOfRating: '23',
-        perfumePriceVND: '3.480.000',
-        perfumePriceDiscount: '3.062.400',
+        perfumePriceVND: 3480000,
+        perfumePriceDiscount: 3006400,
         discount: true,
         flashSale: true,
         flashSaleNumber: 25,
@@ -324,7 +324,7 @@ export const perfumeData = [
         perfumeName: 'Sauvage EDT',
         perfumeRating: 4,
         numberOfRating: '12',
-        perfumePriceVND: '3.380.000',
+        perfumePriceVND: 3380000,
         perfumePriceDiscount: '',
         discount: false,
         flashSale: true,

@@ -13,6 +13,7 @@ import {
     addToCart,
     increaseQuantity,
 } from '../../redux/feature/CartManagement/CartManagementSlice';
+import { converToVND } from '../convertToVND/convertToVND';
 
 function PerfumeDetail() {
     const location = useLocation();
@@ -21,7 +22,7 @@ function PerfumeDetail() {
     const { perfume } = location.state || {};
 
     // get list product added to cart
-    const cartItems = useSelector((state) => state.cartManagement);
+    const cartItems = useSelector((state) => state.cartManagement.productInfor);
     console.log('cartItems: ', cartItems);
 
     console.log('length of list: ', quickViewImage.length);
@@ -42,9 +43,7 @@ function PerfumeDetail() {
     useEffect(() => {}, [perfume]);
 
     const handleAddProduct = (productInfor) => {
-        const existingItem = cartItems.productInfor.find(
-            (item) => item.id === productInfor.perfumeID,
-        );
+        const existingItem = cartItems.find((item) => item.perfumeID === productInfor.perfumeID);
         const productToDispatch = {
             perfumeID: productInfor.perfumeID,
             perfumeName: productInfor.perfumeName,
@@ -55,13 +54,17 @@ function PerfumeDetail() {
         };
 
         console.log('product is: ', productToDispatch);
+        console.log('existingItem: ', existingItem);
         // check, is product existed in cart items?
-        if (cartItems.productInfor !== null) {
+        if (cartItems !== null) {
             // exists in cart items
             if (existingItem) {
+                console.log('chạy vô đây không');
                 dispatch(increaseQuantity(productInfor.perfumeID));
             } else {
-                dispatch(addToCart({ ...productInfor, productToDispatch }));
+                console.log('chạy vô đây');
+
+                dispatch(addToCart({ ...productToDispatch }));
             }
         }
     };
@@ -308,7 +311,7 @@ function PerfumeDetail() {
                                 sx={{ textDecoration: perfume.discount ? 'line-through' : null }}
                             >
                                 {/* 10.500.000 ₫ */}
-                                {perfume.perfumePriceVND}đ
+                                {converToVND(perfume.perfumePriceVND)}
                             </CustomizeTypography>
                             {/* price sale off */}
                             {perfume.discount && perfume.perfumePriceDiscount !== null && (
@@ -320,7 +323,7 @@ function PerfumeDetail() {
                                     }}
                                 >
                                     {/* 9.980.000 ₫ */}
-                                    {perfume.perfumePriceDiscount}đ
+                                    {converToVND(perfume.perfumePriceDiscount)}
                                 </CustomizeTypography>
                             )}
                         </Box>

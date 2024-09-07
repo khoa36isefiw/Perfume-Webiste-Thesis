@@ -3,8 +3,22 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useDispatch } from 'react-redux';
+import {
+    increaseQuantity,
+    removeProduct,
+} from '../../redux/feature/CartManagement/CartManagementSlice';
+import { converToVND } from '../convertToVND/convertToVND';
 
 export const ProductInCart = ({ productsList }) => {
+    console.log('Product just added: ', productsList);
+    const dispatch = useDispatch();
+    const handleRemoveProductInCart = (productId) => {
+        dispatch(removeProduct(productId));
+    };
+    const handleIncreaseProduct = (productId) => {
+        dispatch(increaseQuantity(productId));
+    };
     return (
         <>
             {/* First Product - In Stock */}
@@ -333,7 +347,12 @@ export const ProductInCart = ({ productsList }) => {
                                     <CustomizeTypography
                                         sx={{ display: 'flex', alignItems: 'center' }}
                                     >
-                                        <span>{item.perfumePriceVND}đ</span>
+                                        <span>
+                                            {item.perfumePrice.toLocaleString('it-IT', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                            })}
+                                        </span>
                                         <Box
                                             sx={{
                                                 height: '20px',
@@ -395,6 +414,7 @@ export const ProductInCart = ({ productsList }) => {
                                                 },
                                                 cursor: 'pointer',
                                             }}
+                                            // onClick={handleIncreaseProduct(item.perfumeID)}
                                         >
                                             +
                                         </CustomizeTypography>
@@ -410,8 +430,11 @@ export const ProductInCart = ({ productsList }) => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <CustomizeTypography>{item.perfumePriceVND}đ</CustomizeTypography>
+                                <CustomizeTypography>
+                                    {converToVND(item.quantity * item.perfumePrice)}
+                                </CustomizeTypography>
                                 <Button
+                                    onClick={() => handleRemoveProductInCart(item.perfumeID)}
                                     startIcon={
                                         <DeleteIcon
                                             sx={{

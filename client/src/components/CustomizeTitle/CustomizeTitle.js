@@ -1,6 +1,6 @@
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 
 function CustomizeTitle({ heading }) {
     return (
@@ -11,6 +11,10 @@ function CustomizeTitle({ heading }) {
                 color: theme.palette.secondaryText,
                 textAlign: 'center',
                 mb: 4,
+                [mobileScreen]: {
+                    fontSize: theme.fontSize.mobile.heading,
+                    mb: 0,
+                },
             }}
         >
             {heading}
