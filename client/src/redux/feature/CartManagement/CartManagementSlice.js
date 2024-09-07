@@ -25,7 +25,7 @@ export const cartManagementSlice = createSlice({
         },
         removeProduct: (state, action) => {
             const productId = action.payload;
-            state.productInfor = state.productInfor.filter((item) => item.perfumeID === productId);
+            state.productInfor = state.productInfor.filter((item) => item.perfumeID !== productId);
         },
         increaseQuantity: (state, action) => {
             const productId = action.payload;
