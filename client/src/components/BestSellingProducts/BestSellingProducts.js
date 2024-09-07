@@ -1,42 +1,45 @@
 import { Avatar, Box, Container, Grid, IconButton } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import Slider from 'react-slick';
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-
-import bestSelling1 from '../../assets/images/bs_hp_1.png';
-import bestSelling2 from '../../assets/images/bs_hp_2.png';
-import bestSelling3 from '../../assets/images/bs_hp_3.png';
-import bestSelling4 from '../../assets/images/bs_hp_4.png';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const perfumesData = [
     {
-        perfumeUrl: bestSelling1,
-        perfumeName: 'Golden',
+        perfumeUrl:
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
+
+        perfumeName: 'Homme Intense',
         perfumePrice: '220.00',
         perfumeCapacity: '100',
     },
     {
-        perfumeUrl: bestSelling2,
-        perfumeName: 'Owl',
+        perfumeUrl:
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
+
+        perfumeName: 'Allure Homme Sport Eau Extreme',
         perfumePrice: '160.00',
         perfumeCapacity: '100',
     },
     {
-        perfumeUrl: bestSelling3,
-        perfumeName: 'Solutions',
+        perfumeUrl:
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
+
+        perfumeName: 'Allure Homme Sport',
         perfumePrice: '250.00',
         perfumeCapacity: '100',
     },
     {
-        perfumeUrl: bestSelling4,
-        perfumeName: 'Golden',
+        perfumeUrl:
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Sauvage_EDT_vucd51.png',
+
+        perfumeName: 'Sauvage EDT',
         perfumePrice: '220.00',
         perfumeCapacity: '100',
     },
@@ -69,13 +72,23 @@ function BestSellingProducts() {
     };
 
     return (
-        <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
+        <Container
+            sx={{
+                my: theme.spacingAxis.boxVerticalAxis,
+                [mobileScreen]: {
+                    mt: 10,
+                },
+            }}
+        >
             <CustomizeTypography
                 sx={{
                     fontSize: '46px',
                     color: theme.palette.secondaryText,
                     fontWeight: 'bold',
                     textAlign: 'center',
+                    [mobileScreen]: {
+                        fontSize: theme.fontSize.mobile.heading,
+                    },
                 }}
             >
                 Best Selling Products
