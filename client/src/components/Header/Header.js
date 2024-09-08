@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, IconButton, Menu, MenuItem } from '@mui/material';
+import {
+    Box,
+    Container,
+    IconButton,
+    Menu,
+    MenuItem,
+    List,
+    ListItem,
+    ListItemText,
+    Drawer,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import SearchIcon from '@mui/icons-material/Search';
@@ -31,13 +41,12 @@ function Header() {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
 
     function handleWindowSizeChange() {
-        if (window.innerWidth < 739) {
-            setIsMobile(true);
-        }
+        setIsMobile(window.innerWidth < 739);
     }
+
     useEffect(() => {
         window.addEventListener('resize', handleWindowSizeChange);
         return () => {
@@ -76,6 +85,9 @@ function Header() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
+                [mobileScreen]: {
+                    width: '100%',
+                },
             }}
         >
             <Container
@@ -90,6 +102,7 @@ function Header() {
                             fontSize: theme.fontSize.mobile.text,
                         },
                     }}
+                    onClick={() => navigate('/')}
                 >
                     Tomtoc Perfumes
                 </CustomizeTypography>
