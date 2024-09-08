@@ -42,6 +42,7 @@ function Header() {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
@@ -69,6 +70,11 @@ function Header() {
     const handleMenuClick = (path) => {
         navigate(path);
         handleMenuClose();
+    };
+
+    // open menu for mobile
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
     };
 
     return (
@@ -109,7 +115,7 @@ function Header() {
                 {/* Menu for mobile */}
 
                 {isMobile ? (
-                    <IconButton>
+                    <IconButton onClick={toggleMenu}>
                         <MenuIcon sx={{ fontSize: '32px', color: '#fff' }} />
                     </IconButton>
                 ) : (
@@ -204,6 +210,61 @@ function Header() {
                         My Account
                     </MenuItem>
                 </Menu>
+
+                <Drawer
+                    anchor="left" // menu will appear on left
+                    open={isMenuOpen}
+                    onClose={toggleMenu} // close menu when clicking outside
+                    sx={{
+                        '.MuiPaper-root': {
+                            bgcolor: '#555 ',
+                        },
+                    }}
+                >
+                    <Box
+                        sx={{ width: 250, bgcolor: '#555 ' }}
+                        role="presentation"
+                        onClick={toggleMenu} // Đóng menu khi click vào một mục trong menu
+                        onKeyDown={toggleMenu}
+                    >
+                        {headerData.map((header, index) => (
+                            <Box
+                                key={index}
+                                sx={{
+                                    padding: '16px',
+                                    '&:hover': {
+                                        backgroundColor: theme.palette.background.default,
+                                        cursor: 'pointer',
+                                    },
+                                }}
+                                onClick={() => navigate(header.headerLink)}
+                            >
+                                <CustomizeTypography sx={{ fontSize: '16px' }}>
+                                    {header.headerText}
+                                </CustomizeTypography>
+                            </Box>
+                        ))}
+                        {/* Display action buttons at the bottom */}
+                        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+                            {headerActionButton.map((action, index) => (
+                                <IconButton
+                                    key={index}
+                                    onClick={() => navigate(action.headerIconDest)}
+                                    sx={{
+                                        color: 'black',
+                                        mr: 1,
+                                        '&:hover': {
+                                            cursor: 'pointer',
+                                            fontWeight: 'bold',
+                                        },
+                                    }}
+                                >
+                                    {action.headerIcon}
+                                </IconButton>
+                            ))}
+                        </Box>
+                    </Box>
+                </Drawer>
             </Container>
         </Box>
     );

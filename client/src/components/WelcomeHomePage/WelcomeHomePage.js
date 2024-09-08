@@ -77,7 +77,7 @@ function WelcomeHomePage() {
                         fontWeight: 'bold',
                         color: theme.palette.secondaryText,
                         [mobileScreen]: {
-                            fontSize: '28px',
+                            fontSize: theme.fontSize.mobile.heading,
                             textAlign: 'center',
                         },
                     }}
