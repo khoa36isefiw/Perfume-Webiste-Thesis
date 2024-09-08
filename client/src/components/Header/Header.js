@@ -28,12 +28,25 @@ const headerData = [
 ];
 
 const headerActionButton = [
-    { headerIcon: <SearchIcon sx={{ fontSize: '24px' }} />, headerIconDest: '/search' },
-    { headerIcon: <PersonIcon sx={{ fontSize: '24px' }} />, headerIconDest: '/sign-in' },
-    { headerIcon: <FavoriteIcon sx={{ fontSize: '24px' }} />, headerIconDest: '/favorite-list' },
+    {
+        headerIcon: <SearchIcon sx={{ fontSize: '24px' }} />,
+        headerIconDest: '/search',
+        des: 'Search',
+    },
+    {
+        headerIcon: <PersonIcon sx={{ fontSize: '24px' }} />,
+        headerIconDest: '/sign-in',
+        des: 'Sign In',
+    },
+    {
+        headerIcon: <FavoriteIcon sx={{ fontSize: '24px' }} />,
+        headerIconDest: '/favorite-list',
+        des: 'Favorite',
+    },
     {
         headerIcon: <ShoppingCartIcon sx={{ fontSize: '24px' }} />,
         headerIconDest: '/shopping-cart',
+        des: 'Cart',
     },
 ];
 
@@ -222,16 +235,15 @@ function Header() {
                     }}
                 >
                     <Box
-                        sx={{ width: 250, bgcolor: '#555 ' }}
+                        sx={{ width: 250, bgcolor: '#555', padding: 2 }}
                         role="presentation"
                         onClick={toggleMenu} // Đóng menu khi click vào một mục trong menu
-                        onKeyDown={toggleMenu}
                     >
                         {headerData.map((header, index) => (
                             <Box
                                 key={index}
                                 sx={{
-                                    padding: '16px',
+                                    padding: '8px',
                                     '&:hover': {
                                         backgroundColor: theme.palette.background.default,
                                         cursor: 'pointer',
@@ -239,27 +251,40 @@ function Header() {
                                 }}
                                 onClick={() => navigate(header.headerLink)}
                             >
-                                <CustomizeTypography sx={{ fontSize: '16px' }}>
+                                <CustomizeTypography sx={{ fontSize: '16px', fontWeight:'bold' }}>
                                     {header.headerText}
                                 </CustomizeTypography>
                             </Box>
                         ))}
                         {/* Display action buttons at the bottom */}
-                        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+
+                        <Box
+                            sx={{
+                                mt: 2,
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                justifyContent: 'flex-start',
+                                flexDirection: 'column',
+                            }}
+                        >
                             {headerActionButton.map((action, index) => (
                                 <IconButton
                                     key={index}
                                     onClick={() => navigate(action.headerIconDest)}
                                     sx={{
-                                        color: 'black',
+                                        color: '#fff',
                                         mr: 1,
+                                        mb: 2,
                                         '&:hover': {
                                             cursor: 'pointer',
                                             fontWeight: 'bold',
                                         },
                                     }}
                                 >
-                                    {action.headerIcon}
+                                    {action.headerIcon}{' '}
+                                    <CustomizeTypography sx={{ mb: 0, fontWeight: 'bold', ml: 2 }}>
+                                        {action.des}
+                                    </CustomizeTypography>
                                 </IconButton>
                             ))}
                         </Box>
