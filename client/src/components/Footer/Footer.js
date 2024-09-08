@@ -10,7 +10,7 @@ import {
 } from './footerData';
 import Copyrights from '../Copyrights/Copyrights';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 
 function Footer() {
     return (
@@ -23,10 +23,17 @@ function Footer() {
                 minHeight: '100px',
             }}
         >
-            <Container sx={{ p: 4 }}>
+            <Container
+                sx={{
+                    p: 4,
+                    [mobileScreen]: {
+                        p: 1,
+                    },
+                }}
+            >
                 <Grid container>
                     {/* subscribe */}
-                    <Grid item lg={4}>
+                    <Grid item xs={12} sm={12} md={4} lg={4}>
                         <CustomizeTypography
                             sx={{
                                 fontSize: '20px',
@@ -85,7 +92,7 @@ function Footer() {
 
                     {/* filter  */}
                     <Grid container item lg={8}>
-                        <Grid item lg={4}>
+                        <Grid item xs={6} sm={4} md={4} lg={4}>
                             <CustomizeTypography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
                                 Shopping
                             </CustomizeTypography>
@@ -96,7 +103,7 @@ function Footer() {
                             ))}
                         </Grid>
 
-                        <Grid item lg={4}>
+                        <Grid item xs={6} sm={4} md={4} lg={4}>
                             <CustomizeTypography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
                                 Customer care
                             </CustomizeTypography>
@@ -106,7 +113,7 @@ function Footer() {
                                 </CustomizeTypography>
                             ))}
                         </Grid>
-                        <Grid item lg={4}>
+                        <Grid item xs={6} sm={4} md={4} lg={4}>
                             <CustomizeTypography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
                                 Pages
                             </CustomizeTypography>
