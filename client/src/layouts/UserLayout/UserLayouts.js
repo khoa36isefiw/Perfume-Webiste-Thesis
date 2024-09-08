@@ -7,7 +7,7 @@ import BackToTop from '../../components/ScrollTop/ScrollTop';
 
 function UserLayouts({ children }) {
     return (
-        <Box sx={{ minHeight: '100vh', bgcolor: '#000' }}>
+        <Box sx={{ minHeight: '100vh', width: '100vw', bgcolor: '#000' }}>
             {/* pre-defined layout */}
             <Header />
             {/* any components call this layout */}
