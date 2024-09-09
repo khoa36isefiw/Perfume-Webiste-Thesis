@@ -60,6 +60,7 @@ export const theme = createTheme({
     },
     spacingAxis: {
         boxVerticalAxis: 8,
+        boxVerticalAxis16: 16,
     },
 
     // breakpoints for responsive
@@ -78,7 +79,8 @@ export const theme = createTheme({
             text: 18,
             normal: 16,
         },
-        tablet: {},
+        tablet: { heading: 32, text: 18, normal: 16 },
+        ipadPro: { heading: 36, text: 18, normal: 16 },
     },
 });
 
