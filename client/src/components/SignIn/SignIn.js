@@ -31,6 +31,7 @@ function SignIn() {
                             fontSize: '48px',
                             fontWeight: 'bold',
                             textAlign: 'center',
+                            color: theme.palette.text.secondary,
                             [ipadProScreen]: {
                                 fontSize: theme.fontSize.ipadPro.heading,
                             },
