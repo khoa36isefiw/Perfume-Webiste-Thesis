@@ -1,5 +1,5 @@
-import { Box, Button, Divider } from '@mui/material';
-import React from 'react';
+import { Box, Button, Divider, Typography } from '@mui/material';
+import React, { useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -10,16 +10,32 @@ import {
     removeProduct,
 } from '../../redux/feature/CartManagement/CartManagementSlice';
 import { converToVND } from '../convertToVND/convertToVND';
+import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
+import WarningIcon from '@mui/icons-material/Warning';
 
 export const ProductInCart = ({ productsList }) => {
-    console.log('Product just added: ', productsList);
+    const [productToRemove, setProductToRemove] = useState(null);
+    const [openConfirmMessage, setOpenConfirmMessage] = React.useState(false);
+
+    const handleConfirmDisagree = () => {
+        setOpenConfirmMessage(false);
+        setProductToRemove(null);
+    };
+    const handleConfirmAgree = () => {
+        if (productToRemove) {
+            dispatch(removeProduct(productToRemove)); // remove product
+        }
+
+        setOpenConfirmMessage(false);
+        setProductToRemove(null);
+    };
+
     const dispatch = useDispatch();
     const handleRemoveProductInCart = (productId) => {
-        dispatch(removeProduct(productId));
+        setOpenConfirmMessage(true);
+        setProductToRemove(productId); // store product is removed
     };
-    const handleIncreaseProduct = (productId) => {
-        dispatch(increaseQuantity(productId));
-    };
+
     return (
         <>
             {/* First Product - In Stock */}
@@ -307,6 +323,7 @@ export const ProductInCart = ({ productsList }) => {
                             Delete
                         </Button>
                     </Box>
+                    <ConfirmMessage />
                 </Box>
 
                 {/* render list product added  */}
@@ -476,6 +493,40 @@ export const ProductInCart = ({ productsList }) => {
                         )}
                     </Box>
                 ))}
+
+                {/* Open Confirm Message */}
+                <ConfirmMessage
+                    openConfirmMessage={openConfirmMessage}
+                    msgTitle={
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <WarningIcon
+                                sx={{
+                                    color: theme.icon.color.primary,
+                                    fontSize: theme.icon.size.desktop,
+                                }}
+                            />
+                            <CustomizeTypography
+                                sx={{
+                                    color: theme.palette.text.main,
+                                    fontSize: '18px',
+                                    mb: 0,
+                                    ml: 2,
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                Delete Products
+                            </CustomizeTypography>
+                        </Box>
+                    }
+                    msgContent={
+                        <Typography sx={{ fontSize: '16px' }}>
+                            Are you sure you want to delete this product?
+                        </Typography>
+                    }
+                    onHandleClickClose={() => setOpenConfirmMessage(false)}
+                    onHandleConfirmAgree={handleConfirmAgree}
+                    onHandleConfirmDisagree={handleConfirmDisagree}
+                />
             </Box>
         </>
     );
