@@ -52,19 +52,33 @@ function Footer() {
                                 [tabletScreen]: {
                                     width: '100%',
                                 },
+                                [mobileScreen]: {
+                                    width: '100%',
+                                },
                             }}
                         >
                             <CustomizeTypography>
                                 Receive Updates on New Arrivals and Special Promotions!
                             </CustomizeTypography>
                         </Box>
-                        <Box sx={{ py: 1 }}>
-                            {/* <TextFieldCustomize
+                        <Box
+                            sx={{
+                                py: 1,
+                                [mobileScreen]: {
+                                    display: 'flex',
+                                },
+                            }}
+                        >
+                            <TextFieldCustomizeV2
+                                // default
                                 placeholder={'Your email here'}
-                                // width={'100%'}
-                                // fullWidth={true}
-                            /> */}
-                            <TextFieldCustomizeV2 placeholder={'Your email here'} />
+                                sx={{
+                                    [tabletScreen]: { width: '360px' },
+                                    [mobileScreen]: {
+                                        width: '100%',
+                                    },
+                                }}
+                            />
                             <Button
                                 variant="contained"
                                 sx={{
