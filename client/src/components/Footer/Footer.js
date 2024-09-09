@@ -9,8 +9,8 @@ import {
     shoppingFooterData,
 } from './footerData';
 import Copyrights from '../Copyrights/Copyrights';
-import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { TextFieldCustomize, TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 
 function Footer() {
     return (
@@ -46,13 +46,25 @@ function Footer() {
                         <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600' }}>
                             Subscribe to Our Newsletter:
                         </CustomizeTypography>
-                        <Box sx={{ width: '250px' }}>
+                        <Box
+                            sx={{
+                                width: '250px',
+                                [tabletScreen]: {
+                                    width: '100%',
+                                },
+                            }}
+                        >
                             <CustomizeTypography>
                                 Receive Updates on New Arrivals and Special Promotions!
                             </CustomizeTypography>
                         </Box>
                         <Box sx={{ py: 1 }}>
-                            <TextFieldCustomize placeholder={'Your email here'} />
+                            {/* <TextFieldCustomize
+                                placeholder={'Your email here'}
+                                // width={'100%'}
+                                // fullWidth={true}
+                            /> */}
+                            <TextFieldCustomizeV2 placeholder={'Your email here'} />
                             <Button
                                 variant="contained"
                                 sx={{
@@ -91,7 +103,21 @@ function Footer() {
                     </Grid>
 
                     {/* filter  */}
-                    <Grid container item lg={8}>
+                    <Grid
+                        container
+                        item
+                        sm={12}
+                        md={8}
+                        lg={8}
+                        sx={{
+                            [tabletScreen]: {
+                                mt: 2,
+                            },
+                            [mobileScreen]: {
+                                mt: 2,
+                            },
+                        }}
+                    >
                         <Grid item xs={6} sm={4} md={4} lg={4}>
                             <CustomizeTypography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
                                 Shopping
