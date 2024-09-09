@@ -12,28 +12,44 @@ import {
 import { converToVND } from '../convertToVND/convertToVND';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import WarningIcon from '@mui/icons-material/Warning';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 export const ProductInCart = ({ productsList }) => {
     const [productToRemove, setProductToRemove] = useState(null);
     const [openConfirmMessage, setOpenConfirmMessage] = React.useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
 
+    // disagree, not delete the products
     const handleConfirmDisagree = () => {
         setOpenConfirmMessage(false);
         setProductToRemove(null);
     };
+
+    // agree, delete the products
     const handleConfirmAgree = () => {
         if (productToRemove) {
             dispatch(removeProduct(productToRemove)); // remove product
         }
-
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
         setOpenConfirmMessage(false);
         setProductToRemove(null);
     };
 
     const dispatch = useDispatch();
+    // open the confirm dialog message and save the products are removed
     const handleRemoveProductInCart = (productId) => {
         setOpenConfirmMessage(true);
         setProductToRemove(productId); // store product is removed
+    };
+
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
     };
 
     return (
@@ -527,6 +543,22 @@ export const ProductInCart = ({ productsList }) => {
                     onHandleConfirmAgree={handleConfirmAgree}
                     onHandleConfirmDisagree={handleConfirmDisagree}
                 />
+
+                {/* Show Message after removing products */}
+                {showNotification && (
+                    <Box
+                        sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                        className={`animate__animated ${showAnimation}`}
+                    >
+                        <NotificationMessage
+                            msgType={'success'}
+                            msgTitle={'Delete Products'}
+                            msgContent={'Products are removed successfully from cart!'}
+                            autoHideDuration={3000} // Auto-hide after 5 seconds
+                            onClose={handleCloseNotification}
+                        />
+                    </Box>
+                )}
             </Box>
         </>
     );
