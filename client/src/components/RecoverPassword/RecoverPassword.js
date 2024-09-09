@@ -2,7 +2,7 @@ import { Box, Container, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
-import { theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeButtonV2 } from '../CustomizeButton/CustomizeButton';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
@@ -27,7 +27,25 @@ function RecoverPassword() {
         }, 1000);
     };
     return (
-        <Container sx={{ width: '50%', mt: 10 }}>
+        <Container
+            sx={{
+                width: '50%',
+                mt: 10,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center', // Center horizontally
+                justifyContent: 'center', // Center vertically
+                [ipadProScreen]: {
+                    width: '70%',
+                },
+                [tabletScreen]: {
+                    width: '80%',
+                },
+                [mobileScreen]: {
+                    width: '100%',
+                },
+            }}
+        >
             <Box>
                 <Grid container spacing={2}>
                     <Grid item lg={12}>
@@ -37,6 +55,19 @@ function RecoverPassword() {
                                 fontWeight: 'bold',
                                 textAlign: 'center',
                                 color: theme.palette.text.secondary,
+                                [ipadProScreen]: {
+                                    textAlign: 'center',
+
+                                    fontSize: theme.fontSize.ipadPro.heading,
+                                },
+                                [tabletScreen]: {
+                                    textAlign: 'center',
+                                    fontSize: theme.fontSize.tablet.heading,
+                                },
+                                [mobileScreen]: {
+                                    textAlign: 'center',
+                                    fontSize: theme.fontSize.mobile.heading,
+                                },
                             }}
                         >
                             Reset your password
@@ -56,20 +87,27 @@ function RecoverPassword() {
                                     We will send you an email to reset your password
                                 </CustomizeTypography>
                             </Grid>
-                            <Grid item xs={12} sm={6} lg={12} sx={{ p: 2 }}>
-                                <CustomizeTypography
-                                    sx={{
-                                        fontWeight: 'bold',
-                                        color: theme.palette.text.secondary,
-                                    }}
-                                >
-                                    E-mail:
-                                </CustomizeTypography>
-                                <TextFieldLogin placeholder="Email" fullWidth />
+                            <Grid item container xs={12} sm={12} md={12} lg={12} sx={{ p: 2 }}>
+                                <Grid xs={12} sm={12} md={12} lg={12}>
+                                    <CustomizeTypography
+                                        sx={{
+                                            fontWeight: 'bold',
+                                            color: theme.palette.text.secondary,
+                                        }}
+                                    >
+                                        E-mail:
+                                    </CustomizeTypography>
+                                </Grid>
+                                <Grid xs={12} sm={12} md={12} lg={12}>
+                                    <TextFieldLogin placeholder="Email" fullWidth={true} />
+                                </Grid>
                             </Grid>
 
                             <Grid
                                 item
+                                xs={12}
+                                sm={12}
+                                md={12}
                                 lg={12}
                                 sx={{
                                     borderTop: '1px solid #555',
