@@ -107,7 +107,14 @@ function PerfumesCard() {
                                     {perfume.perfumeBrand}
                                 </CustomizeTypography>
                                 {/* perfume name */}
-                                <CustomizeTypography>
+                                <CustomizeTypography
+                                    sx={{
+                                        width: '220px',
+                                        overflow: 'hidden',
+                                        whiteSpace: 'nowrap' /* Don't forget this one */,
+                                        textOverflow: 'ellipsis',
+                                    }}
+                                >
                                     {/* Homme Intense */}
                                     {perfume.perfumeName}
                                 </CustomizeTypography>

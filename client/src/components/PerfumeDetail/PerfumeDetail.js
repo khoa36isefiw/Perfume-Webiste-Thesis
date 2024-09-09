@@ -14,10 +14,15 @@ import {
     increaseQuantity,
 } from '../../redux/feature/CartManagement/CartManagementSlice';
 import { converToVND } from '../convertToVND/convertToVND';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { CountdownTimer } from '../CountdownTimer/CountdownTimer';
 
 function PerfumeDetail() {
     const location = useLocation();
     const dispatch = useDispatch();
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+
     // get the perfume data passed from navigation
     const { perfume } = location.state || {};
 
@@ -66,7 +71,17 @@ function PerfumeDetail() {
 
                 dispatch(addToCart({ ...productToDispatch }));
             }
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
         }
+    };
+
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
     };
 
     return (
@@ -381,61 +396,22 @@ function PerfumeDetail() {
                     </Grid>
                 </Grid>
             </Grid>
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={'success'}
+                        msgTitle={'Add product'}
+                        msgContent={'Product added to cart!'}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Container>
     );
 }
 
 export default PerfumeDetail;
-
-const CountdownTimer = () => {
-    const [time, setTime] = useState(300);
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setTime((prevTime) => {
-                if (prevTime <= 1) {
-                    clearInterval(timer);
-                    return 0;
-                } else {
-                    return prevTime - 1;
-                }
-            });
-        }, 1000);
-
-        // clear interval when component unmounts
-        return () => clearInterval(timer);
-    }, []);
-
-    return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Box sx={{ height: '30px', width: '30px', bgcolor: '#000', borderRadius: 1, mx: 1 }}>
-                <CustomizeTypography
-                    sx={{ fontSize: '20px', fontWeight: 'bold', mb: 0, textAlign: 'center' }}
-                >
-                    00
-                </CustomizeTypography>
-            </Box>
-            <Box
-                sx={{
-                    height: '30px',
-                    width: '30px',
-                    bgcolor: '#000',
-                    borderRadius: 1,
-                    mr: 1,
-                }}
-            >
-                <CustomizeTypography
-                    sx={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center' }}
-                >
-                    {`${Math.floor(time / 60)}`.padStart(2, 0)}
-                </CustomizeTypography>
-            </Box>
-            <Box sx={{ height: '30px', width: '30px', bgcolor: '#000', borderRadius: 1, mr: 1 }}>
-                <CustomizeTypography
-                    sx={{ fontSize: '20px', fontWeight: 'bold', mb: 0, textAlign: 'center' }}
-                >
-                    {`${time % 60}`.padStart(2, 0)}
-                </CustomizeTypography>
-            </Box>
-        </Box>
-    );
-};

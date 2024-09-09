@@ -3,7 +3,7 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 import ButtonComponent from './test';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
@@ -12,6 +12,13 @@ function SignIn() {
         <Container
             sx={{
                 width: '50%',
+                my: theme.spacing.boxVerticalAxis16,
+                [ipadProScreen]: {
+                    width: '70%',
+                },
+                [tabletScreen]: {
+                    width: '80%',
+                },
                 [mobileScreen]: {
                     width: '100%',
                 },
@@ -20,7 +27,23 @@ function SignIn() {
             <Grid container spacing={2}>
                 <Grid item lg={12}>
                     <CustomizeTypography
-                        sx={{ fontSize: '48px', fontWeight: 'bold', textAlign: 'center' }}
+                        sx={{
+                            fontSize: '48px',
+                            fontWeight: 'bold',
+                            textAlign: 'center',
+                            color: theme.palette.text.secondary,
+                            [ipadProScreen]: {
+                                fontSize: theme.fontSize.ipadPro.heading,
+                            },
+                            [tabletScreen]: {
+                                textAlign: 'center',
+                                fontSize: theme.fontSize.tablet.heading,
+                            },
+                            [mobileScreen]: {
+                                textAlign: 'center',
+                                fontSize: theme.fontSize.mobile.heading,
+                            },
+                        }}
                     >
                         Already Registered?
                     </CustomizeTypography>
@@ -46,7 +69,7 @@ function SignIn() {
                                 Sign In
                             </CustomizeTypography>
                         </Grid>
-                        <Grid container item spacing={2} sx={{ p: 2 }}>
+                        <Grid container item spacing={2} sx={{ p: 2, mb: 1 }}>
                             <Grid item xs={12} lg={12}>
                                 <CustomizeTypography variant="body1">
                                     I am a returning customer

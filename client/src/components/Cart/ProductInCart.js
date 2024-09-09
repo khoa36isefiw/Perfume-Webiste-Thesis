@@ -1,24 +1,57 @@
-import { Box, Button, Divider } from '@mui/material';
-import React from 'react';
+import { Box, Button, Divider, Typography } from '@mui/material';
+import React, { useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 import {
+    decreaseQuantity,
     increaseQuantity,
     removeProduct,
 } from '../../redux/feature/CartManagement/CartManagementSlice';
 import { converToVND } from '../convertToVND/convertToVND';
+import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
+import WarningIcon from '@mui/icons-material/Warning';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 export const ProductInCart = ({ productsList }) => {
-    console.log('Product just added: ', productsList);
+    const [productToRemove, setProductToRemove] = useState(null);
+    const [openConfirmMessage, setOpenConfirmMessage] = React.useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+
+    // disagree, not delete the products
+    const handleConfirmDisagree = () => {
+        setOpenConfirmMessage(false);
+        setProductToRemove(null);
+    };
+
+    // agree, delete the products
+    const handleConfirmAgree = () => {
+        if (productToRemove) {
+            dispatch(removeProduct(productToRemove)); // remove product
+        }
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
+        setOpenConfirmMessage(false);
+        setProductToRemove(null);
+    };
+
     const dispatch = useDispatch();
+    // open the confirm dialog message and save the products are removed
     const handleRemoveProductInCart = (productId) => {
-        dispatch(removeProduct(productId));
+        setOpenConfirmMessage(true);
+        setProductToRemove(productId); // store product is removed
     };
-    const handleIncreaseProduct = (productId) => {
-        dispatch(increaseQuantity(productId));
+
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
     };
+
     return (
         <>
             {/* First Product - In Stock */}
@@ -306,6 +339,7 @@ export const ProductInCart = ({ productsList }) => {
                             Delete
                         </Button>
                     </Box>
+                    <ConfirmMessage />
                 </Box>
 
                 {/* render list product added  */}
@@ -393,6 +427,9 @@ export const ProductInCart = ({ productsList }) => {
                                                 },
                                                 cursor: 'pointer',
                                             }}
+                                            onClick={() =>
+                                                dispatch(decreaseQuantity(item.perfumeID))
+                                            }
                                         >
                                             -
                                         </CustomizeTypography>
@@ -414,7 +451,9 @@ export const ProductInCart = ({ productsList }) => {
                                                 },
                                                 cursor: 'pointer',
                                             }}
-                                            // onClick={handleIncreaseProduct(item.perfumeID)}
+                                            onClick={() =>
+                                                dispatch(increaseQuantity(item.perfumeID))
+                                            }
                                         >
                                             +
                                         </CustomizeTypography>
@@ -470,6 +509,56 @@ export const ProductInCart = ({ productsList }) => {
                         )}
                     </Box>
                 ))}
+
+                {/* Open Confirm Message */}
+                <ConfirmMessage
+                    openConfirmMessage={openConfirmMessage}
+                    msgTitle={
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <WarningIcon
+                                sx={{
+                                    color: theme.icon.color.primary,
+                                    fontSize: theme.icon.size.desktop,
+                                }}
+                            />
+                            <CustomizeTypography
+                                sx={{
+                                    color: theme.palette.text.main,
+                                    fontSize: '18px',
+                                    mb: 0,
+                                    ml: 2,
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                Delete Products
+                            </CustomizeTypography>
+                        </Box>
+                    }
+                    msgContent={
+                        <Typography sx={{ fontSize: '16px' }}>
+                            Are you sure you want to delete this product?
+                        </Typography>
+                    }
+                    onHandleClickClose={() => setOpenConfirmMessage(false)}
+                    onHandleConfirmAgree={handleConfirmAgree}
+                    onHandleConfirmDisagree={handleConfirmDisagree}
+                />
+
+                {/* Show Message after removing products */}
+                {showNotification && (
+                    <Box
+                        sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                        className={`animate__animated ${showAnimation}`}
+                    >
+                        <NotificationMessage
+                            msgType={'success'}
+                            msgTitle={'Delete Products'}
+                            msgContent={'Products are removed successfully from cart!'}
+                            autoHideDuration={3000} // Auto-hide after 5 seconds
+                            onClose={handleCloseNotification}
+                        />
+                    </Box>
+                )}
             </Box>
         </>
     );

@@ -50,7 +50,7 @@ export const perfumeData = [
     {
         perfumeID: 2,
         perfumeBrand: 'Chanel',
-        perfumeName: 'Allure Homme Sport Eau Extreme',
+        perfumeName: 'Allure Homme Sport Eau Extreme Allure Homme Sport Eau Extreme',
         perfumeRating: 5,
         numberOfRating: '9',
         perfumePriceVND: 3780000,
