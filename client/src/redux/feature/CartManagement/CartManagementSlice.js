@@ -19,7 +19,7 @@ export const cartManagementSlice = createSlice({
                 // if product is exisited, increase the quantity
                 existingProduct.quantity += 1;
             } else {
-                // does not exist, add product to cart
+                // does not exist, add product to cart with quantity : 1
                 state.productInfor.push({ ...product, quantity: 1 });
             }
         },
@@ -34,9 +34,17 @@ export const cartManagementSlice = createSlice({
                 existingProduct.quantity += 1;
             }
         },
+        decreaseQuantity: (state, action) => {
+            const productId = action.payload;
+            const existingProduct = state.productInfor.find((item) => item.perfumeID === productId);
+            // if existing and quantity > 1
+            if (existingProduct && existingProduct.quantity > 1) {
+                existingProduct.quantity -= 1;
+            }
+        },
     },
 });
 
 const { actions, reducer } = cartManagementSlice;
-export const { addToCart, removeProduct, increaseQuantity } = actions; // named export
+export const { addToCart, removeProduct, increaseQuantity, decreaseQuantity } = actions; // named export
 export default reducer; // export default
