@@ -251,7 +251,7 @@ function Header() {
                                 }}
                                 onClick={() => navigate(header.headerLink)}
                             >
-                                <CustomizeTypography sx={{ fontSize: '16px', fontWeight:'bold' }}>
+                                <CustomizeTypography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
                                     {header.headerText}
                                 </CustomizeTypography>
                             </Box>
