@@ -5,6 +5,7 @@ import { theme } from '../../Theme/Theme';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 import {
+    decreaseQuantity,
     increaseQuantity,
     removeProduct,
 } from '../../redux/feature/CartManagement/CartManagementSlice';
@@ -393,6 +394,9 @@ export const ProductInCart = ({ productsList }) => {
                                                 },
                                                 cursor: 'pointer',
                                             }}
+                                            onClick={() =>
+                                                dispatch(decreaseQuantity(item.perfumeID))
+                                            }
                                         >
                                             -
                                         </CustomizeTypography>
@@ -414,7 +418,9 @@ export const ProductInCart = ({ productsList }) => {
                                                 },
                                                 cursor: 'pointer',
                                             }}
-                                            // onClick={handleIncreaseProduct(item.perfumeID)}
+                                            onClick={() =>
+                                                dispatch(increaseQuantity(item.perfumeID))
+                                            }
                                         >
                                             +
                                         </CustomizeTypography>
