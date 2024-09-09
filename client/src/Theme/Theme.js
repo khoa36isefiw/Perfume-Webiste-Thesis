@@ -10,7 +10,13 @@ export const theme = createTheme({
             subText: '#d9d9d9',
             verified: '#52b858',
         },
-        background: { main: '#3D3D3D', primary: '#858585', secondary: '#AB572D' },
+
+        background: {
+            main: '#3D3D3D',
+            primary: '#858585',
+            secondary: '#AB572D',
+            thirth: '#fe9727',
+        },
         primaryText: '#fff',
         secondaryText: '#AB572D',
         thirth: {
@@ -63,6 +69,17 @@ export const theme = createTheme({
         boxVerticalAxis16: 16,
     },
 
+    icon: {
+        color: {
+            main: '#AB572D',
+            primary: '#e38454',
+            secondary: '#fe9727',
+        },
+        size: {
+            desktop: 24,
+            mobile: 16,
+        },
+    },
     // breakpoints for responsive
     breakpoints: {
         values: {
