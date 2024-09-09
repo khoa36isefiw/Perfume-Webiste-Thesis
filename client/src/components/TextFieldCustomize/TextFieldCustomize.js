@@ -275,38 +275,37 @@ export const TextFieldVerifyCode = ({
     );
 };
 
-export const TextFieldCustomizeV2 = styled(TextField)(
-    ({ inputValue, onChangeValue, placeholder, onHandleKeyDown, width, fullWidth = false }) => ({
-        fullWidth: fullWidth,
-        placeholder: placeholder,
-        onChangeValue: onChangeValue,
-        inputValue: inputValue,
-        mr: 2,
-        '.MuiInputBase-root': {
-            width: '360px',
-            fontSize: '14px',
-            height: '40px',
-            color: 'white',
-            borderTopLeftRadius: '12px',
-            borderBottomLeftRadius: '12px',
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 0,
+export const TextFieldCustomizeV2 = styled(({ width, fullWidth, ...otherProps }) => (
+    <TextField {...otherProps} fullWidth={fullWidth} />
+))(({ width }) => ({
+    mr: 2,
+    width: width,
+    // width: width ? width : '220px', // Set width here based on the passed prop
+    '.MuiInputBase-root': {
+        width: width,
+        // width: width ? width : '220px', // Ensure the input base uses the correct width
+        fontSize: '14px',
+        height: '40px',
+        color: 'white',
+        borderTopLeftRadius: '12px',
+        borderBottomLeftRadius: '12px',
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0,
+    },
+    '& .MuiFormHelperText-root': {
+        fontSize: '12.5px',
+        color: 'red',
+        mx: 1,
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: '#333',
         },
-        '& .MuiFormHelperText-root': {
-            fontSize: '12.5px',
-            color: 'red',
-            mx: 1,
+        '&:hover fieldset': {
+            borderColor: '#333',
         },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: '#333',
-            },
-            '&:hover fieldset': {
-                borderColor: '#333',
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: '#333',
-            },
+        '&.Mui-focused fieldset': {
+            borderColor: '#333',
         },
-    }),
-);
+    },
+}));
