@@ -9,7 +9,7 @@ import LatestArticle from '../components/LatestArticle/LatestArticle';
 
 function HomePage() {
     return (
-        <div>
+        <div style={{ overflow: 'hidden' }}>
             <NewArrivals />
             <WelcomeHomePage />
             <OurValues />

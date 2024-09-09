@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, IconButton, Menu, MenuItem } from '@mui/material';
+import {
+    Box,
+    Container,
+    IconButton,
+    Menu,
+    MenuItem,
+    List,
+    ListItem,
+    ListItemText,
+    Drawer,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import SearchIcon from '@mui/icons-material/Search';
@@ -18,12 +28,25 @@ const headerData = [
 ];
 
 const headerActionButton = [
-    { headerIcon: <SearchIcon sx={{ fontSize: '24px' }} />, headerIconDest: '/search' },
-    { headerIcon: <PersonIcon sx={{ fontSize: '24px' }} />, headerIconDest: '/sign-in' },
-    { headerIcon: <FavoriteIcon sx={{ fontSize: '24px' }} />, headerIconDest: '/favorite-list' },
+    {
+        headerIcon: <SearchIcon sx={{ fontSize: '24px' }} />,
+        headerIconDest: '/search',
+        des: 'Search',
+    },
+    {
+        headerIcon: <PersonIcon sx={{ fontSize: '24px' }} />,
+        headerIconDest: '/sign-in',
+        des: 'Sign In',
+    },
+    {
+        headerIcon: <FavoriteIcon sx={{ fontSize: '24px' }} />,
+        headerIconDest: '/favorite-list',
+        des: 'Favorite',
+    },
     {
         headerIcon: <ShoppingCartIcon sx={{ fontSize: '24px' }} />,
         headerIconDest: '/shopping-cart',
+        des: 'Cart',
     },
 ];
 
@@ -31,13 +54,13 @@ function Header() {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     function handleWindowSizeChange() {
-        if (window.innerWidth < 739) {
-            setIsMobile(true);
-        }
+        setIsMobile(window.innerWidth < 739);
     }
+
     useEffect(() => {
         window.addEventListener('resize', handleWindowSizeChange);
         return () => {
@@ -62,6 +85,11 @@ function Header() {
         handleMenuClose();
     };
 
+    // open menu for mobile
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
         <Box
             sx={{
@@ -76,6 +104,9 @@ function Header() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
+                [mobileScreen]: {
+                    width: '100%',
+                },
             }}
         >
             <Container
@@ -90,13 +121,14 @@ function Header() {
                             fontSize: theme.fontSize.mobile.text,
                         },
                     }}
+                    onClick={() => navigate('/')}
                 >
                     Tomtoc Perfumes
                 </CustomizeTypography>
                 {/* Menu for mobile */}
 
                 {isMobile ? (
-                    <IconButton>
+                    <IconButton onClick={toggleMenu}>
                         <MenuIcon sx={{ fontSize: '32px', color: '#fff' }} />
                     </IconButton>
                 ) : (
@@ -191,6 +223,73 @@ function Header() {
                         My Account
                     </MenuItem>
                 </Menu>
+
+                <Drawer
+                    anchor="left" // menu will appear on left
+                    open={isMenuOpen}
+                    onClose={toggleMenu} // close menu when clicking outside
+                    sx={{
+                        '.MuiPaper-root': {
+                            bgcolor: '#555 ',
+                        },
+                    }}
+                >
+                    <Box
+                        sx={{ width: 250, bgcolor: '#555', padding: 2 }}
+                        role="presentation"
+                        onClick={toggleMenu} // Đóng menu khi click vào một mục trong menu
+                    >
+                        {headerData.map((header, index) => (
+                            <Box
+                                key={index}
+                                sx={{
+                                    padding: '8px',
+                                    '&:hover': {
+                                        backgroundColor: theme.palette.background.default,
+                                        cursor: 'pointer',
+                                    },
+                                }}
+                                onClick={() => navigate(header.headerLink)}
+                            >
+                                <CustomizeTypography sx={{ fontSize: '16px', fontWeight:'bold' }}>
+                                    {header.headerText}
+                                </CustomizeTypography>
+                            </Box>
+                        ))}
+                        {/* Display action buttons at the bottom */}
+
+                        <Box
+                            sx={{
+                                mt: 2,
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                justifyContent: 'flex-start',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            {headerActionButton.map((action, index) => (
+                                <IconButton
+                                    key={index}
+                                    onClick={() => navigate(action.headerIconDest)}
+                                    sx={{
+                                        color: '#fff',
+                                        mr: 1,
+                                        mb: 2,
+                                        '&:hover': {
+                                            cursor: 'pointer',
+                                            fontWeight: 'bold',
+                                        },
+                                    }}
+                                >
+                                    {action.headerIcon}{' '}
+                                    <CustomizeTypography sx={{ mb: 0, fontWeight: 'bold', ml: 2 }}>
+                                        {action.des}
+                                    </CustomizeTypography>
+                                </IconButton>
+                            ))}
+                        </Box>
+                    </Box>
+                </Drawer>
             </Container>
         </Box>
     );

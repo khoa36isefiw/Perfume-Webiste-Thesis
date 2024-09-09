@@ -1,18 +1,23 @@
-import { Box } from '@mui/material';
+import { Avatar, Box, Container, Grid } from '@mui/material';
 import React from 'react';
-import bg from '../../assets/images/welcome-note-hp.png';
+import bg from '../../assets/images/about_us-bg2.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import { scrollAppearingAnimation } from '../AnimationEffects/AnimationEffects';
-
+import collection1 from '../../assets/images/collection_1.png';
 function WelcomeHomePage() {
     return (
         <Box
             sx={{
+                my: theme.spacingAxis.boxVerticalAxis,
                 height: '600px',
                 backgroundImage: `url(${bg})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                // backgroundSize: 'auto',
                 position: 'relative',
                 width: '100%',
+                // overflow: 'hidden',
 
                 // '@keyframes appear': {
                 //     from: { opacity: 0, scale: 0.5 },
@@ -26,6 +31,7 @@ function WelcomeHomePage() {
                 // animationRange: 'entry 30% cover 60%',
                 // ...scrollAppearingAnimation,
                 [mobileScreen]: {
+                    width: '100%',
                     height: '600px',
                     backgroundPosition: 'center',
                 },
@@ -42,6 +48,9 @@ function WelcomeHomePage() {
                     // overlay modal
                     backgroundColor: 'rgba(0, 0, 0, 0.75)',
                     zIndex: 1,
+                    [mobileScreen]: {
+                        width: '100%',
+                    },
                 }}
             />
             <Box
@@ -68,7 +77,7 @@ function WelcomeHomePage() {
                         fontWeight: 'bold',
                         color: theme.palette.secondaryText,
                         [mobileScreen]: {
-                            fontSize: '28px',
+                            fontSize: theme.fontSize.mobile.heading,
                             textAlign: 'center',
                         },
                     }}

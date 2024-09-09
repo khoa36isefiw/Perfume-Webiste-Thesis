@@ -3,13 +3,20 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 import ButtonComponent from './test';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
     const navigate = useNavigate();
     return (
-        <Container sx={{ width: '50%' }}>
+        <Container
+            sx={{
+                width: '50%',
+                [mobileScreen]: {
+                    width: '100%',
+                },
+            }}
+        >
             <Grid container spacing={2}>
                 <Grid item lg={12}>
                     <CustomizeTypography
@@ -27,7 +34,14 @@ function SignIn() {
                             borderBottom: '1px solid #555',
                         }}
                     >
-                        <Grid item lg={12} sx={{ borderBottom: '1px solid #555', p: 2 }}>
+                        <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            sx={{ borderBottom: '1px solid #555', p: 2 }}
+                        >
                             <CustomizeTypography sx={{ fontSize: '18px', mb: 0 }}>
                                 Sign In
                             </CustomizeTypography>
@@ -48,7 +62,10 @@ function SignIn() {
                             </Grid>
                             <Grid item xs={12} sm={6} lg={6}>
                                 <CustomizeTypography
-                                    sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
+                                    sx={{
+                                        fontWeight: 'bold',
+                                        color: theme.palette.text.secondary,
+                                    }}
                                 >
                                     Password<span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
@@ -57,6 +74,8 @@ function SignIn() {
                         </Grid>
                         <Grid
                             item
+                            xs={12}
+                            sm={12}
                             lg={12}
                             sx={{
                                 borderTop: '1px solid #555',
@@ -64,6 +83,11 @@ function SignIn() {
                                 alignItems: 'center',
                                 justifyContent: 'flex-end',
                                 p: 2,
+                                [mobileScreen]: {
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                },
                             }}
                         >
                             <CustomizeTypography
@@ -91,6 +115,8 @@ function SignIn() {
                         </Grid>
                         <Grid
                             item
+                            xs={12}
+                            sm={12}
                             lg={12}
                             sx={{
                                 borderTop: '1px solid #555',
@@ -98,10 +124,15 @@ function SignIn() {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 p: 2,
+                                [mobileScreen]: {
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                },
                             }}
                         >
                             <CustomizeTypography sx={{ mb: 0, mr: 4 }}>
-                                If you dont have account
+                                If you don't have account
                             </CustomizeTypography>
                             <ButtonComponent textAction={'Register'} />
                         </Grid>
