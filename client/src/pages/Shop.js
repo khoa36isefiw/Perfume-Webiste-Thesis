@@ -8,7 +8,7 @@ function Shop() {
     return (
         <div>
             <PerfumeBrands />
-            <SortProducts />
+            {/* <SortProducts /> */}
             <PerfumesCard />
             <ShopPageInformation />
         </div>
