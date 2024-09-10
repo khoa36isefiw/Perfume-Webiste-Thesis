@@ -1,7 +1,7 @@
 import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { perfumeData } from './perfumeData';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import Rating from '@mui/material/Rating';
 import { useNavigate } from 'react-router-dom';
@@ -19,14 +19,26 @@ function PerfumesCard() {
         backTop();
     };
     return (
-        <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
+        <Container
+            sx={{
+                my: theme.spacingAxis.boxVerticalAxis,
+                [mobileScreen]: {
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                },
+            }}
+        >
             <SortProducts listData={sortedList} setSortedList={setSortedList} />
-            <Grid container spacing={4}>
+            <Grid container spacing={2}>
                 {sortedList.map((perfume, index) => (
-                    <Grid item lg={3} key={index}>
+                    <Grid item xs={6} sm={6} md={4} lg={3} key={index}>
                         <Box
                             sx={{
                                 height: '420px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                // alignItems: 'center',
+                                justifyContent: 'center',
                                 borderRadius: '8px',
                                 bgcolor: theme.palette.bestSelling,
                                 py: 1,
@@ -34,8 +46,12 @@ function PerfumesCard() {
                                 '&:hover': {
                                     cursor: 'pointer',
                                 },
+                                [mobileScreen]: {
+                                    // width: '200px',
+                                    p: 1,
+                                    py: 0,
+                                },
                             }}
-                            // onClick={() => navigate(`/product/${perfume.perfumeID}`)}
                             onClick={() => handleNavigationProductDetail(perfume)}
                         >
                             {perfume.discount && (
@@ -93,7 +109,16 @@ function PerfumesCard() {
                             <Box
                                 component={'img'}
                                 src={perfume.perfumeImage}
-                                sx={{ height: '250px' }}
+                                sx={{
+                                    height: '250px',
+                                    width: 'auto',
+                                    [mobileScreen]: {
+                                        height: '220px',
+                                        with: 'auto',
+                                        mt: 4,
+                                        objectFit: 'cover',
+                                    },
+                                }}
                                 lazy="loading"
                             />
                             <Box
@@ -105,7 +130,14 @@ function PerfumesCard() {
                                 }}
                             >
                                 {/* brand */}
-                                <CustomizeTypography>
+                                <CustomizeTypography
+                                    sx={{
+                                        fontWeight: 'bold',
+                                        [mobileScreen]: {
+                                            fontSize: theme.fontSize.mobile.text14,
+                                        },
+                                    }}
+                                >
                                     {/* Dior */}
                                     {perfume.perfumeBrand}
                                 </CustomizeTypography>
@@ -116,6 +148,10 @@ function PerfumesCard() {
                                         overflow: 'hidden',
                                         whiteSpace: 'nowrap' /* Don't forget this one */,
                                         textOverflow: 'ellipsis',
+                                        [mobileScreen]: {
+                                            fontSize: theme.fontSize.mobile.text14,
+                                            width: '150px',
+                                        },
                                     }}
                                 >
                                     {/* Homme Intense */}
@@ -153,6 +189,10 @@ function PerfumesCard() {
                                         // justifyContent: 'space-between',
                                         alignItems: 'center',
                                         // mb: 2,
+                                        [mobileScreen]: {
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                        },
                                     }}
                                 >
                                     <CustomizeTypography
@@ -162,90 +202,103 @@ function PerfumesCard() {
                                             textDecoration: perfume.discount
                                                 ? 'line-through'
                                                 : 'null',
+                                            [mobileScreen]: {
+                                                fontSize: theme.fontSize.mobile.text14,
+                                                mb: 0,
+                                            },
                                         }}
                                     >
                                         {/* 3.280.000 */}
                                         {converToVND(perfume.perfumePriceVND)}
                                     </CustomizeTypography>
 
-                                    {perfume.discount && (
-                                        <CustomizeTypography
-                                            sx={{
-                                                color: theme.palette.thirth.main,
-                                                fontWeight: 'bold',
-                                                zIndex: 99,
-                                                ml: 2,
-                                            }}
-                                        >
-                                            {/* 2.280.000 */}
-                                            {converToVND(perfume.perfumePriceDiscount)}
-                                        </CustomizeTypography>
-                                    )}
+                                    <CustomizeTypography
+                                        sx={{
+                                            color: perfume.discount
+                                                ? theme.palette.thirth.main
+                                                : 'transparent',
+                                            fontWeight: 'bold',
+                                            zIndex: 99,
+                                            ml: 2,
+                                            [mobileScreen]: {
+                                                fontSize: theme.fontSize.mobile.text14,
+                                                ml: 0,
+                                            },
+                                        }}
+                                    >
+                                        {/* 2.280.000 */}
+                                        {perfume.discount
+                                            ? converToVND(perfume.perfumePriceDiscount)
+                                            : '-'}
+                                    </CustomizeTypography>
                                 </Box>
                             </Box>
 
                             {/* flash sale, discount, chương trình khuyến mãi */}
-                            {perfume.flashSale && (
+                            {/* {perfume.flashSale && ( */}
+                            <Box
+                                sx={{
+                                    px: 1,
+                                    visibility: perfume.flashSale ? 'visible' : 'hidden',
+                                }}
+                            >
                                 <Box
                                     sx={{
-                                        px: 1,
+                                        width: '100%',
+                                        height: '20px',
+                                        borderRadius: '12px',
+                                        bgcolor: '#ffbda6',
+                                        position: 'relative',
                                     }}
                                 >
                                     <Box
+                                        src={
+                                            'https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/flashsale/c5316dd01de2b0d41d26.png'
+                                        }
+                                        alt="Flash Sale"
+                                        component={'img'}
                                         sx={{
-                                            width: '100%',
-                                            height: '20px',
+                                            height: '25px',
+                                            width: '25px',
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                            transform: 'translateY(-15px)',
+                                        }}
+                                    />
+
+                                    <Box
+                                        sx={{
+                                            width: '50%',
+                                            overflow: 'hidden',
+                                            background: 'linear-gradient(270deg, #ffb000, #eb1717)',
+                                            height: '100%',
                                             borderRadius: '12px',
-                                            bgcolor: '#ffbda6',
-                                            position: 'relative',
+                                        }}
+                                    />
+
+                                    <CustomizeTypography
+                                        sx={{
+                                            position: 'absolute',
+                                            textAlign: 'center',
+                                            fontSize: '14px',
+                                            fontWeight: 'bold',
+                                            // color: '#555',
+                                            borderRadius: '12px',
+                                            top: 0,
+                                            left: '10%',
+                                            zIndex: 99,
+                                            mb: 0,
+                                            [mobileScreen]: {
+                                                fontSize: theme.fontSize.mobile.text12,
+                                            },
                                         }}
                                     >
-                                        <Box
-                                            src={
-                                                'https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/flashsale/c5316dd01de2b0d41d26.png'
-                                            }
-                                            alt="Flash Sale"
-                                            component={'img'}
-                                            sx={{
-                                                height: '25px',
-                                                width: '25px',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                transform: 'translateY(-15px)',
-                                            }}
-                                        />
-
-                                        <Box
-                                            sx={{
-                                                width: '50%',
-                                                overflow: 'hidden',
-                                                background:
-                                                    'linear-gradient(270deg, #ffb000, #eb1717)',
-                                                height: '100%',
-                                                borderRadius: '12px',
-                                            }}
-                                        />
-
-                                        <CustomizeTypography
-                                            sx={{
-                                                position: 'absolute',
-                                                textAlign: 'center',
-                                                fontSize: '14px',
-                                                fontWeight: 'bold',
-                                                // color: '#555',
-                                                borderRadius: '12px',
-                                                top: 0,
-                                                left: '10%',
-                                                zIndex: 99,
-                                                mb: 0,
-                                            }}
-                                        >
-                                            Flash Sale
-                                        </CustomizeTypography>
-                                    </Box>
+                                        Flash Sale
+                                    </CustomizeTypography>
                                 </Box>
-                            )}
+                            </Box>
+                            {/* )} */}
                         </Box>
                     </Grid>
                 ))}
