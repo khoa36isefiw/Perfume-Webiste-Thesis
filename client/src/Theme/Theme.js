@@ -97,6 +97,8 @@ export const theme = createTheme({
             heading: 28,
             text: 18,
             normal: 16,
+            text14: 14,
+            text12: 12,
         },
         tablet: { heading: 32, text: 18, normal: 16 },
         ipadPro: { heading: 36, text: 18, normal: 16 },
