@@ -2,7 +2,7 @@ import React from 'react';
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { Box } from '@mui/material';
-import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 
 function OurStory() {
     return (
@@ -13,8 +13,14 @@ function OurStory() {
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%,-50%)',
+                    [ipadProScreen]: {
+                        top: '35%',
+                    },
+                    [tabletScreen]: {
+                        top: '40%',
+                    },
                     [mobileScreen]: {
-                        top: '5%',
+                        top: '-5%',
                         left: 0,
                         transform: 'translate(0%,0%)',
                         textAlign: 'justify',

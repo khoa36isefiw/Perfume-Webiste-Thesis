@@ -11,14 +11,8 @@ function AboutUsBackground() {
             alt="About Us Image"
             sx={{
                 height: '600px',
-                [tabletScreen]: {
-                    width: '100%',
-                    objectFit: 'cover',
-                },
-                [mobileScreen]: {
-                    width: '100%',
-                    objectFit: 'cover',
-                },
+                width: '100%',
+                objectFit: 'cover',
             }}
         />
     );

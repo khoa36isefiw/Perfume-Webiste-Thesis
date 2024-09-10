@@ -58,7 +58,7 @@ function Introduce() {
                     textAlign: 'center',
                     zIndex: 2,
                     [mobileScreen]: {
-                        top: '5%',
+                        top: '25%',
                         right: 0,
                         transform: 'translate(0%,0%)',
                         textAlign: 'justify',
