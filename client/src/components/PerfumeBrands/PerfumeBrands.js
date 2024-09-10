@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import React from 'react';
 import { brandsData } from './brandsData';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 
 function PerfumeBrands() {
     return (
@@ -36,6 +36,16 @@ function PerfumeBrands() {
                         },
                         // Set fixed width for larger screens
                         flexBasis: '140px',
+                        [ipadProScreen]: {
+                            width: '20%',
+                            flexBasis: '20%',
+                            marginLeft: '4%',
+                        },
+                        [tabletScreen]: {
+                            width: '20%',
+                            flexBasis: '20%',
+                            marginLeft: '4%',
+                        },
                         [mobileScreen]: {
                             // Set width to 45% for mobile to display 2 items per row
                             width: '45%',
