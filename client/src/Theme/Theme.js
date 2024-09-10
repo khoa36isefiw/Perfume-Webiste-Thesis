@@ -100,7 +100,7 @@ export const theme = createTheme({
             text14: 14,
             text12: 12,
         },
-        tablet: { heading: 32, text: 18, normal: 16 },
+        tablet: { heading: 32, text: 18, normal: 16, text14: 14 },
         ipadPro: { heading: 36, text: 18, normal: 16 },
     },
 });
