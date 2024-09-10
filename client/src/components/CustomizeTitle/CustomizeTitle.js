@@ -13,6 +13,7 @@ function CustomizeTitle({ heading }) {
                 mb: 4,
                 [mobileScreen]: {
                     fontSize: theme.fontSize.mobile.heading,
+                    textAlign: 'center',
                     mb: 0,
                 },
             }}

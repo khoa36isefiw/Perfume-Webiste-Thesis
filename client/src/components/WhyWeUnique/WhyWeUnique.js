@@ -34,7 +34,7 @@ function WhyWeUnique() {
             <CustomizeTitle heading={'What Makes Us Unique'} />
             <Grid container spacing={4} sx={{ mt: 4 }}>
                 {aboutUsUnique.map((item, index) => (
-                    <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
+                    <Grid item xs={12} sm={4} md={4} lg={4} key={index}>
                         <Box
                             sx={{
                                 p: 2,
@@ -82,7 +82,7 @@ function WhyWeUnique() {
             </Grid>
             <Box sx={{ my: 4 }}>
                 {thanks.map((thank, index) => (
-                    <CustomizeTypography sx={{ mb: 2, fontSize: '16px' }}>
+                    <CustomizeTypography key={index} sx={{ mb: 2, fontSize: '16px', textAlign: 'justify' }}>
                         {thank}
                     </CustomizeTypography>
                 ))}

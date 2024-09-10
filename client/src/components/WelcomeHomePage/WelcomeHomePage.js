@@ -14,7 +14,7 @@ function WelcomeHomePage() {
                 backgroundImage: `url(${bg})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                // backgroundSize: 'auto',
+
                 position: 'relative',
                 width: '100%',
                 // overflow: 'hidden',
