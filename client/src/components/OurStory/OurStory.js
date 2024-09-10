@@ -2,7 +2,7 @@ import React from 'react';
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { Box } from '@mui/material';
-import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen } from '../../Theme/Theme';
 
 function OurStory() {
     return (

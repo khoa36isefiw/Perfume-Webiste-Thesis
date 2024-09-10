@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material';
+import { Box, Button, Container, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import { perfumeData } from './perfumeData';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
@@ -89,7 +89,7 @@ function PerfumesCard() {
                                         backgroundColor: theme.palette.flashSale.bg,
                                         borderRadius: '8px',
                                         fontSize: '14px',
-                                        color: '#fff',
+                                        // color: '#fff',
                                         fontWeight: 'bold',
                                         textAlign: 'center',
                                         display: 'flex',
