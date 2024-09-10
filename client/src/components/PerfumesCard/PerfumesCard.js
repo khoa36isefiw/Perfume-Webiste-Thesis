@@ -1,5 +1,5 @@
 import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { perfumeData } from './perfumeData';
 import { theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -8,9 +8,11 @@ import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import BoltIcon from '@mui/icons-material/Bolt';
 import { converToVND } from '../convertToVND/convertToVND';
+import SortProducts from '../SortProducts/SortProducts';
 
 function PerfumesCard() {
     const navigate = useNavigate();
+    const [sortedList, setSortedList] = useState(perfumeData);
     const handleNavigationProductDetail = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
         navigate(`/product/${perfume.perfumeID}`, { state: { perfume } });
@@ -18,8 +20,9 @@ function PerfumesCard() {
     };
     return (
         <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
+            <SortProducts listData={sortedList} setSortedList={setSortedList} />
             <Grid container spacing={4}>
-                {perfumeData.map((perfume, index) => (
+                {sortedList.map((perfume, index) => (
                     <Grid item lg={3} key={index}>
                         <Box
                             sx={{
