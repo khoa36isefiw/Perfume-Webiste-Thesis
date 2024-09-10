@@ -3,7 +3,7 @@ import { Avatar, Box, Container, Grid } from '@mui/material';
 
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
-import { ipadProScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { theme } from '../../Theme/Theme';
 
 const blogsData = [
     {

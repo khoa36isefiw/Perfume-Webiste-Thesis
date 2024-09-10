@@ -10,6 +10,7 @@ import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonI
 import { ProductInCart } from './ProductInCart';
 import { SummaryRowInCart } from './SummaryRowInCart';
 import { useSelector } from 'react-redux';
+import CartTotal from './CartTotal';
 
 function Cart() {
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
@@ -64,54 +65,7 @@ function Cart() {
                         <ProductInCart productsList={productAdded} />
                     </Grid>
                     <Grid item xs={12} lg={4}>
-                        <Box
-                            sx={{
-                                border: '1px solid #333',
-                                borderRadius: 2,
-                                p: 1,
-                            }}
-                        >
-                            <CustomizeTypography
-                                sx={{
-                                    // allows to set a width and height on the element.
-                                    // display: 'inline-block',
-                                    borderColor: '#fff',
-                                }}
-                            >
-                                If you have a Promo Code you will get 20% off
-                            </CustomizeTypography>
-                            <Box
-                                sx={{
-                                    py: 1,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <Promocode textAction={'Apply'} />
-                            </Box>
-
-                            <CustomizeDividerV2 />
-                            <SummaryRowInCart label="Subtotal" value="69.69" isTotal />
-                            <SummaryRowInCart label="Discount" discount={'20%'} value="13.94" />
-                            <SummaryRowInCart label="Delivery" value="0.00" />
-                            <SummaryRowInCart label="Tax" value="6.69" />
-                            <CustomizeDividerV2 />
-                            <SummaryRowInCart label="Total" value="62.44" isTotal />
-                            <CustomizeButtonInCart
-                                variant="outlined"
-                                textAction="Procced to checkout"
-                                onHandleClick={() => navigate('/checkout')}
-                                // show animation
-                                isReverseAnimation={false}
-                            />
-                            <CustomizeButtonInCart
-                                textAction="Continue Shopping"
-                                onHandleClick={() => navigate('/shop')}
-                                // hide animation
-                                isReverseAnimation={true}
-                            />
-                        </Box>
+                        <CartTotal productsList={productAdded} />
                     </Grid>
                 </Grid>
             </Grid>

@@ -4,3 +4,10 @@ export const converToVND = (price) => {
         currency: 'VND',
     });
 };
+
+export const converToUSD = (price) => {
+    return price.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
+};

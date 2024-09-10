@@ -25,7 +25,7 @@ export const SummaryRowInCart = ({ label, value, isTotal, discount = null }) => 
                         fontSize: isTotal ? '18px' : '14px',
                     }}
                 >
-                    {discount} - ${value}
+                    {discount} - {value}
                 </CustomizeTypography>
             ) : (
                 <CustomizeTypography
@@ -34,7 +34,7 @@ export const SummaryRowInCart = ({ label, value, isTotal, discount = null }) => 
                         fontSize: isTotal ? '18px' : '14px',
                     }}
                 >
-                    ${value}
+                    {value}
                 </CustomizeTypography>
             )}
         </Box>
