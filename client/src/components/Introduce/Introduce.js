@@ -4,7 +4,7 @@ import bg from '../../assets/images/about_us-bg.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 
 function Introduce() {
     return (
@@ -18,7 +18,11 @@ function Introduce() {
 
                 position: 'relative',
                 width: '100%',
-
+                [tabletScreen]: {
+                    width: '100%',
+                    height: '600px',
+                    backgroundPosition: 'center',
+                },
                 [mobileScreen]: {
                     width: '100%',
                     height: '600px',
@@ -37,6 +41,9 @@ function Introduce() {
                     // overlay modal
                     backgroundColor: 'rgba(0, 0, 0, 0.75)',
                     zIndex: 1,
+                    [tabletScreen]: {
+                        width: '100%',
+                    },
                     [mobileScreen]: {
                         width: '100%',
                     },

@@ -2,7 +2,7 @@ import React from 'react';
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { Box } from '@mui/material';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 
 function OurStory() {
     return (
@@ -27,6 +27,7 @@ function OurStory() {
                     sx={{
                         fontSize: '18px',
                         textAlign: 'center',
+
                         [mobileScreen]: {
                             textAlign: 'justify',
                         },
