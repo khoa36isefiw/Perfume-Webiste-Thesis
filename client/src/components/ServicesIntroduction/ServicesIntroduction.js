@@ -4,6 +4,7 @@ import service from '../../assets/images/our_services_1.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
+import { mobileScreen } from '../../Theme/Theme';
 
 function ServicesIntroduction() {
     return (
@@ -11,6 +12,8 @@ function ServicesIntroduction() {
             sx={{
                 height: '600px',
                 backgroundImage: `url(${service})`,
+                objectFit: 'cover',
+                backgroundSize: 'cover',
                 position: 'relative',
                 width: '100%',
             }}
@@ -36,10 +39,25 @@ function ServicesIntroduction() {
                     transform: 'translate(50%,-50%)',
                     textAlign: 'center',
                     zIndex: 2,
+                    [mobileScreen]: {
+                        p: 2,
+                        top: '20%',
+                        right: '0',
+                        transform: 'translate(0,-0)',
+                    },
                 }}
             >
                 <CustomizeTitle heading={'Our Services'} />
-                <CustomizeTypography sx={{ fontSize: '18px', color: '#FFFFFF' }}>
+                <CustomizeTypography
+                    sx={{
+                        fontSize: '18px',
+                        color: '#FFFFFF',
+                        [mobileScreen]: {
+                            textAlign: 'justify',
+                            mt: 4,
+                        },
+                    }}
+                >
                     At Tomtoc, we are dedicated to providing you with a delightful and immersive
                     perfume shopping experience. Our services are tailored to ensure that you find
                     the perfect fragrance that complements your unique personality and style. We

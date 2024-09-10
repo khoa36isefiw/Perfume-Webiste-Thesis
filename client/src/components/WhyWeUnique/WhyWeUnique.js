@@ -2,7 +2,7 @@ import { Container, Grid, Box } from '@mui/material';
 import React from 'react';
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { tabletScreen, theme } from '../../Theme/Theme';
 
 const aboutUsUnique = [
     {
@@ -34,7 +34,7 @@ function WhyWeUnique() {
             <CustomizeTitle heading={'What Makes Us Unique'} />
             <Grid container spacing={4} sx={{ mt: 4 }}>
                 {aboutUsUnique.map((item, index) => (
-                    <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
+                    <Grid item xs={12} sm={4} md={4} lg={4} key={index}>
                         <Box
                             sx={{
                                 p: 2,
@@ -48,16 +48,28 @@ function WhyWeUnique() {
                                     cursor: 'pointer',
                                     transform: 'translateY(-20px)',
                                 },
+                                [tabletScreen]: {
+                                    p: 1,
+                                },
                             }}
                         >
                             <CustomizeTypography
-                                sx={{ fontSize: '20px', fontWeight: 'bold', mb: 2 }}
+                                sx={{
+                                    fontSize: '20px',
+                                    fontWeight: 'bold',
+                                    mb: 2,
+                                    color: theme.palette.text.secondary,
+                                    [tabletScreen]: {
+                                        fontSize: theme.fontSize.tablet.text,
+                                    },
+                                }}
                             >
                                 {item.title}
                             </CustomizeTypography>
                             <CustomizeTypography
                                 sx={{
                                     textAlign: 'justify',
+                                    fontSize: theme.fontSize.tablet.text14,
 
                                     // position: 'relative',
                                     // '::after': {
@@ -82,7 +94,10 @@ function WhyWeUnique() {
             </Grid>
             <Box sx={{ my: 4 }}>
                 {thanks.map((thank, index) => (
-                    <CustomizeTypography sx={{ mb: 2, fontSize: '16px' }}>
+                    <CustomizeTypography
+                        key={index}
+                        sx={{ mb: 2, fontSize: '16px', textAlign: 'justify' }}
+                    >
                         {thank}
                     </CustomizeTypography>
                 ))}

@@ -1,10 +1,13 @@
 import { Box, Button } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
 function Promocode({ textAction, onHandleClick }) {
+    // console.log('onHandleClick: ', onHandleClick);
+    const [promoCode, setPromoCode] = useState('');
+
     return (
         <Box
             sx={{
@@ -13,10 +16,15 @@ function Promocode({ textAction, onHandleClick }) {
                 alignItems: 'center',
             }}
         >
-            <TextFieldCustomize placeholder={'Promocode'} />
+            <TextFieldCustomize
+                placeholder={'Promocode'}
+                inputValue={promoCode}
+                onChangeValue={(e) => setPromoCode(e.target.value)}
+            />
             <Button
                 variant="outlined"
-                onClick={onHandleClick}
+                // is clicked/ running/ excuting logic at here!
+                onClick={() => onHandleClick(promoCode)}
                 sx={{
                     position: 'relative',
                     display: 'block',

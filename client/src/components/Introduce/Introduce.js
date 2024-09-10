@@ -4,15 +4,30 @@ import bg from '../../assets/images/about_us-bg.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 
 function Introduce() {
     return (
         <Box
             sx={{
+                my: theme.spacingAxis.boxVerticalAxis,
                 height: '600px',
                 backgroundImage: `url(${bg})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+
                 position: 'relative',
                 width: '100%',
+                [tabletScreen]: {
+                    width: '100%',
+                    height: '600px',
+                    backgroundPosition: 'center',
+                },
+                [mobileScreen]: {
+                    width: '100%',
+                    height: '600px',
+                    backgroundPosition: 'center',
+                },
             }}
         >
             {/* make overlay above background image */}
@@ -26,6 +41,12 @@ function Introduce() {
                     // overlay modal
                     backgroundColor: 'rgba(0, 0, 0, 0.75)',
                     zIndex: 1,
+                    [tabletScreen]: {
+                        width: '100%',
+                    },
+                    [mobileScreen]: {
+                        width: '100%',
+                    },
                 }}
             />
             <Box
@@ -36,6 +57,13 @@ function Introduce() {
                     transform: 'translate(50%,-50%)',
                     textAlign: 'center',
                     zIndex: 2,
+                    [mobileScreen]: {
+                        top: '25%',
+                        right: 0,
+                        transform: 'translate(0%,0%)',
+                        textAlign: 'justify',
+                        p: 2,
+                    },
                 }}
             >
                 <CustomizeTitle heading={'About Us'} />

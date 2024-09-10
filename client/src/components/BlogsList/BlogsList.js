@@ -3,6 +3,7 @@ import { Avatar, Box, Container, Grid } from '@mui/material';
 
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
+import { theme } from '../../Theme/Theme';
 
 const blogsData = [
     {
@@ -63,8 +64,8 @@ const blogsData = [
 
 function BlogsList() {
     return (
-        <Box>
-            <Container>
+        <Box sx={{ my: theme.spacingAxis.boxVerticalAxis16 }}>
+            <Container sx={{}}>
                 <Grid container spacing={2}>
                     <BlogItem listData={blogsData} />
                 </Grid>
@@ -84,17 +85,23 @@ const BlogItem = ({ listData }) => {
     return (
         <>
             {listData.map((blog, index) => (
-                <Grid item lg={4} key={index} onClick={() => handleNavigationProductDetail(blog)}>
+                <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={4}
+                    key={index}
+                    onClick={() => handleNavigationProductDetail(blog)}
+                >
                     <Box
                         sx={{
                             textAlign: 'center',
-                            width: '350px',
+                            width: '100%',
                             height: '250px',
                             position: 'relative',
                             cursor: 'pointer',
                             padding: '4px',
-                            //
-                            // backgroundColor: '#d9d9d9',
                             backgroundColor: 'orange',
                             borderTopRightRadius: '10px',
                             borderBottomLeftRadius: '10px',
@@ -125,7 +132,6 @@ const BlogItem = ({ listData }) => {
                                 '&:before, &:after': {
                                     width: '100%',
                                     height: '100%',
-                                    // borderColor: 'white', // Uncomment if you want to change the border color on hover
                                 },
                             },
                         }}
@@ -135,7 +141,7 @@ const BlogItem = ({ listData }) => {
                             alt={'Blog'}
                             sx={{
                                 height: '250px',
-                                width: '350px',
+                                width: '100%',
                                 objectFit: 'cover',
                                 transition: '0.3s ease-in-out',
                                 borderRadius: 2,
@@ -159,7 +165,13 @@ const BlogItem = ({ listData }) => {
                             }}
                         />
                     </Box>
-                    <CustomizeTypography sx={{ fontSize: '18px', my: 3, textAlign: 'center' }}>
+                    <CustomizeTypography
+                        sx={{
+                            fontSize: '18px',
+                            my: 3,
+                            textAlign: 'center',
+                        }}
+                    >
                         {blog.blogTitle}
                     </CustomizeTypography>
                 </Grid>

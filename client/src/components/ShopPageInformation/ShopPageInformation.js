@@ -32,7 +32,10 @@ function ShopPageInformation() {
                             const parts = content.split(/(Tomtoc Perfumes)/g);
                             console.log(parts);
                             return (
-                                <CustomizeTypography key={index} sx={{ fontSize: '16px', mb: 1 }}>
+                                <CustomizeTypography
+                                    key={index}
+                                    sx={{ fontSize: '16px', mb: 1, textAlign: 'justify' }}
+                                >
                                     {parts.map((part, index) =>
                                         part === 'Tomtoc Perfumes' ? (
                                             <span

@@ -1,25 +1,39 @@
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { Box, Container, Grid, IconButton } from '@mui/material';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { missionsData } from './missionsData';
 
 function Missions() {
     return (
         <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
             <Box sx={{ textAlign: 'center' }}>
-                <CustomizeTypography sx={{ fontSize: '18px' }}>
+                <CustomizeTypography
+                    sx={{
+                        fontSize: '18px',
+                        [mobileScreen]: {
+                            textAlign: 'justify',
+                        },
+                    }}
+                >
                     Our mission is to empower individuals with knowledge and facilitate meaningful
                     connections through our platform.
                 </CustomizeTypography>
-                <CustomizeTypography sx={{ fontSize: '18px' }}>
+                <CustomizeTypography
+                    sx={{
+                        fontSize: '18px',
+                        [mobileScreen]: {
+                            textAlign: 'justify',
+                        },
+                    }}
+                >
                     We understand the importance of reliable and up-to-date information in today's
                     fast-paced world.
                 </CustomizeTypography>
             </Box>
             <Grid container spacing={4} sx={{ mt: 4 }}>
                 {missionsData.map((mission, index) => (
-                    <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
+                    <Grid item xs={12} sm={4} md={4} lg={4} key={index}>
                         <Box
                             sx={{
                                 p: 2,
@@ -47,8 +61,11 @@ function Missions() {
                                     sx={{
                                         fontSize: '28px',
                                         fontWeight: 'bold',
-
                                         color: theme.palette.secondaryText,
+                                        [tabletScreen]: {
+                                            fontSize: theme.fontSize.tablet.heading20,
+                                            mb: 0,
+                                        },
                                     }}
                                 >
                                     {mission.missionTitle}
@@ -67,13 +84,33 @@ function Missions() {
                 ))}
             </Grid>
             <Box sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
-                <CustomizeTypography sx={{ mb: 2 }}>
+                <CustomizeTypography
+                    sx={{
+                        mb: 2,
+                        [tabletScreen]: {
+                            textAlign: 'justify',
+                        },
+                        [mobileScreen]: {
+                            textAlign: 'justify',
+                        },
+                    }}
+                >
                     At Tomtoc, our passion for perfumery drives us to go above and beyond to serve
                     you better. We invite you to experience our exceptional services and indulge in
                     the world of luxurious scents. Let us be your trusted fragrance destination,
                     where your olfactory dreams come to life.
                 </CustomizeTypography>
-                <CustomizeTypography sx={{ mb: 2 }}>
+                <CustomizeTypography
+                    sx={{
+                        mb: 2,
+                        [tabletScreen]: {
+                            textAlign: 'justify',
+                        },
+                        [mobileScreen]: {
+                            textAlign: 'justify',
+                        },
+                    }}
+                >
                     If you have any questions or need assistance, please do not hesitate to reach
                     out to our friendly team. We're here to make your fragrance exploration a truly
                     memorable one.

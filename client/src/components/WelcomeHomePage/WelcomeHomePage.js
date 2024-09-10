@@ -1,10 +1,10 @@
-import { Avatar, Box, Container, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import React from 'react';
 import bg from '../../assets/images/about_us-bg2.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
-import { scrollAppearingAnimation } from '../AnimationEffects/AnimationEffects';
-import collection1 from '../../assets/images/collection_1.png';
+// import { scrollAppearingAnimation } from '../AnimationEffects/AnimationEffects';
+
 function WelcomeHomePage() {
     return (
         <Box
@@ -14,7 +14,7 @@ function WelcomeHomePage() {
                 backgroundImage: `url(${bg})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                // backgroundSize: 'auto',
+
                 position: 'relative',
                 width: '100%',
                 // overflow: 'hidden',

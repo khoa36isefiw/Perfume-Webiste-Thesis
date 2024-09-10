@@ -9,7 +9,7 @@ import {
     shoppingFooterData,
 } from './footerData';
 import Copyrights from '../Copyrights/Copyrights';
-import { TextFieldCustomize, TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
+import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 
 function Footer() {
