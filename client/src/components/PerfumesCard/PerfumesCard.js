@@ -1,7 +1,7 @@
 import { Box, Button, Container, Grid, IconButton, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { perfumeData } from './perfumeData';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import Rating from '@mui/material/Rating';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +31,7 @@ function PerfumesCard() {
             <SortProducts listData={sortedList} setSortedList={setSortedList} />
             <Grid container spacing={2}>
                 {sortedList.map((perfume, index) => (
-                    <Grid item xs={6} sm={6} md={4} lg={3} key={index}>
+                    <Grid item xs={6} sm={4} md={3} lg={3} key={index}>
                         <Box
                             sx={{
                                 height: '420px',
@@ -112,9 +112,14 @@ function PerfumesCard() {
                                 sx={{
                                     height: '250px',
                                     width: 'auto',
+                                    objectFit: 'cover',
+
+                                    [tabletScreen]: {
+                                        height: '220px',
+                                        mt: 2,
+                                    },
                                     [mobileScreen]: {
                                         height: '220px',
-                                        with: 'auto',
                                         mt: 4,
                                         objectFit: 'cover',
                                     },
@@ -146,7 +151,7 @@ function PerfumesCard() {
                                     sx={{
                                         width: '220px',
                                         overflow: 'hidden',
-                                        whiteSpace: 'nowrap' /* Don't forget this one */,
+                                        whiteSpace: 'nowrap',
                                         textOverflow: 'ellipsis',
                                         [mobileScreen]: {
                                             fontSize: theme.fontSize.mobile.text14,
@@ -188,7 +193,14 @@ function PerfumesCard() {
                                         display: 'flex',
                                         // justifyContent: 'space-between',
                                         alignItems: 'center',
-                                        // mb: 2,
+                                        [ipadProScreen]: {
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                        },
+                                        [tabletScreen]: {
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                        },
                                         [mobileScreen]: {
                                             flexDirection: 'column',
                                             alignItems: 'center',
@@ -240,6 +252,12 @@ function PerfumesCard() {
                                 sx={{
                                     px: 1,
                                     visibility: perfume.flashSale ? 'visible' : 'hidden',
+                                    [ipadProScreen]: {
+                                        mb: 2,
+                                    },
+                                    [tabletScreen]: {
+                                        mb: 2,
+                                    },
                                 }}
                             >
                                 <Box
