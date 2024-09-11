@@ -11,3 +11,11 @@ export const converToUSD = (price) => {
         currency: 'USD',
     });
 };
+
+export const calculateDiscount = (price) => {
+    return price * 0.2; // 20% discount
+};
+
+export const calculateTax = (price) => {
+    return price * 0.1; // 10% tax
+};
