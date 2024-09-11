@@ -6,7 +6,7 @@ import ShopPageInformation from '../components/ShopPageInformation/ShopPageInfor
 function Shop() {
     return (
         <div>
-            <PerfumeBrands />
+            {/* <PerfumeBrands /> */}
             <PerfumesCard />
             <ShopPageInformation />
         </div>

@@ -32,7 +32,7 @@ function SortProducts({ listData, setSortedList }) {
     const [getFilterPrice, setGetFilterPrice] = React.useState(null);
     // Default to the first item
     const [selectedOptionFilter, setSelectedOptionFilter] = React.useState('Price');
-    console.log('list data in sort: ', listData);
+    // console.log('list data in sort: ', listData);
 
     const openSortMenu = Boolean(getFilterPrice);
 
@@ -55,7 +55,7 @@ function SortProducts({ listData, setSortedList }) {
         setSelectedOptionFilter(item);
         setSortedList(sortedList);
         setGetFilterPrice(null);
-        console.log('sortedList: ', sortedList);
+        // console.log('sortedList: ', sortedList);
     };
 
     return (

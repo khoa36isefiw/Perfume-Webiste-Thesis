@@ -11,7 +11,6 @@ import {
     Avatar,
     IconButton,
     styled,
-    Divider,
     Button,
 } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -40,6 +39,7 @@ function CheckoutInformation() {
     const [selectedWardTown, setSelectedWardTown] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('cod'); // Default payment method
     const [showNotification, setShowNotification] = useState(false);
+
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
 
     // get product in cart
@@ -360,24 +360,6 @@ function CheckoutInformation() {
                         ))}
                     </Box>
                     <Box sx={{ mt: 2 }}>
-                        {/* <CheckoutContainer>
-                                <CustomizeTypography>Tạm tính</CustomizeTypography>
-                                <CustomizeTypography>2.880.000 ₫</CustomizeTypography>
-                            </CheckoutContainer>
-                            <CheckoutContainer>
-                                <CustomizeTypography>Giao hàng</CustomizeTypography>
-                                <CustomizeTypography>Miễn phí!</CustomizeTypography>
-                            </CheckoutContainer>
-                            <Divider sx={{ bgcolor: '#d9d9d9', my: 4 }} />
-                            <CheckoutContainer>
-                                <CustomizeTypography sx={{ fontWeight: 'bold', fontSize: '20px' }}>
-                                    Tổng
-                                </CustomizeTypography>
-                                <CustomizeTypography sx={{ fontWeight: 'bold', fontSize: '20px' }}>
-                                    2.880.000 ₫
-                                </CustomizeTypography>
-                            </CheckoutContainer> */}
-
                         <CartTotal productsList={listProductInCart} />
                     </Box>
                 </Grid>
