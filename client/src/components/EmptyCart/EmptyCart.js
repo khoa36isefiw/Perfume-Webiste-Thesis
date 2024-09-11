@@ -6,7 +6,48 @@ import { theme } from '../../Theme/Theme';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { useNavigate } from 'react-router-dom';
 
-function EmptyCart() {
+// function EmptyCart() {
+//     const navigate = useNavigate();
+//     return (
+//         <Box
+//             sx={{
+//                 minHeight: '500px',
+//                 bgcolor: '#000',
+//                 display: 'flex',
+//                 flexDirection: 'column',
+//                 alignItems: 'center',
+//                 mt: 22,
+//             }}
+//         >
+//             <Avatar
+//                 src={emptyImage4}
+//                 alt="Empty Cart Image"
+//                 sx={{ width: '256px', height: '256px' }}
+//             />
+//             <CustomizeTypography
+//                 sx={{ color: theme.palette.text.secondary, fontSize: '32px', fontWeight: 'bold' }}
+//             >
+//                 Your cart is empty
+//             </CustomizeTypography>
+//             <CustomizeTypography sx={{ fontSize: '24px', mb: 1 }}>
+//                 Looks like you have not added anything to your cart.
+//             </CustomizeTypography>
+//             <CustomizeButton
+//                 onHandleClick={() => navigate('/shop')}
+//                 textAction={'Continue Shopping'}
+//             />
+//         </Box>
+//     );
+// }
+
+// export default EmptyCart;
+
+function EmptyCart({
+    imgCart = emptyImage4,
+    title = 'Your cart is empty',
+    subTitle = 'Looks like you have not added anything to your cart.',
+    isShowButton = true,
+}) {
     const navigate = useNavigate();
     return (
         <Box
@@ -19,23 +60,23 @@ function EmptyCart() {
                 mt: 22,
             }}
         >
-            <Avatar
-                src={emptyImage4}
-                alt="Empty Cart Image"
-                sx={{ width: '256px', height: '256px' }}
-            />
+            <Avatar src={imgCart} alt="Empty Cart Image" sx={{ width: '256px', height: '256px' }} />
             <CustomizeTypography
                 sx={{ color: theme.palette.text.secondary, fontSize: '32px', fontWeight: 'bold' }}
             >
-                Your cart is empty
+                {/* Your cart is empty */}
+                {title}
             </CustomizeTypography>
             <CustomizeTypography sx={{ fontSize: '24px', mb: 1 }}>
-                Looks like you have not added anything to your cart.
+                {/* Looks like you have not added anything to your cart. */}
+                {subTitle}
             </CustomizeTypography>
-            <CustomizeButton
-                onHandleClick={() => navigate('/shop')}
-                textAction={'Continue Shopping'}
-            />
+            {isShowButton && (
+                <CustomizeButton
+                    onHandleClick={() => navigate('/shop')}
+                    textAction={'Continue Shopping'}
+                />
+            )}
         </Box>
     );
 }
