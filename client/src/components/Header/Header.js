@@ -1,22 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {
-    Box,
-    Container,
-    IconButton,
-    Menu,
-    MenuItem,
-    List,
-    ListItem,
-    ListItemText,
-    Drawer,
-} from '@mui/material';
+import { Box, Container, IconButton, Menu, MenuItem, Drawer } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const headerData = [
@@ -56,6 +46,7 @@ function Header() {
     const open = Boolean(anchorEl);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [activeHeader, setActiveHeader] = useState('Home');
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
@@ -90,10 +81,29 @@ function Header() {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const handleHeaderClick = (header) => {
+        setActiveHeader(header.headerText);
+        navigate(header.headerLink);
+    };
+
+    const handleIconHeaderClick = (action, event) => {
+        if (action.headerIconDest === '/sign-in') {
+            // open the menu for "Sign In"
+            setAnchorEl(event.currentTarget);
+        } else {
+            // close the menu if it's another icon
+            setAnchorEl(null);
+            // navigate to the icon's destination
+            navigate(action.headerIconDest);
+        }
+        // set active header to the clicked icon
+        setActiveHeader(action.des);
+    };
+
     return (
         <Box
             sx={{
-                height: '80px',
+                minHeight: '80px',
                 width: '100%',
                 position: 'fixed',
                 backgroundColor: 'black',
@@ -104,21 +114,36 @@ function Header() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
+
                 [mobileScreen]: {
                     width: '100%',
                 },
             }}
         >
             <Container
-                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    [tabletScreen]: {
+                        flexDirection: 'column',
+                    },
+                }}
             >
                 <CustomizeTypography
                     sx={{
-                        fontSize: '20px',
+                        fontSize: '32px',
                         fontWeight: 'bold',
                         color: theme.palette.secondaryText,
+                        [tabletScreen]: {
+                            fontSize: '32px',
+                        },
+                        [tabletScreen]: {
+                            fontSize: '32px',
+                        },
                         [mobileScreen]: {
                             fontSize: theme.fontSize.mobile.text,
+                            fontSize: '20px',
                         },
                     }}
                     onClick={() => navigate('/')}
@@ -127,64 +152,104 @@ function Header() {
                 </CustomizeTypography>
                 {/* Menu for mobile */}
 
-                {isMobile ? (
-                    <IconButton onClick={toggleMenu}>
-                        <MenuIcon sx={{ fontSize: '32px', color: '#fff' }} />
-                    </IconButton>
-                ) : (
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box>
+                    {isMobile ? (
+                        <IconButton onClick={toggleMenu}>
+                            <MenuIcon sx={{ fontSize: '32px', color: '#fff' }} />
+                        </IconButton>
+                    ) : (
                         <Box
-                            flexGrow={1}
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'center',
+                                [tabletScreen]: {
+                                    flexDirection: 'column',
+                                },
                             }}
                         >
-                            {headerData.map((header, index) => (
-                                <CustomizeTypography
-                                    key={index}
-                                    onClick={() => navigate(header.headerLink)}
-                                    sx={{
-                                        fontSize: '16px',
-                                        color: 'white',
-                                        margin: '0 32px',
-                                        '&:hover': {
-                                            cursor: 'pointer',
-                                            fontWeight: 'bold',
-                                        },
-                                    }}
-                                >
-                                    {header.headerText}
-                                </CustomizeTypography>
-                            ))}
+                            <Box
+                                flexGrow={1}
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                {headerData.map((header, index) => (
+                                    <CustomizeTypography
+                                        key={index}
+                                        onClick={() => handleHeaderClick(header)}
+                                        sx={{
+                                            fontSize: '16px',
+                                            color:
+                                                activeHeader === header.headerText
+                                                    ? theme.palette.text.secondary
+                                                    : 'white',
+                                            margin: '0 32px',
+                                            fontWeight:
+                                                activeHeader === header.headerText
+                                                    ? 'bold'
+                                                    : 'normal',
+                                            borderBottom:
+                                                activeHeader === header.headerText
+                                                    ? `1px solid ${theme.palette.text.secondary}`
+                                                    : '1px solid transparent',
+                                            transition:
+                                                'color 0.3s ease, font-weight 0.3s ease, border-bottom 0.3s ease',
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                fontWeight: 'bold',
+                                            },
+                                        }}
+                                    >
+                                        {header.headerText}
+                                    </CustomizeTypography>
+                                ))}
+                            </Box>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    [tabletScreen]: {
+                                        mt: 2,
+                                    },
+                                }}
+                            >
+                                {headerActionButton.map((action, index) => (
+                                    <IconButton
+                                        key={index}
+                                        // onClick={(event) =>
+                                        //     action.headerIconDest === '/sign-in'
+                                        //         ? handleMenuOpen(event)
+                                        //         : handleIconHeaderClick(action)
+                                        // }
+                                        onClick={(event) => {
+                                            handleIconHeaderClick(action, event);
+                                        }}
+                                        sx={{
+                                            color:
+                                                activeHeader === action.des
+                                                    ? theme.palette.text.secondary
+                                                    : 'white',
+                                            mr: 1,
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                fontWeight: 'bold',
+                                            },
+                                            [tabletScreen]: {
+                                                mr: 4,
+                                                mb: 2,
+                                            },
+                                        }}
+                                    >
+                                        {action.headerIcon}
+                                    </IconButton>
+                                ))}
+                            </Box>
                         </Box>
-                        <Box
-                            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                        >
-                            {headerActionButton.map((action, index) => (
-                                <IconButton
-                                    key={index}
-                                    onClick={(event) =>
-                                        action.headerIconDest === '/sign-in'
-                                            ? handleMenuOpen(event)
-                                            : navigate(action.headerIconDest)
-                                    }
-                                    sx={{
-                                        color: 'white',
-                                        mr: 1,
-                                        '&:hover': {
-                                            cursor: 'pointer',
-                                            fontWeight: 'bold',
-                                        },
-                                    }}
-                                >
-                                    {action.headerIcon}
-                                </IconButton>
-                            ))}
-                        </Box>
-                    </Box>
-                )}
+                    )}
+                </Box>
 
                 <Menu
                     anchorEl={anchorEl}

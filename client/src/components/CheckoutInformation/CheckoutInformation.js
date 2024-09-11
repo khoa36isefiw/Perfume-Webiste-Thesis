@@ -11,19 +11,26 @@ import {
     Avatar,
     IconButton,
     styled,
-    Divider,
+    Button,
 } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { addressApi } from '../api/addressApi';
 import SelectAddress from '../SelectAddress/SelectAddress';
 import CreditCard from '../CreditCard/CreditCard';
 import { theme } from '../../Theme/Theme';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import { PayPalButton } from 'react-paypal-button-v2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import CloseIcon from '@mui/icons-material/Close';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { useDispatch, useSelector } from 'react-redux';
+import CartTotal from '../Cart/CartTotal';
+import { converToVND } from '../convertToVND/convertToVND';
+import { removeProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
+import { CustomizeDividerVertical } from '../CustomizeDivider/CustomizeDivider';
 
 function CheckoutInformation() {
+    const dispatch = useDispatch();
     const [listProvince, setListProvince] = useState([]);
     const [listDistrict, setListDistrict] = useState([]);
     const [listWardTown, setListWardTown] = useState([]);
@@ -32,7 +39,11 @@ function CheckoutInformation() {
     const [selectedWardTown, setSelectedWardTown] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('cod'); // Default payment method
     const [showNotification, setShowNotification] = useState(false);
+
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+
+    // get product in cart
+    const listProductInCart = useSelector((state) => state.cartManagement.productInfor);
 
     // get province
     useEffect(() => {
@@ -78,9 +89,44 @@ function CheckoutInformation() {
         }, 1000);
     };
 
+    console.log('product: ', listProductInCart);
+
     return (
         <Container sx={{ position: 'relative' }}>
             <Grid container spacing={4}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Button
+                        // back to the previous page
+                        onClick={() => window.history.back(-1)}
+                        startIcon={
+                            <ArrowBackIcon
+                                sx={{
+                                    fontSize: '24px',
+                                    color: '#fff',
+                                }}
+                            />
+                        }
+                        sx={{
+                            fontSize: '16px',
+                            textTransform: 'initial',
+                            color: '#fff',
+                            fontWeight: 'normal',
+                            transition:
+                                'background-color 0.3s ease, color 0.3s ease, transform 0.3s ease',
+                            '&:hover': {
+                                transform: 'translateX(-10px)',
+                                color: theme.palette.text.secondary,
+                                fontWeight: 'bold',
+                                // change color for icon
+                                '& .MuiSvgIcon-root': {
+                                    color: theme.palette.text.secondary,
+                                },
+                            },
+                        }}
+                    >
+                        Back to Cart
+                    </Button>
+                </Grid>
                 <Grid item lg={6}>
                     <Box sx={{ minHeight: '200px', p: 2 }}>
                         <CustomizeTypography sx={{ color: 'white' }}>
@@ -240,69 +286,81 @@ function CheckoutInformation() {
                 </Grid>
                 <Grid item lg={6}>
                     <Box sx={{ bgcolor: '#555', minHeight: '200px', p: 2, borderRadius: 1 }}>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                mb: 1,
-                            }}
-                        >
-                            <Box sx={{ display: 'flex' }}>
-                                <Avatar
-                                    src={
-                                        'https://orchard.vn/wp-content/uploads/2023/08/ralph-lauren-polo-black_1.jpg'
-                                    }
-                                    sx={{ width: '56px', height: '56px', borderRadius: 1, mr: 1 }}
-                                />
-                                <Box sx={{ width: '80%', flexWrap: 'wrap' }}>
-                                    <CustomizeTypography
-                                        sx={{ mb: 0, fontSize: '16px', fontWeight: 'bold' }}
+                        {listProductInCart.map((product, index) => (
+                            <Box key={index}>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'flex-start',
+                                        justifyContent: 'space-between',
+                                    }}
+                                >
+                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                        <Avatar
+                                            src={product.perfumeImage}
+                                            sx={{
+                                                width: '56px',
+                                                height: '56px',
+                                                borderRadius: 1,
+                                                bgcolor: '#fff',
+                                                mr: 1,
+                                            }}
+                                        />
+                                        <Box sx={{ width: '80%', flexWrap: 'wrap' }}>
+                                            <CustomizeTypography
+                                                sx={{
+                                                    mb: 0,
+                                                    fontSize: '16px',
+                                                    fontWeight: 'bold',
+                                                    color: theme.palette.text.secondary,
+                                                }}
+                                            >
+                                                {/* Versace Eros EDT - 100 ml */}
+                                                {product.perfumeName}
+                                            </CustomizeTypography>
+                                            <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
+                                                Size: 150ml
+                                            </CustomizeTypography>
+                                            <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
+                                                {converToVND(product.perfumePrice)}
+                                            </CustomizeTypography>
+                                        </Box>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'flex-end',
+                                            justifyContent: 'flex-end',
+                                        }}
                                     >
-                                        Versace Eros EDT - 100 ml
-                                    </CustomizeTypography>
-                                    <CustomizeTypography sx={{ mb: 0, fontSize: '12px' }}>
-                                        Quà tặng:
-                                        <span>
-                                            Chanel Coco Mademoiselle - 5ML Trị giá: 400.000₫
-                                        </span>
-                                    </CustomizeTypography>
+                                        <IconButton
+                                            onClick={() =>
+                                                dispatch(removeProduct(product.perfumeID))
+                                            }
+                                        >
+                                            <CloseIcon sx={{ fontSize: '24px', color: 'white' }} />
+                                        </IconButton>
+                                        <CustomizeTypography
+                                            sx={{
+                                                fontSize: '14px',
+                                                mb: 0,
+                                                mr: 1,
+                                                color: theme.palette.text.secondary,
+                                            }}
+                                        >
+                                            <strong>Qty:</strong> {product.quantity}
+                                        </CustomizeTypography>
+                                    </Box>
                                 </Box>
+                                {index !== listProductInCart.length - 1 && (
+                                    <CustomizeDividerVertical />
+                                )}
                             </Box>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'flex-end',
-                                    // justifyContent: 'space-between',
-                                }}
-                            >
-                                <IconButton>
-                                    <CloseIcon sx={{ fontSize: '24px', color: 'white' }} />
-                                </IconButton>
-                                <CustomizeTypography>2.880.000 ₫</CustomizeTypography>
-                            </Box>
-                        </Box>
-
-                        <Box sx={{ mt: 4 }}>
-                            <CheckoutContainer>
-                                <CustomizeTypography>Tạm tính</CustomizeTypography>
-                                <CustomizeTypography>2.880.000 ₫</CustomizeTypography>
-                            </CheckoutContainer>
-                            <CheckoutContainer>
-                                <CustomizeTypography>Giao hàng</CustomizeTypography>
-                                <CustomizeTypography>Miễn phí!</CustomizeTypography>
-                            </CheckoutContainer>
-                            <Divider sx={{ bgcolor: '#d9d9d9', my: 4 }} />
-                            <CheckoutContainer>
-                                <CustomizeTypography sx={{ fontWeight: 'bold', fontSize: '20px' }}>
-                                    Tổng
-                                </CustomizeTypography>
-                                <CustomizeTypography sx={{ fontWeight: 'bold', fontSize: '20px' }}>
-                                    2.880.000 ₫
-                                </CustomizeTypography>
-                            </CheckoutContainer>
-                        </Box>
+                        ))}
+                    </Box>
+                    <Box sx={{ mt: 2 }}>
+                        <CartTotal productsList={listProductInCart} />
                     </Box>
                 </Grid>
             </Grid>

@@ -17,6 +17,7 @@ function Promocode({ textAction, onHandleClick }) {
             }}
         >
             <TextFieldCustomize
+                width={'300px'}
                 placeholder={'Promocode'}
                 inputValue={promoCode}
                 onChangeValue={(e) => setPromoCode(e.target.value)}

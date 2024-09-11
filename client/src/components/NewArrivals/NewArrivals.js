@@ -4,14 +4,14 @@ import { Box, Container, Grid } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { fadeInAnimation } from '../AnimationEffects/AnimationEffects';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 
 function NewArrivals() {
     return (
         <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
             {/* <Grid container sx={{ display: 'flex', alignItems: 'center' }}> */}
             <Grid container spacing={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                <Grid item sm={12} md={8} lg={8}>
+                <Grid item xs={12} sm={6} md={8} lg={8}>
                     <Box>
                         <Box sx={{ mb: 4 }}>
                             <CustomizeTypography
@@ -19,6 +19,9 @@ function NewArrivals() {
                                     fontWeight: 'bold',
                                     fontSize: '56px',
                                     ...fadeInAnimation,
+                                    [tabletScreen]: {
+                                        fontSize: '24px',
+                                    },
                                     [mobileScreen]: {
                                         fontSize: '32px',
                                     },
@@ -35,6 +38,10 @@ function NewArrivals() {
                                     '@keyframes fadeIn': {
                                         from: { opacity: 0, transform: 'translateY(20px)' },
                                         to: { opacity: 1, transform: 'translateY(0)' },
+                                    },
+                                    [tabletScreen]: {
+                                        width: '100%',
+                                        fontSize: '22px',
                                     },
                                     [mobileScreen]: {
                                         width: '100%',
@@ -59,7 +66,7 @@ function NewArrivals() {
                         </Box>
                     </Box>
                 </Grid>
-                <Grid item sm={12} md={4} lg={4}>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
                     <Box
                         component={'img'}
                         src={NewArrival}

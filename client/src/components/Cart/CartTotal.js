@@ -6,35 +6,80 @@ import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
 import Promocode from './Promocode';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import { SummaryRowInCart } from './SummaryRowInCart';
-import { converToVND } from '../convertToVND/convertToVND';
+import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 function CartTotal({ productsList }) {
     const navigate = useNavigate();
     const [promoCode, setPromoCode] = useState('');
     const [promoCodeApplied, setPromoCodeApplied] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [messageType, setMessageType] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+    const [messageTitle, setMessageTitle] = useState('');
 
     const handleApplyPromoCode = (code) => {
         if (code === 'UTE99') {
             setPromoCode('UTE99');
             setPromoCodeApplied(true);
+            setShowNotification(true);
+            setMessageType('success');
+            setMessageContent('You will get 5% off the total price.');
+            setMessageTitle('Promo Code');
+            setShowAnimation('animate__bounceInRight');
         } else {
             // invalid promo code
-            setPromoCodeApplied(false);
             setPromoCode('');
+            setPromoCodeApplied(false);
+            setShowNotification(true);
+            setMessageType('warning');
+            setMessageContent('Your promo code invalid.');
+            setMessageTitle('Promo Code');
             alert('Invalid promo code');
+            setShowAnimation('animate__bounceInRight');
         }
     };
 
-    const calculateDiscount = (price) => {
-        return price * 0.2; // 20% discount
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
     };
 
-    const calculateTax = (price) => {
-        return price * 0.1; // 10% tax
+    // Calculate subtotal
+    const calculateSubtotal = () => {
+        let subtotal = 0;
+        productsList.forEach((product) => {
+            subtotal += product.quantity * product.perfumePrice;
+        });
+        return subtotal;
+    };
+
+    // Calculate total discount
+    const calculateDiscountTotal = () => {
+        let discountTotal = 0;
+        productsList.forEach((product) => {
+            const price = product.quantity * product.perfumePrice;
+            discountTotal += calculateDiscount(price);
+        });
+        return discountTotal;
+    };
+
+    // Calculate total tax
+    const calculateTaxTotal = () => {
+        let taxTotal = 0;
+        productsList.forEach((product) => {
+            const price = product.quantity * product.perfumePrice;
+            taxTotal += calculateTax(price);
+        });
+        return taxTotal;
     };
 
     // Calculate the total price including discount, tax, and promo code
-    const calculateTotal = () => {
+    const calculateFinalTotal = () => {
         let totalSubtotal = 0;
         let totalDiscount = 0;
         let totalTax = 0;
@@ -71,6 +116,7 @@ function CartTotal({ productsList }) {
             <CustomizeTypography
                 sx={{
                     borderColor: '#fff',
+                    textAlign: 'center',
                 }}
             >
                 If you have a Promo Code you will get 5% off
@@ -92,34 +138,21 @@ function CartTotal({ productsList }) {
 
             <CustomizeDividerV2 />
 
-            {productsList.map((product, index) => (
-                <React.Fragment key={index}>
-                    <SummaryRowInCart
-                        label="Subtotal"
-                        value={converToVND(product.quantity * product.perfumePrice)}
-                        isTotal
-                    />
-                    {/* Discount 20% */}
-                    <SummaryRowInCart
-                        label="Discount"
-                        discount={'20%'}
-                        value={converToVND(
-                            calculateDiscount(product.quantity * product.perfumePrice),
-                        )}
-                    />
-                    {/* Delivery fee (free in this case) */}
-                    <SummaryRowInCart label="Delivery" value="0.00" />
-                    {/* Tax: 10% */}
-                    <SummaryRowInCart
-                        label="Tax"
-                        value={converToVND(calculateTax(product.quantity * product.perfumePrice))}
-                    />
-                    <CustomizeDividerV2 />
-                </React.Fragment>
-            ))}
+            <SummaryRowInCart label="Subtotal" value={converToVND(calculateSubtotal())} isTotal />
+            {/* Discount 20% */}
+            <SummaryRowInCart
+                label="Discount"
+                discount={'20%'}
+                value={converToVND(calculateDiscountTotal())}
+            />
+            {/* Delivery fee (free in this case) */}
+            <SummaryRowInCart label="Delivery" value="0.00" />
+            {/* Tax: 10% */}
+            <SummaryRowInCart label="Tax" value={`+${converToVND(calculateTaxTotal())}`} />
+            <CustomizeDividerV2 />
 
             {/* Total Row */}
-            <SummaryRowInCart label="Total" value={converToVND(calculateTotal())} isTotal />
+            <SummaryRowInCart label="Total" value={converToVND(calculateFinalTotal())} isTotal />
 
             <CustomizeButtonInCart
                 variant="outlined"
@@ -130,6 +163,20 @@ function CartTotal({ productsList }) {
                 textAction="Continue Shopping"
                 onHandleClick={() => navigate('/shop')}
             />
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 }

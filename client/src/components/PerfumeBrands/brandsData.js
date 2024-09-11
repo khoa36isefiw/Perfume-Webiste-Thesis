@@ -1,6 +1,6 @@
 export const brandsData = [
     {
-        brandName: 'DIOR',
+        brandName: 'Dior',
         brandImage:
             '	https://res.cloudinary.com/dxulhqdp3/image/upload/v1724167817/perfumes/brands/dior-logo_qgnyij.png',
     },

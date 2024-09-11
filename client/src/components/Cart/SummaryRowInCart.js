@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import { theme } from '../../Theme/Theme';
 export const SummaryRowInCart = ({ label, value, isTotal, discount = null }) => {
     return (
         <Box
@@ -13,20 +14,31 @@ export const SummaryRowInCart = ({ label, value, isTotal, discount = null }) => 
                 sx={{
                     fontWeight: isTotal ? 'bold' : 'normal',
                     fontSize: isTotal ? '18px' : '14px',
+                    color: theme.palette.text.secondary,
                 }}
             >
                 {label}
             </CustomizeTypography>
 
             {discount ? (
-                <CustomizeTypography
-                    sx={{
-                        fontWeight: isTotal ? 'bold' : 'normal',
-                        fontSize: isTotal ? '18px' : '14px',
-                    }}
-                >
-                    {discount} - {value}
-                </CustomizeTypography>
+                <Box>
+                    <CustomizeTypography
+                        sx={{
+                            fontWeight: isTotal ? 'bold' : 'normal',
+                            fontSize: isTotal ? '18px' : '14px',
+                        }}
+                    >
+                        {discount}
+                    </CustomizeTypography>
+                    <CustomizeTypography
+                        sx={{
+                            fontWeight: isTotal ? 'bold' : 'normal',
+                            fontSize: isTotal ? '18px' : '14px',
+                        }}
+                    >
+                        - {value}
+                    </CustomizeTypography>
+                </Box>
             ) : (
                 <CustomizeTypography
                     sx={{
