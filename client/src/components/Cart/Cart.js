@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import CartTotal from './CartTotal';
 import TotalPriceInCart from './TotalPriceInCart';
 import EmptyCart from '../EmptyCart/EmptyCart';
+import EmptyOrders from '../EmptyOrders/EmptyOrders';
 
 function Cart() {
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
@@ -76,7 +77,10 @@ function Cart() {
                     </Grid>
                 </Container>
             ) : (
-                <EmptyCart />
+                <>
+                    <EmptyCart />
+                    <EmptyOrders />
+                </>
             )}
         </React.Fragment>
     );
