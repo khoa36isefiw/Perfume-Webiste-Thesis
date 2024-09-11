@@ -138,8 +138,11 @@ function BestSellingProducts() {
                                     sx={{
                                         textAlign: 'center',
                                         // my: 2,
-                                        fontSize: '18px',
-                                        fontWeight: 'bold',
+
+                                        overflow: 'hidden',
+                                        whiteSpace: 'nowrap',
+                                        textOverflow: 'ellipsis',
+                                        width: '100%',
                                     }}
                                 >
                                     {perfume.perfumeName}
