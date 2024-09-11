@@ -9,6 +9,7 @@ import { ProductInCart } from './ProductInCart';
 
 import { useSelector } from 'react-redux';
 import CartTotal from './CartTotal';
+import TotalPriceInCart from './TotalPriceInCart';
 
 function Cart() {
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
@@ -62,8 +63,11 @@ function Cart() {
                     <Grid item xs={12} lg={8}>
                         <ProductInCart productsList={productAdded} />
                     </Grid>
-                    <Grid item xs={12} lg={4}>
+                    {/* <Grid item xs={12} lg={4}>
                         <CartTotal productsList={productAdded} />
+                    </Grid> */}
+                    <Grid item xs={12} lg={4}>
+                        <TotalPriceInCart productsList={productAdded} />
                     </Grid>
                 </Grid>
             </Grid>
