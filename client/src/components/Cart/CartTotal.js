@@ -7,22 +7,46 @@ import Promocode from './Promocode';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import { SummaryRowInCart } from './SummaryRowInCart';
 import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 function CartTotal({ productsList }) {
     const navigate = useNavigate();
     const [promoCode, setPromoCode] = useState('');
     const [promoCodeApplied, setPromoCodeApplied] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [messageType, setMessageType] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+    const [messageTitle, setMessageTitle] = useState('');
 
     const handleApplyPromoCode = (code) => {
         if (code === 'UTE99') {
             setPromoCode('UTE99');
             setPromoCodeApplied(true);
+            setShowNotification(true);
+            setMessageType('success');
+            setMessageContent('You will get 5% off the total price.');
+            setMessageTitle('Promo Code');
+            setShowAnimation('animate__bounceInRight');
         } else {
             // invalid promo code
-            setPromoCodeApplied(false);
             setPromoCode('');
+            setPromoCodeApplied(false);
+            setShowNotification(true);
+            setMessageType('warning');
+            setMessageContent('Your promo code invalid.');
+            setMessageTitle('Promo Code');
             alert('Invalid promo code');
+            setShowAnimation('animate__bounceInRight');
         }
+    };
+
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
     };
 
     // Calculate subtotal
@@ -139,6 +163,20 @@ function CartTotal({ productsList }) {
                 textAction="Continue Shopping"
                 onHandleClick={() => navigate('/shop')}
             />
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 }
