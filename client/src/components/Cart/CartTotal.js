@@ -6,7 +6,7 @@ import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
 import Promocode from './Promocode';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import { SummaryRowInCart } from './SummaryRowInCart';
-import { converToVND } from '../convertToVND/convertToVND';
+import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
 
 function CartTotal({ productsList }) {
     const navigate = useNavigate();
@@ -25,16 +25,37 @@ function CartTotal({ productsList }) {
         }
     };
 
-    const calculateDiscount = (price) => {
-        return price * 0.2; // 20% discount
+    // Calculate subtotal
+    const calculateSubtotal = () => {
+        let subtotal = 0;
+        productsList.forEach((product) => {
+            subtotal += product.quantity * product.perfumePrice;
+        });
+        return subtotal;
     };
 
-    const calculateTax = (price) => {
-        return price * 0.1; // 10% tax
+    // Calculate total discount
+    const calculateDiscountTotal = () => {
+        let discountTotal = 0;
+        productsList.forEach((product) => {
+            const price = product.quantity * product.perfumePrice;
+            discountTotal += calculateDiscount(price);
+        });
+        return discountTotal;
+    };
+
+    // Calculate total tax
+    const calculateTaxTotal = () => {
+        let taxTotal = 0;
+        productsList.forEach((product) => {
+            const price = product.quantity * product.perfumePrice;
+            taxTotal += calculateTax(price);
+        });
+        return taxTotal;
     };
 
     // Calculate the total price including discount, tax, and promo code
-    const calculateTotal = () => {
+    const calculateFinalTotal = () => {
         let totalSubtotal = 0;
         let totalDiscount = 0;
         let totalTax = 0;
@@ -71,6 +92,7 @@ function CartTotal({ productsList }) {
             <CustomizeTypography
                 sx={{
                     borderColor: '#fff',
+                    textAlign: 'center',
                 }}
             >
                 If you have a Promo Code you will get 5% off
@@ -92,34 +114,21 @@ function CartTotal({ productsList }) {
 
             <CustomizeDividerV2 />
 
-            {productsList.map((product, index) => (
-                <React.Fragment key={index}>
-                    <SummaryRowInCart
-                        label="Subtotal"
-                        value={converToVND(product.quantity * product.perfumePrice)}
-                        isTotal
-                    />
-                    {/* Discount 20% */}
-                    <SummaryRowInCart
-                        label="Discount"
-                        discount={'20%'}
-                        value={converToVND(
-                            calculateDiscount(product.quantity * product.perfumePrice),
-                        )}
-                    />
-                    {/* Delivery fee (free in this case) */}
-                    <SummaryRowInCart label="Delivery" value="0.00" />
-                    {/* Tax: 10% */}
-                    <SummaryRowInCart
-                        label="Tax"
-                        value={converToVND(calculateTax(product.quantity * product.perfumePrice))}
-                    />
-                    <CustomizeDividerV2 />
-                </React.Fragment>
-            ))}
+            <SummaryRowInCart label="Subtotal" value={converToVND(calculateSubtotal())} isTotal />
+            {/* Discount 20% */}
+            <SummaryRowInCart
+                label="Discount"
+                discount={'20%'}
+                value={converToVND(calculateDiscountTotal())}
+            />
+            {/* Delivery fee (free in this case) */}
+            <SummaryRowInCart label="Delivery" value="0.00" />
+            {/* Tax: 10% */}
+            <SummaryRowInCart label="Tax" value={`+${converToVND(calculateTaxTotal())}`} />
+            <CustomizeDividerV2 />
 
             {/* Total Row */}
-            <SummaryRowInCart label="Total" value={converToVND(calculateTotal())} isTotal />
+            <SummaryRowInCart label="Total" value={converToVND(calculateFinalTotal())} isTotal />
 
             <CustomizeButtonInCart
                 variant="outlined"
