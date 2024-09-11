@@ -2,7 +2,7 @@ import { Avatar, Box, Grid } from '@mui/material';
 import React from 'react';
 import ourValues from '../../assets/images/our_values.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 
 function OurValues() {
     return (
@@ -10,6 +10,10 @@ function OurValues() {
             sx={{
                 my: theme.spacingAxis.boxVerticalAxis,
                 height: '600px',
+                [tabletScreen]: {
+                    height: '700px',
+                    mb: 30,
+                },
                 [mobileScreen]: {
                     height: '700px',
                     mb: 30,

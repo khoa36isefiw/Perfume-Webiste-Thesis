@@ -1,7 +1,7 @@
 import { Avatar, Box, Container, Grid, IconButton } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import Slider from 'react-slick';
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -74,7 +74,14 @@ function BestSellingProducts() {
     return (
         <Container
             sx={{
-                my: theme.spacingAxis.boxVerticalAxis,
+                my: theme.spacingAxis.boxVerticalAxis16,
+                [ipadProScreen]: {
+                    mt: 10,
+                },
+                [tabletScreen]: {
+                    mt: 60,
+                },
+
                 [mobileScreen]: {
                     mt: 10,
                 },
