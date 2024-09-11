@@ -110,7 +110,7 @@ function PerfumesCard() {
                                 component={'img'}
                                 src={perfume.perfumeImage}
                                 sx={{
-                                    height: '250px',
+                                    height: '230px',
                                     width: 'auto',
                                     objectFit: 'cover',
 
@@ -138,6 +138,7 @@ function PerfumesCard() {
                                 <CustomizeTypography
                                     sx={{
                                         fontWeight: 'bold',
+                                        mt: 1,
                                         [mobileScreen]: {
                                             fontSize: theme.fontSize.mobile.text14,
                                         },
@@ -153,6 +154,7 @@ function PerfumesCard() {
                                         overflow: 'hidden',
                                         whiteSpace: 'nowrap',
                                         textOverflow: 'ellipsis',
+
                                         [mobileScreen]: {
                                             fontSize: theme.fontSize.mobile.text14,
                                             width: '150px',
