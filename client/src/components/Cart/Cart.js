@@ -1,14 +1,12 @@
-import { Box, Button, Container, Divider, Grid } from '@mui/material';
+import { Button, Container, Divider, Grid } from '@mui/material';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
-import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
-import Promocode from './Promocode';
-import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
+
 import { ProductInCart } from './ProductInCart';
-import { SummaryRowInCart } from './SummaryRowInCart';
+
 import { useSelector } from 'react-redux';
 import CartTotal from './CartTotal';
 

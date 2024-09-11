@@ -12,12 +12,14 @@ import {
     IconButton,
     styled,
     Divider,
+    Button,
 } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { addressApi } from '../api/addressApi';
 import SelectAddress from '../SelectAddress/SelectAddress';
 import CreditCard from '../CreditCard/CreditCard';
 import { theme } from '../../Theme/Theme';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import { PayPalButton } from 'react-paypal-button-v2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import CloseIcon from '@mui/icons-material/Close';
@@ -81,6 +83,39 @@ function CheckoutInformation() {
     return (
         <Container sx={{ position: 'relative' }}>
             <Grid container spacing={4}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Button
+                        // back to the previous page
+                        onClick={() => window.history.back(-1)}
+                        startIcon={
+                            <ArrowBackIcon
+                                sx={{
+                                    fontSize: '24px',
+                                    color: '#fff',
+                                }}
+                            />
+                        }
+                        sx={{
+                            fontSize: '16px',
+                            textTransform: 'initial',
+                            color: '#fff',
+                            fontWeight: 'normal',
+                            transition:
+                                'background-color 0.3s ease, color 0.3s ease, transform 0.3s ease',
+                            '&:hover': {
+                                transform: 'translateX(-10px)',
+                                color: theme.palette.text.secondary,
+                                fontWeight: 'bold',
+                                // change color for icon
+                                '& .MuiSvgIcon-root': {
+                                    color: theme.palette.text.secondary,
+                                },
+                            },
+                        }}
+                    >
+                        Back to Cart
+                    </Button>
+                </Grid>
                 <Grid item lg={6}>
                     <Box sx={{ minHeight: '200px', p: 2 }}>
                         <CustomizeTypography sx={{ color: 'white' }}>
