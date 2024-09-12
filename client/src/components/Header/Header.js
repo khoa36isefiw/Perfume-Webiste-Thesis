@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, IconButton, Menu, MenuItem, Drawer } from '@mui/material';
+import {
+    Box,
+    Container,
+    IconButton,
+    Menu,
+    MenuItem,
+    Drawer,
+    Badge,
+    Typography,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import SearchIcon from '@mui/icons-material/Search';
@@ -8,6 +17,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useSelector } from 'react-redux';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -28,8 +38,10 @@ const headerActionButton = [
         headerIconDest: '/sign-in',
         des: 'Sign In',
     },
+
     {
         headerIcon: <FavoriteIcon sx={{ fontSize: '24px' }} />,
+
         headerIconDest: '/favorite-list',
         des: 'Favorite',
     },
@@ -47,6 +59,9 @@ function Header() {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeHeader, setActiveHeader] = useState('Home');
+
+    // get product in cart
+    const productListInCart = useSelector((state) => state.cartManagement.productInfor);
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
@@ -100,6 +115,7 @@ function Header() {
         setActiveHeader(action.des);
     };
 
+    console.log('productListInCart: ', productListInCart);
     return (
         <Box
             sx={{
@@ -216,36 +232,81 @@ function Header() {
                                     },
                                 }}
                             >
-                                {headerActionButton.map((action, index) => (
-                                    <IconButton
-                                        key={index}
-                                        // onClick={(event) =>
-                                        //     action.headerIconDest === '/sign-in'
-                                        //         ? handleMenuOpen(event)
-                                        //         : handleIconHeaderClick(action)
-                                        // }
-                                        onClick={(event) => {
-                                            handleIconHeaderClick(action, event);
-                                        }}
-                                        sx={{
-                                            color:
-                                                activeHeader === action.des
-                                                    ? theme.palette.text.secondary
-                                                    : 'white',
-                                            mr: 1,
-                                            '&:hover': {
-                                                cursor: 'pointer',
-                                                fontWeight: 'bold',
-                                            },
-                                            [tabletScreen]: {
-                                                mr: 4,
-                                                mb: 2,
-                                            },
-                                        }}
-                                    >
-                                        {action.headerIcon}
-                                    </IconButton>
-                                ))}
+                                {headerActionButton.map((action, index) =>
+                                    action.des === 'Cart' ? (
+                                        <Badge
+                                            key={index}
+                                            badgeContent={
+                                                productListInCart && productListInCart.length > 0
+                                                    ? productListInCart.length
+                                                    : ''
+                                            }
+                                            max={9}
+                                            sx={{
+                                                '& .MuiBadge-badge': {
+                                                    fontSize: '10px',
+                                                    // fontWeight: 'bold',
+                                                    right: 4,
+                                                    top: 4,
+                                                    color: '#fff',
+                                                    bgcolor:
+                                                        productListInCart &&
+                                                        productListInCart.length > 0
+                                                            ? theme.palette.background.thirth
+                                                            : 'black',
+                                                },
+                                            }}
+                                            color="green"
+                                        >
+                                            <IconButton
+                                                onClick={(event) =>
+                                                    handleIconHeaderClick(action, event)
+                                                }
+                                                sx={{
+                                                    color:
+                                                        activeHeader === action.des
+                                                            ? theme.palette.text.secondary
+                                                            : 'white',
+                                                    mr: 1,
+                                                    '&:hover': {
+                                                        cursor: 'pointer',
+                                                        fontWeight: 'bold',
+                                                    },
+                                                    [tabletScreen]: {
+                                                        mr: 4,
+                                                        mb: 2,
+                                                    },
+                                                }}
+                                            >
+                                                {action.headerIcon}
+                                            </IconButton>
+                                        </Badge>
+                                    ) : (
+                                        <IconButton
+                                            key={index}
+                                            onClick={(event) =>
+                                                handleIconHeaderClick(action, event)
+                                            }
+                                            sx={{
+                                                color:
+                                                    activeHeader === action.des
+                                                        ? theme.palette.text.secondary
+                                                        : 'white',
+                                                mr: 1,
+                                                '&:hover': {
+                                                    cursor: 'pointer',
+                                                    fontWeight: 'bold',
+                                                },
+                                                [tabletScreen]: {
+                                                    mr: 4,
+                                                    mb: 2,
+                                                },
+                                            }}
+                                        >
+                                            {action.headerIcon}
+                                        </IconButton>
+                                    ),
+                                )}
                             </Box>
                         </Box>
                     )}
