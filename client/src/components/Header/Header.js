@@ -240,7 +240,7 @@ function Header() {
                                     // default
                                     placeholder={'Search here...'}
                                     sx={{
-                                        width: '460px',
+                                        width: '360px',
                                         [tabletScreen]: { width: '360px' },
                                         [mobileScreen]: {
                                             width: '100%',
@@ -250,6 +250,9 @@ function Header() {
 
                                 <IconButton
                                     sx={{
+                                        bgcolor: 'green',
+                                        borderTopLeftRadius: 1,
+                                        borderBottomLeftRadius: 1,
                                         mr: 1,
                                         '&:hover': {
                                             cursor: 'pointer',
@@ -270,7 +273,6 @@ function Header() {
                                             ? productListInCart.length
                                             : ''
                                     }
-                                    variant="dot"
                                     max={9}
                                     sx={{
                                         '& .MuiBadge-badge': {
