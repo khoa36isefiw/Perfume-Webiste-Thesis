@@ -19,8 +19,6 @@ import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
 import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
-import CustomizeButton from '../CustomizeButton/CustomizeButton';
-import { TextFieldCustomizeV2, TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -181,7 +179,6 @@ function Header() {
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                flexDirection: 'column',
                                 [tabletScreen]: {
                                     flexDirection: 'column',
                                 },
@@ -236,84 +233,87 @@ function Header() {
                                     },
                                 }}
                             >
-                                <TextFieldCustomizeV2
-                                    // default
-                                    placeholder={'Search here...'}
-                                    sx={{
-                                        width: '360px',
-                                        [tabletScreen]: { width: '360px' },
-                                        [mobileScreen]: {
-                                            width: '100%',
-                                        },
-                                    }}
-                                />
-
-                                <IconButton
-                                    sx={{
-                                        bgcolor: 'green',
-                                        borderTopLeftRadius: 1,
-                                        borderBottomLeftRadius: 1,
-                                        mr: 1,
-                                        '&:hover': {
-                                            cursor: 'pointer',
-                                            fontWeight: 'bold',
-                                        },
-                                        [tabletScreen]: {
-                                            mr: 4,
-                                            mb: 2,
-                                        },
-                                    }}
-                                >
-                                    <SearchIcon sx={{ fontSize: '24px', color: 'white' }} />
-                                </IconButton>
-
-                                <Badge
-                                    badgeContent={
-                                        productListInCart && productListInCart.length > 0
-                                            ? productListInCart.length
-                                            : ''
-                                    }
-                                    max={9}
-                                    sx={{
-                                        '& .MuiBadge-badge': {
-                                            fontSize: '10px',
-                                            // fontWeight: 'bold',
-                                            right: 4,
-                                            top: 4,
-                                            color: '#fff',
-                                            bgcolor:
+                                {headerActionButton.map((action, index) =>
+                                    action.des === 'Cart' ? (
+                                        <Badge
+                                            key={index}
+                                            badgeContent={
                                                 productListInCart && productListInCart.length > 0
-                                                    ? theme.palette.background.thirth
-                                                    : 'black',
-                                        },
-                                    }}
-                                    color="green"
-                                >
-                                    <IconButton
-                                        sx={{
-                                            mr: 1,
-                                            '&:hover': {
-                                                cursor: 'pointer',
-                                                fontWeight: 'bold',
-                                            },
-                                            [tabletScreen]: {
-                                                mr: 4,
-                                                mb: 2,
-                                            },
-                                        }}
-                                    >
-                                        <ShoppingCartIcon
-                                            sx={{ fontSize: '24px', color: 'white' }}
-                                        />
-                                    </IconButton>
-                                </Badge>
+                                                    ? productListInCart.length
+                                                    : ''
+                                            }
+                                            variant="dot"
+                                            max={9}
+                                            sx={{
+                                                '& .MuiBadge-badge': {
+                                                    fontSize: '10px',
+                                                    // fontWeight: 'bold',
+                                                    right: 4,
+                                                    top: 4,
+                                                    color: '#fff',
+                                                    bgcolor:
+                                                        productListInCart &&
+                                                        productListInCart.length > 0
+                                                            ? theme.palette.background.thirth
+                                                            : 'black',
+                                                },
+                                            }}
+                                            color="green"
+                                        >
+                                            <IconButton
+                                                onClick={(event) =>
+                                                    handleIconHeaderClick(action, event)
+                                                }
+                                                sx={{
+                                                    color:
+                                                        activeHeader === action.des
+                                                            ? theme.palette.text.secondary
+                                                            : 'white',
+                                                    mr: 1,
+                                                    '&:hover': {
+                                                        cursor: 'pointer',
+                                                        fontWeight: 'bold',
+                                                    },
+                                                    [tabletScreen]: {
+                                                        mr: 4,
+                                                        mb: 2,
+                                                    },
+                                                }}
+                                            >
+                                                {action.headerIcon}
+                                            </IconButton>
+                                        </Badge>
+                                    ) : (
+                                        <IconButton
+                                            key={index}
+                                            onClick={(event) =>
+                                                handleIconHeaderClick(action, event)
+                                            }
+                                            sx={{
+                                                color:
+                                                    activeHeader === action.des
+                                                        ? theme.palette.text.secondary
+                                                        : 'white',
+                                                mr: 1,
+                                                '&:hover': {
+                                                    cursor: 'pointer',
+                                                    fontWeight: 'bold',
+                                                },
+                                                [tabletScreen]: {
+                                                    mr: 4,
+                                                    mb: 2,
+                                                },
+                                            }}
+                                        >
+                                            {action.headerIcon}
+                                        </IconButton>
+                                    ),
+                                )}
                             </Box>
                         </Box>
                     )}
                 </Box>
-                {/* <AuthenticatedUser /> */}
-                <CustomizeButton textAction={'Sign In'} />
-                <CustomizeButton textAction={'Register'} />
+                <AuthenticatedUser />
 
                 <Menu
                     anchorEl={anchorEl}

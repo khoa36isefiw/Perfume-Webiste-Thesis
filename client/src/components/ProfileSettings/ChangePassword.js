@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Container, Divider, Grid, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { CustomizeAccountText } from '../CustomizeTypography/CustomizeTypography';
-import { TextFieldLogin, TextFieldPassword } from '../TextFieldCustomize/TextFieldCustomize';
+import { TextFieldPassword } from '../TextFieldCustomize/TextFieldCustomize';
 import { theme } from '../../Theme/Theme';
 import { CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 
 function ChangePassword() {
