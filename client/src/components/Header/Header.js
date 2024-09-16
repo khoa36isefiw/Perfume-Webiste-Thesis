@@ -240,7 +240,7 @@ function Header() {
                                     // default
                                     placeholder={'Search here...'}
                                     sx={{
-                                        width: '360px',
+                                        width: '460px',
                                         [tabletScreen]: { width: '360px' },
                                         [mobileScreen]: {
                                             width: '100%',
