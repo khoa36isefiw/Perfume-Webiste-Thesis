@@ -3,21 +3,45 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 
-import { theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import ButtonComponent from '../SignIn/test';
 
 function RegisterAccount() {
     return (
-        <Container sx={{ width: '50%' }}>
+        <Container
+            sx={{
+                width: '50%',
+                [ipadProScreen]: {
+                    width: '70%',
+                    mt: 15,
+                },
+                [tabletScreen]: {
+                    width: '80%',
+                    mt: 20,
+                },
+                [mobileScreen]: {
+                    width: '100%',
+                    mt: 10,
+                },
+            }}
+        >
             <Grid container spacing={2}>
-                <Grid item lg={12}>
+                <Grid item xs={12} lg={12}>
                     <CustomizeTypography
-                        sx={{ fontSize: '48px', fontWeight: 'bold', textAlign: 'center' }}
+                        sx={{
+                            fontSize: '48px',
+                            fontWeight: 'bold',
+                            textAlign: 'center',
+                            color: theme.palette.text.secondary,
+                            [mobileScreen]: {
+                                fontSize: theme.fontSize.mobile.heading,
+                            },
+                        }}
                     >
                         Create account
                     </CustomizeTypography>
                 </Grid>
-                <Grid item lg={12}>
+                <Grid item xs={12} lg={12}>
                     <Grid
                         container
                         sx={{
@@ -26,7 +50,7 @@ function RegisterAccount() {
                             borderBottom: '1px solid #555',
                         }}
                     >
-                        <Grid item lg={12} sx={{ borderBottom: '1px solid #555', p: 2 }}>
+                        <Grid item xs={12} lg={12} sx={{ borderBottom: '1px solid #555', p: 2 }}>
                             <CustomizeTypography sx={{ fontSize: '18px', mb: 0 }}>
                                 Your{' '}
                                 <strong style={{ color: theme.palette.text.secondary }}>
@@ -63,6 +87,8 @@ function RegisterAccount() {
 
                         <Grid
                             item
+                            xs={12}
+                            sm={12}
                             lg={12}
                             sx={{
                                 borderTop: '1px solid #555',
@@ -70,14 +96,14 @@ function RegisterAccount() {
                                 p: 2,
                             }}
                         >
-                            <Grid item xs={12} sm={6} lg={12}>
+                            <Grid item xs={12} sm={12} lg={12}>
                                 <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
                                     E-mail<span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
                                 <TextFieldLogin placeholder="E-mail" fullWidth />
                             </Grid>
 
-                            <Grid item xs={12} sm={6} lg={12} sx={{ mt: 2, mb: '4px' }}>
+                            <Grid item xs={12} sm={12} lg={12} sx={{ mt: 2, mb: '4px' }}>
                                 <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
                                     Password<span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
@@ -86,6 +112,7 @@ function RegisterAccount() {
                         </Grid>
                         <Grid
                             item
+                            xs={12}
                             lg={12}
                             sx={{
                                 borderTop: '1px solid #555',
@@ -99,6 +126,7 @@ function RegisterAccount() {
                         </Grid>
                         <Grid
                             item
+                            xs={12}
                             lg={12}
                             sx={{
                                 borderTop: '1px solid #555',
@@ -106,6 +134,9 @@ function RegisterAccount() {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 p: 2,
+                                [mobileScreen]: {
+                                    flexDirection: 'column',
+                                },
                             }}
                         >
                             <CustomizeTypography sx={{ mb: 0, mr: 4 }}>

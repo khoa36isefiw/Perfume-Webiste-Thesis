@@ -280,10 +280,10 @@ export const TextFieldCustomizeV2 = styled(({ width, fullWidth, ...otherProps })
 ))(({ width }) => ({
     mr: 2,
     width: width,
-    // width: width ? width : '220px', // Set width here based on the passed prop
+
     '.MuiInputBase-root': {
         width: width,
-        // width: width ? width : '220px', // Ensure the input base uses the correct width
+
         fontSize: '14px',
         height: '40px',
         color: 'white',

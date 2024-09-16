@@ -25,7 +25,7 @@ function SignIn() {
             }}
         >
             <Grid container spacing={2}>
-                <Grid item lg={12}>
+                <Grid item xs={12} lg={12}>
                     <CustomizeTypography
                         sx={{
                             fontSize: '48px',
@@ -36,11 +36,9 @@ function SignIn() {
                                 fontSize: theme.fontSize.ipadPro.heading,
                             },
                             [tabletScreen]: {
-                                textAlign: 'center',
                                 fontSize: theme.fontSize.tablet.heading,
                             },
                             [mobileScreen]: {
-                                textAlign: 'center',
                                 fontSize: theme.fontSize.mobile.heading,
                             },
                         }}
@@ -157,7 +155,10 @@ function SignIn() {
                             <CustomizeTypography sx={{ mb: 0, mr: 4 }}>
                                 If you don't have account
                             </CustomizeTypography>
-                            <ButtonComponent textAction={'Register'} />
+                            <ButtonComponent
+                                textAction={'Register'}
+                                onHandleClick={() => navigate('/create-account')}
+                            />
                         </Grid>
                     </Grid>
                 </Grid>
