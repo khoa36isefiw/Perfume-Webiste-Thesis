@@ -17,7 +17,7 @@ function ProductInformation() {
     return (
         <Container>
             <Grid container>
-                <Grid item lg={9}>
+                <Grid item md={9} lg={9}>
                     <Box>
                         <CustomizeTypography
                             sx={{
@@ -70,7 +70,7 @@ function ProductInformation() {
                         >
                             Mô tả sản phẩm
                         </CustomizeTypography>
-                        <CustomizeTypography sx={{ mt: 2 }}>
+                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             {perfume.content.description}
                         </CustomizeTypography>
 
@@ -110,19 +110,19 @@ function ProductInformation() {
                             </Box>
                         ))}
 
-                        <CustomizeTypography sx={{ mt: 2 }}>
+                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             {perfume.content.scentProfile}
                         </CustomizeTypography>
 
-                        <CustomizeTypography sx={{ mt: 2 }}>
+                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             {perfume.content.impression}
                         </CustomizeTypography>
 
-                        <CustomizeTypography sx={{ mt: 2 }}>
+                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             {perfume.content.targetAudience}
                         </CustomizeTypography>
 
-                        <CustomizeTypography sx={{ mt: 2 }}>
+                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             {perfume.content.usage}
                         </CustomizeTypography>
 
@@ -143,9 +143,9 @@ function ProductInformation() {
                         </Box>
                     </Box>
                 </Grid>
-                <Grid item lg={3}>
+                <Grid item md={3} lg={3}>
                     {policyData.map((policy, index) => (
-                        <Box sx={{ width: '300px' }}>
+                        <Box sx={{ width: '100%' }}>
                             <Box
                                 key={index}
                                 sx={{

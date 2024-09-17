@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Container, Grid } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { ipadProScreen, theme } from '../../Theme/Theme';
 import StarIcon from '@mui/icons-material/Star';
 import { ratingData } from './ratingData';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
@@ -19,8 +19,14 @@ function RatingProduct() {
                 2 đánh giá cho Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum
             </CustomizeTypography>
             <Grid container>
-                <Grid container item lg={9} sx={{ border: '1px solid #333', minheight: '20px' }}>
-                    <Grid item lg={3}>
+                <Grid
+                    container
+                    item
+                    md={9}
+                    lg={9}
+                    sx={{ border: '1px solid #333', minHeight: '20px' }}
+                >
+                    <Grid item md={3} lg={3}>
                         <Box
                             sx={{
                                 textAlign: 'center',
@@ -43,6 +49,9 @@ function RatingProduct() {
                                         fontSize: '32px',
                                         fontWeight: 'bold',
                                         color: theme.palette.text.primary,
+                                        [ipadProScreen]: {
+                                            fontSize: '28px',
+                                        },
                                     }}
                                 >
                                     5.0
@@ -53,6 +62,9 @@ function RatingProduct() {
                                         fontSize: '32px',
                                         color: theme.palette.text.primary,
                                         mb: 1,
+                                        [ipadProScreen]: {
+                                            fontSize: '28px',
+                                        },
                                     }}
                                 />
                             </Box>
@@ -61,6 +73,7 @@ function RatingProduct() {
                     </Grid>
                     <Grid
                         item
+                        md={6}
                         lg={6}
                         sx={{ borderLeft: '1px solid #333', borderRight: '1px solid #333', p: 1 }}
                     >
@@ -86,6 +99,9 @@ function RatingProduct() {
                                             height: '15px',
                                             borderRadius: '4px',
                                             bgcolor: theme.palette.text.secondary,
+                                            [ipadProScreen]: {
+                                                width: '120px',
+                                            },
                                         }}
                                     />
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -111,6 +127,7 @@ function RatingProduct() {
                     </Grid>
                     <Grid
                         item
+                        md={3}
                         lg={3}
                         sx={{
                             height: '100%',

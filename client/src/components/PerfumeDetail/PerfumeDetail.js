@@ -4,7 +4,7 @@ import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/Cus
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { quickViewImage } from './perfumeDetailData';
 import { useLocation } from 'react-router-dom';
@@ -85,13 +85,20 @@ function PerfumeDetail() {
     };
 
     return (
-        <Container sx={{ mt: 16 }}>
+        <Container
+            sx={{
+                mt: 18,
+                [mobileScreen]: {
+                    mt: 16,
+                },
+            }}
+        >
             <Grid container>
                 <Grid
                     container
                     item
                     spacing={4}
-                    md={8}
+                    md={12}
                     lg={12}
                     sx={{ height: '600px', overflowY: 'scroll', p: 1 }}
                 >
