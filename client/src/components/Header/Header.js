@@ -15,12 +15,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
 import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
-import CustomizeButton from '../CustomizeButton/CustomizeButton';
-import { TextFieldCustomizeV2, TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
+import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
+import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -122,7 +122,7 @@ function Header() {
     return (
         <Box
             sx={{
-                minHeight: '80px',
+                minHeight: '150px',
                 width: '100%',
                 position: 'fixed',
                 backgroundColor: 'black',
@@ -136,6 +136,7 @@ function Header() {
 
                 [mobileScreen]: {
                     width: '100%',
+                    minHeight: '80px',
                 },
             }}
         >
@@ -151,17 +152,21 @@ function Header() {
             >
                 <CustomizeTypography
                     sx={{
-                        fontSize: '32px',
+                        width: '200px',
+                        fontSize: '28px',
                         fontWeight: 'bold',
-                        color: theme.palette.secondaryText,
-                        [tabletScreen]: {
-                            fontSize: '32px',
+                        background: `linear-gradient(120deg, ${theme.palette.text.main}, ${theme.palette.text.secondary})`,
+                        // chỉ hiển thị màu nền ở phần text
+                        WebkitBackgroundClip: 'text',
+                        // ẩn màu văn bản mặc định
+                        WebkitTextFillColor: 'transparent',
+                        [ipadProScreen]: {
+                            fontSize: '26px',
                         },
                         [tabletScreen]: {
-                            fontSize: '32px',
+                            fontSize: '24px',
                         },
                         [mobileScreen]: {
-                            // fontSize: theme.fontSize.mobile.text,
                             fontSize: '20px',
                         },
                     }}
@@ -169,6 +174,7 @@ function Header() {
                 >
                     Tomtoc Perfumes
                 </CustomizeTypography>
+
                 {/* Menu for mobile */}
 
                 <Box>
@@ -182,6 +188,7 @@ function Header() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 flexDirection: 'column',
+
                                 [tabletScreen]: {
                                     flexDirection: 'column',
                                 },
@@ -231,6 +238,7 @@ function Header() {
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
+                                    mt: 2,
                                     [tabletScreen]: {
                                         mt: 2,
                                     },
@@ -250,11 +258,12 @@ function Header() {
 
                                 <IconButton
                                     sx={{
-                                        bgcolor: 'green',
+                                        bgcolor: theme.palette.text.secondary,
                                         borderTopLeftRadius: 1,
                                         borderBottomLeftRadius: 1,
                                         mr: 1,
                                         '&:hover': {
+                                            bgcolor: theme.palette.text.secondary,
                                             cursor: 'pointer',
                                             fontWeight: 'bold',
                                         },
@@ -312,8 +321,12 @@ function Header() {
                     )}
                 </Box>
                 {/* <AuthenticatedUser /> */}
-                <CustomizeButton textAction={'Sign In'} />
-                <CustomizeButton textAction={'Register'} />
+                {!isMobile && (
+                    <>
+                        <CustomizeButton textAction={'Sign In'} />
+                        <CustomizeButtonOutlined textAction={'Register'} />
+                    </>
+                )}
 
                 <Menu
                     anchorEl={anchorEl}
