@@ -60,14 +60,17 @@ function Header() {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
+    const [isTablet, setIsTablet] = useState(window.innerWidth < 1024);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeHeader, setActiveHeader] = useState('Home');
 
+    console.log('window: ', window.innerWidth);
     // get product in cart
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
+        setIsTablet(window.innerWidth < 1024);
     }
 
     useEffect(() => {
@@ -133,7 +136,9 @@ function Header() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-
+                [tabletScreen]: {
+                    minHeight: '80px',
+                },
                 [mobileScreen]: {
                     width: '100%',
                     minHeight: '80px',
@@ -145,9 +150,9 @@ function Header() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    [tabletScreen]: {
-                        flexDirection: 'column',
-                    },
+                    // [tabletScreen]: {
+                    //     flexDirection: 'column',
+                    // },
                 }}
             >
                 <CustomizeTypography
@@ -178,7 +183,7 @@ function Header() {
                 {/* Menu for mobile */}
 
                 <Box>
-                    {isMobile ? (
+                    {isMobile || isTablet ? (
                         <IconButton onClick={toggleMenu}>
                             <MenuIcon sx={{ fontSize: '32px', color: '#fff' }} />
                         </IconButton>
@@ -249,7 +254,7 @@ function Header() {
                                     placeholder={'Search here...'}
                                     sx={{
                                         width: '360px',
-                                        [tabletScreen]: { width: '360px' },
+                                        [tabletScreen]: { width: '260px' },
                                         [mobileScreen]: {
                                             width: '100%',
                                         },
@@ -321,7 +326,7 @@ function Header() {
                     )}
                 </Box>
                 {/* <AuthenticatedUser /> */}
-                {!isMobile && (
+                {!isMobile && !isTablet && (
                     <>
                         <CustomizeButton textAction={'Sign In'} />
                         <CustomizeButtonOutlined textAction={'Register'} />

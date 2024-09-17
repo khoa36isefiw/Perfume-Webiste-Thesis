@@ -1,14 +1,18 @@
 import React from 'react';
 import { Box, Container, Grid } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { ipadProScreen, theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import StarIcon from '@mui/icons-material/Star';
 import { ratingData } from './ratingData';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 
 function RatingProduct() {
     return (
-        <Container sx={{ mt: 2 }}>
+        <Container
+            sx={{
+                mt: 2,
+            }}
+        >
             <CustomizeTypography
                 sx={{ fontSize: '32px', fontWeight: 'bold', color: theme.palette.text.primary }}
             >
@@ -22,11 +26,19 @@ function RatingProduct() {
                 <Grid
                     container
                     item
+                    xs={12}
+                    sm={9}
                     md={9}
                     lg={9}
-                    sx={{ border: '1px solid #333', minHeight: '20px' }}
+                    sx={{
+                        border: '1px solid #333',
+                        minHeight: '20px',
+                        [mobileScreen]: {
+                            p: 1,
+                        },
+                    }}
                 >
-                    <Grid item md={3} lg={3}>
+                    <Grid item xs={12} sm={2} md={3} lg={3}>
                         <Box
                             sx={{
                                 textAlign: 'center',
@@ -52,6 +64,9 @@ function RatingProduct() {
                                         [ipadProScreen]: {
                                             fontSize: '28px',
                                         },
+                                        [tabletScreen]: {
+                                            fontSize: '24px',
+                                        },
                                     }}
                                 >
                                     5.0
@@ -65,6 +80,9 @@ function RatingProduct() {
                                         [ipadProScreen]: {
                                             fontSize: '28px',
                                         },
+                                        [tabletScreen]: {
+                                            fontSize: '24px',
+                                        },
                                     }}
                                 />
                             </Box>
@@ -73,9 +91,20 @@ function RatingProduct() {
                     </Grid>
                     <Grid
                         item
+                        xs={12}
+                        sm={7}
                         md={6}
                         lg={6}
-                        sx={{ borderLeft: '1px solid #333', borderRight: '1px solid #333', p: 1 }}
+                        sx={{
+                            borderLeft: '1px solid #333',
+                            borderRight: '1px solid #333',
+                            p: 1,
+                            [mobileScreen]: {
+                                px: 2,
+                                borderLeft: 'transparent',
+                                borderRight: 'transparent',
+                            },
+                        }}
                     >
                         <Box>
                             {ratingData.map((rating, index) => (
@@ -89,6 +118,9 @@ function RatingProduct() {
                                             fontSize: '24px',
                                             mb: 1,
                                             ml: 1,
+                                            [tabletScreen]: {
+                                                fontSize: '18px',
+                                            },
                                         }}
                                     />
                                     <Box
@@ -101,6 +133,9 @@ function RatingProduct() {
                                             bgcolor: theme.palette.text.secondary,
                                             [ipadProScreen]: {
                                                 width: '120px',
+                                            },
+                                            [tabletScreen]: {
+                                                width: '100px',
                                             },
                                         }}
                                     />
@@ -127,6 +162,8 @@ function RatingProduct() {
                     </Grid>
                     <Grid
                         item
+                        xs={12}
+                        sm={3}
                         md={3}
                         lg={3}
                         sx={{
@@ -135,6 +172,9 @@ function RatingProduct() {
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
+                            [mobileScreen]: {
+                                height: '10%',
+                            },
                         }}
                     >
                         <CustomizeButton textAction={'Đánh giá ngay'} />

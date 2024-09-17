@@ -4,7 +4,7 @@ import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/Cus
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { quickViewImage } from './perfumeDetailData';
 import { useLocation } from 'react-router-dom';
@@ -98,11 +98,13 @@ function PerfumeDetail() {
                     container
                     item
                     spacing={4}
+                    xs={12}
+                    sm={12}
                     md={12}
                     lg={12}
                     sx={{ height: '600px', overflowY: 'scroll', p: 1 }}
                 >
-                    <Grid item md={6} lg={6}>
+                    <Grid item xs={12} sm={6} md={6} lg={6}>
                         <Box>
                             <Box
                                 sx={{
@@ -141,7 +143,16 @@ function PerfumeDetail() {
                                     </Box>
                                 )}
 
-                                <IconButton onClick={handlePrevious}>
+                                <IconButton
+                                    onClick={handlePrevious}
+                                    sx={{
+                                        [mobileScreen]: {
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '-2%',
+                                        },
+                                    }}
+                                >
                                     <ArrowBackIosIcon
                                         sx={{
                                             fontSize: '28px',
@@ -162,9 +173,24 @@ function PerfumeDetail() {
                                         '&:hover': {
                                             cursor: 'pointer',
                                         },
+                                        [tabletScreen]: {
+                                            width: '75%',
+                                        },
+                                        [mobileScreen]: {
+                                            width: '100%',
+                                        },
                                     }}
                                 />
-                                <IconButton onClick={handleNext}>
+                                <IconButton
+                                    onClick={handleNext}
+                                    sx={{
+                                        [mobileScreen]: {
+                                            position: 'absolute',
+                                            top: '50%',
+                                            right: '-4%',
+                                        },
+                                    }}
+                                >
                                     <ArrowForwardIosIcon
                                         sx={{
                                             fontSize: '28px',
@@ -177,7 +203,7 @@ function PerfumeDetail() {
                                 </IconButton>
                             </Box>
 
-                            <Box sx={{ display: 'flex', overflowX: 'scroll' }}>
+                            <Box sx={{ display: 'flex', overflowX: 'hidden' }}>
                                 {perfume.quickViewImage.map((image, index) => (
                                     <Box
                                         key={index}
@@ -209,7 +235,7 @@ function PerfumeDetail() {
                             </Box>
                         </Box>
                     </Grid>
-                    <Grid item md={6} lg={6}>
+                    <Grid item sm={6} md={6} lg={6}>
                         {/* product name */}
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
                             {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
@@ -329,8 +355,10 @@ function PerfumeDetail() {
                         <Box sx={{ display: 'flex' }}>
                             {/* original price */}
                             <CustomizeTypography
-                                fontBold={true}
-                                sx={{ textDecoration: perfume.discount ? 'line-through' : null }}
+                                sx={{
+                                    textDecoration: perfume.discount ? 'line-through' : null,
+                                    fontWeight: 'bold',
+                                }}
                             >
                                 {/* 10.500.000 ₫ */}
                                 {converToVND(perfume.perfumePriceVND)}

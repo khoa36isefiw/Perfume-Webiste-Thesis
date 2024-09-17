@@ -17,7 +17,7 @@ function ProductInformation() {
     return (
         <Container>
             <Grid container>
-                <Grid item md={9} lg={9}>
+                <Grid item sm={8} md={9} lg={9}>
                     <Box>
                         <CustomizeTypography
                             sx={{
@@ -143,11 +143,10 @@ function ProductInformation() {
                         </Box>
                     </Box>
                 </Grid>
-                <Grid item md={3} lg={3}>
+                <Grid item sm={4} md={3} lg={3}>
                     {policyData.map((policy, index) => (
-                        <Box sx={{ width: '100%' }}>
+                        <Box sx={{ width: '100%' }} key={index}>
                             <Box
-                                key={index}
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
