@@ -36,7 +36,12 @@ function Footer() {
                     <Grid item xs={12} sm={12} md={4} lg={4}>
                         <CustomizeTypography
                             sx={{
-                                fontSize: '20px',
+                                background: `linear-gradient(120deg, ${theme.palette.text.main}, ${theme.palette.text.secondary})`,
+                                // chỉ hiển thị màu nền ở phần text
+                                WebkitBackgroundClip: 'text',
+                                // ẩn màu văn bản mặc định
+                                WebkitTextFillColor: 'transparent',
+                                fontSize: '28px',
                                 fontWeight: 'bold',
                                 color: theme.palette.secondaryText,
                             }}
