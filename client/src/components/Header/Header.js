@@ -67,6 +67,7 @@ function Header() {
     console.log('window: ', window.innerWidth);
     // get product in cart
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
+    const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
@@ -327,12 +328,20 @@ function Header() {
                         </Box>
                     )}
                 </Box>
-                {/* <AuthenticatedUser /> */}
-                {!isMobile && !isTablet && (
+
+                {!isMobile && !isTablet && !isLogged ? (
                     <>
-                        <CustomizeButton textAction={'Sign In'} />
-                        <CustomizeButtonOutlined textAction={'Register'} />
+                        <CustomizeButton
+                            textAction={'Sign In'}
+                            onHandleClick={() => navigate('/sign-in')}
+                        />
+                        <CustomizeButtonOutlined
+                            textAction={'Register'}
+                            onHandleClick={() => navigate('/create-account')}
+                        />
                     </>
+                ) : (
+                    <AuthenticatedUser />
                 )}
 
                 <Menu
