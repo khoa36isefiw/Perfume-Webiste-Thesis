@@ -1,6 +1,6 @@
 import { Button, styled, Typography } from '@mui/material';
 import React from 'react';
-import { theme } from '../../Theme/Theme';
+import { tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
 function CustomizeButton({ onHandleClick, textAction }) {
@@ -17,6 +17,9 @@ function CustomizeButton({ onHandleClick, textAction }) {
                 textTransform: 'initial',
                 '&:hover': {
                     bgcolor: theme.palette.secondaryText,
+                },
+                [tabletScreen]: {
+                    fontSize: '13px',
                 },
             }}
         >

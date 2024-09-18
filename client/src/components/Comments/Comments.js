@@ -1,6 +1,6 @@
 import { Avatar, Box, Container, Divider, IconButton, Rating } from '@mui/material';
 import React from 'react';
-import { theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
 import { commentsData } from './commentsData';
@@ -8,7 +8,14 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 
 function Comments() {
     return (
-        <Container sx={{ mt: 4 }}>
+        <Container
+            sx={{
+                mt: 4,
+                [mobileScreen]: {
+                    px: 1,
+                },
+            }}
+        >
             {commentsData.map((comment, index) => (
                 <Box key={index} sx={{ display: 'flex', mt: 2 }}>
                     {/* user image */}
@@ -17,7 +24,21 @@ function Comments() {
                         {/* name */}
                         <Box sx={{ ml: 2 }}>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <CustomizeTypography sx={{ fontSize: '16px' }}>
+                                <CustomizeTypography
+                                    sx={{
+                                        fontSize: '16px',
+                                        [ipadProScreen]: {
+                                            width: '120px',
+                                        },
+                                        [tabletScreen]: {
+                                            width: '120px',
+                                        },
+                                        [mobileScreen]: {
+                                            fontSize: '14px',
+                                            width: '100px',
+                                        },
+                                    }}
+                                >
                                     {comment.userName}
                                 </CustomizeTypography>
                                 <IconButton>
@@ -34,6 +55,9 @@ function Comments() {
                                         fontSize: '14px',
                                         fontStyle: 'italic',
                                         color: theme.palette.text.verified,
+                                        [mobileScreen]: {
+                                            fontSize: '12px',
+                                        },
                                     }}
                                 >
                                     Đã mua hàng tại Tomtoc Perfumes

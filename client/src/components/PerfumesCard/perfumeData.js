@@ -26,7 +26,7 @@ export const perfumeData = [
         origin: 'Pháp', // xuất xứ
         yearOfRelease: '2017', // năm sản xuất
         concentration: 'Extrait de Parfum (EDP)', // nồng độ
-        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        fragranceGroup: 'Oriental Floral',
         manufacturer: 'Francis Kurkdjian', // nhà chế tác
         content: {
             description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
@@ -50,7 +50,7 @@ export const perfumeData = [
     {
         perfumeID: 2,
         perfumeBrand: 'Chanel',
-        perfumeName: 'Allure Homme Sport Eau Extreme Allure Homme Sport Eau Extreme',
+        perfumeName: 'Allure Homme Sport Eau Extreme',
         perfumeRating: 5,
         numberOfRating: '9',
         perfumePriceVND: 3780000,
@@ -71,7 +71,7 @@ export const perfumeData = [
         origin: 'Pháp', // xuất xứ
         yearOfRelease: '2017', // năm sản xuất
         concentration: 'Extrait de Parfum (EDP)', // nồng độ
-        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        fragranceGroup: 'Oriental Floral',
         manufacturer: 'Francis Kurkdjian', // nhà chế tác
         content: {
             description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
@@ -116,7 +116,7 @@ export const perfumeData = [
         origin: 'Pháp', // xuất xứ
         yearOfRelease: '2017', // năm sản xuất
         concentration: 'Extrait de Parfum (EDP)', // nồng độ
-        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        fragranceGroup: 'Oriental Floral',
         manufacturer: 'Francis Kurkdjian', // nhà chế tác
         content: {
             description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
@@ -161,7 +161,7 @@ export const perfumeData = [
         origin: 'Pháp', // xuất xứ
         yearOfRelease: '2017', // năm sản xuất
         concentration: 'Extrait de Parfum (EDP)', // nồng độ
-        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        fragranceGroup: 'Oriental Floral',
         manufacturer: 'Francis Kurkdjian', // nhà chế tác
         content: {
             description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
@@ -207,7 +207,7 @@ export const perfumeData = [
         origin: 'Pháp', // xuất xứ
         yearOfRelease: '2017', // năm sản xuất
         concentration: 'Extrait de Parfum (EDP)', // nồng độ
-        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        fragranceGroup: 'Oriental Floral',
         manufacturer: 'Francis Kurkdjian', // nhà chế tác
         content: {
             description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
@@ -252,7 +252,7 @@ export const perfumeData = [
         origin: 'Pháp', // xuất xứ
         yearOfRelease: '2017', // năm sản xuất
         concentration: 'Extrait de Parfum (EDP)', // nồng độ
-        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        fragranceGroup: 'Oriental Floral',
         manufacturer: 'Francis Kurkdjian', // nhà chế tác
         content: {
             description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
@@ -297,7 +297,7 @@ export const perfumeData = [
         origin: 'Pháp', // xuất xứ
         yearOfRelease: '2017', // năm sản xuất
         concentration: 'Extrait de Parfum (EDP)', // nồng độ
-        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        fragranceGroup: 'Oriental Floral',
         manufacturer: 'Francis Kurkdjian', // nhà chế tác
         content: {
             description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,
@@ -342,7 +342,7 @@ export const perfumeData = [
         origin: 'Pháp', // xuất xứ
         yearOfRelease: '2017', // năm sản xuất
         concentration: 'Extrait de Parfum (EDP)', // nồng độ
-        fragranceGroup: 'Oriental Floral (Hương Thơm Hoa Cỏ Phương Đông)', // nhóm hương
+        fragranceGroup: 'Oriental Floral',
         manufacturer: 'Francis Kurkdjian', // nhà chế tác
         content: {
             description: `Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.`,

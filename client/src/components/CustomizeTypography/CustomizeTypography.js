@@ -1,5 +1,5 @@
 import { Typography, styled, Box } from '@mui/material';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 
 export const CustomizeTypography = styled(Typography)(({ fontSize, fontBold = false, color }) => ({
     fontSize: fontSize || '16px',
@@ -18,7 +18,14 @@ export const CustomizeProductDescriptionText = ({ title, text }) => {
             }}
         >
             <CustomizeTypography
-                sx={{ color: theme.palette.text.primary, width: '200px', fontWeight: 'bold' }}
+                sx={{
+                    color: theme.palette.text.primary,
+                    width: '200px',
+                    fontWeight: 'bold',
+                    [mobileScreen]: {
+                        width: '150px',
+                    },
+                }}
             >
                 {title}:
             </CustomizeTypography>

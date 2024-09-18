@@ -15,12 +15,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
 import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
-import CustomizeButton from '../CustomizeButton/CustomizeButton';
-import { TextFieldCustomizeV2, TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
+import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
+import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -60,14 +60,17 @@ function Header() {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
+    const [isTablet, setIsTablet] = useState(window.innerWidth < 1024);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeHeader, setActiveHeader] = useState('Home');
 
+    console.log('window: ', window.innerWidth);
     // get product in cart
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
+        setIsTablet(window.innerWidth < 1024);
     }
 
     useEffect(() => {
@@ -122,7 +125,7 @@ function Header() {
     return (
         <Box
             sx={{
-                minHeight: '80px',
+                minHeight: '150px',
                 width: '100%',
                 position: 'fixed',
                 backgroundColor: 'black',
@@ -133,9 +136,12 @@ function Header() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-
+                [tabletScreen]: {
+                    minHeight: '80px',
+                },
                 [mobileScreen]: {
                     width: '100%',
+                    minHeight: '80px',
                 },
             }}
         >
@@ -144,24 +150,28 @@ function Header() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    [tabletScreen]: {
-                        flexDirection: 'column',
-                    },
+                    // [tabletScreen]: {
+                    //     flexDirection: 'column',
+                    // },
                 }}
             >
                 <CustomizeTypography
                     sx={{
-                        fontSize: '32px',
+                        width: '200px',
+                        fontSize: '28px',
                         fontWeight: 'bold',
-                        color: theme.palette.secondaryText,
-                        [tabletScreen]: {
-                            fontSize: '32px',
+                        background: `linear-gradient(120deg, ${theme.palette.text.main}, ${theme.palette.text.secondary})`,
+                        // chỉ hiển thị màu nền ở phần text
+                        WebkitBackgroundClip: 'text',
+                        // ẩn màu văn bản mặc định
+                        WebkitTextFillColor: 'transparent',
+                        [ipadProScreen]: {
+                            fontSize: '26px',
                         },
                         [tabletScreen]: {
-                            fontSize: '32px',
+                            fontSize: '24px',
                         },
                         [mobileScreen]: {
-                            // fontSize: theme.fontSize.mobile.text,
                             fontSize: '20px',
                         },
                     }}
@@ -169,10 +179,11 @@ function Header() {
                 >
                     Tomtoc Perfumes
                 </CustomizeTypography>
+
                 {/* Menu for mobile */}
 
                 <Box>
-                    {isMobile ? (
+                    {isMobile || isTablet ? (
                         <IconButton onClick={toggleMenu}>
                             <MenuIcon sx={{ fontSize: '32px', color: '#fff' }} />
                         </IconButton>
@@ -182,6 +193,7 @@ function Header() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 flexDirection: 'column',
+
                                 [tabletScreen]: {
                                     flexDirection: 'column',
                                 },
@@ -231,6 +243,7 @@ function Header() {
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
+                                    mt: 2,
                                     [tabletScreen]: {
                                         mt: 2,
                                     },
@@ -241,7 +254,7 @@ function Header() {
                                     placeholder={'Search here...'}
                                     sx={{
                                         width: '360px',
-                                        [tabletScreen]: { width: '360px' },
+                                        [tabletScreen]: { width: '260px' },
                                         [mobileScreen]: {
                                             width: '100%',
                                         },
@@ -250,11 +263,12 @@ function Header() {
 
                                 <IconButton
                                     sx={{
-                                        bgcolor: 'green',
+                                        bgcolor: theme.palette.text.secondary,
                                         borderTopLeftRadius: 1,
                                         borderBottomLeftRadius: 1,
                                         mr: 1,
                                         '&:hover': {
+                                            bgcolor: theme.palette.text.secondary,
                                             cursor: 'pointer',
                                             fontWeight: 'bold',
                                         },
@@ -290,16 +304,18 @@ function Header() {
                                     color="green"
                                 >
                                     <IconButton
+                                        onClick={() => navigate('/shopping-cart')}
                                         sx={{
-                                            mr: 1,
+                                            ml: 2,
+                                            // mr: 1,
                                             '&:hover': {
                                                 cursor: 'pointer',
                                                 fontWeight: 'bold',
                                             },
-                                            [tabletScreen]: {
-                                                mr: 4,
-                                                mb: 2,
-                                            },
+                                            // [tabletScreen]: {
+                                            //     mr: 4,
+                                            //     mb: 2,
+                                            // },
                                         }}
                                     >
                                         <ShoppingCartIcon
@@ -312,8 +328,12 @@ function Header() {
                     )}
                 </Box>
                 {/* <AuthenticatedUser /> */}
-                <CustomizeButton textAction={'Sign In'} />
-                <CustomizeButton textAction={'Register'} />
+                {!isMobile && !isTablet && (
+                    <>
+                        <CustomizeButton textAction={'Sign In'} />
+                        <CustomizeButtonOutlined textAction={'Register'} />
+                    </>
+                )}
 
                 <Menu
                     anchorEl={anchorEl}
