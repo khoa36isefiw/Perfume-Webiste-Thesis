@@ -12,15 +12,24 @@ import Logout from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import { useDispatch } from 'react-redux';
+import { logoutAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 
 export default function AuthenticatedUser() {
+    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleLogOut = () => {
+        setAnchorEl(null);
+        dispatch(logoutAccount());
     };
     return (
         <React.Fragment>
@@ -120,7 +129,7 @@ export default function AuthenticatedUser() {
                     </CustomizeTypography>
                 </MenuItem>
                 <Divider sx={{ bgcolor: '#fff' }} />
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleLogOut}>
                     <ListItemIcon>
                         <Logout fontSize="large" sx={{ color: '#fff' }} />
                     </ListItemIcon>
