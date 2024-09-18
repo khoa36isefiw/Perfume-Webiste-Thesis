@@ -304,16 +304,18 @@ function Header() {
                                     color="green"
                                 >
                                     <IconButton
+                                        onClick={() => navigate('/shopping-cart')}
                                         sx={{
-                                            mr: 1,
+                                            ml: 2,
+                                            // mr: 1,
                                             '&:hover': {
                                                 cursor: 'pointer',
                                                 fontWeight: 'bold',
                                             },
-                                            [tabletScreen]: {
-                                                mr: 4,
-                                                mb: 2,
-                                            },
+                                            // [tabletScreen]: {
+                                            //     mr: 4,
+                                            //     mb: 2,
+                                            // },
                                         }}
                                     >
                                         <ShoppingCartIcon
