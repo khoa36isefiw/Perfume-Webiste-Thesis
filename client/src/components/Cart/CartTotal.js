@@ -154,15 +154,6 @@ function CartTotal({ productsList }) {
             {/* Total Row */}
             <SummaryRowInCart label="Total" value={converToVND(calculateFinalTotal())} isTotal />
 
-            <CustomizeButtonInCart
-                variant="outlined"
-                textAction="Proceed to checkout"
-                onHandleClick={() => navigate('/checkout')}
-            />
-            <CustomizeButtonInCart
-                textAction="Continue Shopping"
-                onHandleClick={() => navigate('/shop')}
-            />
             {showNotification && (
                 <Box
                     sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
