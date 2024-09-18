@@ -1,13 +1,44 @@
 import { Container, Grid } from '@mui/material';
-import React from 'react';
+import React, { useRef } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 import ButtonComponent from './test';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 
 function SignIn() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+    const listAccounts = useSelector((state) => state.accountManagement.listAccounts);
+    console.log('current list accounts: ', listAccounts && listAccounts);
+    const handleSignIn = () => {
+        const email = emailRef.current.value.trim();
+        const password = passwordRef.current.value.trim();
+
+        const user = listAccounts.find(
+            (account) => account.email === email && account.password === password,
+        );
+
+        if (user) {
+            console.log('Login successfully');
+
+            dispatch(
+                loginAccount({
+                    email: user.email,
+
+                    password: user.password,
+                }),
+            );
+            navigate('/');
+        } else {
+            console.log('Login failed: invalid email or password');
+        }
+    };
+
     return (
         <Container
             sx={{
@@ -79,7 +110,7 @@ function SignIn() {
                                 >
                                     E-mail<span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
-                                <TextFieldLogin placeholder="Email" fullWidth />
+                                <TextFieldLogin placeholder="Email" fullWidth inputRef={emailRef} />
                             </Grid>
                             <Grid item xs={12} sm={6} lg={6}>
                                 <CustomizeTypography
@@ -90,7 +121,11 @@ function SignIn() {
                                 >
                                     Password<span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
-                                <TextFieldLogin placeholder="Password" fullWidth />
+                                <TextFieldLogin
+                                    placeholder="Password"
+                                    fullWidth
+                                    inputRef={passwordRef}
+                                />
                             </Grid>
                         </Grid>
                         <Grid
@@ -132,7 +167,7 @@ function SignIn() {
                                 Forgot Password?
                             </CustomizeTypography>
 
-                            <ButtonComponent textAction={'Login'} />
+                            <ButtonComponent textAction={'Login'} onHandleClick={handleSignIn} />
                         </Grid>
                         <Grid
                             item
