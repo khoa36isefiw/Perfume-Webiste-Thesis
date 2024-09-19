@@ -180,9 +180,7 @@ function Header() {
                 >
                     Tomtoc Perfumes
                 </CustomizeTypography>
-
                 {/* Menu for mobile */}
-
                 <Box>
                     {isMobile || isTablet ? (
                         <IconButton onClick={toggleMenu}>
@@ -328,8 +326,9 @@ function Header() {
                         </Box>
                     )}
                 </Box>
+                {isLogged && <AuthenticatedUser />}
 
-                {!isMobile && !isTablet && !isLogged ? (
+                {!isMobile && !isTablet && !isLogged && (
                     <>
                         <CustomizeButton
                             textAction={'Sign In'}
@@ -340,10 +339,7 @@ function Header() {
                             onHandleClick={() => navigate('/create-account')}
                         />
                     </>
-                ) : (
-                    <AuthenticatedUser />
                 )}
-
                 <Menu
                     anchorEl={anchorEl}
                     open={open}
@@ -381,7 +377,6 @@ function Header() {
                         My Account
                     </MenuItem>
                 </Menu>
-
                 <Drawer
                     anchor="left" // menu will appear on left
                     open={isMenuOpen}

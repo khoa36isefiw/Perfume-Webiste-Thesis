@@ -14,8 +14,11 @@ import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useDispatch } from 'react-redux';
 import { logoutAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
+import { theme } from '../../Theme/Theme';
+import { useNavigate } from 'react-router-dom';
 
 export default function AuthenticatedUser() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -25,6 +28,11 @@ export default function AuthenticatedUser() {
     };
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleNavigateProfile = () => {
+        setAnchorEl(null);
+        navigate('/profile-settings');
     };
 
     const handleLogOut = () => {
@@ -95,7 +103,7 @@ export default function AuthenticatedUser() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleNavigateProfile}>
                     <Avatar
                         sx={{ width: 40, height: 40 }}
                         src={userDefaultAvatar}
@@ -112,30 +120,66 @@ export default function AuthenticatedUser() {
                     </Box>
                 </MenuItem>
                 <Divider sx={{ bgcolor: '#fff' }} />
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <ManageAccountsIcon fontSize="large" sx={{ color: '#fff' }} />
-                    </ListItemIcon>
-                    <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                        My Account
-                    </CustomizeTypography>
+                <MenuItem onClick={handleNavigateProfile}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            '&:hover': {
+                                color: theme.palette.text.primary,
+                                transform: 'scale(1.10)',
+                            },
+                        }}
+                    >
+                        <ListItemIcon>
+                            <ManageAccountsIcon fontSize="large" sx={{ color: '#fff' }} />
+                        </ListItemIcon>
+
+                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                            My Account
+                        </CustomizeTypography>
+                    </Box>
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <ManageHistoryIcon fontSize="large" sx={{ color: '#fff' }} />
-                    </ListItemIcon>
-                    <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                        My Purchase
-                    </CustomizeTypography>
+                <MenuItem onClick={handleNavigateProfile}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            '&:hover': {
+                                color: theme.palette.text.primary,
+                                transform: 'scale(1.10)',
+                            },
+                        }}
+                    >
+                        <ListItemIcon>
+                            <ManageHistoryIcon fontSize="large" sx={{ color: '#fff' }} />
+                        </ListItemIcon>
+                        <CustomizeTypography
+                            sx={{
+                                mb: 0,
+                                fontSize: '14px',
+                            }}
+                        >
+                            My Purchase
+                        </CustomizeTypography>
+                    </Box>
                 </MenuItem>
                 <Divider sx={{ bgcolor: '#fff' }} />
                 <MenuItem onClick={handleLogOut}>
-                    <ListItemIcon>
-                        <Logout fontSize="large" sx={{ color: '#fff' }} />
-                    </ListItemIcon>
-                    <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                        Logout
-                    </CustomizeTypography>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            '&:hover': {
+                                color: theme.palette.text.primary,
+                                transform: 'scale(1.10)',
+                            },
+                        }}
+                    >
+                        <ListItemIcon>
+                            <Logout fontSize="large" sx={{ color: '#fff' }} />
+                        </ListItemIcon>
+                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                            Logout
+                        </CustomizeTypography>
+                    </Box>
                 </MenuItem>
             </Menu>
         </React.Fragment>

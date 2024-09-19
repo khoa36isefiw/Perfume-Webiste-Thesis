@@ -16,6 +16,7 @@ import AccountInfo from './AccountInfo';
 import ChangePassword from './ChangePassword';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import MyPurchase from './MyPurchase';
+import { ipadProScreen, mobileScreen, tabletScreen } from '../../Theme/Theme';
 
 const darkTheme = createTheme({
     palette: {
@@ -44,11 +45,28 @@ const ProfileSettings = () => {
     return (
         <ThemeProvider theme={darkTheme}>
             <Container
-                sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default', mt: 12 }}
+                sx={{
+                    display: 'flex',
+                    minHeight: '100vh',
+                    bgcolor: 'background.default',
+                    mt: 20,
+                    [ipadProScreen]: {
+                        width: '70%',
+                        mt: 15,
+                    },
+                    [tabletScreen]: {
+                        width: '80%',
+                        mt: 20,
+                    },
+                    [mobileScreen]: {
+                        width: '100%',
+                        mt: 10,
+                    },
+                }}
             >
                 <Grid container spacing={2}>
                     {/* Sidebar */}
-                    <Grid item md={4} lg={3}>
+                    <Grid item xs={12} md={4} lg={3}>
                         <Paper
                             elevation={3}
                             sx={{
