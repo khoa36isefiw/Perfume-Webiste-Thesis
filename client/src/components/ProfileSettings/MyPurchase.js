@@ -2,14 +2,14 @@ import React from 'react';
 import { Avatar, Container, Box, IconButton, Grid, Button } from '@mui/material';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import StarIcon from '@mui/icons-material/Star';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import { orderHistoryData } from './orderHistoryData';
 
 const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
-    <Grid item lg={3}>
+    <>
         <Box
             sx={{
                 display: 'flex',
@@ -17,6 +17,7 @@ const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
                 border: '1px solid #555',
                 p: '8px',
                 borderRadius: 1,
+                width: '100%',
             }}
         >
             <IconButton
@@ -48,7 +49,7 @@ const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
                 </CustomizeTypography>
             </Box>
         </Box>
-    </Grid>
+    </>
 );
 
 const OrderInfo = ({ label, value }) => (
@@ -56,6 +57,9 @@ const OrderInfo = ({ label, value }) => (
         sx={{
             textAlign: 'center',
             width: '25%',
+            [tabletScreen]: {
+                width: '100%',
+            },
             [mobileScreen]: {
                 width: '100%',
             },
@@ -198,9 +202,7 @@ const OrderLists = ({ ordersListData }) => {
                         borderRadius: 1,
                         p: 2,
                         my: 4,
-                        [mobileScreen]: {
-                            width: '100%',
-                        },
+                        width: '100%',
                     }}
                     key={index}
                 >
@@ -222,19 +224,19 @@ const OrderLists = ({ ordersListData }) => {
 
                     {/* testing */}
                     <Grid container spacing={2}>
-                        <Grid item xs={3}>
+                        <Grid item xs={3} sm={3}>
                             <OrderInfo label="Order Num" value={`#${order.orderNumber}`} />
                         </Grid>
-                        <Grid item xs={1}>
+                        <Grid item xs={1} sm={1}>
                             <VerticalDivider />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={3} sm={3}>
                             <OrderInfo label="Order Date" value={order.orderDate} />
                         </Grid>
-                        <Grid item xs={1}>
+                        <Grid item xs={1} sm={1}>
                             <VerticalDivider />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={4} sm={4}>
                             <OrderInfo label="Ship To" value={order.orderAddress} />
                         </Grid>
                     </Grid>
@@ -296,7 +298,7 @@ const OrderLists = ({ ordersListData }) => {
 function MyPurchase() {
     return (
         <Grid container spacing={2}>
-            <Grid item xs={12} lg={12}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
                 <CustomizeTypography
                     sx={{
                         fontSize: '18px',
@@ -307,8 +309,8 @@ function MyPurchase() {
                     Your Orders
                 </CustomizeTypography>
             </Grid>
-            <Grid item container xs={12} spacing={2}>
-                <Grid item xs={6} lg={12}>
+            <Grid item container spacing={2}>
+                <Grid item xs={6} sm={6} lg={3}>
                     <OrderSummary
                         iconBgColor={theme.palette.orderHistory.total.bg}
                         iconColor={theme.palette.orderHistory.total.icon}
@@ -316,7 +318,7 @@ function MyPurchase() {
                         orderLabel="Total Order"
                     />
                 </Grid>
-                <Grid item xs={6} lg={12}>
+                <Grid item xs={6} sm={6} lg={3}>
                     <OrderSummary
                         iconBgColor={theme.palette.orderHistory.deliveried.bg}
                         iconColor={theme.palette.orderHistory.deliveried.icon}
@@ -324,7 +326,7 @@ function MyPurchase() {
                         orderLabel="Active Order"
                     />
                 </Grid>
-                <Grid item xs={6} lg={12}>
+                <Grid item xs={6} sm={6} lg={3}>
                     <OrderSummary
                         iconBgColor={theme.palette.orderHistory.pending.bg}
                         iconColor={theme.palette.orderHistory.pending.icon}
@@ -332,7 +334,7 @@ function MyPurchase() {
                         orderLabel="Completed"
                     />
                 </Grid>
-                <Grid item xs={6} lg={12}>
+                <Grid item xs={6} sm={6} lg={3}>
                     <OrderSummary
                         iconBgColor={theme.palette.orderHistory.cancel.bg}
                         iconColor={theme.palette.orderHistory.cancel.icon}
@@ -341,7 +343,18 @@ function MyPurchase() {
                     />
                 </Grid>
             </Grid>
-            <Grid item container spacing={0} xs={12}>
+            <Grid
+                item
+                container
+                spacing={0}
+                xs={12}
+                sm={12}
+                sx={{
+                    [mobileScreen]: {
+                        paddingLeft: 0,
+                    },
+                }}
+            >
                 <OrderLists ordersListData={orderHistoryData} />
             </Grid>
         </Grid>
