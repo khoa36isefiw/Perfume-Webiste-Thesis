@@ -2,14 +2,14 @@ import React from 'react';
 import { Avatar, Container, Box, IconButton, Grid, Button } from '@mui/material';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { theme } from '../../Theme/Theme';
 import StarIcon from '@mui/icons-material/Star';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import { orderHistoryData } from './orderHistoryData';
 
 const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
-    <>
+    <Grid item lg={3}>
         <Box
             sx={{
                 display: 'flex',
@@ -17,7 +17,6 @@ const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
                 border: '1px solid #555',
                 p: '8px',
                 borderRadius: 1,
-                width: '100%',
             }}
         >
             <IconButton
@@ -49,31 +48,13 @@ const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
                 </CustomizeTypography>
             </Box>
         </Box>
-    </>
+    </Grid>
 );
 
 const OrderInfo = ({ label, value }) => (
-    <Box
-        sx={{
-            textAlign: 'center',
-            width: '25%',
-            [tabletScreen]: {
-                width: '100%',
-            },
-            [mobileScreen]: {
-                width: '100%',
-            },
-        }}
-    >
+    <Box sx={{ textAlign: 'center', width: '25%' }}>
         <CustomizeTypography
-            sx={{
-                mb: 0,
-                color: theme.palette.text.secondary,
-                fontWeight: 'bold',
-                [mobileScreen]: {
-                    fontSize: '12px',
-                },
-            }}
+            sx={{ mb: 0, color: theme.palette.text.secondary, fontWeight: 'bold' }}
         >
             {label}
         </CustomizeTypography>
@@ -89,9 +70,6 @@ const OrderInfo = ({ label, value }) => (
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
                 padding: '0 8px',
-                [mobileScreen]: {
-                    fontSize: '12px',
-                },
             }}
         >
             {value}
@@ -104,17 +82,7 @@ const VerticalDivider = () => <Box sx={{ width: '1px', height: '40px', bgcolor: 
 const OrderItem = ({ listData }) => (
     <>
         {listData.map((item, index) => (
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    mb: '12px',
-                    [mobileScreen]: {
-                        width: '100%',
-                    },
-                }}
-                key={index}
-            >
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: '12px' }} key={index}>
                 <Box sx={{ display: 'flex' }}>
                     <Avatar
                         src={item.orderImage}
@@ -125,35 +93,13 @@ const OrderItem = ({ listData }) => (
                         }}
                     />
                     <Box sx={{ ml: 2 }}>
-                        <CustomizeTypography
-                            sx={{
-                                fontSize: '15px',
-                                fontWeight: 'bold',
-                                [mobileScreen]: {
-                                    fontSize: '13px',
-                                },
-                            }}
-                        >
+                        <CustomizeTypography sx={{ fontSize: '15px', fontWeight: 'bold' }}>
                             {item.orderName}
                         </CustomizeTypography>
-                        <CustomizeTypography
-                            sx={{
-                                fontSize: '13.5px',
-                                [mobileScreen]: {
-                                    fontSize: '12.5px',
-                                },
-                            }}
-                        >
+                        <CustomizeTypography sx={{ fontSize: '13.5px' }}>
                             {item.orderBrand}
                         </CustomizeTypography>
-                        <CustomizeTypography
-                            sx={{
-                                fontSize: '13.5px',
-                                [mobileScreen]: {
-                                    fontSize: '12.5px',
-                                },
-                            }}
-                        >
+                        <CustomizeTypography sx={{ fontSize: '13.5px' }}>
                             {item.orderSize} ml
                         </CustomizeTypography>
                         <Button
@@ -167,23 +113,13 @@ const OrderItem = ({ listData }) => (
                                 '&:hover': {
                                     bgcolor: 'transparent',
                                 },
-                                [mobileScreen]: {
-                                    fontSize: '13px',
-                                },
                             }}
                         >
                             Rate Now
                         </Button>
                     </Box>
                 </Box>
-                <CustomizeTypography
-                    sx={{
-                        fontWeight: 'bold',
-                        [mobileScreen]: {
-                            fontSize: '12.5px',
-                        },
-                    }}
-                >
+                <CustomizeTypography sx={{ fontWeight: 'bold' }}>
                     ${item.orderPrice}
                 </CustomizeTypography>
             </Box>
@@ -196,18 +132,10 @@ const OrderLists = ({ ordersListData }) => {
         <>
             {ordersListData.map((order, index) => (
                 <Box
-                    sx={{
-                        bgcolor: '#555',
-                        minHeight: '20px',
-                        borderRadius: 1,
-                        p: 2,
-                        my: 4,
-                        width: '100%',
-                    }}
+                    sx={{ bgcolor: '#555', minHeight: '20px', borderRadius: 1, p: 2, my: 4 }}
                     key={index}
                 >
-                    {/* okay */}
-                    {/* <Box
+                    <Box
                         sx={{
                             display: 'flex',
                             justifyContent: 'space-between',
@@ -218,29 +146,10 @@ const OrderLists = ({ ordersListData }) => {
                         <VerticalDivider />
                         <OrderInfo label="Order Date" value={order.orderDate} />
                         <VerticalDivider />
-
+                        {/* <OrderInfo label="Delivery Date" value={order.deliveryDate} /> */}
+                        {/* <VerticalDivider /> */}
                         <OrderInfo label="Ship To" value={order.orderAddress} />
-                    </Box> */}
-
-                    {/* testing */}
-                    <Grid container spacing={2}>
-                        <Grid item xs={3} sm={3}>
-                            <OrderInfo label="Order Num" value={`#${order.orderNumber}`} />
-                        </Grid>
-                        <Grid item xs={1} sm={1}>
-                            <VerticalDivider />
-                        </Grid>
-                        <Grid item xs={3} sm={3}>
-                            <OrderInfo label="Order Date" value={order.orderDate} />
-                        </Grid>
-                        <Grid item xs={1} sm={1}>
-                            <VerticalDivider />
-                        </Grid>
-                        <Grid item xs={4} sm={4}>
-                            <OrderInfo label="Ship To" value={order.orderAddress} />
-                        </Grid>
-                    </Grid>
-
+                    </Box>
                     <CustomizeDividerVertical8 />
                     <OrderItem listData={order.orderData} />
                     <CustomizeDividerVertical8 />
@@ -251,21 +160,8 @@ const OrderLists = ({ ordersListData }) => {
                             alignItems: 'center',
                         }}
                     >
-                        <CustomizeTypography
-                            sx={{
-                                mb: 0,
-                                [mobileScreen]: {
-                                    fontSize: '13px',
-                                },
-                            }}
-                        >
-                            <span
-                                style={{
-                                    color: '#d9d9d9',
-                                }}
-                            >
-                                Total Amount:
-                            </span>{' '}
+                        <CustomizeTypography sx={{ mb: 0 }}>
+                            <span style={{ color: '#d9d9d9' }}>Total Amount:</span>{' '}
                             <strong>${order.orderTotal}</strong>
                         </CustomizeTypography>
                         <Button
@@ -280,10 +176,6 @@ const OrderLists = ({ ordersListData }) => {
                                 '&:hover': {
                                     bgcolor: 'transparent',
                                 },
-
-                                [mobileScreen]: {
-                                    fontSize: '13px',
-                                },
                             }}
                         >
                             Download Invoice
@@ -297,8 +189,8 @@ const OrderLists = ({ ordersListData }) => {
 
 function MyPurchase() {
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+        <Container>
+            <Grid item lg={12}>
                 <CustomizeTypography
                     sx={{
                         fontSize: '18px',
@@ -309,55 +201,36 @@ function MyPurchase() {
                     Your Orders
                 </CustomizeTypography>
             </Grid>
-            <Grid item container spacing={2}>
-                <Grid item xs={6} sm={6} lg={3}>
-                    <OrderSummary
-                        iconBgColor={theme.palette.orderHistory.total.bg}
-                        iconColor={theme.palette.orderHistory.total.icon}
-                        orderCount="36"
-                        orderLabel="Total Order"
-                    />
-                </Grid>
-                <Grid item xs={6} sm={6} lg={3}>
-                    <OrderSummary
-                        iconBgColor={theme.palette.orderHistory.deliveried.bg}
-                        iconColor={theme.palette.orderHistory.deliveried.icon}
-                        orderCount="2"
-                        orderLabel="Active Order"
-                    />
-                </Grid>
-                <Grid item xs={6} sm={6} lg={3}>
-                    <OrderSummary
-                        iconBgColor={theme.palette.orderHistory.pending.bg}
-                        iconColor={theme.palette.orderHistory.pending.icon}
-                        orderCount="24"
-                        orderLabel="Completed"
-                    />
-                </Grid>
-                <Grid item xs={6} sm={6} lg={3}>
-                    <OrderSummary
-                        iconBgColor={theme.palette.orderHistory.cancel.bg}
-                        iconColor={theme.palette.orderHistory.cancel.icon}
-                        orderCount="12"
-                        orderLabel="Canceled"
-                    />
-                </Grid>
+            <Grid container item spacing={2}>
+                <OrderSummary
+                    iconBgColor={theme.palette.orderHistory.total.bg}
+                    iconColor={theme.palette.orderHistory.total.icon}
+                    orderCount="36"
+                    orderLabel="Total Order"
+                />
+                <OrderSummary
+                    iconBgColor={theme.palette.orderHistory.deliveried.bg}
+                    iconColor={theme.palette.orderHistory.deliveried.icon}
+                    orderCount="2"
+                    orderLabel="Active Order"
+                />
+                <OrderSummary
+                    iconBgColor={theme.palette.orderHistory.pending.bg}
+                    iconColor={theme.palette.orderHistory.pending.icon}
+                    orderCount="24"
+                    orderLabel="Completed"
+                />
+                <OrderSummary
+                    iconBgColor={theme.palette.orderHistory.cancel.bg}
+                    iconColor={theme.palette.orderHistory.cancel.icon}
+                    orderCount="12"
+                    orderLabel="Canceled"
+                />
             </Grid>
-            <Grid
-                item
-                container
-                spacing={0}
-                xs={12}
-                sm={12}
-                sx={{
-                    [mobileScreen]: {
-                        paddingLeft: 0,
-                    },
-                }}
-            >
+            <Grid container spacing={4}>
                 <OrderLists ordersListData={orderHistoryData} />
             </Grid>
-        </Grid>
+        </Container>
     );
 }
 

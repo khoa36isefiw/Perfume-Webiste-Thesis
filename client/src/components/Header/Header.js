@@ -67,6 +67,7 @@ function Header() {
     console.log('window: ', window.innerWidth);
     // get product in cart
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
+    const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
@@ -179,9 +180,7 @@ function Header() {
                 >
                     Tomtoc Perfumes
                 </CustomizeTypography>
-
                 {/* Menu for mobile */}
-
                 <Box>
                     {isMobile || isTablet ? (
                         <IconButton onClick={toggleMenu}>
@@ -327,14 +326,20 @@ function Header() {
                         </Box>
                     )}
                 </Box>
-                {/* <AuthenticatedUser /> */}
-                {!isMobile && !isTablet && (
+                {isLogged && <AuthenticatedUser />}
+
+                {!isMobile && !isTablet && !isLogged && (
                     <>
-                        <CustomizeButton textAction={'Sign In'} />
-                        <CustomizeButtonOutlined textAction={'Register'} />
+                        <CustomizeButton
+                            textAction={'Sign In'}
+                            onHandleClick={() => navigate('/sign-in')}
+                        />
+                        <CustomizeButtonOutlined
+                            textAction={'Register'}
+                            onHandleClick={() => navigate('/create-account')}
+                        />
                     </>
                 )}
-
                 <Menu
                     anchorEl={anchorEl}
                     open={open}
@@ -372,7 +377,6 @@ function Header() {
                         My Account
                     </MenuItem>
                 </Menu>
-
                 <Drawer
                     anchor="left" // menu will appear on left
                     open={isMenuOpen}

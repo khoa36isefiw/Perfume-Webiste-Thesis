@@ -44,6 +44,7 @@ function CheckoutInformation() {
 
     // get product in cart
     const listProductInCart = useSelector((state) => state.cartManagement.productInfor);
+    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
 
     // get province
     useEffect(() => {
@@ -132,8 +133,14 @@ function CheckoutInformation() {
                         <CustomizeTypography sx={{ color: 'white' }}>
                             Địa chỉ thanh toán và vận chuyển
                         </CustomizeTypography>
-                        <CustomizeCheckoutInput placeholder="Nhập số điện thoại" />
-                        <CustomizeCheckoutInput placeholder="Nhập họ tên" />
+                        <CustomizeCheckoutInput
+                            placeholder="Nhập số điện thoại"
+                            value={loggedInAccount.phoneNumber}
+                        />
+                        <CustomizeCheckoutInput
+                            placeholder="Nhập họ tên"
+                            value={loggedInAccount.firstName + ' ' + loggedInAccount.lastName}
+                        />
                         <SelectAddress
                             type="province"
                             select={'Chọn Tỉnh/Thành phố'}
@@ -153,7 +160,10 @@ function CheckoutInformation() {
                             selectedProvince={selectedWardTown}
                             setSelectedProvince={setSelectedWardTown}
                         />
-                        <CustomizeCheckoutInput placeholder="Nhập địa chỉ nhà cụ thể. Số nhà, tên đường..." />
+                        <CustomizeCheckoutInput
+                            placeholder="Nhập địa chỉ nhà cụ thể. Số nhà, tên đường..."
+                            value={loggedInAccount.address}
+                        />
                     </Box>
                     {/* Thanh toán */}
                     <Box sx={{ mt: 4 }}>
@@ -418,7 +428,7 @@ const CustomizeCheckoutInput = ({ placeholder, value }) => {
     );
 };
 
-export const CheckoutContainer = styled(Box)(({}) => ({
+export const CheckoutContainer = styled(Box)(() => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',

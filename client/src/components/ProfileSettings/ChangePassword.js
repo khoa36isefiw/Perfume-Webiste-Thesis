@@ -27,7 +27,7 @@ function ChangePassword() {
 
     return (
         <Container>
-            <Grid lg={12}>
+            <Grid xs={12} lg={12}>
                 <CustomizeAccountText
                     variant="h6"
                     sx={{
@@ -40,14 +40,14 @@ function ChangePassword() {
                     Change Password
                 </CustomizeAccountText>
             </Grid>
-            <Grid lg={12}>
+            <Grid xs={12} lg={12}>
                 <CustomizeAccountText variant="h6" sx={{ mb: 2 }}>
                     You can change your password for security reasons or reset it if you forget it.
                 </CustomizeAccountText>
             </Grid>
             <CustomizeDividerVertical8 />
             <Grid container item spacing={2} sx={{ mb: 4 }}>
-                <Grid item md={4} lg={4}>
+                <Grid item xs={12} md={4} lg={4}>
                     <CustomizeAccountText
                         sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                     >
@@ -59,7 +59,7 @@ function ChangePassword() {
                         Enter your current password here
                     </CustomizeAccountText>
                 </Grid>
-                <Grid item md={8} lg={8}>
+                <Grid item xs={12} md={8} lg={8}>
                     {/* <TextFieldLogin fullWidth placeholder="hisalim.ux@gmail.com" /> */}
 
                     <TextFieldPassword
@@ -71,7 +71,7 @@ function ChangePassword() {
             </Grid>
 
             <Grid container item spacing={2} sx={{ mb: 4 }}>
-                <Grid item md={4} lg={4}>
+                <Grid item xs={12} md={4} lg={4}>
                     <CustomizeAccountText
                         sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                     >
@@ -83,7 +83,7 @@ function ChangePassword() {
                         Enter your new password here
                     </CustomizeAccountText>
                 </Grid>
-                <Grid item md={8} lg={8}>
+                <Grid item xs={12} md={8} lg={8}>
                     <TextFieldPassword
                         showPassword={showNewPassword}
                         placeholder={'Your new password'}
@@ -94,7 +94,7 @@ function ChangePassword() {
             </Grid>
 
             <Grid container item spacing={2} sx={{ mb: 4 }}>
-                <Grid item md={4} lg={4}>
+                <Grid item xs={12} md={4} lg={4}>
                     <CustomizeAccountText
                         sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                     >
@@ -106,7 +106,7 @@ function ChangePassword() {
                         Confirm your new password here
                     </CustomizeAccountText>
                 </Grid>
-                <Grid item md={8} lg={8}>
+                <Grid item xs={12} md={8} lg={8}>
                     <TextFieldPassword
                         showPassword={confrimNewPassword}
                         placeholder={'Confirm new password'}

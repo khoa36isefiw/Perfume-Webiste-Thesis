@@ -1,13 +1,18 @@
-import { Container, Grid } from '@mui/material';
+import { Avatar, Container, Grid, Tooltip, IconButton } from '@mui/material';
 import React, { useState } from 'react';
-import { CustomizeAccountText } from '../CustomizeTypography/CustomizeTypography';
+import {
+    CustomizeAccountText,
+    CustomizeTypography,
+} from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import { CustomizeHoverButton, CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
+import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance';
 
 function AccountInfo() {
     const [editAccount, setEditAccount] = useState(true);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const handleClickEdit = () => {
         setEditAccount(false);
@@ -17,9 +22,23 @@ function AccountInfo() {
         setEditAccount(true);
     };
 
+    const handleUploadImage = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setSelectedImage(imageUrl);
+        }
+    };
+
     return (
-        <Container>
-            <Grid item lg={12}>
+        <Container
+            sx={{
+                [mobileScreen]: {
+                    padding: 0,
+                },
+            }}
+        >
+            <Grid item xs={12} md={12} lg={12}>
                 <CustomizeAccountText
                     variant="h6"
                     sx={{
@@ -32,14 +51,72 @@ function AccountInfo() {
                     Account Information
                 </CustomizeAccountText>
             </Grid>
-            <Grid item lg={12}>
+            <Grid item xs={12} md={12} lg={12}>
                 <CustomizeAccountText variant="h6" sx={{ mb: 2 }}>
                     Your profile is a record of your information that defines who you are.
                 </CustomizeAccountText>
             </Grid>
             <CustomizeDividerVertical8 />
+            {/* Photo */}
+            <Grid container item xs={12} spacing={2} sx={{ mb: 4 }}>
+                <Grid item xs={12} md={12} lg={12}>
+                    <CustomizeAccountText variant="h6" sx={{ mb: 2 }}>
+                        Show your styles to everyone
+                    </CustomizeAccountText>
+                </Grid>
+                <Grid item xs={12} md={12} lg={4}>
+                    <Avatar
+                        alt="User Image"
+                        src={
+                            selectedImage ||
+                            'https://www.buskirklumber.com/wp-content/uploads/2023/11/sugar-maple-leaves-jpg.webp'
+                        }
+                        sx={{
+                            height: '250px',
+                            width: '250px',
+                            borderRadius: 0,
+                            objectFit: 'cover',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
+                        }}
+                    />
+
+                    {!editAccount && (
+                        <label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                style={{ display: 'none' }}
+                                onChange={handleUploadImage}
+                            />
+                            <Tooltip
+                                title={
+                                    <CustomizeTypography sx={{ fontSize: '13px', mb: 0 }}>
+                                        Upload Photo
+                                    </CustomizeTypography>
+                                }
+                                placement="top"
+                                arrow
+                                sx={{
+                                    '& .MuiTooltip-tooltip': {
+                                        fontSize: '14px',
+                                    },
+                                    '& .MuiTooltip-popper': {
+                                        fontSize: '14px',
+                                    },
+                                }}
+                            >
+                                <IconButton component="span">
+                                    <CameraEnhanceIcon sx={{ fontSize: '24px' }} />
+                                </IconButton>
+                            </Tooltip>
+                        </label>
+                    )}
+                </Grid>
+            </Grid>
             <Grid container item spacing={2} sx={{ mb: 4 }}>
-                <Grid item md={4} lg={4}>
+                <Grid item xs={12} md={12} lg={4}>
                     <CustomizeAccountText
                         sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                     >
@@ -51,7 +128,7 @@ function AccountInfo() {
                         Enter your email address
                     </CustomizeAccountText>
                 </Grid>
-                <Grid item md={8} lg={8}>
+                <Grid item xs={12} md={12} lg={8}>
                     <TextFieldLogin
                         disabled={editAccount}
                         fullWidth
@@ -61,7 +138,7 @@ function AccountInfo() {
             </Grid>
 
             <Grid container item spacing={2} sx={{ mb: 4 }}>
-                <Grid item md={4} lg={4}>
+                <Grid item xs={12} md={12} lg={4}>
                     <CustomizeAccountText
                         sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                     >
@@ -73,13 +150,13 @@ function AccountInfo() {
                         Enter the first part of your name
                     </CustomizeAccountText>
                 </Grid>
-                <Grid item md={8} lg={8}>
+                <Grid item xs={12} md={12} lg={8}>
                     <TextFieldLogin disabled={editAccount} fullWidth placeholder="Muhammad" />
                 </Grid>
             </Grid>
 
             <Grid container item spacing={2} sx={{ mb: 4 }}>
-                <Grid item md={4} lg={4}>
+                <Grid item xs={12} md={12} lg={4}>
                     <CustomizeAccountText
                         sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                     >
@@ -91,7 +168,7 @@ function AccountInfo() {
                         Enter the last part of your name
                     </CustomizeAccountText>
                 </Grid>
-                <Grid item md={8} lg={8}>
+                <Grid item xs={12} md={12} lg={8}>
                     <TextFieldLogin disabled={editAccount} fullWidth placeholder="Salim" />
                 </Grid>
             </Grid>

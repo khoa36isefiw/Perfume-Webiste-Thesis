@@ -118,6 +118,7 @@ export const CustomizeTextFieldCreditCard = ({
 
 export const TextFieldLogin = ({
     inputValue,
+    inputRef,
     onChangeValue,
     placeholder,
     onHandleKeyDown,
@@ -126,6 +127,7 @@ export const TextFieldLogin = ({
 }) => {
     return (
         <TextField
+            inputRef={inputRef}
             disabled={disabled}
             variant="outlined"
             fullWidth={fullWidth}
