@@ -138,7 +138,7 @@ const ProfileSettings = () => {
                     </Grid>
 
                     {/* Main content */}
-                    <Grid container item md={8} lg={9}>
+                    <Grid container item xs={12} md={8} lg={9}>
                         <Box sx={{ flexGrow: 1, p: 2, bgcolor: 'background.default' }}>
                             {activeComponent === 'accountInfo' && <AccountInfo />}
                             {activeComponent === 'changePassword' && <ChangePassword />}
