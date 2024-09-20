@@ -82,10 +82,24 @@ export default function SelectAddress({ select, listData, setSelectedProvince, t
             onChange={(event, newValue) => {
                 if (newValue) {
                     if (type === 'province') {
-                        setSelectedProvince(newValue.province_id);
+                        // setSelectedProvince(newValue.province_id);
+                        setSelectedProvince({
+                            id: newValue.province_id,
+                            name: newValue.province_name,
+                        });
                     } else if (type === 'district') {
-                        setSelectedProvince(newValue.district_id);
-                    } else setSelectedProvince(newValue.ward_id);
+                        // setSelectedProvince(newValue.district_id);
+                        setSelectedProvince({
+                            id: newValue.district_id,
+                            name: newValue.district_name,
+                        });
+                    } else {
+                        // setSelectedProvince(newValue.ward_id);
+                        setSelectedProvince({
+                            id: newValue.ward_id,
+                            name: newValue.ward_name,
+                        });
+                    }
                 }
             }}
             fullWidth={true}
