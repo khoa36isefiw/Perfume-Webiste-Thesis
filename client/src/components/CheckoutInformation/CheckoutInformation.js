@@ -28,13 +28,19 @@ import CartTotal from '../Cart/CartTotal';
 import { converToVND } from '../convertToVND/convertToVND';
 import { removeProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
 import { CustomizeDividerVertical } from '../CustomizeDivider/CustomizeDivider';
+import { CustomizeCheckoutInput } from './CustomizeCheckoutInput';
+import { saveOrders } from '../../redux/feature/CheckoutManagement/CheckoutManagementSlice';
 
 function CheckoutInformation() {
     const dispatch = useDispatch();
+    const [informationSaved, setInformationSaved] = useState({});
     const [listProvince, setListProvince] = useState([]);
     const [listDistrict, setListDistrict] = useState([]);
     const [listWardTown, setListWardTown] = useState([]);
-    const [selectedProvince, setSelectedProvince] = useState(''); // return province_id
+    // component parent
+    const [promoCode, setPromoCode] = useState('');
+    const [promoCodeApplied, setPromoCodeApplied] = useState(false);
+    const [selectedProvince, setSelectedProvince] = useState(''); // return object contains {province_id, province_name}
     const [selectedDistrict, setSelectedDistrict] = useState(''); // return district_id
     const [selectedWardTown, setSelectedWardTown] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('cod'); // Default payment method
@@ -45,6 +51,8 @@ function CheckoutInformation() {
     // get product in cart
     const listProductInCart = useSelector((state) => state.cartManagement.productInfor);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+    // console.log('current information: ', loggedInAccount);
+    // console.log('current product information: ', listProductInCart);
 
     // get province
     useEffect(() => {
@@ -59,7 +67,9 @@ function CheckoutInformation() {
     useEffect(() => {
         if (selectedProvince) {
             const fetchDistrict = async () => {
-                const getDistrictFromProvince = await addressApi.getDistrictApi(selectedProvince);
+                const getDistrictFromProvince = await addressApi.getDistrictApi(
+                    selectedProvince.id,
+                );
                 setListDistrict(getDistrictFromProvince.results);
             };
             fetchDistrict();
@@ -70,18 +80,96 @@ function CheckoutInformation() {
     useEffect(() => {
         if (selectedProvince && selectedDistrict) {
             const fetchWardTown = async () => {
-                const getDistrictFromProvince = await addressApi.getWardTownApi(selectedDistrict);
+                const getDistrictFromProvince = await addressApi.getWardTownApi(
+                    selectedDistrict.id,
+                );
                 setListWardTown(getDistrictFromProvince.results);
             };
             fetchWardTown();
         }
     }, [selectedProvince, selectedDistrict]);
 
-    // show notification
-    const handleShowNotification = () => {
+    // checkout and show notification
+    const handleCheckout = () => {
         setShowNotification(true);
         setShowAnimation('animate__bounceInRight');
+
+        // calculate the subtotal (sum of all products in the cart)
+        const subtotal = listProductInCart.reduce(
+            (accumulator, product) => accumulator + product.quantity * product.perfumePrice,
+            0,
+        );
+
+        console.log('subtotal: ', subtotal);
+
+        const calculateDiscount = (subtotal) => subtotal * 0.2; // 20%
+        const calculateTax = (subtotal) => subtotal * 0.1; // 10%
+
+        const discount = calculateDiscount(subtotal);
+        const tax = calculateTax(subtotal);
+
+        // final total: subtotal - discount + tax
+        let finalTotal = subtotal - discount + tax;
+
+        // optional: apply promotion code --> discount 5%
+        if (promoCodeApplied && promoCode === 'UTE99') {
+            finalTotal *= 0.95; // Apply 5% discount
+        }
+
+        // round final total to 2 decimal places
+        finalTotal = Math.round(finalTotal * 100) / 100;
+
+        console.log('final price: ' + finalTotal);
+
+        // Create the checkout object for the current purchase
+        // temporary checkout object
+        const currentCheckout = {
+            orderId: `${new Date().getTime()}`,
+            paymentMethod,
+            user: {
+                name: loggedInAccount?.firstName + ' ' + loggedInAccount?.lastName,
+                email: loggedInAccount?.email,
+                phone: loggedInAccount?.phoneNumber,
+                address: loggedInAccount?.address,
+                shipTo:
+                    selectedProvince.name +
+                    ', ' +
+                    selectedDistrict.name +
+                    ', ' +
+                    selectedWardTown.name,
+            },
+            products: listProductInCart.map((product) => ({
+                productId: product.perfumeID,
+                name: product.perfumeImage,
+                quantity: product.quantity,
+                price: product.quantity * product.perfumePrice,
+            })),
+            totalPrice: finalTotal,
+            // add timestamp for when the purchase was made
+            timestamp: new Date().toISOString(),
+        };
+
+        // Step 2: retrieve the existing saved information from the state
+        const existingData = { ...informationSaved };
+
+        // step 3: update the saved information with the new order
+        if (existingData[loggedInAccount?.userId]) {
+            // exist
+            // if the user already has previous orders, add the new one
+            existingData[loggedInAccount?.userId].push(currentCheckout);
+        } else {
+            //not existed yet
+            // the user's first purchase, create a new array with the current order
+            existingData[loggedInAccount?.userId] = [currentCheckout];
+        }
+
+        // final step: save the updated information back into state
+        setInformationSaved(existingData);
+        dispatch(saveOrders(existingData));
+
+        console.log('All saved information: ', existingData);
     };
+
     // handle Close notification
     const handleCloseNotification = () => {
         setShowAnimation('animate__fadeOut');
@@ -89,8 +177,6 @@ function CheckoutInformation() {
             setShowNotification(false);
         }, 1000);
     };
-
-    console.log('product: ', listProductInCart);
 
     return (
         <Container sx={{ position: 'relative' }}>
@@ -135,11 +221,11 @@ function CheckoutInformation() {
                         </CustomizeTypography>
                         <CustomizeCheckoutInput
                             placeholder="Nhập số điện thoại"
-                            value={loggedInAccount.phoneNumber}
+                            value={loggedInAccount?.phoneNumber}
                         />
                         <CustomizeCheckoutInput
                             placeholder="Nhập họ tên"
-                            value={loggedInAccount.firstName + ' ' + loggedInAccount.lastName}
+                            value={loggedInAccount?.firstName + ' ' + loggedInAccount?.lastName}
                         />
                         <SelectAddress
                             type="province"
@@ -162,7 +248,7 @@ function CheckoutInformation() {
                         />
                         <CustomizeCheckoutInput
                             placeholder="Nhập địa chỉ nhà cụ thể. Số nhà, tên đường..."
-                            value={loggedInAccount.address}
+                            value={loggedInAccount?.address}
                         />
                     </Box>
                     {/* Thanh toán */}
@@ -281,6 +367,7 @@ function CheckoutInformation() {
                                 ahiahi
                             </Box>
                         ) : (
+                            //button check out COD
                             <Box sx={{ mt: 2, width: '200px' }}>
                                 <CustomizeButtonInCart
                                     variant="outlined"
@@ -288,7 +375,7 @@ function CheckoutInformation() {
                                     // show animation
                                     isReverseAnimation={false}
                                     fullWidth={false}
-                                    onHandleClick={handleShowNotification}
+                                    onHandleClick={handleCheckout}
                                 />
                             </Box>
                         )}
@@ -370,7 +457,13 @@ function CheckoutInformation() {
                         ))}
                     </Box>
                     <Box sx={{ mt: 2 }}>
-                        <CartTotal productsList={listProductInCart} />
+                        <CartTotal
+                            productsList={listProductInCart}
+                            promoCode={promoCode}
+                            setPromoCode={setPromoCode}
+                            promoCodeApplied={promoCodeApplied}
+                            setPromoCodeApplied={setPromoCodeApplied}
+                        />
                     </Box>
                 </Grid>
             </Grid>
@@ -393,43 +486,3 @@ function CheckoutInformation() {
 }
 
 export default CheckoutInformation;
-
-const CustomizeCheckoutInput = ({ placeholder, value }) => {
-    return (
-        <TextField
-            value={value}
-            placeholder={placeholder}
-            fullWidth
-            sx={{
-                mb: 2,
-                '.MuiInputBase-root': {
-                    fontSize: '14px',
-                    height: '40px',
-                    color: 'white',
-                },
-                '& .MuiFormHelperText-root': {
-                    fontSize: '12.5px',
-                    color: 'red',
-                    mx: 1,
-                },
-                '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                        borderColor: '#555',
-                    },
-                    '&:hover fieldset': {
-                        borderColor: '#fff',
-                    },
-                    '&.Mui-focused fieldset': {
-                        borderColor: '#fff',
-                    },
-                },
-            }}
-        />
-    );
-};
-
-export const CheckoutContainer = styled(Box)(() => ({
-    display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-}));
