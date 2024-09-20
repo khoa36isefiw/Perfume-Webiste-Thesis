@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { theme } from '../../Theme/Theme';
 import { backTop } from '../goBackTop/goBackTop';
 import { Typography } from '@mui/material';
+import SearchTerm from './SearchTerm';
 
 export default function SimpleBottomNavigation() {
     const navigate = useNavigate();
@@ -25,6 +26,11 @@ export default function SimpleBottomNavigation() {
     const handleNavigateSignIn = () => {
         backTop();
         navigate('/sign-in');
+    };
+
+    const handleNavigateSearch = () => {
+        backTop();
+        navigate('/search');
     };
 
     return (
@@ -76,6 +82,7 @@ export default function SimpleBottomNavigation() {
                 {/* Favorites */}
                 <BottomNavigationAction
                     // label="Search"
+                    onClick={handleNavigateSearch}
                     label={
                         <Typography
                             sx={{
