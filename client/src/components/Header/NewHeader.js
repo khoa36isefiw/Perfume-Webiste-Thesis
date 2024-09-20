@@ -28,7 +28,7 @@ import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
 import SimpleBottomNavigation from './BottomNavigation';
-import SearchComponent from './Search';
+
 import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
 
