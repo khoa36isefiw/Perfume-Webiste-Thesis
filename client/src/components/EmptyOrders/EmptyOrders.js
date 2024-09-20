@@ -2,7 +2,7 @@ import { Avatar, Box } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import emptyOrder from '../../assets/images/box.png';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,9 @@ function EmptyOrders() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 mt: 22,
+                [mobileScreen]: {
+                    width: '100%',
+                },
             }}
         >
             <Avatar
@@ -30,7 +33,16 @@ function EmptyOrders() {
                 No order placed yet!
             </CustomizeTypography>
             <CustomizeTypography
-                sx={{ fontSize: '24px', mb: 1, width: '650px', textAlign: 'center' }}
+                sx={{
+                    fontSize: '24px',
+                    mb: 1,
+                    width: '650px',
+                    textAlign: 'center',
+                    [mobileScreen]: {
+                        fontSize: '18px',
+                        width: '100%',
+                    },
+                }}
             >
                 You have not placed an order yet. Please add items to your cart and checkout when
                 you are ready.
