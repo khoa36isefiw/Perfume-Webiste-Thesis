@@ -1,20 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-    Box,
-    Container,
-    IconButton,
-    Menu,
-    MenuItem,
-    Drawer,
-    Badge,
-    Typography,
-    List,
-    ListItem,
-    ListItemText,
-    Paper,
-    Avatar,
-    Button,
-} from '@mui/material';
+import { Box, Container, IconButton, Badge, List, ListItem, Paper, Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import SearchIcon from '@mui/icons-material/Search';
@@ -22,7 +7,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
 import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
@@ -217,138 +201,141 @@ function NewHeader() {
                     >
                         Tomtoc Perfumes
                     </CustomizeTypography>
-
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-
-                            [tabletScreen]: {
-                                mt: 2,
-                            },
-                        }}
-                    >
-                        <TextFieldCustomizeV2
-                            // default
-                            placeholder={'Search here...'}
+                    {!isMobile && (
+                        <Box
                             sx={{
-                                width: '360px',
-                                [tabletScreen]: { width: '260px' },
-                                [mobileScreen]: {
-                                    width: '100%',
-                                },
-                            }}
-                            value={searchTerm}
-                            onChange={handleSearchChange}
-                            onClick={() => setShowSuggestions(!!searchTerm)}
-                        />
-                        {/* Suggestions Dropdown */}
-                        {showSuggestions && suggestions.length > 0 && (
-                            <Paper
-                                sx={{
-                                    position: 'absolute',
-                                    top: '50%',
-                                    // width: '50%',
-                                    left: '50%',
-                                    right: '0',
-                                    transform: 'translate(-50%, 0)',
-                                    zIndex: 1,
-                                }}
-                            >
-                                <List>
-                                    {listSuggestions.map((product) => (
-                                        <ListItem
-                                            key={product.id}
-                                            button
-                                            onClick={() => handleSuggestionClick(product)}
-                                        >
-                                            <Avatar
-                                                src={product.perfumeImage}
-                                                sx={{
-                                                    borderRadius: 0,
-                                                    height: '80px',
-                                                    width: '80px',
-                                                    objectFit: 'cover',
-                                                }}
-                                            />
-                                            <Box sx={{ flexDirection: 'column' }}>
-                                                <CustomizeTypography sx={{ color: '#000' }}>
-                                                    {product.perfumeName}
-                                                </CustomizeTypography>
-                                                <Box
-                                                    sx={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'space-between',
-                                                    }}
-                                                >
-                                                    <CustomizeTypography
-                                                        sx={{
-                                                            color: '#000',
-                                                            fontSize: '14px',
-                                                            mr: 2,
-                                                            textDecoration: product.discount
-                                                                ? 'line-through'
-                                                                : '',
-                                                        }}
-                                                    >
-                                                        {converToVND(product.perfumePriceVND)}
-                                                    </CustomizeTypography>
-                                                    <CustomizeTypography
-                                                        sx={{
-                                                            color: '#000',
-                                                            fontSize: '14px',
-                                                            color: theme.palette.text.secondary,
-                                                            fontWeight: 'bold',
-                                                        }}
-                                                    >
-                                                        {converToVND(product.perfumePriceDiscount)}
-                                                    </CustomizeTypography>
-                                                </Box>
-                                            </Box>
-                                        </ListItem>
-                                    ))}
-                                </List>
-                                {suggestions.length - listSuggestions.length > 0 && (
-                                    <CustomizeTypography
-                                        sx={{
-                                            textAlign: 'center',
-                                            color: '#000',
-                                            fontSize: 14,
-                                            '&:hover': {
-                                                cursor: 'pointer',
-                                                fontWeight: 'bold',
-                                                color: theme.palette.text.secondary,
-                                            },
-                                        }}
-                                    >
-                                        Xem thêm {suggestions.length - listSuggestions.length} sản
-                                        phẩm
-                                    </CustomizeTypography>
-                                )}
-                            </Paper>
-                        )}
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
 
-                        <IconButton
-                            sx={{
-                                bgcolor: theme.palette.text.secondary,
-                                borderTopLeftRadius: 1,
-                                borderBottomLeftRadius: 1,
-                                mr: 1,
-                                '&:hover': {
-                                    bgcolor: theme.palette.text.secondary,
-                                    cursor: 'pointer',
-                                    fontWeight: 'bold',
-                                },
                                 [tabletScreen]: {
-                                    mr: 4,
+                                    mt: 2,
                                 },
                             }}
                         >
-                            <SearchIcon sx={{ fontSize: '24px', color: 'white' }} />
-                        </IconButton>
-                    </Box>
+                            <TextFieldCustomizeV2
+                                // default
+                                placeholder={'Search here...'}
+                                sx={{
+                                    width: '360px',
+                                    [tabletScreen]: { width: '260px' },
+                                    [mobileScreen]: {
+                                        width: '100%',
+                                    },
+                                }}
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                                onClick={() => setShowSuggestions(!!searchTerm)}
+                            />
+                            {/* Suggestions Dropdown */}
+                            {showSuggestions && suggestions.length > 0 && (
+                                <Paper
+                                    sx={{
+                                        position: 'absolute',
+                                        top: '50%',
+                                        // width: '50%',
+                                        left: '50%',
+                                        right: '0',
+                                        transform: 'translate(-50%, 0)',
+                                        zIndex: 1,
+                                    }}
+                                >
+                                    <List>
+                                        {listSuggestions.map((product) => (
+                                            <ListItem
+                                                key={product.id}
+                                                button
+                                                onClick={() => handleSuggestionClick(product)}
+                                            >
+                                                <Avatar
+                                                    src={product.perfumeImage}
+                                                    sx={{
+                                                        borderRadius: 0,
+                                                        height: '80px',
+                                                        width: '80px',
+                                                        objectFit: 'cover',
+                                                    }}
+                                                />
+                                                <Box sx={{ flexDirection: 'column' }}>
+                                                    <CustomizeTypography sx={{ color: '#000' }}>
+                                                        {product.perfumeName}
+                                                    </CustomizeTypography>
+                                                    <Box
+                                                        sx={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'space-between',
+                                                        }}
+                                                    >
+                                                        <CustomizeTypography
+                                                            sx={{
+                                                                color: '#000',
+                                                                fontSize: '14px',
+                                                                mr: 2,
+                                                                textDecoration: product.discount
+                                                                    ? 'line-through'
+                                                                    : '',
+                                                            }}
+                                                        >
+                                                            {converToVND(product.perfumePriceVND)}
+                                                        </CustomizeTypography>
+                                                        <CustomizeTypography
+                                                            sx={{
+                                                                color: '#000',
+                                                                fontSize: '14px',
+                                                                color: theme.palette.text.secondary,
+                                                                fontWeight: 'bold',
+                                                            }}
+                                                        >
+                                                            {converToVND(
+                                                                product.perfumePriceDiscount,
+                                                            )}
+                                                        </CustomizeTypography>
+                                                    </Box>
+                                                </Box>
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                    {suggestions.length - listSuggestions.length > 0 && (
+                                        <CustomizeTypography
+                                            sx={{
+                                                textAlign: 'center',
+                                                color: '#000',
+                                                fontSize: 14,
+                                                '&:hover': {
+                                                    cursor: 'pointer',
+                                                    fontWeight: 'bold',
+                                                    color: theme.palette.text.secondary,
+                                                },
+                                            }}
+                                        >
+                                            Xem thêm {suggestions.length - listSuggestions.length}{' '}
+                                            sản phẩm
+                                        </CustomizeTypography>
+                                    )}
+                                </Paper>
+                            )}
+
+                            <IconButton
+                                sx={{
+                                    bgcolor: theme.palette.text.secondary,
+                                    borderTopLeftRadius: 1,
+                                    borderBottomLeftRadius: 1,
+                                    mr: 1,
+                                    '&:hover': {
+                                        bgcolor: theme.palette.text.secondary,
+                                        cursor: 'pointer',
+                                        fontWeight: 'bold',
+                                    },
+                                    [tabletScreen]: {
+                                        mr: 4,
+                                    },
+                                }}
+                            >
+                                <SearchIcon sx={{ fontSize: '24px', color: 'white' }} />
+                            </IconButton>
+                        </Box>
+                    )}
 
                     <Box
                         sx={{
