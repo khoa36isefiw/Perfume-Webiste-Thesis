@@ -25,6 +25,9 @@ function PerfumeDetail() {
 
     // get the perfume data passed from navigation
     const { perfume } = location.state || {};
+    const { product } = location.state || {};
+    console.log('product: ', product);
+    console.log('perfume data: ', perfume);
 
     // get list product added to cart
     const cartItems = useSelector((state) => state.cartManagement.productInfor);
