@@ -140,7 +140,8 @@ function CheckoutInformation() {
             },
             products: listProductInCart.map((product) => ({
                 productId: product.perfumeID,
-                name: product.perfumeImage,
+                name: product.perfumeName,
+                image: product.perfumeImage,
                 quantity: product.quantity,
                 price: product.quantity * product.perfumePrice,
             })),
