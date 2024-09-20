@@ -9,10 +9,17 @@ import { SummaryRowInCart } from './SummaryRowInCart';
 import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
-function CartTotal({ productsList }) {
+function CartTotal({
+    productsList,
+    promoCode,
+    setPromoCode,
+    promoCodeApplied,
+    setPromoCodeApplied,
+}) {
     const navigate = useNavigate();
-    const [promoCode, setPromoCode] = useState('');
-    const [promoCodeApplied, setPromoCodeApplied] = useState(false);
+    // get from parent
+    // const [promoCode, setPromoCode] = useState('');
+    // const [promoCodeApplied, setPromoCodeApplied] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
     const [messageType, setMessageType] = useState('');
