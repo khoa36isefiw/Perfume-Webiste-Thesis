@@ -7,6 +7,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import { orderHistoryData } from './orderHistoryData';
+import { useSelector } from 'react-redux';
 
 const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
     <>
@@ -56,7 +57,7 @@ const OrderInfo = ({ label, value }) => (
     <Box
         sx={{
             textAlign: 'center',
-            width: '25%',
+            width: '100%',
             [tabletScreen]: {
                 width: '100%',
             },
@@ -192,6 +193,13 @@ const OrderItem = ({ listData }) => (
 );
 
 const OrderLists = ({ ordersListData }) => {
+    const orderHistory = useSelector((state) => state.checkoutManagement.listOrders);
+    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+
+    console.log('userId: ', loggedInAccount.userId);
+
+    console.log('orderHistory: ', orderHistory);
+
     return (
         <>
             {ordersListData.map((order, index) => (
@@ -206,37 +214,20 @@ const OrderLists = ({ ordersListData }) => {
                     }}
                     key={index}
                 >
-                    {/* okay */}
-                    {/* <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <OrderInfo label="Order Number" value={`#${order.orderNumber}`} />
-                        <VerticalDivider />
-                        <OrderInfo label="Order Date" value={order.orderDate} />
-                        <VerticalDivider />
-
-                        <OrderInfo label="Ship To" value={order.orderAddress} />
-                    </Box> */}
-
-                    {/* testing */}
                     <Grid container spacing={2}>
-                        <Grid item xs={3} sm={3}>
+                        <Grid item xs={3} sm={3} lg={3}>
                             <OrderInfo label="Order Num" value={`#${order.orderNumber}`} />
                         </Grid>
-                        <Grid item xs={1} sm={1}>
+                        <Grid item xs={1} sm={1} lg={1}>
                             <VerticalDivider />
                         </Grid>
-                        <Grid item xs={3} sm={3}>
+                        <Grid item xs={3} sm={3} lg={3}>
                             <OrderInfo label="Order Date" value={order.orderDate} />
                         </Grid>
                         <Grid item xs={1} sm={1}>
                             <VerticalDivider />
                         </Grid>
-                        <Grid item xs={4} sm={4}>
+                        <Grid item xs={4} sm={4} lg={4}>
                             <OrderInfo label="Ship To" value={order.orderAddress} />
                         </Grid>
                     </Grid>
