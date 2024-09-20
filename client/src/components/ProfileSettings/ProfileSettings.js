@@ -60,7 +60,7 @@ const ProfileSettings = () => {
                     },
                     [mobileScreen]: {
                         width: '100%',
-                        mt: 10,
+                        mt: 16,
                     },
                 }}
             >
@@ -140,6 +140,7 @@ const ProfileSettings = () => {
                     {/* Main content */}
                     <Grid container item xs={12} md={8} lg={9}>
                         <Box sx={{ flexGrow: 1, bgcolor: 'background.default' }}>
+                            {/* {activeComponent === 'accountInfo' && <MyPurchase />} */}
                             {activeComponent === 'accountInfo' && <AccountInfo />}
                             {activeComponent === 'changePassword' && <ChangePassword />}
                             {activeComponent === 'myPurchase' && <MyPurchase />}

@@ -42,6 +42,7 @@ function RecoverPassword() {
                     width: '80%',
                 },
                 [mobileScreen]: {
+                    mt: 12,
                     width: '100%',
                 },
             }}

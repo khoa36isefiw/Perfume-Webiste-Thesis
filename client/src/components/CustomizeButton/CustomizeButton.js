@@ -19,7 +19,7 @@ function CustomizeButton({ onHandleClick, textAction }) {
                     bgcolor: theme.palette.secondaryText,
                 },
                 [tabletScreen]: {
-                    fontSize: '13px',
+                    fontSize: '13px',   
                 },
             }}
         >

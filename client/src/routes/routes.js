@@ -1,3 +1,4 @@
+import SearchTerm from '../components/Header/SearchTerm';
 import ProfileSettings from '../components/ProfileSettings/ProfileSettings';
 import RecoverPassword from '../components/RecoverPassword/RecoverPassword';
 import UserLayouts from '../layouts/UserLayout/UserLayouts';
@@ -19,6 +20,7 @@ const publicRoutes = [
     { path: '/about-us', component: AboutUs, layout: UserLayouts },
     { path: '/our-services', component: Services, layout: UserLayouts },
     { path: '/shop', component: Shop, layout: UserLayouts },
+    { path: '/search', component: SearchTerm, layout: UserLayouts },
     // navigate to product has id...
     { path: `/product/:id`, component: ProductDetail, layout: UserLayouts },
     { path: '/shopping-cart', component: ShoppingCart, layout: UserLayouts },
