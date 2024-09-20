@@ -178,7 +178,7 @@ function NewHeader() {
                     <CustomizeTypography
                         sx={{
                             mb: 0,
-                            fontSize: '28px',
+                            fontSize: '32px',
                             fontWeight: 'bold',
                             background: `linear-gradient(120deg, ${theme.palette.text.main}, ${theme.palette.text.secondary})`,
                             // chỉ hiển thị màu nền ở phần text
@@ -337,32 +337,38 @@ function NewHeader() {
                         </Box>
                     )}
 
-                    <Box
-                        sx={{
-                            [tabletScreen]: { mt: 2 },
-                            [mobileScreen]: {
-                                display: 'none',
-                            },
-                        }}
-                    >
-                        <CustomizeButton
-                            textAction={'Sign In'}
-                            onHandleClick={() => navigate('/sign-in')}
-                        />
-                    </Box>
-                    <Box
-                        sx={{
-                            [tabletScreen]: { mt: 2 },
-                            [mobileScreen]: {
-                                display: 'none',
-                            },
-                        }}
-                    >
-                        <CustomizeButtonOutlined
-                            textAction={'Register'}
-                            onHandleClick={() => navigate('/create-account')}
-                        />
-                    </Box>
+                    {isLogged ? (
+                        <AuthenticatedUser />
+                    ) : (
+                        <React.Fragment>
+                            <Box
+                                sx={{
+                                    [tabletScreen]: { mt: 2 },
+                                    [mobileScreen]: {
+                                        display: 'none',
+                                    },
+                                }}
+                            >
+                                <CustomizeButton
+                                    textAction={'Sign In'}
+                                    onHandleClick={() => navigate('/sign-in')}
+                                />
+                            </Box>
+                            <Box
+                                sx={{
+                                    [tabletScreen]: { mt: 2 },
+                                    [mobileScreen]: {
+                                        display: 'none',
+                                    },
+                                }}
+                            >
+                                <CustomizeButtonOutlined
+                                    textAction={'Register'}
+                                    onHandleClick={() => navigate('/create-account')}
+                                />
+                            </Box>
+                        </React.Fragment>
+                    )}
 
                     <Badge
                         badgeContent={
