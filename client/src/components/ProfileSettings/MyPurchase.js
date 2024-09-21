@@ -251,7 +251,7 @@ const OrderItem2 = ({ listData }) => (
                                 },
                             }}
                         >
-                            {item.orderBrand}
+                            {item.brand}
                         </CustomizeTypography>
                         <CustomizeTypography
                             sx={{
@@ -261,7 +261,7 @@ const OrderItem2 = ({ listData }) => (
                                 },
                             }}
                         >
-                            {item.orderSize} ml
+                            30{item.orderSize} ml
                         </CustomizeTypography>
                         <Button
                             startIcon={<StarIcon />}
