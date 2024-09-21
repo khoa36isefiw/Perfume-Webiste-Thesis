@@ -42,9 +42,12 @@ export const cartManagementSlice = createSlice({
                 existingProduct.quantity -= 1;
             }
         },
+        clearCart: (state) => {
+            state.productInfor = []; // remove all products after checkout
+        },
     },
 });
 
 const { actions, reducer } = cartManagementSlice;
-export const { addToCart, removeProduct, increaseQuantity, decreaseQuantity } = actions; // named export
+export const { addToCart, removeProduct, increaseQuantity, decreaseQuantity, clearCart } = actions; // named export
 export default reducer; // export default
