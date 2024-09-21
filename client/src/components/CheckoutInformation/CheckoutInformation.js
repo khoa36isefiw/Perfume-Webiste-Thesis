@@ -166,7 +166,12 @@ function CheckoutInformation() {
 
         // final step: save the updated information back into state
         setInformationSaved(existingData);
-        dispatch(saveOrders(existingData));
+        dispatch(
+            saveOrders({
+                userId: loggedInAccount?.userId,
+                purchaseInfo: currentCheckout,
+            }),
+        );
 
         console.log('All saved information: ', existingData);
     };
