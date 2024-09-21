@@ -5,7 +5,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InfoIcon from '@mui/icons-material/Info';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 
 function NotificationMessage({ msgType, msgTitle, msgContent, autoHideDuration, onClose }) {
     // auto-hide the notification after the specified duration
@@ -66,6 +66,9 @@ function NotificationMessage({ msgType, msgTitle, msgContent, autoHideDuration, 
                 display: 'flex',
                 alignItems: 'flex-start',
                 justifyContent: 'space-between',
+                [mobileScreen]: {
+                    width: '270px',
+                },
             }}
         >
             <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
