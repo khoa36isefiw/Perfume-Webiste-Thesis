@@ -10,6 +10,7 @@ import { signUpAccount } from '../../redux/feature/AccountManagement/AccountMana
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
+import userDefaultAvatar from '../../assets/images/defaultA.png';
 
 function RegisterAccount() {
     const navigate = useNavigate();
@@ -31,7 +32,8 @@ function RegisterAccount() {
 
     const handleRegisterAccount = () => {
         // get value of first name input
-
+        const userImage =
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1726898366/perfumes/user-image/default-image-1.png';
         const firstName = firstNameRef.current.value.trim();
         const lastName = lastNameRef.current.value.trim();
         const phoneNumber = phoneRef.current.value.trim();
@@ -41,6 +43,7 @@ function RegisterAccount() {
         if (firstName) {
             dispatch(
                 signUpAccount({
+                    userImage, // default image
                     userId,
                     firstName,
                     lastName,
@@ -74,18 +77,18 @@ function RegisterAccount() {
         <Container
             sx={{
                 width: '50%',
-                mt: 20,
+                mt: 15,
                 [ipadProScreen]: {
                     width: '70%',
                     mt: 15,
                 },
                 [tabletScreen]: {
                     width: '80%',
-                    mt: 20,
+                    mt: 16,
                 },
                 [mobileScreen]: {
                     width: '100%',
-                    mt: 10,
+                    mt: 12,
                 },
             }}
         >

@@ -1,6 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    /*
+     {
+    userId1: [
+        { purchaseInfo1 }, 
+        { purchaseInfo2 }
+    ],
+    userId2: [
+        { purchaseInfo3 }
+    ]
+}
+ */
     listOrders: [],
 };
 
@@ -10,8 +21,16 @@ export const checkoutManagementSlice = createSlice({
 
     reducers: {
         saveOrders: (state, action) => {
-            const purchaseInfo = action.payload;
-            state.listOrders.push(purchaseInfo);
+            const { userId, purchaseInfo } = action.payload;
+
+            state.listOrders = {
+                ...state.listOrders,
+                // store by userId
+                [userId]: [
+                    ...(state.listOrders[userId] || []), // If the userId already exists, keep existing orders, otherwise create an empty array
+                    { purchaseInfo }, // Append the new purchaseInfo and userInfor
+                ],
+            };
         },
     },
 });

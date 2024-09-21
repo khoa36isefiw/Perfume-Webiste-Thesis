@@ -3,21 +3,19 @@ import {
     Box,
     Container,
     Grid,
-    TextField,
     Radio,
     RadioGroup,
     FormControlLabel,
     FormControl,
     Avatar,
     IconButton,
-    styled,
     Button,
 } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { addressApi } from '../api/addressApi';
 import SelectAddress from '../SelectAddress/SelectAddress';
 import CreditCard from '../CreditCard/CreditCard';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import { PayPalButton } from 'react-paypal-button-v2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
@@ -26,7 +24,7 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useDispatch, useSelector } from 'react-redux';
 import CartTotal from '../Cart/CartTotal';
 import { converToVND } from '../convertToVND/convertToVND';
-import { removeProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
+import { clearCart, removeProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
 import { CustomizeDividerVertical } from '../CustomizeDivider/CustomizeDivider';
 import { CustomizeCheckoutInput } from './CustomizeCheckoutInput';
 import { saveOrders } from '../../redux/feature/CheckoutManagement/CheckoutManagementSlice';
@@ -52,7 +50,7 @@ function CheckoutInformation() {
     const listProductInCart = useSelector((state) => state.cartManagement.productInfor);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     // console.log('current information: ', loggedInAccount);
-    // console.log('current product information: ', listProductInCart);
+    console.log('current product information: ', listProductInCart);
 
     // get province
     useEffect(() => {
@@ -140,9 +138,12 @@ function CheckoutInformation() {
             },
             products: listProductInCart.map((product) => ({
                 productId: product.perfumeID,
-                name: product.perfumeImage,
+                name: product.perfumeName,
+                image: product.perfumeImage,
                 quantity: product.quantity,
+
                 price: product.quantity * product.perfumePrice,
+                brand: product.perfumeBrand,
             })),
             totalPrice: finalTotal,
             // add timestamp for when the purchase was made
@@ -165,7 +166,14 @@ function CheckoutInformation() {
 
         // final step: save the updated information back into state
         setInformationSaved(existingData);
-        dispatch(saveOrders(existingData));
+        dispatch(
+            saveOrders({
+                userId: loggedInAccount?.userId,
+                purchaseInfo: currentCheckout,
+            }),
+        );
+
+        dispatch(clearCart());
 
         console.log('All saved information: ', existingData);
     };
@@ -179,7 +187,15 @@ function CheckoutInformation() {
     };
 
     return (
-        <Container sx={{ position: 'relative' }}>
+        <Container
+            sx={{
+                position: 'relative',
+                mt: 20,
+                [mobileScreen]: {
+                    mt: 16,
+                },
+            }}
+        >
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                     <Button
@@ -214,8 +230,16 @@ function CheckoutInformation() {
                         Back to Cart
                     </Button>
                 </Grid>
-                <Grid item lg={6}>
-                    <Box sx={{ minHeight: '200px', p: 2 }}>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
+                    <Box
+                        sx={{
+                            minHeight: '200px',
+                            p: 2,
+                            [mobileScreen]: {
+                                p: 0,
+                            },
+                        }}
+                    >
                         <CustomizeTypography sx={{ color: 'white' }}>
                             Địa chỉ thanh toán và vận chuyển
                         </CustomizeTypography>
@@ -252,7 +276,14 @@ function CheckoutInformation() {
                         />
                     </Box>
                     {/* Thanh toán */}
-                    <Box sx={{ mt: 4 }}>
+                    <Box
+                        sx={{
+                            mt: 4,
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
+                        }}
+                    >
                         <CustomizeTypography sx={{ fontSize: '32px' }}>
                             Thanh toán
                         </CustomizeTypography>
@@ -381,8 +412,18 @@ function CheckoutInformation() {
                         )}
                     </Box>
                 </Grid>
-                <Grid item lg={6}>
-                    <Box sx={{ bgcolor: '#555', minHeight: '200px', p: 2, borderRadius: 1 }}>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
+                    <Box
+                        sx={{
+                            bgcolor: '#555',
+                            minHeight: '200px',
+                            p: 2,
+                            borderRadius: 1,
+                            [mobileScreen]: {
+                                p: 1,
+                            },
+                        }}
+                    >
                         {listProductInCart.map((product, index) => (
                             <Box key={index}>
                                 <Box
@@ -403,22 +444,49 @@ function CheckoutInformation() {
                                                 mr: 1,
                                             }}
                                         />
-                                        <Box sx={{ width: '80%', flexWrap: 'wrap' }}>
+                                        <Box
+                                            sx={{
+                                                width: '80%',
+                                                flexWrap: 'wrap',
+                                                [mobileScreen]: {
+                                                    width: '100%',
+                                                },
+                                            }}
+                                        >
                                             <CustomizeTypography
                                                 sx={{
                                                     mb: 0,
                                                     fontSize: '16px',
                                                     fontWeight: 'bold',
                                                     color: theme.palette.text.secondary,
+                                                    [mobileScreen]: {
+                                                        fontSize: '14px',
+                                                    },
                                                 }}
                                             >
                                                 {/* Versace Eros EDT - 100 ml */}
                                                 {product.perfumeName}
                                             </CustomizeTypography>
-                                            <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
+                                            <CustomizeTypography
+                                                sx={{
+                                                    fontSize: '14px',
+                                                    mb: 0,
+                                                    [mobileScreen]: {
+                                                        fontSize: '12.5px',
+                                                    },
+                                                }}
+                                            >
                                                 Size: 150ml
                                             </CustomizeTypography>
-                                            <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
+                                            <CustomizeTypography
+                                                sx={{
+                                                    fontSize: '14px',
+                                                    mb: 0,
+                                                    [mobileScreen]: {
+                                                        fontSize: '12.5px',
+                                                    },
+                                                }}
+                                            >
                                                 {converToVND(product.perfumePrice)}
                                             </CustomizeTypography>
                                         </Box>
@@ -444,6 +512,9 @@ function CheckoutInformation() {
                                                 mb: 0,
                                                 mr: 1,
                                                 color: theme.palette.text.secondary,
+                                                [mobileScreen]: {
+                                                    fontSize: '12.5px',
+                                                },
                                             }}
                                         >
                                             <strong>Qty:</strong> {product.quantity}

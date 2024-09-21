@@ -43,12 +43,13 @@ function SignIn() {
         <Container
             sx={{
                 width: '50%',
-                my: theme.spacing.boxVerticalAxis16,
+                my: 16,
                 [ipadProScreen]: {
                     width: '70%',
                 },
                 [tabletScreen]: {
                     width: '80%',
+                    my: 18,
                 },
                 [mobileScreen]: {
                     my: 12,

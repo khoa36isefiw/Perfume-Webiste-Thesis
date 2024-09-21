@@ -6,11 +6,13 @@ import { theme } from '../../Theme/Theme';
 import { CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
 
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
+import { useSelector } from 'react-redux';
 
 function ChangePassword() {
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [confrimNewPassword, setConfrimNewPassword] = useState(false);
+    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const handleChangePassword = () => {};
     const handleClickShowCurrentPassword = () => {
         setShowCurrentPassword(!showCurrentPassword);
@@ -66,6 +68,7 @@ function ChangePassword() {
                         showPassword={showCurrentPassword}
                         placeholder={'Your current password'}
                         onHandleClick={handleClickShowCurrentPassword}
+                        inputValue={loggedInAccount?.password}
                     />
                 </Grid>
             </Grid>

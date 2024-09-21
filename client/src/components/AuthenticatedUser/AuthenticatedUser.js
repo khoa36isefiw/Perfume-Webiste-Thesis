@@ -12,7 +12,7 @@ import Logout from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 import { theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,7 @@ export default function AuthenticatedUser() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -111,11 +112,12 @@ export default function AuthenticatedUser() {
                     />
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <CustomizeTypography sx={{ mb: 0, fontSize: '14px', fontWeight: 'bold' }}>
-                            Macbook
+                            {loggedInAccount?.firstName + ' ' + loggedInAccount?.lastName}
                         </CustomizeTypography>
 
                         <CustomizeTypography sx={{ mb: 0, fontSize: '14px', color: '#d5d5dd5' }}>
-                            macbook@gmail.com
+                            {/* macbook@gmail.com */}
+                            {loggedInAccount?.email}
                         </CustomizeTypography>
                     </Box>
                 </MenuItem>

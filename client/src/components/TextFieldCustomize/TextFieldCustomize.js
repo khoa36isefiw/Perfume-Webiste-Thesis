@@ -1,7 +1,7 @@
 import { TextField, IconButton, InputAdornment, styled } from '@mui/material';
 import React from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 
 export const TextFieldCustomize = ({
     inputValue,
@@ -32,6 +32,9 @@ export const TextFieldCustomize = ({
                     borderBottomLeftRadius: '12px',
                     borderTopRightRadius: 0,
                     borderBottomRightRadius: 0,
+                    [mobileScreen]: {
+                        width: '250px',
+                    },
                 },
                 '& .MuiFormHelperText-root': {
                     fontSize: '12.5px',

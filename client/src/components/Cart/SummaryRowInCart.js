@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 export const SummaryRowInCart = ({ label, value, isTotal, discount = null }) => {
     return (
         <Box
@@ -15,6 +15,9 @@ export const SummaryRowInCart = ({ label, value, isTotal, discount = null }) => 
                     fontWeight: isTotal ? 'bold' : 'normal',
                     fontSize: isTotal ? '18px' : '14px',
                     color: theme.palette.text.secondary,
+                    [mobileScreen]: {
+                        fontSize: '15px',
+                    },
                 }}
             >
                 {label}
@@ -26,6 +29,9 @@ export const SummaryRowInCart = ({ label, value, isTotal, discount = null }) => 
                         sx={{
                             fontWeight: isTotal ? 'bold' : 'normal',
                             fontSize: isTotal ? '18px' : '14px',
+                            [mobileScreen]: {
+                                fontSize: '13.5px',
+                            },
                         }}
                     >
                         {discount}
@@ -44,6 +50,9 @@ export const SummaryRowInCart = ({ label, value, isTotal, discount = null }) => 
                     sx={{
                         fontWeight: isTotal ? 'bold' : 'normal',
                         fontSize: isTotal ? '18px' : '14px',
+                        [mobileScreen]: {
+                            fontSize: '14.5px',
+                        },
                     }}
                 >
                     {value}

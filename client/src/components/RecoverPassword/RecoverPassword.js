@@ -30,15 +30,16 @@ function RecoverPassword() {
         <Container
             sx={{
                 width: '50%',
-                mt: 10,
+                mt: 15,
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center', // Center horizontally
-                justifyContent: 'center', // Center vertically
+                alignItems: 'center',
+                justifyContent: 'center',
                 [ipadProScreen]: {
                     width: '70%',
                 },
                 [tabletScreen]: {
+                    mt: 18,
                     width: '80%',
                 },
                 [mobileScreen]: {
@@ -49,7 +50,7 @@ function RecoverPassword() {
         >
             <Box>
                 <Grid container spacing={2}>
-                    <Grid item lg={12}>
+                    <Grid item xs={12} lg={12}>
                         <CustomizeTypography
                             sx={{
                                 fontSize: '48px',
@@ -57,16 +58,12 @@ function RecoverPassword() {
                                 textAlign: 'center',
                                 color: theme.palette.text.secondary,
                                 [ipadProScreen]: {
-                                    textAlign: 'center',
-
                                     fontSize: theme.fontSize.ipadPro.heading,
                                 },
                                 [tabletScreen]: {
-                                    textAlign: 'center',
                                     fontSize: theme.fontSize.tablet.heading,
                                 },
                                 [mobileScreen]: {
-                                    textAlign: 'center',
                                     fontSize: theme.fontSize.mobile.heading,
                                 },
                             }}

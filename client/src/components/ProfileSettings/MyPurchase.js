@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Container, Box, IconButton, Grid, Button } from '@mui/material';
+import { Avatar, Container, Box, IconButton, Grid, Button, Typography } from '@mui/material';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
@@ -8,6 +8,22 @@ import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider'
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import { orderHistoryData } from './orderHistoryData';
 import { useSelector } from 'react-redux';
+
+export const formatDate = (inputDate) => {
+    // Convert input to a Date object if it's not already
+    const date = new Date(inputDate);
+
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+        return 'Invalid date';
+    }
+
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero indexed
+    const year = date.getFullYear();
+
+    return `${month}/${day}/${year}`; // Return in mm/dd/yyyy format
+};
 
 const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
     <>
@@ -192,11 +208,106 @@ const OrderItem = ({ listData }) => (
     </>
 );
 
-const OrderLists = ({ ordersListData }) => {
-    const orderHistory = useSelector((state) => state.checkoutManagement.listOrders);
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+const OrderItem2 = ({ listData }) => (
+    <>
+        {listData.map((item, index) => (
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    mb: '12px',
+                    [mobileScreen]: {
+                        width: '100%',
+                    },
+                }}
+                key={index}
+            >
+                <Box sx={{ display: 'flex' }}>
+                    <Avatar
+                        src={item.image}
+                        sx={{
+                            borderRadius: 1,
+                            width: '100px',
+                            height: '120px',
+                        }}
+                    />
+                    <Box sx={{ ml: 2 }}>
+                        <CustomizeTypography
+                            sx={{
+                                fontSize: '15px',
+                                fontWeight: 'bold',
+                                [mobileScreen]: {
+                                    fontSize: '13px',
+                                },
+                            }}
+                        >
+                            {item.name}
+                        </CustomizeTypography>
+                        <CustomizeTypography
+                            sx={{
+                                fontSize: '13.5px',
+                                [mobileScreen]: {
+                                    fontSize: '12.5px',
+                                },
+                            }}
+                        >
+                            {item.brand}
+                        </CustomizeTypography>
+                        <CustomizeTypography
+                            sx={{
+                                fontSize: '13.5px',
+                                [mobileScreen]: {
+                                    fontSize: '12.5px',
+                                },
+                            }}
+                        >
+                            30{item.orderSize} ml
+                        </CustomizeTypography>
+                        <Button
+                            startIcon={<StarIcon />}
+                            sx={{
+                                padding: '6px 0',
+                                textTransform: 'initial',
+                                fontSize: '14px',
+                                fontWeight: 'bold',
+                                color: theme.palette.text.secondary,
+                                '&:hover': {
+                                    bgcolor: 'transparent',
+                                },
+                                [mobileScreen]: {
+                                    fontSize: '13px',
+                                },
+                            }}
+                        >
+                            Rate Now
+                        </Button>
+                    </Box>
+                </Box>
+                <CustomizeTypography
+                    sx={{
+                        fontWeight: 'bold',
+                        [mobileScreen]: {
+                            fontSize: '12.5px',
+                        },
+                    }}
+                >
+                    ${item.price}
+                </CustomizeTypography>
+            </Box>
+        ))}
+    </>
+);
 
-    console.log('userId: ', loggedInAccount.userId);
+const OrderLists = ({ ordersListData }) => {
+    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+    // const orderHistory = useSelector(
+    //     (state) => state.checkoutManagement.listOrders[loggedInAccount.userId],
+    // );
+
+    const orderHistory = useSelector(
+        // get for each user
+        (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
+    );
 
     console.log('orderHistory: ', orderHistory);
 
@@ -258,6 +369,198 @@ const OrderLists = ({ ordersListData }) => {
                                 Total Amount:
                             </span>{' '}
                             <strong>${order.orderTotal}</strong>
+                        </CustomizeTypography>
+                        <Button
+                            startIcon={<SystemUpdateAltIcon />}
+                            sx={{
+                                padding: '6px 0',
+                                textTransform: 'initial',
+                                fontSize: '14px',
+                                fontWeight: 'bold',
+                                // color: theme.palette.text.secondary,
+
+                                '&:hover': {
+                                    bgcolor: 'transparent',
+                                },
+
+                                [mobileScreen]: {
+                                    fontSize: '13px',
+                                },
+                            }}
+                        >
+                            Download Invoice
+                        </Button>
+                    </Box>
+                </Box>
+            ))}
+
+            {/* Test 2 */}
+            {/* {Object.entries(orderHistory).map(([key, value]) => {
+                console.log('key is: ', key);
+                console.log('value is: ', value);
+                return (
+                    <Box sx={{ bgcolor: '#fff' }} key={key}>
+                        {Object.entries(value).map(([key2, value2]) => {
+                            console.log('key2 is: ', key2);
+                            console.log('value2 is: ', value2); // Check the structure of value2
+                            return (
+                                <Box>
+                                    {value2.map((val, index) => (
+                                        <Box
+                                            sx={{
+                                                bgcolor: '#555',
+                                                minHeight: '20px',
+                                                borderRadius: 1,
+                                                p: 2,
+                                                my: 4,
+                                                width: '100%',
+                                            }}
+                                            key={index}
+                                        >
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={3} sm={3} lg={3}>
+                                                    <OrderInfo
+                                                        label="Order Num"
+                                                        value={`#${val.orderId}`}
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={1} sm={1} lg={1}>
+                                                    <VerticalDivider />
+                                                </Grid>
+                                                <Grid item xs={3} sm={3} lg={3}>
+                                                    <OrderInfo
+                                                        label="Order Date"
+                                                        // value={val.timestamp.toISOString()}
+                                                        value={formatDate(val.timestamp)}
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={1} sm={1}>
+                                                    <VerticalDivider />
+                                                </Grid>
+                                                <Grid item xs={4} sm={4} lg={4}>
+                                                    <OrderInfo
+                                                        label="Ship To"
+                                                        value={val.user.address}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+
+                                            <CustomizeDividerVertical8 />
+                                            <OrderItem2 listData={val.products} />
+                                            <CustomizeDividerVertical8 />
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'center',
+                                                }}
+                                            >
+                                                <CustomizeTypography
+                                                    sx={{
+                                                        mb: 0,
+                                                        [mobileScreen]: {
+                                                            fontSize: '13px',
+                                                        },
+                                                    }}
+                                                >
+                                                    <span
+                                                        style={{
+                                                            color: '#d9d9d9',
+                                                        }}
+                                                    >
+                                                        Total Amount:
+                                                    </span>{' '}
+                                                    <strong>${val.totalPrice}</strong>
+                                                </CustomizeTypography>
+                                                <Button
+                                                    startIcon={<SystemUpdateAltIcon />}
+                                                    sx={{
+                                                        padding: '6px 0',
+                                                        textTransform: 'initial',
+                                                        fontSize: '14px',
+                                                        fontWeight: 'bold',
+                                                        // color: theme.palette.text.secondary,
+
+                                                        '&:hover': {
+                                                            bgcolor: 'transparent',
+                                                        },
+
+                                                        [mobileScreen]: {
+                                                            fontSize: '13px',
+                                                        },
+                                                    }}
+                                                >
+                                                    Download Invoice
+                                                </Button>
+                                            </Box>
+                                        </Box>
+                                    ))}
+                                </Box>
+                            );
+                        })}
+                    </Box>
+                );
+            })} */}
+
+            {orderHistory.map((order, index) => (
+                <Box
+                    sx={{
+                        bgcolor: '#555',
+                        minHeight: '20px',
+                        borderRadius: 1,
+                        p: 2,
+                        my: 4,
+                        width: '100%',
+                    }}
+                    key={index}
+                >
+                    <Grid container spacing={2}>
+                        <Grid item xs={3} sm={3} lg={3}>
+                            <OrderInfo label="Order Num" value={`#${order.purchaseInfo.orderId}`} />
+                        </Grid>
+                        <Grid item xs={1} sm={1} lg={1}>
+                            <VerticalDivider />
+                        </Grid>
+                        <Grid item xs={3} sm={3} lg={3}>
+                            <OrderInfo
+                                label="Order Date"
+                                value={formatDate(order.purchaseInfo.timestamp)}
+                            />
+                        </Grid>
+                        <Grid item xs={1} sm={1}>
+                            <VerticalDivider />
+                        </Grid>
+                        <Grid item xs={4} sm={4} lg={4}>
+                            <OrderInfo label="Ship To" value={order.purchaseInfo.user.address} />
+                        </Grid>
+                    </Grid>
+
+                    <CustomizeDividerVertical8 />
+                    <OrderItem2 listData={order.purchaseInfo.products} />
+                    <CustomizeDividerVertical8 />
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <CustomizeTypography
+                            sx={{
+                                mb: 0,
+                                [mobileScreen]: {
+                                    fontSize: '13px',
+                                },
+                            }}
+                        >
+                            <span
+                                style={{
+                                    color: '#d9d9d9',
+                                }}
+                            >
+                                Total Amount:
+                            </span>{' '}
+                            <strong>${order.purchaseInfo.totalPrice}</strong>
                         </CustomizeTypography>
                         <Button
                             startIcon={<SystemUpdateAltIcon />}

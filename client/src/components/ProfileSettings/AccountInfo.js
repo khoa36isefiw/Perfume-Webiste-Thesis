@@ -9,10 +9,12 @@ import { mobileScreen, theme } from '../../Theme/Theme';
 import { CustomizeHoverButton, CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance';
+import { useSelector } from 'react-redux';
 
 function AccountInfo() {
     const [editAccount, setEditAccount] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
+    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
 
     const handleClickEdit = () => {
         setEditAccount(false);
@@ -67,10 +69,7 @@ function AccountInfo() {
                 <Grid item xs={12} md={12} lg={4}>
                     <Avatar
                         alt="User Image"
-                        src={
-                            selectedImage ||
-                            'https://www.buskirklumber.com/wp-content/uploads/2023/11/sugar-maple-leaves-jpg.webp'
-                        }
+                        src={selectedImage || loggedInAccount.userImage}
                         sx={{
                             height: '250px',
                             width: '250px',
@@ -133,6 +132,7 @@ function AccountInfo() {
                         disabled={editAccount}
                         fullWidth
                         placeholder="hisalim.ux@gmail.com"
+                        inputValue={loggedInAccount?.email}
                     />
                 </Grid>
             </Grid>
@@ -151,7 +151,12 @@ function AccountInfo() {
                     </CustomizeAccountText>
                 </Grid>
                 <Grid item xs={12} md={12} lg={8}>
-                    <TextFieldLogin disabled={editAccount} fullWidth placeholder="Muhammad" />
+                    <TextFieldLogin
+                        disabled={editAccount}
+                        fullWidth
+                        placeholder="Muhammad"
+                        inputValue={loggedInAccount?.firstName}
+                    />
                 </Grid>
             </Grid>
 
@@ -169,7 +174,12 @@ function AccountInfo() {
                     </CustomizeAccountText>
                 </Grid>
                 <Grid item xs={12} md={12} lg={8}>
-                    <TextFieldLogin disabled={editAccount} fullWidth placeholder="Salim" />
+                    <TextFieldLogin
+                        disabled={editAccount}
+                        fullWidth
+                        placeholder="Salim"
+                        inputValue={loggedInAccount?.firstName}
+                    />
                 </Grid>
             </Grid>
             {editAccount ? (

@@ -2,7 +2,7 @@ import { Button, Container, Divider, Grid } from '@mui/material';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 
 import { ProductInCart } from './ProductInCart';
@@ -20,9 +20,9 @@ function Cart() {
     return (
         <React.Fragment>
             {productAdded.length > 0 ? (
-                <Container>
+                <Container sx={{ my: 16 }}>
                     <Grid container spacing={2}>
-                        <Grid item lg={12} xs={12}>
+                        <Grid item xs={12} lg={12}>
                             <Button
                                 onClick={() => navigate('/shop')}
                                 startIcon={
@@ -34,7 +34,7 @@ function Cart() {
                                     />
                                 }
                                 sx={{
-                                    fontSize: '16px',
+                                    fontSize: '20px',
                                     textTransform: 'initial',
                                     color: '#fff',
                                     fontWeight: 'normal',
@@ -49,27 +49,34 @@ function Cart() {
                                             color: theme.palette.text.secondary,
                                         },
                                     },
+                                    [mobileScreen]: {
+                                        fontSize: '16px',
+                                    },
                                 }}
                             >
                                 Continue Shopping
                             </Button>
                         </Grid>
-                        <Grid item lg={12}>
+                        <Grid item xs={12} lg={12}>
                             <CustomizeTypography sx={{ fontSize: '48px', fontWeight: 'bold' }}>
                                 Your Cart
                             </CustomizeTypography>
                         </Grid>
-                        <Grid item lg={12}>
+                        <Grid item xs={12} lg={12}>
                             <Divider sx={{ bgcolor: '#fff', my: 2 }} />
                         </Grid>
 
-                        <Grid container spacing={4} sx={{ ml: '-16px' }}>
+                        <Grid
+                            container
+                            spacing={4}
+                            sx={{
+                                ml: '-16px',
+                            }}
+                        >
                             <Grid item xs={12} lg={8}>
                                 <ProductInCart productsList={productAdded} />
                             </Grid>
-                            {/* <Grid item xs={12} lg={4}>
-                            <CartTotal productsList={productAdded} />
-                        </Grid> */}
+
                             <Grid item xs={12} lg={4}>
                                 <TotalPriceInCart productsList={productAdded} />
                             </Grid>
