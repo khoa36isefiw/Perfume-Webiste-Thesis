@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, IconButton } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 
 export default function BackToTop() {
     const [showsScrolBtn, setShowScrolBtn] = useState({
@@ -67,7 +67,15 @@ export default function BackToTop() {
                     className={`animate__animated ${showsScrolBtn.animation}`}
                 >
                     <IconButton>
-                        <KeyboardArrowUpIcon sx={{ fontSize: '32px', color: '#fff' }} />
+                        <KeyboardArrowUpIcon
+                            sx={{
+                                fontSize: '32px',
+                                color: '#fff',
+                                [mobileScreen]: {
+                                    fontSize: '24px',
+                                },
+                            }}
+                        />
                     </IconButton>
                 </Box>
             )}
