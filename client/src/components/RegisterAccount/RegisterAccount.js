@@ -77,18 +77,18 @@ function RegisterAccount() {
         <Container
             sx={{
                 width: '50%',
-                mt: 20,
+                mt: 15,
                 [ipadProScreen]: {
                     width: '70%',
                     mt: 15,
                 },
                 [tabletScreen]: {
                     width: '80%',
-                    mt: 20,
+                    mt: 16,
                 },
                 [mobileScreen]: {
                     width: '100%',
-                    mt: 10,
+                    mt: 12,
                 },
             }}
         >

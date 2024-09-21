@@ -4,7 +4,6 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { useNavigate } from 'react-router-dom';
 import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
 import Promocode from './Promocode';
-import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import { SummaryRowInCart } from './SummaryRowInCart';
 import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
