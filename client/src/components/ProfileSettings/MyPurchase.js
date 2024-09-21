@@ -299,15 +299,15 @@ const OrderItem2 = ({ listData }) => (
 );
 
 const OrderLists = ({ ordersListData }) => {
-    const orderHistory = useSelector((state) => state.checkoutManagement.listOrders);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+    // const orderHistory = useSelector(
+    //     (state) => state.checkoutManagement.listOrders[loggedInAccount.userId],
+    // );
 
-    console.log(
-        'tett: ',
-        Object.entries(orderHistory).map(([key, value]) => <div key={key}>{value}</div>),
+    const orderHistory = useSelector(
+        // get for each user
+        (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
     );
-
-    console.log('userId: ', loggedInAccount.userId);
 
     console.log('orderHistory: ', orderHistory);
 
@@ -395,7 +395,7 @@ const OrderLists = ({ ordersListData }) => {
             ))}
 
             {/* Test 2 */}
-            {Object.entries(orderHistory).map(([key, value]) => {
+            {/* {Object.entries(orderHistory).map(([key, value]) => {
                 console.log('key is: ', key);
                 console.log('value is: ', value);
                 return (
@@ -500,7 +500,91 @@ const OrderLists = ({ ordersListData }) => {
                         })}
                     </Box>
                 );
-            })}
+            })} */}
+
+            {orderHistory.map((order, index) => (
+                <Box
+                    sx={{
+                        bgcolor: '#555',
+                        minHeight: '20px',
+                        borderRadius: 1,
+                        p: 2,
+                        my: 4,
+                        width: '100%',
+                    }}
+                    key={index}
+                >
+                    <Grid container spacing={2}>
+                        <Grid item xs={3} sm={3} lg={3}>
+                            <OrderInfo label="Order Num" value={`#${order.purchaseInfo.orderId}`} />
+                        </Grid>
+                        <Grid item xs={1} sm={1} lg={1}>
+                            <VerticalDivider />
+                        </Grid>
+                        <Grid item xs={3} sm={3} lg={3}>
+                            <OrderInfo
+                                label="Order Date"
+                                value={formatDate(order.purchaseInfo.timestamp)}
+                            />
+                        </Grid>
+                        <Grid item xs={1} sm={1}>
+                            <VerticalDivider />
+                        </Grid>
+                        <Grid item xs={4} sm={4} lg={4}>
+                            <OrderInfo label="Ship To" value={order.purchaseInfo.user.address} />
+                        </Grid>
+                    </Grid>
+
+                    <CustomizeDividerVertical8 />
+                    <OrderItem2 listData={order.purchaseInfo.products} />
+                    <CustomizeDividerVertical8 />
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <CustomizeTypography
+                            sx={{
+                                mb: 0,
+                                [mobileScreen]: {
+                                    fontSize: '13px',
+                                },
+                            }}
+                        >
+                            <span
+                                style={{
+                                    color: '#d9d9d9',
+                                }}
+                            >
+                                Total Amount:
+                            </span>{' '}
+                            <strong>${order.purchaseInfo.totalPrice}</strong>
+                        </CustomizeTypography>
+                        <Button
+                            startIcon={<SystemUpdateAltIcon />}
+                            sx={{
+                                padding: '6px 0',
+                                textTransform: 'initial',
+                                fontSize: '14px',
+                                fontWeight: 'bold',
+                                // color: theme.palette.text.secondary,
+
+                                '&:hover': {
+                                    bgcolor: 'transparent',
+                                },
+
+                                [mobileScreen]: {
+                                    fontSize: '13px',
+                                },
+                            }}
+                        >
+                            Download Invoice
+                        </Button>
+                    </Box>
+                </Box>
+            ))}
         </>
     );
 };
