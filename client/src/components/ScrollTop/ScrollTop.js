@@ -63,6 +63,9 @@ export default function BackToTop() {
                         fontSize: '2em',
                         textAlign: 'center',
                         zIndex: 99,
+                        [mobileScreen]: {
+                            right: '30px',
+                        },
                     }}
                     className={`animate__animated ${showsScrolBtn.animation}`}
                 >
