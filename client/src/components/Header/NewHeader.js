@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
-import SimpleBottomNavigation from './BottomNavigation';
+import SimpleBottomNavigation from './MobileBottomNavigation';
 import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
 import axios from 'axios';
@@ -322,7 +322,7 @@ function NewHeader() {
                         </Box>
                     )}
 
-                    {isLogged ? (
+                    {isLogged && !isMobile ? (
                         <AuthenticatedUser />
                     ) : (
                         <React.Fragment>
