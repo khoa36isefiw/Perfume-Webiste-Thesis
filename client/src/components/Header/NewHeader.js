@@ -196,6 +196,7 @@ function NewHeader() {
                             [mobileScreen]: {
                                 fontSize: '20px',
                             },
+                            cursor: 'pointer',
                         }}
                         onClick={() => navigate('/')}
                     >
