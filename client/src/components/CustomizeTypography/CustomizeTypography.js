@@ -52,7 +52,7 @@ export const CustomizeAccountText = styled(Typography)(({ fontSize, color }) => 
 
 export const CustomizeTypographyBlog = styled(Typography)(({ fontBold = false, color }) => ({
     textAlign: 'justify',
-    fontFamily: 'Courier, sans-serif',
+    // fontFamily: 'Courier, sans-serif',
     fontSize: '18px',
     fontWeight: fontBold ? 'bold' : 'normal',
     color: color ? color : 'white',

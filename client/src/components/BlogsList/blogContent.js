@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { CustomizeTypographyBlog } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import {
     blogData,
     blogDetailData,
@@ -37,6 +37,12 @@ export const blogContent = {
                             width: '750px',
                             objectFit: 'cover',
                             margin: '24px 0',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -45,6 +51,9 @@ export const blogContent = {
                             fontSize: '32px',
                             color: '#fff',
                             fontFamily: 'Orator, Courier, sans-serif',
+                            [mobileScreen]: {
+                                fontSize: '20px',
+                            },
                         }}
                     >
                         Why doesn’t my perfume last long enough?
@@ -76,6 +85,9 @@ export const blogContent = {
                             fontStyle: 'italic',
                             fontFamily: 'Courier, sans-serif',
                             width: '60%',
+                            [ipadProScreen]: {
+                                width: '85%',
+                            },
                         }}
                     >
                         It is one of – if not the – most asked questions in perfumery. But, like all
@@ -114,6 +126,9 @@ export const blogContent = {
                             width: 750,
                             objectFit: 'cover',
                             margin: '24px 0',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -175,6 +190,9 @@ export const blogContent = {
                             width: 750,
                             objectFit: 'cover',
                             margin: '24px 0',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -254,6 +272,9 @@ export const blogContent = {
                             width: 750,
                             objectFit: 'cover',
                             margin: '24px 0',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -317,6 +338,9 @@ export const blogContent = {
                             width: 750,
                             objectFit: 'cover',
                             margin: '24px 0',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -387,6 +411,9 @@ export const blogContent = {
                             width: 750,
                             objectFit: 'cover',
                             margin: '24px 0',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -483,6 +510,9 @@ export const blogContent = {
                             width: '750px',
                             objectFit: 'cover',
                             // margin: '24px 0',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -505,7 +535,15 @@ export const blogContent = {
                     // maxWidth: '750px',
                 }}
             >
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        [mobileScreen]: {
+                            flexDirection: 'column',
+                        },
+                    }}
+                >
                     <Box
                         component="img"
                         src="https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/dried-hydrangeas-6846990_1920-1536x1024.jpg"
@@ -515,6 +553,9 @@ export const blogContent = {
                             height: '400px',
                             width: '500px',
                             objectFit: 'cover',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Box
@@ -525,7 +566,16 @@ export const blogContent = {
                             position: 'relative',
                         }}
                     >
-                        <Box sx={{ position: 'absolute', top: 0, left: '12%' }}>
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: 0,
+                                left: '12%',
+                                [mobileScreen]: {
+                                    left: 0,
+                                },
+                            }}
+                        >
                             <FormatQuoteIcon
                                 sx={{
                                     fontSize: '32px',
@@ -541,6 +591,10 @@ export const blogContent = {
                                 fontStyle: 'italic',
                                 fontFamily: 'Courier, sans-serif',
                                 width: '60%',
+                                [mobileScreen]: {
+                                    width: '80%',
+                                    fontSize: '24px',
+                                },
                             }}
                         >
                             Winter is here with her arms wide open. With the cooler weather, we’re
@@ -556,6 +610,9 @@ export const blogContent = {
                                 position: 'absolute',
                                 bottom: 0,
                                 right: '12%',
+                                [mobileScreen]: {
+                                    right: 0,
+                                },
                             }}
                         >
                             <FormatQuoteIcon sx={{ fontSize: '32px', color: '#fff' }} />
@@ -630,7 +687,7 @@ export const blogContent = {
             </Box>
 
             <Container>
-                <Grid container spacing={4}>
+                <Grid spacing={4}>
                     {blogData.map((blog, index) => (
                         <Grid
                             key={blog.blogDataID}
@@ -700,6 +757,9 @@ export const blogContent = {
                             height: '550px',
                             width: '750px',
                             objectFit: 'cover',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -708,6 +768,9 @@ export const blogContent = {
                             fontSize: '32px',
                             color: '#fff',
                             fontFamily: 'Orator, Courier, sans-serif',
+                            [mobileScreen]: {
+                                fontSize: '24px',
+                            },
                         }}
                     >
                         How to Make Your Bespoke Perfume
@@ -741,6 +804,9 @@ export const blogContent = {
                             fontFamily: 'Courier, sans-serif',
                             width: '60%',
                             textAlign: 'center',
+                            [mobileScreen]: {
+                                width: '85%',
+                            },
                         }}
                     >
                         At EPC, we know a thing or two about personalised fragrances as we empower
@@ -785,6 +851,9 @@ export const blogContent = {
                                     width: 750,
                                     objectFit: 'cover',
                                     margin: '24px 0',
+                                    [mobileScreen]: {
+                                        width: '100%',
+                                    },
                                     mt: 8,
                                 }}
                             />
@@ -834,6 +903,9 @@ export const blogContent = {
                             height: '550px',
                             width: '750px',
                             objectFit: 'cover',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -842,6 +914,9 @@ export const blogContent = {
                             fontSize: '32px',
                             color: '#fff',
                             fontFamily: 'Orator, Courier, sans-serif',
+                            [mobileScreen]: {
+                                fontSize: '24px',
+                            },
                         }}
                     >
                         How To Choose A Perfume For Someone Else
@@ -875,6 +950,9 @@ export const blogContent = {
                             fontFamily: 'Courier, sans-serif',
                             width: '60%',
                             textAlign: 'center',
+                            [mobileScreen]: {
+                                width: '95%',
+                            },
                         }}
                     >
                         With so many fragrances to choose from, how do you know which one to pick?
@@ -933,6 +1011,9 @@ export const blogContent = {
                                     width: 750,
                                     objectFit: 'cover',
                                     margin: '24px 0',
+                                    [mobileScreen]: {
+                                        width: '100%',
+                                    },
                                     mt: 8,
                                 }}
                             />
@@ -965,6 +1046,9 @@ export const blogContent = {
                             height: '550px',
                             width: '750px',
                             objectFit: 'cover',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -973,6 +1057,9 @@ export const blogContent = {
                             fontSize: '32px',
                             color: '#fff',
                             fontFamily: 'Orator, Courier, sans-serif',
+                            [mobileScreen]: {
+                                fontSize: '24px',
+                            },
                         }}
                     >
                         Understand Your Fragrance Family And Find Your Perfect Match
@@ -1006,6 +1093,10 @@ export const blogContent = {
                             fontFamily: 'Courier, sans-serif',
                             width: '60%',
                             textAlign: 'center',
+                            [mobileScreen]: {
+                                fontSize: '24px',
+                                width: '90%',
+                            },
                         }}
                     >
                         Just like in our world of people, the world of scent uses ‘families’ to
@@ -1070,6 +1161,9 @@ export const blogContent = {
                         width: '100%',
                         objectFit: 'cover',
                         margin: '24px 0',
+                        [mobileScreen]: {
+                            width: '100%',
+                        },
                         mt: 8,
                     }}
                 />
@@ -1083,6 +1177,10 @@ export const blogContent = {
                             fontSize: '32px',
                             color: '#fff',
                             transform: 'rotate(-180deg)',
+                            [mobileScreen]: {
+                                top: '-15%',
+                                left: '0%',
+                            },
                         }}
                     />
                     <Box
@@ -1100,6 +1198,10 @@ export const blogContent = {
                                 fontFamily: 'Courier, sans-serif',
                                 width: '60%',
                                 textAlign: 'center',
+                                [mobileScreen]: {
+                                    width: '80%',
+                                    fontSize: '24px',
+                                },
                             }}
                         >
                             Let’s take a closer look at some of the most famous Fragrance Families
@@ -1114,6 +1216,10 @@ export const blogContent = {
                             alignItems: 'flex-end',
                             justifyContent: 'flex-end',
                             margin: '16px',
+                            [mobileScreen]: {
+                                bottom: '-25%',
+                                right: '0%',
+                            },
                         }}
                     >
                         <FormatQuoteIcon sx={{ fontSize: '32px', color: '#fff' }} />
@@ -1158,6 +1264,9 @@ export const blogContent = {
                                     width: 750,
                                     objectFit: 'cover',
                                     margin: '24px 0',
+                                    [mobileScreen]: {
+                                        width: '100%',
+                                    },
                                     mt: 8,
                                 }}
                             />
@@ -1190,6 +1299,9 @@ export const blogContent = {
                             height: '550px',
                             width: '750px',
                             objectFit: 'cover',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -1198,6 +1310,9 @@ export const blogContent = {
                             fontSize: '32px',
                             color: '#fff',
                             fontFamily: 'Orator, Courier, sans-serif',
+                            [mobileScreen]: {
+                                fontSize: '24px',
+                            },
                         }}
                     >
                         Our Best Perfume Books to Learn from Perfumers
@@ -1231,6 +1346,10 @@ export const blogContent = {
                             fontFamily: 'Courier, sans-serif',
                             width: '60%',
                             textAlign: 'center',
+                            [mobileScreen]: {
+                                fontSize: '24px',
+                                width: '90%',
+                            },
                         }}
                     >
                         We are often asked about our favourite books about perfumery, and there are
@@ -1296,6 +1415,9 @@ export const blogContent = {
                                         width: 750,
                                         objectFit: 'cover',
                                         margin: '24px 0',
+                                        [mobileScreen]: {
+                                            width: '100%',
+                                        },
                                         mt: 8,
                                     }}
                                 />
@@ -1329,6 +1451,9 @@ export const blogContent = {
                             height: '550px',
                             width: '750px',
                             objectFit: 'cover',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -1337,6 +1462,9 @@ export const blogContent = {
                             fontSize: '32px',
                             color: '#fff',
                             fontFamily: 'Orator, Courier, sans-serif',
+                            [mobileScreen]: {
+                                fontSize: '24px',
+                            },
                         }}
                     >
                         We are nuts about nutty scents
@@ -1370,6 +1498,9 @@ export const blogContent = {
                             fontFamily: 'Courier, sans-serif',
                             width: '60%',
                             textAlign: 'center',
+                            [mobileScreen]: {
+                                width: '90%',
+                            },
                         }}
                     >
                         When we talk gourmand notes in perfumery, we often think about caramel and
@@ -1397,7 +1528,7 @@ export const blogContent = {
                         spacing={2}
                         sx={{ display: 'flex', alignItems: 'center', py: 4 }}
                     >
-                        <Grid item lg={12}>
+                        <Grid item xs={12} lg={12}>
                             <CustomizeTypographyBlog
                                 sx={{
                                     mb: 2,
@@ -1430,7 +1561,7 @@ export const blogContent = {
                 </Container>
             </Box>
             <Container>
-                <Grid container spacing={4}>
+                <Grid spacing={4}>
                     {blogDetailData7.map((blog, index) => (
                         <Grid
                             key={index}
@@ -1499,6 +1630,9 @@ export const blogContent = {
                             height: '550px',
                             width: '750px',
                             objectFit: 'cover',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -1507,6 +1641,9 @@ export const blogContent = {
                             fontSize: '32px',
                             color: '#fff',
                             fontFamily: 'Orator, Courier, sans-serif',
+                            [mobileScreen]: {
+                                fontSize: '24px',
+                            },
                         }}
                     >
                         The best scents for spring
@@ -1540,6 +1677,10 @@ export const blogContent = {
                             fontFamily: 'Courier, sans-serif',
                             width: '60%',
                             textAlign: 'center',
+                            [mobileScreen]: {
+                                fontSize: '24px',
+                                width: '90%',
+                            },
                         }}
                     >
                         Spring is a season of change. It’s a time between sunny beaches and cosy
@@ -1654,6 +1795,9 @@ export const blogContent = {
                             height: '550px',
                             width: '750px',
                             objectFit: 'cover',
+                            [mobileScreen]: {
+                                width: '100%',
+                            },
                         }}
                     />
                     <Typography
@@ -1662,6 +1806,9 @@ export const blogContent = {
                             fontSize: '32px',
                             color: '#fff',
                             fontFamily: 'Orator, Courier, sans-serif',
+                            [mobileScreen]: {
+                                fontSize: '24px',
+                            },
                         }}
                     >
                         Our Top Three Signature Blends for Summer{' '}
@@ -1695,6 +1842,9 @@ export const blogContent = {
                             fontFamily: 'Courier, sans-serif',
                             width: '60%',
                             textAlign: 'center',
+                            [mobileScreen]: {
+                                width: '85%',
+                            },
                         }}
                     >
                         The days are warmer, the nights are longer. Summertime is well and truly
