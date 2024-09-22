@@ -1,10 +1,12 @@
 import axios from 'axios';
+import queryString from 'query-string';
 const axiosClient = axios.create({
     // api url from server
     baseURL: 'https://vapi.vnappmob.com/api',
     headers: {
         'Content-Type': 'application/json',
     },
+    paramsSerializer: (params) => queryString.stringify(params),
 });
 
 // Interceptors

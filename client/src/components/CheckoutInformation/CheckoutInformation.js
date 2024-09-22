@@ -12,7 +12,7 @@ import {
     Button,
 } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { addressApi } from '../api/addressApi';
+import { addressApi } from '../../api/addressApi';
 import SelectAddress from '../SelectAddress/SelectAddress';
 import CreditCard from '../CreditCard/CreditCard';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -402,7 +402,7 @@ function CheckoutInformation() {
                             <Box sx={{ mt: 2, width: '200px' }}>
                                 <CustomizeButtonInCart
                                     variant="outlined"
-                                    textAction="Checkout"
+                                    textAction="Order"
                                     // show animation
                                     isReverseAnimation={false}
                                     fullWidth={false}
