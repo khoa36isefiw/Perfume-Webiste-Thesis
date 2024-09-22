@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Container, IconButton, Badge, List, ListItem, Paper, Avatar } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useSelector } from 'react-redux';
 import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
-import SimpleBottomNavigation from './BottomNavigation';
-
+import SimpleBottomNavigation from './MobileBottomNavigation';
 import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
+import axios from 'axios';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -24,41 +22,21 @@ const headerData = [
     { headerText: 'Blog', headerLink: '/blog' },
 ];
 
-const headerActionButton = [
-    {
-        headerIcon: <SearchIcon sx={{ fontSize: '24px' }} />,
-        headerIconDest: '/search',
-        des: 'Search',
-    },
-    {
-        headerIcon: <PersonIcon sx={{ fontSize: '24px' }} />,
-        headerIconDest: '/sign-in',
-        des: 'Sign In',
-    },
-
-    {
-        headerIcon: <FavoriteIcon sx={{ fontSize: '24px' }} />,
-
-        headerIconDest: '/favorite-list',
-        des: 'Favorite',
-    },
-    {
-        headerIcon: <ShoppingCartIcon sx={{ fontSize: '24px' }} />,
-        headerIconDest: '/shopping-cart',
-        des: 'Cart',
-    },
-];
-
 function NewHeader() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const [filter, setFilter] = useState('');
+    const [results, setResults] = useState([]);
+
     const [anchorEl, setAnchorEl] = useState(null);
-    const [searchTerm, setSearchTerm] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const open = Boolean(anchorEl);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
     const [isTablet, setIsTablet] = useState(window.innerWidth < 1024);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     const [activeHeader, setActiveHeader] = useState('Home');
     const listSuggestions = suggestions.slice(0, 4); // just show 4 product items to UI
 
@@ -81,49 +59,16 @@ function NewHeader() {
 
     console.log('isMobile: ', isMobile);
 
-    // open menu setting
-    const handleMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    // close menu setting
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-
-    // click into menu item
-    const handleMenuClick = (path) => {
-        navigate(path);
-        handleMenuClose();
-    };
-
-    // open menu for mobile
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
     const handleHeaderClick = (header) => {
         setActiveHeader(header.headerText);
         navigate(header.headerLink);
     };
 
-    const handleIconHeaderClick = (action, event) => {
-        if (action.headerIconDest === '/sign-in') {
-            // open the menu for "Sign In"
-            setAnchorEl(event.currentTarget);
-        } else {
-            // close the menu if it's another icon
-            setAnchorEl(null);
-            // navigate to the icon's destination
-            navigate(action.headerIconDest);
-        }
-        // set active header to the clicked icon
-        setActiveHeader(action.des);
-    };
-
     // search
     const handleSearchChange = (e) => {
         const value = e.target.value;
-        setSearchTerm(value);
+
+        setSearchQuery(value);
 
         if (value) {
             const filteredSuggestions = perfumeData.filter((product) =>
@@ -142,6 +87,44 @@ function NewHeader() {
         setShowSuggestions(false);
         // navigate to product details page
         navigate(`/product/${perfume.perfumeID}`, { state: { perfume } });
+    };
+
+    // Parse URL parameters on mount to set initial searchQuery and filter values
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const q = searchParams.get('q') || '';
+        const filterParam = searchParams.get('filter') || '';
+        setSearchQuery(q);
+        setFilter(filterParam);
+
+        // If there are initial parameters, trigger the search
+        if (q || filterParam) {
+            handleSearch(q, filterParam);
+        }
+    }, [location.search]);
+
+    // Function to handle searching
+    const handleSearch = async (search = searchQuery, filterVal = filter) => {
+        // Update URL with search query and filter
+        const params = new URLSearchParams();
+        if (search) params.append('q', search);
+        if (filterVal) params.append('filter', filterVal);
+
+        // Navigate to update the URL with query params
+        navigate(`/shop?${params.toString()}`);
+
+        // waiting for getting data
+        // try {
+        //     const response = await axios.get('/api/products', {
+        //         params: {
+        //             q: search,
+        //             filter: filterVal,
+        //         },
+        //     });
+        //     setResults(response.data); // handle results from API
+        // } catch (error) {
+        //     console.error('Error fetching data:', error);
+        // }
     };
 
     return (
@@ -196,6 +179,7 @@ function NewHeader() {
                             [mobileScreen]: {
                                 fontSize: '20px',
                             },
+                            cursor: 'pointer',
                         }}
                         onClick={() => navigate('/')}
                     >
@@ -223,9 +207,9 @@ function NewHeader() {
                                         width: '100%',
                                     },
                                 }}
-                                value={searchTerm}
+                                value={searchQuery}
                                 onChange={handleSearchChange}
-                                onClick={() => setShowSuggestions(!!searchTerm)}
+                                onClick={() => setShowSuggestions(!!searchQuery)}
                             />
                             {/* Suggestions Dropdown */}
                             {showSuggestions && suggestions.length > 0 && (
@@ -318,12 +302,12 @@ function NewHeader() {
 
                             <IconButton
                                 sx={{
-                                    bgcolor: theme.palette.text.secondary,
+                                    bgcolor: theme.palette.text.main,
                                     borderTopLeftRadius: 1,
                                     borderBottomLeftRadius: 1,
                                     mr: 1,
                                     '&:hover': {
-                                        bgcolor: theme.palette.text.secondary,
+                                        bgcolor: theme.palette.text.main,
                                         cursor: 'pointer',
                                         fontWeight: 'bold',
                                     },
@@ -331,13 +315,14 @@ function NewHeader() {
                                         mr: 4,
                                     },
                                 }}
+                                onClick={() => handleSearch(searchQuery, filter)}
                             >
                                 <SearchIcon sx={{ fontSize: '24px', color: 'white' }} />
                             </IconButton>
                         </Box>
                     )}
 
-                    {isLogged ? (
+                    {isLogged && !isMobile ? (
                         <AuthenticatedUser />
                     ) : (
                         <React.Fragment>

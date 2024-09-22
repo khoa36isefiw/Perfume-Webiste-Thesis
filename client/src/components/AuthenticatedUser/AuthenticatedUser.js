@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logoutAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 import { theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
+import { backTop } from '../goBackTop/goBackTop';
 
 export default function AuthenticatedUser() {
     const navigate = useNavigate();
@@ -34,6 +35,7 @@ export default function AuthenticatedUser() {
     const handleNavigateProfile = () => {
         setAnchorEl(null);
         navigate('/profile-settings');
+        backTop();
     };
 
     const handleLogOut = () => {

@@ -3,8 +3,6 @@ import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import SearchIcon from '@mui/icons-material/Search';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StoreIcon from '@mui/icons-material/Store';
 import PersonIcon from '@mui/icons-material/Person';
@@ -12,11 +10,13 @@ import { useNavigate } from 'react-router-dom';
 import { theme } from '../../Theme/Theme';
 import { backTop } from '../goBackTop/goBackTop';
 import { Typography } from '@mui/material';
-import SearchTerm from './SearchTerm';
+import { useSelector } from 'react-redux';
+import Face5Icon from '@mui/icons-material/Face5';
 
-export default function SimpleBottomNavigation() {
+export default function MobileBottomNavigation() {
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0); // Track selected icon
+    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
 
     const handleNavigateHomePage = () => {
         backTop();
@@ -31,6 +31,11 @@ export default function SimpleBottomNavigation() {
     const handleNavigateSearch = () => {
         backTop();
         navigate('/search');
+    };
+
+    const handleNavigateProfile = () => {
+        backTop();
+        navigate('/profile-settings');
     };
 
     return (
@@ -136,38 +141,74 @@ export default function SimpleBottomNavigation() {
                 />
 
                 {/* Sign In */}
-                <BottomNavigationAction
-                    // label="Sign In"
-                    label={
-                        <Typography
-                            sx={{
-                                color: value === 3 ? theme.palette.text.secondary : '#fff',
-                                fontSize: '13px',
-                                fontWeight: value === 3 ? 'bold' : 'normal', // Bold when selected
-                            }}
-                        >
-                            Sign In{' '}
-                        </Typography>
-                    }
-                    sx={{
-                        color: '#fff',
-                        // change color for text
-                        '.Mui-selected': {
-                            color: theme.palette.text.secondary,
-                        },
-                        fontSize: '16px',
-                        fontWeight: value === 3 ? 'bold' : 'normal',
-                    }}
-                    icon={
-                        <PersonIcon
-                            sx={{
-                                color: value === 3 ? theme.palette.text.secondary : '#fff',
-                                fontSize: '24px',
-                            }}
-                        />
-                    }
-                    onClick={handleNavigateSignIn}
-                />
+                {loggedInAccount ? (
+                    //  {/* for logged in */}
+                    <BottomNavigationAction
+                        // label="Sign In"
+                        label={
+                            <Typography
+                                sx={{
+                                    color: value === 3 ? theme.palette.text.secondary : '#fff',
+                                    fontSize: '13px',
+                                    fontWeight: value === 3 ? 'bold' : 'normal', // Bold when selected
+                                }}
+                            >
+                                Me
+                            </Typography>
+                        }
+                        sx={{
+                            color: '#fff',
+                            // change color for text
+                            '.Mui-selected': {
+                                color: theme.palette.text.secondary,
+                            },
+                            fontSize: '16px',
+                            fontWeight: value === 3 ? 'bold' : 'normal',
+                        }}
+                        icon={
+                            <Face5Icon
+                                sx={{
+                                    color: value === 3 ? theme.palette.text.secondary : '#fff',
+                                    fontSize: '24px',
+                                }}
+                            />
+                        }
+                        onClick={handleNavigateProfile}
+                    />
+                ) : (
+                    <BottomNavigationAction
+                        // label="Sign In"
+                        label={
+                            <Typography
+                                sx={{
+                                    color: value === 3 ? theme.palette.text.secondary : '#fff',
+                                    fontSize: '13px',
+                                    fontWeight: value === 3 ? 'bold' : 'normal', // Bold when selected
+                                }}
+                            >
+                                Sign In{' '}
+                            </Typography>
+                        }
+                        sx={{
+                            color: '#fff',
+                            // change color for text
+                            '.Mui-selected': {
+                                color: theme.palette.text.secondary,
+                            },
+                            fontSize: '16px',
+                            fontWeight: value === 3 ? 'bold' : 'normal',
+                        }}
+                        icon={
+                            <PersonIcon
+                                sx={{
+                                    color: value === 3 ? theme.palette.text.secondary : '#fff',
+                                    fontSize: '24px',
+                                }}
+                            />
+                        }
+                        onClick={handleNavigateSignIn}
+                    />
+                )}
             </BottomNavigation>
         </Box>
     );
