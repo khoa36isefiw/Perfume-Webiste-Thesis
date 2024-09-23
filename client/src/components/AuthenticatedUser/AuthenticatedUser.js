@@ -11,6 +11,7 @@ import userDefaultAvatar from '../../assets/images/defaultA.png';
 import Logout from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
+import PasswordIcon from '@mui/icons-material/Password';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
@@ -35,6 +36,17 @@ export default function AuthenticatedUser() {
     const handleNavigateProfile = () => {
         setAnchorEl(null);
         navigate('/profile-settings');
+        backTop();
+    };
+
+    const handleNavigatePurchase = () => {
+        setAnchorEl(null);
+        navigate('/my-purchase');
+        backTop();
+    };
+    const handleNavigateChangePassword = () => {
+        setAnchorEl(null);
+        navigate('/change-password');
         backTop();
     };
 
@@ -155,7 +167,26 @@ export default function AuthenticatedUser() {
                         </CustomizeTypography>
                     </Box>
                 </MenuItem>
-                <MenuItem onClick={handleNavigateProfile}>
+                <MenuItem onClick={handleNavigateChangePassword}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            '&:hover': {
+                                color: theme.palette.text.primary,
+                                transform: 'scale(1.10)',
+                            },
+                        }}
+                    >
+                        <ListItemIcon>
+                            <PasswordIcon fontSize="large" sx={{ color: '#fff' }} />
+                        </ListItemIcon>
+
+                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                            Change Password
+                        </CustomizeTypography>
+                    </Box>
+                </MenuItem>
+                <MenuItem onClick={handleNavigatePurchase}>
                     <Box
                         sx={{
                             display: 'flex',
