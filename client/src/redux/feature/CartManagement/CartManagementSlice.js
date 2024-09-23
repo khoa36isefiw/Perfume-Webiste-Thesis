@@ -12,8 +12,11 @@ export const cartManagementSlice = createSlice({
         addToCart: (state, action) => {
             console.log('state: ', state);
             const product = action.payload;
+            console.log('product here:...', product);
             const existingProduct = state.productInfor.find(
-                (item) => item.perfumeID === product.perfumeID,
+                (item) =>
+                    item.perfumeID === product.perfumeID &&
+                    item.perfumeSize === product.perfumeSize,
             );
             if (existingProduct) {
                 // if product is exisited, increase the quantity

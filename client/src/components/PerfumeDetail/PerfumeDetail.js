@@ -51,7 +51,11 @@ function PerfumeDetail() {
     useEffect(() => {}, [perfume]);
 
     const handleAddProduct = (productInfor) => {
-        const existingItem = cartItems.find((item) => item.perfumeID === productInfor.perfumeID);
+        const existingItem = cartItems.find(
+            (item) =>
+                item.perfumeID === productInfor.perfumeID &&
+                item.perfumeSize === productInfor.perfumeSize,
+        );
         const productToDispatch = {
             perfumeID: productInfor.perfumeID,
             perfumeName: productInfor.perfumeName,
