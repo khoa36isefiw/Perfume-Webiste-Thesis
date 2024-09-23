@@ -202,7 +202,7 @@ function RatingProduct() {
                         />
                     </Grid>
                 </Grid>
-                <Grid item lg={12}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
                     <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600', mt: 4 }}>
                         Write your review at here...
                     </CustomizeTypography>
