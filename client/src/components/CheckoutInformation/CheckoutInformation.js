@@ -469,18 +469,18 @@ function CheckoutInformation() {
                                             </CustomizeTypography>
                                             <CustomizeTypography
                                                 sx={{
-                                                    fontSize: '14px',
+                                                    fontSize: '13px',
                                                     mb: 0,
                                                     [mobileScreen]: {
                                                         fontSize: '12.5px',
                                                     },
                                                 }}
                                             >
-                                                Size: 150ml
+                                                Size: {product.perfumeSize}ml
                                             </CustomizeTypography>
                                             <CustomizeTypography
                                                 sx={{
-                                                    fontSize: '14px',
+                                                    fontSize: '13px',
                                                     mb: 0,
                                                     [mobileScreen]: {
                                                         fontSize: '12.5px',
