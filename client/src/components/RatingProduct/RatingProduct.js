@@ -1,14 +1,36 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Container, Grid, TextField } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import StarIcon from '@mui/icons-material/Star';
 import { ratingData } from './ratingData';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
+import { useSelector } from 'react-redux';
+import { productInformationData } from '../ProductInformation/productInformationData';
 
-function RatingProduct() {
+function RatingProduct({ perfumeDetailData }) {
     const reviewInputRef = useRef(null);
+    const [commentRights, setCommentRights] = useState(false);
+    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const [comments, setComments] = useState([]);
+
+    const orderHistory = useSelector(
+        // get for each user
+        (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
+    );
+
+    useEffect(() => {
+        // check if the user bought this product?
+        const isBought = orderHistory.some((item) =>
+            item.purchaseInfo.products.some(
+                (product) => product.productId === perfumeDetailData.perfumeID,
+            ),
+        );
+        console.log('isBought: ', isBought);
+        setCommentRights(isBought);
+    }, [orderHistory]);
+
+    console.log('order ahaihaiai: ', orderHistory);
 
     const handleFocusReview = () => {
         if (reviewInputRef.current) {
@@ -202,54 +224,59 @@ function RatingProduct() {
                         />
                     </Grid>
                 </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600', mt: 4 }}>
-                        Write your review at here...
-                    </CustomizeTypography>
-                </Grid>
-                <Grid item container lg={12}>
-                    <Grid item xs={12} lg={12}>
-                        <TextField
-                            fullWidth={true}
-                            multiline={true}
-                            maxRows={4}
-                            placeholder="Review our product..."
-                            inputRef={reviewInputRef}
-                            sx={{
-                                mb: 1,
-                                '.MuiInputBase-root': {
-                                    width: '400px',
-                                    fontSize: '14px',
-                                    height: '120px',
-                                    color: 'white',
-                                    borderRadius: '12px',
-                                    [mobileScreen]: {
-                                        width: '100%',
-                                    },
-                                },
-                                '& .MuiFormHelperText-root': {
-                                    fontSize: '12.5px',
-                                    color: 'red',
-                                    mx: 1,
-                                },
-                                '& .MuiOutlinedInput-root': {
-                                    '& fieldset': {
-                                        borderColor: '#333',
-                                    },
-                                    '&:hover fieldset': {
-                                        borderColor: '#333',
-                                    },
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: '#333',
-                                    },
-                                },
-                            }}
-                        />
+                {commentRights && (
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                        <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600', mt: 4 }}>
+                            Write your review at here...
+                        </CustomizeTypography>
                     </Grid>
-                    <Grid item xs={12} lg={2}>
-                        <CustomizeButton textAction={'Publish'} onHandleClick={handleComment} />
+                )}
+
+                {commentRights && (
+                    <Grid item container lg={12}>
+                        <Grid item xs={12} lg={12}>
+                            <TextField
+                                fullWidth={true}
+                                multiline={true}
+                                maxRows={4}
+                                placeholder="Review our product..."
+                                inputRef={reviewInputRef}
+                                sx={{
+                                    mb: 1,
+                                    '.MuiInputBase-root': {
+                                        width: '400px',
+                                        fontSize: '14px',
+                                        height: '120px',
+                                        color: 'white',
+                                        borderRadius: '12px',
+                                        [mobileScreen]: {
+                                            width: '100%',
+                                        },
+                                    },
+                                    '& .MuiFormHelperText-root': {
+                                        fontSize: '12.5px',
+                                        color: 'red',
+                                        mx: 1,
+                                    },
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': {
+                                            borderColor: '#333',
+                                        },
+                                        '&:hover fieldset': {
+                                            borderColor: '#333',
+                                        },
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: '#333',
+                                        },
+                                    },
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} lg={2}>
+                            <CustomizeButton textAction={'Publish'} onHandleClick={handleComment} />
+                        </Grid>
                     </Grid>
-                </Grid>
+                )}
             </Grid>
         </Container>
     );
