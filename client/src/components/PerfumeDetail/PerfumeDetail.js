@@ -118,7 +118,7 @@ function PerfumeDetail() {
                     sm={12}
                     md={12}
                     lg={12}
-                    sx={{ height: '600px', overflowY: 'scroll', p: 1 }}
+                    sx={{ height: '600px', p: 1 }}
                 >
                     <Grid item xs={12} sm={6} md={6} lg={6}>
                         <Box>

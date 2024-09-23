@@ -12,14 +12,17 @@ export const perfumeData = [
             {
                 perfumeSize: 9,
                 perfumePrice: 1898000,
+                perfumePriceDiscount: '',
             },
             {
                 perfumeSize: 27,
                 perfumePrice: 2998000,
+                perfumePriceDiscount: '',
             },
             {
                 perfumeSize: 50,
                 perfumePrice: 3280000,
+                perfumePriceDiscount: '',
             },
         ],
         discount: true,
