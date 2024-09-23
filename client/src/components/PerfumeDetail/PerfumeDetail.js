@@ -16,15 +16,18 @@ import {
 import { converToVND } from '../convertToVND/convertToVND';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { CountdownTimer } from '../CountdownTimer/CountdownTimer';
+import CheckIcon from '@mui/icons-material/Check';
 
 function PerfumeDetail() {
     const location = useLocation();
     const dispatch = useDispatch();
+
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
 
     // get the perfume data passed from navigation
     const { perfume } = location.state || {};
+    const [selectedSize, setSelectedSize] = useState(perfume.perfumeGroupSize[0]);
 
     // get list product added to cart
     const cartItems = useSelector((state) => state.cartManagement.productInfor);
@@ -84,6 +87,12 @@ function PerfumeDetail() {
             setShowNotification(false);
         }, 1000);
     };
+
+    const handleSizeSelected = (size) => {
+        setSelectedSize(size);
+    };
+
+    console.log('size selected information: ', selectedSize);
 
     return (
         <Container
@@ -353,6 +362,7 @@ function PerfumeDetail() {
                             </Box>
                         </Box>
 
+                        {/* Price */}
                         <Box sx={{ display: 'flex' }}>
                             {/* original price */}
                             <CustomizeTypography
@@ -362,7 +372,8 @@ function PerfumeDetail() {
                                 }}
                             >
                                 {/* 10.500.000 ₫ */}
-                                {converToVND(perfume.perfumePriceVND)}
+                                {/* {converToVND(perfume.perfumePriceVND)} */}
+                                {converToVND(selectedSize.perfumePrice)}
                             </CustomizeTypography>
                             {/* price sale off */}
                             {perfume.discount && perfume.perfumePriceDiscount !== null && (
@@ -378,6 +389,53 @@ function PerfumeDetail() {
                                 </CustomizeTypography>
                             )}
                         </Box>
+
+                        {/* Product Size */}
+                        <Box sx={{ display: 'flex' }}>
+                            {perfume.perfumeGroupSize.map((size, index) => (
+                                <Button
+                                    key={index}
+                                    sx={{
+                                        minHeight: '50px',
+                                        borderRadius: 2,
+                                        mr: 2,
+                                        // border: '1px solid #ccc',
+                                        border: `1px solid ${theme.palette.text.secondary}`,
+
+                                        display: 'flex',
+                                        // flexDirection: 'column',
+                                        alignItems: 'center',
+
+                                        p: '4px',
+                                    }}
+                                    onClick={() => handleSizeSelected(size)}
+                                >
+                                    <Box>
+                                        <CustomizeTypography
+                                            sx={{
+                                                mb: 0,
+                                                fontSize: '12.5px',
+                                                fontWeight: 'bold',
+                                                color: theme.palette.text.secondary,
+                                            }}
+                                        >
+                                            {size.perfumeSize} ml
+                                        </CustomizeTypography>
+                                        <CustomizeTypography sx={{ mb: 0, fontSize: '12px' }}>
+                                            {converToVND(size.perfumePrice)}
+                                        </CustomizeTypography>
+                                    </Box>
+                                    {selectedSize.perfumeSize === size.perfumeSize && (
+                                        <IconButton>
+                                            <CheckIcon
+                                                sx={{ color: '#18920D', fontSize: '18px' }}
+                                            />
+                                        </IconButton>
+                                    )}
+                                </Button>
+                            ))}
+                        </Box>
+
                         <Box sx={{ display: 'flex', alignItems: 'center', my: 2 }}>
                             <CustomizeButtonOutlined
                                 textAction={'Add to cart'}
