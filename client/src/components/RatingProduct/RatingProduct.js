@@ -30,8 +30,6 @@ function RatingProduct({ perfumeDetailData }) {
         setCommentRights(isBought);
     }, [orderHistory]);
 
-    console.log('order ahaihaiai: ', orderHistory);
-
     const handleFocusReview = () => {
         if (reviewInputRef.current) {
             reviewInputRef.current.focus();

@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { useNavigate } from 'react-router-dom';
+
 import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
 import Promocode from './Promocode';
 import { SummaryRowInCart } from './SummaryRowInCart';
@@ -15,7 +15,6 @@ function CartTotal({
     promoCodeApplied,
     setPromoCodeApplied,
 }) {
-    const navigate = useNavigate();
     // get from parent
     // const [promoCode, setPromoCode] = useState('');
     // const [promoCodeApplied, setPromoCodeApplied] = useState(false);

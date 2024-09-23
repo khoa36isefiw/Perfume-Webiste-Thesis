@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-    Box,
-    Container,
-    IconButton,
-    Menu,
-    MenuItem,
-    Drawer,
-    Badge,
-    Typography,
-} from '@mui/material';
+import { Box, Container, IconButton, Menu, MenuItem, Drawer, Badge } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import SearchIcon from '@mui/icons-material/Search';
@@ -84,9 +75,7 @@ function Header() {
     console.log('isMobile: ', isMobile);
 
     // open menu setting
-    const handleMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+
     // close menu setting
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -106,20 +95,6 @@ function Header() {
     const handleHeaderClick = (header) => {
         setActiveHeader(header.headerText);
         navigate(header.headerLink);
-    };
-
-    const handleIconHeaderClick = (action, event) => {
-        if (action.headerIconDest === '/sign-in') {
-            // open the menu for "Sign In"
-            setAnchorEl(event.currentTarget);
-        } else {
-            // close the menu if it's another icon
-            setAnchorEl(null);
-            // navigate to the icon's destination
-            navigate(action.headerIconDest);
-        }
-        // set active header to the clicked icon
-        setActiveHeader(action.des);
     };
 
     console.log('productListInCart: ', productListInCart);

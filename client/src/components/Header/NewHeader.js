@@ -12,7 +12,6 @@ import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
 import SimpleBottomNavigation from './MobileBottomNavigation';
 import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
-import axios from 'axios';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -28,14 +27,12 @@ function NewHeader() {
     const [searchQuery, setSearchQuery] = useState('');
 
     const [filter, setFilter] = useState('');
-    const [results, setResults] = useState([]);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const open = Boolean(anchorEl);
+
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
-    const [isTablet, setIsTablet] = useState(window.innerWidth < 1024);
 
     const [activeHeader, setActiveHeader] = useState('Home');
     const listSuggestions = suggestions.slice(0, 4); // just show 4 product items to UI
@@ -46,7 +43,6 @@ function NewHeader() {
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
-        setIsTablet(window.innerWidth < 1024);
     }
 
     useEffect(() => {

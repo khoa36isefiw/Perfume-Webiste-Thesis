@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { CustomizeTypographyBlog } from '../CustomizeTypography/CustomizeTypography';
-import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { ipadProScreen, mobileScreen, theme } from '../../Theme/Theme';
 import {
     blogData,
     blogDetailData,
