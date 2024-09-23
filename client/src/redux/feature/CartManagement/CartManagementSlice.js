@@ -12,8 +12,11 @@ export const cartManagementSlice = createSlice({
         addToCart: (state, action) => {
             console.log('state: ', state);
             const product = action.payload;
+            console.log('product here:...', product);
             const existingProduct = state.productInfor.find(
-                (item) => item.perfumeID === product.perfumeID,
+                (item) =>
+                    item.perfumeID === product.perfumeID &&
+                    item.perfumeSize === product.perfumeSize,
             );
             if (existingProduct) {
                 // if product is exisited, increase the quantity
@@ -24,19 +27,30 @@ export const cartManagementSlice = createSlice({
             }
         },
         removeProduct: (state, action) => {
-            const productId = action.payload;
-            state.productInfor = state.productInfor.filter((item) => item.perfumeID !== productId);
+            const { productId, productSize } = action.payload;
+            console.log('product has id: ', productId);
+            console.log('product has productSize: ', productSize);
+            // only the product with the matching perfumeId and
+            // productSize is removed from the cart
+            state.productInfor = state.productInfor.filter(
+                (item) => item.perfumeID !== productId || item.perfumeSize !== productSize,
+            );
         },
         increaseQuantity: (state, action) => {
-            const productId = action.payload;
-            const existingProduct = state.productInfor.find((item) => item.perfumeID === productId);
+            const { productId, productSize } = action.payload;
+            const existingProduct = state.productInfor.find(
+                (item) => item.perfumeID === productId && item.perfumeSize === productSize,
+            );
+
             if (existingProduct) {
                 existingProduct.quantity += 1;
             }
         },
         decreaseQuantity: (state, action) => {
-            const productId = action.payload;
-            const existingProduct = state.productInfor.find((item) => item.perfumeID === productId);
+            const { productId, productSize } = action.payload;
+            const existingProduct = state.productInfor.find(
+                (item) => item.perfumeID === productId && item.perfumeSize === productSize,
+            );
             // if existing and quantity > 1
             if (existingProduct && existingProduct.quantity > 1) {
                 existingProduct.quantity -= 1;

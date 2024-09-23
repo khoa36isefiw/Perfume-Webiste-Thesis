@@ -18,6 +18,8 @@ export const theme = createTheme({
             thirth: '#fe9727',
             fourth: '#d5d5d5',
             fiveth: '#ededed',
+            sixth: '#FFED99',
+            // seventh: '#E28A5EFF',
         },
         primaryText: '#fff',
         secondaryText: '#AB572D',

@@ -99,6 +99,7 @@ function RegisterAccount() {
                             fontSize: '48px',
                             fontWeight: 'bold',
                             textAlign: 'center',
+                            mb: 0,
                             color: theme.palette.text.secondary,
                             [mobileScreen]: {
                                 fontSize: theme.fontSize.mobile.heading,
@@ -210,7 +211,8 @@ function RegisterAccount() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'flex-end',
-                                p: 2,
+                                // p: 2,
+                                p: '4px',
                             }}
                         >
                             <ButtonComponent
@@ -227,7 +229,8 @@ function RegisterAccount() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                p: 2,
+                                // p: 2,
+                                p: '4px',
                                 [mobileScreen]: {
                                     flexDirection: 'column',
                                 },

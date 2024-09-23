@@ -1,14 +1,18 @@
 import SearchTerm from '../components/Header/SearchTerm';
-import ProfileSettings from '../components/ProfileSettings/ProfileSettings';
+import ChangePassword from '../components/ProfileSettings/ChangePassword';
+
 import RecoverPassword from '../components/RecoverPassword/RecoverPassword';
+import ProfileSettingsLayout from '../layouts/ProfileSettingsLayout';
 import UserLayouts from '../layouts/UserLayout/UserLayouts';
 import AboutUs from '../pages/AboutUs';
+import AccountInfoPage from '../pages/AccountInfoPage';
 import Blog from '../pages/Blog';
 import BlogDetail from '../pages/BlogDetail';
 import Checkout from '../pages/Checkout';
 import CreateAccount from '../pages/CreateAccount';
 import HomePage from '../pages/HomePage';
 import ProductDetail from '../pages/ProductDetail';
+import PurchasePage from '../pages/PurchasePage';
 import Services from '../pages/Services';
 import Shop from '../pages/Shop';
 import ShoppingCart from '../pages/ShoppingCart';
@@ -27,10 +31,14 @@ const publicRoutes = [
     { path: '/checkout', component: Checkout, layout: UserLayouts },
     { path: '/sign-in', component: SignInPage, layout: UserLayouts },
     { path: '/create-account', component: CreateAccount, layout: UserLayouts },
-    { path: '/profile-settings', component: ProfileSettings, layout: UserLayouts },
+
     { path: '/blog', component: Blog, layout: UserLayouts },
     { path: '/blog-detail/:id', component: BlogDetail, layout: UserLayouts },
     { path: '/recover-password', component: RecoverPassword, layout: UserLayouts },
+    // profile  settings
+    { path: '/profile-settings', component: AccountInfoPage, layout: ProfileSettingsLayout },
+    { path: '/change-password', component: ChangePassword, layout: ProfileSettingsLayout },
+    { path: '/my-purchase', component: PurchasePage, layout: ProfileSettingsLayout },
 ];
 
 // must signed into

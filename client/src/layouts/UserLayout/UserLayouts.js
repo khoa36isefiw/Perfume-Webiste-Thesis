@@ -1,6 +1,6 @@
 import { Box, Divider } from '@mui/material';
 import React from 'react';
-import Header from '../../components/Header/Header';
+
 import Footer from '../../components/Footer/Footer';
 import { theme } from '../../Theme/Theme';
 import BackToTop from '../../components/ScrollTop/ScrollTop';

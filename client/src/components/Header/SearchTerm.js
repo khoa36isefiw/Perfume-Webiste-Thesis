@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Box, IconButton } from '@mui/material';
 
-import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';

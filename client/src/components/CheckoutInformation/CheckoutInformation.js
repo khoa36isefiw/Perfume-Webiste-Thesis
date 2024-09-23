@@ -12,7 +12,7 @@ import {
     Button,
 } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { addressApi } from '../api/addressApi';
+import { addressApi } from '../../api/addressApi';
 import SelectAddress from '../SelectAddress/SelectAddress';
 import CreditCard from '../CreditCard/CreditCard';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -141,7 +141,7 @@ function CheckoutInformation() {
                 name: product.perfumeName,
                 image: product.perfumeImage,
                 quantity: product.quantity,
-
+                size: product.perfumeSize,
                 price: product.quantity * product.perfumePrice,
                 brand: product.perfumeBrand,
             })),
@@ -402,7 +402,7 @@ function CheckoutInformation() {
                             <Box sx={{ mt: 2, width: '200px' }}>
                                 <CustomizeButtonInCart
                                     variant="outlined"
-                                    textAction="Checkout"
+                                    textAction="Order"
                                     // show animation
                                     isReverseAnimation={false}
                                     fullWidth={false}
@@ -469,18 +469,18 @@ function CheckoutInformation() {
                                             </CustomizeTypography>
                                             <CustomizeTypography
                                                 sx={{
-                                                    fontSize: '14px',
+                                                    fontSize: '13px',
                                                     mb: 0,
                                                     [mobileScreen]: {
                                                         fontSize: '12.5px',
                                                     },
                                                 }}
                                             >
-                                                Size: 150ml
+                                                Size: {product.perfumeSize}ml
                                             </CustomizeTypography>
                                             <CustomizeTypography
                                                 sx={{
-                                                    fontSize: '14px',
+                                                    fontSize: '13px',
                                                     mb: 0,
                                                     [mobileScreen]: {
                                                         fontSize: '12.5px',

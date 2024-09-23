@@ -7,6 +7,24 @@ export const perfumeData = [
         numberOfRating: '10',
         perfumePriceVND: 3280000,
         perfumePriceDiscount: 2788000, // 15% off
+        // size and price by size
+        perfumeGroupSize: [
+            {
+                perfumeSize: 9,
+                perfumePrice: 1898000,
+                perfumePriceDiscount: '',
+            },
+            {
+                perfumeSize: 27,
+                perfumePrice: 2998000,
+                perfumePriceDiscount: '',
+            },
+            {
+                perfumeSize: 50,
+                perfumePrice: 3280000,
+                perfumePriceDiscount: '',
+            },
+        ],
         discount: true,
         flashSale: true,
         flashSaleNumber: 25,
@@ -54,6 +72,21 @@ export const perfumeData = [
         perfumeRating: 5,
         numberOfRating: '9',
         perfumePriceVND: 3780000,
+        // size and price by size
+        perfumeGroupSize: [
+            {
+                perfumeSize: 50,
+                perfumePrice: 2355000,
+            },
+            {
+                perfumeSize: 100,
+                perfumePrice: 3480000,
+            },
+            {
+                perfumeSize: 150,
+                perfumePrice: 3989000,
+            },
+        ],
         perfumePriceDiscount: '', // No discount
         discount: false,
         flashSale: false,
@@ -99,6 +132,21 @@ export const perfumeData = [
         perfumeRating: 3,
         numberOfRating: '8',
         perfumePriceVND: 3480000,
+        // size and price by size
+        perfumeGroupSize: [
+            {
+                perfumeSize: 50,
+                perfumePrice: 2585000,
+            },
+            {
+                perfumeSize: 100,
+                perfumePrice: 3780000,
+            },
+            {
+                perfumeSize: 150,
+                perfumePrice: 4490000,
+            },
+        ],
         perfumePriceDiscount: '',
         discount: false,
         flashSale: false,
@@ -144,6 +192,17 @@ export const perfumeData = [
         perfumeRating: 2,
         numberOfRating: '11',
         perfumePriceVND: 3380000,
+        // size and price by size
+        perfumeGroupSize: [
+            {
+                perfumeSize: 60,
+                perfumePrice: 2690000,
+            },
+            {
+                perfumeSize: 100,
+                perfumePrice: 3380000,
+            },
+        ],
         perfumePriceDiscount: '',
         discount: false,
         flashSale: false,
