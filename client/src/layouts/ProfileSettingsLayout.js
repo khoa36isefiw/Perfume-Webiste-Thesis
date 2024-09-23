@@ -56,7 +56,8 @@ function ProfileSettingsLayout({ children }) {
                             mt: 15,
                         },
                         [tabletScreen]: {
-                            width: '80%',
+                            // width: '80%',
+                            width: '100%',
                             mt: 20,
                         },
                         [mobileScreen]: {
@@ -67,7 +68,7 @@ function ProfileSettingsLayout({ children }) {
                 >
                     <Grid container spacing={2}>
                         {/* Sidebar */}
-                        <Grid item xs={12} md={4} lg={3}>
+                        <Grid item xs={12} sm={4} md={4} lg={3}>
                             <Paper
                                 elevation={3}
                                 sx={{
@@ -147,7 +148,7 @@ function ProfileSettingsLayout({ children }) {
                         </Grid>
 
                         {/* Main content */}
-                        <Grid container item xs={12} md={8} lg={9}>
+                        <Grid container item xs={12} sm={8} md={8} lg={9}>
                             <Box sx={{ flexGrow: 1, bgcolor: 'background.default' }}>
                                 {children}
                             </Box>
