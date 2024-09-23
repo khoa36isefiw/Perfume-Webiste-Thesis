@@ -15,6 +15,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 export const ProductInCart = ({ productsList }) => {
+    const dispatch = useDispatch();
     const [productToRemove, setProductToRemove] = useState(null);
     const [openConfirmMessage, setOpenConfirmMessage] = React.useState(false);
     const [showNotification, setShowNotification] = useState(false);
@@ -26,10 +27,16 @@ export const ProductInCart = ({ productsList }) => {
         setProductToRemove(null);
     };
 
+    console.log('productToRemove: ', productToRemove);
     // agree, delete the products
     const handleConfirmAgree = () => {
         if (productToRemove) {
-            dispatch(removeProduct(productToRemove)); // remove product
+            dispatch(
+                removeProduct({
+                    productId: productToRemove.productId,
+                    productSize: productToRemove.productSize,
+                }),
+            ); // remove product
         }
         setShowNotification(true);
         setShowAnimation('animate__bounceInRight');
@@ -37,11 +44,10 @@ export const ProductInCart = ({ productsList }) => {
         setProductToRemove(null);
     };
 
-    const dispatch = useDispatch();
     // open the confirm dialog message and save the products are removed
-    const handleRemoveProductInCart = (productId) => {
+    const handleRemoveProductInCart = (productId, productSize) => {
         setOpenConfirmMessage(true);
-        setProductToRemove(productId); // store product is removed
+        setProductToRemove({ productId, productSize }); // store product is removed
     };
 
     // handle Close notification
@@ -52,8 +58,10 @@ export const ProductInCart = ({ productsList }) => {
         }, 1000);
     };
 
+    console.log('Product in cart: ', productsList);
+
     return (
-        <>
+        <Box>
             {/* First Product - In Stock */}
             <Box
                 sx={{
@@ -117,6 +125,7 @@ export const ProductInCart = ({ productsList }) => {
                                             sx={{
                                                 [mobileScreen]: {
                                                     fontSize: '13.5px',
+                                                    mb: '4px',
                                                 },
                                             }}
                                         >
@@ -129,6 +138,7 @@ export const ProductInCart = ({ productsList }) => {
                                                 alignItems: 'center',
                                                 [mobileScreen]: {
                                                     fontSize: '13.5px',
+                                                    mb: '4px',
                                                 },
                                             }}
                                         >
@@ -158,6 +168,17 @@ export const ProductInCart = ({ productsList }) => {
                                                 In Stock
                                             </span>
                                         </CustomizeTypography>
+                                        <CustomizeTypography
+                                            sx={{
+                                                [mobileScreen]: {
+                                                    fontSize: '13.5px',
+                                                    mb: '4px',
+                                                },
+                                            }}
+                                        >
+                                            {item.perfumeSize} ml
+                                        </CustomizeTypography>
+
                                         {/* increase quantity */}
                                         <Box
                                             sx={{
@@ -182,7 +203,12 @@ export const ProductInCart = ({ productsList }) => {
                                                     cursor: 'pointer',
                                                 }}
                                                 onClick={() =>
-                                                    dispatch(decreaseQuantity(item.perfumeID))
+                                                    dispatch(
+                                                        decreaseQuantity({
+                                                            productId: item.perfumeID,
+                                                            productSize: item.perfumeSize,
+                                                        }),
+                                                    )
                                                 }
                                             >
                                                 -
@@ -206,7 +232,12 @@ export const ProductInCart = ({ productsList }) => {
                                                     cursor: 'pointer',
                                                 }}
                                                 onClick={() =>
-                                                    dispatch(increaseQuantity(item.perfumeID))
+                                                    dispatch(
+                                                        increaseQuantity({
+                                                            productId: item.perfumeID,
+                                                            productSize: item.perfumeSize,
+                                                        }),
+                                                    )
                                                 }
                                             >
                                                 +
@@ -227,7 +258,10 @@ export const ProductInCart = ({ productsList }) => {
                                         </CustomizeTypography>
                                         <Button
                                             onClick={() =>
-                                                handleRemoveProductInCart(item.perfumeID)
+                                                handleRemoveProductInCart(
+                                                    item.perfumeID,
+                                                    item.perfumeSize,
+                                                )
                                             }
                                             startIcon={
                                                 <DeleteIcon
@@ -321,6 +355,6 @@ export const ProductInCart = ({ productsList }) => {
                     </Box>
                 )}
             </Box>
-        </>
+        </Box>
     );
 };
