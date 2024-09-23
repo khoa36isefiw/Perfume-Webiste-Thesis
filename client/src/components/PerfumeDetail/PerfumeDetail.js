@@ -75,7 +75,7 @@ function PerfumeDetail() {
             // exists in cart items
             if (existingItem) {
                 console.log('chạy vô đây không');
-                dispatch(increaseQuantity(productInfor.perfumeID));
+                dispatch(increaseQuantity(productInfor.perfumeID, productInfor.perfumeSize));
             } else {
                 console.log('chạy vô đây');
 
