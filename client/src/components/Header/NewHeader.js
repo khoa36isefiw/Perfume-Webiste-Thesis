@@ -40,7 +40,6 @@ function NewHeader() {
     const [activeHeader, setActiveHeader] = useState('Home');
     const listSuggestions = suggestions.slice(0, 4); // just show 4 product items to UI
 
-    console.log('window: ', window.innerWidth);
     // get product in cart
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
     const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
@@ -56,8 +55,6 @@ function NewHeader() {
             window.removeEventListener('resize', handleWindowSizeChange);
         };
     }, []);
-
-    console.log('isMobile: ', isMobile);
 
     const handleHeaderClick = (header) => {
         setActiveHeader(header.headerText);
