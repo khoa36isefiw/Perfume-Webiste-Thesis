@@ -78,6 +78,8 @@ export default function AuthenticatedUser() {
                     paper: {
                         elevation: 0,
                         sx: {
+                            // maxWidth: '250px',
+                            minWidth: '220px',
                             bgcolor: '#3D3D3D',
                             overflow: 'visible',
                             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
@@ -117,7 +119,17 @@ export default function AuthenticatedUser() {
                             {loggedInAccount?.firstName + ' ' + loggedInAccount?.lastName}
                         </CustomizeTypography>
 
-                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px', color: '#d5d5dd5' }}>
+                        <CustomizeTypography
+                            sx={{
+                                mb: 0,
+                                fontSize: '14px',
+                                color: '#d5d5dd5',
+                                maxWidth: '180px',
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                                textOverflow: 'ellipsis',
+                            }}
+                        >
                             {/* macbook@gmail.com */}
                             {loggedInAccount?.email}
                         </CustomizeTypography>
