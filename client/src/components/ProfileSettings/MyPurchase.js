@@ -261,7 +261,7 @@ const OrderItem2 = ({ listData }) => (
                                 },
                             }}
                         >
-                            30{item.orderSize} ml
+                            {item.size} ml
                         </CustomizeTypography>
                         <Button
                             startIcon={<StarIcon />}

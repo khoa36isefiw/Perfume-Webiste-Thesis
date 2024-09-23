@@ -141,7 +141,7 @@ function CheckoutInformation() {
                 name: product.perfumeName,
                 image: product.perfumeImage,
                 quantity: product.quantity,
-
+                size: product.perfumeSize,
                 price: product.quantity * product.perfumePrice,
                 brand: product.perfumeBrand,
             })),

@@ -55,7 +55,9 @@ function PerfumeDetail() {
         const productToDispatch = {
             perfumeID: productInfor.perfumeID,
             perfumeName: productInfor.perfumeName,
-            perfumePrice: productInfor.perfumePriceVND,
+            // perfumePrice: productInfor.perfumePriceVND,
+            perfumeSize: selectedSize.perfumeSize,
+            perfumePrice: selectedSize.perfumePrice,
             perfumePriceDiscount: productInfor.perfumePriceDiscount,
             perfumeImage: productInfor.perfumeImage,
             perfumeBrand: productInfor.perfumeBrand,
