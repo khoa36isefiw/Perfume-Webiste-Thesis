@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Container, Box, IconButton, Grid, Button, Typography } from '@mui/material';
+import { Avatar, Box, IconButton, Grid, Button, Divider } from '@mui/material';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
@@ -211,88 +211,91 @@ const OrderItem = ({ listData }) => (
 const OrderItem2 = ({ listData }) => (
     <>
         {listData.map((item, index) => (
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    mb: '12px',
-                    [mobileScreen]: {
-                        width: '100%',
-                    },
-                }}
-                key={index}
-            >
-                <Box sx={{ display: 'flex' }}>
-                    <Avatar
-                        src={item.image}
-                        sx={{
-                            borderRadius: 1,
-                            width: '100px',
-                            height: '120px',
-                        }}
-                    />
-                    <Box sx={{ ml: 2 }}>
-                        <CustomizeTypography
-                            sx={{
-                                fontSize: '15px',
-                                fontWeight: 'bold',
-                                [mobileScreen]: {
-                                    fontSize: '13px',
-                                },
-                            }}
-                        >
-                            {item.name}
-                        </CustomizeTypography>
-                        <CustomizeTypography
-                            sx={{
-                                fontSize: '13.5px',
-                                [mobileScreen]: {
-                                    fontSize: '12.5px',
-                                },
-                            }}
-                        >
-                            {item.brand}
-                        </CustomizeTypography>
-                        <CustomizeTypography
-                            sx={{
-                                fontSize: '13.5px',
-                                [mobileScreen]: {
-                                    fontSize: '12.5px',
-                                },
-                            }}
-                        >
-                            {item.size} ml
-                        </CustomizeTypography>
-                        <Button
-                            startIcon={<StarIcon />}
-                            sx={{
-                                padding: '6px 0',
-                                textTransform: 'initial',
-                                fontSize: '14px',
-                                fontWeight: 'bold',
-                                color: theme.palette.text.secondary,
-                                '&:hover': {
-                                    bgcolor: 'transparent',
-                                },
-                                [mobileScreen]: {
-                                    fontSize: '13px',
-                                },
-                            }}
-                        >
-                            Rate Now
-                        </Button>
-                    </Box>
-                </Box>
-                <CustomizeTypography
+            <Box key={index}>
+                <Box
                     sx={{
-                        fontWeight: 'bold',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        mb: '12px',
                         [mobileScreen]: {
-                            fontSize: '12.5px',
+                            width: '100%',
                         },
                     }}
                 >
-                    ${item.price}
-                </CustomizeTypography>
+                    <Box sx={{ display: 'flex' }}>
+                        <Avatar
+                            src={item.image}
+                            sx={{
+                                borderRadius: 1,
+                                width: '100px',
+                                height: '120px',
+                                bgcolor: '#fff',
+                            }}
+                        />
+                        <Box sx={{ ml: 2 }}>
+                            <CustomizeTypography
+                                sx={{
+                                    fontSize: '15px',
+                                    fontWeight: 'bold',
+                                    [mobileScreen]: {
+                                        fontSize: '13px',
+                                    },
+                                }}
+                            >
+                                {item.name}
+                            </CustomizeTypography>
+                            <CustomizeTypography
+                                sx={{
+                                    fontSize: '13.5px',
+                                    [mobileScreen]: {
+                                        fontSize: '12.5px',
+                                    },
+                                }}
+                            >
+                                {item.brand}
+                            </CustomizeTypography>
+                            <CustomizeTypography
+                                sx={{
+                                    fontSize: '13.5px',
+                                    [mobileScreen]: {
+                                        fontSize: '12.5px',
+                                    },
+                                }}
+                            >
+                                {item.size} ml
+                            </CustomizeTypography>
+                            <Button
+                                startIcon={<StarIcon />}
+                                sx={{
+                                    padding: '6px 0',
+                                    textTransform: 'initial',
+                                    fontSize: '14px',
+                                    fontWeight: 'bold',
+                                    color: theme.palette.text.secondary,
+                                    '&:hover': {
+                                        bgcolor: 'transparent',
+                                    },
+                                    [mobileScreen]: {
+                                        fontSize: '13px',
+                                    },
+                                }}
+                            >
+                                Rate Now
+                            </Button>
+                        </Box>
+                    </Box>
+                    <CustomizeTypography
+                        sx={{
+                            fontWeight: 'bold',
+                            [mobileScreen]: {
+                                fontSize: '12.5px',
+                            },
+                        }}
+                    >
+                        ${item.price}
+                    </CustomizeTypography>
+                </Box>
+                {index !== listData.length - 1 && <Divider sx={{ bgcolor: '#ccc', my: 1 }} />}
             </Box>
         ))}
     </>
