@@ -1,5 +1,5 @@
 import { Avatar, Container, Grid, Tooltip, IconButton } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
     CustomizeAccountText,
     CustomizeTypography,
@@ -9,19 +9,38 @@ import { mobileScreen, theme } from '../../Theme/Theme';
 import { CustomizeHoverButton, CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateAccountInformation } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 
 function AccountInfo() {
+    const dispatch = useDispatch();
+
     const [editAccount, setEditAccount] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+
+    const firstNameRef = useRef(loggedInAccount?.firstName);
+    const lastNameRef = useRef(null);
 
     const handleClickEdit = () => {
         setEditAccount(false);
     };
 
-    const handleClickSave = () => {
-        setEditAccount(true);
+    const handleSaveInformation = () => {
+        const firstName = firstNameRef.current.value.trim();
+        const lastName = lastNameRef.current.value.trim();
+
+        if (loggedInAccount) {
+            dispatch(
+                updateAccountInformation({
+                    email: loggedInAccount.email, // Sử dụng email của tài khoản đã đăng nhập để xác định tài khoản cần cập nhật
+                    firstName,
+                    lastName,
+                    userImage: selectedImage,
+                }),
+            );
+            setEditAccount(true);
+        }
     };
 
     const handleUploadImage = (e) => {
@@ -31,6 +50,8 @@ function AccountInfo() {
             setSelectedImage(imageUrl);
         }
     };
+
+    console.log('current account information: ', loggedInAccount);
 
     return (
         <Container
@@ -129,7 +150,7 @@ function AccountInfo() {
                 </Grid>
                 <Grid item xs={12} md={12} lg={8}>
                     <TextFieldLogin
-                        disabled={editAccount}
+                        disabled={true}
                         fullWidth
                         placeholder="hisalim.ux@gmail.com"
                         inputValue={loggedInAccount?.email}
@@ -155,7 +176,8 @@ function AccountInfo() {
                         disabled={editAccount}
                         fullWidth
                         placeholder="Muhammad"
-                        inputValue={loggedInAccount?.firstName}
+                        defaultValue={loggedInAccount?.firstName}
+                        inputRef={firstNameRef}
                     />
                 </Grid>
             </Grid>
@@ -178,14 +200,16 @@ function AccountInfo() {
                         disabled={editAccount}
                         fullWidth
                         placeholder="Salim"
-                        inputValue={loggedInAccount?.firstName}
+                        // use default value to get value of ref input
+                        defaultValue={loggedInAccount?.lastName}
+                        inputRef={lastNameRef}
                     />
                 </Grid>
             </Grid>
             {editAccount ? (
                 <CustomizeHoverButtonV2 textAction={'Edit'} onHandleClick={handleClickEdit} />
             ) : (
-                <CustomizeHoverButton textAction={'Save'} onHandleClick={handleClickSave} />
+                <CustomizeHoverButton textAction={'Save'} onHandleClick={handleSaveInformation} />
             )}
         </Container>
     );
