@@ -127,6 +127,7 @@ export const TextFieldLogin = ({
     onHandleKeyDown,
     disabled = false,
     fullWidth = true,
+    defaultValue,
 }) => {
     return (
         <TextField
@@ -136,6 +137,7 @@ export const TextFieldLogin = ({
             fullWidth={fullWidth}
             placeholder={placeholder}
             value={inputValue}
+            defaultValue={defaultValue}
             // value current value in text field
             // onChange={(e) => setCityName(e.target.value)}
             onChange={onChangeValue}
