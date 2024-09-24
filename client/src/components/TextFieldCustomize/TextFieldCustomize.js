@@ -177,6 +177,8 @@ export const TextFieldPassword = ({
     onHandleKeyDown,
     showPassword,
     onHandleClick,
+    defaultValue,
+    inputRef,
 }) => {
     return (
         <TextField
@@ -184,6 +186,8 @@ export const TextFieldPassword = ({
             fullWidth
             placeholder={placeholder}
             value={inputValue}
+            defaultValue={defaultValue}
+            inputRef={inputRef}
             // value current value in text field
             // onChange={(e) => setCityName(e.target.value)}
             onChange={onChangeValue}

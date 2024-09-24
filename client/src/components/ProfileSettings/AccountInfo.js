@@ -90,7 +90,7 @@ function AccountInfo() {
                 <Grid item xs={12} md={12} lg={4}>
                     <Avatar
                         alt="User Image"
-                        src={selectedImage || loggedInAccount.userImage}
+                        src={selectedImage || loggedInAccount?.userImage}
                         sx={{
                             height: '250px',
                             width: '250px',
