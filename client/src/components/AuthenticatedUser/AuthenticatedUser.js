@@ -74,7 +74,7 @@ export default function AuthenticatedUser() {
                     >
                         <Avatar
                             sx={{ width: 48, height: 48 }}
-                            src={userDefaultAvatar}
+                            src={loggedInAccount?.userImage}
                             alt="User Image"
                         />
                     </IconButton>
@@ -123,7 +123,7 @@ export default function AuthenticatedUser() {
                 <MenuItem onClick={handleNavigateProfile}>
                     <Avatar
                         sx={{ width: 40, height: 40 }}
-                        src={userDefaultAvatar}
+                        src={loggedInAccount?.userImage}
                         alt="User Image"
                     />
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>

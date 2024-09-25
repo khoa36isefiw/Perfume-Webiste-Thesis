@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Container, Grid } from '@mui/material';
 import { CustomizeAccountText } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldPassword } from '../TextFieldCustomize/TextFieldCustomize';
@@ -6,14 +6,19 @@ import { theme } from '../../Theme/Theme';
 import { CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
 
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { changePassword } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 
 function ChangePassword() {
+    const dispatch = useDispatch();
+    const currentPasswordRef = useRef();
+    const newPasswordRef = useRef();
+    const confirmPasswordRef = useRef();
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [confrimNewPassword, setConfrimNewPassword] = useState(false);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
-    const handleChangePassword = () => {};
+
     const handleClickShowCurrentPassword = () => {
         setShowCurrentPassword(!showCurrentPassword);
     };
@@ -23,6 +28,20 @@ function ChangePassword() {
     };
     const handleClickConfirmNewPassword = () => {
         setConfrimNewPassword(!confrimNewPassword);
+    };
+
+    const handleChangePassword = () => {
+        const currentPassword = currentPasswordRef.current.value.trim();
+        const newPassword = newPasswordRef.current.value.trim();
+        const confirmPassword = confirmPasswordRef.current.value.trim();
+        if (loggedInAccount && currentPassword === loggedInAccount.password) {
+            if (newPassword === confirmPassword) {
+                dispatch(changePassword({ email: loggedInAccount.email, password: newPassword }));
+                console.log('chay vo change password');
+            } else {
+                console.log('không change change password');
+            }
+        }
     };
 
     console.log('current password status: ', showCurrentPassword);
@@ -68,7 +87,8 @@ function ChangePassword() {
                         showPassword={showCurrentPassword}
                         placeholder={'Your current password'}
                         onHandleClick={handleClickShowCurrentPassword}
-                        inputValue={loggedInAccount?.password}
+                        defaultValue={loggedInAccount?.password}
+                        inputRef={currentPasswordRef}
                     />
                 </Grid>
             </Grid>
@@ -91,6 +111,7 @@ function ChangePassword() {
                         showPassword={showNewPassword}
                         placeholder={'Your new password'}
                         onHandleClick={handleClickShowNewPassword}
+                        inputRef={newPasswordRef}
                     />
                     {/* <TextFieldLogin fullWidth placeholder="Muhammad" /> */}
                 </Grid>
@@ -114,6 +135,7 @@ function ChangePassword() {
                         showPassword={confrimNewPassword}
                         placeholder={'Confirm new password'}
                         onHandleClick={handleClickConfirmNewPassword}
+                        inputRef={confirmPasswordRef}
                     />
                 </Grid>
             </Grid>

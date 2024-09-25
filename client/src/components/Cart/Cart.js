@@ -86,7 +86,6 @@ function Cart() {
             ) : (
                 <>
                     <EmptyCart />
-                    <EmptyOrders />
                 </>
             )}
         </React.Fragment>
