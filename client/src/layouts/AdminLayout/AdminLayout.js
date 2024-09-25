@@ -1,12 +1,20 @@
 import React from 'react';
 import AdminHeader from './AdminHeader';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
+import AdminSidebar from './AdminSidebar';
 
 function AdminLayout({ children }) {
     return (
-        <Box sx={{ bgcolor: '#f5f4fe', height: '100vh' }}>
+        <Box sx={{ bgcolor: '#f5f4fe', height: '200vh' }}>
             <AdminHeader />
-            <Box>{children}</Box>
+            <Grid container spacing={4} sx={{ mt: 8 }}>
+                <Grid item lg={3}>
+                    <AdminSidebar />
+                </Grid>
+                <Grid item lg={9}>
+                    {children}
+                </Grid>
+            </Grid>
         </Box>
     );
 }
