@@ -1,7 +1,9 @@
+import Dashboard from '../components/Dashboard/Dashboard';
 import SearchTerm from '../components/Header/SearchTerm';
 import ChangePassword from '../components/ProfileSettings/ChangePassword';
 
 import RecoverPassword from '../components/RecoverPassword/RecoverPassword';
+import AdminLayout from '../layouts/AdminLayout/AdminLayout';
 import ProfileSettingsLayout from '../layouts/ProfileSettingsLayout';
 import UserLayouts from '../layouts/UserLayout/UserLayouts';
 import AboutUs from '../pages/AboutUs';
@@ -42,6 +44,7 @@ const publicRoutes = [
 ];
 
 // must signed into
-const privateRoutes = [{ path: '/signed-in', component: '', layout: '' }];
+// admin layout
+const privateRoutes = [{ path: '/dashboard', component: Dashboard, layout: AdminLayout }];
 
 export { publicRoutes, privateRoutes };
