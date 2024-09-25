@@ -1,23 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, IconButton, Menu, MenuItem, Drawer } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
-import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
-
 import { useSelector } from 'react-redux';
-
 import {
     AdminTypography,
     CustomizeTypography,
 } from '../../components/CustomizeTypography/CustomizeTypography';
-import { TextFieldCustomizeV2 } from '../../components/TextFieldCustomize/TextFieldCustomize';
-import CustomizeButton, {
-    CustomizeButtonOutlined,
-} from '../../components/CustomizeButton/CustomizeButton';
 import AdminAuth from '../../components/AdminAuth/AdminAuth';
 
 function AdminHeader() {
@@ -26,12 +15,10 @@ function AdminHeader() {
     const open = Boolean(anchorEl);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
     const [isTablet, setIsTablet] = useState(window.innerWidth < 1024);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [activeHeader, setActiveHeader] = useState('Home');
 
     console.log('window: ', window.innerWidth);
     // get product in cart
-    const productListInCart = useSelector((state) => state.cartManagement.productInfor);
+
     const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
 
     function handleWindowSizeChange() {
@@ -55,30 +42,14 @@ function AdminHeader() {
         setAnchorEl(null);
     };
 
-    // click into menu item
-    const handleMenuClick = (path) => {
-        navigate(path);
-        handleMenuClose();
-    };
-
-    // open menu for mobile
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
-    const handleHeaderClick = (header) => {
-        setActiveHeader(header.headerText);
-        navigate(header.headerLink);
-    };
-
-    console.log('productListInCart: ', productListInCart);
     return (
         <Box
             sx={{
-                minHeight: '150px',
+                height: '80px',
                 width: '100%',
                 position: 'fixed',
                 backgroundColor: '#f5f4fe',
+                borderBottom: '1px solid #ccc',
                 top: 0,
                 left: 0,
                 right: 0,
@@ -107,7 +78,7 @@ function AdminHeader() {
             >
                 <CustomizeTypography
                     sx={{
-                        width: '200px',
+                        // width: '200px',
                         fontSize: '28px',
                         fontWeight: 'bold',
                         background: `linear-gradient(120deg, ${theme.palette.text.main}, ${theme.palette.text.secondary})`,
@@ -132,7 +103,7 @@ function AdminHeader() {
                 {/* Menu for mobile */}
 
                 <AdminTypography sx={{ fontSize: '28px', fontWeight: 'bold' }}>
-                    Overview
+                    Admin Dashboard
                 </AdminTypography>
 
                 <AdminAuth />

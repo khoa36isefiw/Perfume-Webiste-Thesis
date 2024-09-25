@@ -345,6 +345,10 @@ function NewHeader() {
                                     onHandleClick={() => navigate('/create-account')}
                                 />
                             </Box>
+                            <CustomizeButtonOutlined
+                                textAction={'Dashboard'}
+                                onHandleClick={() => navigate('/admin/dashboard')}
+                            />
                         </React.Fragment>
                     )}
 

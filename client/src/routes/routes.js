@@ -45,6 +45,6 @@ const publicRoutes = [
 
 // must signed into
 // admin layout
-const privateRoutes = [{ path: '/dashboard', component: Dashboard, layout: AdminLayout }];
+const privateRoutes = [{ path: '/admin/dashboard', component: Dashboard, layout: AdminLayout }];
 
 export { publicRoutes, privateRoutes };
