@@ -4,10 +4,10 @@ import { Box } from '@mui/material';
 
 function AdminLayout({ children }) {
     return (
-        <div>
+        <Box sx={{ bgcolor: '#f5f4fe', height: '100vh' }}>
             <AdminHeader />
             <Box>{children}</Box>
-        </div>
+        </Box>
     );
 }
 
