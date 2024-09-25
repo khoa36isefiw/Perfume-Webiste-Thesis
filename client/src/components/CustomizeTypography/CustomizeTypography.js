@@ -9,6 +9,12 @@ export const CustomizeTypography = styled(Typography)(({ fontSize, fontBold = fa
     marginBottom: '8px',
 }));
 
+export const AdminTypography = styled(Typography)(({ fontSize, fontBold = false, color }) => ({
+    fontSize: fontSize || '14px',
+    fontWeight: fontBold ? 'bold' : 'normal',
+    color: color ? color : 'black',
+}));
+
 export const CustomizeProductDescriptionText = ({ title, text }) => {
     return (
         <Box

@@ -67,6 +67,15 @@ export const theme = createTheme({
         bestSelling: '#3D3D3D',
         bestSelling2: '#858585',
         // : '#858585',
+        admin: {
+            primaryColor: '#ff304f',
+            secondaryColor: '#ff470d',
+            bgColor: '#ff6e3f',
+            bgColor2: '#ffeae4',
+            borderColor: '#ff6e40',
+            mainTextColor: '#6c757d',
+            buttonColor: '#ff6e4026',
+        },
     },
     spacingAxis: {
         boxVerticalAxis: 8,

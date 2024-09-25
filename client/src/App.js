@@ -32,18 +32,27 @@ function App() {
                         const Layout = route.layout || UserLayouts;
 
                         return (
+                            // <Route
+                            //     key={route.path}
+                            //     path={route.path}
+                            //     element={
+                            //         <Navigate to="/signin" />
+                            //         user.user ? ( // for login
+                            //             <Layout>
+                            //                 <Page />
+                            //             </Layout>
+                            //         ) : (
+                            //             <Navigate to="/signin" />
+                            //         )
+                            //     }
+                            // />
                             <Route
                                 key={route.path}
                                 path={route.path}
                                 element={
-                                    <Navigate to="/signin" />
-                                    // user.user ? ( // for login
-                                    //     <Layout>
-                                    //         <Page />
-                                    //     </Layout>
-                                    // ) : (
-                                    //     <Navigate to="/signin" />
-                                    // )
+                                    <Layout>
+                                        <Page />
+                                    </Layout>
                                 }
                             />
                         );
