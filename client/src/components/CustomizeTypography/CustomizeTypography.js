@@ -15,6 +15,12 @@ export const AdminTypography = styled(Typography)(({ fontSize, fontBold = false,
     color: color ? color : 'black',
 }));
 
+export const AdminHeadingTypography = styled(Typography)(({ fontBold = false, color }) => ({
+    fontSize: '32px',
+    fontWeight: 'bold',
+    color: theme.palette.admin.primaryColor,
+}));
+
 export const CustomizeProductDescriptionText = ({ title, text }) => {
     return (
         <Box
