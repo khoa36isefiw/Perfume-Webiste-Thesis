@@ -11,6 +11,8 @@ import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import DashboardMenu from './DashboardMenu';
 import TopSales from './AdminLineChart';
 import AdminBestSellingProducts from './AdminBestSellingProducts';
+import RecentTransactions from './RecentTransactions';
+import TopProductsSale from './TopProductsSale';
 
 const cardData = [
     {
@@ -184,6 +186,15 @@ function Dashboard() {
                 </Grid>
                 <Grid item lg={12}>
                     <AdminBestSellingProducts />
+                </Grid>
+
+                <Grid item container spacing={4} lg={12}>
+                    <Grid item lg={6}>
+                        <RecentTransactions />
+                    </Grid>
+                    <Grid item lg={6}>
+                        <TopProductsSale />
+                    </Grid>
                 </Grid>
             </Grid>
         </Box>
