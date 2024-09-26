@@ -1,3 +1,4 @@
+import AddUsers from '../components/AddUsers/AddUsers';
 import Dashboard from '../components/Dashboard/Dashboard';
 import SearchTerm from '../components/Header/SearchTerm';
 import ChangePassword from '../components/ProfileSettings/ChangePassword';
@@ -13,6 +14,8 @@ import BlogDetail from '../pages/BlogDetail';
 import Checkout from '../pages/Checkout';
 import CreateAccount from '../pages/CreateAccount';
 import HomePage from '../pages/HomePage';
+import ListUsers from '../pages/ListUsers';
+import ManageUsers from '../pages/ManageUsers';
 import ProductDetail from '../pages/ProductDetail';
 import PurchasePage from '../pages/PurchasePage';
 import Services from '../pages/Services';
@@ -45,6 +48,11 @@ const publicRoutes = [
 
 // must signed into
 // admin layout
-const privateRoutes = [{ path: '/admin/dashboard', component: Dashboard, layout: AdminLayout }];
+const privateRoutes = [
+    { path: '/admin/dashboard', component: Dashboard, layout: AdminLayout },
+    { path: '/admin/manage-users', component: ListUsers, layout: AdminLayout },
+    { path: '/admin/manage-users/:id', component: ManageUsers, layout: AdminLayout },
+    { path: '/admin/manage-users/add-user', component: AddUsers, layout: AdminLayout },
+];
 
 export { publicRoutes, privateRoutes };
