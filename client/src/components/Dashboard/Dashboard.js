@@ -9,7 +9,9 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
 import DashboardMenu from './DashboardMenu';
-import BasicArea from './AdminLineChart';
+import TopSales from './AdminLineChart';
+import AdminBestSellingProducts from './AdminBestSellingProducts';
+
 const cardData = [
     {
         title: 'Total Users',
@@ -178,7 +180,10 @@ function Dashboard() {
                     </Grid>
                 ))}
                 <Grid item lg={12}>
-                    <BasicArea />
+                    <TopSales />
+                </Grid>
+                <Grid item lg={12}>
+                    <AdminBestSellingProducts />
                 </Grid>
             </Grid>
         </Box>
