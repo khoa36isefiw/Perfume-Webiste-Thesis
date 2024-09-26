@@ -14,12 +14,13 @@ const sidebarData = [
     {
         sidebarText: 'Dashboard',
         sidebarIcon: <SpaceDashboardIcon />,
+
         sidebarAddress: '/admin/dashboard',
     },
     {
         sidebarText: 'Users',
         sidebarIcon: <PersonIcon />,
-        sidebarAddress: '/admin/users',
+        sidebarAddress: '/admin/manage-users',
     },
     {
         sidebarText: 'Products',
@@ -43,7 +44,7 @@ function AdminSidebar() {
     const [activeButton, setActiveButton] = useState('Dashboard');
     const handleChooseSidebar = (buttonText) => {
         setActiveButton(buttonText.sidebarText);
-        // navigate(buttonText.sidebarAddress);
+        navigate(buttonText.sidebarAddress);
     };
 
     return (
