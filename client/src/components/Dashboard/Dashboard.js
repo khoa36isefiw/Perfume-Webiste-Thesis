@@ -7,35 +7,72 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 import DashboardMenu from './DashboardMenu';
+import BasicArea from './AdminLineChart';
+const cardData = [
+    {
+        title: 'Total Users',
+        value: 277,
+        gradient: 'linear-gradient(270deg,#4eda89,#1a9f53)',
+        icon: <AccountCircleIcon sx={{ fontSize: '32px', color: '#89ecb3' }} />,
+        percentage: 95,
+        percentageBg: '#187d44',
+        trendingColor: '#1a9f53',
+        moreIconColor: '#187d44',
+        gradientIconColor: 'linear-gradient(#27bf68, #1a9f53)',
+    },
+    {
+        title: 'Total Orders',
+        value: 277,
+        gradient: 'linear-gradient(270deg, #ed68ff, #be0ee1)',
+        icon: <ShoppingCartIcon sx={{ fontSize: '32px', color: '#f3a0ff' }} />,
+        percentage: 30,
+        percentageBg: '#af0ac4',
+        trendingColor: '#be0ee1',
+        moreIconColor: '#a808c3',
+        gradientIconColor: 'linear-gradient( #de2fff, #be0ee1)',
+    },
+    {
+        title: 'Total Products',
+        value: 277,
+        gradient: 'linear-gradient(270deg, #64b3f6, #2b77e5)',
+        icon: <ShoppingBagIcon sx={{ fontSize: '32px', color: '#96cefa' }} />,
+        percentage: 25,
+        percentageBg: '#2b77e5',
+        trendingColor: '#2b77e5',
+        moreIconColor: '#2262d3',
+        gradientIconColor: 'linear-gradient(#4094f1, #2b77e5)',
+    },
+    {
+        title: 'Total Reviews',
+        value: 277,
+        gradient: 'linear-gradient(270deg, #f4d02b, #e1940e)',
+        icon: <GradeIcon sx={{ fontSize: '32px', color: '#f6e053' }} />,
+        percentage: 45,
+        percentageBg: '#e1940e',
+        trendingColor: '#e1940e',
+        moreIconColor: '#ae640f',
+        gradientIconColor: 'linear-gradient(#edb213,#e1940e)',
+    },
+];
+
 function Dashboard() {
-    // user: linear-gradient(270deg,#4eda89,#1a9f53)
-    // order: background: linear-gradient(270deg, #ed68ff, #be0ee1);
-    // reviews: background: linear-gradient(270deg, #f4d02b, #e1940e);
-    // product: background: linear-gradient(270deg, #64b3f6, #2b77e5);
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
     return (
         <Box sx={{ bgcolor: '#fff', p: 2, mt: 2 }}>
-            <Grid container>
-                <Grid item container spacing={4} lg={10}>
-                    <Grid item lg={5}>
+            <Grid container spacing={4}>
+                {cardData.map((card, index) => (
+                    <Grid item lg={6} key={index}>
                         <Box
                             sx={{
-                                background: 'linear-gradient(270deg,#4eda89,#1a9f53)',
+                                background: card.gradient,
                                 height: '200px',
                                 width: '100%',
                                 borderRadius: '8px',
                                 p: 2,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-between',
                             }}
                         >
                             <Box
@@ -49,209 +86,102 @@ function Dashboard() {
                                     <AdminTypography
                                         sx={{ fontSize: 16, color: '#fff', fontWeight: 'bold' }}
                                     >
-                                        Total Users
+                                        {card.title}
                                     </AdminTypography>
                                     <AdminTypography
                                         sx={{ fontSize: 32, color: '#fff', fontWeight: 'bold' }}
                                     >
-                                        277
+                                        {card.value}
                                     </AdminTypography>
-                                    <TrendingUpIcon
-                                        sx={{
-                                            fontSize: '100px',
-                                            padding: 0,
-                                            marginTop: '-32px',
-                                            // top: '50%',
-                                            // left: 0,
-                                            // bottom: 0,
-                                            // position: 'absolute',
-                                            color: '#1a9f53',
-                                        }}
-                                    />
-                                </Box>
-                                <Box>
-                                    <IconButton
-                                        sx={{
-                                            borderRadius: '12px',
-                                            background: 'linear-gradient(#27bf68, #1a9f53)',
-                                        }}
-                                    >
-                                        <AccountCircleIcon
-                                            sx={{ fontSize: '32px', color: '#89ecb3' }}
+                                    {card.percentage > 40 ? (
+                                        <TrendingUpIcon
+                                            sx={{
+                                                fontSize: '100px',
+                                                padding: 0,
+                                                marginTop: '-32px',
+                                                // top: '50%',
+                                                // left: 0,
+                                                // bottom: 0,
+                                                // position: 'absolute',
+                                                color: card.trendingColor,
+                                            }}
                                         />
-                                    </IconButton>
+                                    ) : (
+                                        <TrendingDownIcon
+                                            sx={{
+                                                fontSize: '100px',
+                                                padding: 0,
+                                                marginTop: '-32px',
+                                                // top: '50%',
+                                                // left: 0,
+                                                // bottom: 0,
+                                                // position: 'absolute',
+                                                color: card.trendingColor,
+                                            }}
+                                        />
+                                    )}
                                 </Box>
+                                <IconButton
+                                    sx={{
+                                        borderRadius: '12px',
+                                        // background: '#fff', // White background for the circle
+                                        background: card.gradientIconColor,
+                                        padding: '12px',
+                                    }}
+                                >
+                                    {card.icon}
+                                </IconButton>
                             </Box>
-                            <Box>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                }}
+                            >
                                 <Box
                                     sx={{
                                         display: 'flex',
-                                        justifyContent: 'space-between',
-                                        flex: 1,
+                                        alignItems: 'center',
                                     }}
                                 >
                                     <Box
                                         sx={{
+                                            bgcolor: card.percentageBg,
+                                            borderRadius: 1,
+                                            width: '50px',
+                                            height: '25px',
                                             display: 'flex',
                                             alignItems: 'center',
-                                            flexGrow: 1,
-                                            // height: '50px',
+                                            justifyContent: 'center',
                                         }}
                                     >
-                                        <Box
-                                            sx={{
-                                                bgcolor: '#187d44',
-                                                borderRadius: 1,
-                                                width: '50px',
-                                                height: '25px',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-
-                                                // height: '50px',
-                                            }}
-                                        >
-                                            <AdminTypography
-                                                sx={{
-                                                    fontWeight: 'bold',
-                                                    color: '#fff',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                + 95%
-                                            </AdminTypography>
-                                        </Box>
                                         <AdminTypography
                                             sx={{
-                                                ml: 1,
                                                 fontWeight: 'bold',
                                                 color: '#fff',
+                                                textAlign: 'center',
                                             }}
                                         >
-                                            Last Month
+                                            + {card.percentage}%
                                         </AdminTypography>
                                     </Box>
-                                    {/* <IconButton sx={{ padding: 0 }} onClick={handleClick}>
-                                        <MoreVertIcon sx={{ fontSize: '24px' }} />
-                                    </IconButton> */}
-                                    <DashboardMenu />
+                                    <AdminTypography
+                                        sx={{ ml: 1, fontWeight: 'bold', color: '#fff' }}
+                                    >
+                                        Last Month
+                                    </AdminTypography>
                                 </Box>
+                                <DashboardMenu color={card.moreIconColor} />
                             </Box>
                         </Box>
                     </Grid>
-
-                    <Grid item lg={5}>
-                        <Box
-                            sx={{
-                                background: 'linear-gradient(270deg, #ed68ff, #be0ee1)',
-                                height: '200px',
-                                width: '100%',
-                                display: 'flex',
-                                alignItems: 'flex-start',
-                                justifyContent: 'space-between',
-                                borderRadius: '8px',
-                                p: 2,
-                            }}
-                        >
-                            <Box>
-                                <AdminTypography
-                                    sx={{ fontSize: 16, color: '#fff', fontWeight: 'bold' }}
-                                >
-                                    Total Orders
-                                </AdminTypography>
-                                <AdminTypography
-                                    sx={{ fontSize: 32, color: '#fff', fontWeight: 'bold' }}
-                                >
-                                    277
-                                </AdminTypography>
-                            </Box>
-                            <IconButton
-                                sx={{
-                                    borderRadius: '12px',
-                                    background: 'linear-gradient( #de2fff, #be0ee1)',
-                                }}
-                            >
-                                <ShoppingCartIcon sx={{ fontSize: '32px', color: '#f3a0ff' }} />
-                            </IconButton>
-                        </Box>
-                    </Grid>
-                    <Grid item lg={5}>
-                        <Box
-                            sx={{
-                                background: 'linear-gradient(270deg, #64b3f6, #2b77e5)',
-                                height: '200px',
-                                width: '100%',
-                                display: 'flex',
-                                alignItems: 'flex-start',
-                                justifyContent: 'space-between',
-                                borderRadius: '8px',
-                                p: 2,
-                            }}
-                        >
-                            <Box>
-                                <AdminTypography
-                                    sx={{ fontSize: 16, color: '#fff', fontWeight: 'bold' }}
-                                >
-                                    Total Products
-                                </AdminTypography>
-                                <AdminTypography
-                                    sx={{ fontSize: 32, color: '#fff', fontWeight: 'bold' }}
-                                >
-                                    277
-                                </AdminTypography>
-                            </Box>
-                            <IconButton
-                                sx={{
-                                    background: 'linear-gradient(#4094f1, #2b77e5)',
-                                    borderRadius: '12px',
-                                }}
-                            >
-                                <ShoppingBagIcon sx={{ fontSize: '32px', color: '#96cefa' }} />
-                            </IconButton>
-                        </Box>
-                    </Grid>
-                    <Grid item lg={5}>
-                        <Box
-                            sx={{
-                                background: 'linear-gradient(270deg, #f4d02b, #e1940e)',
-                                height: '200px',
-                                width: '100%',
-                                display: 'flex',
-                                alignItems: 'flex-start',
-                                justifyContent: 'space-between',
-                                borderRadius: '8px',
-                                p: 2,
-                            }}
-                        >
-                            <Box>
-                                <AdminTypography
-                                    sx={{ fontSize: 16, color: '#fff', fontWeight: 'bold' }}
-                                >
-                                    Total Reviews
-                                </AdminTypography>
-                                <AdminTypography
-                                    sx={{ fontSize: 32, color: '#fff', fontWeight: 'bold' }}
-                                >
-                                    277
-                                </AdminTypography>
-                            </Box>
-                            <IconButton
-                                sx={{
-                                    background: 'linear-gradient(#edb213,#e1940e)',
-                                    borderRadius: '12px',
-                                }}
-                            >
-                                <GradeIcon sx={{ fontSize: '32px', color: '#f6e053' }} />
-                            </IconButton>
-                        </Box>
-                    </Grid>
-                </Grid>
-                <Grid item lg={2}>
-                    <Box sx={{ height: '100%', bgcolor: '#ccc' }}>ahiahai</Box>
+                ))}
+                <Grid item lg={12}>
+                    <BasicArea />
                 </Grid>
             </Grid>
         </Box>
     );
 }
-
 export default Dashboard;
