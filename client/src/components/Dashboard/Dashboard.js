@@ -61,7 +61,7 @@ const cardData = [
 
 function Dashboard() {
     return (
-        <Box sx={{ bgcolor: '#fff', p: 2, mt: 2 }}>
+        <Box sx={{ p: 2, mt: 2 }}>
             <Grid container spacing={4}>
                 {cardData.map((card, index) => (
                     <Grid item lg={6} key={index}>

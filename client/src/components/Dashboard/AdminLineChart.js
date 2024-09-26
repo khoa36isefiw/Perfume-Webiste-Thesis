@@ -9,7 +9,7 @@ const xLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturd
 
 export default function TopSales() {
     return (
-        <Box>
+        <Box sx={{ p: 1 }}>
             <AdminTypography
                 sx={{
                     fontSize: '32px',

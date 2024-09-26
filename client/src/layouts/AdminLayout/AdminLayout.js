@@ -5,7 +5,7 @@ import AdminSidebar from './AdminSidebar';
 
 function AdminLayout({ children }) {
     return (
-        <Box sx={{ bgcolor: '#f5f4fe', height: '200vh' }}>
+        <Box sx={{ bgcolor: '#f5f4fe', height: '250vh' }}>
             <AdminHeader />
             <Grid container spacing={4} sx={{ mt: 8 }}>
                 <Grid item lg={3}>
