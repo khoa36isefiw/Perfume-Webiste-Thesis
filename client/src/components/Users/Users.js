@@ -14,8 +14,13 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { blue } from '@mui/material/colors';
-import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
+import {
+    AdminHeadingTypography,
+    AdminTypography,
+    CustomizeTypography,
+} from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
+import { Box, Tooltip } from '@mui/material';
 
 const columns = [
     { id: 'avatar', label: 'Avatar', minWidth: 50 },
@@ -130,8 +135,9 @@ export default function UserTable() {
     };
 
     return (
-        <Paper sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
+        <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
             {/* Search Bar */}
+            <AdminHeadingTypography sx={{ mb: 2 }}>List Users</AdminHeadingTypography>
             <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
                 <strong>Search</strong> by Name or Email
             </AdminTypography>
@@ -151,106 +157,142 @@ export default function UserTable() {
             >
                 Add User
             </Button>
+            <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
+                <TableContainer sx={{ maxHeight: 440 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead sx={{}}>
+                            <TableRow>
+                                {columns.map((column) => (
+                                    <TableCell
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{ minWidth: column.minWidth }}
+                                        sx={{
+                                            bgcolor: blue[200],
+                                            fontSize: '13px',
+                                        }}
+                                    >
+                                        {column.label}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {filteredRows
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row) => (
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                        {columns.map((column) => {
+                                            const value = row[column.id];
+                                            return (
+                                                <TableCell
+                                                    key={column.id}
+                                                    align={column.align}
+                                                    sx={{ fontSize: '13px' }}
+                                                >
+                                                    {/* Render avatar if the column is 'avatar', otherwise display text */}
+                                                    {column.id === 'avatar' ? (
+                                                        <Avatar
+                                                            alt={row.name}
+                                                            src={row.avatar}
+                                                            sx={{ height: '56px', width: '56px' }}
+                                                        />
+                                                    ) : column.id === 'actions' ? (
+                                                        // Render Edit and Delete buttons in the 'actions' column
+                                                        <>
+                                                            <Tooltip
+                                                                title={
+                                                                    <CustomizeTypography
+                                                                        sx={{
+                                                                            fontSize: '13px',
+                                                                            mb: 0,
+                                                                        }}
+                                                                    >
+                                                                        Edit Users
+                                                                    </CustomizeTypography>
+                                                                }
+                                                            >
+                                                                <IconButton
+                                                                    onClick={() =>
+                                                                        handleEdit(row.id)
+                                                                    }
+                                                                    color="primary"
+                                                                >
+                                                                    <EditIcon
+                                                                        sx={{ fontSize: '22px' }}
+                                                                    />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            <Tooltip
+                                                                title={
+                                                                    <CustomizeTypography
+                                                                        sx={{
+                                                                            fontSize: '13px',
+                                                                            mb: 0,
+                                                                        }}
+                                                                    >
+                                                                        Delete Users
+                                                                    </CustomizeTypography>
+                                                                }
+                                                            >
+                                                                <IconButton
+                                                                    onClick={() =>
+                                                                        handleDelete(row.id)
+                                                                    }
+                                                                    color="secondary"
+                                                                >
+                                                                    <DeleteIcon
+                                                                        sx={{ fontSize: '22px' }}
+                                                                    />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                        </>
+                                                    ) : column.format &&
+                                                      typeof value === 'object' ? (
+                                                        column.format(value)
+                                                    ) : (
+                                                        value
+                                                    )}
+                                                </TableCell>
+                                            );
+                                        })}
+                                    </TableRow>
+                                ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={filteredRows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    sx={{
+                        '.MuiTablePagination-selectLabel': {
+                            fontSize: '13px',
+                        },
+                        '.MuiTablePagination-select': {
+                            fontSize: '13px',
+                            mt: 1,
+                        },
+                        '.MuiTablePagination-displayedRows': {
+                            fontSize: '13px',
+                        },
 
-            <TableContainer sx={{ maxHeight: 440 }}>
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead sx={{}}>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                    sx={{
-                                        bgcolor: blue[200],
-                                        fontSize: '13px',
-                                    }}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredRows
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                    {columns.map((column) => {
-                                        const value = row[column.id];
-                                        return (
-                                            <TableCell
-                                                key={column.id}
-                                                align={column.align}
-                                                sx={{ fontSize: '13px' }}
-                                            >
-                                                {/* Render avatar if the column is 'avatar', otherwise display text */}
-                                                {column.id === 'avatar' ? (
-                                                    <Avatar
-                                                        alt={row.name}
-                                                        src={row.avatar}
-                                                        sx={{ height: '56px', width: '56px' }}
-                                                    />
-                                                ) : column.id === 'actions' ? (
-                                                    // Render Edit and Delete buttons in the 'actions' column
-                                                    <>
-                                                        <IconButton
-                                                            onClick={() => handleEdit(row.id)}
-                                                            color="primary"
-                                                        >
-                                                            <EditIcon sx={{ fontSize: '18px' }} />
-                                                        </IconButton>
-                                                        <IconButton
-                                                            onClick={() => handleDelete(row.id)}
-                                                            color="secondary"
-                                                        >
-                                                            <DeleteIcon sx={{ fontSize: '18px' }} />
-                                                        </IconButton>
-                                                    </>
-                                                ) : column.format && typeof value === 'object' ? (
-                                                    column.format(value)
-                                                ) : (
-                                                    value
-                                                )}
-                                            </TableCell>
-                                        );
-                                    })}
-                                </TableRow>
-                            ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={filteredRows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                sx={{
-                    '.MuiTablePagination-selectLabel': {
-                        fontSize: '13px',
-                    },
-                    '.MuiTablePagination-select': {
-                        fontSize: '13px',
-                        mt: 1,
-                    },
-                    '.MuiTablePagination-displayedRows': {
-                        fontSize: '13px',
-                    },
+                        '.MuiSvgIcon-root': { fontSize: '14px' },
+                        '.MuiSelect-icon': {
+                            fontSize: '24px',
+                        },
 
-                    '.MuiSvgIcon-root': { fontSize: '14px' },
-                    '.MuiSelect-icon': {
-                        fontSize: '24px',
-                    },
-
-                    // next and previous button
-                    '.MuiSvgIcon-root': {
-                        fontSize: '24px',
-                    },
-                }}
-            />
-        </Paper>
+                        // next and previous button
+                        '.MuiSvgIcon-root': {
+                            fontSize: '24px',
+                        },
+                    }}
+                />
+            </Box>{' '}
+        </Box>
     );
 }
