@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { TextField, Button, Paper, Avatar, IconButton, InputAdornment } from '@mui/material';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { TextField, Button, Paper, Avatar, IconButton, InputAdornment, Box } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {
+    AdminHeadingTypography,
+    AdminTypography,
+} from '../components/CustomizeTypography/CustomizeTypography';
+import { ArrowBackIos } from '@mui/icons-material';
+import { blue } from '@mui/material/colors';
+import { theme } from '../Theme/Theme';
+import { AdminTextField } from '../components/TextFieldCustomize/TextFieldCustomize';
+import { CustomizeButtonOutlined } from '../components/CustomizeButton/CustomizeButton';
 
 export default function EditUser() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    // get the perfume data passed from navigation
+    const { userData } = location.state || {};
     const { id } = useParams(); // Get the user ID from the URL
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(userData);
     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+
+    console.log('user information: ', userData);
 
     useEffect(() => {
         // Fetch the user data based on the ID when the component loads
         const fetchUserData = async () => {
             const response = await fetch(
-                `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${id}`,
+                `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${userData.id}`,
             );
             const data = await response.json();
             setUser(data);
@@ -31,7 +46,7 @@ export default function EditUser() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch(
-            `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${id}`,
+            `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${user.id}`,
             {
                 method: 'PUT',
                 headers: {
@@ -42,6 +57,9 @@ export default function EditUser() {
         );
         if (response.ok) {
             alert('User updated successfully!');
+            setTimeout(() => {
+                navigate('/admin/manage-users');
+            }, 200);
         }
     };
 
@@ -53,88 +71,119 @@ export default function EditUser() {
     if (!user) return <div>Loading...</div>;
 
     return (
-        <Paper sx={{ padding: 3, maxWidth: 600, margin: 'auto', marginTop: 5 }}>
-            <h2>Edit User</h2>
-            <form onSubmit={handleSubmit}>
+        // <Paper sx={{ padding: 3, maxWidth: 600, margin: 'auto', marginTop: 5, height: '100vh' }}>
+        <Box sx={{ height: '100vh', p: 2 }}>
+            <Button
+                startIcon={<ArrowBackIos />}
+                onClick={() => window.history.back(-1)}
+                sx={{
+                    // bgcolor: theme.palette.admin.bgColor,
+                    color: 'black',
+                    fontSize: '14px',
+                    textTransform: 'initial',
+                    fontWeight: 'bold',
+                    '&:hover': {
+                        bgcolor: 'transparent',
+                    },
+                }}
+            >
+                List Users
+            </Button>
+            <AdminHeadingTypography>Edit User</AdminHeadingTypography>
+            <Box component={'form'} onSubmit={handleSubmit}>
                 <Avatar
                     alt={user.name}
                     src={user.avatar}
-                    sx={{ width: 100, height: 100, marginBottom: 2 }}
+                    sx={{ width: 128, height: 128, marginBottom: 2 }}
                 />
-                <TextField
-                    fullWidth
-                    label="Name"
-                    name="name"
-                    value={user.name}
-                    onChange={handleChange}
-                    margin="normal"
-                />
-                <TextField
-                    fullWidth
-                    label="Email"
-                    name="email"
-                    value={user.email}
-                    onChange={handleChange}
-                    margin="normal"
-                />
-
+                <Box sx={{ display: 'flex', gap: 4 }}>
+                    <AdminTextField
+                        fullWidth
+                        label="Name"
+                        name="name"
+                        value={user.name}
+                        onChange={handleChange}
+                        margin="normal"
+                    />
+                    <AdminTextField
+                        fullWidth
+                        label="Email"
+                        name="email"
+                        value={user.email}
+                        onChange={handleChange}
+                        margin="normal"
+                    />
+                </Box>
                 {/* Password field with show/hide functionality */}
-                <TextField
-                    fullWidth
-                    label="Password"
-                    name="password"
-                    type={showPassword ? 'text' : 'password'} // Toggle between text and password
-                    value={user.password}
-                    onChange={handleChange}
-                    margin="normal"
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    edge="end"
-                                >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <TextField
-                    fullWidth
-                    label="Street"
-                    name="address.street"
-                    value={user.address.street}
-                    onChange={handleChange}
-                    margin="normal"
-                />
-                <TextField
-                    fullWidth
-                    label="City"
-                    name="address.city"
-                    value={user.address.city}
-                    onChange={handleChange}
-                    margin="normal"
-                />
-                <TextField
-                    fullWidth
-                    label="Phone Number"
-                    name="phone"
-                    value={user.phone}
-                    onChange={handleChange}
-                    margin="normal"
-                />
+                <Box sx={{ display: 'flex', gap: 4 }}>
+                    <AdminTextField
+                        fullWidth
+                        label="Password"
+                        name="password"
+                        type={showPassword ? 'text' : 'password'} // Toggle between text and password
+                        value={user.password}
+                        onChange={handleChange}
+                        margin="normal"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <AdminTextField
+                        fullWidth
+                        label="Address"
+                        name="address"
+                        value={user.address}
+                        onChange={handleChange}
+                        margin="normal"
+                    />
+                </Box>
+
+                <Box sx={{ display: 'flex', gap: 4 }}>
+                    <AdminTextField
+                        fullWidth
+                        label="City"
+                        name="address.city"
+                        value={user.address.city}
+                        onChange={handleChange}
+                        margin="normal"
+                    />
+                    <AdminTextField
+                        fullWidth
+                        label="Phone Number"
+                        name="phone"
+                        value={user.phone}
+                        onChange={handleChange}
+                        margin="normal"
+                    />
+                </Box>
+
                 <Button
                     variant="contained"
                     color="primary"
                     type="submit"
-                    fullWidth
-                    sx={{ marginTop: 2 }}
+                    sx={{
+                        marginTop: 2,
+                        padding: '10px 14px',
+                        borderRadius: 3,
+                        bgcolor: theme.palette.admin.bgColor,
+                        '&:hover': {
+                            bgcolor: theme.palette.admin.bgColor,
+                        },
+                    }}
                 >
                     Save Changes
                 </Button>
-            </form>
-        </Paper>
+            </Box>
+        </Box>
     );
 }
