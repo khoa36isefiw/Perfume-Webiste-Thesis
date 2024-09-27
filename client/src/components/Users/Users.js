@@ -186,7 +186,11 @@ export default function UserTable() {
                                             >
                                                 {/* Render avatar if the column is 'avatar', otherwise display text */}
                                                 {column.id === 'avatar' ? (
-                                                    <Avatar alt={row.name} src={row.avatar} />
+                                                    <Avatar
+                                                        alt={row.name}
+                                                        src={row.avatar}
+                                                        sx={{ height: '56px', width: '56px' }}
+                                                    />
                                                 ) : column.id === 'actions' ? (
                                                     // Render Edit and Delete buttons in the 'actions' column
                                                     <>
@@ -194,13 +198,13 @@ export default function UserTable() {
                                                             onClick={() => handleEdit(row.id)}
                                                             color="primary"
                                                         >
-                                                            <EditIcon />
+                                                            <EditIcon sx={{ fontSize: '18px' }} />
                                                         </IconButton>
                                                         <IconButton
                                                             onClick={() => handleDelete(row.id)}
                                                             color="secondary"
                                                         >
-                                                            <DeleteIcon />
+                                                            <DeleteIcon sx={{ fontSize: '18px' }} />
                                                         </IconButton>
                                                     </>
                                                 ) : column.format && typeof value === 'object' ? (
