@@ -158,7 +158,7 @@ export default function UserTable() {
                     variant="outlined"
                     sx={{
                         marginBottom: 2,
-                        width: 800,
+                        width: 750,
                         '.MuiInputBase-root': {
                             fontSize: '14px',
                             height: '50px',
@@ -184,9 +184,14 @@ export default function UserTable() {
                     color="primary"
                     sx={{
                         marginBottom: 2,
-                        padding: '10px 14px',
+                        padding: '10px 18px',
                         borderRadius: 3,
                         bgcolor: theme.palette.admin.bgColor,
+                        textTransform: 'initial',
+                        fontSize: '14px',
+                        '&:hover': {
+                            bgcolor: theme.palette.admin.bgColor,
+                        },
                     }}
                     onClick={handleAddUser}
                     startIcon={<PersonAddIcon />}
@@ -196,7 +201,13 @@ export default function UserTable() {
                 <Button
                     variant="contained"
                     color="primary"
-                    sx={{ marginBottom: 2, padding: '10px 14px', borderRadius: 3 }}
+                    sx={{
+                        marginBottom: 2,
+                        padding: '10px 18px',
+                        borderRadius: 3,
+                        textTransform: 'initial',
+                        fontSize: '14px',
+                    }}
                     onClick={handleAddUser}
                     startIcon={<FileDownloadIcon />}
                 >

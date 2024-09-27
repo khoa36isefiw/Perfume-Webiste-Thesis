@@ -3,15 +3,11 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { TextField, Button, Paper, Avatar, IconButton, InputAdornment, Box } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {
-    AdminHeadingTypography,
-    AdminTypography,
-} from '../components/CustomizeTypography/CustomizeTypography';
+import { AdminHeadingTypography } from '../components/CustomizeTypography/CustomizeTypography';
 import { ArrowBackIos } from '@mui/icons-material';
-import { blue } from '@mui/material/colors';
+
 import { theme } from '../Theme/Theme';
 import { AdminTextField } from '../components/TextFieldCustomize/TextFieldCustomize';
-import { CustomizeButtonOutlined } from '../components/CustomizeButton/CustomizeButton';
 
 export default function EditUser() {
     const navigate = useNavigate();
@@ -173,8 +169,9 @@ export default function EditUser() {
                     type="submit"
                     sx={{
                         marginTop: 2,
-                        padding: '10px 14px',
-                        borderRadius: 3,
+                        padding: '10px 18px',
+                        fontSize: '14px',
+                        textTransform: 'initial',
                         bgcolor: theme.palette.admin.bgColor,
                         '&:hover': {
                             bgcolor: theme.palette.admin.bgColor,
