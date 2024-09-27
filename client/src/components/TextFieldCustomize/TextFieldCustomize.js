@@ -320,3 +320,34 @@ export const TextFieldCustomizeV2 = styled(({ width, fullWidth, ...otherProps })
         },
     },
 }));
+
+export const AdminTextField = styled(TextField)(({}) => ({
+    '.MuiInputBase-root': {
+        fontSize: '14px',
+        height: '40px',
+        borderRadius: 2,
+    },
+    '& .MuiFormHelperText-root': {
+        fontSize: '12.5px',
+        color: 'red',
+        mx: 1,
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: '#ccc',
+        },
+        '&:hover fieldset': {
+            borderColor: '#ccc',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: '#cccccc',
+        },
+    },
+    '& label.Mui-focused': {
+        color: theme.palette.admin.primaryColor,
+        fontSize: '14px',
+    },
+    '& label': {
+        fontSize: '14px',
+    },
+}));
