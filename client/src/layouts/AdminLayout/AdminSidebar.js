@@ -47,7 +47,7 @@ function AdminSidebar() {
     };
 
     return (
-        <Box sx={{ p: 2 }}>
+        <Box sx={{ p: 2, position: 'sticky', top: 100, left: 0 }}>
             <Box
                 sx={{
                     display: 'flex',
