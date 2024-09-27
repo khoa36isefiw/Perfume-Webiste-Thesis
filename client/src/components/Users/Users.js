@@ -1,5 +1,7 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -20,7 +22,9 @@ import {
     CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
-import { Box, Tooltip } from '@mui/material';
+import { Box, InputAdornment, InputBase, Tooltip } from '@mui/material';
+import { Search } from '@mui/icons-material';
+import { theme } from '../../Theme/Theme';
 
 const columns = [
     { id: 'avatar', label: 'Avatar', minWidth: 50 },
@@ -60,19 +64,24 @@ export default function UserTable() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [rows, setRows] = React.useState([]); // Dynamic user data
     const [searchTerm, setSearchTerm] = React.useState(''); // Search term state
+    // tracks if data is already fetched
+    const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     // Fetch the data from an API
     React.useEffect(() => {
         const fetchUserData = async () => {
-            const response = await fetch(
-                'https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users',
-            );
-            const data = await response.json();
-            setRows(data); // Update the state with fetched data
+            if (!isDataFetched) {
+                const response = await fetch(
+                    'https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users',
+                );
+                const data = await response.json();
+                setRows(data); // Update the state with fetched data
+                setIsDataFetched(true);
+            }
         };
 
         fetchUserData();
-    }, []);
+    }, [isDataFetched]);
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -99,7 +108,9 @@ export default function UserTable() {
 
     // Handle edit action (you can implement your own logic for editing)
     const handleEdit = (id) => {
-        navigate(`/admin/manage-users/${id}`);
+        navigate(`/admin/manage-users/${id}`, {
+            state: { userData: rows.find((row) => row.id === id) },
+        });
     };
 
     // Handle delete action (with API interaction)
@@ -139,28 +150,63 @@ export default function UserTable() {
             {/* Search Bar */}
             <AdminHeadingTypography sx={{ mb: 2 }}>List Users</AdminHeadingTypography>
             <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
-                <strong>Search</strong> by Name or Email
+                We can <strong>Search</strong> by Name or Email
             </AdminTypography>
-            <TextField
-                placeholder="Search by Name or Email"
-                variant="outlined"
-                fullWidth
-                sx={{ marginBottom: 2 }}
-                onChange={handleSearch}
-                value={searchTerm}
-            />
-            <Button
-                variant="contained"
-                color="primary"
-                sx={{ marginBottom: 2 }}
-                onClick={handleAddUser}
-            >
-                Add User
-            </Button>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <TextField
+                    placeholder="Search by Name or Email"
+                    variant="outlined"
+                    sx={{
+                        marginBottom: 2,
+                        width: 800,
+                        '.MuiInputBase-root': {
+                            fontSize: '14px',
+                            height: '50px',
+                        },
+                        '& .MuiOutlinedInput-root': {
+                            '&.Mui-focused fieldset': {
+                                borderColor: theme.palette.admin.bgColor,
+                            },
+                        },
+                    }}
+                    onChange={handleSearch}
+                    value={searchTerm}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Search />
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        marginBottom: 2,
+                        padding: '10px 14px',
+                        borderRadius: 3,
+                        bgcolor: theme.palette.admin.bgColor,
+                    }}
+                    onClick={handleAddUser}
+                    startIcon={<PersonAddIcon />}
+                >
+                    Add User
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ marginBottom: 2, padding: '10px 14px', borderRadius: 3 }}
+                    onClick={handleAddUser}
+                    startIcon={<FileDownloadIcon />}
+                >
+                    Export
+                </Button>
+            </Box>
             <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
                 <TableContainer sx={{ maxHeight: 440 }}>
                     <Table stickyHeader aria-label="sticky table">
-                        <TableHead sx={{}}>
+                        <TableHead>
                             <TableRow>
                                 {columns.map((column) => (
                                     <TableCell
