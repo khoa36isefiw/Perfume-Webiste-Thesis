@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TextField, Button, Paper } from '@mui/material';
+import { TextField, Button, Paper, Box } from '@mui/material';
+import { ArrowBackIos } from '@mui/icons-material';
+import { theme } from '../../Theme/Theme';
+import { AdminHeadingTypography } from '../CustomizeTypography/CustomizeTypography';
+import { AdminTextField } from '../TextFieldCustomize/TextFieldCustomize';
 
 export default function AddUsers() {
     const navigate = useNavigate();
@@ -33,53 +37,116 @@ export default function AddUsers() {
     };
 
     return (
-        <Paper sx={{ p: 4 }}>
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    fullWidth
-                    label="Name"
-                    variant="outlined"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-                <TextField
-                    fullWidth
-                    label="Email"
-                    variant="outlined"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-                <TextField
-                    fullWidth
-                    label="Password"
-                    type="password"
-                    variant="outlined"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-                <TextField
-                    fullWidth
-                    label="Address"
-                    variant="outlined"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-                <TextField
+        <Box sx={{ p: 4, height: '100vh' }}>
+            <Button
+                startIcon={<ArrowBackIos />}
+                onClick={() => window.history.back(-1)}
+                sx={{
+                    // bgcolor: theme.palette.admin.bgColor,
+                    color: 'black',
+                    fontSize: '14px',
+                    textTransform: 'initial',
+                    fontWeight: 'bold',
+                    '&:hover': {
+                        bgcolor: 'transparent',
+                        color: theme.palette.admin.bgColor,
+                    },
+                }}
+            >
+                List Users
+            </Button>
+            <AdminHeadingTypography>Add User</AdminHeadingTypography>
+            <Box component={'form'} onSubmit={handleSubmit}>
+                <Box sx={{ display: 'flex', gap: 4 }}>
+                    <AdminTextField
+                        fullWidth
+                        label="Name"
+                        variant="outlined"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        sx={{
+                            mb: 2,
+                            '.MuiInputBase-root': {
+                                height: '50px',
+                            },
+                        }}
+                    />
+                    <AdminTextField
+                        fullWidth
+                        label="Email"
+                        variant="outlined"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        sx={{
+                            mb: 2,
+                            '.MuiInputBase-root': {
+                                height: '50px',
+                            },
+                        }}
+                    />
+                </Box>
+                <Box sx={{ display: 'flex', gap: 4 }}>
+                    <AdminTextField
+                        fullWidth
+                        label="Password"
+                        type="password"
+                        variant="outlined"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        sx={{
+                            mb: 2,
+                            '.MuiInputBase-root': {
+                                height: '50px',
+                            },
+                        }}
+                    />
+                    <AdminTextField
+                        fullWidth
+                        label="Address"
+                        variant="outlined"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        sx={{
+                            mb: 2,
+                            '.MuiInputBase-root': {
+                                height: '50px',
+                            },
+                        }}
+                    />
+                </Box>
+
+                <AdminTextField
                     fullWidth
                     label="Phone Number"
                     variant="outlined"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    sx={{ mb: 2 }}
+                    sx={{
+                        mb: 2,
+                        '.MuiInputBase-root': {
+                            height: '50px',
+                        },
+                    }}
                 />
-                <Button type="submit" variant="contained" color="primary">
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        marginTop: 2,
+                        padding: '10px 18px',
+                        fontSize: '14px',
+                        textTransform: 'initial',
+                        borderRadius: 2,
+                        bgcolor: theme.palette.admin.bgColor,
+                        '&:hover': {
+                            bgcolor: theme.palette.admin.bgColor,
+                        },
+                    }}
+                >
                     Add User
                 </Button>
-            </form>
-        </Paper>
+            </Box>
+        </Box>
     );
 }
