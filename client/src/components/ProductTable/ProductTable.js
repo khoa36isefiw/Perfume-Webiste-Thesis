@@ -93,7 +93,7 @@ export default function ProductTable() {
     const handleEdit = (productId, size) => {
         navigate(`/admin/manage-products/${productId}`, {
             state: {
-                productData: rows.find((row) => row.productId === productId),
+                productData: filteredRows.find((row) => row.productId === productId),
                 selectedSize: size, // Pass the selected size
             },
         });
