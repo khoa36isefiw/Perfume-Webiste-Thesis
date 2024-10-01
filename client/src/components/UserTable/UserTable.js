@@ -349,7 +349,7 @@ export default function UserTable() {
                         },
                     }}
                 />
-            </Box>{' '}
+            </Box>
         </Box>
     );
 }

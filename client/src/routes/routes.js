@@ -22,6 +22,8 @@ import Services from '../pages/Services';
 import Shop from '../pages/Shop';
 import ShoppingCart from '../pages/ShoppingCart';
 import SignInPage from '../pages/SignInPage';
+import AdminProductsPage from '../pages/AdminProductsPage';
+import AdminEditProduct from '../components/AdminProducts/AdminEditProduct';
 
 // not sign into this website
 const publicRoutes = [
@@ -53,6 +55,9 @@ const privateRoutes = [
     { path: '/admin/manage-users', component: ListUsers, layout: AdminLayout },
     { path: '/admin/manage-users/:id', component: EditUser, layout: AdminLayout },
     { path: '/admin/manage-users/add-user', component: AddUsers, layout: AdminLayout },
+    { path: '/admin/manage-users', component: ListUsers, layout: AdminLayout },
+    { path: '/admin/manage-products', component: AdminProductsPage, layout: AdminLayout },
+    { path: '/admin/manage-products/:id', component: AdminEditProduct, layout: AdminLayout },
 ];
 
 export { publicRoutes, privateRoutes };

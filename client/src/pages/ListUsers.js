@@ -1,5 +1,5 @@
 import React from 'react';
-import UserTable from '../components/Users/Users';
+import UserTable from '../components/UserTable/UserTable';
 import { Box } from '@mui/material';
 
 const dataTitleTable = ['Name', 'Username', 'Password', 'Address', 'Phone'];
