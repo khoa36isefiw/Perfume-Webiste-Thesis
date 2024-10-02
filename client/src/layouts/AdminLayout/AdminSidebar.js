@@ -25,7 +25,7 @@ const sidebarData = [
     {
         sidebarText: 'Products',
         sidebarIcon: <Inventory2Icon />,
-        sidebarAddress: '/admin/products',
+        sidebarAddress: '/admin/manage-products',
     },
     {
         sidebarText: 'Orders',

@@ -1,0 +1,117 @@
+[
+    {
+        "productId": 1,
+        "productName": "Eau de Parfum - Rose Blossom",
+        "price": 89.99,
+        "description": "A delicate and floral fragrance with notes of rose and jasmine.",
+        "category": "Perfumes",
+        "stock": 150,
+        "ratings": 4.7,
+        "brand": "LuxuryScents",
+        "concentration": "Eau de Parfum",
+        "sizes": [
+            { "size": "50ml", "price": 49.99, "stock": 22 },
+            { "size": "100ml", "price": 89.99, "stock": 28 },
+            { "size": "150ml", "price": 119.99, "stock": 22 }
+        ],
+        "topNotes": ["Rose", "Bergamot", "Lemon"],
+        "heartNotes": ["Jasmine", "Peony", "Lily"],
+        "baseNotes": ["Amber", "Musk", "Sandalwood"],
+        "images": [
+            "https://picsum.photos/200/300?random=1",
+            "https://picsum.photos/200/300?random=2"
+        ]
+    },
+    {
+        "productId": 2,
+        "productName": "Citrus Splash - Eau de Toilette",
+        "price": 59.99,
+        "description": "A refreshing and energizing citrus fragrance with a burst of orange and lime.",
+        "category": "Perfumes",
+        "stock": 200,
+        "ratings": 4.5,
+        "brand": "FreshFragrances",
+        "concentration": "Eau de Toilette",
+        "sizes": [
+            { "size": "30ml", "price": 29.99, "stock": 22 },
+            { "size": "50ml", "price": 59.99, "stock": 28 },
+            { "size": "100ml", "price": 79.99, "stock": 22 }
+        ],
+        "topNotes": ["Orange", "Lime", "Grapefruit"],
+        "heartNotes": ["Mint", "Neroli", "Lavender"],
+        "baseNotes": ["Vetiver", "Cedarwood", "Patchouli"],
+        "images": [
+            "https://picsum.photos/200/300?random=3",
+            "https://picsum.photos/200/300?random=4"
+        ]
+    },
+    {
+        "productId": 5,
+        "productName": "Citrus Splash - Eau de Toilette",
+        "price": 59.99,
+        "description": "A refreshing and energizing citrus fragrance with a burst of orange and lime.",
+        "category": "Perfumes",
+        "stock": 200,
+        "ratings": 4.5,
+        "brand": "FreshFragrances",
+        "concentration": "Eau de Toilette",
+        "sizes": [
+            { "size": "30ml", "price": 29.99, "stock": 22 },
+            { "size": "50ml", "price": 59.99, "stock": 28 },
+            { "size": "100ml", "price": 79.99, "stock": 22 }
+        ],
+        "topNotes": ["Orange", "Lime", "Grapefruit"],
+        "heartNotes": ["Mint", "Neroli", "Lavender"],
+        "baseNotes": ["Vetiver", "Cedarwood", "Patchouli"],
+        "images": [
+            "https://picsum.photos/200/300?random=3",
+            "https://picsum.photos/200/300?random=4"
+        ]
+    },
+    {
+        "productId": 3,
+        "productName": "Citrus Splash - Eau de Toilette",
+        "price": 59.99,
+        "description": "A refreshing and energizing citrus fragrance with a burst of orange and lime.",
+        "category": "Perfumes",
+        "stock": 200,
+        "ratings": 4.5,
+        "brand": "FreshFragrances",
+        "concentration": "Eau de Toilette",
+        "sizes": [
+            { "size": "30ml", "price": 29.99, "stock": 22 },
+            { "size": "50ml", "price": 59.99, "stock": 28 },
+            { "size": "100ml", "price": 79.99, "stock": 22 }
+        ],
+        "topNotes": ["Orange", "Lime", "Grapefruit"],
+        "heartNotes": ["Mint", "Neroli", "Lavender"],
+        "baseNotes": ["Vetiver", "Cedarwood", "Patchouli"],
+        "images": [
+            "https://picsum.photos/200/300?random=3",
+            "https://picsum.photos/200/300?random=4"
+        ]
+    },
+    {
+        "productId": 4,
+        "productName": "Eau de Parfum - Rose Blossom",
+        "price": 89.99,
+        "description": "A delicate and floral fragrance with notes of rose and jasmine.",
+        "category": "Perfumes",
+        "stock": 150,
+        "ratings": 4.7,
+        "brand": "LuxuryScents",
+        "concentration": "Eau de Parfum",
+        "sizes": [
+            { "size": "50ml", "price": 49.99, "stock": 22 },
+            { "size": "100ml", "price": 89.99, "stock": 28 },
+            { "size": "150ml", "price": 119.99, "stock": 22 }
+        ],
+        "topNotes": ["Rose", "Bergamot", "Lemon"],
+        "heartNotes": ["Jasmine", "Peony", "Lily"],
+        "baseNotes": ["Amber", "Musk", "Sandalwood"],
+        "images": [
+            "https://picsum.photos/200/300?random=1",
+            "https://picsum.photos/200/300?random=2"
+        ]
+    }
+]

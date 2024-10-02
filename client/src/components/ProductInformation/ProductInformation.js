@@ -71,11 +71,11 @@ function ProductInformation() {
                             Mô tả sản phẩm
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            {perfume.content.description}
+                            {perfume.content !== null && perfume.content?.description}
                         </CustomizeTypography>
 
                         {/* loop object */}
-                        {Object.entries(perfume.content.notes).map(([noteType, notes], index) => (
+                        {Object.entries(perfume.content?.notes).map(([noteType, notes], index) => (
                             // noteType: key
                             // notes: value
                             <Box
@@ -111,35 +111,35 @@ function ProductInformation() {
                         ))}
 
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            {perfume.content.scentProfile}
+                            {perfume.content?.scentProfile}
                         </CustomizeTypography>
 
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            {perfume.content.impression}
+                            {perfume.content?.impression}
                         </CustomizeTypography>
 
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            {perfume.content.targetAudience}
+                            {perfume.content?.targetAudience}
                         </CustomizeTypography>
 
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            {perfume.content.usage}
+                            {perfume.content?.usage}
                         </CustomizeTypography>
 
                         <Box sx={{ paddingLeft: '20px' }}>
                             <Ratings
                                 title={'Độ lưu hương'}
-                                text={`${perfume.content.ratings.longevity}/5`}
+                                text={`${perfume.content?.ratings.longevity}/5`}
                             />
                             <Ratings
                                 title={'Độ tỏa hương'}
-                                text={`${perfume.content.ratings.sillage}/5`}
+                                text={`${perfume.content?.ratings.sillage}/5`}
                             />
                             <Ratings
                                 title={'Nịnh mũi'}
-                                text={`${perfume.content.ratings.likability}/5`}
+                                text={`${perfume.content?.ratings.likability}/5`}
                             />
-                            <Ratings title={'Thời điểm'} text={`${perfume.content.occasion}`} />
+                            <Ratings title={'Thời điểm'} text={`${perfume.content?.occasion}`} />
                         </Box>
                     </Box>
                 </Grid>
