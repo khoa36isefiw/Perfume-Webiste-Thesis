@@ -50,6 +50,9 @@ export default function ProductTable() {
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
 
+    const [selectedProductId, setSelectedProductId] = useState(null);
+    const [selectedProductSize, setSelectedProductSize] = useState(null);
+
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -105,30 +108,29 @@ export default function ProductTable() {
         });
     };
 
-    // Handle delete action (with API interaction)
-    const handleDelete = async (id) => {
-        const confirmed = window.confirm('Are you sure you want to delete this user?');
+    const handleDelete = async (productId, size) => {
+        try {
+            // const response = await fetch(
+            //     `https://api.example.com/products/${productId}/sizes/${size}`,
+            //     { method: 'DELETE' },
+            // );
 
-        if (confirmed) {
-            try {
-                const response = await fetch(
-                    `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${id}`,
-                    {
-                        method: 'DELETE',
-                    },
-                );
-
-                if (response.ok) {
-                    // Remove the user from the state
-                    setRows((prevRows) => prevRows.filter((row) => row.id !== id));
-                    alert(`User with ID: ${id} has been deleted.`);
-                } else {
-                    alert('Failed to delete user.');
-                }
-            } catch (error) {
-                console.error('Error deleting user:', error);
-                alert('An error occurred while deleting the user.');
-            }
+            setRows((prevRows) =>
+                prevRows.filter((row) => !(row.productId === productId && row.size === size)),
+            );
+            // if (response.ok) {
+            //     // remove the product from state after deletion
+            //     setRows((prevRows) =>
+            //         prevRows.filter((row) => !(row.productId === productId && row.size === size)),
+            //     );
+            //     alert(`Product with ID: ${productId} and Size: ${size} has been deleted.`);
+            // } else {
+            //     alert('Failed to delete product.');
+            // }
+            console.log('rows after deleting: ', rows);
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            alert('An error occurred while deleting the product.');
         }
     };
 
@@ -142,16 +144,26 @@ export default function ProductTable() {
         setOpenConfirmMessage(false);
     };
 
-    const handleConfirmAgree = () => {
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
-        setOpenConfirmMessage(false);
+    const handleConfirmAgree = async () => {
+        if (selectedProductId && selectedProductSize) {
+            try {
+                // proceed with deletion here using selectedProductId
+                await handleDelete(selectedProductId, selectedProductSize);
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+            } catch (error) {
+                console.error('Error deleting product:', error);
+            } finally {
+                setOpenConfirmMessage(false); // close the confirm dialog
+            }
+        }
     };
 
     // open the confirm dialog message and save the products are removed
-    const handleRemoveProduct = () => {
-        // for showing confirm message dialog
-        setOpenConfirmMessage(true);
+    const handleRemoveProduct = (productId, size) => {
+        setSelectedProductId(productId);
+        setSelectedProductSize(size);
+        setOpenConfirmMessage(true); // for showing confirm message dialog
     };
 
     return (
@@ -291,7 +303,12 @@ export default function ProductTable() {
                                                                 }
                                                             >
                                                                 <IconButton
-                                                                    onClick={handleRemoveProduct}
+                                                                    onClick={() =>
+                                                                        handleRemoveProduct(
+                                                                            row.productId,
+                                                                            row.size,
+                                                                        )
+                                                                    }
                                                                     color="secondary"
                                                                 >
                                                                     <DeleteIcon
