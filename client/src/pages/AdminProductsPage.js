@@ -4,7 +4,7 @@ import ProductTable from '../components/ProductTable/ProductTable';
 
 function AdminProducts() {
     return (
-        <Box>
+        <Box sx={{ height: '100vh' }}>
             <ProductTable />
         </Box>
     );

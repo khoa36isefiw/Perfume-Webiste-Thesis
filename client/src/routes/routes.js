@@ -58,7 +58,7 @@ const privateRoutes = [
     { path: '/admin/manage-users/add-user', component: AddUsers, layout: AdminLayout },
     { path: '/admin/manage-users', component: ListUsers, layout: AdminLayout },
     { path: '/admin/manage-products', component: AdminProductsPage, layout: AdminLayout },
-    // /admin/manage-products/edit/productId=${productId}&size=${size}
+    // /admin/manage-products/edit?productId=${productId}&size=${size}
     // { path: '/admin/manage-products/:id', component: AdminEditProduct, layout: AdminLayout },
     {
         path: '/admin/manage-products/edit',
