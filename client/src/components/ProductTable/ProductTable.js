@@ -91,7 +91,8 @@ export default function ProductTable() {
 
     // Handle edit action (you can implement your own logic for editing)
     const handleEdit = (productId, size) => {
-        navigate(`/admin/manage-products/${productId}`, {
+        // /admin/manage-products/edit?productId=:id&size=:size
+        navigate(`/admin/manage-products/edit?productId=${productId}&size=${size}`, {
             state: {
                 productData: filteredRows.find((row) => row.productId === productId),
                 selectedSize: size, // Pass the selected size
