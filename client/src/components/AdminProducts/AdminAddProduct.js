@@ -14,7 +14,6 @@ import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { theme } from '../../Theme/Theme';
 
 const AdminAddProduct = () => {
-    // State for product details
     const [image, setImage] = useState(null);
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState('');
@@ -82,7 +81,6 @@ const AdminAddProduct = () => {
         };
 
         console.log('New Product Data:', newProduct);
-        // Add API call to save product here
     };
 
     return (

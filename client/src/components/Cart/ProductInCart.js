@@ -23,6 +23,7 @@ export const ProductInCart = ({ productsList }) => {
 
     // disagree, not delete the products
     const handleConfirmDisagree = () => {
+        // click disagree button actions
         setOpenConfirmMessage(false);
         setProductToRemove(null);
     };
@@ -30,6 +31,7 @@ export const ProductInCart = ({ productsList }) => {
     console.log('productToRemove: ', productToRemove);
     // agree, delete the products
     const handleConfirmAgree = () => {
+        // click agree button actions
         if (productToRemove) {
             dispatch(
                 removeProduct({
@@ -46,6 +48,7 @@ export const ProductInCart = ({ productsList }) => {
 
     // open the confirm dialog message and save the products are removed
     const handleRemoveProductInCart = (productId, productSize) => {
+        // for showing confirm message dialog
         setOpenConfirmMessage(true);
         setProductToRemove({ productId, productSize }); // store product is removed
     };

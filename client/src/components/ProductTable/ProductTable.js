@@ -1,6 +1,4 @@
-import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import React, { useState } from 'react';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,17 +14,19 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { blue } from '@mui/material/colors';
+import WarningIcon from '@mui/icons-material/Warning';
 import {
     AdminHeadingTypography,
     AdminTypography,
     CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
-import { Box, InputAdornment, InputBase, Tooltip } from '@mui/material';
+import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { theme } from '../../Theme/Theme';
 import CategoryIcon from '@mui/icons-material/Category';
 import productData from '../../data/admin/products.json';
+import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 
 const columns = [
     { id: 'image', label: 'Image' },
@@ -43,9 +43,12 @@ const columns = [
 export default function ProductTable() {
     const navigate = useNavigate();
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [rows, setRows] = React.useState(productData); // Dynamic user data
-    const [searchTerm, setSearchTerm] = React.useState(''); // Search term state
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rows, setRows] = useState(productData); // Dynamic user data
+    const [searchTerm, setSearchTerm] = useState(''); // Search term state
+    const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -62,7 +65,6 @@ export default function ProductTable() {
     const handleSearch = (event) => {
         setSearchTerm(event.target.value.toLowerCase());
     };
-    
 
     // Flatten rows based on product sizes
     const flattenedRows = rows.flatMap((row) =>
@@ -133,6 +135,23 @@ export default function ProductTable() {
     // Handle navigation to the "Add User" page
     const handleAddUser = () => {
         navigate('/admin/manage-users/add-user');
+    };
+
+    // disagree, not delete the products
+    const handleConfirmDisagree = () => {
+        setOpenConfirmMessage(false);
+    };
+
+    const handleConfirmAgree = () => {
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
+        setOpenConfirmMessage(false);
+    };
+
+    // open the confirm dialog message and save the products are removed
+    const handleRemoveProduct = () => {
+        // for showing confirm message dialog
+        setOpenConfirmMessage(true);
     };
 
     return (
@@ -272,9 +291,7 @@ export default function ProductTable() {
                                                                 }
                                                             >
                                                                 <IconButton
-                                                                    onClick={() =>
-                                                                        handleDelete(row.id)
-                                                                    }
+                                                                    onClick={handleRemoveProduct}
                                                                     color="secondary"
                                                                 >
                                                                     <DeleteIcon
@@ -307,6 +324,39 @@ export default function ProductTable() {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Box>
+            {/* Open Confirm Message */}
+            <ConfirmMessage
+                openConfirmMessage={openConfirmMessage}
+                msgTitle={
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <WarningIcon
+                            sx={{
+                                color: theme.icon.color.primary,
+                                fontSize: theme.icon.size.desktop,
+                            }}
+                        />
+                        <CustomizeTypography
+                            sx={{
+                                color: theme.palette.text.main,
+                                fontSize: '18px',
+                                mb: 0,
+                                ml: 2,
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            Delete Products
+                        </CustomizeTypography>
+                    </Box>
+                }
+                msgContent={
+                    <Typography sx={{ fontSize: '16px' }}>
+                        Are you sure you want to delete this product?
+                    </Typography>
+                }
+                onHandleClickClose={() => setOpenConfirmMessage(false)}
+                onHandleConfirmAgree={handleConfirmAgree}
+                onHandleConfirmDisagree={handleConfirmDisagree}
+            />
         </Box>
     );
 }
