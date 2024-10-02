@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Avatar, Box, Button, TextField, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 const AdminEditProduct = () => {
     const location = useLocation();
@@ -18,6 +19,10 @@ const AdminEditProduct = () => {
     const [brand, setBrand] = useState(productData.brand);
     const [ratings, setRatings] = useState(productData.ratings);
 
+    const [showNotification, setShowNotification] = useState(false);
+
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+
     // Handle file input for image update
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -33,6 +38,8 @@ const AdminEditProduct = () => {
     // Handle form submission (you can connect this to your API to save the updated data)
     const handleSave = () => {
         // Prepare updated product data for submission
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
         const updatedProduct = {
             ...productData,
             image: image,
@@ -46,6 +53,14 @@ const AdminEditProduct = () => {
         console.log('Updated Product:', updatedProduct);
 
         // Add API call here to save the updated product details
+    };
+
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
     };
 
     return (
@@ -137,6 +152,20 @@ const AdminEditProduct = () => {
                     Cancel
                 </Button>
             </Box>
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={'success'}
+                        msgTitle={'Edit Product'}
+                        msgContent={'Update product information successfully!'}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 };
