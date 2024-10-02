@@ -25,7 +25,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, InputAdornment, InputBase, Tooltip } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { theme } from '../../Theme/Theme';
-
+import CategoryIcon from '@mui/icons-material/Category';
 import productData from '../../data/admin/products.json';
 
 const columns = [
@@ -72,14 +72,16 @@ export default function ProductTable() {
             size: size.size,
             price: size.price,
             image: row.images[0],
-            stock: row.stock,
+            stock: size.stock,
             ratings: row.ratings,
         })),
     );
 
-    // Filter flattened rows based on product name
-    const filteredRows = flattenedRows.filter((row) =>
-        row.productName.toLowerCase().includes(searchTerm.toLowerCase()),
+    // Filter flattened rows based on product name, and brand
+    const filteredRows = flattenedRows.filter(
+        (row) =>
+            row.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            row.brand.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
     console.log('filteredRows array: ', filteredRows);
@@ -135,12 +137,15 @@ export default function ProductTable() {
     return (
         <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
             {/* Search Bar */}
-            <h1>List Products</h1>
+            <AdminHeadingTypography>List Products</AdminHeadingTypography>
+            <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
+                We can <strong>Search product</strong> by Name or Brand
+            </AdminTypography>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <TextField
                     placeholder="Search by Name"
                     variant="outlined"
-                    sx={{ marginBottom: 2, width: 300 }}
+                    sx={{ marginBottom: 2, width: 750 }}
                     onChange={handleSearch}
                     value={searchTerm}
                     InputProps={{
@@ -151,15 +156,39 @@ export default function ProductTable() {
                         ),
                     }}
                 />
+
                 <Button
                     variant="contained"
                     color="primary"
+                    sx={{
+                        marginBottom: 2,
+                        padding: '10px 18px',
+                        borderRadius: 3,
+                        bgcolor: theme.palette.admin.bgColor,
+                        textTransform: 'initial',
+                        fontSize: '14px',
+                        '&:hover': {
+                            bgcolor: theme.palette.admin.bgColor,
+                        },
+                    }}
+                    startIcon={<CategoryIcon />}
                     onClick={() => navigate('/admin/manage-products/add-product')}
-                    startIcon={<PersonAddIcon />}
                 >
                     Add Product
                 </Button>
-                <Button variant="contained" color="primary" startIcon={<FileDownloadIcon />}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        marginBottom: 2,
+                        padding: '10px 18px',
+                        borderRadius: 3,
+                        textTransform: 'initial',
+                        fontSize: '14px',
+                    }}
+                    onClick={handleAddUser}
+                    startIcon={<FileDownloadIcon />}
+                >
                     Export
                 </Button>
             </Box>
