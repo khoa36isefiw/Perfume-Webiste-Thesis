@@ -10,9 +10,9 @@
         "brand": "LuxuryScents",
         "concentration": "Eau de Parfum",
         "sizes": [
-            { "size": "50ml", "price": 49.99 },
-            { "size": "100ml", "price": 89.99 },
-            { "size": "150ml", "price": 119.99 }
+            { "size": "50ml", "price": 49.99, "stock": 22 },
+            { "size": "100ml", "price": 89.99, "stock": 28 },
+            { "size": "150ml", "price": 119.99, "stock": 22 }
         ],
         "topNotes": ["Rose", "Bergamot", "Lemon"],
         "heartNotes": ["Jasmine", "Peony", "Lily"],
@@ -33,9 +33,9 @@
         "brand": "FreshFragrances",
         "concentration": "Eau de Toilette",
         "sizes": [
-            { "size": "30ml", "price": 29.99 },
-            { "size": "50ml", "price": 59.99 },
-            { "size": "100ml", "price": 79.99 }
+            { "size": "30ml", "price": 29.99, "stock": 22 },
+            { "size": "50ml", "price": 59.99, "stock": 28 },
+            { "size": "100ml", "price": 79.99, "stock": 22 }
         ],
         "topNotes": ["Orange", "Lime", "Grapefruit"],
         "heartNotes": ["Mint", "Neroli", "Lavender"],
@@ -56,9 +56,9 @@
         "brand": "FreshFragrances",
         "concentration": "Eau de Toilette",
         "sizes": [
-            { "size": "30ml", "price": 29.99 },
-            { "size": "50ml", "price": 59.99 },
-            { "size": "100ml", "price": 79.99 }
+            { "size": "30ml", "price": 29.99, "stock": 22 },
+            { "size": "50ml", "price": 59.99, "stock": 28 },
+            { "size": "100ml", "price": 79.99, "stock": 22 }
         ],
         "topNotes": ["Orange", "Lime", "Grapefruit"],
         "heartNotes": ["Mint", "Neroli", "Lavender"],
@@ -79,9 +79,9 @@
         "brand": "FreshFragrances",
         "concentration": "Eau de Toilette",
         "sizes": [
-            { "size": "30ml", "price": 29.99 },
-            { "size": "50ml", "price": 59.99 },
-            { "size": "100ml", "price": 79.99 }
+            { "size": "30ml", "price": 29.99, "stock": 22 },
+            { "size": "50ml", "price": 59.99, "stock": 28 },
+            { "size": "100ml", "price": 79.99, "stock": 22 }
         ],
         "topNotes": ["Orange", "Lime", "Grapefruit"],
         "heartNotes": ["Mint", "Neroli", "Lavender"],
@@ -102,9 +102,9 @@
         "brand": "LuxuryScents",
         "concentration": "Eau de Parfum",
         "sizes": [
-            { "size": "50ml", "price": 49.99 },
-            { "size": "100ml", "price": 89.99 },
-            { "size": "150ml", "price": 119.99 }
+            { "size": "50ml", "price": 49.99, "stock": 22 },
+            { "size": "100ml", "price": 89.99, "stock": 28 },
+            { "size": "150ml", "price": 119.99, "stock": 22 }
         ],
         "topNotes": ["Rose", "Bergamot", "Lemon"],
         "heartNotes": ["Jasmine", "Peony", "Lily"],
