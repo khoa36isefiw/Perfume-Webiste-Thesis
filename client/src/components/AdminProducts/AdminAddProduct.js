@@ -48,7 +48,7 @@ const AdminAddProduct = () => {
             size,
             stock,
             brand,
-            ratings,
+            ratings: 0,
         };
 
         console.log('New Product Data:', newProduct);
