@@ -62,6 +62,7 @@ export default function ProductTable() {
     const handleSearch = (event) => {
         setSearchTerm(event.target.value.toLowerCase());
     };
+    
 
     // Flatten rows based on product sizes
     const flattenedRows = rows.flatMap((row) =>

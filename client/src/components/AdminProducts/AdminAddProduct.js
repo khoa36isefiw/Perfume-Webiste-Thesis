@@ -41,17 +41,26 @@ const AdminAddProduct = () => {
         }
     };
 
+    const calculateDiscountPrice = (price, discount) => {
+        if (discount === 0) {
+            return;
+        }
+        return price - price * (discount / 100);
+    };
+
+    const result = calculateDiscountPrice(price, discount);
+    console.log('result: ', result);
     // Handle form submission
     const handleAddProduct = () => {
         const newProduct = {
             image,
             productName,
-            price,
+            price: +price, // convert string to number
             size,
             stock,
             brand,
             ratings: 0,
-            discount,
+            discount: calculateDiscountPrice(price, discount),
             content: {
                 description: description,
                 notes: {
