@@ -25,6 +25,8 @@ import SignInPage from '../pages/SignInPage';
 import AdminProductsPage from '../pages/AdminProductsPage';
 import AdminEditProduct from '../components/AdminProducts/AdminEditProduct';
 import AdminAddProduct from '../components/AdminProducts/AdminAddProduct';
+import AdminOrdersPage from '../pages/AdminOrdersPage';
+import AdminViewOrderDetails from '../components/AdminOrders/AdminViewOrderDetails';
 
 // not sign into this website
 const publicRoutes = [
@@ -68,6 +70,16 @@ const privateRoutes = [
     {
         path: '/admin/manage-products/add-product',
         component: AdminAddProduct,
+        layout: AdminLayout,
+    },
+    {
+        path: '/admin/manage-orders',
+        component: AdminOrdersPage,
+        layout: AdminLayout,
+    },
+    {
+        path: '/admin/manage-orders/view-order/:id',
+        component: AdminViewOrderDetails,
         layout: AdminLayout,
     },
 ];
