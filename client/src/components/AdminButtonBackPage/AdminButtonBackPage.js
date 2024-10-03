@@ -15,6 +15,7 @@ function AdminButtonBackPage({ title }) {
                 fontSize: '18px',
                 textTransform: 'initial',
                 fontWeight: 'bold',
+
                 '&:hover': {
                     bgcolor: 'transparent',
                     color: theme.palette.admin.bgColor,
