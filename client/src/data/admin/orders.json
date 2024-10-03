@@ -1,0 +1,56 @@
+[
+    {
+        "orderId": "001",
+        "userName": "John",
+        "userImage": "",
+        "address": "Số 1 VVN",
+        "phone": "0987654321",
+        "ordersList": [
+            {
+                "productId": 1,
+                "productImage": "",
+                "productName": "Product 1",
+                "productSize": 27,
+                "productBrand": "Dior",
+                "productPrice": 28.24,
+                "productSale": 15,
+                "productPriceSale": 24
+            }
+        ],
+        "orderDate": "02/10/2024",
+        "orderPaid": "COD",
+        "totalOrder": 24
+    },
+    {
+        "orderId": "002",
+        "userName": "Switch",
+        "userImage": "",
+        "address": "Số 2 VVN",
+        "phone": "09876522",
+        "ordersList": [
+            {
+                "productId": 1,
+                "productImage": "",
+                "productName": "Product 12",
+                "productSize": 27,
+                "productBrand": "Dior",
+                "productPrice": 28.24,
+                "productSale": 15,
+                "productPriceSale": 24
+            },
+            {
+                "productId": 2,
+                "productImage": "",
+                "productName": "Product 69",
+                "productSize": 65,
+                "productBrand": "Chanel",
+                "productPrice": 69.24,
+                "productSale": 0,
+                "productPriceSale": 69.24
+            }
+        ],
+        "orderDate": "02/10/2024",
+        "orderPaid": "Paypal",
+        "totalOrder": 93.24
+    }
+]
