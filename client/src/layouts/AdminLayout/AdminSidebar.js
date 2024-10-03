@@ -30,12 +30,12 @@ const sidebarData = [
     {
         sidebarText: 'Orders',
         sidebarIcon: <LocalShippingIcon />,
-        sidebarAddress: '/admin/orders',
+        sidebarAddress: '/admin/manage-orders',
     },
     {
         sidebarText: 'Coupons',
         sidebarIcon: <PercentIcon />,
-        sidebarAddress: '/admin/coupons',
+        sidebarAddress: '/admin/manage-coupons',
     },
 ];
 
