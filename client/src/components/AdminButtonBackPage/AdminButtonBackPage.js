@@ -12,7 +12,7 @@ function AdminButtonBackPage({ title }) {
             sx={{
                 // bgcolor: theme.palette.admin.bgColor,
                 color: 'black',
-                fontSize: '14px',
+                fontSize: '18px',
                 textTransform: 'initial',
                 fontWeight: 'bold',
                 '&:hover': {
