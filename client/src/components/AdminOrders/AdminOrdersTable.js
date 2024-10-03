@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,7 +7,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -90,11 +88,6 @@ export default function AdminOrdersTable() {
         });
     };
 
-    // Handle navigation to the "Add User" page
-    const handleAddUser = () => {
-        navigate('/admin/manage-users/add-user');
-    };
-
     return (
         <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
             {/* Search Bar */}
@@ -139,7 +132,6 @@ export default function AdminOrdersTable() {
                         textTransform: 'initial',
                         fontSize: '14px',
                     }}
-                    onClick={handleAddUser}
                     startIcon={<FileDownloadIcon />}
                 >
                     Export
