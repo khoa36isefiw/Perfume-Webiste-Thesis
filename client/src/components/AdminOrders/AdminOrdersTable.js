@@ -75,7 +75,12 @@ export default function AdminOrdersTable() {
     };
 
     // Filter rows based on search term
-    const filteredRows = rows.filter((row) => row?.userName.toLowerCase().includes(searchTerm));
+    const filteredRows = rows.filter(
+        (row) =>
+            row?.userName.toLowerCase().includes(searchTerm) ||
+            row?.orderPaid.toLowerCase().includes(searchTerm) ||
+            row?.orderDate.toLowerCase().includes(searchTerm),
+    );
     console.log('filteredRows: ', filteredRows);
 
     // Handle edit action (you can implement your own logic for editing)
