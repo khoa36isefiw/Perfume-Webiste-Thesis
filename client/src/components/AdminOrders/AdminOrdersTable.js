@@ -20,7 +20,7 @@ import {
     CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
-import { Box, InputAdornment, Tooltip } from '@mui/material';
+import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { theme } from '../../Theme/Theme';
 import ordersData from '../../data/admin/orders.json';
@@ -28,10 +28,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const columns = [
     { id: 'orderId', label: 'Order ID', minWidth: 20 },
-    { id: 'userImage', label: 'Avatar', minWidth: 20 },
+
     { id: 'userName', label: 'Name', minWidth: 50 },
-    { id: 'address', label: 'Address', minWidth: 40 },
-    { id: 'totalOrder', label: 'Total', minWidth: 40 },
     {
         id: 'orderDate',
         label: 'Date',
@@ -39,6 +37,8 @@ const columns = [
         align: 'left',
         // format: (value) => `${value.street}, ${value.city}`,
     },
+    { id: 'totalOrder', label: 'Total', minWidth: 40 },
+    { id: 'address', label: 'Address', minWidth: 40 },
     {
         id: 'orderPaid',
         label: 'Pay',
@@ -155,7 +155,8 @@ export default function AdminOrdersTable() {
                                         style={{ minWidth: column.minWidth }}
                                         sx={{
                                             bgcolor: blue[200],
-                                            fontSize: '13px',
+                                            fontSize: '14px',
+                                            textAlign: 'center',
                                         }}
                                     >
                                         {column.label}
@@ -174,18 +175,10 @@ export default function AdminOrdersTable() {
                                                 <TableCell
                                                     key={column.id}
                                                     align={column.align}
-                                                    sx={{ fontSize: '13px' }}
+                                                    sx={{ fontSize: '13px', textAlign: 'center' }}
                                                 >
                                                     {/* Render avatar if the column is 'avatar', otherwise display text */}
-                                                    {column.id === 'userImage' ? (
-                                                        <Avatar
-                                                            alt={row.name}
-                                                            src={row.userImage}
-                                                            sx={{ height: '56px', width: '56px' }}
-                                                        >
-                                                            Image
-                                                        </Avatar>
-                                                    ) : column.id === 'actions' ? (
+                                                    {column.id === 'actions' ? (
                                                         // Render Edit and Delete buttons in the 'actions' column
                                                         <>
                                                             <Tooltip
@@ -230,6 +223,7 @@ export default function AdminOrdersTable() {
                                                                     sx={{
                                                                         bgcolor: '#fbe5ff',
                                                                         borderRadius: '10px',
+                                                                        boxShadow: 2,
                                                                         '&:hover': {
                                                                             bgcolor: '#fbe5ff',
                                                                         },
@@ -245,6 +239,49 @@ export default function AdminOrdersTable() {
                                                                 </IconButton>
                                                             </Tooltip>
                                                         </>
+                                                    ) : column.id === 'orderPaid' ? (
+                                                        // if value === COD return it value is designed
+                                                        value === 'COD' ? (
+                                                            <Box
+                                                                sx={{
+                                                                    bgcolor: '#bdf5d3',
+                                                                    borderRadius: 2,
+                                                                    boxShadow: 1,
+                                                                    padding: '4px 0',
+                                                                }}
+                                                            >
+                                                                <Typography
+                                                                    sx={{
+                                                                        fontSize: '14px',
+                                                                        color: '#187d44',
+                                                                        fontWeight: 'bold',
+                                                                        textAlign: 'center',
+                                                                    }}
+                                                                >
+                                                                    {value}
+                                                                </Typography>
+                                                            </Box>
+                                                        ) : (
+                                                            <Box
+                                                                sx={{
+                                                                    bgcolor: '#c1e1fc',
+                                                                    borderRadius: 2,
+                                                                    boxShadow: 1,
+                                                                    padding: '4px 0',
+                                                                }}
+                                                            >
+                                                                <Typography
+                                                                    sx={{
+                                                                        fontSize: '14px',
+                                                                        color: '#2262d3',
+                                                                        fontWeight: 'bold',
+                                                                        textAlign: 'center',
+                                                                    }}
+                                                                >
+                                                                    {value}
+                                                                </Typography>
+                                                            </Box>
+                                                        )
                                                     ) : column.format &&
                                                       typeof value === 'object' ? (
                                                         column.format(value)
