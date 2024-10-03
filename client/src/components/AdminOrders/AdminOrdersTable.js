@@ -75,11 +75,8 @@ export default function AdminOrdersTable() {
     };
 
     // Filter rows based on search term
-    const filteredRows = rows.filter(
-        (row) =>
-            row.userName.toLowerCase().includes(searchTerm) ||
-            row.email.toLowerCase().includes(searchTerm),
-    );
+    const filteredRows = rows.filter((row) => row?.userName.toLowerCase().includes(searchTerm));
+    console.log('filteredRows: ', filteredRows);
 
     // Handle edit action (you can implement your own logic for editing)
     const handleViewOrder = (id) => {
