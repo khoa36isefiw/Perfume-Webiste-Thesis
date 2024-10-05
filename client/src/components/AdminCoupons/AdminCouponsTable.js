@@ -12,6 +12,7 @@ import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SellIcon from '@mui/icons-material/Sell';
+import { useSelector } from 'react-redux';
 
 const couponsData = [
     {
@@ -144,6 +145,10 @@ const CouponsTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
+
+    const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
+    console.log('listCoupons: ', listCoupons);
+
     const filters = ['All Coupons', 'Active', 'Expired'];
     const filterListCoupons =
         filterCoupons !== 'All Coupons'
