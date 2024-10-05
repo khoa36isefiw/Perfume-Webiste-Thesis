@@ -5,6 +5,7 @@ export const CODPayment = () => {
         <Box
             sx={{
                 bgcolor: '#bdf5d3',
+
                 borderRadius: 2,
                 boxShadow: 1,
                 padding: '4px 0',

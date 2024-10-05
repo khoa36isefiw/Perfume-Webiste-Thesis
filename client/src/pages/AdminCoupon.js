@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 
 function AdminCoupon() {
     return (
-        <Box sx={{ height: '100vh' }}>
+        <Box sx={{ height: '120vh' }}>
             <AdminCouponsList />
         </Box>
     );

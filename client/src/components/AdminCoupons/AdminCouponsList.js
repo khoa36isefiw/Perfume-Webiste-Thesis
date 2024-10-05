@@ -1,9 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react';
-import {
-    AdminHeadingTypography,
-    AdminTypography,
-} from '../CustomizeTypography/CustomizeTypography';
+import { AdminHeadingTypography } from '../CustomizeTypography/CustomizeTypography';
 import AdminCouponsTable from './AdminCouponsTable';
 
 function AdminCouponsList() {
