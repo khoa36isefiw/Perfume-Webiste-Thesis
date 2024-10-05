@@ -15,8 +15,16 @@ import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { theme } from '../../Theme/Theme';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
 import { grey } from '@mui/material/colors';
+import { formatDate, formatDDMM } from '../FormatDate/formatDate';
 
 const AdminCreateCoupon = () => {
+    // get the current date time follow yyyy-mm-dd format
+    let currentDate = new Date().toLocaleString('en-CA').slice(0, 10);
+
+    console.log('currentDate: ', currentDate);
+    let date = new Date().toLocaleDateString('vi');
+    console.log('date: ', date);
+
     const [image, setImage] = useState(null);
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState('');
@@ -173,6 +181,8 @@ const AdminCreateCoupon = () => {
                 </Grid>
                 <Grid item lg={6}>
                     {/* Stock */}
+                    <AdminTypography>Discount</AdminTypography>
+
                     <TextField
                         label="Discount"
                         fullWidth
@@ -182,9 +192,31 @@ const AdminCreateCoupon = () => {
                         sx={{ mb: 2 }}
                     />
                 </Grid>
+                <Grid item lg={6}>
+                    <AdminTypography>Coupon Open</AdminTypography>
+                    <TextField
+                        id="date"
+                        type="date"
+                        defaultValue={currentDate}
+                        sx={{ width: 220 }}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </Grid>
+                <Grid item lg={6}>
+                    <AdminTypography>Coupon End</AdminTypography>
+                    <TextField
+                        id="date"
+                        type="date"
+                        defaultValue={currentDate}
+                        sx={{ width: 220 }}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </Grid>
             </Grid>
-
-            <Box sx={{ display: 'flex', gap: 4 }}></Box>
 
             {/* Action Buttons */}
             <Box sx={{ display: 'flex', gap: 4 }}>
