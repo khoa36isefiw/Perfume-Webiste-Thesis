@@ -28,6 +28,7 @@ import AdminAddProduct from '../components/AdminProducts/AdminAddProduct';
 import AdminOrdersPage from '../pages/AdminOrdersPage';
 import AdminViewOrderDetails from '../components/AdminOrders/AdminViewOrderDetails';
 import AdminCoupon from '../pages/AdminCoupon';
+import AdminCreateCoupon from '../components/AdminCoupons/AdminCreateCoupon';
 
 // not sign into this website
 const publicRoutes = [
@@ -86,6 +87,11 @@ const privateRoutes = [
     {
         path: '/admin/manage-coupons',
         component: AdminCoupon,
+        layout: AdminLayout,
+    },
+    {
+        path: '/admin/manage-coupons/create-new-coupon',
+        component: AdminCreateCoupon,
         layout: AdminLayout,
     },
 ];

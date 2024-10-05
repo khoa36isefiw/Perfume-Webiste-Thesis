@@ -152,8 +152,8 @@ const CouponsTable = () => {
     const filters = ['All Coupons', 'Active', 'Expired'];
     const filterListCoupons =
         filterCoupons !== 'All Coupons'
-            ? couponsData.filter((list) => list.status === filterCoupons)
-            : couponsData;
+            ? listCoupons?.filter((list) => list.status === filterCoupons)
+            : listCoupons;
     const filteredSearchCoupons = filterListCoupons?.filter(
         (row) =>
             row.discount.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -263,24 +263,6 @@ const CouponsTable = () => {
                             borderRadius: 5,
 
                             fontWeight: 'bold',
-                            // bgcolor:
-                            //     // filterCoupons === 'Active' &&
-                            //     index == 1
-                            //         ? '#bdf5d3'
-                            //         : // filterCoupons === 'Expired' &&
-                            //         index == 2
-                            //         ? grey[200]
-                            //         : blue[200],
-                            // // bgcolor: '#bdf5d3',
-                            // color:
-                            //     filterCoupons === 'Active' && index == 1
-                            //         ? '#187d44'
-                            //         : filterCoupons === 'Expired' && index == 2
-                            //         ? grey[600]
-                            //         : blue[600],
-                            // '&:hover': {
-                            //     bgcolor: 'transparent',
-                            // },
                         }}
                     >
                         {filter}
@@ -375,8 +357,8 @@ const CouponsTable = () => {
                         <AdminTypography sx={{ flex: 1 }}>{coupon.discount}</AdminTypography>
                         <AdminTypography sx={{ flex: 1 }}>{coupon.quantity}</AdminTypography>
                         <AdminTypography sx={{ flex: 1 }}>{coupon.used}</AdminTypography>
-                        <AdminTypography sx={{ flex: 1 }}>{coupon.validTill}</AdminTypography>
-                        <AdminTypography sx={{ flex: 1 }}>{coupon.startDate}</AdminTypography>
+                        <AdminTypography sx={{ flex: 1 }}>{coupon.getCurrentDate}</AdminTypography>
+                        <AdminTypography sx={{ flex: 1 }}>{coupon.getEndDate}</AdminTypography>
                         <Box sx={{ flex: 1 }}>
                             {coupon.status === 'Active' ? (
                                 <Box

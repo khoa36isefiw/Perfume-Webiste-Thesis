@@ -1,3 +1,123 @@
-[{
-    
-}]
+[
+    {
+        "id": 1,
+        "description": "Save 10%",
+        "code": "SAVE10",
+        "discount": "10%",
+        "validTill": "2024-12-31",
+        "startDate": "2024-08-22",
+        "status": "Active",
+        "quantity": 12,
+        "used": 4
+    },
+    {
+        "id": 2,
+        "description": "Sale 20%",
+        "code": "OFF20",
+        "discount": "20%",
+        "validTill": "2024-11-15",
+        "startDate": "2024-08-22",
+        "status": "Expired",
+        "quantity": 12,
+        "used": 4
+    },
+    {
+        "id": 3,
+        "description": "Summer sale 15%",
+        "code": "SUMMER15",
+        "discount": "15%",
+        "validTill": "2024-07-31",
+        "startDate": "2024-08-22",
+        "status": "Active",
+        "quantity": 12,
+        "used": 4
+    },
+    {
+        "id": 4,
+        "description": "Winter discount 25% off",
+        "code": "WINTER25",
+        "discount": "25%",
+        "validTill": "2024-01-15",
+        "startDate": "2024-08-22",
+        "status": "Active",
+        "quantity": 12,
+        "used": 4
+    },
+    {
+        "id": 5,
+        "description": "Spring discount 5% off",
+        "code": "SPRING5",
+        "discount": "5%",
+        "validTill": "2024-04-20",
+        "startDate": "2024-08-22",
+        "status": "Expired",
+        "quantity": 12,
+        "used": 4
+    },
+    {
+        "id": 6,
+        "description": "Holiday discount 30% off ",
+        "code": "HOLIDAY30",
+        "discount": "30%",
+        "validTill": "2024-12-01",
+        "startDate": "2024-08-22",
+        "status": "Active",
+        "quantity": 12,
+        "used": 4
+    },
+    {
+        "id": 7,
+        "description": "Black Friday sale 40%",
+        "code": "BLACKFRIDAY40",
+        "discount": "40%",
+        "validTill": "2024-11-25",
+        "startDate": "2024-08-22",
+        "status": "Active",
+        "quantity": 12,
+        "used": 4
+    },
+    {
+        "id": 8,
+        "description": "Viet Nam New Year's Day sale 50%",
+        "code": "NEWYEAR50",
+        "discount": "50%",
+        "validTill": "2024-01-01",
+        "startDate": "2024-08-22",
+        "status": "Active",
+        "quantity": 12,
+        "used": 4
+    },
+    {
+        "id": 9,
+        "description": "Flash sale discount 15% off",
+        "code": "FALLSALE15",
+        "discount": "15%",
+        "validTill": "2024-10-15",
+        "startDate": "2024-08-22",
+        "status": "Expired",
+        "quantity": 12,
+        "used": 4
+    },
+    {
+        "id": 10,
+        "description": "Summer sale 20% off ",
+        "code": "SUMMERSALE20",
+        "discount": "20%",
+        "validTill": "2024-08-20",
+        "startDate": "2024-08-22",
+        "status": "Active",
+        "quantity": 12,
+        "used": 4
+    },
+    {
+        "id": 11,
+        "description": "Viet Nam's Independent 30/04/1975",
+        "code": "VietNam30041975",
+        "discount": "30.4%",
+        "validTill": "2024-04-30",
+        "startDate": "2024-08-22",
+        "status": "Active",
+        "quantity": 12,
+        "used": 4
+    }
+]
