@@ -1,359 +1,168 @@
-// import * as React from 'react';
-// import FileDownloadIcon from '@mui/icons-material/FileDownload';
-// import Table from '@mui/material/Table';
-// import TableBody from '@mui/material/TableBody';
-// import TableCell from '@mui/material/TableCell';
-// import TableContainer from '@mui/material/TableContainer';
-// import TableHead from '@mui/material/TableHead';
-// import TablePagination from '@mui/material/TablePagination';
-// import TableRow from '@mui/material/TableRow';
-// import TextField from '@mui/material/TextField';
-// import Button from '@mui/material/Button';
-// import IconButton from '@mui/material/IconButton';
-// import EditIcon from '@mui/icons-material/Edit';
-// import { blue } from '@mui/material/colors';
-// import {
-//     AdminHeadingTypography,
-//     AdminTypography,
-//     CustomizeTypography,
-// } from '../CustomizeTypography/CustomizeTypography';
-// import { useNavigate } from 'react-router-dom';
-// import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
-// import { Search } from '@mui/icons-material';
-// import { theme } from '../../Theme/Theme';
-// import ordersData from '../../data/admin/orders.json';
-// import VisibilityIcon from '@mui/icons-material/Visibility';
-
-// const columns = [
-//     { id: 'orderId', label: 'Order ID', minWidth: 20 },
-
-//     { id: 'userName', label: 'Name', minWidth: 50 },
-//     {
-//         id: 'orderDate',
-//         label: 'Date',
-//         minWidth: 20,
-//         align: 'left',
-//         // format: (value) => `${value.street}, ${value.city}`,
-//     },
-//     { id: 'totalOrder', label: 'Total', minWidth: 40 },
-//     { id: 'address', label: 'Address', minWidth: 40 },
-//     {
-//         id: 'orderPaid',
-//         label: 'Pay',
-//         minWidth: 70,
-//         align: 'left',
-//     },
-//     { id: 'actions', label: 'Actions', minWidth: 170, align: 'center' }, // New column for actions
-// ];
-
-// // Component to render the table with dynamic data
-// export default function AdminCouponsTable() {
-//     const navigate = useNavigate();
-//     const [page, setPage] = React.useState(0);
-//     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-//     const [rows, setRows] = React.useState(ordersData); // Dynamic user data
-//     const [searchTerm, setSearchTerm] = React.useState(''); // Search term state
-//     // tracks if data is already fetched
-//     const [isDataFetched, setIsDataFetched] = React.useState(false);
-
-//     // Handle page change for pagination
-//     const handleChangePage = (event, newPage) => {
-//         setPage(newPage);
-//     };
-
-//     // Handle rows per page change
-//     const handleChangeRowsPerPage = (event) => {
-//         setRowsPerPage(event.target.value);
-//         setPage(0);
-//     };
-
-//     // Handle search input change
-//     const handleSearch = (event) => {
-//         setSearchTerm(event.target.value.toLowerCase());
-//     };
-
-//     // Filter rows based on search term
-//     const filteredRows = rows.filter(
-//         (row) =>
-//             row?.userName.toLowerCase().includes(searchTerm) ||
-//             row?.orderPaid.toLowerCase().includes(searchTerm) ||
-//             row?.orderDate.toLowerCase().includes(searchTerm),
-//     );
-//     console.log('filteredRows: ', filteredRows);
-
-//     // Handle edit action (you can implement your own logic for editing)
-//     const handleViewOrder = (id) => {
-//         navigate(`view-order/${id}`, {
-//             state: { orderData: rows.find((row) => row.orderId === id) },
-//         });
-//     };
-
-//     return (
-//         <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
-//             {/* Search Bar */}
-//             <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
-//                 We can <strong>Search</strong> Name
-//             </AdminTypography>
-//             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-//                 <TextField
-//                     placeholder="Search by Name or Email"
-//                     variant="outlined"
-//                     sx={{
-//                         marginBottom: 2,
-//                         width: 750,
-//                         '.MuiInputBase-root': {
-//                             fontSize: '14px',
-//                             height: '50px',
-//                         },
-//                         '& .MuiOutlinedInput-root': {
-//                             '&.Mui-focused fieldset': {
-//                                 borderColor: theme.palette.admin.bgColor,
-//                             },
-//                         },
-//                     }}
-//                     onChange={handleSearch}
-//                     value={searchTerm}
-//                     InputProps={{
-//                         startAdornment: (
-//                             <InputAdornment position="start">
-//                                 <Search />
-//                             </InputAdornment>
-//                         ),
-//                     }}
-//                 />
-//                 <Button
-//                     variant="contained"
-//                     color="primary"
-//                     sx={{
-//                         marginBottom: 2,
-//                         padding: '10px 18px',
-//                         borderRadius: 3,
-//                         textTransform: 'initial',
-//                         fontSize: '14px',
-//                     }}
-//                     startIcon={<FileDownloadIcon />}
-//                 >
-//                     Export
-//                 </Button>
-//             </Box>
-//             <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
-//                 <TableContainer sx={{ maxHeight: 440 }}>
-//                     <Table stickyHeader aria-label="sticky table">
-//                         <TableHead>
-//                             <TableRow>
-//                                 {columns.map((column) => (
-//                                     <TableCell
-//                                         key={column.id}
-//                                         align={column.align}
-//                                         style={{ minWidth: column.minWidth }}
-//                                         sx={{
-//                                             bgcolor: blue[200],
-//                                             fontSize: '14px',
-//                                             textAlign: 'center',
-//                                         }}
-//                                     >
-//                                         {column.label}
-//                                     </TableCell>
-//                                 ))}
-//                             </TableRow>
-//                         </TableHead>
-//                         <TableBody>
-//                             {filteredRows
-//                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-//                                 .map((row) => (
-//                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-//                                         {columns.map((column) => {
-//                                             const value = row[column.id];
-//                                             return (
-//                                                 <TableCell
-//                                                     key={column.id}
-//                                                     align={column.align}
-//                                                     sx={{ fontSize: '13px', textAlign: 'center' }}
-//                                                 >
-//                                                     {/* Render avatar if the column is 'avatar', otherwise display text */}
-//                                                     {column.id === 'actions' ? (
-//                                                         // Render Edit and Delete buttons in the 'actions' column
-//                                                         <>
-//                                                             <Tooltip
-//                                                                 title={
-//                                                                     <CustomizeTypography
-//                                                                         sx={{
-//                                                                             fontSize: '13px',
-//                                                                             mb: 0,
-//                                                                         }}
-//                                                                     >
-//                                                                         Edit Orders?
-//                                                                     </CustomizeTypography>
-//                                                                 }
-//                                                             >
-//                                                                 <IconButton
-//                                                                     onClick={() =>
-//                                                                         handleViewOrder(row.orderId)
-//                                                                     }
-//                                                                     color="primary"
-//                                                                 >
-//                                                                     <EditIcon
-//                                                                         sx={{ fontSize: '22px' }}
-//                                                                     />
-//                                                                 </IconButton>
-//                                                             </Tooltip>
-//                                                             <Tooltip
-//                                                                 title={
-//                                                                     <CustomizeTypography
-//                                                                         sx={{
-//                                                                             fontSize: '13px',
-//                                                                             mb: 0,
-//                                                                         }}
-//                                                                     >
-//                                                                         View Order Details
-//                                                                     </CustomizeTypography>
-//                                                                 }
-//                                                             >
-//                                                                 <IconButton
-//                                                                     onClick={() =>
-//                                                                         handleViewOrder(row.orderId)
-//                                                                     }
-//                                                                     sx={{
-//                                                                         bgcolor: '#fbe5ff',
-//                                                                         borderRadius: '10px',
-//                                                                         boxShadow: 2,
-//                                                                         '&:hover': {
-//                                                                             bgcolor: '#fbe5ff',
-//                                                                         },
-//                                                                         mr: 1,
-//                                                                     }}
-//                                                                 >
-//                                                                     <VisibilityIcon
-//                                                                         sx={{
-//                                                                             color: '#be0ee1',
-//                                                                             fontSize: '16px',
-//                                                                         }}
-//                                                                     />
-//                                                                 </IconButton>
-//                                                             </Tooltip>
-//                                                         </>
-//                                                     ) : column.id === 'orderPaid' ? (
-//                                                         // if value === COD return it value is designed
-//                                                         value === 'COD' ? (
-//                                                             <Box
-//                                                                 sx={{
-//                                                                     bgcolor: '#bdf5d3',
-//                                                                     borderRadius: 2,
-//                                                                     boxShadow: 1,
-//                                                                     padding: '4px 0',
-//                                                                 }}
-//                                                             >
-//                                                                 <Typography
-//                                                                     sx={{
-//                                                                         fontSize: '14px',
-//                                                                         color: '#187d44',
-//                                                                         fontWeight: 'bold',
-//                                                                         textAlign: 'center',
-//                                                                     }}
-//                                                                 >
-//                                                                     {value}
-//                                                                 </Typography>
-//                                                             </Box>
-//                                                         ) : (
-//                                                             <Box
-//                                                                 sx={{
-//                                                                     bgcolor: '#c1e1fc',
-//                                                                     borderRadius: 2,
-//                                                                     boxShadow: 1,
-//                                                                     padding: '4px 0',
-//                                                                 }}
-//                                                             >
-//                                                                 <Typography
-//                                                                     sx={{
-//                                                                         fontSize: '14px',
-//                                                                         color: '#2262d3',
-//                                                                         fontWeight: 'bold',
-//                                                                         textAlign: 'center',
-//                                                                     }}
-//                                                                 >
-//                                                                     {value}
-//                                                                 </Typography>
-//                                                             </Box>
-//                                                         )
-//                                                     ) : column.format &&
-//                                                       typeof value === 'object' ? (
-//                                                         column.format(value)
-//                                                     ) : (
-//                                                         value
-//                                                     )}
-//                                                 </TableCell>
-//                                             );
-//                                         })}
-//                                     </TableRow>
-//                                 ))}
-//                         </TableBody>
-//                     </Table>
-//                 </TableContainer>
-//                 <TablePagination
-//                     rowsPerPageOptions={[10, 25, 100]}
-//                     component="div"
-//                     count={filteredRows.length}
-//                     rowsPerPage={rowsPerPage}
-//                     page={page}
-//                     onPageChange={handleChangePage}
-//                     onRowsPerPageChange={handleChangeRowsPerPage}
-//                     sx={{
-//                         '.MuiTablePagination-selectLabel': {
-//                             fontSize: '13px',
-//                         },
-//                         '.MuiTablePagination-select': {
-//                             fontSize: '13px',
-//                             mt: 1,
-//                         },
-//                         '.MuiTablePagination-displayedRows': {
-//                             fontSize: '13px',
-//                         },
-
-//                         // '.MuiSvgIcon-root': { fontSize: '14px' },
-//                         '.MuiSelect-icon': {
-//                             fontSize: '24px',
-//                         },
-
-//                         // next and previous button
-//                         '.MuiSvgIcon-root': {
-//                             fontSize: '24px',
-//                         },
-//                     }}
-//                 />
-//             </Box>
-//         </Box>
-//     );
-// }
-
 import React, { useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, IconButton, InputAdornment, TextField } from '@mui/material';
+import { blue, grey } from '@mui/material/colors';
+import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
+import ActionsButton from '../Dashboard/ActionsButton';
+import { theme } from '../../Theme/Theme';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { useNavigate } from 'react-router-dom';
+import { Search } from '@mui/icons-material';
+
+import MoneyOffIcon from '@mui/icons-material/MoneyOff';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import SellIcon from '@mui/icons-material/Sell';
 
 const couponsData = [
-    { id: 1, code: 'SAVE10', discount: '10%', validTill: '2024-12-31', status: 'Active' },
-    { id: 2, code: 'OFF20', discount: '20%', validTill: '2024-11-15', status: 'Expired' },
-    { id: 3, code: 'SUMMER15', discount: '15%', validTill: '2024-07-31', status: 'Active' },
-    { id: 4, code: 'WINTER25', discount: '25%', validTill: '2024-01-15', status: 'Active' },
-    { id: 5, code: 'SPRING5', discount: '5%', validTill: '2024-04-20', status: 'Expired' },
-    { id: 6, code: 'HOLIDAY30', discount: '30%', validTill: '2024-12-01', status: 'Active' },
-    { id: 7, code: 'BLACKFRIDAY40', discount: '40%', validTill: '2024-11-25', status: 'Active' },
-    { id: 8, code: 'NEWYEAR50', discount: '50%', validTill: '2024-01-01', status: 'Active' },
-    { id: 9, code: 'FALLSALE15', discount: '15%', validTill: '2024-10-15', status: 'Expired' },
-    { id: 10, code: 'SUMMERSALE20', discount: '20%', validTill: '2024-08-20', status: 'Active' },
-    // Thêm dữ liệu coupon nếu cần
+    {
+        id: 1,
+        description: 'Save 10%',
+        code: 'SAVE10',
+        discount: '10%',
+        validTill: '2024-12-31',
+        startDate: '2024-08-22',
+        status: 'Active',
+        quantity: 12,
+        used: 4,
+    },
+    {
+        id: 2,
+        description: 'Sale 20%',
+        code: 'OFF20',
+        discount: '20%',
+        validTill: '2024-11-15',
+        startDate: '2024-08-22',
+        status: 'Expired',
+        quantity: 12,
+        used: 4,
+    },
+    {
+        id: 3,
+        description: 'Summer sale 15%',
+        code: 'SUMMER15',
+        discount: '15%',
+        validTill: '2024-07-31',
+        startDate: '2024-08-22',
+        status: 'Active',
+        quantity: 12,
+        used: 4,
+    },
+    {
+        id: 4,
+        description: 'Winter discount 25% off',
+        code: 'WINTER25',
+        discount: '25%',
+        validTill: '2024-01-15',
+        startDate: '2024-08-22',
+        status: 'Active',
+        quantity: 12,
+        used: 4,
+    },
+    {
+        id: 5,
+        description: 'Spring discount 5% off',
+        code: 'SPRING5',
+        discount: '5%',
+        validTill: '2024-04-20',
+        startDate: '2024-08-22',
+        status: 'Expired',
+        quantity: 12,
+        used: 4,
+    },
+    {
+        id: 6,
+        description: 'Holiday discount 30% off ',
+        code: 'HOLIDAY30',
+        discount: '30%',
+        validTill: '2024-12-01',
+        startDate: '2024-08-22',
+        status: 'Active',
+        quantity: 12,
+        used: 4,
+    },
+    {
+        id: 7,
+        description: 'Black Friday sale 40%',
+        code: 'BLACKFRIDAY40',
+        discount: '40%',
+        validTill: '2024-11-25',
+        startDate: '2024-08-22',
+        status: 'Active',
+        quantity: 12,
+        used: 4,
+    },
+    {
+        id: 8,
+        description: "Viet Nam New Year's Day sale 50%",
+        code: 'NEWYEAR50',
+        discount: '50%',
+        validTill: '2024-01-01',
+        startDate: '2024-08-22',
+        status: 'Active',
+        quantity: 12,
+        used: 4,
+    },
+    {
+        id: 9,
+        description: 'Flash sale discount 15% off',
+        code: 'FALLSALE15',
+        discount: '15%',
+        validTill: '2024-10-15',
+        startDate: '2024-08-22',
+        status: 'Expired',
+        quantity: 12,
+        used: 4,
+    },
+    {
+        id: 10,
+        description: 'Summer sale 20% off ',
+        code: 'SUMMERSALE20',
+        discount: '20%',
+        validTill: '2024-08-20',
+        startDate: '2024-08-22',
+        status: 'Active',
+        quantity: 12,
+        used: 4,
+    },
+    {
+        id: 11,
+        description: "Viet Nam's Independent 30/04/1975",
+        code: 'VietNam30041975',
+        discount: '30.4%',
+        validTill: '2024-04-30',
+        startDate: '2024-08-22',
+        status: 'Active',
+        quantity: 12,
+        used: 4,
+    },
 ];
 
-const itemsPerPage = 8;
+const itemsPerPage = 5;
 
 const CouponsTable = () => {
+    const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
-
-    // Tính tổng số trang
-    const totalPages = Math.ceil(couponsData.length / itemsPerPage); // làm tròn lên
+    const [filterCoupons, setFilterCoupons] = useState('All Coupons');
+    const [searchTerm, setSearchTerm] = useState(''); // Search term state
+    const filters = ['All Coupons', 'Active', 'Expired'];
+    const filterListCoupons =
+        filterCoupons !== 'All Coupons'
+            ? couponsData.filter((list) => list.status === filterCoupons)
+            : couponsData;
+    const filteredSearchCoupons = filterListCoupons?.filter(
+        (row) =>
+            row.discount.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            row.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            row.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            row.description.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
 
     // Tính toán dữ liệu hiển thị cho trang hiện tại
-    const indexOfLastItem = currentPage * itemsPerPage; // 8
+    const indexOfLastItem = currentPage * itemsPerPage; // 5
     const indexOfFirstItem = indexOfLastItem - itemsPerPage; // 0
-    const currentItems = couponsData.slice(indexOfFirstItem, indexOfLastItem); // 0, 8 --> 8 items
+    const currentItems = filteredSearchCoupons.slice(indexOfFirstItem, indexOfLastItem); // 0, 5 --> 5 items
+    // Tính tổng số trang based on list coupons are filtered
+    const totalPages = Math.ceil(filteredSearchCoupons.length / itemsPerPage); // làm tròn lên
 
     const handlePageClick = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -371,57 +180,254 @@ const CouponsTable = () => {
         }
     };
 
+    const handleFilterCoupons = (filter) => {
+        setFilterCoupons(filter);
+        setCurrentPage(1);
+    };
+
+    // Handle search input change
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value.toLowerCase());
+        setCurrentPage(1);
+    };
+
+    console.log('filterListCoupons: ', filteredSearchCoupons);
     return (
         <Box sx={{ padding: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <TextField
+                    placeholder="Search by Name"
+                    variant="outlined"
+                    sx={{ marginBottom: 2, width: 750 }}
+                    onChange={handleSearch}
+                    value={searchTerm}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Search />
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        marginBottom: 2,
+                        padding: '10px 18px',
+                        borderRadius: 3,
+                        bgcolor: theme.palette.admin.bgColor,
+                        textTransform: 'initial',
+                        fontSize: '14px',
+                        '&:hover': {
+                            bgcolor: theme.palette.admin.bgColor,
+                        },
+                    }}
+                    startIcon={<MoneyOffIcon />}
+                    onClick={() => navigate('/admin/manage-coupons/create-new-coupon')}
+                >
+                    Add Coupon
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        marginBottom: 2,
+                        padding: '10px 18px',
+                        borderRadius: 3,
+                        textTransform: 'initial',
+                        fontSize: '14px',
+                    }}
+                    startIcon={<FileDownloadIcon />}
+                >
+                    Export
+                </Button>
+            </Box>
+            <Box>
+                {filters.map((filter, index) => (
+                    <Button
+                        onClick={() => handleFilterCoupons(filter)}
+                        key={index}
+                        variant={filterCoupons === filter ? 'contained' : 'outlined'}
+                        sx={{
+                            margin: 0.5,
+                            fontSize: '14px',
+                            textTransform: 'initial',
+                            mb: 2,
+                            borderRadius: 5,
+
+                            fontWeight: 'bold',
+                            // bgcolor:
+                            //     // filterCoupons === 'Active' &&
+                            //     index == 1
+                            //         ? '#bdf5d3'
+                            //         : // filterCoupons === 'Expired' &&
+                            //         index == 2
+                            //         ? grey[200]
+                            //         : blue[200],
+                            // // bgcolor: '#bdf5d3',
+                            // color:
+                            //     filterCoupons === 'Active' && index == 1
+                            //         ? '#187d44'
+                            //         : filterCoupons === 'Expired' && index == 2
+                            //         ? grey[600]
+                            //         : blue[600],
+                            // '&:hover': {
+                            //     bgcolor: 'transparent',
+                            // },
+                        }}
+                    >
+                        {filter}
+                    </Button>
+                ))}
+            </Box>
             <Box
                 sx={{
                     margin: 'auto',
 
                     bgcolor: '#fff',
                     borderRadius: 2,
-                    height: '500px',
+                    height: '520px',
+                    p: 2,
                 }}
             >
-                {/* Tiêu đề bảng */}
                 <Box
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        fontWeight: 'bold',
-                        paddingBottom: 2,
+                        alignItems: 'center',
+                        bgcolor: blue[200],
+                        // paddingBottom: 2,
+                        padding: 2,
                         borderBottom: '2px solid #ddd',
                     }}
                 >
-                    <Typography sx={{ flex: 1 }}>Coupon Code</Typography>
-                    <Typography sx={{ flex: 1 }}>Discount</Typography>
-                    <Typography sx={{ flex: 1 }}>Valid Till</Typography>
-                    <Typography sx={{ flex: 1 }}>Status</Typography>
+                    <AdminTypography sx={{ fontSize: '16px', flex: 2, fontWeight: 'bold' }}>
+                        Coupon Code
+                    </AdminTypography>
+                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
+                        Discount
+                    </AdminTypography>
+                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
+                        Quantity
+                    </AdminTypography>
+                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
+                        Usage
+                    </AdminTypography>
+                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
+                        Start Date
+                    </AdminTypography>
+                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
+                        Valid Till
+                    </AdminTypography>
+                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
+                        Status
+                    </AdminTypography>
+                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
+                        Actions
+                    </AdminTypography>
                 </Box>
 
-                {/* Nội dung bảng */}
                 {currentItems.map((coupon) => (
                     <Box
                         key={coupon.id}
                         sx={{
                             display: 'flex',
                             justifyContent: 'space-between',
+                            alignItems: 'center',
+
                             padding: 2,
                             borderBottom: '1px solid #ddd',
                         }}
                     >
-                        <Typography sx={{ flex: 1 }}>{coupon.code}</Typography>
-                        <Typography sx={{ flex: 1 }}>{coupon.discount}</Typography>
-                        <Typography sx={{ flex: 1 }}>{coupon.validTill}</Typography>
-                        <Typography sx={{ flex: 1 }}>{coupon.status}</Typography>
+                        <Box sx={{ display: 'flex', alignItems: 'center', flex: 2 }}>
+                            <Box
+                                sx={{
+                                    bgcolor: blue[700],
+                                    padding: '10px',
+                                    borderRadius: 1,
+                                    mr: 1,
+                                }}
+                            >
+                                <SellIcon
+                                    sx={{
+                                        fontSize: '24px',
+                                        color: '#fff',
+                                        transform: 'rotate(90deg)',
+                                    }}
+                                />
+                            </Box>
+                            <Box>
+                                <AdminTypography sx={{ flex: 1 }}>
+                                    {coupon.description}
+                                </AdminTypography>
+                                <AdminTypography sx={{ flex: 1, mt: '4px' }}>
+                                    {coupon.code}
+                                </AdminTypography>
+                            </Box>
+                        </Box>
+                        <AdminTypography sx={{ flex: 1 }}>{coupon.discount}</AdminTypography>
+                        <AdminTypography sx={{ flex: 1 }}>{coupon.quantity}</AdminTypography>
+                        <AdminTypography sx={{ flex: 1 }}>{coupon.used}</AdminTypography>
+                        <AdminTypography sx={{ flex: 1 }}>{coupon.validTill}</AdminTypography>
+                        <AdminTypography sx={{ flex: 1 }}>{coupon.startDate}</AdminTypography>
+                        <Box sx={{ flex: 1 }}>
+                            {coupon.status === 'Active' ? (
+                                <Box
+                                    sx={{
+                                        bgcolor: '#bdf5d3',
+
+                                        borderRadius: 2,
+                                        boxShadow: 1,
+                                        padding: '4px 0',
+                                        width: 80,
+                                    }}
+                                >
+                                    <AdminTypography
+                                        sx={{
+                                            fontSize: '14px',
+                                            color: '#187d44',
+                                            fontWeight: 'bold',
+                                            textAlign: 'center',
+                                        }}
+                                    >
+                                        {coupon.status}
+                                    </AdminTypography>
+                                </Box>
+                            ) : (
+                                <Box
+                                    sx={{
+                                        bgcolor: grey[200],
+
+                                        borderRadius: 2,
+                                        boxShadow: 1,
+                                        padding: '4px 0',
+                                        width: 80,
+                                    }}
+                                >
+                                    <AdminTypography
+                                        sx={{
+                                            fontSize: '14px',
+                                            color: grey[600],
+                                            fontWeight: 'bold',
+                                            textAlign: 'center',
+                                        }}
+                                    >
+                                        {coupon.status}
+                                    </AdminTypography>
+                                </Box>
+                            )}
+                        </Box>
+                        <ActionsButton />
                     </Box>
                 ))}
             </Box>
-            {/* Điều hướng phân trang */}
 
             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                <Button onClick={handlePrevious} disabled={currentPage === 1}>
-                    Previous
-                </Button>
+                <IconButton onClick={handlePrevious} disabled={currentPage === 1}>
+                    <ArrowBackIosNewIcon />
+                </IconButton>
                 {Array.from({ length: totalPages }, (_, index) => (
                     // _ is not used
                     <Box>
@@ -435,9 +441,10 @@ const CouponsTable = () => {
                         </Button>
                     </Box>
                 ))}
-                <Button onClick={handleNext} disabled={currentPage === totalPages}>
-                    Next
-                </Button>
+                {/* disabled if the current index is the last page */}
+                <IconButton onClick={handleNext} disabled={currentPage === totalPages}>
+                    <ArrowForwardIosIcon />
+                </IconButton>
             </Box>
         </Box>
     );
