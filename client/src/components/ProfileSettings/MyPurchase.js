@@ -8,22 +8,8 @@ import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider'
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import { orderHistoryData } from './orderHistoryData';
 import { useSelector } from 'react-redux';
+import { formatDate } from '../FormatDate/formatDate';
 
-export const formatDate = (inputDate) => {
-    // Convert input to a Date object if it's not already
-    const date = new Date(inputDate);
-
-    // Check if the date is valid
-    if (isNaN(date.getTime())) {
-        return 'Invalid date';
-    }
-
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero indexed
-    const year = date.getFullYear();
-
-    return `${month}/${day}/${year}`; // Return in mm/dd/yyyy format
-};
 
 const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
     <>
