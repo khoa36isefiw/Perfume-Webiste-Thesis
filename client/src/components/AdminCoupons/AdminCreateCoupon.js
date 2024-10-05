@@ -14,8 +14,11 @@ import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { theme } from '../../Theme/Theme';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
 import { grey } from '@mui/material/colors';
+import { useDispatch } from 'react-redux';
+import { createNewCoupon } from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
 
 const AdminCreateCoupon = () => {
+    const dispatch = useDispatch();
     // get the current date time follow yyyy-mm-dd format
     let currentDate = new Date().toLocaleString('en-CA').slice(0, 10);
 
@@ -43,12 +46,14 @@ const AdminCreateCoupon = () => {
             code,
             discount,
             quantity,
+            used: 0,
             status,
             getCurrentDate,
             getEndDate,
         };
 
         console.log('New Product Data:', newProduct);
+        dispatch(createNewCoupon({ data: newProduct }));
     };
 
     return (
