@@ -72,6 +72,15 @@ const CouponsTable = () => {
         setCurrentPage(1);
     };
 
+    const handleEdit = (couponId) => {
+        console.log('couponId: ', couponId);
+        navigate(`edit-coupon/${couponId}`, {
+            state: {
+                couponData: listCoupons.find((coupon) => coupon.id === couponId),
+            },
+        });
+    };
+
     console.log('filterListCoupons: ', filteredSearchCoupons);
     return (
         <Box sx={{ padding: 2 }}>
@@ -282,7 +291,7 @@ const CouponsTable = () => {
                                 </Box>
                             )}
                         </Box>
-                        <ActionsButton />
+                        <ActionsButton onHandleClickEdit={() => handleEdit(coupon.id)} />
                     </Box>
                 ))}
             </Box>
