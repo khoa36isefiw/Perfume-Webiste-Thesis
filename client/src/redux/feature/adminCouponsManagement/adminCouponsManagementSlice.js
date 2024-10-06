@@ -26,9 +26,15 @@ export const adminCouponsManagementSlice = createSlice({
                 state.listCoupons[couponIndex] = { ...state.listCoupons[couponIndex], ...data };
             }
         },
+
+        // remove the current coupon information
+        deleteCoupon: (state, action) => {
+            const { codeId } = action.payload;
+            state.listCoupons = state.listCoupons.filter((c) => c.id !== codeId);
+        },
     },
 });
 
 const { actions, reducer } = adminCouponsManagementSlice;
-export const { createNewCoupon, updateCoupon } = actions; // named export
+export const { createNewCoupon, updateCoupon, deleteCoupon } = actions; // named export
 export default reducer; // export default
