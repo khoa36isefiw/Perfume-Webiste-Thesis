@@ -5,8 +5,10 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { fadeInAnimation } from '../AnimationEffects/AnimationEffects';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { useNavigate } from 'react-router-dom';
 
 function NewArrivals() {
+    const navigate = useNavigate();
     return (
         <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
             {/* <Grid container sx={{ display: 'flex', alignItems: 'center' }}> */}
@@ -62,7 +64,10 @@ function NewArrivals() {
                                 },
                             }}
                         >
-                            <CustomizeButton textAction={'Shop Now'} />
+                            <CustomizeButton
+                                textAction={'Shop Now'}
+                                onHandleClick={() => navigate('/shop')}
+                            />
                         </Box>
                     </Box>
                 </Grid>
