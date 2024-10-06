@@ -7,7 +7,6 @@ import { theme } from '../../Theme/Theme';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { useNavigate } from 'react-router-dom';
 import { Search } from '@mui/icons-material';
-
 import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -18,7 +17,6 @@ import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import WarningIcon from '@mui/icons-material/Warning';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import EmptyCart from '../EmptyCart/EmptyCart';
-import emptyCoupon from '../../assets/images/coupon.png';
 
 const itemsPerPage = 5;
 
@@ -35,7 +33,7 @@ const CouponsTable = () => {
     const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
     console.log('listCoupons: ', listCoupons);
 
-    const filters = ['All Coupons', 'Active', 'Expired'];
+    const filters = ['All Coupons', 'Active', 'Unactive', 'Expired'];
     const filterListCoupons =
         filterCoupons !== 'All Coupons'
             ? listCoupons?.filter((list) => list.status === filterCoupons)
@@ -314,6 +312,27 @@ const CouponsTable = () => {
                                                 sx={{
                                                     fontSize: '14px',
                                                     color: '#187d44',
+                                                    fontWeight: 'bold',
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                {coupon.status}
+                                            </AdminTypography>
+                                        </Box>
+                                    ) : coupon.status === 'Unactive' ? (
+                                        <Box
+                                            sx={{
+                                                bgcolor: '#ffdfe4',
+                                                borderRadius: 2,
+                                                boxShadow: 1,
+                                                padding: '4px 0',
+                                                width: 80,
+                                            }}
+                                        >
+                                            <AdminTypography
+                                                sx={{
+                                                    fontSize: '14px',
+                                                    color: '#f11133',
                                                     fontWeight: 'bold',
                                                     textAlign: 'center',
                                                 }}

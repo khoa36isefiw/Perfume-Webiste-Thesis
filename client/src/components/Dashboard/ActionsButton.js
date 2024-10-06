@@ -35,6 +35,7 @@ export default function ActionsButton({ onHandleClickEdit, onHandleClickDelete }
             <IconButton
                 sx={{
                     bgcolor: '#ffdfe4',
+
                     borderRadius: '10px',
                     '&:hover': {
                         bgcolor: '#ffdfe4',

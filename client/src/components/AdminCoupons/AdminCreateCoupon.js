@@ -45,7 +45,7 @@ const AdminCreateCoupon = () => {
     console.log('get current date: ', getCurrentDate);
 
     // item for menu
-    const statusOptions = ['Active', 'Expired'];
+    const statusOptions = ['Active', 'Unactive', 'Expired'];
     const generateRandomCouponId = () => {
         return 'COUPON-' + Math.random().toString(36).substring(2, 10).toUpperCase();
     };
@@ -146,7 +146,14 @@ const AdminCreateCoupon = () => {
                                 <MenuItem key={option} value={option}>
                                     <Box
                                         sx={{
-                                            bgcolor: option === 'Active' ? '#bdf5d3' : grey[300],
+                                            // bgcolor: '#ffdfe4',
+                                            // color: '#f11133',
+                                            bgcolor:
+                                                option === 'Active'
+                                                    ? '#bdf5d3'
+                                                    : option === 'Unactive'
+                                                    ? '#ffdfe4'
+                                                    : grey[300],
                                             borderRadius: 2,
                                             boxShadow: 1,
                                             padding: '4px 0',
@@ -156,7 +163,12 @@ const AdminCreateCoupon = () => {
                                         <AdminTypography
                                             sx={{
                                                 fontSize: '14px',
-                                                color: option === 'Active' ? '#187d44' : grey[600],
+                                                color:
+                                                    option === 'Active'
+                                                        ? '#187d44'
+                                                        : option === 'Unactive'
+                                                        ? '#f11133'
+                                                        : grey[600],
                                                 fontWeight: 'bold',
                                                 textAlign: 'center',
                                             }}
