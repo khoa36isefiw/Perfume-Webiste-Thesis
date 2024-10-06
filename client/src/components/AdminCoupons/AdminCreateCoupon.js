@@ -48,10 +48,14 @@ const AdminCreateCoupon = () => {
 
     // item for menu
     const statusOptions = ['Active', 'Expired'];
+    const generateRandomCouponId = () => {
+        return 'COUPON-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+    };
 
     // Handle form submission
     const handleCreateNewCoupon = () => {
         const newProduct = {
+            id: generateRandomCouponId(),
             description,
             code,
             discount,
