@@ -4,7 +4,7 @@ import { Box, IconButton } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-export default function ActionsButton() {
+export default function ActionsButton({ onHandleClickEdit }) {
     return (
         <Box>
             <IconButton
@@ -28,6 +28,7 @@ export default function ActionsButton() {
                     },
                     mr: 1,
                 }}
+                onClick={onHandleClickEdit}
             >
                 <EditIcon sx={{ color: '#1a9f53', fontSize: '16px' }} />
             </IconButton>
