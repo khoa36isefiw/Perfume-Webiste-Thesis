@@ -79,7 +79,7 @@ function NewArrivals() {
                             overflow: 'hidden',
                             width: '450px',
                             height: '700px',
-                            objectFit: 'cover',
+
                             objectFit: 'cover',
                             [mobileScreen]: {
                                 display: 'flex',
