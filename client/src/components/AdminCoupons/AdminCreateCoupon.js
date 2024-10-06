@@ -16,8 +16,11 @@ import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
 import { grey } from '@mui/material/colors';
 import { useDispatch } from 'react-redux';
 import { createNewCoupon } from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { useNavigate } from 'react-router-dom';
 
 const AdminCreateCoupon = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     // get the current date time follow yyyy-mm-dd format
     let currentDate = new Date().toLocaleString('en-CA').slice(0, 10);
@@ -33,6 +36,13 @@ const AdminCreateCoupon = () => {
     const [discount, setDiscount] = useState('');
     const [getCurrentDate, setGetCurrentDate] = useState(currentDate);
     const [getEndDate, setGetEndDate] = useState(currentDate);
+
+    // show message
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [messageType, setMessageType] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+    const [messageTitle, setMessageTitle] = useState('');
 
     console.log('get current date: ', getCurrentDate);
 
@@ -54,6 +64,21 @@ const AdminCreateCoupon = () => {
 
         console.log('New Product Data:', newProduct);
         dispatch(createNewCoupon({ data: newProduct }));
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
+        setMessageType('success');
+        setMessageContent('Create new coupon successfully');
+        setMessageTitle('Create new coupon');
+        setTimeout(() => {
+            navigate('/admin/manage-coupons/');
+        }, 2800);
+    };
+
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
     };
 
     return (
@@ -191,6 +216,20 @@ const AdminCreateCoupon = () => {
                     borderColor={theme.palette.admin.bgColor}
                 />
             </Box>
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 };
