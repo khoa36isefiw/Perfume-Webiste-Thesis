@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Box, Button, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
-import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
+import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import ActionsButton from '../Dashboard/ActionsButton';
 import { theme } from '../../Theme/Theme';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
@@ -14,6 +14,9 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SellIcon from '@mui/icons-material/Sell';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCoupon } from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
+import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
+import WarningIcon from '@mui/icons-material/Warning';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 const itemsPerPage = 5;
 
@@ -23,7 +26,10 @@ const CouponsTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
-
+    const [couponToRemove, setCouponToRemove] = useState(null);
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
     console.log('listCoupons: ', listCoupons);
 
@@ -83,10 +89,43 @@ const CouponsTable = () => {
         });
     };
 
+    // const handleDeleteCoupon = (couponId) => {
+    //     dispatch(deleteCoupon({ codeId: couponId }));
+    // };
+
+    // open the confirm dialog message and save the products are removed
     const handleDeleteCoupon = (couponId) => {
-        dispatch(deleteCoupon({ codeId: couponId }));
+        // for showing confirm message dialog
+        setOpenConfirmMessage(true); // open
+        setCouponToRemove({ codeId: couponId }); // store coupon information is removed
     };
 
+    // disagree, not delete the coupón
+    const handleConfirmDisagree = () => {
+        // click disagree button actions
+        setOpenConfirmMessage(false); // don't want to remove, hide the delete confirm message
+        setCouponToRemove(null);
+    };
+
+    // agree, delete the coupon
+    const handleConfirmAgree = () => {
+        // click agree button actions
+        if (couponToRemove) {
+            dispatch(deleteCoupon({ codeId: couponToRemove.codeId }));
+        }
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
+        setOpenConfirmMessage(false);
+        setCouponToRemove(null);
+    };
+
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
+    };
     console.log('filterListCoupons: ', filteredSearchCoupons);
     return (
         <Box sx={{ padding: 2 }}>
@@ -327,6 +366,54 @@ const CouponsTable = () => {
                     <ArrowForwardIosIcon />
                 </IconButton>
             </Box>
+
+            {/* Open Confirm Message */}
+            <ConfirmMessage
+                openConfirmMessage={openConfirmMessage}
+                msgTitle={
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <WarningIcon
+                            sx={{
+                                color: theme.icon.color.primary,
+                                fontSize: theme.icon.size.desktop,
+                            }}
+                        />
+                        <CustomizeTypography
+                            sx={{
+                                color: theme.palette.text.main,
+                                fontSize: '18px',
+                                mb: 0,
+                                ml: 2,
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            Delete Products
+                        </CustomizeTypography>
+                    </Box>
+                }
+                msgContent={
+                    <Typography sx={{ fontSize: '16px' }}>
+                        Are you sure you want to delete this product?
+                    </Typography>
+                }
+                onHandleClickClose={() => setOpenConfirmMessage(false)}
+                onHandleConfirmAgree={handleConfirmAgree}
+                onHandleConfirmDisagree={handleConfirmDisagree}
+            />
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={'success'}
+                        msgTitle={'Delete Products'}
+                        msgContent={'Products are removed successfully from cart!'}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 };
