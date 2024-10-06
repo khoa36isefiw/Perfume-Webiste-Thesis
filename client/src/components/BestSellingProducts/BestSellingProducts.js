@@ -9,43 +9,20 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-const perfumesData = [
-    {
-        perfumeUrl:
-            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
-
-        perfumeName: 'Homme Intense',
-        perfumePrice: '220.00',
-        perfumeCapacity: '100',
-    },
-    {
-        perfumeUrl:
-            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
-
-        perfumeName: 'Allure Homme Sport Eau Extreme',
-        perfumePrice: '160.00',
-        perfumeCapacity: '100',
-    },
-    {
-        perfumeUrl:
-            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
-
-        perfumeName: 'Allure Homme Sport',
-        perfumePrice: '250.00',
-        perfumeCapacity: '100',
-    },
-    {
-        perfumeUrl:
-            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Sauvage_EDT_vucd51.png',
-
-        perfumeName: 'Sauvage EDT',
-        perfumePrice: '220.00',
-        perfumeCapacity: '100',
-    },
-];
+import { perfumeData } from '../PerfumesCard/perfumeData';
+import { converToVND } from '../convertToVND/convertToVND';
+import { useNavigate } from 'react-router-dom';
+import { backTop } from '../goBackTop/goBackTop';
 
 function BestSellingProducts() {
+    const navigate = useNavigate();
+    // cut the perfumeData list, just use 5 items in array
+    const newList = perfumeData.slice(0, 5);
+    const handleNavigateProductDetails = (perfume) => {
+        // navigate to the product detail page and pass the perfume data as state
+        navigate(`/product/${perfume.perfumeID}`, { state: { perfume } });
+        backTop();
+    };
     const settings = {
         infinite: true,
         speed: 500,
@@ -102,18 +79,19 @@ function BestSellingProducts() {
             </CustomizeTypography>
             <Box sx={{ mt: 4 }}>
                 <Slider {...settings}>
-                    {perfumesData.map((perfume, index) => (
+                    {newList.map((perfume, index) => (
                         <Box
                             key={index}
                             sx={{
                                 p: 2,
                                 width: '180px',
-                                // transition: 'transform 0.3s ease',
-                                // '&:hover': {
-                                //     cursor: 'pointer',
-                                //     transform: 'translateY(-20px)',
-                                // },
+                                transition: 'transform 0.3s ease',
+                                '&:hover': {
+                                    cursor: 'pointer',
+                                    transform: 'translateY(-5px)',
+                                },
                             }}
+                            onClick={() => handleNavigateProductDetails(perfume)}
                         >
                             <Grid
                                 container
@@ -130,7 +108,7 @@ function BestSellingProducts() {
                                 }}
                             >
                                 <Avatar
-                                    src={perfume.perfumeUrl}
+                                    src={perfume.perfumeImage}
                                     sx={{ borderRadius: 0, height: '350px', width: '200px' }}
                                 />
                                 <CustomizeTypography
@@ -160,10 +138,10 @@ function BestSellingProducts() {
                                             fontBold: 'weight',
                                         }}
                                     >
-                                        $ {perfume.perfumePrice}
+                                        {converToVND(perfume.perfumeGroupSize[0].perfumePrice)}
                                     </CustomizeTypography>
                                     <CustomizeTypography sx={{ marginLeft: 1 }}>
-                                        {perfume.perfumeCapacity} ml
+                                        {perfume.perfumeGroupSize[0].perfumeSize} ml
                                     </CustomizeTypography>
                                 </Box>
                             </Grid>
