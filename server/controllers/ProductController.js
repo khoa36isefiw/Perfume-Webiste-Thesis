@@ -52,6 +52,20 @@ const ProductController = {
             res.status(404).json({ message: error.message });
         }
     },
+
+    delete: async (req, res) => {
+        const { id } = req.params;
+        try {
+            const product = await Product.findOne({ _id: id });
+            if (!product) {
+                return res.status(404).json({ message: 'Product not found' });
+            }
+            await Product.updateOne({ _id: id }, { deleted: true });
+            res.status(200).json({ message: 'Product deleted successfully' });
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    },
 };
 
 module.exports = ProductController;
