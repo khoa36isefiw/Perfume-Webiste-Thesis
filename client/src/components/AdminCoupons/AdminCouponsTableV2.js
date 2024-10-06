@@ -12,12 +12,14 @@ import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SellIcon from '@mui/icons-material/Sell';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCoupon } from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
 
 const itemsPerPage = 5;
 
 const CouponsTable = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
@@ -79,6 +81,10 @@ const CouponsTable = () => {
                 couponData: listCoupons.find((coupon) => coupon.id === couponId),
             },
         });
+    };
+
+    const handleDeleteCoupon = (couponId) => {
+        dispatch(deleteCoupon({ codeId: couponId }));
     };
 
     console.log('filterListCoupons: ', filteredSearchCoupons);
@@ -291,7 +297,10 @@ const CouponsTable = () => {
                                 </Box>
                             )}
                         </Box>
-                        <ActionsButton onHandleClickEdit={() => handleEdit(coupon.id)} />
+                        <ActionsButton
+                            onHandleClickEdit={() => handleEdit(coupon.id)}
+                            onHandleClickDelete={() => handleDeleteCoupon(coupon.id)}
+                        />
                     </Box>
                 ))}
             </Box>
