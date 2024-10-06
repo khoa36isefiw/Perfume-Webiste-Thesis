@@ -26,8 +26,6 @@ const AdminCreateCoupon = () => {
     let currentDate = new Date().toLocaleString('en-CA').slice(0, 10);
 
     console.log('currentDate: ', currentDate);
-    let date = new Date().toLocaleDateString('vi');
-    console.log('date: ', date);
 
     const [quantity, setQuantity] = useState('');
     const [code, setCode] = useState('');
@@ -90,7 +88,6 @@ const AdminCreateCoupon = () => {
             sx={{
                 p: 3,
                 mx: 4,
-                borderRadius: 2,
             }}
         >
             <AdminButtonBackPage title={'List Coupons'} />
@@ -240,7 +237,14 @@ const AdminCreateCoupon = () => {
 
 export default AdminCreateCoupon;
 
-const AdminButtonDesign = ({ type, bgcolor, title, onHandleClick, textColor, borderColor }) => {
+export const AdminButtonDesign = ({
+    type,
+    bgcolor,
+    title,
+    onHandleClick,
+    textColor,
+    borderColor,
+}) => {
     return (
         <Button
             variant={type}
