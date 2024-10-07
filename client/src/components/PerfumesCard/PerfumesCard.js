@@ -1,5 +1,5 @@
 import { Box, Button, Container, Grid } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { perfumeData } from './perfumeData';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -49,7 +49,7 @@ function PerfumesCard() {
                         <Grid item xs={6} sm={4} md={3} lg={3} key={index}>
                             <Box
                                 sx={{
-                                    height: '420px',
+                                    height: '350px',
                                     display: 'flex',
                                     flexDirection: 'column',
                                     // alignItems: 'center',
@@ -74,6 +74,7 @@ function PerfumesCard() {
                                         sx={{
                                             position: 'absolute',
                                             top: '4%',
+                                            left: 0,
                                             height: '30px',
                                             width: '60px',
                                             // bgcolor: 'red',
@@ -125,10 +126,13 @@ function PerfumesCard() {
                                     component={'img'}
                                     src={perfume.perfumeImage}
                                     sx={{
-                                        height: '230px',
-                                        width: 'auto',
+                                        height: '180px',
+                                        width: '180px',
                                         objectFit: 'cover',
-
+                                        margin: 'auto',
+                                        // display: 'flex',
+                                        // alignItems: 'center',
+                                        // justifyContent: 'center',
                                         [tabletScreen]: {
                                             height: '220px',
                                             mt: 2,
