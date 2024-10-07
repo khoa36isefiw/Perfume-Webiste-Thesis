@@ -74,6 +74,7 @@ function RatingProduct({ perfumeDetailData }) {
                 userComment: newComment,
                 isBought: true,
                 isCommented: true,
+                isCommented: !!findUser,
                 commentTime: currentDate,
                 ratingValue,
             };

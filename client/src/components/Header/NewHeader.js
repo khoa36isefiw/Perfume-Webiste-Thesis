@@ -12,6 +12,7 @@ import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
 import SimpleBottomNavigation from './MobileBottomNavigation';
 import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
+import { backTop } from '../goBackTop/goBackTop';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -55,6 +56,7 @@ function NewHeader() {
     const handleHeaderClick = (header) => {
         setActiveHeader(header.headerText);
         navigate(header.headerLink);
+        backTop();
     };
 
     // search
