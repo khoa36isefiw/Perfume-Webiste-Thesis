@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Container, Grid, TextField } from '@mui/material';
+import { Box, Container, Grid, TextField, Rating, Stack } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import StarIcon from '@mui/icons-material/Star';
@@ -284,6 +284,9 @@ function RatingProduct({ perfumeDetailData }) {
                         </CustomizeTypography>
                     </Grid>
                 )}
+                {/* rating */}
+                {commentRights && <Rating name="size-medium" defaultValue={2} />}
+
                 {/*  check if the user has bought product, bought --> can comment
                 -> commented --> hide the comment box region: !findUser?.isCommented
                  */}
