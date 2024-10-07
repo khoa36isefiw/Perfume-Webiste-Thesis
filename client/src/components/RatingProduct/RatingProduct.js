@@ -13,6 +13,7 @@ function RatingProduct({ perfumeDetailData }) {
     const dispatch = useDispatch();
     const reviewInputRef = useRef(null);
     const [commentRights, setCommentRights] = useState(false);
+
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const [comments, setComments] = useState([]);
     // const []
@@ -23,11 +24,6 @@ function RatingProduct({ perfumeDetailData }) {
     console.log('information: ', commentsList);
 
     const findUser = commentsList.find((user) => user?.userId === loggedInAccount?.userId);
-    useEffect(() => {
-        if (findUser) {
-            setCommentRights(false);
-        }
-    }, [commentsList]);
 
     console.log('user: ', findUser);
 
@@ -281,15 +277,17 @@ function RatingProduct({ perfumeDetailData }) {
                         />
                     </Grid>
                 </Grid>
-                {commentRights && (
+                {!findUser?.isCommented && commentRights && (
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600', mt: 4 }}>
                             Write your review at here...
                         </CustomizeTypography>
                     </Grid>
                 )}
-
-                {commentRights && (
+                {/*  check if the user has bought product, bought --> can comment
+                -> commented --> hide the comment box region: !findUser?.isCommented
+                 */}
+                {!findUser?.isCommented && commentRights && (
                     <Grid item container lg={12}>
                         <Grid item xs={12} lg={12}>
                             <TextField
