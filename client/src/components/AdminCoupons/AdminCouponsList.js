@@ -8,7 +8,7 @@ function AdminCouponsList() {
     return (
         <Box>
             <AdminHeadingTypography>List Coupons</AdminHeadingTypography>
-            <AdminCouponsTable />
+            {/* <AdminCouponsTable /> */}
             <AdminCouponsTableV2 />
         </Box>
     );

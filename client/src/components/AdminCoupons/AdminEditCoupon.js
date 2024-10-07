@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+    Avatar,
     Box,
     Button,
     MenuItem,
@@ -13,26 +14,29 @@ import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { theme } from '../../Theme/Theme';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
 import { grey } from '@mui/material/colors';
-import { useDispatch } from 'react-redux';
-import { createNewCoupon } from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    createNewCoupon,
+    updateCoupon,
+} from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { AdminButtonDesign } from './AdminCreateCoupon';
 
-const AdminCreateCoupon = () => {
+function AdminEditCoupon() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // get the current date time follow yyyy-mm-dd format
-    let currentDate = new Date().toLocaleString('en-CA').slice(0, 10);
+    const location = useLocation();
 
-    console.log('currentDate: ', currentDate);
-
-    const [quantity, setQuantity] = useState('');
-    const [code, setCode] = useState('');
-    const [status, setStatus] = useState('');
-    const [description, setDescription] = useState('');
-    const [discount, setDiscount] = useState('');
-    const [getCurrentDate, setGetCurrentDate] = useState(currentDate);
-    const [getEndDate, setGetEndDate] = useState(currentDate);
+    const { couponData } = location.state || {};
+    const [quantity, setQuantity] = useState(couponData.quantity);
+    const [code, setCode] = useState(couponData.code);
+    const [status, setStatus] = useState(couponData.status);
+    const [description, setDescription] = useState(couponData.description);
+    const [discount, setDiscount] = useState(couponData.discount);
+    const [getCurrentDate, setGetCurrentDate] = useState(couponData.getCurrentDate);
+    const [getEndDate, setGetEndDate] = useState(couponData.getEndDate);
 
     // show message
     const [showNotification, setShowNotification] = useState(false);
@@ -40,19 +44,13 @@ const AdminCreateCoupon = () => {
     const [messageType, setMessageType] = useState('');
     const [messageContent, setMessageContent] = useState('');
     const [messageTitle, setMessageTitle] = useState('');
-
-    console.log('get current date: ', getCurrentDate);
-
-    // item for menu
-    const statusOptions = ['Active', 'Unactive', 'Expired'];
-    const generateRandomCouponId = () => {
-        return 'COUPON-' + Math.random().toString(36).substring(2, 10).toUpperCase();
-    };
+    const statusOptions = ['Active', 'Expired'];
+    const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
+    console.log('listCoupons: ', listCoupons);
 
     // Handle form submission
     const handleCreateNewCoupon = () => {
         const newProduct = {
-            id: generateRandomCouponId(),
             description,
             code,
             discount,
@@ -64,15 +62,15 @@ const AdminCreateCoupon = () => {
         };
 
         console.log('New Product Data:', newProduct);
-        dispatch(createNewCoupon({ data: newProduct }));
+        dispatch(updateCoupon({ couponId: couponData.id, data: newProduct }));
         setShowNotification(true);
         setShowAnimation('animate__bounceInRight');
         setMessageType('success');
         setMessageContent('Create new coupon successfully');
         setMessageTitle('Create new coupon');
-        setTimeout(() => {
-            navigate('/admin/manage-coupons/');
-        }, 2800);
+        // setTimeout(() => {
+        //     navigate('/admin/manage-coupons/');
+        // }, 2800);
     };
 
     const handleCloseNotification = () => {
@@ -81,17 +79,11 @@ const AdminCreateCoupon = () => {
             setShowNotification(false);
         }, 1000);
     };
-
     return (
-        <Box
-            sx={{
-                p: 3,
-                mx: 4,
-            }}
-        >
+        <Box sx={{ height: '100vh', p: 3, mx: 4 }}>
             <AdminButtonBackPage title={'List Coupons'} />
             <Typography variant="h4" sx={{ mb: 3 }}>
-                Create New Coupon
+                Edit Coupon Information
             </Typography>
             <Grid container spacing={4}>
                 <Grid item lg={6}>
@@ -145,14 +137,7 @@ const AdminCreateCoupon = () => {
                                 <MenuItem key={option} value={option}>
                                     <Box
                                         sx={{
-                                            // bgcolor: '#ffdfe4',
-                                            // color: '#f11133',
-                                            bgcolor:
-                                                option === 'Active'
-                                                    ? '#bdf5d3'
-                                                    : option === 'Unactive'
-                                                    ? '#ffdfe4'
-                                                    : grey[300],
+                                            bgcolor: option === 'Active' ? '#bdf5d3' : grey[300],
                                             borderRadius: 2,
                                             boxShadow: 1,
                                             padding: '4px 0',
@@ -162,12 +147,7 @@ const AdminCreateCoupon = () => {
                                         <AdminTypography
                                             sx={{
                                                 fontSize: '14px',
-                                                color:
-                                                    option === 'Active'
-                                                        ? '#187d44'
-                                                        : option === 'Unactive'
-                                                        ? '#f11133'
-                                                        : grey[600],
+                                                color: option === 'Active' ? '#187d44' : grey[600],
                                                 fontWeight: 'bold',
                                                 textAlign: 'center',
                                             }}
@@ -212,7 +192,7 @@ const AdminCreateCoupon = () => {
             {/* Action Buttons */}
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <AdminButtonDesign
-                    title={'Create Coupon'}
+                    title={'Save Information'}
                     bgcolor={theme.palette.admin.bgColor}
                     onHandleClick={handleCreateNewCoupon}
                     type={'contained'}
@@ -244,38 +224,6 @@ const AdminCreateCoupon = () => {
             )}
         </Box>
     );
-};
+}
 
-export default AdminCreateCoupon;
-
-export const AdminButtonDesign = ({
-    type,
-    bgcolor,
-    title,
-    onHandleClick,
-    textColor,
-    borderColor,
-}) => {
-    return (
-        <Button
-            variant={type}
-            onClick={onHandleClick}
-            sx={{
-                color: textColor,
-                marginTop: 2,
-                padding: '10px 18px',
-                fontSize: '14px',
-                textTransform: 'initial',
-                borderRadius: 2,
-                bgcolor: bgcolor,
-                borderColor: borderColor,
-                '&:hover': {
-                    bgcolor: bgcolor,
-                    borderColor: borderColor,
-                },
-            }}
-        >
-            {title}
-        </Button>
-    );
-};
+export default AdminEditCoupon;

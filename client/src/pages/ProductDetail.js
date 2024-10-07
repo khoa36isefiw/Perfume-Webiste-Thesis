@@ -17,7 +17,7 @@ function ProductDetail() {
             <CustomizeDivider />
             <ProductInformation />
             <RatingProduct perfumeDetailData={perfume} />
-            <Comments />
+            <Comments perfumeDetailData={perfume} />
         </div>
     );
 }

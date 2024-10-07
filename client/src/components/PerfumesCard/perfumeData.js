@@ -249,6 +249,16 @@ export const perfumeData = [
         perfumeRating: 3,
         numberOfRating: '2',
         perfumePriceVND: 3280000,
+        perfumeGroupSize: [
+            {
+                perfumeSize: 60,
+                perfumePrice: 2690000,
+            },
+            {
+                perfumeSize: 100,
+                perfumePrice: 3380000,
+            },
+        ],
         perfumePriceDiscount: 2788000, // 15% off
         discount: true,
         flashSale: false,
@@ -294,6 +304,16 @@ export const perfumeData = [
         perfumeRating: 4, // ??? stars?
         numberOfRating: '12', // total of stars???
         perfumePriceVND: 3780000,
+        perfumeGroupSize: [
+            {
+                perfumeSize: 60,
+                perfumePrice: 2690000,
+            },
+            {
+                perfumeSize: 100,
+                perfumePrice: 3380000,
+            },
+        ],
         perfumePriceDiscount: '', // 15% off
         discount: false,
         flashSale: true,
@@ -339,6 +359,16 @@ export const perfumeData = [
         perfumeRating: 5,
         numberOfRating: '23',
         perfumePriceVND: 3480000,
+        perfumeGroupSize: [
+            {
+                perfumeSize: 60,
+                perfumePrice: 2690000,
+            },
+            {
+                perfumeSize: 100,
+                perfumePrice: 3380000,
+            },
+        ],
         perfumePriceDiscount: 3006400,
         discount: true,
         flashSale: true,
@@ -384,6 +414,16 @@ export const perfumeData = [
         perfumeRating: 4,
         numberOfRating: '12',
         perfumePriceVND: 3380000,
+        perfumeGroupSize: [
+            {
+                perfumeSize: 60,
+                perfumePrice: 2690000,
+            },
+            {
+                perfumeSize: 100,
+                perfumePrice: 3380000,
+            },
+        ],
         perfumePriceDiscount: '',
         discount: false,
         flashSale: true,

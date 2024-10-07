@@ -47,23 +47,38 @@ function EmptyCart({
     title = 'Your cart is empty',
     subTitle = 'Looks like you have not added anything to your cart.',
     isShowButton = true,
+    width,
+    height,
+    spacing,
+    imageSpacing,
+    emptyCartHeight,
 }) {
     const navigate = useNavigate();
     return (
         <Box
             sx={{
-                minHeight: '500px',
+                minHeight: emptyCartHeight || '500px',
                 bgcolor: '#000',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                mt: 22,
+                mt: spacing || 22,
                 [mobileScreen]: {
                     width: '100%',
                 },
             }}
         >
-            <Avatar src={imgCart} alt="Empty Cart Image" sx={{ width: '256px', height: '256px' }} />
+            <Avatar
+                src={imgCart}
+                alt="Empty Cart Image"
+                sx={{
+                    width: width || '256px',
+                    height: height || '256px',
+                    borderRadius: 0,
+                    objectFit: 'cover',
+                    mt: imageSpacing,
+                }}
+            />
             <CustomizeTypography
                 sx={{ color: theme.palette.text.secondary, fontSize: '32px', fontWeight: 'bold' }}
             >

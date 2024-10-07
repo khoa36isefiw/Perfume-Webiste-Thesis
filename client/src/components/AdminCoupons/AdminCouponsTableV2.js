@@ -1,155 +1,39 @@
 import React, { useState } from 'react';
-import { Box, Button, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
-import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
+import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import ActionsButton from '../Dashboard/ActionsButton';
 import { theme } from '../../Theme/Theme';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { useNavigate } from 'react-router-dom';
 import { Search } from '@mui/icons-material';
-
 import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SellIcon from '@mui/icons-material/Sell';
-import { useSelector } from 'react-redux';
-
-const couponsData = [
-    {
-        id: 1,
-        description: 'Save 10%',
-        code: 'SAVE10',
-        discount: '10%',
-        validTill: '2024-12-31',
-        startDate: '2024-08-22',
-        status: 'Active',
-        quantity: 12,
-        used: 4,
-    },
-    {
-        id: 2,
-        description: 'Sale 20%',
-        code: 'OFF20',
-        discount: '20%',
-        validTill: '2024-11-15',
-        startDate: '2024-08-22',
-        status: 'Expired',
-        quantity: 12,
-        used: 4,
-    },
-    {
-        id: 3,
-        description: 'Summer sale 15%',
-        code: 'SUMMER15',
-        discount: '15%',
-        validTill: '2024-07-31',
-        startDate: '2024-08-22',
-        status: 'Active',
-        quantity: 12,
-        used: 4,
-    },
-    {
-        id: 4,
-        description: 'Winter discount 25% off',
-        code: 'WINTER25',
-        discount: '25%',
-        validTill: '2024-01-15',
-        startDate: '2024-08-22',
-        status: 'Active',
-        quantity: 12,
-        used: 4,
-    },
-    {
-        id: 5,
-        description: 'Spring discount 5% off',
-        code: 'SPRING5',
-        discount: '5%',
-        validTill: '2024-04-20',
-        startDate: '2024-08-22',
-        status: 'Expired',
-        quantity: 12,
-        used: 4,
-    },
-    {
-        id: 6,
-        description: 'Holiday discount 30% off ',
-        code: 'HOLIDAY30',
-        discount: '30%',
-        validTill: '2024-12-01',
-        startDate: '2024-08-22',
-        status: 'Active',
-        quantity: 12,
-        used: 4,
-    },
-    {
-        id: 7,
-        description: 'Black Friday sale 40%',
-        code: 'BLACKFRIDAY40',
-        discount: '40%',
-        validTill: '2024-11-25',
-        startDate: '2024-08-22',
-        status: 'Active',
-        quantity: 12,
-        used: 4,
-    },
-    {
-        id: 8,
-        description: "Viet Nam New Year's Day sale 50%",
-        code: 'NEWYEAR50',
-        discount: '50%',
-        validTill: '2024-01-01',
-        startDate: '2024-08-22',
-        status: 'Active',
-        quantity: 12,
-        used: 4,
-    },
-    {
-        id: 9,
-        description: 'Flash sale discount 15% off',
-        code: 'FALLSALE15',
-        discount: '15%',
-        validTill: '2024-10-15',
-        startDate: '2024-08-22',
-        status: 'Expired',
-        quantity: 12,
-        used: 4,
-    },
-    {
-        id: 10,
-        description: 'Summer sale 20% off ',
-        code: 'SUMMERSALE20',
-        discount: '20%',
-        validTill: '2024-08-20',
-        startDate: '2024-08-22',
-        status: 'Active',
-        quantity: 12,
-        used: 4,
-    },
-    {
-        id: 11,
-        description: "Viet Nam's Independent 30/04/1975",
-        code: 'VietNam30041975',
-        discount: '30.4%',
-        validTill: '2024-04-30',
-        startDate: '2024-08-22',
-        status: 'Active',
-        quantity: 12,
-        used: 4,
-    },
-];
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCoupon } from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
+import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
+import WarningIcon from '@mui/icons-material/Warning';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import EmptyCart from '../EmptyCart/EmptyCart';
 
 const itemsPerPage = 5;
 
 const CouponsTable = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
-
+    const [couponToRemove, setCouponToRemove] = useState(null);
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
     console.log('listCoupons: ', listCoupons);
 
-    const filters = ['All Coupons', 'Active', 'Expired'];
+    const filters = ['All Coupons', 'Active', 'Unactive', 'Expired'];
     const filterListCoupons =
         filterCoupons !== 'All Coupons'
             ? listCoupons?.filter((list) => list.status === filterCoupons)
@@ -196,7 +80,50 @@ const CouponsTable = () => {
         setCurrentPage(1);
     };
 
-    console.log('filterListCoupons: ', filteredSearchCoupons);
+    const handleEdit = (couponId) => {
+        console.log('couponId: ', couponId);
+        navigate(`edit-coupon/${couponId}`, {
+            state: {
+                couponData: listCoupons.find((coupon) => coupon.id === couponId),
+            },
+        });
+    };
+
+    // delete coupon feature
+    // open the confirm dialog message and save the products are removed
+    const handleDeleteCoupon = (couponId) => {
+        // for showing confirm message dialog
+        setOpenConfirmMessage(true); // open
+        setCouponToRemove({ codeId: couponId }); // store coupon information is removed
+    };
+
+    // disagree, not delete the coupón
+    const handleConfirmDisagree = () => {
+        // click disagree button actions
+        setOpenConfirmMessage(false); // don't want to remove, hide the delete confirm message
+        setCouponToRemove(null);
+    };
+
+    // agree, delete the coupon
+    const handleConfirmAgree = () => {
+        // click agree button actions
+        if (couponToRemove) {
+            dispatch(deleteCoupon({ codeId: couponToRemove.codeId }));
+        }
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
+        setOpenConfirmMessage(false);
+        setCouponToRemove(null);
+    };
+
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
+    };
+
     return (
         <Box sx={{ padding: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -269,6 +196,7 @@ const CouponsTable = () => {
                     </Button>
                 ))}
             </Box>
+
             <Box
                 sx={{
                     margin: 'auto',
@@ -315,103 +243,158 @@ const CouponsTable = () => {
                         Actions
                     </AdminTypography>
                 </Box>
-
-                {currentItems.map((coupon) => (
-                    <Box
-                        key={coupon.id}
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-
-                            padding: 2,
-                            borderBottom: '1px solid #ddd',
-                        }}
-                    >
-                        <Box sx={{ display: 'flex', alignItems: 'center', flex: 2 }}>
+                {currentItems.length > 0 ? (
+                    <React.Fragment>
+                        {currentItems.map((coupon) => (
                             <Box
+                                key={coupon.id}
                                 sx={{
-                                    bgcolor: blue[700],
-                                    padding: '10px',
-                                    borderRadius: 1,
-                                    mr: 1,
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+
+                                    padding: 2,
+                                    borderBottom: '1px solid #ddd',
                                 }}
                             >
-                                <SellIcon
-                                    sx={{
-                                        fontSize: '24px',
-                                        color: '#fff',
-                                        transform: 'rotate(90deg)',
-                                    }}
+                                <Box sx={{ display: 'flex', alignItems: 'center', flex: 2 }}>
+                                    <Box
+                                        sx={{
+                                            bgcolor: blue[700],
+                                            padding: '10px',
+                                            borderRadius: 1,
+                                            mr: 1,
+                                        }}
+                                    >
+                                        <SellIcon
+                                            sx={{
+                                                fontSize: '24px',
+                                                color: '#fff',
+                                                transform: 'rotate(90deg)',
+                                            }}
+                                        />
+                                    </Box>
+                                    <Box>
+                                        <AdminTypography sx={{ flex: 1 }}>
+                                            {coupon.description}
+                                        </AdminTypography>
+                                        <AdminTypography sx={{ flex: 1, mt: '4px' }}>
+                                            {coupon.code}
+                                        </AdminTypography>
+                                    </Box>
+                                </Box>
+                                <AdminTypography sx={{ flex: 1 }}>
+                                    {coupon.discount}
+                                </AdminTypography>
+                                <AdminTypography sx={{ flex: 1 }}>
+                                    {coupon.quantity}
+                                </AdminTypography>
+                                <AdminTypography sx={{ flex: 1 }}>{coupon.used}</AdminTypography>
+                                <AdminTypography sx={{ flex: 1 }}>
+                                    {coupon.getCurrentDate}
+                                </AdminTypography>
+                                <AdminTypography sx={{ flex: 1 }}>
+                                    {coupon.getEndDate}
+                                </AdminTypography>
+                                <Box sx={{ flex: 1 }}>
+                                    {coupon.status === 'Active' ? (
+                                        <Box
+                                            sx={{
+                                                bgcolor: '#bdf5d3',
+
+                                                borderRadius: 2,
+                                                boxShadow: 1,
+                                                padding: '4px 0',
+                                                width: 80,
+                                            }}
+                                        >
+                                            <AdminTypography
+                                                sx={{
+                                                    fontSize: '14px',
+                                                    color: '#187d44',
+                                                    fontWeight: 'bold',
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                {coupon.status}
+                                            </AdminTypography>
+                                        </Box>
+                                    ) : coupon.status === 'Unactive' ? (
+                                        <Box
+                                            sx={{
+                                                bgcolor: '#ffdfe4',
+                                                borderRadius: 2,
+                                                boxShadow: 1,
+                                                padding: '4px 0',
+                                                width: 80,
+                                            }}
+                                        >
+                                            <AdminTypography
+                                                sx={{
+                                                    fontSize: '14px',
+                                                    color: '#f11133',
+                                                    fontWeight: 'bold',
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                {coupon.status}
+                                            </AdminTypography>
+                                        </Box>
+                                    ) : (
+                                        <Box
+                                            sx={{
+                                                bgcolor: grey[200],
+
+                                                borderRadius: 2,
+                                                boxShadow: 1,
+                                                padding: '4px 0',
+                                                width: 80,
+                                            }}
+                                        >
+                                            <AdminTypography
+                                                sx={{
+                                                    fontSize: '14px',
+                                                    color: grey[600],
+                                                    fontWeight: 'bold',
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                {coupon.status}
+                                            </AdminTypography>
+                                        </Box>
+                                    )}
+                                </Box>
+                                <ActionsButton
+                                    onHandleClickEdit={() => handleEdit(coupon.id)}
+                                    onHandleClickDelete={() => handleDeleteCoupon(coupon.id)}
                                 />
                             </Box>
-                            <Box>
-                                <AdminTypography sx={{ flex: 1 }}>
-                                    {coupon.description}
-                                </AdminTypography>
-                                <AdminTypography sx={{ flex: 1, mt: '4px' }}>
-                                    {coupon.code}
-                                </AdminTypography>
-                            </Box>
-                        </Box>
-                        <AdminTypography sx={{ flex: 1 }}>{coupon.discount}</AdminTypography>
-                        <AdminTypography sx={{ flex: 1 }}>{coupon.quantity}</AdminTypography>
-                        <AdminTypography sx={{ flex: 1 }}>{coupon.used}</AdminTypography>
-                        <AdminTypography sx={{ flex: 1 }}>{coupon.getCurrentDate}</AdminTypography>
-                        <AdminTypography sx={{ flex: 1 }}>{coupon.getEndDate}</AdminTypography>
-                        <Box sx={{ flex: 1 }}>
-                            {coupon.status === 'Active' ? (
-                                <Box
-                                    sx={{
-                                        bgcolor: '#bdf5d3',
-
-                                        borderRadius: 2,
-                                        boxShadow: 1,
-                                        padding: '4px 0',
-                                        width: 80,
-                                    }}
-                                >
-                                    <AdminTypography
-                                        sx={{
-                                            fontSize: '14px',
-                                            color: '#187d44',
-                                            fontWeight: 'bold',
-                                            textAlign: 'center',
-                                        }}
-                                    >
-                                        {coupon.status}
-                                    </AdminTypography>
-                                </Box>
-                            ) : (
-                                <Box
-                                    sx={{
-                                        bgcolor: grey[200],
-
-                                        borderRadius: 2,
-                                        boxShadow: 1,
-                                        padding: '4px 0',
-                                        width: 80,
-                                    }}
-                                >
-                                    <AdminTypography
-                                        sx={{
-                                            fontSize: '14px',
-                                            color: grey[600],
-                                            fontWeight: 'bold',
-                                            textAlign: 'center',
-                                        }}
-                                    >
-                                        {coupon.status}
-                                    </AdminTypography>
-                                </Box>
-                            )}
-                        </Box>
-                        <ActionsButton />
-                    </Box>
-                ))}
+                        ))}
+                    </React.Fragment>
+                ) : (
+                    <EmptyCart
+                        imgCart={
+                            'https://cdn.shopify.com/s/files/1/0774/6430/6008/t/1/assets/posterbase.com%20cart%20empty.png?v=1693066146'
+                        }
+                        title="Empty Table"
+                        subTitle="Looks like you have not added anything to your table."
+                        isShowButton={false}
+                        height={'256px'}
+                        width={'350px'}
+                        spacing={'0px'}
+                        imageSpacing={'40px'}
+                        emptyCartHeight={'420px'}
+                    />
+                )}
             </Box>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+            <Box
+                sx={{
+                    display: currentItems.length > 0 ? 'flex' : 'none',
+                    justifyContent: 'center',
+                    marginTop: 2,
+                }}
+            >
                 <IconButton onClick={handlePrevious} disabled={currentPage === 1}>
                     <ArrowBackIosNewIcon />
                 </IconButton>
@@ -433,6 +416,54 @@ const CouponsTable = () => {
                     <ArrowForwardIosIcon />
                 </IconButton>
             </Box>
+
+            {/* Open Confirm Message */}
+            <ConfirmMessage
+                openConfirmMessage={openConfirmMessage}
+                msgTitle={
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <WarningIcon
+                            sx={{
+                                color: theme.icon.color.primary,
+                                fontSize: theme.icon.size.desktop,
+                            }}
+                        />
+                        <CustomizeTypography
+                            sx={{
+                                color: theme.palette.text.main,
+                                fontSize: '18px',
+                                mb: 0,
+                                ml: 2,
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            Delete Products
+                        </CustomizeTypography>
+                    </Box>
+                }
+                msgContent={
+                    <Typography sx={{ fontSize: '16px' }}>
+                        Are you sure you want to delete this product?
+                    </Typography>
+                }
+                onHandleClickClose={() => setOpenConfirmMessage(false)}
+                onHandleConfirmAgree={handleConfirmAgree}
+                onHandleConfirmDisagree={handleConfirmDisagree}
+            />
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={'success'}
+                        msgTitle={'Delete Products'}
+                        msgContent={'Products are removed successfully from cart!'}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 };
