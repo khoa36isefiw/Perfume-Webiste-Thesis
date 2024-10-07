@@ -71,7 +71,7 @@ function Comments({ perfumeDetailData }) {
                             {/* stars, rating */}
                             <Rating
                                 readOnly
-                                value={5}
+                                value={comment?.ratingValue}
                                 // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                 sx={{
                                     fontSize: '18px',
