@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productInformationData } from '../ProductInformation/productInformationData';
 import { saveComments } from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
 
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+
 function RatingProduct({ perfumeDetailData }) {
     const dispatch = useDispatch();
     const reviewInputRef = useRef(null);
@@ -16,18 +18,13 @@ function RatingProduct({ perfumeDetailData }) {
 
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const [comments, setComments] = useState([]);
+    const [ratingValue, setRatingValue] = useState(0);
     // const []
     const commentsList = useSelector(
         (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
     );
 
-    console.log('information: ', commentsList);
-
     const findUser = commentsList.find((user) => user?.userId === loggedInAccount?.userId);
-
-    console.log('user: ', findUser);
-
-    // console.log('loggedInAccount: ', loggedInAccount);
 
     const orderHistory = useSelector(
         // get for each user
@@ -78,6 +75,7 @@ function RatingProduct({ perfumeDetailData }) {
                 isBought: true,
                 isCommented: true,
                 commentTime: currentDate,
+                ratingValue,
             };
 
             const productId = perfumeDetailData.perfumeID;
@@ -285,7 +283,26 @@ function RatingProduct({ perfumeDetailData }) {
                     </Grid>
                 )}
                 {/* rating */}
-                {commentRights && <Rating name="size-medium" defaultValue={2} />}
+                {!findUser?.isCommented && commentRights && (
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                        <Rating
+                            name="size-medium"
+                            defaultValue={ratingValue}
+                            sx={{
+                                '&.MuiRating-root': {
+                                    fontSize: '28px',
+                                },
+                            }}
+                            // not rating --> emptyIcon
+                            emptyIcon={
+                                <StarBorderIcon fontSize="inherit" sx={{ color: '#faaf00' }} />
+                            }
+                            onChange={(event, newValue) => {
+                                setRatingValue(newValue);
+                            }}
+                        />
+                    </Grid>
+                )}
 
                 {/*  check if the user has bought product, bought --> can comment
                 -> commented --> hide the comment box region: !findUser?.isCommented
