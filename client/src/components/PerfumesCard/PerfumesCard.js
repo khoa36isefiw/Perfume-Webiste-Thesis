@@ -193,6 +193,7 @@ function PerfumesCard() {
                                         }}
                                     >
                                         <Rating
+                                            readOnly={true}
                                             value={perfume.perfumeRating}
                                             // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                             sx={{
