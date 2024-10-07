@@ -5,14 +5,33 @@ import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Th
 import StarIcon from '@mui/icons-material/Star';
 import { ratingData } from './ratingData';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { productInformationData } from '../ProductInformation/productInformationData';
+import { saveComments } from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
 
 function RatingProduct({ perfumeDetailData }) {
+    const dispatch = useDispatch();
     const reviewInputRef = useRef(null);
     const [commentRights, setCommentRights] = useState(false);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const [comments, setComments] = useState([]);
+    // const []
+    const commentsList = useSelector(
+        (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
+    );
+
+    console.log('information: ', commentsList);
+
+    const findUser = commentsList.find((user) => user?.userId === loggedInAccount?.userId);
+    useEffect(() => {
+        if (findUser) {
+            setCommentRights(false);
+        }
+    }, [commentsList]);
+
+    console.log('user: ', findUser);
+
+    // console.log('loggedInAccount: ', loggedInAccount);
 
     const orderHistory = useSelector(
         // get for each user
@@ -26,7 +45,7 @@ function RatingProduct({ perfumeDetailData }) {
                 (product) => product.productId === perfumeDetailData.perfumeID,
             ),
         );
-        console.log('isBought: ', isBought);
+        // console.log('isBought: ', isBought);
         setCommentRights(isBought);
     }, [orderHistory]);
 
@@ -36,15 +55,55 @@ function RatingProduct({ perfumeDetailData }) {
         }
     };
 
-    console.log('list commnets: ', comments);
-
     const handleComment = () => {
         const newComment = reviewInputRef.current.value; // value of textfield by ref
+
+        const timeComment = new Date();
+
+        // create date options with YYYY/MM/DD, AM/PM format
+        const options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true, // adds AM/PM to the time format
+        };
+
+        let currentDate = new Date(timeComment).toLocaleString('en-CA', options);
+
         if (newComment) {
-            setComments([...comments, newComment]); // add comment to list
+            const userCommentInformation = {
+                userId: loggedInAccount?.userId,
+                userFullName: loggedInAccount.firstName + ' ' + loggedInAccount.lastName,
+                userImage: loggedInAccount.userImage,
+                userMail: loggedInAccount.email,
+                userComment: newComment,
+                isBought: true,
+                isCommented: true,
+                commentTime: currentDate,
+            };
+
+            const productId = perfumeDetailData.perfumeID;
+
+            // // save userCommentInformation by [productId]
+            setComments({
+                ...comments,
+                // [productId]: hold an array of userCommentInformation objects
+                // check the current state of comments, if comment exist in the product
+                //has id append the new comment to the existing array
+                [productId]: comments[productId] //
+                    ? [...comments[productId], userCommentInformation] // add new comment to existing array
+                    : [userCommentInformation], // create a new array with the first comment
+            });
+            dispatch(saveComments({ productId, data: userCommentInformation }));
             reviewInputRef.current.value = ''; // remove text
         }
     };
+
+    useEffect(() => {
+        console.log('list commnets: ', comments);
+    }, [comments]);
 
     return (
         <Container
