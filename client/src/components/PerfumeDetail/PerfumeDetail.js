@@ -328,7 +328,7 @@ function PerfumeDetail() {
                                     mb: 1,
                                 }}
                             />
-                            <CustomizeTypography sx={{ ml: 1 }}>295 đã bán</CustomizeTypography>
+                            <CustomizeTypography sx={{ ml: 1 }}>đã bán 295</CustomizeTypography>
                         </Box>
 
                         <Box

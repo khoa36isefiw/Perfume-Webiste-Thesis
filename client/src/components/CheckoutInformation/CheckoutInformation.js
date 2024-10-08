@@ -148,6 +148,8 @@ function CheckoutInformation() {
             totalPrice: finalTotal,
             // add timestamp for when the purchase was made
             timestamp: new Date().toISOString(),
+            // test for commenting
+            isCommented: false,
         };
 
         // Step 2: retrieve the existing saved information from the state

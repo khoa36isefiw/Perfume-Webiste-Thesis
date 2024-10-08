@@ -20,9 +20,14 @@ function RatingProduct({ perfumeDetailData }) {
     const [comments, setComments] = useState([]);
     const [ratingValue, setRatingValue] = useState(0);
     // const []
+
+    const [hasCommented, setHasCommented] = useState(false);
+    const [useCommnted, setUseCommnted] = useState(false);
     const commentsList = useSelector(
         (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
     );
+
+    console.log('commentsList: ', commentsList);
 
     const findUser = commentsList.find((user) => user?.userId === loggedInAccount?.userId);
 
@@ -31,6 +36,15 @@ function RatingProduct({ perfumeDetailData }) {
         (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
     );
 
+    console.log('orderHistory: ', orderHistory);
+
+    useEffect(() => {
+        setHasCommented(true);
+    }, [orderHistory]); // new order, another buy
+    // useEffect(() => {
+    //     setUseCommnted(true);
+    // }, [commentsList]); // commented
+
     useEffect(() => {
         // check if the user bought this product?
         const isBought = orderHistory.some((item) =>
@@ -38,7 +52,7 @@ function RatingProduct({ perfumeDetailData }) {
                 (product) => product.productId === perfumeDetailData.perfumeID,
             ),
         );
-        // console.log('isBought: ', isBought);
+        console.log('isBought: ', isBought);
         setCommentRights(isBought);
     }, [orderHistory]);
 
@@ -74,7 +88,6 @@ function RatingProduct({ perfumeDetailData }) {
                 userComment: newComment,
                 isBought: true,
                 isCommented: true,
-                isCommented: !!findUser,
                 commentTime: currentDate,
                 ratingValue,
             };
@@ -93,8 +106,11 @@ function RatingProduct({ perfumeDetailData }) {
             });
             dispatch(saveComments({ productId, data: userCommentInformation }));
             reviewInputRef.current.value = ''; // remove text
+            setCommentRights(false); // reset permissions
         }
     };
+
+    // console.log('current rights: ', commentRights);
 
     useEffect(() => {
         console.log('list commnets: ', comments);
