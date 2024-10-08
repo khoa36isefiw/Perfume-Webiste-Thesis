@@ -133,14 +133,12 @@ function PerfumesCard() {
                                         // display: 'flex',
                                         // alignItems: 'center',
                                         // justifyContent: 'center',
+
                                         [tabletScreen]: {
-                                            height: '220px',
                                             mt: 2,
                                         },
                                         [mobileScreen]: {
-                                            height: '220px',
-                                            mt: 4,
-                                            objectFit: 'cover',
+                                            mt: 2,
                                         },
                                     }}
                                     lazy="loading"
@@ -158,6 +156,16 @@ function PerfumesCard() {
                                         sx={{
                                             fontWeight: 'bold',
                                             mt: 1,
+                                            [ipadProScreen]: {
+                                                // fontSize: theme.fontSize.tablet.text14,
+                                                mb: 0,
+                                                mt: 0,
+                                            },
+                                            [tabletScreen]: {
+                                                fontSize: theme.fontSize.tablet.text14,
+                                                mb: 0,
+                                                mt: 0,
+                                            },
                                             [mobileScreen]: {
                                                 fontSize: theme.fontSize.mobile.text14,
                                             },
@@ -173,7 +181,13 @@ function PerfumesCard() {
                                             overflow: 'hidden',
                                             whiteSpace: 'nowrap',
                                             textOverflow: 'ellipsis',
-
+                                            [ipadProScreen]: {
+                                                mb: 0,
+                                            },
+                                            [tabletScreen]: {
+                                                fontSize: theme.fontSize.tablet.text14,
+                                                mb: 0,
+                                            },
                                             [mobileScreen]: {
                                                 fontSize: theme.fontSize.mobile.text14,
                                                 width: '150px',
@@ -203,10 +217,17 @@ function PerfumesCard() {
                                                     color: theme.palette.thirth.main,
                                                 },
                                                 mb: 1,
+                                                [mobileScreen]: {
+                                                    mb: 0,
+                                                },
                                             }}
                                         />
                                         {/* number of rating */}
-                                        <CustomizeTypography sx={{ ml: 1 }}>
+                                        <CustomizeTypography
+                                            sx={{
+                                                ml: 1,
+                                            }}
+                                        >
                                             ({perfume.numberOfRating})
                                         </CustomizeTypography>
                                     </Box>
@@ -236,6 +257,12 @@ function PerfumesCard() {
                                                 textDecoration: perfume.discount
                                                     ? 'line-through'
                                                     : 'null',
+                                                [ipadProScreen]: {
+                                                    mb: 0,
+                                                },
+                                                [tabletScreen]: {
+                                                    fontSize: theme.fontSize.mobile.text14,
+                                                },
                                                 [mobileScreen]: {
                                                     fontSize: theme.fontSize.mobile.text14,
                                                     mb: 0,
@@ -254,6 +281,14 @@ function PerfumesCard() {
                                                 fontWeight: 'bold',
                                                 zIndex: 99,
                                                 ml: 2,
+                                                [ipadProScreen]: {
+                                                    ml: 0,
+                                                },
+                                                [tabletScreen]: {
+                                                    fontSize: theme.fontSize.tablet.text14,
+                                                    ml: 0,
+                                                },
+
                                                 [mobileScreen]: {
                                                     fontSize: theme.fontSize.mobile.text14,
                                                     ml: 0,
@@ -279,6 +314,9 @@ function PerfumesCard() {
                                         },
                                         [tabletScreen]: {
                                             mb: 2,
+                                        },
+                                        [mobileScreen]: {
+                                            mb: 4,
                                         },
                                     }}
                                 >

@@ -260,7 +260,6 @@ function NewHeader() {
                                                         </CustomizeTypography>
                                                         <CustomizeTypography
                                                             sx={{
-                                                                color: '#000',
                                                                 fontSize: '14px',
                                                                 color: theme.palette.text.secondary,
                                                                 fontWeight: 'bold',
