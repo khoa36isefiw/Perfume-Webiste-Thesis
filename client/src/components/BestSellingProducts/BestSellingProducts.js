@@ -100,6 +100,7 @@ function BestSellingProducts() {
                                     background: theme.palette.bestSelling,
                                     borderRadius: 2,
                                     height: '450px',
+
                                     p: 1,
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -109,7 +110,7 @@ function BestSellingProducts() {
                             >
                                 <Avatar
                                     src={perfume.perfumeImage}
-                                    sx={{ borderRadius: 0, height: '350px', width: '200px' }}
+                                    sx={{ borderRadius: 0, height: '300px', width: '200px' }}
                                 />
                                 <CustomizeTypography
                                     textAlign={'center'}

@@ -31,10 +31,22 @@ function PerfumeDetail() {
 
     // get list product added to cart
     const cartItems = useSelector((state) => state.cartManagement.productInfor);
-    console.log('cartItems: ', cartItems);
 
-    console.log('length of list: ', quickViewImage.length);
+    // Hàm selector để lấy số lượng sản phẩm đã bán theo productId
+    const selectSoldQuantityByProductId = (state, productId) => {
+        const productInfo = state.checkoutManagement.listOrdersBasedOnProduct[productId];
+        return productInfo ? productInfo.quantitySold : 0;
+    };
+
+    // Sử dụng trong component
+    const productId = perfume.perfumeID;
+    const soldQuantity = useSelector((state) => selectSoldQuantityByProductId(state, productId));
+
     const [selectedImage, setSelectedImage] = React.useState(0);
+    // get length of comment list for each product
+    const commentsList = useSelector(
+        (state) => state.commentsManagement.listComments[perfume.perfumeID] || [], // get data follow their productId
+    );
 
     // Handle Previous button click
     const handlePrevious = () => {
@@ -68,8 +80,6 @@ function PerfumeDetail() {
             perfumeQuantity: 1,
         };
 
-        console.log('product is: ', productToDispatch);
-        console.log('existingItem: ', existingItem);
         // check, is product existed in cart items?
         if (cartItems !== null) {
             // exists in cart items
@@ -98,7 +108,13 @@ function PerfumeDetail() {
         setSelectedSize(size);
     };
 
-    console.log('size selected information: ', selectedSize);
+    // calculating the average rating
+    const calculateAverageRating = () => {
+        if (commentsList.length === 0) return 0; // doesn't have rating
+        // calculate total of rating value from comment list
+        const totalRating = commentsList.reduce((acc, comment) => acc + comment.ratingValue, 0);
+        return (totalRating / commentsList.length).toFixed(1);
+    };
 
     return (
         <Container
@@ -289,10 +305,15 @@ function PerfumeDetail() {
                                 // justifyContent: 'space-between',
                             }}
                         >
-                            <CustomizeTypography>5.0</CustomizeTypography>
+                            {calculateAverageRating() > 0 && (
+                                <CustomizeTypography>
+                                    {calculateAverageRating()}
+                                </CustomizeTypography>
+                            )}
+
                             <Rating
                                 readOnly
-                                value={5}
+                                value={calculateAverageRating()}
                                 // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                 sx={{
                                     fontSize: '18px',
@@ -303,6 +324,7 @@ function PerfumeDetail() {
                                     ml: 1,
                                     mb: 1,
                                 }}
+                                precision={0.1}
                             />
                             <CustomizeTypography
                                 sx={{
@@ -317,7 +339,7 @@ function PerfumeDetail() {
                                 // handle for showing comments and reviews
                                 // onClick={}
                             >
-                                (2 đánh giá)
+                                ({commentsList.length > 0 ? commentsList.length : 0} đánh giá)
                             </CustomizeTypography>
                             <Box
                                 sx={{
@@ -328,7 +350,9 @@ function PerfumeDetail() {
                                     mb: 1,
                                 }}
                             />
-                            <CustomizeTypography sx={{ ml: 1 }}>295 đã bán</CustomizeTypography>
+                            <CustomizeTypography sx={{ ml: 1 }}>
+                                đã bán {soldQuantity}
+                            </CustomizeTypography>
                         </Box>
 
                         <Box

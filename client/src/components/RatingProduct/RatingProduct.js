@@ -1,37 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Container, Grid, TextField } from '@mui/material';
+import { Box, Container, Grid, TextField, Rating, Stack } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import StarIcon from '@mui/icons-material/Star';
 import { ratingData } from './ratingData';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { productInformationData } from '../ProductInformation/productInformationData';
+
 import { saveComments } from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
+
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 function RatingProduct({ perfumeDetailData }) {
     const dispatch = useDispatch();
     const reviewInputRef = useRef(null);
     const [commentRights, setCommentRights] = useState(false);
+
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const [comments, setComments] = useState([]);
+    const [ratingValue, setRatingValue] = useState(0);
     // const []
+
+    const [hasCommented, setHasCommented] = useState(false);
+    const [useCommnted, setUseCommnted] = useState(false);
     const commentsList = useSelector(
         (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
     );
 
-    console.log('information: ', commentsList);
-
-    const findUser = commentsList.find((user) => user?.userId === loggedInAccount?.userId);
     useEffect(() => {
-        if (findUser) {
-            setCommentRights(false);
-        }
+        console.log('commentsList: ', commentsList.length);
     }, [commentsList]);
 
-    console.log('user: ', findUser);
-
-    // console.log('loggedInAccount: ', loggedInAccount);
+    const findUser = commentsList.find((user) => user?.userId === loggedInAccount?.userId);
 
     const orderHistory = useSelector(
         // get for each user
@@ -39,15 +39,26 @@ function RatingProduct({ perfumeDetailData }) {
     );
 
     useEffect(() => {
-        // check if the user bought this product?
-        const isBought = orderHistory.some((item) =>
-            item.purchaseInfo.products.some(
-                (product) => product.productId === perfumeDetailData.perfumeID,
-            ),
-        );
-        // console.log('isBought: ', isBought);
-        setCommentRights(isBought);
+        console.log('orderHistory: ', orderHistory);
     }, [orderHistory]);
+    // console.log('orderHistory: ', orderHistory);
+
+    useEffect(() => {
+        setHasCommented(false);
+    }, [findUser?.isCommented, !hasCommented]);
+
+    useEffect(() => {
+        // check if the user bought this product?
+        const purchaseCount = orderHistory.reduce((count, item) => {
+            const isBought = item.purchaseInfo.products.some(
+                (product) => product.productId === perfumeDetailData.perfumeID,
+            );
+            return isBought ? count + 1 : count;
+        }, 0);
+
+        // console.log('isBought: ', isBought);
+        setCommentRights(purchaseCount > 0);
+    }, [orderHistory, perfumeDetailData.perfumeID]);
 
     const handleFocusReview = () => {
         if (reviewInputRef.current) {
@@ -82,6 +93,7 @@ function RatingProduct({ perfumeDetailData }) {
                 isBought: true,
                 isCommented: true,
                 commentTime: currentDate,
+                ratingValue,
             };
 
             const productId = perfumeDetailData.perfumeID;
@@ -98,12 +110,27 @@ function RatingProduct({ perfumeDetailData }) {
             });
             dispatch(saveComments({ productId, data: userCommentInformation }));
             reviewInputRef.current.value = ''; // remove text
+            setCommentRights(false); // reset permissions
+            setHasCommented(true);
         }
     };
 
-    useEffect(() => {
-        console.log('list commnets: ', comments);
-    }, [comments]);
+    // console.log('current rights: ', commentRights);
+
+    // returns the length of the list of comments based on the rating number
+    // trả về độ dài của list comments dựa trên rating number
+    const getRatingCount = (ratingNumber) => {
+        // return the list of users based on ratingNumber
+        return commentsList.filter((comment) => comment.ratingValue === ratingNumber).length;
+    };
+
+    // calculating the average rating
+    const calculateAverageRating = () => {
+        if (commentsList.length === 0) return 0; // doesn't have rating
+        // calculate total of rating value from comment list
+        const totalRating = commentsList.reduce((acc, comment) => acc + comment.ratingValue, 0);
+        return (totalRating / commentsList.length).toFixed(1);
+    };
 
     return (
         <Container
@@ -167,7 +194,8 @@ function RatingProduct({ perfumeDetailData }) {
                                         },
                                     }}
                                 >
-                                    5.0
+                                    {/* 5.0 */}
+                                    {calculateAverageRating()}
                                 </CustomizeTypography>
                                 <StarIcon
                                     sx={{
@@ -205,57 +233,60 @@ function RatingProduct({ perfumeDetailData }) {
                         }}
                     >
                         <Box>
-                            {ratingData.map((rating, index) => (
-                                <Box sx={{ display: 'flex', alignItems: 'center' }} key={index}>
-                                    <CustomizeTypography>
-                                        {rating.numberOfRating}
-                                    </CustomizeTypography>
-                                    <StarIcon
-                                        sx={{
-                                            color: theme.palette.text.secondary,
-                                            fontSize: '24px',
-                                            mb: 1,
-                                            ml: 1,
-                                            [tabletScreen]: {
-                                                fontSize: '18px',
-                                            },
-                                        }}
-                                    />
-                                    <Box
-                                        sx={{
-                                            mb: 1,
-                                            ml: 1,
-                                            width: '150px',
-                                            height: '15px',
-                                            borderRadius: '4px',
-                                            bgcolor: theme.palette.text.secondary,
-                                            [ipadProScreen]: {
-                                                width: '120px',
-                                            },
-                                            [tabletScreen]: {
-                                                width: '100px',
-                                            },
-                                        }}
-                                    />
-                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                        <CustomizeTypography sx={{ ml: 1 }}>
-                                            100%
+                            {ratingData.map((rating, index) => {
+                                const ratingCount = getRatingCount(rating.numberOfRating);
+                                return (
+                                    <Box sx={{ display: 'flex', alignItems: 'center' }} key={index}>
+                                        <CustomizeTypography>
+                                            {rating.numberOfRating}
                                         </CustomizeTypography>
+                                        <StarIcon
+                                            sx={{
+                                                color: theme.palette.text.secondary,
+                                                fontSize: '24px',
+                                                mb: 1,
+                                                ml: 1,
+                                                [tabletScreen]: {
+                                                    fontSize: '18px',
+                                                },
+                                            }}
+                                        />
                                         <Box
                                             sx={{
+                                                mb: 1,
+                                                ml: 1,
+                                                width: '150px',
                                                 height: '15px',
-                                                width: '1px',
+                                                borderRadius: '4px',
+                                                bgcolor:
+                                                    ratingCount > 0
+                                                        ? theme.palette.text.secondary
+                                                        : '#ccc', // rating
+
+                                                [ipadProScreen]: {
+                                                    width: '120px',
+                                                },
+                                                [tabletScreen]: {
+                                                    width: '100px',
+                                                },
+                                            }}
+                                        />
+
+                                        <Box
+                                            sx={{
+                                                width: '4px',
+                                                height: '1px',
                                                 bgcolor: '#fff',
-                                                mx: 1,
+                                                mx: 2,
                                                 mb: 1,
                                             }}
                                         />
-                                        <CustomizeTypography sx={{ ml: 1 }}>
-                                            2 đánh giá
+                                        <CustomizeTypography>
+                                            {ratingCount} đánh giá
                                         </CustomizeTypography>
                                     </Box>
-                                </Box>
-                            ))}
+                                );
+                            })}
                         </Box>
                     </Grid>
                     <Grid
@@ -281,15 +312,39 @@ function RatingProduct({ perfumeDetailData }) {
                         />
                     </Grid>
                 </Grid>
-                {commentRights && (
+                {!findUser?.isCommented && commentRights && (
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600', mt: 4 }}>
                             Write your review at here...
                         </CustomizeTypography>
                     </Grid>
                 )}
+                {/* rating */}
+                {!findUser?.isCommented && commentRights && (
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                        <Rating
+                            name="size-medium"
+                            defaultValue={ratingValue}
+                            sx={{
+                                '&.MuiRating-root': {
+                                    fontSize: '28px',
+                                },
+                            }}
+                            // not rating --> emptyIcon
+                            emptyIcon={
+                                <StarBorderIcon fontSize="inherit" sx={{ color: '#faaf00' }} />
+                            }
+                            onChange={(event, newValue) => {
+                                setRatingValue(newValue);
+                            }}
+                        />
+                    </Grid>
+                )}
 
-                {commentRights && (
+                {/*  check if the user has bought product, bought --> can comment
+                -> commented --> hide the comment box region: !findUser?.isCommented
+                 */}
+                {!findUser?.isCommented && commentRights && (
                     <Grid item container lg={12}>
                         <Grid item xs={12} lg={12}>
                             <TextField

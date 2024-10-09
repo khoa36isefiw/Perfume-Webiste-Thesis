@@ -12,7 +12,8 @@ const initialState = {
     ]
 }
  */
-    listOrders: [],
+    listOrders: [], 
+    listOrdersBasedOnProduct: [],
 };
 
 export const checkoutManagementSlice = createSlice({
@@ -22,7 +23,7 @@ export const checkoutManagementSlice = createSlice({
     reducers: {
         saveOrders: (state, action) => {
             const { userId, purchaseInfo } = action.payload;
-
+            // const findProductID = state.listOrdersBasedOnProduct.products.find((product)=>product.productId === )
             state.listOrders = {
                 ...state.listOrders,
                 // store by userId
@@ -31,6 +32,24 @@ export const checkoutManagementSlice = createSlice({
                     { purchaseInfo }, // Append the new purchaseInfo and userInfor
                 ],
             };
+
+            // cập nhật số lượng sản phẩm đã bán theo productId
+            purchaseInfo.products.forEach((product) => {
+                const existingProduct = state.listOrdersBasedOnProduct[product.productId];
+                if (existingProduct) {
+                    // nếu đã có productId, cập nhật số lượng đã bán
+                    state.listOrdersBasedOnProduct[product.productId] = {
+                        ...existingProduct,
+                        quantitySold: existingProduct.quantitySold + product.quantity,
+                    };
+                } else {
+                    // nếu chưa có productId, thêm mới sản phẩm và set số lượng bán
+                    state.listOrdersBasedOnProduct[product.productId] = {
+                        ...product,
+                        quantitySold: product.quantity,
+                    };
+                }
+            });
         },
     },
 });
