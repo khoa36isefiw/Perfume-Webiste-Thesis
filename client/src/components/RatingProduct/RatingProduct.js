@@ -27,8 +27,6 @@ function RatingProduct({ perfumeDetailData }) {
         (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
     );
 
-    console.log('commentsList: ', commentsList);
-
     const findUser = commentsList.find((user) => user?.userId === loggedInAccount?.userId);
 
     const orderHistory = useSelector(
@@ -36,6 +34,11 @@ function RatingProduct({ perfumeDetailData }) {
         (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
     );
 
+    
+
+    useEffect(() => {
+        console.log('orderHistory: ', orderHistory);
+    }, [orderHistory]);
     // console.log('orderHistory: ', orderHistory);
 
     useEffect(() => {
@@ -52,7 +55,7 @@ function RatingProduct({ perfumeDetailData }) {
                 (product) => product.productId === perfumeDetailData.perfumeID,
             ),
         );
-        console.log('isBought: ', isBought);
+        // console.log('isBought: ', isBought);
         setCommentRights(isBought);
     }, [orderHistory]);
 
@@ -111,10 +114,6 @@ function RatingProduct({ perfumeDetailData }) {
     };
 
     // console.log('current rights: ', commentRights);
-
-    useEffect(() => {
-        console.log('list commnets: ', comments);
-    }, [comments]);
 
     // returns the length of the list of comments based on the rating number
     // trả về độ dài của list comments dựa trên rating number
