@@ -108,6 +108,14 @@ function PerfumeDetail() {
         setSelectedSize(size);
     };
 
+    // calculating the average rating
+    const calculateAverageRating = () => {
+        if (commentsList.length === 0) return 0; // doesn't have rating
+        // calculate total of rating value from comment list
+        const totalRating = commentsList.reduce((acc, comment) => acc + comment.ratingValue, 0);
+        return (totalRating / commentsList.length).toFixed(1);
+    };
+
     return (
         <Container
             sx={{
@@ -290,17 +298,22 @@ function PerfumeDetail() {
                             tiệc tối đẳng cấp. */}
                             {perfume.shortDescription}
                         </CustomizeTypography>
-                        <Box
+                        <Box 
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
                                 // justifyContent: 'space-between',
                             }}
                         >
-                            <CustomizeTypography>5.0</CustomizeTypography>
+                            {calculateAverageRating() > 0 && (
+                                <CustomizeTypography>
+                                    {calculateAverageRating()}
+                                </CustomizeTypography>
+                            )}
+
                             <Rating
                                 readOnly
-                                value={5}
+                                value={calculateAverageRating()}
                                 // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                 sx={{
                                     fontSize: '18px',
