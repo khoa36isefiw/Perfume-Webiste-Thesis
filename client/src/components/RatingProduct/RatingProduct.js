@@ -6,7 +6,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { ratingData } from './ratingData';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { productInformationData } from '../ProductInformation/productInformationData';
+
 import { saveComments } from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
 
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -34,19 +34,10 @@ function RatingProduct({ perfumeDetailData }) {
         (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
     );
 
-    
-
     useEffect(() => {
         console.log('orderHistory: ', orderHistory);
     }, [orderHistory]);
     // console.log('orderHistory: ', orderHistory);
-
-    useEffect(() => {
-        setHasCommented(true);
-    }, [orderHistory]); // new order, another buy
-    // useEffect(() => {
-    //     setUseCommnted(true);
-    // }, [commentsList]); // commented
 
     useEffect(() => {
         // check if the user bought this product?
@@ -121,8 +112,6 @@ function RatingProduct({ perfumeDetailData }) {
         // return the list of users based on ratingNumber
         return commentsList.filter((comment) => comment.ratingValue === ratingNumber).length;
     };
-
-    console.log(commentsList.filter((comment) => comment.ratingValue === 5));
 
     // calculating the average rating
     const calculateAverageRating = () => {

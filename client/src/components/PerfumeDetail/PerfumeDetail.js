@@ -31,7 +31,7 @@ function PerfumeDetail() {
 
     // get list product added to cart
     const cartItems = useSelector((state) => state.cartManagement.productInfor);
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+
     // Hàm selector để lấy số lượng sản phẩm đã bán theo productId
     const selectSoldQuantityByProductId = (state, productId) => {
         const productInfo = state.checkoutManagement.listOrdersBasedOnProduct[productId];
@@ -103,23 +103,6 @@ function PerfumeDetail() {
     const handleSizeSelected = (size) => {
         setSelectedSize(size);
     };
-
-    // calculate the quantity of products is sold
-    // const getSoldQuantity = (productId) => {
-    //     const soldQuantity = orderHistory.reduce((total, order) => {
-    //         // check all products in the orderHistory based on their productId
-    //         const productSold = order.purchaseInfo.products.find(
-    //             (product) => product.perfumeID === productId,
-    //         );
-    //         // if it exists, increase the quantity
-    //         return productSold ? total + productSold.quantity : total;
-    //     }, 0);
-    //     return soldQuantity;
-    // };
-
-    // const soldQuantity = 1;
-    // const soldQuantity = getSoldQuantity(perfume.perfumeID);
-    console.log('soldQuantity: ', soldQuantity);
 
     return (
         <Container
