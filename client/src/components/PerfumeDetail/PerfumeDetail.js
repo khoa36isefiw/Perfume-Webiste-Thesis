@@ -31,9 +31,17 @@ function PerfumeDetail() {
 
     // get list product added to cart
     const cartItems = useSelector((state) => state.cartManagement.productInfor);
-    console.log('cartItems: ', cartItems);
+    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+    // Hàm selector để lấy số lượng sản phẩm đã bán theo productId
+    const selectSoldQuantityByProductId = (state, productId) => {
+        const productInfo = state.checkoutManagement.listOrdersBasedOnProduct[productId];
+        return productInfo ? productInfo.quantitySold : 0;
+    };
 
-    console.log('length of list: ', quickViewImage.length);
+    // Sử dụng trong component
+    const productId = perfume.perfumeID;
+    const soldQuantity = useSelector((state) => selectSoldQuantityByProductId(state, productId));
+
     const [selectedImage, setSelectedImage] = React.useState(0);
 
     // Handle Previous button click
@@ -68,8 +76,6 @@ function PerfumeDetail() {
             perfumeQuantity: 1,
         };
 
-        console.log('product is: ', productToDispatch);
-        console.log('existingItem: ', existingItem);
         // check, is product existed in cart items?
         if (cartItems !== null) {
             // exists in cart items
@@ -98,7 +104,22 @@ function PerfumeDetail() {
         setSelectedSize(size);
     };
 
-    console.log('size selected information: ', selectedSize);
+    // calculate the quantity of products is sold
+    // const getSoldQuantity = (productId) => {
+    //     const soldQuantity = orderHistory.reduce((total, order) => {
+    //         // check all products in the orderHistory based on their productId
+    //         const productSold = order.purchaseInfo.products.find(
+    //             (product) => product.perfumeID === productId,
+    //         );
+    //         // if it exists, increase the quantity
+    //         return productSold ? total + productSold.quantity : total;
+    //     }, 0);
+    //     return soldQuantity;
+    // };
+
+    // const soldQuantity = 1;
+    // const soldQuantity = getSoldQuantity(perfume.perfumeID);
+    console.log('soldQuantity: ', soldQuantity);
 
     return (
         <Container
@@ -328,7 +349,9 @@ function PerfumeDetail() {
                                     mb: 1,
                                 }}
                             />
-                            <CustomizeTypography sx={{ ml: 1 }}>đã bán 295</CustomizeTypography>
+                            <CustomizeTypography sx={{ ml: 1 }}>
+                                đã bán {soldQuantity}
+                            </CustomizeTypography>
                         </Box>
 
                         <Box
