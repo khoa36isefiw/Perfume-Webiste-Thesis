@@ -298,7 +298,7 @@ function PerfumeDetail() {
                             tiệc tối đẳng cấp. */}
                             {perfume.shortDescription}
                         </CustomizeTypography>
-                        <Box 
+                        <Box
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -324,6 +324,7 @@ function PerfumeDetail() {
                                     ml: 1,
                                     mb: 1,
                                 }}
+                                precision={0.1}
                             />
                             <CustomizeTypography
                                 sx={{
