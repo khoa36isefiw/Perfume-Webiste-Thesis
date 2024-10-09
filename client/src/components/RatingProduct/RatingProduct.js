@@ -27,6 +27,10 @@ function RatingProduct({ perfumeDetailData }) {
         (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
     );
 
+    useEffect(() => {
+        console.log('commentsList: ', commentsList.length);
+    }, [commentsList]);
+
     const findUser = commentsList.find((user) => user?.userId === loggedInAccount?.userId);
 
     const orderHistory = useSelector(

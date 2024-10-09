@@ -43,6 +43,10 @@ function PerfumeDetail() {
     const soldQuantity = useSelector((state) => selectSoldQuantityByProductId(state, productId));
 
     const [selectedImage, setSelectedImage] = React.useState(0);
+    // get length of comment list for each product
+    const commentsList = useSelector(
+        (state) => state.commentsManagement.listComments[perfume.perfumeID] || [], // get data follow their productId
+    );
 
     // Handle Previous button click
     const handlePrevious = () => {
@@ -321,7 +325,7 @@ function PerfumeDetail() {
                                 // handle for showing comments and reviews
                                 // onClick={}
                             >
-                                (2 đánh giá)
+                                ({commentsList.length > 0 ? commentsList.length : 0} đánh giá)
                             </CustomizeTypography>
                             <Box
                                 sx={{
