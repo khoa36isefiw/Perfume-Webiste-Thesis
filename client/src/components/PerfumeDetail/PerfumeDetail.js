@@ -184,13 +184,14 @@ function PerfumeDetail() {
                                             left: '-2%',
                                         },
                                     }}
+                                    disabled={selectedImage === 0}
                                 >
                                     <ArrowBackIosIcon
                                         sx={{
                                             fontSize: '28px',
                                             color: '#fff',
                                             '&:hover': {
-                                                color: theme.palette.text.primary.primary,
+                                                color: theme.palette.text.primary,
                                             },
                                         }}
                                     />
@@ -222,6 +223,7 @@ function PerfumeDetail() {
                                             right: '-4%',
                                         },
                                     }}
+                                    disabled={selectedImage === quickViewImage.length - 1}
                                 >
                                     <ArrowForwardIosIcon
                                         sx={{
