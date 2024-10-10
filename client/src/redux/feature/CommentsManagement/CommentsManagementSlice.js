@@ -44,28 +44,13 @@ export const commentsManagementSlice = createSlice({
             // Lấy danh sách comment hiện có của productId (hoặc mảng rỗng nếu chưa có)
             const existingComments = state.listComments[productId] || [];
 
-            // Tìm kiếm xem người dùng đã comment trước đó chưa
-            const userIndex = existingComments.findIndex(
-                (comment) => comment.userId === data.userId,
-            );
+            // Thêm bình luận mới vào danh sách comment
+            existingComments.push({
+                ...data, // Thông tin bình luận mới
+                isCommented: true, // Đánh dấu người dùng đã comment
+            });
 
-            if (userIndex !== -1) {
-                // Nếu người dùng đã comment, cập nhật bình luận hiện tại
-                existingComments[userIndex] = {
-                    ...data, // Cập nhật thông tin bình luận mới
-                    ...existingComments[userIndex],
-
-                    isCommented: true, // Đánh dấu người dùng đã comment
-                };
-            } else {
-                // Nếu người dùng chưa comment, thêm bình luận mới
-                existingComments.push({
-                    ...data,
-                    isCommented: true, // Đánh dấu người dùng đã comment
-                });
-            }
-
-            // Cập nhật lại state với danh sách bình luận mới hoặc đã được cập nhật
+            // Cập nhật lại state với danh sách bình luận mới
             state.listComments = {
                 ...state.listComments,
                 [productId]: existingComments,
