@@ -34,9 +34,9 @@ export const perfumeData = [
         perfumeQuantity: 0,
         quickViewImage: [
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
-            'https://orchard.vn/wp-content/smush-webp/2015/04/dior-homme-intense_2.jpg.webp',
-            'https://orchard.vn/wp-content/smush-webp/2015/04/dior-homme-intense_3.jpg.webp',
-            'https://orchard.vn/wp-content/smush-webp/2015/04/dior-homme-intense_4.jpg.webp',
+            'https://orchard.vn/wp-content/uploads/2015/04/dior-homme-intense_2.jpg',
+            'https://orchard.vn/wp-content/uploads/2015/04/dior-homme-intense_3.jpg',
+            'https://orchard.vn/wp-content/uploads/2015/04/dior-homme-intense_4.jpg',
         ],
         shortDescription:
             'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
