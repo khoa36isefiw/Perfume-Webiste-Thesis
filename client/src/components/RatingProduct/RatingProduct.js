@@ -316,7 +316,7 @@ function RatingProduct({ perfumeDetailData }) {
                     </Grid>
                 </Grid>
                 {/* {!findUser?.isCommented && commentRights && ( */}
-                {!findUser?.isCommented && (
+                {!findUser?.isCommented && commentRights && !hasCommented && (
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600', mt: 4 }}>
                             Write your review at here...
@@ -325,7 +325,7 @@ function RatingProduct({ perfumeDetailData }) {
                 )}
                 {/* rating */}
                 {/* {!findUser?.isCommented && commentRights && ( */}
-                {!findUser?.isCommented && (
+                {!findUser?.isCommented && commentRights && !hasCommented && (
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Rating
                             name="size-medium"
@@ -350,7 +350,7 @@ function RatingProduct({ perfumeDetailData }) {
                 -> commented --> hide the comment box region: !findUser?.isCommented
                  */}
                 {/* {!findUser?.isCommented && commentRights && ( */}
-                {!findUser?.isCommented && (
+                {!findUser?.isCommented && commentRights && !hasCommented && (
                     <Grid item container lg={12}>
                         <Grid item xs={12} lg={12}>
                             <TextField
