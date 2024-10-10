@@ -250,7 +250,7 @@ const OrderItem2 = ({ listData }) => (
                             >
                                 {item.size} ml
                             </CustomizeTypography>
-                            <Button
+                            {/* <Button
                                 startIcon={<StarIcon />}
                                 sx={{
                                     padding: '6px 0',
@@ -267,7 +267,7 @@ const OrderItem2 = ({ listData }) => (
                                 }}
                             >
                                 Rate Now
-                            </Button>
+                            </Button> */}
                         </Box>
                     </Box>
                     <CustomizeTypography
