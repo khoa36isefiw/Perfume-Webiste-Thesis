@@ -27,11 +27,14 @@ function RatingProduct({ perfumeDetailData }) {
         (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
     );
 
-    useEffect(() => {
-        console.log('commentsList: ', commentsList.length);
-    }, [commentsList]);
+    console.log('commentsList: ', commentsList);
 
     const findUser = commentsList.find((user) => user?.userId === loggedInAccount?.userId);
+    // const findUser = commentsList.filter((user) => {
+    //     return user?.userId === loggedInAccount.userId;
+    // });
+
+    console.log('findUser2:', findUser);
 
     const orderHistory = useSelector(
         // get for each user
@@ -312,7 +315,8 @@ function RatingProduct({ perfumeDetailData }) {
                         />
                     </Grid>
                 </Grid>
-                {!findUser?.isCommented && commentRights && (
+                {/* {!findUser?.isCommented && commentRights && ( */}
+                {!findUser?.isCommented && (
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600', mt: 4 }}>
                             Write your review at here...
@@ -320,7 +324,8 @@ function RatingProduct({ perfumeDetailData }) {
                     </Grid>
                 )}
                 {/* rating */}
-                {!findUser?.isCommented && commentRights && (
+                {/* {!findUser?.isCommented && commentRights && ( */}
+                {!findUser?.isCommented && (
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Rating
                             name="size-medium"
@@ -344,7 +349,8 @@ function RatingProduct({ perfumeDetailData }) {
                 {/*  check if the user has bought product, bought --> can comment
                 -> commented --> hide the comment box region: !findUser?.isCommented
                  */}
-                {!findUser?.isCommented && commentRights && (
+                {/* {!findUser?.isCommented && commentRights && ( */}
+                {!findUser?.isCommented && (
                     <Grid item container lg={12}>
                         <Grid item xs={12} lg={12}>
                             <TextField

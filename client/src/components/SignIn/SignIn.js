@@ -39,6 +39,13 @@ function SignIn() {
         }
     };
 
+    const handleKeyDownEvent = (e) => {
+        const isEnterKey = e.code === 'Enter' || e.keyCode === 13;
+        if (isEnterKey && e.shiftKey === false) {
+            handleSignIn();
+        }
+    };
+
     return (
         <Container
             sx={{
@@ -169,7 +176,11 @@ function SignIn() {
                                 Forgot Password?
                             </CustomizeTypography>
 
-                            <ButtonComponent textAction={'Login'} onHandleClick={handleSignIn} />
+                            <ButtonComponent
+                                textAction={'Login'}
+                                onHandleClick={handleSignIn}
+                                onHandleKeyEvent={handleKeyDownEvent}
+                            />
                         </Grid>
                         <Grid
                             item

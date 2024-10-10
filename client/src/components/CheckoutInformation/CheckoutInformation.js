@@ -28,8 +28,11 @@ import { clearCart, removeProduct } from '../../redux/feature/CartManagement/Car
 import { CustomizeDividerVertical } from '../CustomizeDivider/CustomizeDivider';
 import { CustomizeCheckoutInput } from './CustomizeCheckoutInput';
 import { saveOrders } from '../../redux/feature/CheckoutManagement/CheckoutManagementSlice';
+import { resetIsCommented } from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
+import { useNavigate } from 'react-router-dom';
 
 function CheckoutInformation() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [informationSaved, setInformationSaved] = useState({});
     const [listProvince, setListProvince] = useState([]);
@@ -86,6 +89,10 @@ function CheckoutInformation() {
             fetchWardTown();
         }
     }, [selectedProvince, selectedDistrict]);
+
+    // get list product id
+    const listProductId = listProductInCart.map((product) => product.perfumeID);
+    console.log('listProductId: ', listProductId);
 
     // checkout and show notification
     const handleCheckout = () => {
@@ -176,7 +183,14 @@ function CheckoutInformation() {
             }),
         );
 
+        // reset comment if user continues buying this product just bought
+        dispatch(resetIsCommented({ productIds: listProductId, userId: loggedInAccount?.userId }));
+
         dispatch(clearCart());
+
+        // setTimeout(() => {
+        //      navigate('/');
+        // }, 2000);
 
         console.log('All saved information: ', existingData);
     };
