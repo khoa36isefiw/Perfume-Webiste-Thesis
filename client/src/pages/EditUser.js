@@ -8,6 +8,7 @@ import { ArrowBackIos } from '@mui/icons-material';
 
 import { theme } from '../Theme/Theme';
 import { AdminTextField } from '../components/TextFieldCustomize/TextFieldCustomize';
+import NotificationMessage from '../components/NotificationMessage/NotificationMessage';
 
 export default function EditUser() {
     const navigate = useNavigate();
@@ -17,6 +18,13 @@ export default function EditUser() {
     const { id } = useParams(); // Get the user ID from the URL
     const [user, setUser] = useState(userData);
     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+
+    // notification message
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [messageType, setMessageType] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+    const [messageTitle, setMessageTitle] = useState('');
 
     console.log('user information: ', userData);
 
@@ -53,10 +61,28 @@ export default function EditUser() {
         );
         if (response.ok) {
             alert('User updated successfully!');
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
+            setMessageType('success');
+            setMessageTitle('Update User');
+            setMessageContent('Update user information successfully!');
             setTimeout(() => {
                 navigate('/admin/manage-users');
-            }, 200);
+            }, 1800);
+        } else {
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
+            setMessageType('error');
+            setMessageTitle('Update User');
+            setMessageContent('Update user failed!');
         }
+    };
+
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
     };
 
     // Handle toggle password visibility
@@ -181,6 +207,20 @@ export default function EditUser() {
                     Save Changes
                 </Button>
             </Box>
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 }
