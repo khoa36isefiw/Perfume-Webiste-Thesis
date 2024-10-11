@@ -4,7 +4,7 @@ import { TextField, Button, Paper, Avatar, IconButton, InputAdornment, Box } fro
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AdminHeadingTypography } from '../components/CustomizeTypography/CustomizeTypography';
-import { ArrowBackIos } from '@mui/icons-material';
+import { ArrowBackIos, Filter } from '@mui/icons-material';
 
 import { theme } from '../Theme/Theme';
 import { AdminTextField } from '../components/TextFieldCustomize/TextFieldCustomize';
@@ -18,7 +18,7 @@ export default function EditUser() {
     const { id } = useParams(); // Get the user ID from the URL
     const [user, setUser] = useState(userData);
     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
-
+    const [image, setImage] = useState(null);
     // notification message
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
@@ -43,12 +43,22 @@ export default function EditUser() {
 
     // Handle input changes
     const handleChange = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value,
+        });
     };
 
     // Handle form submission (saving the updated user)
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const updateUser = {
+            ...user,
+            // use the new image if uploaded, otherwise keep the current avatar
+            avatar: image !== null ? image : user.avatar,
+        };
+
         const response = await fetch(
             `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${user.id}`,
             {
@@ -56,18 +66,20 @@ export default function EditUser() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(user),
+                body: JSON.stringify(updateUser),
             },
         );
+
+        console.log('update usser : ', updateUser);
+
         if (response.ok) {
-            alert('User updated successfully!');
             setShowNotification(true);
             setShowAnimation('animate__bounceInRight');
             setMessageType('success');
             setMessageTitle('Update User');
             setMessageContent('Update user information successfully!');
             setTimeout(() => {
-                navigate('/admin/manage-users');
+                // navigate('/admin/manage-users');
             }, 1800);
         } else {
             setShowNotification(true);
@@ -88,6 +100,17 @@ export default function EditUser() {
     // Handle toggle password visibility
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
+    };
+
+    const handleUploadImage = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     if (!user) return <div>Loading...</div>;
@@ -115,9 +138,23 @@ export default function EditUser() {
             <Box component={'form'} onSubmit={handleSubmit}>
                 <Avatar
                     alt={user.name}
-                    src={user.avatar}
-                    sx={{ width: 128, height: 128, marginBottom: 2 }}
+                    src={image !== null ? image : user.avatar}
+                    sx={{ width: 200, height: 200, marginBottom: 2 }}
+                    onChange={handleChange}
                 />
+                <Button
+                    variant="outlined"
+                    component="label"
+                    sx={{
+                        marginBottom: 2,
+                        textTransform: 'initial',
+                        padding: '10px 14px',
+                        fontSize: '13px',
+                    }}
+                >
+                    Change Image
+                    <input type="file" accept="image/*" hidden onChange={handleUploadImage} />
+                </Button>
                 <Box sx={{ display: 'flex', gap: 4 }}>
                     <AdminTextField
                         fullWidth
