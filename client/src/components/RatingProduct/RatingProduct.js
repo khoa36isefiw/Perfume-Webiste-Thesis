@@ -7,7 +7,10 @@ import { ratingData } from './ratingData';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { saveComments } from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
+import {
+    resetAllIsCommented,
+    saveComments,
+} from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
 
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
@@ -21,8 +24,6 @@ function RatingProduct({ perfumeDetailData }) {
     const [ratingValue, setRatingValue] = useState(0);
     // const []
 
-    const [hasCommented, setHasCommented] = useState(false);
-    const [useCommnted, setUseCommnted] = useState(false);
     const commentsList = useSelector(
         (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
     );
@@ -30,11 +31,7 @@ function RatingProduct({ perfumeDetailData }) {
     console.log('commentsList: ', commentsList);
 
     const findUser = commentsList.find((user) => user?.userId === loggedInAccount?.userId);
-    // const findUser = commentsList.filter((user) => {
-    //     return user?.userId === loggedInAccount.userId;
-    // });
-
-    console.log('findUser2:', findUser);
+    // console.log('findUser: ', findUser);
 
     const orderHistory = useSelector(
         // get for each user
@@ -43,12 +40,7 @@ function RatingProduct({ perfumeDetailData }) {
 
     useEffect(() => {
         console.log('orderHistory: ', orderHistory);
-    }, [orderHistory]);
-    // console.log('orderHistory: ', orderHistory);
-
-    useEffect(() => {
-        setHasCommented(false);
-    }, [findUser?.isCommented, !hasCommented]);
+    }, [findUser?.isCommented, orderHistory]);
 
     useEffect(() => {
         // check if the user bought this product?
@@ -56,6 +48,8 @@ function RatingProduct({ perfumeDetailData }) {
             const isBought = item.purchaseInfo.products.some(
                 (product) => product.productId === perfumeDetailData.perfumeID,
             );
+            console.log('isBought: ', isBought);
+            console.log('item: ', item);
             return isBought ? count + 1 : count;
         }, 0);
 
@@ -94,12 +88,13 @@ function RatingProduct({ perfumeDetailData }) {
                 userMail: loggedInAccount.email,
                 userComment: newComment,
                 isBought: true,
-                isCommented: true,
+                // isCommented: true,
                 commentTime: currentDate,
                 ratingValue,
             };
 
             const productId = perfumeDetailData.perfumeID;
+            console.log('productId: ', productId);
 
             // // save userCommentInformation by [productId]
             setComments({
@@ -111,10 +106,17 @@ function RatingProduct({ perfumeDetailData }) {
                     ? [...comments[productId], userCommentInformation] // add new comment to existing array
                     : [userCommentInformation], // create a new array with the first comment
             });
-            dispatch(saveComments({ productId, data: userCommentInformation }));
+            dispatch(
+                saveComments({
+                    productId,
+                    data: userCommentInformation,
+                    userId: loggedInAccount?.userId,
+                }),
+            );
+            // productIds, userId
+            // dispatch(resetAllIsCommented({ productIds: [2], userId: loggedInAccount?.userId }));
             reviewInputRef.current.value = ''; // remove text
             setCommentRights(false); // reset permissions
-            setHasCommented(true);
         }
     };
 
@@ -316,7 +318,7 @@ function RatingProduct({ perfumeDetailData }) {
                     </Grid>
                 </Grid>
                 {/* {!findUser?.isCommented && commentRights && ( */}
-                {!findUser?.isCommented && commentRights && !hasCommented && (
+                {!findUser?.isCommented && commentRights && (
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600', mt: 4 }}>
                             Write your review at here...
@@ -325,7 +327,7 @@ function RatingProduct({ perfumeDetailData }) {
                 )}
                 {/* rating */}
                 {/* {!findUser?.isCommented && commentRights && ( */}
-                {!findUser?.isCommented && commentRights && !hasCommented && (
+                {!findUser?.isCommented && commentRights && (
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Rating
                             name="size-medium"
@@ -350,7 +352,7 @@ function RatingProduct({ perfumeDetailData }) {
                 -> commented --> hide the comment box region: !findUser?.isCommented
                  */}
                 {/* {!findUser?.isCommented && commentRights && ( */}
-                {!findUser?.isCommented && commentRights && !hasCommented && (
+                {!findUser?.isCommented && commentRights && (
                     <Grid item container lg={12}>
                         <Grid item xs={12} lg={12}>
                             <TextField
