@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
+
 import { blue } from '@mui/material/colors';
 import {
     AdminHeadingTypography,
@@ -53,8 +53,6 @@ export default function AdminOrdersTable() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [rows, setRows] = React.useState(ordersData); // Dynamic user data
     const [searchTerm, setSearchTerm] = React.useState(''); // Search term state
-    // tracks if data is already fetched
-    const [isDataFetched, setIsDataFetched] = React.useState(false);
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -175,29 +173,6 @@ export default function AdminOrdersTable() {
                                                     {column.id === 'actions' ? (
                                                         // Render Edit and Delete buttons in the 'actions' column
                                                         <>
-                                                            <Tooltip
-                                                                title={
-                                                                    <CustomizeTypography
-                                                                        sx={{
-                                                                            fontSize: '13px',
-                                                                            mb: 0,
-                                                                        }}
-                                                                    >
-                                                                        Edit Orders?
-                                                                    </CustomizeTypography>
-                                                                }
-                                                            >
-                                                                <IconButton
-                                                                    onClick={() =>
-                                                                        handleViewOrder(row.orderId)
-                                                                    }
-                                                                    color="primary"
-                                                                >
-                                                                    <EditIcon
-                                                                        sx={{ fontSize: '22px' }}
-                                                                    />
-                                                                </IconButton>
-                                                            </Tooltip>
                                                             <Tooltip
                                                                 title={
                                                                     <CustomizeTypography

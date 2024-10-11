@@ -9,7 +9,7 @@ import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import { orderHistoryData } from './orderHistoryData';
 import { useSelector } from 'react-redux';
 import { formatDate } from '../FormatDate/formatDate';
-
+import { converToVND } from '../convertToVND/convertToVND';
 
 const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
     <>
@@ -250,7 +250,7 @@ const OrderItem2 = ({ listData }) => (
                             >
                                 {item.size} ml
                             </CustomizeTypography>
-                            <Button
+                            {/* <Button
                                 startIcon={<StarIcon />}
                                 sx={{
                                     padding: '6px 0',
@@ -267,18 +267,19 @@ const OrderItem2 = ({ listData }) => (
                                 }}
                             >
                                 Rate Now
-                            </Button>
+                            </Button> */}
                         </Box>
                     </Box>
                     <CustomizeTypography
                         sx={{
                             fontWeight: 'bold',
+                            fontSize: '14px',
                             [mobileScreen]: {
                                 fontSize: '12.5px',
                             },
                         }}
                     >
-                        ${item.price}
+                        {converToVND(item.price)}
                     </CustomizeTypography>
                 </Box>
                 {index !== listData.length - 1 && <Divider sx={{ bgcolor: '#ccc', my: 1 }} />}
@@ -549,7 +550,7 @@ const OrderLists = ({ ordersListData }) => {
                             >
                                 Total Amount:
                             </span>{' '}
-                            <strong>${order.purchaseInfo.totalPrice}</strong>
+                            <strong>{converToVND(order.purchaseInfo.totalPrice)}</strong>
                         </CustomizeTypography>
                         <Button
                             startIcon={<SystemUpdateAltIcon />}

@@ -53,10 +53,10 @@ const StyledButton = styled(Button)(({}) => ({
 }));
 
 // Main Component
-const ButtonComponent = ({ textAction, onHandleClick }) => {
+const ButtonComponent = ({ textAction, onHandleClick, onHandleKeyEvent }) => {
     return (
         <Container onClick={onHandleClick}>
-            <StyledButton className="btn rounded">
+            <StyledButton className="btn rounded" onKeyDown={onHandleKeyEvent}>
                 <span className="text-green">{textAction}</span>
             </StyledButton>
         </Container>

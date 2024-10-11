@@ -48,16 +48,18 @@ function PerfumeDetail() {
         (state) => state.commentsManagement.listComments[perfume.perfumeID] || [], // get data follow their productId
     );
 
-    // Handle Previous button click
-    const handlePrevious = () => {
-        setSelectedImage(
-            (prevIndex) => (prevIndex - 1 + quickViewImage.length) % quickViewImage.length,
-        );
+    const handleNext = () => {
+        // Check if current image is the last one
+        if (selectedImage < perfume.quickViewImage.length - 1) {
+            setSelectedImage((prevIndex) => prevIndex + 1); // Move to the next image
+        }
     };
 
-    // Handle Next button click
-    const handleNext = () => {
-        setSelectedImage((prevIndex) => (prevIndex + 1) % quickViewImage.length);
+    const handlePrevious = () => {
+        // Check if current image is the first one
+        if (selectedImage > 0) {
+            setSelectedImage((prevIndex) => prevIndex - 1); // Move to the previous image
+        }
     };
 
     useEffect(() => {}, [perfume]);
@@ -184,13 +186,14 @@ function PerfumeDetail() {
                                             left: '-2%',
                                         },
                                     }}
+                                    disabled={selectedImage === 0}
                                 >
                                     <ArrowBackIosIcon
                                         sx={{
                                             fontSize: '28px',
                                             color: '#fff',
                                             '&:hover': {
-                                                color: theme.palette.text.primary.primary,
+                                                color: theme.palette.text.primary,
                                             },
                                         }}
                                     />
@@ -222,6 +225,7 @@ function PerfumeDetail() {
                                             right: '-4%',
                                         },
                                     }}
+                                    disabled={selectedImage === quickViewImage.length - 1}
                                 >
                                     <ArrowForwardIosIcon
                                         sx={{

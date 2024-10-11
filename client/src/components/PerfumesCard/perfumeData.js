@@ -34,9 +34,9 @@ export const perfumeData = [
         perfumeQuantity: 0,
         quickViewImage: [
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
-            'https://orchard.vn/wp-content/smush-webp/2015/04/dior-homme-intense_2.jpg.webp',
-            'https://orchard.vn/wp-content/smush-webp/2015/04/dior-homme-intense_3.jpg.webp',
-            'https://orchard.vn/wp-content/smush-webp/2015/04/dior-homme-intense_4.jpg.webp',
+            'https://orchard.vn/wp-content/uploads/2015/04/dior-homme-intense_2.jpg',
+            'https://orchard.vn/wp-content/uploads/2015/04/dior-homme-intense_3.jpg',
+            'https://orchard.vn/wp-content/uploads/2015/04/dior-homme-intense_4.jpg',
         ],
         shortDescription:
             'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
@@ -97,6 +97,7 @@ export const perfumeData = [
         perfumeQuantity: 10,
         quickViewImage: [
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
         ],
         shortDescription:
             'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
@@ -156,6 +157,7 @@ export const perfumeData = [
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
         perfumeQuantity: 10,
         quickViewImage: [
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
         ],
         shortDescription:
