@@ -97,6 +97,7 @@ export const perfumeData = [
         perfumeQuantity: 10,
         quickViewImage: [
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161758/perfumes/men/Allure_Homme_Sport_wtevx6.png',
         ],
         shortDescription:
             'Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và tiệc tối đẳng cấp.',
@@ -156,6 +157,7 @@ export const perfumeData = [
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
         perfumeQuantity: 10,
         quickViewImage: [
+            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Allure_Homme_Sport_Eau_Extreme_sefblt.png',
         ],
         shortDescription:

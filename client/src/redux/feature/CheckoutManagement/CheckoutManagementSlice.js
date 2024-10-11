@@ -12,7 +12,7 @@ const initialState = {
     ]
 }
  */
-    listOrders: [], 
+    listOrders: [],
     listOrdersBasedOnProduct: [],
 };
 
