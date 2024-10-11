@@ -183,29 +183,6 @@ export default function AdminOrdersTable() {
                                                                             mb: 0,
                                                                         }}
                                                                     >
-                                                                        Edit Orders?
-                                                                    </CustomizeTypography>
-                                                                }
-                                                            >
-                                                                <IconButton
-                                                                    onClick={() =>
-                                                                        handleViewOrder(row.orderId)
-                                                                    }
-                                                                    color="primary"
-                                                                >
-                                                                    <EditIcon
-                                                                        sx={{ fontSize: '22px' }}
-                                                                    />
-                                                                </IconButton>
-                                                            </Tooltip>
-                                                            <Tooltip
-                                                                title={
-                                                                    <CustomizeTypography
-                                                                        sx={{
-                                                                            fontSize: '13px',
-                                                                            mb: 0,
-                                                                        }}
-                                                                    >
                                                                         View Order Details
                                                                     </CustomizeTypography>
                                                                 }
