@@ -35,7 +35,7 @@ export default function AddUsers() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    // avatar: image,
+                    avatar: image,
                     name,
                     email,
                     password,
@@ -57,6 +57,11 @@ export default function AddUsers() {
             }, 2800);
         } else {
             alert('Failed to add user');
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
+            setMessageType('error');
+            setMessageTitle('Add New User');
+            setMessageContent('Add new user failed!');
         }
     };
 
