@@ -26,9 +26,10 @@ const CouponsTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
-    const [couponToRemove, setCouponToRemove] = useState(null);
+
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [couponToRemove, setCouponToRemove] = useState(null);
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
     console.log('listCoupons: ', listCoupons);

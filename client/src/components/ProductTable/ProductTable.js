@@ -49,6 +49,7 @@ export default function ProductTable() {
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [productToRemove, setProductToRemove] = useState(null);
 
     const [selectedProductId, setSelectedProductId] = useState(null);
     const [selectedProductSize, setSelectedProductSize] = useState(null);
@@ -133,6 +134,8 @@ export default function ProductTable() {
             alert('An error occurred while deleting the product.');
         }
     };
+
+    // delete feature
 
     // Handle navigation to the "Add User" page
     const handleAddUser = () => {
