@@ -51,9 +51,6 @@ export default function ProductTable() {
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
     const [productToRemove, setProductToRemove] = useState(null);
 
-    const [selectedProductId, setSelectedProductId] = useState(null);
-    const [selectedProductSize, setSelectedProductSize] = useState(null);
-
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -91,14 +88,6 @@ export default function ProductTable() {
             row.brand.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
-    console.log('filteredRows array: ', filteredRows);
-    // // Filter rows based on product name
-    // const filteredRows = rows.filter((row) =>
-    //     row.sizes.flatMap((item) => item.productName.toLowerCase().includes(searchTerm)),
-    // );
-    console.log('filteredRows.length', filteredRows.length);
-
-    // Handle edit action (you can implement your own logic for editing)
     const handleEdit = (productId, size) => {
         // /admin/manage-products/edit?productId=:id&size=:size
         navigate(`/admin/manage-products/edit?productId=${productId}&size=${size}`, {
@@ -109,64 +98,65 @@ export default function ProductTable() {
         });
     };
 
-    const handleDelete = async (productId, size) => {
-        try {
-            // const response = await fetch(
-            //     `https://api.example.com/products/${productId}/sizes/${size}`,
-            //     { method: 'DELETE' },
-            // );
-
-            setRows((prevRows) =>
-                prevRows.filter((row) => !(row.productId === productId && row.size === size)),
-            );
-            // if (response.ok) {
-            //     // remove the product from state after deletion
-            //     setRows((prevRows) =>
-            //         prevRows.filter((row) => !(row.productId === productId && row.size === size)),
-            //     );
-            //     alert(`Product with ID: ${productId} and Size: ${size} has been deleted.`);
-            // } else {
-            //     alert('Failed to delete product.');
-            // }
-            console.log('rows after deleting: ', rows);
-        } catch (error) {
-            console.error('Error deleting product:', error);
-            alert('An error occurred while deleting the product.');
-        }
-    };
-
     // delete feature
 
-    // Handle navigation to the "Add User" page
-    const handleAddUser = () => {
-        navigate('/admin/manage-users/add-user');
+    const handleDeleteProduct = (productId, size) => {
+        // 1.  open confirm message
+        setOpenConfirmMessage(true);
+        // 2. store the product information data
+        setProductToRemove({ productId, size });
+        // try {
+        //     // const response = await fetch(
+        //     //     `https://api.example.com/products/${productId}/sizes/${size}`,
+        //     //     { method: 'DELETE' },
+        //     // );
     };
 
     // disagree, not delete the products
     const handleConfirmDisagree = () => {
         setOpenConfirmMessage(false);
+        setProductToRemove(null);
     };
 
+    console.log('before delete product: ', rows);
+
     const handleConfirmAgree = async () => {
-        if (selectedProductId && selectedProductSize) {
+        if (productToRemove) {
             try {
-                // proceed with deletion here using selectedProductId
-                await handleDelete(selectedProductId, selectedProductSize);
+                // filter products and update rows
+                setRows(
+                    (prevRows) =>
+                        // prevRow is a list of products, contain many sizes
+                        prevRows
+                            .map((row) => {
+                                // remove the size of product is selected to delete by product id
+                                if (row.productId === productToRemove.productId) {
+                                    // the remaining product list after deleting products of selected size
+                                    const updatedSizes = row.sizes.filter(
+                                        (size) => size.size !== productToRemove.size,
+                                    );
+                                    // if there are no sizes left, remove the entire product
+                                    if (updatedSizes.length === 0) {
+                                        return null;
+                                    }
+
+                                    // update list products with new size
+                                    return { ...row, sizes: updatedSizes };
+                                }
+                                return row;
+                            })
+                            .filter(Boolean), //remove all products are null
+                );
+
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
             } catch (error) {
                 console.error('Error deleting product:', error);
             } finally {
-                setOpenConfirmMessage(false); // close the confirm dialog
+                setOpenConfirmMessage(false);
+                setProductToRemove(null);
             }
         }
-    };
-
-    // open the confirm dialog message and save the products are removed
-    const handleRemoveProduct = (productId, size) => {
-        setSelectedProductId(productId);
-        setSelectedProductSize(size);
-        setOpenConfirmMessage(true); // for showing confirm message dialog
     };
 
     return (
@@ -221,7 +211,6 @@ export default function ProductTable() {
                         textTransform: 'initial',
                         fontSize: '14px',
                     }}
-                    onClick={handleAddUser}
                     startIcon={<FileDownloadIcon />}
                 >
                     Export
@@ -307,7 +296,7 @@ export default function ProductTable() {
                                                             >
                                                                 <IconButton
                                                                     onClick={() =>
-                                                                        handleRemoveProduct(
+                                                                        handleDeleteProduct(
                                                                             row.productId,
                                                                             row.size,
                                                                         )
