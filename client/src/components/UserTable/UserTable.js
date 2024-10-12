@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
@@ -22,9 +22,12 @@ import {
     CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
-import { Box, InputAdornment, InputBase, Tooltip } from '@mui/material';
+import { Box, InputAdornment, InputBase, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { theme } from '../../Theme/Theme';
+import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import WarningIcon from '@mui/icons-material/Warning';
 
 const columns = [
     { id: 'avatar', label: 'Avatar', minWidth: 50 },
@@ -60,12 +63,22 @@ const columns = [
 // Component to render the table with dynamic data
 export default function UserTable() {
     const navigate = useNavigate();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [rows, setRows] = React.useState([]); // Dynamic user data
-    const [searchTerm, setSearchTerm] = React.useState(''); // Search term state
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rows, setRows] = useState([]); // Dynamic user data
+    const [searchTerm, setSearchTerm] = useState(''); // Search term state
     // tracks if data is already fetched
-    const [isDataFetched, setIsDataFetched] = React.useState(false);
+    const [isDataFetched, setIsDataFetched] = useState(false);
+
+    // confirm delete
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [userToRemove, setUserToRemove] = useState(null);
+    const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
+    // message
+    const [messageType, setMessageType] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+    const [messageTitle, setMessageTitle] = useState('');
 
     // Fetch the data from an API
     React.useEffect(() => {
@@ -114,13 +127,50 @@ export default function UserTable() {
     };
 
     // Handle delete action (with API interaction)
-    const handleDelete = async (id) => {
-        const confirmed = window.confirm('Are you sure you want to delete this user?');
+    const handleDelete = (userID) => {
+        // if want to delete a user
+        // 1.  open confirm message
+        setOpenConfirmMessage(true);
+        // 2. store the user information data
+        setUserToRemove({ userId: userID });
+        // const confirmed = window.confirm('Are you sure you want to delete this user?');
+        // if (confirmed) {
+        //     try {
+        //         const response = await fetch(
+        //             `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${id}`,
+        //             {
+        //                 method: 'DELETE',
+        //             },
+        //         );
+        //         if (response.ok) {
+        //             // Remove the user from the state
+        //             setRows((prevRows) => prevRows.filter((row) => row.id !== id));
+        //             alert(`User with ID: ${id} has been deleted.`);
+        //         } else {
+        //             alert('Failed to delete user.');
+        //         }
+        //     } catch (error) {
+        //         console.error('Error deleting user:', error);
+        //         alert('An error occurred while deleting the user.');
+        //     }
+        // }
+    };
 
-        if (confirmed) {
+    // confirm message is opened
+    // disagree, not delete the user
+    const handleConfirmDisagree = () => {
+        // click disagree button actions
+        setOpenConfirmMessage(false); // don't want to remove, hide the delete confirm message
+        setUserToRemove(null);
+    };
+
+    // agree, delete the coupon
+    const handleConfirmAgree = async () => {
+        // click agree button actions
+        if (userToRemove) {
             try {
                 const response = await fetch(
-                    `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${id}`,
+                    `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${userToRemove.userId}`,
                     {
                         method: 'DELETE',
                     },
@@ -128,16 +178,38 @@ export default function UserTable() {
 
                 if (response.ok) {
                     // Remove the user from the state
-                    setRows((prevRows) => prevRows.filter((row) => row.id !== id));
-                    alert(`User with ID: ${id} has been deleted.`);
+                    setRows((prevRows) => prevRows.filter((row) => row.id !== userToRemove.userId));
+                    alert(`User with ID: ${userToRemove.userId} has been deleted.`);
+                    setShowNotification(true);
+                    setShowAnimation('animate__bounceInRight');
+                    setMessageType('success');
+                    setMessageContent('Delete user successfully!');
+                    setMessageTitle('Delete user');
                 } else {
                     alert('Failed to delete user.');
+                    setShowNotification(true);
+                    setShowAnimation('animate__bounceInRight');
+                    setMessageTitle('Delete user');
+                    setMessageType('error');
+                    setMessageContent('Delete user failed!');
                 }
             } catch (error) {
                 console.error('Error deleting user:', error);
                 alert('An error occurred while deleting the user.');
             }
         }
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
+        setOpenConfirmMessage(false);
+        setUserToRemove(null);
+    };
+
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
     };
 
     // Handle navigation to the "Add User" page
@@ -350,6 +422,53 @@ export default function UserTable() {
                     }}
                 />
             </Box>
+            {/* Open Confirm Message */}
+            <ConfirmMessage
+                openConfirmMessage={openConfirmMessage}
+                msgTitle={
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <WarningIcon
+                            sx={{
+                                color: theme.icon.color.primary,
+                                fontSize: theme.icon.size.desktop,
+                            }}
+                        />
+                        <CustomizeTypography
+                            sx={{
+                                color: theme.palette.text.main,
+                                fontSize: '18px',
+                                mb: 0,
+                                ml: 2,
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            Delete Products
+                        </CustomizeTypography>
+                    </Box>
+                }
+                msgContent={
+                    <Typography sx={{ fontSize: '16px' }}>
+                        Are you sure you want to delete this product?
+                    </Typography>
+                }
+                onHandleClickClose={() => setOpenConfirmMessage(false)}
+                onHandleConfirmAgree={handleConfirmAgree}
+                onHandleConfirmDisagree={handleConfirmDisagree}
+            />
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 }
