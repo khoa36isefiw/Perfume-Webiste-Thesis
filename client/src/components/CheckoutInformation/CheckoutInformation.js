@@ -30,6 +30,7 @@ import { CustomizeCheckoutInput } from './CustomizeCheckoutInput';
 import { saveOrders } from '../../redux/feature/CheckoutManagement/CheckoutManagementSlice';
 import { resetIsCommented } from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
 import { useNavigate } from 'react-router-dom';
+import PayPalButtonsComponents from '../PayPalButtonComponents/PayPalButtonComponents';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
@@ -393,26 +394,13 @@ function CheckoutInformation() {
                         {paymentMethod === 'paypal' ? (
                             // {paymentMethod === 'cod' && (
                             <Box sx={{ mt: 3, bgcolor: '#fff' }}>
-                                {/* <PayPalButton
-                                    amount="0.01"
-                                    // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-                                    onSuccess={(details, data) => {
-                                        alert(
-                                            'Transaction completed by ' +
-                                                details.payer.name.given_name,
-                                        );
-
-                                        // OPTIONAL: Call your server to save the transaction
-                                        return fetch('/paypal-transaction-complete', {
-                                            method: 'post',
-                                            body: JSON.stringify({
-                                                orderID: data.orderID,
-                                            }),
-                                        });
-                                    }}
-                                    onError={() => alert('Transaction failed!')}
-                                /> */}
-                                ahiahi
+                                <PayPalButtonsComponents
+                                    loggedInAccount={loggedInAccount}
+                                    listProductInCart={listProductInCart}
+                                    paymentMethod={paymentMethod}
+                                    promoCodeApplied={promoCodeApplied}
+                                    promoCode={promoCode}
+                                />
                             </Box>
                         ) : (
                             //button check out COD

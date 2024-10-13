@@ -9,20 +9,29 @@ import { unstable_createMuiStrictModeTheme } from '@mui/material/styles';
 import { theme } from './Theme/Theme';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const mergeTheme = {
     theme,
     ...unstable_createMuiStrictModeTheme(),
 };
+
+const initialOptions = {
+    clientId: process.env.REACT_APP_PAYPAL_CLIENT_ID,
+    currency: 'USD',
+    intent: 'capture',
+};
 root.render(
     <React.StrictMode>
         <CssBaseline>
-            <Provider store={store}>
-                <ThemeProvider theme={mergeTheme}>
-                    <App />
-                </ThemeProvider>
-            </Provider>
+            <PayPalScriptProvider options={initialOptions}>
+                <Provider store={store}>
+                    <ThemeProvider theme={mergeTheme}>
+                        <App />
+                    </ThemeProvider>
+                </Provider>
+            </PayPalScriptProvider>
         </CssBaseline>
     </React.StrictMode>,
 );
