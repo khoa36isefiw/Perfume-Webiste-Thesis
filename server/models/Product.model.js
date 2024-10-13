@@ -13,8 +13,6 @@ const productSchema = new Schema(
         },
         descriptionVn: String,
         descriptionEn: String,
-        price: Number,
-        priceSale: Number,
         imagePath: String,
         categoryId: {
             type: Schema.Types.ObjectId,
@@ -26,11 +24,25 @@ const productSchema = new Schema(
             ref: 'Brand',
             default: null,
         },
-        size: String,
-        countInStock: Number,
-        rating: Number,
-        numReviews: Number,
-        status: String,
+        variants: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Variant',
+            },
+        ],
+        rating: {
+            type: Number,
+            default: 0,
+        },
+        numReviews: {
+            type: Number,
+            default: 0,
+        },
+        status: {
+            type: String,
+            enum: ['active', 'inactive'],
+            default: 'active',
+        },
     },
     {
         timestamps: true,

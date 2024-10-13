@@ -1,9 +1,21 @@
 const Product = require('../models/Product.model');
+const Variant = require('../models/Variant.model');
 
 const ProductController = {
     getAll: async (req, res) => {
+        const { limit } = req.query;
         try {
-            const products = await Product.find({ deleted: false }, null, { lean: true });
+            const queryOptions = {
+                lean: true,
+            };
+            let productsQuery = Product.find({ status: 'active' }, null, queryOptions)
+                .populate('variants')
+                .populate('categoryId')
+                .populate('brandId');
+            if (limit) {
+                productsQuery = productsQuery.limit(Number(limit));
+            }
+            const products = await productsQuery;
             res.status(200).json(products);
         } catch (error) {
             res.status(404).json({ message: error.message });
@@ -13,7 +25,10 @@ const ProductController = {
     getById: async (req, res) => {
         try {
             const { id } = req.params;
-            const product = await Product.findOne({ _id: id });
+            const product = await Product.findOne({ _id: id })
+                .populate('variants')
+                .populate('categoryId')
+                .populate('brandId');
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
@@ -23,16 +38,69 @@ const ProductController = {
         }
     },
 
-    create: async (req, res) => {
-        const { name, description, price, image } = req.body;
+    getByCategoryId: async (req, res) => {
         try {
-            const product = await Product.create({
-                name,
-                description,
-                price,
-                image,
+            const { categoryId } = req.params;
+            const products = await Product.find({ categoryId, status: 'active' })
+                .populate('variants')
+                .populate('categoryId')
+                .populate('brandId');
+            res.status(200).json(products);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    },
+
+    getByBrandId: async (req, res) => {
+        try {
+            const { brandId } = req.params;
+            const products = await Product.find({ brandId, status: 'active' })
+                .populate('variants')
+                .populate('categoryId')
+                .populate('brandId');
+            res.status(200).json(products);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    },
+
+    create: async (req, res) => {
+        const {
+            nameVn,
+            nameEn,
+            descriptionVn,
+            descriptionEn,
+            variants,
+            imagePath,
+            categoryId,
+            brandId,
+        } = req.body;
+        try {
+            const product = new Product({
+                nameVn,
+                nameEn,
+                descriptionVn,
+                descriptionEn,
+                imagePath,
+                categoryId,
+                brandId,
+                status: 'active',
             });
-            res.status(201).json(product);
+            const savedProduct = await product.save();
+            const newVariants = variants.map((item) => ({
+                ...item,
+                productId: product._id,
+                size: item.size,
+                priceSale: item.priceSale,
+                price: item.price,
+                stock: item.stock,
+            }));
+            const savedVariants = await Variant.insertMany(newVariants);
+
+            savedProduct.variants = savedVariants.map((variant) => variant._id);
+
+            const result = await savedProduct.save();
+            res.status(201).json(result);
         } catch (error) {
             res.status(404).json({ message: error.message });
         }
@@ -40,13 +108,36 @@ const ProductController = {
 
     update: async (req, res) => {
         const { id } = req.params;
-        const updateData = req.body;
+        const { variants, ...rest } = req.body;
         try {
             const product = await Product.findOne({ _id: id });
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
-            await Product.updateOne({ _id: id }, updateData);
+            await Product.updateOne({ _id: id }, { $set: rest });
+
+            if (variants.length) {
+                const updateVariants = [];
+                for (const variant of variants) {
+                    if (variant._id) {
+                        await Variant.updateOne({ _id: variant._id }, { $set: variant });
+                        updateVariants.push(variant._id);
+                    } else {
+                        const newVariant = new Variant({ ...variant, productId: id });
+                        const savedVariant = await newVariant.save();
+                        updateVariants.push(savedVariant._id);
+                    }
+                }
+                // delete old variants
+                for (const oldVariant of product.variants) {
+                    if (!updateVariants.includes(oldVariant._id.toString())) {
+                        console.log(oldVariant);
+                        await Variant.deleteOne({ _id: oldVariant._id });
+                    }
+                }
+                product.variants = updateVariants;
+                await product.save();
+            }
             res.status(200).json({ message: 'Product updated successfully' });
         } catch (error) {
             res.status(404).json({ message: error.message });
@@ -60,7 +151,7 @@ const ProductController = {
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
-            await Product.updateOne({ _id: id }, { deleted: true });
+            await Product.updateOne({ _id: id }, { status: 'inactive' });
             res.status(200).json({ message: 'Product deleted successfully' });
         } catch (error) {
             res.status(404).json({ message: error.message });
