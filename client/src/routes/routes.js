@@ -30,6 +30,8 @@ import AdminViewOrderDetails from '../components/AdminOrders/AdminViewOrderDetai
 import AdminCoupon from '../pages/AdminCoupon';
 import AdminCreateCoupon from '../components/AdminCoupons/AdminCreateCoupon';
 import AdminEditCoupon from '../components/AdminCoupons/AdminEditCoupon';
+import AdminCategoriesPage from '../pages/AdminCategoriesPage';
+import AddCategory from '../components/AdminCategories/AddCategory';
 
 // not sign into this website
 const publicRoutes = [
@@ -100,6 +102,17 @@ const privateRoutes = [
         component: AdminEditCoupon,
         layout: AdminLayout,
     },
+    {
+        path: '/admin/manage-categories',
+        component: AdminCategoriesPage,
+        layout: AdminLayout,
+    },
+    {
+        path: '/admin/manage-categories/add',
+        component: AddCategory,
+        layout: AdminLayout,
+    },
+    //
 ];
 
 export { publicRoutes, privateRoutes };
