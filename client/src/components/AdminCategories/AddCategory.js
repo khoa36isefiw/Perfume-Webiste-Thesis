@@ -9,7 +9,15 @@ function AddCategory() {
         value: '',
         message: '',
     });
-    const [categories, setCategories] = React.useState([]);
+    const [categories, setCategories] = React.useState([
+        {
+            name: 'unisex',
+            parentCategory: '...',
+            description: 'test',
+            isActive: true,
+            _id: 1,
+        },
+    ]);
     const [subCategories, setSubCategories] = React.useState([]);
 
     const [description, setDescription] = React.useState({
