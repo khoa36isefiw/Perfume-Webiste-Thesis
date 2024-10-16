@@ -19,20 +19,28 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Category() {
-    const [categories, setCategories] = React.useState([]);
+    const [categories, setCategories] = React.useState([
+        {
+            name: 'unisex',
+            parentCategory: '...',
+            description: 'test',
+            isActive: true,
+            _id: 1,
+        },
+    ]);
     const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
     const [showPopup, setShowPopup] = React.useState(false);
     const [message, setMessage] = React.useState('');
     const [typeMessage, setTypeMessage] = React.useState('');
     const navigate = useNavigate();
 
-    const fetchCategory = async () => {
-        const listCategory = 'await categoryService.getAllCategory()';
-        setCategories(listCategory);
-    };
-    React.useEffect(() => {
-        fetchCategory();
-    }, []);
+    // const fetchCategory = async () => {
+    //     const listCategory = 'await categoryService.getAllCategory()';
+    //     setCategories(listCategory);
+    // };
+    // React.useEffect(() => {
+    //     fetchCategory();
+    // }, []);
 
     const handleDelete = (cateId) => {
         setSelectedCategoryId(cateId);
