@@ -18,7 +18,15 @@ function AddCategory() {
             _id: 1,
         },
     ]);
-    const [subCategories, setSubCategories] = React.useState([]);
+    const [subCategories, setSubCategories] = React.useState([
+        {
+            name: 'unisex',
+            parentCategory: '...',
+            description: 'test',
+            isActive: true,
+            _id: 1,
+        },
+    ]);
 
     const [description, setDescription] = React.useState({
         value: '',
@@ -178,15 +186,16 @@ function AddCategory() {
                             <MenuItem value="" sx={{ fontSize: '14px' }}>
                                 <em>None</em>
                             </MenuItem>
-                            {/* {categories.map((category) => ( */}
-                            <MenuItem
-                                key={category._id}
-                                value={category._id}
-                                sx={{ fontSize: '14px' }}
-                            >
-                                {category.name}
-                            </MenuItem>
-                            {/* ))} */}
+                            {categories.map((category) => (
+                                <MenuItem
+                                    key={category._id}
+                                    value={category._id}
+                                    sx={{ fontSize: '14px' }}
+                                >
+                                    {category.name}
+                                </MenuItem>
+                            ))}{' '}
+                            *
                         </TextField>
                     )}
                     {subCategories?.length > 0 && (
