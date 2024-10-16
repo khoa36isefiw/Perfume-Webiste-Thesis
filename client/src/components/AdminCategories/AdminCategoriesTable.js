@@ -18,7 +18,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Category() {
+function AdminCategoriesTable() {
     const [categories, setCategories] = React.useState([
         {
             name: 'unisex',
@@ -178,4 +178,4 @@ function Category() {
     );
 }
 
-export default Category;
+export default AdminCategoriesTable;
