@@ -8,6 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PercentIcon from '@mui/icons-material/Percent';
+import CategoryIcon from '@mui/icons-material/Category';
 import { useNavigate } from 'react-router-dom';
 
 const sidebarData = [
@@ -21,6 +22,11 @@ const sidebarData = [
         sidebarText: 'Users',
         sidebarIcon: <PersonIcon />,
         sidebarAddress: '/admin/manage-users',
+    },
+    {
+        sidebarText: 'Category',
+        sidebarIcon: <CategoryIcon />,
+        sidebarAddress: '/admin/manage-categories',
     },
     {
         sidebarText: 'Products',
