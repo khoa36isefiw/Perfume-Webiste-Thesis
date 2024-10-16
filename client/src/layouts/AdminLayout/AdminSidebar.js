@@ -26,7 +26,7 @@ const sidebarData = [
     {
         sidebarText: 'Category',
         sidebarIcon: <CategoryIcon />,
-        sidebarAddress: '/admin/manage-products',
+        sidebarAddress: '/admin/manage-categories',
     },
     {
         sidebarText: 'Products',
