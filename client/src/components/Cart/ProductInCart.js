@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Divider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -20,6 +20,7 @@ export const ProductInCart = ({ productsList }) => {
     const [openConfirmMessage, setOpenConfirmMessage] = React.useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [selectedProducts, setSelectedProducts] = useState([]);
 
     // disagree, not delete the products
     const handleConfirmDisagree = () => {
@@ -63,6 +64,23 @@ export const ProductInCart = ({ productsList }) => {
 
     console.log('Product in cart: ', productsList);
 
+    const handleSelectProduct = (isChecked, size, productId) => {
+        const check = selectedProducts.findIndex(
+            (item) => item.size === size && item.productId === productId,
+        );
+        // if !== -1 --> exists --> checked --> remove from list
+        if (!isChecked && check !== -1) {
+            setSelectedProducts((prev) =>
+                prev.filter((item) => item.productId !== productId || item.size !== size),
+            );
+        } else {
+            // add to list want to buy
+            setSelectedProducts((prev) => [...prev, { productId, size }]);
+        }
+    };
+
+    console.log('list selected product: ', selectedProducts);
+
     return (
         <Box>
             {/* First Product - In Stock */}
@@ -83,12 +101,35 @@ export const ProductInCart = ({ productsList }) => {
                                     alignItems: 'center',
                                 }}
                             >
+                                <Checkbox
+                                    checked={selectedProducts.some(
+                                        (selectedItem) =>
+                                            selectedItem.productId === item.perfumeID &&
+                                            selectedItem.size === item.perfumeSize,
+                                    )}
+                                    onChange={(e) =>
+                                        handleSelectProduct(
+                                            e.target.checked,
+                                            item.perfumeSize,
+                                            item.perfumeID,
+                                        )
+                                    }
+                                    sx={{
+                                        mr: 2,
+                                        '& .MuiSvgIcon-root': { fontSize: 22 },
+                                        color: 'white',
+                                        '&.Mui-checked': {
+                                            color: theme.palette.background.thirth,
+                                        },
+                                    }}
+                                />
+
                                 {/* product image */}
                                 <Box
                                     sx={{
                                         bgcolor: '#333',
-                                        height: '200px',
-                                        width: '200px',
+                                        height: '120px',
+                                        width: '120px',
                                         borderRadius: '8px',
                                         [mobileScreen]: {
                                             height: '150px',
