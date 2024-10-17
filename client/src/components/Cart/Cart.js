@@ -1,5 +1,5 @@
-import { Box, Button, Container, Divider, Grid } from '@mui/material';
-import React from 'react';
+import { Box, Button, Checkbox, Container, Divider, Grid } from '@mui/material';
+import React, { useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -12,11 +12,30 @@ import CartTotal from './CartTotal';
 import TotalPriceInCart from './TotalPriceInCart';
 import EmptyCart from '../EmptyCart/EmptyCart';
 import EmptyOrders from '../EmptyOrders/EmptyOrders';
+import Check from '@mui/icons-material/Check';
 
 function Cart() {
-    const productAdded = useSelector((state) => state.cartManagement.productInfor);
-    // console.log('productAdded', productAdded);
     const navigate = useNavigate();
+    const productAdded = useSelector((state) => state.cartManagement.productInfor);
+    const [selectedProducts, setSelectedProducts] = useState([]);
+
+    const handleSelectAll = (isChecked) => {
+        if (isChecked) {
+            // Add all products to selectedProducts
+            const allProducts = productAdded.map((item) => ({
+                productId: item.perfumeID,
+                size: item.perfumeSize,
+            }));
+            setSelectedProducts(allProducts);
+        } else {
+            // Clear selectedProducts when unchecked
+            setSelectedProducts([]);
+        }
+    };
+    // console.log('productAdded', productAdded);
+
+    const isAllSelected =
+        productAdded.length > 0 && selectedProducts.length === productAdded.length;
     return (
         <React.Fragment>
             {productAdded.length > 0 ? (
@@ -62,19 +81,28 @@ function Cart() {
                                 Your Cart
                             </CustomizeTypography>
                         </Grid>
-                        <Grid item xs={12} lg={8}>
+                        {/* <Grid item xs={12} lg={8}>
                             <Box
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'space-around',
+                                    px: 1,
                                 }}
                             >
-                                <CustomizeTypography>Select All</CustomizeTypography>
-                                <CustomizeTypography>Product Information</CustomizeTypography>
-                                <CustomizeTypography>Price</CustomizeTypography>
+                                <Checkbox
+                                    sx={{
+                                        '& .MuiSvgIcon-root': { fontSize: 22 },
+                                        color: 'white',
+                                        '&.Mui-checked': {
+                                            color: theme.palette.background.thirth,
+                                        },
+                                    }}
+                                    checked={isAllSelected}
+                                    onChange={(e) => handleSelectAll(e.target.checked)}
+                                />
+                                <CustomizeTypography sx={{ mb: 0 }}>Select All</CustomizeTypography>
                             </Box>
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={12} lg={12}>
                             <Divider sx={{ bgcolor: '#fff', my: 2 }} />
                         </Grid>

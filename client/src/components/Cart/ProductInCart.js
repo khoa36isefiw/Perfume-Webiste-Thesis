@@ -81,9 +81,46 @@ export const ProductInCart = ({ productsList }) => {
 
     console.log('list selected product: ', selectedProducts);
 
+    const handleSelectAll = (isChecked) => {
+        if (isChecked) {
+            // Add all products to selectedProducts
+            const allProducts = productsList.map((item) => ({
+                productId: item.perfumeID,
+                size: item.perfumeSize,
+            }));
+            setSelectedProducts(allProducts);
+        } else {
+            // Clear selectedProducts when unchecked
+            setSelectedProducts([]);
+        }
+    };
+
+    const isAllSelected =
+        productsList.length > 0 && selectedProducts.length === productsList.length;
+
     return (
         <Box>
             {/* First Product - In Stock */}
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    px: 1,
+                }}
+            >
+                <Checkbox
+                    sx={{
+                        '& .MuiSvgIcon-root': { fontSize: 22 },
+                        color: 'white',
+                        '&.Mui-checked': {
+                            color: theme.palette.background.thirth,
+                        },
+                    }}
+                    checked={isAllSelected}
+                    onChange={(e) => handleSelectAll(e.target.checked)}
+                />
+                <CustomizeTypography sx={{ mb: 0 }}>Select All</CustomizeTypography>
+            </Box>
             <Box
                 sx={{
                     border: '1px solid #333',
