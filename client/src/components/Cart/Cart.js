@@ -1,4 +1,4 @@
-import { Button, Container, Divider, Grid } from '@mui/material';
+import { Box, Button, Container, Divider, Grid } from '@mui/material';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -61,6 +61,19 @@ function Cart() {
                             <CustomizeTypography sx={{ fontSize: '48px', fontWeight: 'bold' }}>
                                 Your Cart
                             </CustomizeTypography>
+                        </Grid>
+                        <Grid item xs={12} lg={8}>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-around',
+                                }}
+                            >
+                                <CustomizeTypography>Select All</CustomizeTypography>
+                                <CustomizeTypography>Product Information</CustomizeTypography>
+                                <CustomizeTypography>Price</CustomizeTypography>
+                            </Box>
                         </Grid>
                         <Grid item xs={12} lg={12}>
                             <Divider sx={{ bgcolor: '#fff', my: 2 }} />
