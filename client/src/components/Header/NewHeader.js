@@ -386,45 +386,58 @@ function NewHeader() {
                                 </IconButton>
                             </Tooltip>
                         )}
-                        <Badge
-                            badgeContent={
-                                productListInCart && productListInCart.length > 0
-                                    ? productListInCart.length
-                                    : ''
+                        <Tooltip
+                            title={
+                                <Typography
+                                    sx={{
+                                        fontSize: '13px',
+                                        mb: 0,
+                                    }}
+                                >
+                                    Shopping Cart
+                                </Typography>
                             }
-                            max={9}
-                            sx={{
-                                '& .MuiBadge-badge': {
-                                    fontSize: '10px',
-                                    // fontWeight: 'bold',
-                                    right: 4,
-                                    top: 4,
-                                    color: '#fff',
-                                    bgcolor:
-                                        productListInCart && productListInCart.length > 0
-                                            ? theme.palette.background.thirth
-                                            : 'black',
-                                },
-                            }}
-                            color="green"
                         >
-                            <IconButton
-                                onClick={() => navigate('/shopping-cart')}
+                            <Badge
+                                badgeContent={
+                                    productListInCart && productListInCart.length > 0
+                                        ? productListInCart.length
+                                        : ''
+                                }
+                                max={9}
                                 sx={{
-                                    ml: 2,
-                                    // mr: 1,
-                                    '&:hover': {
-                                        cursor: 'pointer',
-                                        fontWeight: 'bold',
-                                    },
-                                    [tabletScreen]: {
-                                        mt: 2,
+                                    '& .MuiBadge-badge': {
+                                        fontSize: '10px',
+                                        // fontWeight: 'bold',
+                                        right: 4,
+                                        top: 4,
+                                        color: '#fff',
+                                        bgcolor:
+                                            productListInCart && productListInCart.length > 0
+                                                ? theme.palette.background.thirth
+                                                : 'black',
                                     },
                                 }}
+                                color="green"
                             >
-                                <ShoppingCartIcon sx={{ fontSize: '24px', color: 'white' }} />
-                            </IconButton>
-                        </Badge>
+                                <IconButton
+                                    onClick={() => navigate('/shopping-cart')}
+                                    sx={{
+                                        ml: 2,
+                                        // mr: 1,
+                                        '&:hover': {
+                                            cursor: 'pointer',
+                                            fontWeight: 'bold',
+                                        },
+                                        [tabletScreen]: {
+                                            mt: 2,
+                                        },
+                                    }}
+                                >
+                                    <ShoppingCartIcon sx={{ fontSize: '24px', color: 'white' }} />
+                                </IconButton>
+                            </Badge>
+                        </Tooltip>
                     </Box>
                 </Box>
 
