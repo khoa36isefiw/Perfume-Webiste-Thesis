@@ -115,11 +115,19 @@ function Cart() {
                             }}
                         >
                             <Grid item xs={12} lg={8}>
-                                <ProductInCart productsList={productAdded} />
+                                <ProductInCart
+                                    productsList={productAdded}
+                                    selectedProducts={selectedProducts}
+                                    setSelectedProducts={setSelectedProducts}
+                                />
                             </Grid>
 
                             <Grid item xs={12} lg={4}>
-                                <TotalPriceInCart productsList={productAdded} />
+                                <TotalPriceInCart
+                                    productsList={productAdded}
+                                    selectedProducts={selectedProducts}
+                                    setSelectedProducts={setSelectedProducts}
+                                />
                             </Grid>
                         </Grid>
                     </Grid>
