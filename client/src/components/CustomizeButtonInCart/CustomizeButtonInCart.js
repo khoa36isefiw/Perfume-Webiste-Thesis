@@ -8,12 +8,14 @@ export const CustomizeButtonInCart = ({
     isReverseAnimation,
     fullWidth = true,
     width,
+    disable,
 }) => {
     return (
         <Button
             onClick={onHandleClick}
             variant={variant}
             fullWidth={fullWidth}
+            disabled={disable}
             sx={{
                 fontWeight: 'bold',
                 mb: 1,
@@ -23,7 +25,18 @@ export const CustomizeButtonInCart = ({
                 fontFamily: 'Lato, sans-serif',
                 fontSize: '14px',
                 backgroundColor: theme.palette.text.secondary,
-                color: isReverseAnimation ? '#fff' : theme.palette.text.secondary,
+                // color: isReverseAnimation
+                //     ? '#fff'
+                //     : disable
+                //     ? '#cccccc'
+                //     : theme.palette.text.secondary,
+
+                color: disable
+                    ? '#cccccc'
+                    : isReverseAnimation
+                    ? '#fff'
+                    : theme.palette.text.secondary,
+
                 cursor: 'pointer',
                 overflow: 'hidden',
                 borderRadius: '8px',

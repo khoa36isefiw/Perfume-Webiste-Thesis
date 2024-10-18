@@ -14,13 +14,12 @@ import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import WarningIcon from '@mui/icons-material/Warning';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
-export const ProductInCart = ({ productsList }) => {
+export const ProductInCart = ({ productsList, selectedProducts, setSelectedProducts }) => {
     const dispatch = useDispatch();
     const [productToRemove, setProductToRemove] = useState(null);
     const [openConfirmMessage, setOpenConfirmMessage] = React.useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    const [selectedProducts, setSelectedProducts] = useState([]);
 
     // disagree, not delete the products
     const handleConfirmDisagree = () => {

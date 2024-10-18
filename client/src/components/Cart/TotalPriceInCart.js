@@ -8,7 +8,7 @@ import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonI
 import { SummaryRowInCart } from './SummaryRowInCart';
 import { converToVND } from '../convertToVND/convertToVND';
 
-function TotalPriceInCart({ productsList }) {
+function TotalPriceInCart({ productsList, selectedProducts, setSelectedProducts }) {
     const navigate = useNavigate();
 
     // Calculate the total price
@@ -22,6 +22,8 @@ function TotalPriceInCart({ productsList }) {
 
         return totalSubtotal;
     };
+
+    console.log('selectedProducts.length > 0: ', selectedProducts.length > 0);
 
     return (
         <Box
@@ -52,6 +54,7 @@ function TotalPriceInCart({ productsList }) {
                     variant="outlined"
                     textAction="Proceed to checkout"
                     onHandleClick={() => navigate('/checkout')}
+                    disable={true}
                 />
             </Box>
             <CustomizeButtonInCart
