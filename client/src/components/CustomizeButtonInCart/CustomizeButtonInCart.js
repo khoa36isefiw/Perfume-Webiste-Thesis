@@ -10,6 +10,7 @@ export const CustomizeButtonInCart = ({
     width,
     disable,
 }) => {
+    const buttonColor = isReverseAnimation ? '#fff' : theme.palette.text.secondary;
     return (
         <Button
             onClick={onHandleClick}
@@ -25,17 +26,8 @@ export const CustomizeButtonInCart = ({
                 fontFamily: 'Lato, sans-serif',
                 fontSize: '14px',
                 backgroundColor: theme.palette.text.secondary,
-                // color: isReverseAnimation
-                //     ? '#fff'
-                //     : disable
-                //     ? '#cccccc'
-                //     : theme.palette.text.secondary,
 
-                color: disable
-                    ? '#cccccc'
-                    : isReverseAnimation
-                    ? '#fff'
-                    : theme.palette.text.secondary,
+                color: buttonColor,
 
                 cursor: 'pointer',
                 overflow: 'hidden',
