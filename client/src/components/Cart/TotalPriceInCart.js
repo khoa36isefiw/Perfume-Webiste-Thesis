@@ -10,14 +10,22 @@ import { converToVND } from '../convertToVND/convertToVND';
 
 function TotalPriceInCart({ productsList, selectedProducts }) {
     const navigate = useNavigate();
+    console.log('productsList: ', productsList);
+    console.log('selectedProducts: ', selectedProducts);
 
-    // Calculate the total price
+    // the total price for product selected
     const calculateTotal = () => {
         let totalSubtotal = 0;
-        // Loop through each product to calculate subtotal
-        productsList.forEach((product) => {
-            const price = product.quantity * product.perfumePrice;
-            totalSubtotal += price;
+
+        productsList.forEach((productItem) => {
+            const product = selectedProducts.find(
+                (p) => p.productId === productItem.perfumeID && p.size === productItem.perfumeSize,
+            );
+
+            if (product) {
+                const price = productItem.quantity * productItem.perfumePrice;
+                totalSubtotal += price;
+            }
         });
 
         return totalSubtotal;
