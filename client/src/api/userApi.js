@@ -25,6 +25,16 @@ export const userAPI = {
         const url = `/users/${id}/profile`;
         return axiosClient.put(url, data);
     },
+    changePassword: (id, data) => {
+        const url = `/users/${id}/change-password`;
+
+        try {
+            const response = axiosClient.put(url, data);
+            return response;
+        } catch (error) {
+            console.log('error', error);
+        }
+    },
 
     deleteUserById: (id) => {
         const url = `/user/${id}`;
