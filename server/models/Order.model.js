@@ -19,11 +19,9 @@ const orderSchema = new Schema(
         },
         originalPrice: {
             type: Number,
-            required: true,
         },
         adjustedPrice: {
             type: Number,
-            required: true,
         },
         email: String,
         address: String,
