@@ -7,11 +7,12 @@ import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import { SummaryRowInCart } from './SummaryRowInCart';
 import { converToVND } from '../convertToVND/convertToVND';
+import { useDispatch } from 'react-redux';
+import { saveSelectedProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
 
 function TotalPriceInCart({ productsList, selectedProducts }) {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log('productsList: ', productsList);
-    console.log('selectedProducts: ', selectedProducts);
 
     // the total price for product selected
     const calculateTotal = () => {
@@ -27,6 +28,16 @@ function TotalPriceInCart({ productsList, selectedProducts }) {
                 totalSubtotal += price;
             }
         });
+
+        const listProductsSelected = productsList.filter((product) =>
+            selectedProducts.find(
+                (selectedProduct) =>
+                    selectedProduct.productId === product.perfumeID &&
+                    selectedProduct.size === product.perfumeSize,
+            ),
+        );
+        // Dispatch each product that matches the condition to Redux
+        dispatch(saveSelectedProduct(listProductsSelected));
 
         return totalSubtotal;
     };
