@@ -23,7 +23,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useDispatch, useSelector } from 'react-redux';
 import CartTotal from '../Cart/CartTotal';
-import { converToVND } from '../convertToVND/convertToVND';
+import { converToVND, converToVNDV2 } from '../convertToVND/convertToVND';
 import { clearCart, removeProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
 import { CustomizeDividerVertical } from '../CustomizeDivider/CustomizeDivider';
 import { CustomizeCheckoutInput } from './CustomizeCheckoutInput';
@@ -53,47 +53,50 @@ function CheckoutInformation() {
     // get product in cart
     const listProductInCart = useSelector((state) => state.cartManagement.productInfor);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
-    // console.log('current information: ', loggedInAccount);
-    console.log('current product information: ', listProductInCart);
+    const productSelectedList = useSelector((state) => state.cartManagement.productSelected);
 
-    // get province
-    useEffect(() => {
-        const fetchProvinces = async () => {
-            const provinceList = await addressApi.getProvinceApi();
-            setListProvince(provinceList.results);
-        };
-        fetchProvinces();
-    }, []);
+    // // get province
+    // useEffect(() => {
+    //     const fetchProvinces = async () => {
+    //         const provinceList = await addressApi.getProvinceApi();
+    //         setListProvince(provinceList.results);
+    //     };
+    //     fetchProvinces();
+    // }, []);
 
-    // get district from province_id
-    useEffect(() => {
-        if (selectedProvince) {
-            const fetchDistrict = async () => {
-                const getDistrictFromProvince = await addressApi.getDistrictApi(
-                    selectedProvince.id,
-                );
-                setListDistrict(getDistrictFromProvince.results);
-            };
-            fetchDistrict();
-        }
-    }, [selectedProvince]);
+    // // get district from province_id
+    // useEffect(() => {
+    //     if (selectedProvince) {
+    //         const fetchDistrict = async () => {
+    //             const getDistrictFromProvince = await addressApi.getDistrictApi(
+    //                 selectedProvince.id,
+    //             );
+    //             setListDistrict(getDistrictFromProvince.results);
+    //         };
+    //         fetchDistrict();
+    //     }
+    // }, [selectedProvince]);
 
-    // get town, ward from district_id
-    useEffect(() => {
-        if (selectedProvince && selectedDistrict) {
-            const fetchWardTown = async () => {
-                const getDistrictFromProvince = await addressApi.getWardTownApi(
-                    selectedDistrict.id,
-                );
-                setListWardTown(getDistrictFromProvince.results);
-            };
-            fetchWardTown();
-        }
-    }, [selectedProvince, selectedDistrict]);
+    // // get town, ward from district_id
+    // useEffect(() => {
+    //     if (selectedProvince && selectedDistrict) {
+    //         const fetchWardTown = async () => {
+    //             const getDistrictFromProvince = await addressApi.getWardTownApi(
+    //                 selectedDistrict.id,
+    //             );
+    //             setListWardTown(getDistrictFromProvince.results);
+    //         };
+    //         fetchWardTown();
+    //     }
+    // }, [selectedProvince, selectedDistrict]);
+
+    // get value of object, must get data of object to render into UI
+    const getListProductSelected = Object.values(productSelectedList);
+    console.log('getListProductSelected v2: ', getListProductSelected);
 
     // get list product id
-    const listProductId = listProductInCart.map((product) => product.perfumeID);
-    console.log('listProductId: ', listProductId);
+    const listProductId =
+        getListProductSelected && getListProductSelected.map((product) => product.perfumeID);
 
     // checkout and show notification
     const handleCheckout = () => {
@@ -101,7 +104,7 @@ function CheckoutInformation() {
         setShowAnimation('animate__bounceInRight');
 
         // calculate the subtotal (sum of all products in the cart)
-        const subtotal = listProductInCart.reduce(
+        const subtotal = getListProductSelected.reduce(
             (accumulator, product) => accumulator + product.quantity * product.perfumePrice,
             0,
         );
@@ -144,7 +147,7 @@ function CheckoutInformation() {
                     ', ' +
                     selectedWardTown.name,
             },
-            products: listProductInCart.map((product) => ({
+            products: getListProductSelected.map((product) => ({
                 productId: product.perfumeID,
                 name: product.perfumeName,
                 image: product.perfumeImage,
@@ -396,7 +399,7 @@ function CheckoutInformation() {
                             <Box sx={{ mt: 3, bgcolor: '#fff' }}>
                                 <PayPalButtonsComponents
                                     loggedInAccount={loggedInAccount}
-                                    listProductInCart={listProductInCart}
+                                    listProductInCart={getListProductSelected}
                                     paymentMethod={paymentMethod}
                                     promoCodeApplied={promoCodeApplied}
                                     promoCode={promoCode}
@@ -429,7 +432,7 @@ function CheckoutInformation() {
                             },
                         }}
                     >
-                        {listProductInCart.map((product, index) => (
+                        {getListProductSelected.map((product, index) => (
                             <Box key={index}>
                                 <Box
                                     sx={{
@@ -526,7 +529,7 @@ function CheckoutInformation() {
                                         </CustomizeTypography>
                                     </Box>
                                 </Box>
-                                {index !== listProductInCart.length - 1 && (
+                                {index !== getListProductSelected.length - 1 && (
                                     <CustomizeDividerVertical />
                                 )}
                             </Box>
@@ -534,7 +537,7 @@ function CheckoutInformation() {
                     </Box>
                     <Box sx={{ mt: 2 }}>
                         <CartTotal
-                            productsList={listProductInCart}
+                            productsList={getListProductSelected}
                             promoCode={promoCode}
                             setPromoCode={setPromoCode}
                             promoCodeApplied={promoCodeApplied}
