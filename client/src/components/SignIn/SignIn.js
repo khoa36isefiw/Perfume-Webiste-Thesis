@@ -7,6 +7,7 @@ import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Th
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
+import { authAPI } from '../../api/authAPI';
 
 function SignIn() {
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function SignIn() {
     const passwordRef = useRef(null);
     const listAccounts = useSelector((state) => state.accountManagement.listAccounts);
     console.log('current list accounts: ', listAccounts && listAccounts);
-    const handleSignIn = () => {
+    const handleSignIn = async () => {
         const email = emailRef.current.value.trim();
         const password = passwordRef.current.value.trim();
 
@@ -23,20 +24,50 @@ function SignIn() {
             (account) => account.email === email && account.password === password,
         );
 
-        if (user) {
-            console.log('Login successfully');
+        const data = {
+            email,
+            password,
+        };
 
-            dispatch(
-                loginAccount({
-                    email: user.email,
-
-                    password: user.password,
+        const loginData = await authAPI.login(data);
+        // console.log('request: ', loginData);
+        console.log('response Sign In: ', loginData);
+        if (loginData) {
+            // store all user data in localStorage as a JSON string
+            window.localStorage.setItem(
+                'user_data',
+                JSON.stringify({
+                    userId: loginData._id,
+                    imagePath: loginData.imagePath,
+                    email: loginData.email,
+                    // Add any other data you want to store
+                    firstName: loginData.firstName,
+                    lastName: loginData.lastName,
+                    roles: loginData.roles,
                 }),
             );
+
+            console.log('Login successfully');
+
+            // Navigate to the homepage or another route
             navigate('/');
         } else {
-            console.log('Login failed: invalid email or password');
+            console.log('something went wrong');
         }
+
+        // if (user) {
+        //     console.log('Login successfully');
+        //     dispatch(
+        //         loginAccount({
+        //             email: user.email,
+        //             password: user.password,
+        //         }),
+        //     );
+
+        //     navigate('/');
+        // } else {
+        //     console.log('Login failed: invalid email or password');
+        // }
     };
 
     const handleKeyDownEvent = (e) => {
