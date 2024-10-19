@@ -10,15 +10,14 @@ import { CustomizeHoverButton, CustomizeHoverButtonV2 } from '../CustomizeButton
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateAccountInformation } from '../../redux/feature/AccountManagement/AccountManagementSlice';
+import { userAPI } from '../../api/userApi';
 
 function AccountInfo() {
     const dispatch = useDispatch();
-
-    const [editAccount, setEditAccount] = useState(true);
-    const [selectedImage, setSelectedImage] = useState(null);
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const userData = JSON.parse(localStorage.getItem('user_data'));
+    const [editAccount, setEditAccount] = useState(true);
+    const [selectedImage, setSelectedImage] = useState(userData?.imagePath);
+    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
 
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
@@ -27,21 +26,34 @@ function AccountInfo() {
         setEditAccount(false);
     };
 
-    const handleSaveInformation = () => {
+    const handleSaveInformation = async () => {
         const firstName = firstNameRef.current.value.trim();
         const lastName = lastNameRef.current.value.trim();
 
-        if (loggedInAccount) {
-            dispatch(
-                updateAccountInformation({
-                    email: loggedInAccount.email, // Sử dụng email của tài khoản đã đăng nhập để xác định tài khoản cần cập nhật
-                    firstName,
-                    lastName,
-                    userImage: selectedImage,
-                }),
-            );
-            setEditAccount(true);
-        }
+        const data = {
+            ...userData,
+            firstName,
+            lastName,
+            imagePath: selectedImage,
+        };
+        window.localStorage.setItem('user_data', JSON.stringify(data));
+        const updateUserInfor = await userAPI.updateUserProfile(userData.userId, data);
+
+        console.log('updateUserInfor: ', updateUserInfor);
+
+        setEditAccount(true);
+
+        // if (loggedInAccount) {
+        //     dispatch(
+        //         updateAccountInformation({
+        //             email: loggedInAccount.email, // Sử dụng email của tài khoản đã đăng nhập để xác định tài khoản cần cập nhật
+        //             firstName,
+        //             lastName,
+        //             userImage: selectedImage,
+        //         }),
+        //     );
+        //     setEditAccount(true);
+        // }
     };
 
     const handleUploadImage = (e) => {
@@ -91,7 +103,7 @@ function AccountInfo() {
                 <Grid item xs={12} md={12} lg={4}>
                     <Avatar
                         alt="User Image"
-                        src={selectedImage || loggedInAccount?.userImage}
+                        src={selectedImage || userData?.imagePath}
                         sx={{
                             height: '250px',
                             width: '250px',

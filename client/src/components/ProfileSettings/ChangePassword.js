@@ -8,6 +8,7 @@ import { CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePassword } from '../../redux/feature/AccountManagement/AccountManagementSlice';
+import { userAPI } from '../../api/userApi';
 
 function ChangePassword() {
     const dispatch = useDispatch();
@@ -18,6 +19,18 @@ function ChangePassword() {
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [confrimNewPassword, setConfrimNewPassword] = useState(false);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+    const userData = JSON.parse(localStorage.getItem('user_data'));
+    const fetchUserById = async () => {
+        try {
+            const userByID = await userAPI.getUserById(userData.userId);
+            console.log('Fetched User Data: ', userData);
+            return userData;
+        } catch (error) {
+            console.error('Error fetching user by ID:', error);
+        }
+    };
+
+    console.log('fetchUserById: ', fetchUserById);
 
     const handleClickShowCurrentPassword = () => {
         setShowCurrentPassword(!showCurrentPassword);
