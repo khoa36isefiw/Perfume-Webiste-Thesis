@@ -16,11 +16,12 @@ import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
-import { theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
+import { authAPI } from '../../api/authAPI';
+import { theme } from '../../Theme/Theme';
 
-export default function AuthenticatedUser() {
+export default function AuthenticatedUser({ userData }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -51,10 +52,28 @@ export default function AuthenticatedUser() {
         backTop();
     };
 
-    const handleLogOut = () => {
-        setAnchorEl(null);
-        dispatch(logoutAccount());
+    const handleLogOut = async () => {
+        try {
+            setAnchorEl(null);
+
+            const logout = await authAPI.logout(userData.email);
+
+            if (logout) {
+                window.localStorage.removeItem('user_data');
+
+                console.log('Logged out successfully');
+
+                // dispatch(logoutAccount());
+
+                navigate('/sign-in');
+            } else {
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            console.error('An error occurred during logout:', error);
+        }
     };
+
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -75,7 +94,7 @@ export default function AuthenticatedUser() {
                     >
                         <Avatar
                             sx={{ width: 48, height: 48 }}
-                            src={loggedInAccount?.userImage}
+                            src={userData?.imagePath}
                             alt="User Image"
                         />
                     </IconButton>
@@ -124,12 +143,12 @@ export default function AuthenticatedUser() {
                 <MenuItem onClick={handleNavigateProfile}>
                     <Avatar
                         sx={{ width: 40, height: 40 }}
-                        src={loggedInAccount?.userImage}
+                        src={userData?.imagePath}
                         alt="User Image"
                     />
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <CustomizeTypography sx={{ mb: 0, fontSize: '14px', fontWeight: 'bold' }}>
-                            {loggedInAccount?.firstName + ' ' + loggedInAccount?.lastName}
+                            {userData?.firstName + ' ' + userData?.lastName}
                         </CustomizeTypography>
 
                         <CustomizeTypography
@@ -144,7 +163,7 @@ export default function AuthenticatedUser() {
                             }}
                         >
                             {/* macbook@gmail.com */}
-                            {loggedInAccount?.email}
+                            {userData?.email}
                         </CustomizeTypography>
                     </Box>
                 </MenuItem>

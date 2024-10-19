@@ -10,7 +10,9 @@ import { signUpAccount } from '../../redux/feature/AccountManagement/AccountMana
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
-import userDefaultAvatar from '../../assets/images/defaultA.png';
+
+import { userAPI } from '../../api/userApi';
+import { authAPI } from '../../api/authAPI';
 
 function RegisterAccount() {
     const navigate = useNavigate();
@@ -30,7 +32,40 @@ function RegisterAccount() {
     const [messageContent, setMessageContent] = useState('');
     const [messageTitle, setMessageTitle] = useState('');
 
-    const handleRegisterAccount = () => {
+    // const handleRegisterAccount = () => {
+    //     // get value of first name input
+    //     const userImage =
+    //         'https://res.cloudinary.com/dxulhqdp3/image/upload/v1726898366/perfumes/user-image/default-image-1.png';
+    //     const firstName = firstNameRef.current.value.trim();
+    //     const lastName = lastNameRef.current.value.trim();
+    //     const phoneNumber = phoneRef.current.value.trim();
+    //     const address = addressRef.current.value.trim();
+    //     const email = emailRef.current.value.trim();
+    //     const password = passwordRef.current.value.trim();
+    //     if (firstName) {
+    //         dispatch(
+    //             signUpAccount({
+    //                 userImage, // default image
+    //                 userId,
+    //                 firstName,
+    //                 lastName,
+    //                 phoneNumber,
+    //                 address,
+    //                 email,
+    //                 password,
+    //             }),
+    //         );
+    //     }
+
+    //     setShowNotification(true);
+    //     setShowAnimation('animate__bounceInRight');
+    //     setMessageType('success');
+    //     setMessageTitle('Register account');
+    //     setMessageContent('Create new account successfully!');
+    // };
+
+    //create user with api
+    const handleRegisterAccount = async () => {
         // get value of first name input
         const userImage =
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1726898366/perfumes/user-image/default-image-1.png';
@@ -40,6 +75,7 @@ function RegisterAccount() {
         const address = addressRef.current.value.trim();
         const email = emailRef.current.value.trim();
         const password = passwordRef.current.value.trim();
+
         if (firstName) {
             dispatch(
                 signUpAccount({
@@ -53,6 +89,20 @@ function RegisterAccount() {
                     password,
                 }),
             );
+
+            const registrationData = {
+                email,
+                password,
+                firstName,
+                lastName,
+                address,
+                phoneNumber: phoneNumber,
+                imagePath: userImage, // default image
+            };
+
+            console.log('registrationData: ', registrationData);
+            const response = await authAPI.registerAccount(registrationData);
+            console.log('response: ', response);
         }
 
         setShowNotification(true);
@@ -73,6 +123,7 @@ function RegisterAccount() {
         navigate('/sign-in');
         backTop();
     };
+
     return (
         <Container
             sx={{

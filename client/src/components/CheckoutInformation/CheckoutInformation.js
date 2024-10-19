@@ -24,13 +24,20 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useDispatch, useSelector } from 'react-redux';
 import CartTotal from '../Cart/CartTotal';
 import { converToVND, converToVNDV2 } from '../convertToVND/convertToVND';
-import { clearCart, removeProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
+import {
+    clearCart,
+    clearSelectedProducts,
+    removeProduct,
+    removeSelectedProduct,
+} from '../../redux/feature/CartManagement/CartManagementSlice';
 import { CustomizeDividerVertical } from '../CustomizeDivider/CustomizeDivider';
 import { CustomizeCheckoutInput } from './CustomizeCheckoutInput';
 import { saveOrders } from '../../redux/feature/CheckoutManagement/CheckoutManagementSlice';
 import { resetIsCommented } from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
 import { useNavigate } from 'react-router-dom';
 import PayPalButtonsComponents from '../PayPalButtonComponents/PayPalButtonComponents';
+import { ordersAPI } from '../../api/ordersAPI';
+import { useGridOverlays } from '@mui/x-data-grid/hooks/features/overlays/useGridOverlays';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
@@ -39,6 +46,8 @@ function CheckoutInformation() {
     const [listProvince, setListProvince] = useState([]);
     const [listDistrict, setListDistrict] = useState([]);
     const [listWardTown, setListWardTown] = useState([]);
+    const [userData, setUserData] = useState(JSON.parse(window.localStorage.getItem('user_data')));
+
     // component parent
     const [promoCode, setPromoCode] = useState('');
     const [promoCodeApplied, setPromoCodeApplied] = useState(false);
@@ -99,10 +108,109 @@ function CheckoutInformation() {
         getListProductSelected && getListProductSelected.map((product) => product.perfumeID);
 
     // checkout and show notification
-    const handleCheckout = () => {
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
+    // const handleCheckout = () => {
+    //     setShowNotification(true);
+    //     setShowAnimation('animate__bounceInRight');
 
+    //     // calculate the subtotal (sum of all products in the cart)
+    //     const subtotal = getListProductSelected.reduce(
+    //         (accumulator, product) => accumulator + product.quantity * product.perfumePrice,
+    //         0,
+    //     );
+
+    //     console.log('subtotal: ', subtotal);
+
+    //     const calculateDiscount = (subtotal) => subtotal * 0.2; // 20%
+    //     const calculateTax = (subtotal) => subtotal * 0.1; // 10%
+
+    //     const discount = calculateDiscount(subtotal);
+    //     const tax = calculateTax(subtotal);
+
+    //     // final total: subtotal - discount + tax
+    //     let finalTotal = subtotal - discount + tax;
+
+    //     // optional: apply promotion code --> discount 5%
+    //     if (promoCodeApplied && promoCode === 'UTE99') {
+    //         finalTotal *= 0.95; // Apply 5% discount
+    //     }
+
+    //     // round final total to 2 decimal places
+    //     finalTotal = Math.round(finalTotal * 100) / 100;
+
+    //     console.log('final price: ' + finalTotal);
+
+    //     // Create the checkout object for the current purchase
+    //     // temporary checkout object
+    //     const currentCheckout = {
+    //         orderId: `${new Date().getTime()}`,
+    //         paymentMethod,
+    //         user: {
+    //             name: userData?.firstName + ' ' + userData?.lastName,
+    //             email: loggedInAccount?.email,
+    //             phone: loggedInAccount?.phoneNumber,
+    //             address: loggedInAccount?.address,
+    //             shipTo:
+    //                 selectedProvince.name +
+    //                 ', ' +
+    //                 selectedDistrict.name +
+    //                 ', ' +
+    //                 selectedWardTown.name,
+    //         },
+    //         products: getListProductSelected.map((product) => ({
+    //             productId: product.perfumeID,
+    //             name: product.perfumeName,
+    //             image: product.perfumeImage,
+    //             quantity: product.quantity,
+    //             size: product.perfumeSize,
+    //             price: product.quantity * product.perfumePrice,
+    //             brand: product.perfumeBrand,
+    //         })),
+    //         totalPrice: finalTotal,
+    //         // add timestamp for when the purchase was made
+    //         timestamp: new Date().toISOString(),
+    //         // test for commenting
+    //         isCommented: false,
+    //     };
+
+    //     // Step 2: retrieve the existing saved information from the state
+    //     const existingData = { ...informationSaved };
+
+    //     // step 3: update the saved information with the new order
+    //     if (existingData[loggedInAccount?.userId]) {
+    //         // exist
+    //         // if the user already has previous orders, add the new one
+    //         existingData[loggedInAccount?.userId].push(currentCheckout);
+    //     } else {
+    //         //not existed yet
+    //         // the user's first purchase, create a new array with the current order
+    //         existingData[loggedInAccount?.userId] = [currentCheckout];
+    //     }
+
+    //     // final step: save the updated information back into state
+    //     setInformationSaved(existingData);
+    //     dispatch(
+    //         saveOrders({
+    //             userId: loggedInAccount?.userId,
+    //             purchaseInfo: currentCheckout,
+    //             // productId:
+    //         }),
+    //     );
+
+    //     // reset comment if user continues buying this product just bought
+    //     dispatch(resetIsCommented({ productIds: listProductId, userId: loggedInAccount?.userId }));
+
+    //     dispatch(clearCart());
+    //     dispatch(clearSelectedProducts());
+
+    //     // setTimeout(() => {
+    //     //      navigate('/');
+    //     // }, 2000);
+
+    //     console.log('All saved information: ', existingData);
+    // };
+
+    // function calculate total price of products in shopping cart
+    const calculateTotalPrice = (getListProductSelected) => {
         // calculate the subtotal (sum of all products in the cart)
         const subtotal = getListProductSelected.reduce(
             (accumulator, product) => accumulator + product.quantity * product.perfumePrice,
@@ -128,15 +236,24 @@ function CheckoutInformation() {
         // round final total to 2 decimal places
         finalTotal = Math.round(finalTotal * 100) / 100;
 
-        console.log('final price: ' + finalTotal);
+        return finalTotal;
+    };
+
+    const finalTotalPrice = calculateTotalPrice(getListProductSelected);
+    console.log('finalTotalPrice: ', finalTotalPrice);
+
+    const handleCheckout = async () => {
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
 
         // Create the checkout object for the current purchase
         // temporary checkout object
         const currentCheckout = {
+            userId: userData.userId,
             orderId: `${new Date().getTime()}`,
             paymentMethod,
             user: {
-                name: loggedInAccount?.firstName + ' ' + loggedInAccount?.lastName,
+                name: userData?.firstName + ' ' + userData?.lastName,
                 email: loggedInAccount?.email,
                 phone: loggedInAccount?.phoneNumber,
                 address: loggedInAccount?.address,
@@ -156,7 +273,7 @@ function CheckoutInformation() {
                 price: product.quantity * product.perfumePrice,
                 brand: product.perfumeBrand,
             })),
-            totalPrice: finalTotal,
+            totalPrice: finalTotalPrice,
             // add timestamp for when the purchase was made
             timestamp: new Date().toISOString(),
             // test for commenting
@@ -191,10 +308,17 @@ function CheckoutInformation() {
         dispatch(resetIsCommented({ productIds: listProductId, userId: loggedInAccount?.userId }));
 
         dispatch(clearCart());
+        dispatch(clearSelectedProducts());
 
         // setTimeout(() => {
         //      navigate('/');
         // }, 2000);
+        // "Order validation failed: adjustedPrice: Path `adjustedPrice` is required., originalPrice: Path `originalPrice` is required., totalPrice: Path `totalPrice` is required., userId: Path `userId` is required."
+
+        const createOrder = await ordersAPI.createOrder(currentCheckout);
+        if (createOrder) {
+            console.log('createOrder: ', createOrder);
+        }
 
         console.log('All saved information: ', existingData);
     };
@@ -205,6 +329,12 @@ function CheckoutInformation() {
         setTimeout(() => {
             setShowNotification(false);
         }, 1000);
+    };
+
+    // remove product
+    const handleRemoveProduct = (productId, productSize) => {
+        dispatch(removeProduct({ productId, productSize }));
+        dispatch(removeSelectedProduct({ productId, productSize }));
     };
 
     return (
@@ -270,7 +400,7 @@ function CheckoutInformation() {
                         />
                         <CustomizeCheckoutInput
                             placeholder="Nhập họ tên"
-                            value={loggedInAccount?.firstName + ' ' + loggedInAccount?.lastName}
+                            value={userData?.firstName + ' ' + userData?.lastName}
                         />
                         <SelectAddress
                             type="province"
@@ -509,7 +639,10 @@ function CheckoutInformation() {
                                     >
                                         <IconButton
                                             onClick={() =>
-                                                dispatch(removeProduct(product.perfumeID))
+                                                handleRemoveProduct(
+                                                    product.perfumeID,
+                                                    product.perfumeSize,
+                                                )
                                             }
                                         >
                                             <CloseIcon sx={{ fontSize: '24px', color: 'white' }} />

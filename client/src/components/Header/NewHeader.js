@@ -53,6 +53,7 @@ function NewHeader() {
     // get product in cart
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
     const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
+    const userData = JSON.parse(localStorage.getItem('user_data'));
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
@@ -229,6 +230,7 @@ function NewHeader() {
                                         right: '0',
                                         transform: 'translate(-50%, 0)',
                                         zIndex: 1,
+                                        // bgcolor: '#616161eb',
                                     }}
                                 >
                                     <List>
@@ -328,8 +330,8 @@ function NewHeader() {
                         </Box>
                     )}
 
-                    {isLogged && !isMobile ? (
-                        <AuthenticatedUser />
+                    {userData && !isMobile ? (
+                        <AuthenticatedUser userData={userData} />
                     ) : (
                         <React.Fragment>
                             <Box
