@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { OrderStatus } = require('../utilities/constants');
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema(
@@ -19,11 +18,9 @@ const orderSchema = new Schema(
         },
         originalPrice: {
             type: Number,
-            required: true,
         },
         adjustedPrice: {
             type: Number,
-            required: true,
         },
         email: String,
         address: String,
@@ -31,7 +28,8 @@ const orderSchema = new Schema(
         paymentMethod: String,
         status: {
             type: String,
-            enum: Object.values(OrderStatus),
+            enum: ['PENDING_PAYMENT', 'PAID', 'IN_SHOPPING_CART', 'CANCELLED'],
+            required: true,
         },
     },
     {

@@ -2,36 +2,9 @@ const Category = require('../models/Category.model');
 
 const CategoryController = {
     getAll: (req, res) => {
-        Category.aggregate([
-            {
-                $lookup: {
-                    from: 'categories',
-                    localField: 'parentId',
-                    foreignField: '_id',
-                    as: 'parentCategory',
-                },
-            },
-            {
-                $project: {
-                    _id: 1,
-                    name: 1,
-                    description: 1,
-                    parentCategory: {
-                        $arrayElemAt: ['$parentCategory.name', 0],
-                    },
-                    isActive: 1,
-                    createdAt: 1,
-                    updatedAt: 1,
-                },
-            },
-        ])
-            .exec()
-            .then((categories) => {
-                res.status(200).json(categories);
-            })
-            .catch((err) => {
-                res.status(404).json('Không tìm thấy danh sách danh mục.');
-            });
+        Category.find({})
+            .then((categories) => res.status(200).json(categories))
+            .catch(() => res.status(404).json('Không tìm thấy danh sách danh mục.'));
     },
 
     getParentCategory: (req, res) => {
