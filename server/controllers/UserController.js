@@ -5,10 +5,18 @@ require('dotenv').config();
 const generator = require('generate-password');
 
 const UserController = {
-    getAll: (req, res) => {
-        User.find({})
-            .then((users) => res.status(200).json(users))
-            .catch(() => res.status(404).json('Không tìm thấy danh sách người dùng.'));
+    getAll: async (req, res) => {
+        const { limit } = req.query;
+        try {
+            let userQuery = Product.find({ status: 'active' });
+            if (limit) {
+                userQuery = userQuery.limit(Number(limit));
+            }
+            const users = await userQuery;
+            res.status(200).json(users);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
     },
 
     getById: (req, res) => {
@@ -17,7 +25,9 @@ const UserController = {
                 res.status(200).json(user);
             })
             .catch(() => {
-                res.status(404).json('Không tìm thấy người dùng.');
+                res.status(404).json({
+                    message: 'User not found',
+                });
             });
     },
     checkEmailAvailability: async (req, res) => {
@@ -131,17 +141,30 @@ const UserController = {
 
     create: async (req, res) => {
         try {
-            const { email, firstName, lastName, password, phone, address } = req.body;
+            const {
+                email,
+                password,
+                firstName,
+                lastName,
+                phoneNumber,
+                address,
+                gender,
+                imagePath = '',
+                role = 0,
+            } = req.body;
             const existentUser = await User.findOne({ email });
             if (!existentUser) {
                 const hashPassword = await bcrypt.hash(password, 10);
                 const user = await User.create({
                     email,
+                    password: hashPassword,
                     firstName,
                     lastName,
-                    password: hashPassword,
-                    phone,
+                    phoneNumber,
                     address,
+                    gender,
+                    imagePath,
+                    role,
                 });
                 return res.status(201).json(user);
             } else {
@@ -150,33 +173,35 @@ const UserController = {
                 });
             }
         } catch (err) {
-            return res.status(400).json(`Có lỗi trong quá trình tạo user :  ${err}`);
+            return res.status(400).json({ message: err.message });
         }
     },
 
     update: async (req, res) => {
+        const { id } = req.params;
         try {
-            const { email, firstName, lastName, password, phone, address } = req.body;
-            const user = await User.findOne({ email });
-            if (user) {
-                const hashPassword = await bcrypt.hash(password, 10);
-                const userUpdated = {
-                    email,
-                    firstName,
-                    lastName,
-                    password: hashPassword,
-                    phone,
-                    address,
-                };
-                await User.updateOne({ _id: user._id }, userUpdated);
-                return res.status(200).json('Cập nhật user thành công');
-            } else {
+            const { password, ...rest } = req.body;
+            let user = await User.findById(id);
+
+            if (!user) {
                 return res.status(404).json({
-                    message: 'Không tìm thấy user!',
+                    message: 'User not found',
                 });
             }
+            if (password) {
+                user.password = await bcrypt.hash(password, 10);
+            }
+            Object.assign(user, rest);
+
+            await user.save();
+            return res.status(200).json({
+                message: 'User updated successfully',
+                user,
+            });
         } catch (err) {
-            return res.status(400).json(`Có lỗi trong quá trình cập nhật user :  ${err}`);
+            return res.status(500).json({
+                message: err.message,
+            });
         }
     },
 

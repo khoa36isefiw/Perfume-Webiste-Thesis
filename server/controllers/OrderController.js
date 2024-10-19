@@ -34,12 +34,19 @@ const OrderController = {
     },
 
     create: async (req, res) => {
-        const { userId } = req.body;
+        const { userId, items } = req.body;
         try {
-            const order = await Order.create({
-                ...req.body,
+            const newOrder = new Order({
                 userId,
-            });
+                status: 'IN_SHOPPING_CART'
+            })
+            if (!!items) {
+                newOrder.items = items.productId;
+                const product = await Product.findOne({ _id: items.productId })
+                const totalPrice = product.price * items.quantity;
+                newOrder.totalPrice = totalPrice;
+            }
+            const order = await newOrder.save();
             res.status(201).json(order);
         } catch (error) {
             res.status(404).json({ message: error.message });
