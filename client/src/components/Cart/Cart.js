@@ -1,5 +1,5 @@
-import { Button, Container, Divider, Grid } from '@mui/material';
-import React from 'react';
+import { Box, Button, Checkbox, Container, Divider, Grid } from '@mui/material';
+import React, { useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -12,11 +12,13 @@ import CartTotal from './CartTotal';
 import TotalPriceInCart from './TotalPriceInCart';
 import EmptyCart from '../EmptyCart/EmptyCart';
 import EmptyOrders from '../EmptyOrders/EmptyOrders';
+import Check from '@mui/icons-material/Check';
 
 function Cart() {
-    const productAdded = useSelector((state) => state.cartManagement.productInfor);
-    // console.log('productAdded', productAdded);
     const navigate = useNavigate();
+    const productAdded = useSelector((state) => state.cartManagement.productInfor);
+    const [selectedProducts, setSelectedProducts] = useState([]);
+
     return (
         <React.Fragment>
             {productAdded.length > 0 ? (
@@ -62,6 +64,28 @@ function Cart() {
                                 Your Cart
                             </CustomizeTypography>
                         </Grid>
+                        {/* <Grid item xs={12} lg={8}>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    px: 1,
+                                }}
+                            >
+                                <Checkbox
+                                    sx={{
+                                        '& .MuiSvgIcon-root': { fontSize: 22 },
+                                        color: 'white',
+                                        '&.Mui-checked': {
+                                            color: theme.palette.background.thirth,
+                                        },
+                                    }}
+                                    checked={isAllSelected}
+                                    onChange={(e) => handleSelectAll(e.target.checked)}
+                                />
+                                <CustomizeTypography sx={{ mb: 0 }}>Select All</CustomizeTypography>
+                            </Box>
+                        </Grid> */}
                         <Grid item xs={12} lg={12}>
                             <Divider sx={{ bgcolor: '#fff', my: 2 }} />
                         </Grid>
@@ -74,11 +98,19 @@ function Cart() {
                             }}
                         >
                             <Grid item xs={12} lg={8}>
-                                <ProductInCart productsList={productAdded} />
+                                <ProductInCart
+                                    productsList={productAdded}
+                                    selectedProducts={selectedProducts}
+                                    setSelectedProducts={setSelectedProducts}
+                                />
                             </Grid>
 
                             <Grid item xs={12} lg={4}>
-                                <TotalPriceInCart productsList={productAdded} />
+                                <TotalPriceInCart
+                                    productsList={productAdded}
+                                    selectedProducts={selectedProducts}
+                                    setSelectedProducts={setSelectedProducts}
+                                />
                             </Grid>
                         </Grid>
                     </Grid>

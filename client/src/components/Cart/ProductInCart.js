@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Divider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -14,7 +14,7 @@ import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import WarningIcon from '@mui/icons-material/Warning';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
-export const ProductInCart = ({ productsList }) => {
+export const ProductInCart = ({ productsList, selectedProducts, setSelectedProducts }) => {
     const dispatch = useDispatch();
     const [productToRemove, setProductToRemove] = useState(null);
     const [openConfirmMessage, setOpenConfirmMessage] = React.useState(false);
@@ -63,9 +63,65 @@ export const ProductInCart = ({ productsList }) => {
 
     console.log('Product in cart: ', productsList);
 
+    const handleSelectProduct = (isChecked, size, productId) => {
+        const check = selectedProducts.findIndex(
+            (item) => item.size === size && item.productId === productId,
+        );
+
+        // if !== -1 --> exists --> checked --> remove from list
+        if (!isChecked && check !== -1) {
+            setSelectedProducts((prev) =>
+                prev.filter((item) => item.productId !== productId || item.size !== size),
+            );
+        } else {
+            // add to list want to buy
+            setSelectedProducts((prev) => [...prev, { productId, size }]);
+        }
+    };
+
+    console.log('list selected product: ', selectedProducts);
+
+    const handleSelectAll = (isChecked) => {
+        if (isChecked) {
+            // Add all products to selectedProducts
+            const allProducts = productsList.map((item) => ({
+                productId: item.perfumeID,
+                size: item.perfumeSize,
+            }));
+
+            setSelectedProducts(allProducts);
+        } else {
+            // Clear selectedProducts when unchecked
+            setSelectedProducts([]);
+        }
+    };
+
+    const isAllSelected =
+        productsList.length > 0 && selectedProducts.length === productsList.length;
+
     return (
         <Box>
             {/* First Product - In Stock */}
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    px: 1,
+                }}
+            >
+                <Checkbox
+                    sx={{
+                        '& .MuiSvgIcon-root': { fontSize: 22 },
+                        color: 'white',
+                        '&.Mui-checked': {
+                            color: theme.palette.background.thirth,
+                        },
+                    }}
+                    checked={isAllSelected}
+                    onChange={(e) => handleSelectAll(e.target.checked)}
+                />
+                <CustomizeTypography sx={{ mb: 0 }}>Select All</CustomizeTypography>
+            </Box>
             <Box
                 sx={{
                     border: '1px solid #333',
@@ -83,12 +139,35 @@ export const ProductInCart = ({ productsList }) => {
                                     alignItems: 'center',
                                 }}
                             >
+                                <Checkbox
+                                    checked={selectedProducts.some(
+                                        (selectedItem) =>
+                                            selectedItem.productId === item.perfumeID &&
+                                            selectedItem.size === item.perfumeSize,
+                                    )}
+                                    onChange={(e) =>
+                                        handleSelectProduct(
+                                            e.target.checked,
+                                            item.perfumeSize,
+                                            item.perfumeID,
+                                        )
+                                    }
+                                    sx={{
+                                        mr: 2,
+                                        '& .MuiSvgIcon-root': { fontSize: 22 },
+                                        color: 'white',
+                                        '&.Mui-checked': {
+                                            color: theme.palette.background.thirth,
+                                        },
+                                    }}
+                                />
+
                                 {/* product image */}
                                 <Box
                                     sx={{
                                         bgcolor: '#333',
-                                        height: '200px',
-                                        width: '200px',
+                                        height: '120px',
+                                        width: '120px',
                                         borderRadius: '8px',
                                         [mobileScreen]: {
                                             height: '150px',

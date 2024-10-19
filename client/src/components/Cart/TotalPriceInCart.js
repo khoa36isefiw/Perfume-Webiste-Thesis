@@ -7,20 +7,44 @@ import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import { SummaryRowInCart } from './SummaryRowInCart';
 import { converToVND } from '../convertToVND/convertToVND';
+import { useDispatch } from 'react-redux';
+import { saveSelectedProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
 
-function TotalPriceInCart({ productsList }) {
+function TotalPriceInCart({ productsList, selectedProducts }) {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // Calculate the total price
+    // the total price for product selected
     const calculateTotal = () => {
         let totalSubtotal = 0;
-        // Loop through each product to calculate subtotal
-        productsList.forEach((product) => {
-            const price = product.quantity * product.perfumePrice;
-            totalSubtotal += price;
+
+        productsList.forEach((productItem) => {
+            const product = selectedProducts.find(
+                (p) => p.productId === productItem.perfumeID && p.size === productItem.perfumeSize,
+            );
+
+            if (product) {
+                const price = productItem.quantity * productItem.perfumePrice;
+                totalSubtotal += price;
+            }
         });
 
+        const listProductsSelected = productsList.filter((product) =>
+            selectedProducts.find(
+                (selectedProduct) =>
+                    selectedProduct.productId === product.perfumeID &&
+                    selectedProduct.size === product.perfumeSize,
+            ),
+        );
+        // Dispatch each product that matches the condition to Redux
+        dispatch(saveSelectedProduct(listProductsSelected));
+
         return totalSubtotal;
+    };
+
+    const handleCheckout = () => {
+        if (selectedProducts.length > 0) navigate('/checkout');
+        else navigate('');
     };
 
     return (
@@ -50,8 +74,12 @@ function TotalPriceInCart({ productsList }) {
             <Box sx={{ mb: 1 }}>
                 <CustomizeButtonInCart
                     variant="outlined"
-                    textAction="Proceed to checkout"
-                    onHandleClick={() => navigate('/checkout')}
+                    textAction={
+                        selectedProducts.length === 0
+                            ? 'Please select product '
+                            : 'Proceed to checkout'
+                    }
+                    onHandleClick={handleCheckout}
                 />
             </Box>
             <CustomizeButtonInCart

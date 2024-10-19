@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, IconButton, Badge, List, ListItem, Paper, Avatar } from '@mui/material';
+import {
+    Box,
+    Container,
+    IconButton,
+    Badge,
+    List,
+    ListItem,
+    Paper,
+    Avatar,
+    Tooltip,
+    Typography,
+} from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,6 +24,7 @@ import SimpleBottomNavigation from './MobileBottomNavigation';
 import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
 import { backTop } from '../goBackTop/goBackTop';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -353,45 +365,80 @@ function NewHeader() {
                         </React.Fragment>
                     )}
 
-                    <Badge
-                        badgeContent={
-                            productListInCart && productListInCart.length > 0
-                                ? productListInCart.length
-                                : ''
-                        }
-                        max={9}
-                        sx={{
-                            '& .MuiBadge-badge': {
-                                fontSize: '10px',
-                                // fontWeight: 'bold',
-                                right: 4,
-                                top: 4,
-                                color: '#fff',
-                                bgcolor:
-                                    productListInCart && productListInCart.length > 0
-                                        ? theme.palette.background.thirth
-                                        : 'black',
-                            },
-                        }}
-                        color="green"
-                    >
-                        <IconButton
-                            onClick={() => navigate('/shopping-cart')}
-                            sx={{
-                                ml: 2,
-                                // mr: 1,
-                                '&:hover': {
-                                    cursor: 'pointer',
-                                    fontWeight: 'bold',
-                                },
-                                [tabletScreen]: {
-                                    mt: 2,
-                                },
-                            }}
+                    <Box>
+                        {isLogged && (
+                            <Tooltip
+                                title={
+                                    <Typography
+                                        sx={{
+                                            fontSize: '13px',
+                                            mb: 0,
+                                        }}
+                                    >
+                                        Admin Dashboard
+                                    </Typography>
+                                }
+                            >
+                                <IconButton onClick={() => navigate('/admin/dashboard')}>
+                                    <AdminPanelSettingsIcon
+                                        sx={{ color: '#fff', fontSize: '28px' }}
+                                    />
+                                </IconButton>
+                            </Tooltip>
+                        )}
+                        <Tooltip
+                            title={
+                                <Typography
+                                    sx={{
+                                        fontSize: '13px',
+                                        mb: 0,
+                                    }}
+                                >
+                                    Shopping Cart
+                                </Typography>
+                            }
                         >
-                            <ShoppingCartIcon sx={{ fontSize: '24px', color: 'white' }} />
-                        </IconButton>
-                    </Badge>
+                            <Badge
+                                badgeContent={
+                                    productListInCart && productListInCart.length > 0
+                                        ? productListInCart.length
+                                        : ''
+                                }
+                                max={9}
+                                sx={{
+                                    '& .MuiBadge-badge': {
+                                        fontSize: '10px',
+                                        // fontWeight: 'bold',
+                                        right: 4,
+                                        top: 4,
+                                        color: '#fff',
+                                        bgcolor:
+                                            productListInCart && productListInCart.length > 0
+                                                ? theme.palette.background.thirth
+                                                : 'black',
+                                    },
+                                }}
+                                color="green"
+                            >
+                                <IconButton
+                                    onClick={() => navigate('/shopping-cart')}
+                                    sx={{
+                                        ml: 2,
+                                        // mr: 1,
+                                        '&:hover': {
+                                            cursor: 'pointer',
+                                            fontWeight: 'bold',
+                                        },
+                                        [tabletScreen]: {
+                                            mt: 2,
+                                        },
+                                    }}
+                                >
+                                    <ShoppingCartIcon sx={{ fontSize: '24px', color: 'white' }} />
+                                </IconButton>
+                            </Badge>
+                        </Tooltip>
+                    </Box>
                 </Box>
 
                 <Box
