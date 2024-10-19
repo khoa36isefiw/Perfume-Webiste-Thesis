@@ -8,7 +8,7 @@ const OrderController = require('../controllers/OrderController');
 router.post('/recover-password', userController.sendRecoverPassEmail);
 router.get('/check-email-availability', userController.checkEmailAvailability);
 router.put('/:id/delete', authToken.verifyTokenAdmin, userController.delete);
-router.put('/change-password', userController.changePassword);
+router.put('/:id/change-password', userController.changePassword);
 router.put('/:id/profile', userController.updateProfile);
 router.put('/:id', userController.update);
 router.delete('/:id', userController.destroy);

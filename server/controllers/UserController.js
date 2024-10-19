@@ -82,23 +82,21 @@ const UserController = {
 
     changePassword: (req, res) => {
         console.log(req);
-        User.findOne({ _id: req.body.id })
+        User.findOne({ _id: req.params.id })
             .then(async (user) => {
                 console.log(user);
-                const { password, newPassword } = req.body;
-                // kiểm tra password người dùng gửi lên
-                const isSamePassword = bcrypt.compareSync(password, user.password);
-                if (isSamePassword) {
-                    const hashNewPassword = await bcrypt.hash(newPassword, 10);
-                    await User.updateOne({ _id: user._id }, { password: hashNewPassword });
-                    const { password, ...others } = user._doc;
-                    return res.status(200).json(others);
-                } else {
-                    return res.status(401).json('Mật khẩu không chính xác! Vui lòng nhập lại');
+                const { newPassword, confirmPassword } = req.body;
+                if (newPassword !== confirmPassword) {
+                    return res.status(400).json({ message: 'Password does not match' });
                 }
+                // kiểm tra password người dùng gửi lên
+                const hashNewPassword = await bcrypt.hash(confirmPassword, 10);
+                await User.updateOne({ _id: user._id }, { password: hashNewPassword });
+                const { password, ...others } = user._doc;
+                return res.status(200).json(others);
             })
             .catch(() => {
-                res.status(404).json('Không tìm thấy người dùng.');
+                res.status(500).json('Không tìm thấy người dùng.');
             });
     },
     sendRecoverPassEmail: async (req, res) => {
