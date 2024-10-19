@@ -41,7 +41,6 @@ const darkTheme = createTheme({
 
 function ProfileSettingsLayout({ children }) {
     const location = useLocation();
-    console.log('location: ', location.pathname);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const orderHistory = useSelector(
         // get for each user
