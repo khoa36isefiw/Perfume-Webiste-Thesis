@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { TextField, Button, Paper, Avatar, IconButton, InputAdornment, Box } from '@mui/material';
+import { Button, Avatar, IconButton, InputAdornment, Box } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AdminHeadingTypography } from '../components/CustomizeTypography/CustomizeTypography';
-import { ArrowBackIos, Filter } from '@mui/icons-material';
+import { ArrowBackIos } from '@mui/icons-material';
 
 import { theme } from '../Theme/Theme';
 import { AdminTextField } from '../components/TextFieldCustomize/TextFieldCustomize';

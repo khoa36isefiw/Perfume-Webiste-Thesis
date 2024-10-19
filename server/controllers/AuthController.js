@@ -5,7 +5,7 @@ const User = require('../models/User.model');
 const AuthController = {
     register: async (req, res) => {
         try {
-            const { email, firstName, lastName, password, phone } = req.body;
+            const { email, firstName, lastName, password, phoneNumber, imagePath } = req.body;
             const existentUser = await User.findOne({ email });
 
             if (!existentUser) {
@@ -15,7 +15,8 @@ const AuthController = {
                     firstName,
                     lastName,
                     password: hashPassword,
-                    phone,
+                    phoneNumber,
+                    imagePath,
                 });
                 return res.status(200).json(user);
             } else {
@@ -59,6 +60,7 @@ const AuthController = {
     login: async (req, res) => {
         try {
             const { email, password } = req.body;
+            console.log('req.body: ', req.body);
             const user = await User.findOne({ email: email });
             if (!user) return res.status(404).json('Không tìm thấy người dùng');
 

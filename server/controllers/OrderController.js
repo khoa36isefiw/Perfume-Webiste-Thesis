@@ -36,7 +36,10 @@ const OrderController = {
     create: async (req, res) => {
         const { userId } = req.body;
         try {
-            const order = await Order.create({});
+            const order = await Order.create({
+                ...req.body,
+                userId,
+            });
             res.status(201).json(order);
         } catch (error) {
             res.status(404).json({ message: error.message });

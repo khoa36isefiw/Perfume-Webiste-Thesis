@@ -17,11 +17,12 @@ import { converToVND } from '../convertToVND/convertToVND';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { CountdownTimer } from '../CountdownTimer/CountdownTimer';
 import CheckIcon from '@mui/icons-material/Check';
+import { ordersAPI } from '../../api/ordersAPI';
 
 function PerfumeDetail() {
     const location = useLocation();
     const dispatch = useDispatch();
-
+    const [userData, setUserData] = useState(JSON.parse(window.localStorage.getItem('user_data')));
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
 
@@ -64,7 +65,45 @@ function PerfumeDetail() {
 
     useEffect(() => {}, [perfume]);
 
-    const handleAddProduct = (productInfor) => {
+    // khi add to cart --> thì sẽ chạy .create order,
+    // with status: inshoppingcart
+
+    // const handleAddProduct = (productInfor) => {
+    //     const existingItem = cartItems.find(
+    //         (item) =>
+    //             item.perfumeID === productInfor.perfumeID &&
+    //             item.perfumeSize === productInfor.perfumeSize,
+    //     );
+    //     const productToDispatch = {
+    //         perfumeID: productInfor.perfumeID,
+    //         perfumeName: productInfor.perfumeName,
+    //         // perfumePrice: productInfor.perfumePriceVND,
+    //         perfumeSize: selectedSize.perfumeSize,
+    //         perfumePrice: selectedSize.perfumePrice,
+    //         perfumePriceDiscount: productInfor.perfumePriceDiscount,
+    //         perfumeImage: productInfor.perfumeImage,
+    //         perfumeBrand: productInfor.perfumeBrand,
+    //         perfumeQuantity: 1,
+    //     };
+
+    //     // check, is product existed in cart items?
+    //     if (cartItems !== null) {
+    //         // exists in cart items
+    //         if (existingItem) {
+    //             console.log('chạy vô đây không');
+    //             dispatch(increaseQuantity(productInfor.perfumeID, productInfor.perfumeSize));
+    //         } else {
+    //             console.log('chạy vô đây');
+
+    //             dispatch(addToCart({ ...productToDispatch }));
+    //         }
+    //         setShowNotification(true);
+    //         setShowAnimation('animate__bounceInRight');
+    //     }
+    // };
+
+    // create order with status and api
+    const handleAddProduct = async (productInfor) => {
         const existingItem = cartItems.find(
             (item) =>
                 item.perfumeID === productInfor.perfumeID &&
@@ -81,6 +120,17 @@ function PerfumeDetail() {
             perfumeBrand: productInfor.perfumeBrand,
             perfumeQuantity: 1,
         };
+
+        //         const orderInformation = {
+        // userId:userData._id,
+        // items:, //
+        // totalPrice:,
+
+        // status:'InShoppingCart',
+
+        //         }
+
+        const createOrder = await ordersAPI.createOrder();
 
         // check, is product existed in cart items?
         if (cartItems !== null) {

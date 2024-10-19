@@ -687,7 +687,7 @@ export const blogContent = {
             </Box>
 
             <Container>
-                <Grid spacing={4}>
+                <Grid container spacing={4}>
                     {blogData.map((blog, index) => (
                         <Grid
                             key={blog.blogDataID}
@@ -1561,7 +1561,7 @@ export const blogContent = {
                 </Container>
             </Box>
             <Container>
-                <Grid spacing={4}>
+                <Grid container spacing={4}>
                     {blogDetailData7.map((blog, index) => (
                         <Grid
                             key={index}
@@ -1583,6 +1583,7 @@ export const blogContent = {
                                     </CustomizeTypographyBlog>
                                     {blog.blogContent?.map((text, index) => (
                                         <CustomizeTypographyBlog
+                                            key={index}
                                             sx={{
                                                 textAlign: 'justify',
                                                 mb: 2,
@@ -1593,7 +1594,7 @@ export const blogContent = {
                                     ))}
                                 </Box>
                             </Grid>
-                            <Grid item xs={12} sm={6} md={4} lg={6} key={index}>
+                            <Grid item xs={12} sm={6} md={4} lg={6}>
                                 <Box
                                     component={'img'}
                                     alt="Blog Detail Image"
@@ -1757,6 +1758,7 @@ export const blogContent = {
                                 </CustomizeTypographyBlog>
                                 {blog.blogContent?.map((text, index) => (
                                     <CustomizeTypographyBlog
+                                        key={index}
                                         sx={{
                                             textAlign: 'justify',
                                             mb: 2,
