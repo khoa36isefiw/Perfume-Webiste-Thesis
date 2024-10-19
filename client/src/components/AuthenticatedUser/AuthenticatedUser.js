@@ -21,11 +21,16 @@ import { backTop } from '../goBackTop/goBackTop';
 import { authAPI } from '../../api/authAPI';
 import { theme } from '../../Theme/Theme';
 
-export default function AuthenticatedUser({ userData }) {
+export default function AuthenticatedUser() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+    const [userData, setUserData] = React.useState(null);
+    React.useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('user_data'));
+        // setUserData(data);
+    }, [userData]);
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -111,7 +116,7 @@ export default function AuthenticatedUser({ userData }) {
                         elevation: 0,
                         sx: {
                             // maxWidth: '250px',
-                            minWidth: '220px',
+                            maxWidth: '240px',
                             bgcolor: '#3D3D3D',
                             overflow: 'visible',
                             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
@@ -147,7 +152,17 @@ export default function AuthenticatedUser({ userData }) {
                         alt="User Image"
                     />
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px', fontWeight: 'bold' }}>
+                        <CustomizeTypography
+                            sx={{
+                                mb: 0,
+                                fontSize: '14px',
+                                fontWeight: 'bold',
+                                maxWidth: '180px',
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                                textOverflow: 'ellipsis',
+                            }}
+                        >
                             {userData?.firstName + ' ' + userData?.lastName}
                         </CustomizeTypography>
 
