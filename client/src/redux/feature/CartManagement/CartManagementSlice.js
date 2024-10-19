@@ -64,6 +64,7 @@ export const cartManagementSlice = createSlice({
         // get product selected to buy
         saveSelectedProduct: (state, action) => {
             const data = action.payload;
+
             console.log('data: ', data);
             // const dataUpdated = productInfor.filter((product) => data.find((item)=> item.produc))
 
@@ -71,6 +72,18 @@ export const cartManagementSlice = createSlice({
                 ...state.productSelected, // existing product selected
                 ...data, // merging new product to existing product
             };
+        },
+
+        removeSelectedProduct: (state, action) => {
+            const { productId, productSize } = action.payload;
+            const convertToArray = Object.values(state.productSelected);
+            state.productSelected = convertToArray.filter(
+                (item) => !(item.perfumeID === productId && item.perfumeSize === productSize),
+            );
+        },
+
+        clearSelectedProducts: (state) => {
+            state.productSelected = [];
         },
     },
 });
@@ -83,5 +96,7 @@ export const {
     decreaseQuantity,
     clearCart,
     saveSelectedProduct,
+    removeSelectedProduct,
+    clearSelectedProducts,
 } = actions; // named export
 export default reducer; // export default
