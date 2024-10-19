@@ -18,8 +18,9 @@ function AccountInfo() {
     const [editAccount, setEditAccount] = useState(true);
     const [selectedImage, setSelectedImage] = useState(null);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+    const userData = JSON.parse(localStorage.getItem('user_data'));
 
-    const firstNameRef = useRef(loggedInAccount?.firstName);
+    const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
 
     const handleClickEdit = () => {
@@ -153,7 +154,7 @@ function AccountInfo() {
                         disabled={true}
                         fullWidth
                         placeholder="hisalim.ux@gmail.com"
-                        inputValue={loggedInAccount?.email}
+                        inputValue={userData?.email} // just show
                     />
                 </Grid>
             </Grid>
@@ -176,7 +177,7 @@ function AccountInfo() {
                         disabled={editAccount}
                         fullWidth
                         placeholder="Muhammad"
-                        defaultValue={loggedInAccount?.firstName}
+                        defaultValue={userData?.firstName}
                         inputRef={firstNameRef}
                     />
                 </Grid>
@@ -201,7 +202,7 @@ function AccountInfo() {
                         fullWidth
                         placeholder="Salim"
                         // use default value to get value of ref input
-                        defaultValue={loggedInAccount?.lastName}
+                        defaultValue={userData?.lastName}
                         inputRef={lastNameRef}
                     />
                 </Grid>
