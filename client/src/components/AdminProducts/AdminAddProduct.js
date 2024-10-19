@@ -15,6 +15,8 @@ import {
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { theme } from '../../Theme/Theme';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import useBrand from '../../api/useBrand';
+import useCategory from '../../api/useCategory';
 
 const AdminAddProduct = () => {
     const [image, setImage] = useState(null);
@@ -23,6 +25,7 @@ const AdminAddProduct = () => {
     const [selectedSizes, setSelectedSizes] = useState([]); // Multiple sizes
     const [stock, setStock] = useState('');
     const [brand, setBrand] = useState('');
+    const [category, setCategpry] = useState('');
     const [description, setDescription] = useState('');
     const [discount, setDiscount] = useState('');
 
@@ -34,7 +37,12 @@ const AdminAddProduct = () => {
     const [messageTitle, setMessageTitle] = useState('');
 
     const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
-    const brandOptions = ['Dior', 'Chanel', 'Gucci'];
+
+    const { data: brands } = useBrand();
+    const brandOptions = brands || [];
+
+    const { data: categories } = useCategory();
+    const categoryOptions = categories || [];
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -88,12 +96,8 @@ const AdminAddProduct = () => {
         // }, 2800);
     };
 
-    const handleSizeChange = (event) => {
-        // const value = event.target.value;
-        const {
-            target: { value },
-        } = event; // don't loop many times with destructering
-        setSelectedSizes(typeof value === 'string' ? value.split(',') : value);
+    const handleSizeChange = (e) => {
+        setSelectedSizes(e.target.value);
     };
 
     const handleCloseNotification = () => {
@@ -138,25 +142,17 @@ const AdminAddProduct = () => {
                     sx={{ mb: 2 }}
                 />
 
-                {/* Size Multiple Select */}
                 <FormControl fullWidth sx={{ mb: 2 }}>
                     <InputLabel id="size-select-label">Size</InputLabel>
                     <Select
                         labelId="size-select-label"
-                        multiple
                         value={selectedSizes}
+                        label="Brand"
                         onChange={handleSizeChange}
-                        renderValue={(selected) => selected.join(', ')}
                     >
-                        {sizeOptions.map((option) => (
-                            <MenuItem key={option} value={option}>
-                                {/* option stands for: 9ml, 25ml */}
-                                <Checkbox
-                                    // check index of options exists in selectedSizes?
-                                    checked={selectedSizes.indexOf(option) > -1}
-                                    onChange={handleSizeChange}
-                                />
-                                <ListItemText primary={option} />
+                        {sizeOptions?.map((size) => (
+                            <MenuItem key={size} value={size}>
+                                {size}
                             </MenuItem>
                         ))}
                     </Select>
@@ -192,22 +188,29 @@ const AdminAddProduct = () => {
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)}
                     >
-                        {brandOptions.map((option) => (
-                            <MenuItem key={option} value={option}>
-                                {option}
+                        {brandOptions?.map((brand) => (
+                            <MenuItem key={brand._id} value={brand._id}>
+                                {brand.nameEn}
                             </MenuItem>
                         ))}
                     </Select>
                 </FormControl>
 
-                <TextField
-                    label="Discount"
-                    fullWidth
-                    type="number"
-                    value={discount}
-                    onChange={(e) => setDiscount(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                    <InputLabel id="category-select-label">Category</InputLabel>
+                    <Select
+                        labelId="category-select-label"
+                        value={category}
+                        label="Category"
+                        onChange={(e) => setCategpry(e.target.value)}
+                    >
+                        {categoryOptions?.map((category) => (
+                            <MenuItem key={category._id} value={category._id}>
+                                {category.nameEn}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
             </Box>
 
             <TextField
