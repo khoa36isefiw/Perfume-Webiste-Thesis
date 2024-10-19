@@ -2,7 +2,8 @@ import axios from 'axios';
 import queryString from 'query-string';
 const axiosClient = axios.create({
     // api url from server
-    baseURL: 'https://vapi.vnappmob.com/api',
+    // baseURL: 'https://vapi.vnappmob.com/api',
+    baseURL: 'http://localhost:3001',
     headers: {
         'Content-Type': 'application/json',
     },
