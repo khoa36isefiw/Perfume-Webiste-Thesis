@@ -10,23 +10,17 @@ export const authAPI = {
     },
     login: (data) => {
         // login
-        const url = '/auths/login';
-        console.log('data auth: ', data);
-        return axiosClient.post(url, {
-            email: data.email,
-            password: data.password,
-        });
-        // try {
-        //     const url = '/auths/login';
-        //     return axiosClient.post(url, {
-        //         params: {
-        //             email: data.email,
-        //             password: data.password,
-        //         },
-        //     });
-        // } catch (error) {
-        //     console.error(error);
-        // }
+
+        try {
+            const url = '/auths/login';
+            const response = axiosClient.post(url, {
+                email: data.email,
+                password: data.password,
+            });
+            return response;
+        } catch (error) {
+            console.log('error', error);
+        }
     },
 
     logout: (email) => {
