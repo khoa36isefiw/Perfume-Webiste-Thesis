@@ -19,23 +19,6 @@ function Cart() {
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
     const [selectedProducts, setSelectedProducts] = useState([]);
 
-    const handleSelectAll = (isChecked) => {
-        if (isChecked) {
-            // Add all products to selectedProducts
-            const allProducts = productAdded.map((item) => ({
-                productId: item.perfumeID,
-                size: item.perfumeSize,
-            }));
-            setSelectedProducts(allProducts);
-        } else {
-            // Clear selectedProducts when unchecked
-            setSelectedProducts([]);
-        }
-    };
-    // console.log('productAdded', productAdded);
-
-    const isAllSelected =
-        productAdded.length > 0 && selectedProducts.length === productAdded.length;
     return (
         <React.Fragment>
             {productAdded.length > 0 ? (

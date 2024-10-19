@@ -67,6 +67,7 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
         const check = selectedProducts.findIndex(
             (item) => item.size === size && item.productId === productId,
         );
+
         // if !== -1 --> exists --> checked --> remove from list
         if (!isChecked && check !== -1) {
             setSelectedProducts((prev) =>
@@ -87,6 +88,7 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
                 productId: item.perfumeID,
                 size: item.perfumeSize,
             }));
+
             setSelectedProducts(allProducts);
         } else {
             // Clear selectedProducts when unchecked
