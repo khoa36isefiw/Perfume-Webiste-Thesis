@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     productInfor: [],
+    productSelected: [],
 };
 
 export const cartManagementSlice = createSlice({
@@ -59,9 +60,28 @@ export const cartManagementSlice = createSlice({
         clearCart: (state) => {
             state.productInfor = []; // remove all products after checkout
         },
+
+        // get product selected to buy
+        saveSelectedProduct: (state, action) => {
+            const data = action.payload;
+            console.log('data: ', data);
+            // const dataUpdated = productInfor.filter((product) => data.find((item)=> item.produc))
+
+            state.productSelected = {
+                ...state.productSelected, // existing product selected
+                ...data, // merging new product to existing product
+            };
+        },
     },
 });
 
 const { actions, reducer } = cartManagementSlice;
-export const { addToCart, removeProduct, increaseQuantity, decreaseQuantity, clearCart } = actions; // named export
+export const {
+    addToCart,
+    removeProduct,
+    increaseQuantity,
+    decreaseQuantity,
+    clearCart,
+    saveSelectedProduct,
+} = actions; // named export
 export default reducer; // export default
