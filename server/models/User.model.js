@@ -1,6 +1,27 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const cartItemSchema = new Schema(
+    {
+        product: {
+            type: Schema.Types.ObjectId,
+            ref: 'Product',
+            required: true,
+        },
+        variant: {
+            type: Schema.Types.ObjectId,
+            ref: 'Variant',
+            required: true,
+        },
+        quantity: {
+            type: Number,
+            required: true,
+            default: 1,
+        },
+    },
+    { _id: false },
+);
+
 const userSchema = new Schema(
     {
         email: {
@@ -22,6 +43,7 @@ const userSchema = new Schema(
         address: Object,
         phoneNumber: String,
         imagePath: String,
+        cart: [cartItemSchema],
         accessToken: {
             type: String,
             default: '',
@@ -32,7 +54,10 @@ const userSchema = new Schema(
                 default: '',
             },
         ],
-        status: String,
+        status: {
+            type: String,
+            default: 'active',
+        },
     },
     {
         timestamps: true,

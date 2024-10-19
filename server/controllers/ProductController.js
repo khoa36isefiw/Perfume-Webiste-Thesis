@@ -18,7 +18,7 @@ const ProductController = {
             const products = await productsQuery;
             res.status(200).json(products);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -34,7 +34,7 @@ const ProductController = {
             }
             res.status(200).json(product);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -47,7 +47,7 @@ const ProductController = {
                 .populate('brandId');
             res.status(200).json(products);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -60,7 +60,7 @@ const ProductController = {
                 .populate('brandId');
             res.status(200).json(products);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -102,7 +102,7 @@ const ProductController = {
             const result = await savedProduct.save();
             res.status(201).json(result);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -140,7 +140,7 @@ const ProductController = {
             }
             res.status(200).json({ message: 'Product updated successfully' });
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -154,7 +154,7 @@ const ProductController = {
             await Product.updateOne({ _id: id }, { status: 'inactive' });
             res.status(200).json({ message: 'Product deleted successfully' });
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 };

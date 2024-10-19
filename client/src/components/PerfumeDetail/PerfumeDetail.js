@@ -18,11 +18,14 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { CountdownTimer } from '../CountdownTimer/CountdownTimer';
 import CheckIcon from '@mui/icons-material/Check';
 import { ordersAPI } from '../../api/ordersAPI';
+import { userAPI } from '../../api/userApi';
 
 function PerfumeDetail() {
     const location = useLocation();
     const dispatch = useDispatch();
-    const [userData, setUserData] = useState(JSON.parse(window.localStorage.getItem('user_data')));
+    const [userData, setUserData] = useState(
+        JSON.parse(window.localStorage.getItem('user_data')) || null,
+    );
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
 
@@ -103,46 +106,61 @@ function PerfumeDetail() {
     // };
 
     // create order with status and api
-    const handleAddProduct = async (productInfor) => {
-        const existingItem = cartItems.find(
-            (item) =>
-                item.perfumeID === productInfor.perfumeID &&
-                item.perfumeSize === productInfor.perfumeSize,
-        );
-        const productToDispatch = {
-            perfumeID: productInfor.perfumeID,
-            perfumeName: productInfor.perfumeName,
-            // perfumePrice: productInfor.perfumePriceVND,
-            perfumeSize: selectedSize.perfumeSize,
-            perfumePrice: selectedSize.perfumePrice,
-            perfumePriceDiscount: productInfor.perfumePriceDiscount,
-            perfumeImage: productInfor.perfumeImage,
-            perfumeBrand: productInfor.perfumeBrand,
-            perfumeQuantity: 1,
+    // const handleAddProduct = async (productInfor) => {
+    //     const existingItem = cartItems.find(
+    //         (item) =>
+    //             item.perfumeID === productInfor.perfumeID &&
+    //             item.perfumeSize === productInfor.perfumeSize,
+    //     );
+    //     const productToDispatch = {
+    //         perfumeID: productInfor.perfumeID,
+    //         perfumeName: productInfor.perfumeName,
+    //         // perfumePrice: productInfor.perfumePriceVND,
+    //         perfumeSize: selectedSize.perfumeSize,
+    //         perfumePrice: selectedSize.perfumePrice,
+    //         perfumePriceDiscount: productInfor.perfumePriceDiscount,
+    //         perfumeImage: productInfor.perfumeImage,
+    //         perfumeBrand: productInfor.perfumeBrand,
+    //         perfumeQuantity: 1,
+    //     };
+
+    //     //         const orderInformation = {
+    //     // userId:userData._id,
+    //     // items:, //
+    //     // totalPrice:,
+
+    //     // status:'InShoppingCart',
+
+    //     //         }
+
+    //     const createOrder = await ordersAPI.createOrder();
+
+    //     // check, is product existed in cart items?
+    //     if (cartItems !== null) {
+    //         // exists in cart items
+    //         if (existingItem) {
+    //             console.log('chạy vô đây không');
+    //             dispatch(increaseQuantity(productInfor.perfumeID, productInfor.perfumeSize));
+    //         } else {
+    //             console.log('chạy vô đây');
+
+    //             dispatch(addToCart({ ...productToDispatch }));
+    //         }
+    //         setShowNotification(true);
+    //         setShowAnimation('animate__bounceInRight');
+    //     }
+    // };
+
+    const handleAddProduct = () => {
+        const userId = '6713e6a76d1bf8a24f22faea'; // id user here
+        const mockData = {
+            product: '6713e6a76d1bf8a24f22fae3', // id product here
+            variant: '6713e6a76d1bf8a24f22faea', // id variant here
+            quantity: 1,
         };
-
-        //         const orderInformation = {
-        // userId:userData._id,
-        // items:, //
-        // totalPrice:,
-
-        // status:'InShoppingCart',
-
-        //         }
-
-        const createOrder = await ordersAPI.createOrder();
-
-        // check, is product existed in cart items?
-        if (cartItems !== null) {
-            // exists in cart items
-            if (existingItem) {
-                console.log('chạy vô đây không');
-                dispatch(increaseQuantity(productInfor.perfumeID, productInfor.perfumeSize));
-            } else {
-                console.log('chạy vô đây');
-
-                dispatch(addToCart({ ...productToDispatch }));
-            }
+        const result = userAPI.addProductToCart(userId, mockData);
+        console.log({ result });
+        if (result) {
             setShowNotification(true);
             setShowAnimation('animate__bounceInRight');
         }
@@ -523,7 +541,7 @@ function PerfumeDetail() {
                         <Box sx={{ display: 'flex', alignItems: 'center', my: 2 }}>
                             <CustomizeButtonOutlined
                                 textAction={'Add to cart'}
-                                onHandleClick={() => handleAddProduct(perfume)}
+                                onHandleClick={() => handleAddProduct()}
                             />
                             {/* <CustomizeButton textAction={'Add to cart'} /> */}
                             <Box sx={{ ml: 2 }}>
