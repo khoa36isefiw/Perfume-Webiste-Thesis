@@ -117,7 +117,7 @@ const UserController = {
                 });
 
                 const info = await transporter.sendMail({
-                    from: `"TOC TOM PERFURM 👻" <${process.env.EMAIL_USER}>`, // sender address
+                    from: `"TOCTOM PERFURMS 👻" <${process.env.EMAIL_USER}>`, // sender address
                     to: email, // list of receivers
                     subject: 'Recover Password', // Subject line
                     text: 'Your password have been reset!', // plain text body

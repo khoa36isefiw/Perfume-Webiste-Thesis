@@ -10,11 +10,25 @@ export const userAPI = {
         const url = `/users/${id}`;
         return axiosClient.get(url);
     },
-    recoverPassword: (email) => {
-        const url = '/users/recover-password';
-        return axiosClient.post(url, { email });
-    },
 
+    checkMailExist: (email) => {
+        try {
+            const url = '/users/check-email-availability';
+            const response = axiosClient.post(url, email);
+            return response;
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    sendNewPassword: (email) => {
+        try {
+            const url = '/users/recover-password';
+            const response = axiosClient.post(url, { email });
+            return response;
+        } catch (err) {
+            console.log(err);
+        }
+    },
     createUser: (data) => {
         const url = '/users';
         return axiosClient.post(url, data);
@@ -33,7 +47,6 @@ export const userAPI = {
             console.log('error', error);
         }
     },
-
     deleteUserById: (id) => {
         const url = `/user/${id}`;
         return axiosClient.delete(url, id);

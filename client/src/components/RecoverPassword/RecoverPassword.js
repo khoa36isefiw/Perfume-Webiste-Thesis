@@ -27,23 +27,26 @@ function RecoverPassword() {
     const handleSubmitResetPassword = async () => {
         const email = emailRef.current.value.trim(); // get value from input
         console.log('email: ', email);
-        if (email !== null) {
+        if (email) {
+            // if user types email
+            const sendNewPassword = await userAPI.sendNewPassword(email);
             try {
-                const response = await userAPI.recoverPassword(email);
-                if (response.status === 200) {
+                if (sendNewPassword.status === 200) {
                     showMessage(
                         'success',
                         'Check Email',
                         'Your email is available, new password will be sent to your mail!',
                     );
+                    // const sendMail = await userAPI
                     setTimeout(() => {
                         navigate('/sign-in');
                     }, 2800);
                 } else {
+                    // const sendMail = await userAPI
                     showMessage(
                         'warning',
                         'Check Email',
-                        'Your email is not exist, please check again!',
+                        'Your email is not available, please check again222!',
                     );
                 }
             } catch (error) {
@@ -51,7 +54,7 @@ function RecoverPassword() {
                 showMessage(
                     'warning',
                     'Check Email',
-                    'Your email is not available, please check again!',
+                    'Your email is not available, please check again333!',
                 );
             }
         } else {
@@ -118,8 +121,9 @@ function RecoverPassword() {
                                     We will send you an email to reset your password
                                 </CustomizeTypography>
                             </Grid>
-                            <Grid item container xs={12} sm={12} md={12} lg={12} sx={{ p: 2 }}>
-                                <Grid xs={12} sm={12} md={12} lg={12}>
+                            {/* <Grid item container xs={12} sm={12} md={12} lg={12} sx={{ p: 2 }}> */}
+                            <Grid item xs={12} sm={12} md={12} lg={12} sx={{ p: 2 }}>
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
                                     <CustomizeTypography
                                         sx={{
                                             fontWeight: 'bold',
@@ -129,7 +133,7 @@ function RecoverPassword() {
                                         E-mail:
                                     </CustomizeTypography>
                                 </Grid>
-                                <Grid xs={12} sm={12} md={12} lg={12}>
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
                                     <TextFieldLogin
                                         placeholder="Email"
                                         fullWidth={true}

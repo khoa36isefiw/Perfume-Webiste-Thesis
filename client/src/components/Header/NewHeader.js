@@ -20,7 +20,7 @@ import { useSelector } from 'react-redux';
 import AuthenticatedUser from '../AuthenticatedUser/AuthenticatedUser';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
-import SimpleBottomNavigation from './MobileBottomNavigation';
+import MobileBottomNavigation from './MobileBottomNavigation';
 import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
 import { backTop } from '../goBackTop/goBackTop';
@@ -501,7 +501,7 @@ function NewHeader() {
                             zIndex: 1000,
                         }}
                     >
-                        <SimpleBottomNavigation />
+                        <MobileBottomNavigation />
                     </Box>
                 )}
             </Container>

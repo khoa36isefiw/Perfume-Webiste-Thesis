@@ -16,6 +16,7 @@ import Face5Icon from '@mui/icons-material/Face5';
 export default function MobileBottomNavigation() {
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0); // Track selected icon
+    const userData = JSON.parse(window.localStorage.getItem('user_data')); // get data of user who logged into the system
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
 
     const handleNavigateHomePage = () => {

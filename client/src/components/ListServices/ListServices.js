@@ -22,9 +22,9 @@ function ListServices() {
         >
             <>
                 <Grid container spacing={4}>
-                    {listServices.map((service, index) => (
+                    {listServices.map((service) => (
                         <Grid
-                            key={index}
+                            key={service.service_id}
                             container
                             spacing={4}
                             sx={{
@@ -33,9 +33,9 @@ function ListServices() {
                                     flexDirection: 'row',
                                 },
                             }}
-                            flexDirection={index % 2 === 0 ? 'row-reverse' : 'row'}
+                            flexDirection={service.service_id % 2 === 0 ? 'row-reverse' : 'row'}
                         >
-                            <Grid item xs={12} sm={6} md={5} lg={5} key={index}>
+                            <Grid item xs={12} sm={6} md={5} lg={5}>
                                 <Box
                                     sx={{
                                         p: 2,
@@ -62,7 +62,7 @@ function ListServices() {
                                             color: theme.palette.secondaryText,
                                         }}
                                     >
-                                        0{index + 1}.
+                                        0{service.service_id}.
                                     </CustomizeTypography>
                                     <CustomizeTypography
                                         sx={{ fontSize: '32px', fontWeight: 'bold', mb: 6 }}
@@ -78,7 +78,7 @@ function ListServices() {
                                     </CustomizeTypography>
                                 </Box>
                             </Grid>
-                            <Grid item xs={12} sm={6} md={7} lg={7} key={index}>
+                            <Grid item xs={12} sm={6} md={7} lg={7}>
                                 <Box
                                     component={'img'}
                                     src={service.serviceImage}
