@@ -92,8 +92,8 @@ function NotificationMessage({ msgType, msgTitle, msgContent, autoHideDuration, 
                     <Typography sx={{ fontSize: '14px' }}>{msgContent}</Typography>
                 </Box>
             </Box>
-            <IconButton sx={{ padding: 0 }}>
-                <CloseIcon sx={{ fontSize: '20px' }} onClick={onClose} />
+            <IconButton sx={{ padding: 0 }} onClick={onClose}>
+                <CloseIcon sx={{ fontSize: '20px' }} />
             </IconButton>
         </Box>
     );
