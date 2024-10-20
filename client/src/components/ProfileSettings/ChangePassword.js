@@ -7,7 +7,6 @@ import { CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
 
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePassword } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 
 import { authAPI } from '../../api/authAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
