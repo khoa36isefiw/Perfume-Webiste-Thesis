@@ -11,7 +11,7 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 
-import { userAPI } from '../../api/userApi';
+import { userAPI } from '../../api/userAPI';
 import { authAPI } from '../../api/authAPI';
 
 function RegisterAccount() {
@@ -101,15 +101,24 @@ function RegisterAccount() {
             };
 
             console.log('registrationData: ', registrationData);
-            const response = await authAPI.registerAccount(registrationData);
-            console.log('response: ', response);
-        }
 
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
-        setMessageType('success');
-        setMessageTitle('Register account');
-        setMessageContent('Create new account successfully!');
+            try {
+                const response = await authAPI.registerAccount(registrationData);
+                if (response) {
+                    setShowNotification(true);
+                    setShowAnimation('animate__bounceInRight');
+                    setMessageType('success');
+                    setMessageTitle('Register account');
+                    setMessageContent('Create new account successfully!');
+                }
+            } catch (error) {
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageType('warning');
+                setMessageTitle('Register account');
+                setMessageContent('Email exists, Please try another email!');
+            }
+        }
     };
 
     const handleCloseNotification = () => {

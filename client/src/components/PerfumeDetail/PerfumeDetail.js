@@ -18,7 +18,7 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { CountdownTimer } from '../CountdownTimer/CountdownTimer';
 import CheckIcon from '@mui/icons-material/Check';
 import { ordersAPI } from '../../api/ordersAPI';
-import { userAPI } from '../../api/userApi';
+import { userAPI } from '../../api/userAPI';
 
 function PerfumeDetail() {
     const location = useLocation();

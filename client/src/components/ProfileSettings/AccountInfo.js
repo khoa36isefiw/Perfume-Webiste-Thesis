@@ -10,7 +10,7 @@ import { CustomizeHoverButton, CustomizeHoverButtonV2 } from '../CustomizeButton
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance';
 import { useDispatch, useSelector } from 'react-redux';
-import { userAPI } from '../../api/userApi';
+import { userAPI } from '../../api/userAPI';
 
 function AccountInfo() {
     const dispatch = useDispatch();
