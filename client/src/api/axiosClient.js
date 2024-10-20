@@ -18,7 +18,7 @@ axiosClient.interceptors.request.use(
     },
     function (error) {
         // Do something with request error
-        return Promise.reject(error);
+        return Promise.resolve({ error: true, message: 'Request failed' });
     },
 );
 
@@ -27,12 +27,20 @@ axiosClient.interceptors.response.use(
     function (response) {
         // Any status code that lie within the range of 2xx cause this function to trigger
         // Do something with response data
-        return response.data; // only get response of data
+        return response; // only get response of data
     },
     function (error) {
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
-        return Promise.reject(error);
+        if (error.response) {
+            const status = error.response.status;
+            const data = error.response.data;
+            console.error('Error response:', error.response);
+            return Promise.resolve({ error: true, status, data });
+        } else {
+            console.error('Error:', error);
+            return Promise.resolve({ error: true, message: 'No response from server' });
+        }
     },
 );
 

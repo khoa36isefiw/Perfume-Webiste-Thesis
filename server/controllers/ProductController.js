@@ -10,8 +10,8 @@ const ProductController = {
             };
             let productsQuery = Product.find({ status: 'active' }, null, queryOptions)
                 .populate('variants')
-                .populate('categoryId')
-                .populate('brandId');
+                .populate('category')
+                .populate('brand');
             if (limit) {
                 productsQuery = productsQuery.limit(Number(limit));
             }
@@ -27,8 +27,8 @@ const ProductController = {
             const { id } = req.params;
             const product = await Product.findOne({ _id: id })
                 .populate('variants')
-                .populate('categoryId')
-                .populate('brandId');
+                .populate('category')
+                .populate('brand');
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
@@ -41,10 +41,10 @@ const ProductController = {
     getByCategoryId: async (req, res) => {
         try {
             const { categoryId } = req.params;
-            const products = await Product.find({ categoryId, status: 'active' })
+            const products = await Product.find({ category: categoryId, status: 'active' })
                 .populate('variants')
-                .populate('categoryId')
-                .populate('brandId');
+                .populate('category')
+                .populate('brand');
             res.status(200).json(products);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -54,10 +54,10 @@ const ProductController = {
     getByBrandId: async (req, res) => {
         try {
             const { brandId } = req.params;
-            const products = await Product.find({ brandId, status: 'active' })
+            const products = await Product.find({ brand: brandId, status: 'active' })
                 .populate('variants')
-                .populate('categoryId')
-                .populate('brandId');
+                .populate('category')
+                .populate('brand');
             res.status(200).json(products);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -71,9 +71,10 @@ const ProductController = {
             descriptionVn,
             descriptionEn,
             variants,
+            content,
             imagePath,
-            categoryId,
-            brandId,
+            category,
+            brand,
         } = req.body;
         try {
             const product = new Product({
@@ -82,16 +83,17 @@ const ProductController = {
                 descriptionVn,
                 descriptionEn,
                 imagePath,
-                categoryId,
-                brandId,
+                content,
+                category,
+                brand,
                 status: 'active',
             });
             const savedProduct = await product.save();
             const newVariants = variants.map((item) => ({
                 ...item,
-                productId: product._id,
+                product: savedProduct._id,
                 size: item.size,
-                priceSale: item.priceSale,
+                priceSale: item.priceSale ? item.priceSale : item.price,
                 price: item.price,
                 stock: item.stock,
             }));
@@ -116,7 +118,7 @@ const ProductController = {
             }
             await Product.updateOne({ _id: id }, { $set: rest });
 
-            if (variants.length) {
+            if (variants?.length) {
                 const updateVariants = [];
                 for (const variant of variants) {
                     if (variant._id) {

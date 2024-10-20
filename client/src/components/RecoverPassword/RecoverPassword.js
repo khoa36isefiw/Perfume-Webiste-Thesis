@@ -29,9 +29,8 @@ function RecoverPassword() {
         console.log('email: ', email);
         if (email !== null) {
             try {
-                const checkEmail = await userAPI.checkEmailAvailability(email);
-                console.log('checkEmail: ', checkEmail);
-                if (!checkEmail.available) {
+                const response = await userAPI.recoverPassword(email);
+                if (response.status === 200) {
                     showMessage(
                         'success',
                         'Check Email',
@@ -44,7 +43,7 @@ function RecoverPassword() {
                     showMessage(
                         'warning',
                         'Check Email',
-                        'Your email is not available, please check again!',
+                        'Your email is not exist, please check again!',
                     );
                 }
             } catch (error) {

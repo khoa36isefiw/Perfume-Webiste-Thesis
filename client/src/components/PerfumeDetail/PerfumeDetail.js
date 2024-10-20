@@ -31,7 +31,7 @@ function PerfumeDetail() {
 
     // get the perfume data passed from navigation
     const { perfume } = location.state || {};
-    const [selectedSize, setSelectedSize] = useState(perfume.perfumeGroupSize[0]);
+    const [selectedSize, setSelectedSize] = useState(perfume.variants[0].size);
 
     // get list product added to cart
     const cartItems = useSelector((state) => state.cartManagement.productInfor);
@@ -41,9 +41,9 @@ function PerfumeDetail() {
         const productInfo = state.checkoutManagement.listOrdersBasedOnProduct[productId];
         return productInfo ? productInfo.quantitySold : 0;
     };
-
+    console.log('perfume', perfume);
     // Sử dụng trong component
-    const productId = perfume.perfumeID;
+    const productId = perfume._id;
     const soldQuantity = useSelector((state) => selectSoldQuantityByProductId(state, productId));
 
     const [selectedImage, setSelectedImage] = React.useState(0);
@@ -54,7 +54,7 @@ function PerfumeDetail() {
 
     const handleNext = () => {
         // Check if current image is the last one
-        if (selectedImage < perfume.quickViewImage.length - 1) {
+        if (selectedImage < perfume.imagePath.length - 1) {
             setSelectedImage((prevIndex) => prevIndex + 1); // Move to the next image
         }
     };
@@ -221,7 +221,7 @@ function PerfumeDetail() {
                                 }}
                             >
                                 {/* discount must !== 0 */}
-                                {perfume.perfumeDiscount !== 0 && (
+                                {perfume?.perfumeDiscount !== 0 && (
                                     <Box
                                         sx={{
                                             position: 'absolute',
@@ -308,15 +308,12 @@ function PerfumeDetail() {
                             </Box>
 
                             <Box sx={{ display: 'flex', overflowX: 'hidden' }}>
-                                {perfume.quickViewImage.map((image, index) => (
+                                {perfume.imagePath.map((image, index) => (
                                     <Box
                                         key={index}
                                         alt="Quick View Image"
                                         component={'img'}
-                                        src={
-                                            // 'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png'
-                                            image
-                                        }
+                                        src={image}
                                         sx={{
                                             p: 1,
                                             mt: 1,
@@ -343,11 +340,11 @@ function PerfumeDetail() {
                         {/* product name */}
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
                             {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
-                            {perfume.perfumeName}
+                            {perfume.nameEn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 1 }}>
                             <strong>Thương hiệu: </strong>
-                            <span>{perfume.brand}</span>
+                            <span>{perfume.brand.nameEn}</span>
                             {/* <span>Maison Francis Kurkdjian Paris</span> */}
                         </CustomizeTypography>
                         <CustomizeTypography>
