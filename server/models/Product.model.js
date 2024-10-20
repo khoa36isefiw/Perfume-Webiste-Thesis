@@ -14,12 +14,12 @@ const productSchema = new Schema(
         descriptionVn: String,
         descriptionEn: String,
         imagePath: String,
-        categoryId: {
+        category: {
             type: Schema.Types.ObjectId,
             ref: 'Category',
             default: null,
         },
-        brandId: {
+        brand: {
             type: Schema.Types.ObjectId,
             ref: 'Brand',
             default: null,

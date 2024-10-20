@@ -8,7 +8,7 @@ const UserController = {
     getAll: async (req, res) => {
         const { limit } = req.query;
         try {
-            let userQuery = Product.find({ status: 'active' });
+            let userQuery = User.find({ status: 'active' });
             if (limit) {
                 userQuery = userQuery.limit(Number(limit));
             }
@@ -229,6 +229,69 @@ const UserController = {
             }
         } catch (error) {
             res.status(500).json('Có lỗi khi xóa người dùng');
+        }
+    },
+
+    addToCart: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { product, variant, quantity } = req.body;
+
+            const user = await User.findById(id);
+
+            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+            const existingItemIndex = user.cart.findIndex(
+                (cartItem) =>
+                    cartItem.product.toString() === product &&
+                    cartItem.variant.toString() === variant,
+            );
+
+            if (existingItemIndex > -1) {
+                user.cart[existingItemIndex].quantity += quantity;
+            } else {
+                user.cart.push({
+                    product: product,
+                    variant: variant,
+                    quantity: quantity,
+                });
+            }
+
+            const result = await user.save();
+
+            if (result) {
+                res.status(201).json(result);
+            }
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    updateCart: async (req, res) => {
+        const { id } = req.params;
+        const { product, variant, quantity } = req.body;
+
+        try {
+            const user = await User.findById(id);
+
+            const cartItemIndex = user.cart.findIndex(
+                (cartItem) =>
+                    cartItem.product.toString() === product &&
+                    cartItem.variant.toString() === variant,
+            );
+
+            if (cartItemIndex > -1) {
+                if (quantity <= 0) {
+                    user.cart.splice(cartItemIndex, 1);
+                } else {
+                    user.cart[cartItemIndex].quantity = quantity;
+                }
+                await user.save();
+                return res.status(200).json({ message: 'Giỏ hàng đã được cập nhật.' });
+            } else {
+                return res.status(404).json({ message: 'Sản phẩm không có trong giỏ hàng.' });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
         }
     },
 };

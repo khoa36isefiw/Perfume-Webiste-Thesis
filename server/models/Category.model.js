@@ -11,16 +11,10 @@ const categorySchema = new Schema(
             type: String,
             required: true,
         },
-        parentId: {
+        parent: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Category',
         },
-        childrenIds: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Category',
-            },
-        ],
         descriptionVn: String,
         descriptionEn: String,
         thumbnail: String,

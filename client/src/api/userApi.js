@@ -40,4 +40,9 @@ export const userAPI = {
         const url = `/user/${id}`;
         return axiosClient.delete(url, id);
     },
+
+    addProductToCart: (userId, data) => {
+        const url = `/users/${userId}/add-to-cart`;
+        return axiosClient.post(url, data);
+    },
 };

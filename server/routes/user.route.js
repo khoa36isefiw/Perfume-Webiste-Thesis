@@ -10,6 +10,8 @@ router.get('/check-email-availability', userController.checkEmailAvailability);
 router.put('/:id/delete', authToken.verifyTokenAdmin, userController.delete);
 router.put('/:id/change-password', userController.changePassword);
 router.put('/:id/profile', userController.updateProfile);
+router.post('/:id/add-to-cart', userController.addToCart);
+router.put('/:id/update-cart', userController.updateCart);
 router.put('/:id', userController.update);
 router.delete('/:id', userController.destroy);
 router.get('/:id', userController.getById);
