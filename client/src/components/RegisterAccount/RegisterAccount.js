@@ -104,19 +104,25 @@ function RegisterAccount() {
 
             try {
                 const response = await authAPI.registerAccount(registrationData);
-                if (response) {
+                if (response.status === 200) {
                     setShowNotification(true);
                     setShowAnimation('animate__bounceInRight');
                     setMessageType('success');
                     setMessageTitle('Register account');
                     setMessageContent('Create new account successfully!');
+                } else {
+                    setShowNotification(true);
+                    setShowAnimation('animate__bounceInRight');
+                    setMessageType('warning');
+                    setMessageTitle('Register account');
+                    setMessageContent('Email exists, Please try another email!');
                 }
             } catch (error) {
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
                 setMessageType('warning');
                 setMessageTitle('Register account');
-                setMessageContent('Email exists, Please try another email!');
+                setMessageContent('Email exists, Please try another email2!');
             }
         }
     };
