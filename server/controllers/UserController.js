@@ -32,13 +32,12 @@ const UserController = {
     },
     checkEmailAvailability: async (req, res) => {
         try {
-            const { email } = req.query;
+            const { email } = req.body;
             const existentUser = await User.findOne({ email });
             if (!existentUser) {
-                res.status(200).json({ available: true });
-            } else {
-                res.status(200).json({ available: false });
+                res.status(404).json({ message: 'Email not found' });
             }
+            res.status(200).json({ message: 'Email available' });
         } catch (error) {
             console.error('Error checking email availability:', error);
             res.status(500).json('Internal Server Error');
@@ -101,8 +100,8 @@ const UserController = {
     sendRecoverPassEmail: async (req, res) => {
         try {
             const { email } = req.body;
-            console.log(email);
-            if (email) {
+            const user = await User.findOne({ email });
+            if (user) {
                 const transporter = nodemailer.createTransport({
                     host: 'smtp.gmail.com',
                     port: 465,
@@ -118,7 +117,7 @@ const UserController = {
                 });
 
                 const info = await transporter.sendMail({
-                    from: `"GIMME SHOES 👻" <${process.env.EMAIL_USER}>`, // sender address
+                    from: `"TOC TOM PERFURM 👻" <${process.env.EMAIL_USER}>`, // sender address
                     to: email, // list of receivers
                     subject: 'Recover Password', // Subject line
                     text: 'Your password have been reset!', // plain text body
@@ -129,8 +128,11 @@ const UserController = {
                     await UserController.recoverPassword(email, resetPassword);
                     return res.status(200).json(info);
                 }
+            } else {
+                return res.status(404).json({
+                    message: 'Email not found',
+                });
             }
-            return res.status(500).json('Có lỗi rồi !');
         } catch (error) {
             console.log(error);
         }

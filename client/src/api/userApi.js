@@ -10,16 +10,9 @@ export const userAPI = {
         const url = `/users/${id}`;
         return axiosClient.get(url);
     },
-    checkEmailAvailability: (email) => {
-        const url = '/users/check-email-availability';
-        try {
-            const response = axiosClient.get(url, {
-                email,
-            });
-            return response;
-        } catch (error) {
-            console.log('error', error);
-        }
+    recoverPassword: (email) => {
+        const url = '/users/recover-password';
+        return axiosClient.post(url, { email });
     },
 
     createUser: (data) => {

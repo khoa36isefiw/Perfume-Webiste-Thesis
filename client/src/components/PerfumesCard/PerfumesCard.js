@@ -12,6 +12,7 @@ import SortProducts from '../SortProducts/SortProducts';
 import PerfumeBrands from '../PerfumeBrands/PerfumeBrands';
 import EmptyCart from '../EmptyCart/EmptyCart';
 import notFound from '../../assets/images/no-results.png';
+import useProduct from '../../api/useProduct';
 
 function PerfumesCard() {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ function PerfumesCard() {
 
     const handleNavigationProductDetail = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
-        navigate(`/product/${perfume.perfumeID}`, { state: { perfume } });
+        navigate(`/product/${perfume._id}`, { state: { perfume } });
         backTop();
     };
 
@@ -30,7 +31,8 @@ function PerfumesCard() {
             : selectedBrandList.length > 0
             ? selectedBrandList
             : perfumeData;
-
+    const { data: products, isLoading, error } = useProduct();
+    console.log(products);
     return (
         <Container
             sx={{
@@ -43,9 +45,9 @@ function PerfumesCard() {
         >
             <PerfumeBrands listData={perfumeData} setSelectedBrandList={setSelectedBrandList} />
             <SortProducts listData={perfumeData} setSortedList={setSortedList} />
-            {mixedFilter.length > 0 ? (
+            {products?.length ? (
                 <Grid container spacing={2}>
-                    {mixedFilter.map((perfume, index) => (
+                    {products.map((perfume, index) => (
                         <Grid item xs={6} sm={4} md={3} lg={3} key={index}>
                             <Box
                                 sx={{
@@ -124,7 +126,7 @@ function PerfumesCard() {
 
                                 <Box
                                     component={'img'}
-                                    src={perfume.perfumeImage}
+                                    src={perfume.imagePath[0]}
                                     sx={{
                                         height: '180px',
                                         width: '180px',
@@ -172,7 +174,7 @@ function PerfumesCard() {
                                         }}
                                     >
                                         {/* Dior */}
-                                        {perfume.perfumeBrand}
+                                        {perfume.brand.nameEn}
                                     </CustomizeTypography>
                                     {/* perfume name */}
                                     <CustomizeTypography
@@ -195,7 +197,7 @@ function PerfumesCard() {
                                         }}
                                     >
                                         {/* Homme Intense */}
-                                        {perfume.perfumeName}
+                                        {perfume.nameEn}
                                     </CustomizeTypography>
 
                                     <Box
@@ -208,7 +210,7 @@ function PerfumesCard() {
                                     >
                                         <Rating
                                             readOnly={true}
-                                            value={perfume.perfumeRating}
+                                            value={perfume.rating}
                                             // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                             sx={{
                                                 fontSize: '18px',
@@ -228,7 +230,7 @@ function PerfumesCard() {
                                                 ml: 1,
                                             }}
                                         >
-                                            ({perfume.numberOfRating})
+                                            ({perfume.numReviews})
                                         </CustomizeTypography>
                                     </Box>
                                     <Box
@@ -270,7 +272,7 @@ function PerfumesCard() {
                                             }}
                                         >
                                             {/* 3.280.000 */}
-                                            {converToVND(perfume.perfumePriceVND)}
+                                            {converToVND(perfume.variants[0].priceSale)}
                                         </CustomizeTypography>
 
                                         <CustomizeTypography
@@ -305,7 +307,7 @@ function PerfumesCard() {
 
                                 {/* flash sale, discount, chương trình khuyến mãi */}
                                 {/* {perfume.flashSale && ( */}
-                                <Box
+                                {/* <Box
                                     sx={{
                                         px: 1,
                                         visibility: perfume.flashSale ? 'visible' : 'hidden',
@@ -376,7 +378,7 @@ function PerfumesCard() {
                                             Flash Sale
                                         </CustomizeTypography>
                                     </Box>
-                                </Box>
+                                </Box> */}
                                 {/* )} */}
                             </Box>
                         </Grid>
