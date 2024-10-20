@@ -26,8 +26,8 @@ const useShowNotificationMessage = () => {
         showNotification,
         showAnimation,
         messageType,
-        messageContent,
         messageTitle,
+        messageContent,
         showMessage,
         handleCloseNotification,
     };
