@@ -100,26 +100,3 @@ function NotificationMessage({ msgType, msgTitle, msgContent, autoHideDuration, 
 }
 
 export default NotificationMessage;
-
-{
-    /* <NotificationMessage
-                                msgType={'success'}
-                                msgTitle={'Success Title'}
-                                msgContent={'Content'}
-                            />
-                            <NotificationMessage
-                                msgType={'warning'}
-                                msgTitle={'warning Title'}
-                                msgContent={'Content'}
-                            />
-                            <NotificationMessage
-                                msgType={'infor'}
-                                msgTitle={'infor Title'}
-                                msgContent={'Content'}
-                            />
-                            <NotificationMessage
-                                msgType={'error'}
-                                msgTitle={'error Title'}
-                                msgContent={'Content'}
-                            /> */
-}

@@ -12,9 +12,14 @@ export const userAPI = {
     },
     checkEmailAvailability: (email) => {
         const url = '/users/check-email-availability';
-        return axiosClient.get(url, {
-            params: email,
-        });
+        try {
+            const response = axiosClient.get(url, {
+                email,
+            });
+            return response;
+        } catch (error) {
+            console.log('error', error);
+        }
     },
 
     createUser: (data) => {

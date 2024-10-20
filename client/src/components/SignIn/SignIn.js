@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import React, { useRef } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
@@ -8,9 +8,20 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 import { authAPI } from '../../api/authAPI';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 function SignIn() {
     const dispatch = useDispatch();
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageContent,
+        messageTitle,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
     const navigate = useNavigate();
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
@@ -29,30 +40,34 @@ function SignIn() {
             password,
         };
 
-        const loginData = await authAPI.login(data);
-        // console.log('request: ', loginData);
-        console.log('response Sign In: ', loginData);
-        if (loginData) {
-            // store all user data in localStorage as a JSON string
-            window.localStorage.setItem(
-                'user_data',
-                JSON.stringify({
-                    userId: loginData._id,
-                    imagePath: loginData.imagePath,
-                    email: loginData.email,
-                    // Add any other data you want to store
-                    firstName: loginData.firstName,
-                    lastName: loginData.lastName,
-                    roles: loginData.roles,
-                }),
-            );
-
-            console.log('Login successfully');
-
-            // Navigate to the homepage or another route
-            navigate('/');
-        } else {
-            console.log('something went wrong');
+        try {
+            const loginData = await authAPI.login(data);
+            // console.log('request: ', loginData);
+            console.log('response Sign In: ', loginData);
+            if (loginData) {
+                // store all user data in localStorage as a JSON string
+                window.localStorage.setItem(
+                    'user_data',
+                    JSON.stringify({
+                        userId: loginData._id,
+                        imagePath: loginData.imagePath,
+                        email: loginData.email,
+                        // Add any other data you want to store
+                        firstName: loginData.firstName,
+                        lastName: loginData.lastName,
+                        roles: loginData.roles,
+                    }),
+                );
+                showMessage('success', 'Login', 'Login successfully!');
+                setTimeout(() => {
+                    navigate('/');
+                }, 1500);
+            } else {
+                console.log('something went wrong');
+            }
+        } catch (error) {
+            console.log(error);
+            showMessage('warning', 'Login', 'Your email or password is incorrect!');
         }
 
         // if (user) {
@@ -242,6 +257,20 @@ function SignIn() {
                     </Grid>
                 </Grid>
             </Grid>
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Container>
     );
 }

@@ -34,7 +34,6 @@ const UserController = {
         try {
             const { email } = req.query;
             const existentUser = await User.findOne({ email });
-
             if (!existentUser) {
                 res.status(200).json({ available: true });
             } else {

@@ -8,10 +8,11 @@ import { CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePassword } from '../../redux/feature/AccountManagement/AccountManagementSlice';
-import { userAPI } from '../../api/userApi';
+
 import { authAPI } from '../../api/authAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { userAPI } from '../../api/userAPI';
 
 // current password --> cho tự nhập --> check với password login
 // nếu oke --> cho nhảy sang step đổi mật khẩu
