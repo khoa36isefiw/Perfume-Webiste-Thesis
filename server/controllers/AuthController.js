@@ -7,7 +7,6 @@ const AuthController = {
         try {
             const { email, firstName, lastName, password, phoneNumber, imagePath } = req.body;
             const existentUser = await User.findOne({ email });
-
             if (!existentUser) {
                 const hashPassword = await bcrypt.hash(password, 10);
                 const user = await User.create({
