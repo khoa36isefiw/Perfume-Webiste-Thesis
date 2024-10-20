@@ -4,9 +4,13 @@ import axiosClient from './axiosClient';
 export const authAPI = {
     registerAccount: (data) => {
         // register
-
-        const url = '/auths/register';
-        return axiosClient.post(url, data);
+        try {
+            const url = '/auths/register';
+            const response = axiosClient.post(url, data);
+            return response;
+        } catch (error) {
+            console.log('error', error);
+        }
     },
     login: (data) => {
         // login
