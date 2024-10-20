@@ -1,5 +1,5 @@
 import { Box, Container, Grid } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
@@ -7,25 +7,58 @@ import { CustomizeButtonV2 } from '../CustomizeButton/CustomizeButton';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { userAPI } from '../../api/userAPI';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function RecoverPassword() {
     const navigate = useNavigate();
-    const [showNotification, setShowNotification] = useState(false);
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    const handleSubmitResetPassword = () => {
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
-        setTimeout(() => {
-            navigate('/sign-in');
-        }, 2000);
+    const emailRef = useRef(null);
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageContent,
+        messageTitle,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
+
+    const handleSubmitResetPassword = async () => {
+        const email = emailRef.current.value.trim(); // get value from input
+        console.log('email: ', email);
+        if (email !== null) {
+            try {
+                const checkEmail = await userAPI.checkEmailAvailability(email);
+                console.log('checkEmail: ', checkEmail);
+                if (!checkEmail.available) {
+                    showMessage(
+                        'success',
+                        'Check Email',
+                        'Your email is available, new password will be sent to your mail!',
+                    );
+                    setTimeout(() => {
+                        navigate('/sign-in');
+                    }, 2800);
+                } else {
+                    showMessage(
+                        'warning',
+                        'Check Email',
+                        'Your email is not available, please check again!',
+                    );
+                }
+            } catch (error) {
+                console.log('error: ', error);
+                showMessage(
+                    'warning',
+                    'Check Email',
+                    'Your email is not available, please check again!',
+                );
+            }
+        } else {
+            showMessage('warning', 'Check Email', 'Please enter your email address!');
+        }
     };
-    // handle Close notification
-    const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
-    };
+
     return (
         <Container
             sx={{
@@ -97,7 +130,11 @@ function RecoverPassword() {
                                     </CustomizeTypography>
                                 </Grid>
                                 <Grid xs={12} sm={12} md={12} lg={12}>
-                                    <TextFieldLogin placeholder="Email" fullWidth={true} />
+                                    <TextFieldLogin
+                                        placeholder="Email"
+                                        fullWidth={true}
+                                        inputRef={emailRef}
+                                    />
                                 </Grid>
                             </Grid>
 
@@ -143,9 +180,9 @@ function RecoverPassword() {
                     className={`animate__animated ${showAnimation}`}
                 >
                     <NotificationMessage
-                        msgType={'success'}
-                        msgTitle={'Recovery Password'}
-                        msgContent={'New password is sent to your email. Please, check it!'}
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
                         autoHideDuration={3000} // Auto-hide after 5 seconds
                         onClose={handleCloseNotification}
                     />
