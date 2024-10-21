@@ -17,7 +17,7 @@ function route(app) {
     app.use('/payments', paymentRouter);
     app.use('/promotions', promotionRouter);
 
-    app.use('/', () => {
+    app.use('/', (req, res) => {
         return 'Hello World!';
     });
 }
