@@ -235,7 +235,7 @@ const UserController = {
 
     addToCart: async (req, res) => {
         try {
-            const { id } = req.params;
+            const { id } = req.params; // userId
             const { product, variant, quantity } = req.body;
 
             const user = await User.findById(id);
