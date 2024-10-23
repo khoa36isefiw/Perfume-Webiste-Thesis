@@ -157,18 +157,38 @@ function PerfumeDetail() {
     //     }
     // };
 
-    const handleAddProduct = () => {
+    const handleAddProduct = async () => {
         if (userData) {
             const userId = userData.userId; // id user here
             const mockData = {
-                product: '6713e6a76d1bf8a24f22fae3', // id product here
-                variant: '6713e6a76d1bf8a24f22faea', // id variant here
+                product: perfume?._id, // id product here
+                variant: '67148e73e24c52831551db7e', // id variant here
                 quantity: 1,
+                // productName, productImage
+                // productName: perfume.nameEn,
+                // productImage: perfume?.imagePath[0],
             };
-            const result = userAPI.addProductToCart(userId, mockData);
-            console.log('result: ', { result });
+            const result = await userAPI.addProductToCart(userId, mockData);
+            console.log('product information: ', result.data);
             if (result) {
-                showMessage('');
+                // window.localStorage.setItem('cart', JSON.stringify(result.data));
+                window.localStorage.setItem(
+                    'cart',
+                    JSON.stringify({
+                        userId: result.data?._id,
+                        cart: result.data?.cart,
+                        email: result.data.email,
+                        firstName: result.data.firstName,
+                        lastName: result.data.lastName,
+                        imagePath: result.data.imagePath,
+                        phoneNumber: result.data.phoneNumber,
+                    }),
+                );
+                showMessage(
+                    'success',
+                    'Add to cart',
+                    'The product has been successfully added to cart!',
+                );
             }
         } else {
             showMessage('warning', 'Add to cart', 'Must log into the system!');
