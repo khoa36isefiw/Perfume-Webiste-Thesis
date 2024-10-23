@@ -7,7 +7,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { quickViewImage } from './perfumeDetailData';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     addToCart,
@@ -19,16 +19,22 @@ import { CountdownTimer } from '../CountdownTimer/CountdownTimer';
 import CheckIcon from '@mui/icons-material/Check';
 import { ordersAPI } from '../../api/ordersAPI';
 import { userAPI } from '../../api/userAPI';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function PerfumeDetail() {
+    const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
-    const [userData, setUserData] = useState(
-        JSON.parse(window.localStorage.getItem('user_data')) || null,
-    );
-    const [showNotification, setShowNotification] = useState(false);
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-
+    const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageTitle,
+        messageContent,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
     // get the perfume data passed from navigation
     const { perfume } = location.state || {};
     const [selectedSize, setSelectedSize] = useState(perfume.variants[0].size);
@@ -151,27 +157,45 @@ function PerfumeDetail() {
     //     }
     // };
 
-    const handleAddProduct = () => {
-        const userId = '6713e6a76d1bf8a24f22faea'; // id user here
-        const mockData = {
-            product: '6713e6a76d1bf8a24f22fae3', // id product here
-            variant: '6713e6a76d1bf8a24f22faea', // id variant here
-            quantity: 1,
-        };
-        const result = userAPI.addProductToCart(userId, mockData);
-        console.log({ result });
-        if (result) {
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
+    const handleAddProduct = async () => {
+        if (userData) {
+            const userId = userData.userId; // id user here
+            const mockData = {
+                product: perfume?._id, // id product here
+                variant: '67148e73e24c52831551db7e', // id variant here
+                quantity: 1,
+                // productName, productImage
+                // productName: perfume.nameEn,
+                // productImage: perfume?.imagePath[0],
+            };
+            const result = await userAPI.addProductToCart(userId, mockData);
+            console.log('product information: ', result.data);
+            if (result) {
+                // window.localStorage.setItem('cart', JSON.stringify(result.data));
+                window.localStorage.setItem(
+                    'cart',
+                    JSON.stringify({
+                        userId: result.data?._id,
+                        cart: result.data?.cart,
+                        email: result.data.email,
+                        firstName: result.data.firstName,
+                        lastName: result.data.lastName,
+                        imagePath: result.data.imagePath,
+                        phoneNumber: result.data.phoneNumber,
+                    }),
+                );
+                showMessage(
+                    'success',
+                    'Add to cart',
+                    'The product has been successfully added to cart!',
+                );
+            }
+        } else {
+            showMessage('warning', 'Add to cart', 'Must log into the system!');
+            setTimeout(() => {
+                navigate('/sign-in');
+            }, 2800);
         }
-    };
-
-    // handle Close notification
-    const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
     };
 
     const handleSizeSelected = (size) => {
@@ -269,7 +293,7 @@ function PerfumeDetail() {
                                 <Box
                                     component={'img'}
                                     // src={perfume.perfumeImage}
-                                    src={perfume.quickViewImage[selectedImage]}
+                                    src={perfume.imagePath[selectedImage]}
                                     sx={{
                                         height: '100%',
                                         objectFit: 'cover',
@@ -464,15 +488,16 @@ function PerfumeDetail() {
                         {/* Price */}
                         <Box sx={{ display: 'flex' }}>
                             {/* original price */}
+
                             <CustomizeTypography
                                 sx={{
                                     textDecoration: perfume.discount ? 'line-through' : null,
                                     fontWeight: 'bold',
                                 }}
                             >
-                                {/* 10.500.000 ₫ */}
                                 {/* {converToVND(perfume.perfumePriceVND)} */}
-                                {converToVND(selectedSize.perfumePrice)}
+                                {/* {converToVND(selectedSize.perfumePrice)} */}
+                                10.500.000 ₫
                             </CustomizeTypography>
                             {/* price sale off */}
                             {perfume.discount && perfume.perfumePriceDiscount !== null && (
@@ -491,7 +516,7 @@ function PerfumeDetail() {
 
                         {/* Product Size */}
                         <Box sx={{ display: 'flex' }}>
-                            {perfume.perfumeGroupSize.map((size, index) => (
+                            {perfume.variants.map((size, index) => (
                                 <Button
                                     key={index}
                                     sx={{
@@ -518,10 +543,11 @@ function PerfumeDetail() {
                                                 color: theme.palette.text.secondary,
                                             }}
                                         >
-                                            {size.perfumeSize} ml
+                                            {size.size} ml
                                         </CustomizeTypography>
                                         <CustomizeTypography sx={{ mb: 0, fontSize: '12px' }}>
-                                            {converToVND(size.perfumePrice)}
+                                            {/* {converToVND(size.perfumePrice)} */}
+                                            1.000.0005đ
                                         </CustomizeTypography>
                                     </Box>
                                     {selectedSize.perfumeSize === size.perfumeSize && (
@@ -595,9 +621,9 @@ function PerfumeDetail() {
                     className={`animate__animated ${showAnimation}`}
                 >
                     <NotificationMessage
-                        msgType={'success'}
-                        msgTitle={'Add product'}
-                        msgContent={'Product added to cart!'}
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
                         autoHideDuration={3000} // Auto-hide after 5 seconds
                         onClose={handleCloseNotification}
                     />

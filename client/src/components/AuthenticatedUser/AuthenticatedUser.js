@@ -27,12 +27,6 @@ export default function AuthenticatedUser() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const userData = JSON.parse(localStorage.getItem('user_data'));
-    // const [userData, setUserData] = React.useState(null);
-
-    // React.useEffect(() => {
-    //     const data = JSON.parse(localStorage.getItem('user_data'));
-    //     // setUserData(data);
-    // }, [userData]);
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {

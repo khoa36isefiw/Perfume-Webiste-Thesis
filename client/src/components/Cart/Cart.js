@@ -17,11 +17,13 @@ import Check from '@mui/icons-material/Check';
 function Cart() {
     const navigate = useNavigate();
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
+
+    const productInCart = JSON.parse(window.localStorage.getItem('cart'));
     const [selectedProducts, setSelectedProducts] = useState([]);
 
     return (
         <React.Fragment>
-            {productAdded.length > 0 ? (
+            {productInCart?.cart.length > 0 ? (
                 <Container sx={{ my: 16 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} lg={12}>
@@ -99,7 +101,8 @@ function Cart() {
                         >
                             <Grid item xs={12} lg={8}>
                                 <ProductInCart
-                                    productsList={productAdded}
+                                    // productsList={productAdded}
+                                    productsList={productInCart.cart}
                                     selectedProducts={selectedProducts}
                                     setSelectedProducts={setSelectedProducts}
                                 />
