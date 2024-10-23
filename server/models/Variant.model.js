@@ -19,6 +19,9 @@ const variantSchema = Schema({
         type: Number,
         required: true,
     },
+    discountPercent: {
+        type: Number,
+    },
     stock: {
         type: Number,
         default: 0,

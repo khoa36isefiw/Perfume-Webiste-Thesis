@@ -95,8 +95,12 @@ const ProductController = {
                 size: item.size,
                 priceSale: item.priceSale ? item.priceSale : item.price,
                 price: item.price,
+                discountPercent: item.priceSale
+                    ? Math.round(((item.price - item.priceSale) / item.price) * 100)
+                    : 0,
                 stock: item.stock,
             }));
+
             const savedVariants = await Variant.insertMany(newVariants);
 
             savedProduct.variants = savedVariants.map((variant) => variant._id);
@@ -122,10 +126,26 @@ const ProductController = {
                 const updateVariants = [];
                 for (const variant of variants) {
                     if (variant._id) {
-                        await Variant.updateOne({ _id: variant._id }, { $set: variant });
+                        await Variant.updateOne(
+                            { _id: variant._id },
+                            {
+                                $set: {
+                                    ...variant,
+                                    discountPercent: Math.round(
+                                        ((variant.price - variant.priceSale) / variant.price) * 100,
+                                    ),
+                                },
+                            },
+                        );
                         updateVariants.push(variant._id);
                     } else {
-                        const newVariant = new Variant({ ...variant, product: id });
+                        const newVariant = new Variant({
+                            ...variant,
+                            discountPercent: Math.round(
+                                ((variant.price - variant.priceSale) / variant.price) * 100,
+                            ),
+                            product: id,
+                        });
                         const savedVariant = await newVariant.save();
                         updateVariants.push(savedVariant._id);
                     }
