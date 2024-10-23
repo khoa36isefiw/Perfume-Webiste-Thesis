@@ -125,7 +125,7 @@ const ProductController = {
                         await Variant.updateOne({ _id: variant._id }, { $set: variant });
                         updateVariants.push(variant._id);
                     } else {
-                        const newVariant = new Variant({ ...variant, productId: id });
+                        const newVariant = new Variant({ ...variant, product: id });
                         const savedVariant = await newVariant.save();
                         updateVariants.push(savedVariant._id);
                     }

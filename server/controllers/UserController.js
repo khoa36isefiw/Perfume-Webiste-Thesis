@@ -19,17 +19,21 @@ const UserController = {
         }
     },
 
-    getById: (req, res) => {
-        User.findOne({ _id: req.params.id })
-            .then((user) => {
-                res.status(200).json(user);
-            })
-            .catch(() => {
-                res.status(404).json({
-                    message: 'User not found',
-                });
-            });
+    getById: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const user = await User.findById(id).populate('cart.product').populate('cart.variant');
+
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            res.status(200).json(user);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
     },
+
     checkEmailAvailability: async (req, res) => {
         try {
             const { email } = req.body;
@@ -57,7 +61,7 @@ const UserController = {
                 });
             }
         } catch (err) {
-            return res.status(400).json(`Có lỗi trong quá trình cập nhật profile :  ${err}`);
+            return res.status(500).json(`Có lỗi trong quá trình cập nhật profile :  ${err}`);
         }
     },
     recoverPassword: async (email, password) => {
