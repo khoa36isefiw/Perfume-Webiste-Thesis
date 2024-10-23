@@ -157,7 +157,7 @@ function PerfumeDetail() {
     //     }
     // };
 
-    const handleAddProduct = async () => {
+    const handleAddProduct = async () => { // add to cart, when users moving to cart --> get user byID get all information
         if (userData) {
             const userId = userData.userId; // id user here
             const mockData = {
@@ -198,9 +198,12 @@ function PerfumeDetail() {
         }
     };
 
-    const handleSizeSelected = (size) => {
-        setSelectedSize(size);
+    const handleSizeSelected = (index) => {
+        // setSelectedSize(size);
+        selectedSize(perfume.variants[index].size);
     };
+
+    console.log('selectedSize: ', selectedSize);
 
     // calculating the average rating
     const calculateAverageRating = () => {
@@ -448,7 +451,8 @@ function PerfumeDetail() {
                             </CustomizeTypography>
                         </Box>
 
-                        <Box
+                        {/* flash sale */}
+                        {/* <Box
                             sx={{
                                 backgroundImage: ` linear-gradient(-90deg, #f0451e 9%, #f32424 96%)`,
                                 height: '40px',
@@ -483,7 +487,7 @@ function PerfumeDetail() {
                                 <CustomizeTypography sx={{ mb: 0 }}>ENDS IN</CustomizeTypography>
                                 <CountdownTimer />
                             </Box>
-                        </Box>
+                        </Box> */}
 
                         {/* Price */}
                         <Box sx={{ display: 'flex' }}>
@@ -532,7 +536,7 @@ function PerfumeDetail() {
 
                                         p: '4px',
                                     }}
-                                    onClick={() => handleSizeSelected(size)}
+                                    onClick={() => handleSizeSelected(index)}
                                 >
                                     <Box>
                                         <CustomizeTypography
@@ -541,13 +545,13 @@ function PerfumeDetail() {
                                                 fontSize: '12.5px',
                                                 fontWeight: 'bold',
                                                 color: theme.palette.text.secondary,
+                                                textTransform: 'initial',
                                             }}
                                         >
-                                            {size.size} ml
+                                            {size.size}
                                         </CustomizeTypography>
                                         <CustomizeTypography sx={{ mb: 0, fontSize: '12px' }}>
-                                            {/* {converToVND(size.perfumePrice)} */}
-                                            1.000.0005đ
+                                            {converToVND(size.price)}
                                         </CustomizeTypography>
                                     </Box>
                                     {selectedSize.perfumeSize === size.perfumeSize && (
