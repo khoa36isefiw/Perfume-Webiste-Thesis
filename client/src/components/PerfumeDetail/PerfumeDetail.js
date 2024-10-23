@@ -152,16 +152,17 @@ function PerfumeDetail() {
     // };
 
     const handleAddProduct = () => {
-        const userId = userData.userId// id user here
+        const userId = userData.userId; // id user here
         const mockData = {
             product: '6713e6a76d1bf8a24f22fae3', // id product here
             variant: '6713e6a76d1bf8a24f22faea', // id variant here
             quantity: 1,
         };
         const result = userAPI.addProductToCart(userId, mockData);
-        console.log({ result });
+        console.log('result: ', { result });
         if (result) {
             setShowNotification(true);
+
             setShowAnimation('animate__bounceInRight');
         }
     };

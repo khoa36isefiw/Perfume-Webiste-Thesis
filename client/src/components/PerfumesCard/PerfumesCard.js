@@ -32,7 +32,7 @@ function PerfumesCard() {
             ? selectedBrandList
             : perfumeData;
     const { data: products, isLoading, error } = useProduct();
-    console.log(products);
+    console.log('products from api: ', products?.data);
     return (
         <Container
             sx={{
@@ -43,11 +43,11 @@ function PerfumesCard() {
                 },
             }}
         >
-            <PerfumeBrands listData={perfumeData} setSelectedBrandList={setSelectedBrandList} />
-            <SortProducts listData={perfumeData} setSortedList={setSortedList} />
-            {products?.length ? (
+            <PerfumeBrands listData={products?.data} setSelectedBrandList={setSelectedBrandList} />
+            <SortProducts listData={products?.data} setSortedList={setSortedList} />
+            {products?.data?.length ? (
                 <Grid container spacing={2}>
-                    {products.map((perfume, index) => (
+                    {products?.data.map((perfume, index) => (
                         <Grid item xs={6} sm={4} md={3} lg={3} key={index}>
                             <Box
                                 sx={{

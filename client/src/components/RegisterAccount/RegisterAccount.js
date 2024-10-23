@@ -2,7 +2,6 @@ import { Container, Grid, Box } from '@mui/material';
 import React, { useId, useRef, useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
-
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import ButtonComponent from '../SignIn/test';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +9,6 @@ import { signUpAccount } from '../../redux/feature/AccountManagement/AccountMana
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
-
-import { userAPI } from '../../api/userAPI';
 import { authAPI } from '../../api/authAPI';
 
 function RegisterAccount() {
