@@ -7,7 +7,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { quickViewImage } from './perfumeDetailData';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     addToCart,
@@ -22,6 +22,10 @@ import { userAPI } from '../../api/userAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function PerfumeDetail() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const dispatch = useDispatch();
+    const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
     const {
         showNotification,
         showAnimation,
@@ -31,10 +35,6 @@ function PerfumeDetail() {
         showMessage,
         handleCloseNotification,
     } = useShowNotificationMessage();
-    const location = useLocation();
-    const dispatch = useDispatch();
-    const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
-
     // get the perfume data passed from navigation
     const { perfume } = location.state || {};
     const [selectedSize, setSelectedSize] = useState(perfume.variants[0].size);
@@ -172,6 +172,9 @@ function PerfumeDetail() {
             }
         } else {
             showMessage('warning', 'Add to cart', 'Must log into the system!');
+            setTimeout(() => {
+                navigate('/sign-in');
+            }, 2800);
         }
     };
 

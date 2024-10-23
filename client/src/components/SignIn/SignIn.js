@@ -84,7 +84,7 @@ function SignIn() {
         // }
     };
 
-    const handleKeyDownEvent = (e) => {
+    const handleKeyEnterLogin = (e) => {
         const isEnterKey = e.code === 'Enter' || e.keyCode === 13;
         if (isEnterKey && e.shiftKey === false) {
             handleSignIn();
@@ -179,6 +179,7 @@ function SignIn() {
                                     placeholder="Password"
                                     fullWidth
                                     inputRef={passwordRef}
+                                    onHandleKeyDown={handleKeyEnterLogin}
                                 />
                             </Grid>
                         </Grid>
@@ -224,7 +225,7 @@ function SignIn() {
                             <ButtonComponent
                                 textAction={'Login'}
                                 onHandleClick={handleSignIn}
-                                onHandleKeyEvent={handleKeyDownEvent}
+                                onHandleKeyEvent={handleKeyEnterLogin}
                             />
                         </Grid>
                         <Grid
