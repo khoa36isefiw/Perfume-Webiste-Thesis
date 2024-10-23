@@ -19,15 +19,21 @@ import { CountdownTimer } from '../CountdownTimer/CountdownTimer';
 import CheckIcon from '@mui/icons-material/Check';
 import { ordersAPI } from '../../api/ordersAPI';
 import { userAPI } from '../../api/userAPI';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function PerfumeDetail() {
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageTitle,
+        messageContent,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
     const location = useLocation();
     const dispatch = useDispatch();
-    const [userData, setUserData] = useState(
-        JSON.parse(window.localStorage.getItem('user_data')) || null,
-    );
-    const [showNotification, setShowNotification] = useState(false);
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
 
     // get the perfume data passed from navigation
     const { perfume } = location.state || {};
@@ -152,26 +158,21 @@ function PerfumeDetail() {
     // };
 
     const handleAddProduct = () => {
-        const userId = userData.userId; // id user here
-        const mockData = {
-            product: '6713e6a76d1bf8a24f22fae3', // id product here
-            variant: '6713e6a76d1bf8a24f22faea', // id variant here
-            quantity: 1,
-        };
-        const result = userAPI.addProductToCart(userId, mockData);
-        console.log('result: ', { result });
-        if (result) {
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
+        if (userData) {
+            const userId = userData.userId; // id user here
+            const mockData = {
+                product: '6713e6a76d1bf8a24f22fae3', // id product here
+                variant: '6713e6a76d1bf8a24f22faea', // id variant here
+                quantity: 1,
+            };
+            const result = userAPI.addProductToCart(userId, mockData);
+            console.log('result: ', { result });
+            if (result) {
+                showMessage('');
+            }
+        } else {
+            showMessage('warning', 'Add to cart', 'Must log into the system!');
         }
-    };
-
-    // handle Close notification
-    const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
     };
 
     const handleSizeSelected = (size) => {
@@ -597,9 +598,9 @@ function PerfumeDetail() {
                     className={`animate__animated ${showAnimation}`}
                 >
                     <NotificationMessage
-                        msgType={'success'}
-                        msgTitle={'Add product'}
-                        msgContent={'Product added to cart!'}
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
                         autoHideDuration={3000} // Auto-hide after 5 seconds
                         onClose={handleCloseNotification}
                     />
