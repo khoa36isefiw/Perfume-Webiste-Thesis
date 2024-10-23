@@ -162,7 +162,6 @@ function PerfumeDetail() {
         console.log('result: ', { result });
         if (result) {
             setShowNotification(true);
-
             setShowAnimation('animate__bounceInRight');
         }
     };
@@ -270,7 +269,7 @@ function PerfumeDetail() {
                                 <Box
                                     component={'img'}
                                     // src={perfume.perfumeImage}
-                                    src={perfume.quickViewImage[selectedImage]}
+                                    src={perfume.imagePath[selectedImage]}
                                     sx={{
                                         height: '100%',
                                         objectFit: 'cover',
@@ -465,15 +464,16 @@ function PerfumeDetail() {
                         {/* Price */}
                         <Box sx={{ display: 'flex' }}>
                             {/* original price */}
+
                             <CustomizeTypography
                                 sx={{
                                     textDecoration: perfume.discount ? 'line-through' : null,
                                     fontWeight: 'bold',
                                 }}
                             >
-                                {/* 10.500.000 ₫ */}
                                 {/* {converToVND(perfume.perfumePriceVND)} */}
-                                {converToVND(selectedSize.perfumePrice)}
+                                {/* {converToVND(selectedSize.perfumePrice)} */}
+                                10.500.000 ₫
                             </CustomizeTypography>
                             {/* price sale off */}
                             {perfume.discount && perfume.perfumePriceDiscount !== null && (
@@ -492,7 +492,7 @@ function PerfumeDetail() {
 
                         {/* Product Size */}
                         <Box sx={{ display: 'flex' }}>
-                            {perfume.perfumeGroupSize.map((size, index) => (
+                            {perfume.variants.map((size, index) => (
                                 <Button
                                     key={index}
                                     sx={{
@@ -519,10 +519,11 @@ function PerfumeDetail() {
                                                 color: theme.palette.text.secondary,
                                             }}
                                         >
-                                            {size.perfumeSize} ml
+                                            {size.size} ml
                                         </CustomizeTypography>
                                         <CustomizeTypography sx={{ mb: 0, fontSize: '12px' }}>
-                                            {converToVND(size.perfumePrice)}
+                                            {/* {converToVND(size.perfumePrice)} */}
+                                            1.000.0005đ
                                         </CustomizeTypography>
                                     </Box>
                                     {selectedSize.perfumeSize === size.perfumeSize && (
