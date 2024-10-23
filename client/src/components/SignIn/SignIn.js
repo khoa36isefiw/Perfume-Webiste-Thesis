@@ -44,18 +44,18 @@ function SignIn() {
             const loginData = await authAPI.login(data);
             // console.log('request: ', loginData);
             console.log('response Sign In: ', loginData);
-            if (loginData) {
+            if (loginData.status === 200) {
                 // store all user data in localStorage as a JSON string
                 window.localStorage.setItem(
                     'user_data',
                     JSON.stringify({
-                        userId: loginData._id,
-                        imagePath: loginData.imagePath,
-                        email: loginData.email,
+                        userId: loginData.data._id,
+                        imagePath: loginData.data.imagePath,
+                        email: loginData.data.email,
                         // Add any other data you want to store
-                        firstName: loginData.firstName,
-                        lastName: loginData.lastName,
-                        roles: loginData.roles,
+                        firstName: loginData.data.firstName,
+                        lastName: loginData.data.lastName,
+                        roles: loginData.data.roles,
                     }),
                 );
                 showMessage('success', 'Login', 'Login successfully!');
@@ -63,10 +63,9 @@ function SignIn() {
                     navigate('/');
                 }, 1500);
             } else {
-                console.log('something went wrong');
+                showMessage('warning', 'Login', 'Your email or password is incorrect!');
             }
         } catch (error) {
-            console.log(error);
             showMessage('warning', 'Login', 'Your email or password is incorrect!');
         }
 

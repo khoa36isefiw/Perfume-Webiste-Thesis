@@ -13,8 +13,6 @@ export const authAPI = {
         }
     },
     login: (data) => {
-        // login
-
         try {
             const url = '/auths/login';
             const response = axiosClient.post(url, {
