@@ -16,12 +16,7 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { userAPI } from '../../api/userAPI';
 import { mutate } from 'swr';
 
-export const ProductInCart = ({
-    productsList,
-
-    selectedProducts,
-    setSelectedProducts,
-}) => {
+export const ProductInCart = ({ productsList, selectedProducts, setSelectedProducts }) => {
     // get userId from local storage
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
 
@@ -44,15 +39,14 @@ export const ProductInCart = ({
     const handleConfirmAgree = async () => {
         // click agree button actions
         if (productToRemove) {
-            console.log('productToRemove: ', productToRemove);
             const dataToRemove = {
                 // product, variant
                 product: productToRemove.productId,
                 variant: productToRemove.productSizeId,
             };
-            console.log('dataToRemove: ', dataToRemove);
+
             const removeProduct = await userAPI.removeProductFromCart(userId, dataToRemove);
-            console.log('respone product removed: ', removeProduct);
+
             if (removeProduct.status === 200) {
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
@@ -68,10 +62,7 @@ export const ProductInCart = ({
         // for showing confirm message dialog
         setOpenConfirmMessage(true);
         setProductToRemove({ productId, productSizeId }); // store product is removed
-        console.log('product information is removed: ', productToRemove);
     };
-
-    console.log('productToRemove: ', productToRemove);
 
     // handle Close notification
     const handleCloseNotification = () => {
@@ -80,8 +71,6 @@ export const ProductInCart = ({
             setShowNotification(false);
         }, 1000);
     };
-
-    console.log('Product in cart: ', productsList);
 
     const handleSelectProduct = (isChecked, size, productId) => {
         const check = selectedProducts.findIndex(
@@ -98,15 +87,14 @@ export const ProductInCart = ({
             setSelectedProducts((prev) => [...prev, { productId, size }]);
         }
     };
-
     console.log('list selected product: ', selectedProducts);
 
     const handleSelectAll = (isChecked) => {
         if (isChecked) {
             // Add all products to selectedProducts
             const allProducts = productsList.map((item) => ({
-                productId: item.perfumeID,
-                size: item.perfumeSize,
+                productId: item.product._id,
+                variantId: item.variant._id,
             }));
 
             setSelectedProducts(allProducts);
@@ -194,8 +182,8 @@ export const ProductInCart = ({
                                 <Checkbox
                                     checked={selectedProducts.some(
                                         (selectedItem) =>
-                                            selectedItem.productId === item.perfumeID &&
-                                            selectedItem.size === item.perfumeSize,
+                                            selectedItem.productId === item.product._id &&
+                                            selectedItem.variantId === item.variant._id,
                                     )}
                                     onChange={(e) =>
                                         handleSelectProduct(

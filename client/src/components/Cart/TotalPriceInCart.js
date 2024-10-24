@@ -11,8 +11,10 @@ import { useDispatch } from 'react-redux';
 import { saveSelectedProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
 
 function TotalPriceInCart({ productsList, selectedProducts }) {
+    console.log('productsList: ', productsList);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    console.log('selectedProducts: ', selectedProducts);
 
     // the total price for product selected
     const calculateTotal = () => {
@@ -20,11 +22,14 @@ function TotalPriceInCart({ productsList, selectedProducts }) {
 
         productsList.forEach((productItem) => {
             const product = selectedProducts.find(
-                (p) => p.productId === productItem.perfumeID && p.size === productItem.perfumeSize,
+                (p) =>
+                    p.productId === productItem.product._id &&
+                    p.variantId === productItem.variant._id,
             );
+            console.log('product: ', product);
 
             if (product) {
-                const price = productItem.quantity * productItem.perfumePrice;
+                const price = productItem.quantity * productItem.variant.price;
                 totalSubtotal += price;
             }
         });

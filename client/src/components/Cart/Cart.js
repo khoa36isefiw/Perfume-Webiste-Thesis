@@ -111,7 +111,7 @@ function Cart() {
 
                             <Grid item xs={12} lg={4}>
                                 <TotalPriceInCart
-                                    productsList={productAdded}
+                                    productsList={data.data.cart}
                                     selectedProducts={selectedProducts}
                                     setSelectedProducts={setSelectedProducts}
                                 />
