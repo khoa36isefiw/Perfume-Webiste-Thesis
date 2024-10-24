@@ -16,7 +16,12 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { userAPI } from '../../api/userAPI';
 import { mutate } from 'swr';
 
-export const ProductInCart = ({ productsList, selectedProducts, setSelectedProducts }) => {
+export const ProductInCart = ({
+    productsList,
+    selectedProducts,
+    setSelectedProducts,
+    setPriceChange,
+}) => {
     // get userId from local storage
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
 
@@ -74,7 +79,7 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
 
     const handleSelectProduct = (isChecked, size, productId) => {
         const check = selectedProducts.findIndex(
-            (item) => item.size === size && item.productId === productId,
+            (item) => item.variant._id === size && item.product._id === productId,
         );
 
         // if !== -1 --> exists --> checked --> remove from list
@@ -105,12 +110,12 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
     };
 
     const handleUpdateQuantity = async (pId, vId, newQuantity) => {
+        let total = 0;
         const updatedProductsList = [...productsList];
         const productToUpdate = updatedProductsList.find(
             // find product is selected to update product quantity
             (product) => product.product._id === pId && product.variant._id === vId,
         );
-
         if (productToUpdate) {
             // update the quantity of the product
             productToUpdate.quantity = newQuantity;
@@ -126,8 +131,22 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
 
             const response = await userAPI.updateProductQuantity(userId, updateData);
             if (response.status === 200) {
+                setPriceChange(true);
                 // if the API call succeeds, revalidate data to ensure consistency
                 mutate(); // fetch fresh data from the server
+                productsList.forEach((productItem) => {
+                    const product = selectedProducts.find(
+                        (p) =>
+                            p.productId === productItem.product._id &&
+                            p.variantId === productItem.variant._id,
+                    );
+
+                    if (product) {
+                        const price = productItem.quantity * productItem.variant.price;
+                        total += price;
+                    }
+                });
+                window.localStorage.setItem('current_price', JSON.stringify(total));
             } else {
                 throw new Error('Failed to update quantity');
             }

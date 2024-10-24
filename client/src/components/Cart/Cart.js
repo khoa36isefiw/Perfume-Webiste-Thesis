@@ -18,6 +18,7 @@ import useUserById from '../../api/useUserById';
 function Cart() {
     const navigate = useNavigate();
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
+    const [priceChange, setPriceChange] = useState(false);
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
     const { data, isLoading, error } = useUserById(userId);
 
@@ -106,6 +107,7 @@ function Cart() {
                                     productsList={data.data.cart}
                                     selectedProducts={selectedProducts}
                                     setSelectedProducts={setSelectedProducts}
+                                    setPriceChange={setPriceChange}
                                 />
                             </Grid>
 
@@ -114,6 +116,8 @@ function Cart() {
                                     productsList={data.data.cart}
                                     selectedProducts={selectedProducts}
                                     setSelectedProducts={setSelectedProducts}
+                                    setPriceChange={setPriceChange}
+                                    priceChange={priceChange}
                                 />
                             </Grid>
                         </Grid>
