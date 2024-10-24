@@ -56,4 +56,10 @@ export const userAPI = {
         const url = `/users/${userId}/add-to-cart`;
         return axiosClient.post(url, data);
     },
+
+    updateProductQuantity: (userId, data) => {
+        // /:id/update-cart
+        const url = `/users/${userId}/update-cart`;
+        return axiosClient.put(url, data);
+    },
 };
