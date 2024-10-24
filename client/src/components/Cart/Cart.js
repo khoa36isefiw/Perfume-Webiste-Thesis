@@ -18,12 +18,9 @@ import useUserById from '../../api/useUserById';
 function Cart() {
     const navigate = useNavigate();
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
-
-    const productInCart = JSON.parse(window.localStorage.getItem('cart'));
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
-
     const { data, isLoading, error } = useUserById(userId);
-    console.log('user data: ', data);
+
     const [selectedProducts, setSelectedProducts] = useState([]);
 
     return (
@@ -106,7 +103,6 @@ function Cart() {
                         >
                             <Grid item xs={12} lg={8}>
                                 <ProductInCart
-                                    // productsList={productAdded}
                                     productsList={data.data.cart}
                                     selectedProducts={selectedProducts}
                                     setSelectedProducts={setSelectedProducts}

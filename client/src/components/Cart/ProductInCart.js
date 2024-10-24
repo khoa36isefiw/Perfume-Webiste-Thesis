@@ -16,7 +16,12 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { userAPI } from '../../api/userAPI';
 import { mutate } from 'swr';
 
-export const ProductInCart = ({ productsList, selectedProducts, setSelectedProducts }) => {
+export const ProductInCart = ({
+    productsList,
+
+    selectedProducts,
+    setSelectedProducts,
+}) => {
     // get userId from local storage
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
 
@@ -35,30 +40,38 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
         setProductToRemove(null);
     };
 
-    console.log('productToRemove: ', productToRemove);
     // agree, delete the products
-    const handleConfirmAgree = () => {
+    const handleConfirmAgree = async () => {
         // click agree button actions
         if (productToRemove) {
-            dispatch(
-                removeProduct({
-                    productId: productToRemove.productId,
-                    productSize: productToRemove.productSize,
-                }),
-            ); // remove product
+            console.log('productToRemove: ', productToRemove);
+            const dataToRemove = {
+                // product, variant
+                product: productToRemove.productId,
+                variant: productToRemove.productSizeId,
+            };
+            console.log('dataToRemove: ', dataToRemove);
+            const removeProduct = await userAPI.removeProductFromCart(userId, dataToRemove);
+            console.log('respone product removed: ', removeProduct);
+            if (removeProduct.status === 200) {
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setOpenConfirmMessage(false);
+            } else {
+                console.log('we gotcha the problem tehee!');
+            }
         }
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
-        setOpenConfirmMessage(false);
-        setProductToRemove(null);
     };
 
     // open the confirm dialog message and save the products are removed
-    const handleRemoveProductInCart = (productId, productSize) => {
+    const handleRemoveProductInCart = (productId, productSizeId) => {
         // for showing confirm message dialog
         setOpenConfirmMessage(true);
-        setProductToRemove({ productId, productSize }); // store product is removed
+        setProductToRemove({ productId, productSizeId }); // store product is removed
+        console.log('product information is removed: ', productToRemove);
     };
+
+    console.log('productToRemove: ', productToRemove);
 
     // handle Close notification
     const handleCloseNotification = () => {
@@ -110,7 +123,7 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
             (product) => product.product._id === pId && product.variant._id === vId,
         );
 
-        if (productToUpdate && pQuantity > 0) {
+        if (productToUpdate) {
             // update the quantity of the product
             productToUpdate.quantity = newQuantity;
             setPQuantity(newQuantity);
@@ -390,8 +403,8 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
                                         <Button
                                             onClick={() =>
                                                 handleRemoveProductInCart(
-                                                    item.perfumeID,
-                                                    item.perfumeSize,
+                                                    item.product?._id,
+                                                    item.variant?._id,
                                                 )
                                             }
                                             startIcon={
