@@ -13,17 +13,22 @@ import TotalPriceInCart from './TotalPriceInCart';
 import EmptyCart from '../EmptyCart/EmptyCart';
 import EmptyOrders from '../EmptyOrders/EmptyOrders';
 import Check from '@mui/icons-material/Check';
+import useUserById from '../../api/useUserById';
 
 function Cart() {
     const navigate = useNavigate();
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
 
     const productInCart = JSON.parse(window.localStorage.getItem('cart'));
+    const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+
+    const { data, isLoading, error } = useUserById(userId);
+    console.log('user data: ', data);
     const [selectedProducts, setSelectedProducts] = useState([]);
 
     return (
         <React.Fragment>
-            {productInCart?.cart.length > 0 ? (
+            {data?.data?.cart.length > 0 ? (
                 <Container sx={{ my: 16 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} lg={12}>
@@ -102,7 +107,7 @@ function Cart() {
                             <Grid item xs={12} lg={8}>
                                 <ProductInCart
                                     // productsList={productAdded}
-                                    productsList={productInCart.cart}
+                                    productsList={data.data.cart}
                                     selectedProducts={selectedProducts}
                                     setSelectedProducts={setSelectedProducts}
                                 />
