@@ -13,13 +13,20 @@ import { converToVND } from '../convertToVND/convertToVND';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import WarningIcon from '@mui/icons-material/Warning';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { userAPI } from '../../api/userAPI';
+import { mutate } from 'swr';
 
 export const ProductInCart = ({ productsList, selectedProducts, setSelectedProducts }) => {
+    // get userId from local storage
+    const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+
     const dispatch = useDispatch();
     const [productToRemove, setProductToRemove] = useState(null);
     const [openConfirmMessage, setOpenConfirmMessage] = React.useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [pQuantity, setPQuantity] = useState(0);
+    const [productToUpdate, setProductToUpdate] = useState(null);
 
     // disagree, not delete the products
     const handleConfirmDisagree = () => {
@@ -93,6 +100,38 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
         } else {
             // Clear selectedProducts when unchecked
             setSelectedProducts([]);
+        }
+    };
+
+    const handleUpdateQuantity = async (pId, vId, newQuantity) => {
+        const updatedProductsList = [...productsList];
+        const productToUpdate = updatedProductsList.find(
+            // find product is selected to update product quantity
+            (product) => product.product._id === pId && product.variant._id === vId,
+        );
+
+        if (productToUpdate && pQuantity > 0) {
+            // update the quantity of the product
+            productToUpdate.quantity = newQuantity;
+            setPQuantity(newQuantity);
+            setProductToUpdate(productToUpdate);
+            // update the UI immediately (optimistic update)
+            mutate({ updatedProductsList }, true); // if change something, call api
+            const updateData = {
+                product: pId,
+                variant: vId,
+                quantity: newQuantity,
+            };
+
+            const response = await userAPI.updateProductQuantity(userId, updateData);
+            if (response.status === 200) {
+                // if the API call succeeds, revalidate data to ensure consistency
+                mutate(); // fetch fresh data from the server
+            } else {
+                throw new Error('Failed to update quantity');
+            }
+        } else {
+            console.error('Product not found');
         }
     };
 
@@ -176,8 +215,7 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
                                     }}
                                 >
                                     <Box
-                                        loading="lazy"
-                                        src={item.perfumeImage}
+                                        src={item.product?.imagePath[0]}
                                         component="img"
                                         sx={{
                                             borderRadius: 1,
@@ -211,7 +249,7 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
                                                 },
                                             }}
                                         >
-                                            {item.perfumeName}
+                                            {item.product?.nameEn}
                                         </CustomizeTypography>
                                         {/* price and stocks status */}
                                         <CustomizeTypography
@@ -225,10 +263,11 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
                                             }}
                                         >
                                             <span>
-                                                {item.perfumePrice.toLocaleString('it-IT', {
+                                                {converToVND(item.variant?.price)}
+                                                {/* {item.perfumePrice.toLocaleString('it-IT', {
                                                     style: 'currency',
                                                     currency: 'VND',
-                                                })}
+                                                })} */}
                                             </span>
                                             <Box
                                                 sx={{
@@ -258,7 +297,7 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
                                                 },
                                             }}
                                         >
-                                            {item.perfumeSize} ml
+                                            {item.variant.size}
                                         </CustomizeTypography>
 
                                         {/* increase quantity */}
@@ -285,11 +324,10 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
                                                     cursor: 'pointer',
                                                 }}
                                                 onClick={() =>
-                                                    dispatch(
-                                                        decreaseQuantity({
-                                                            productId: item.perfumeID,
-                                                            productSize: item.perfumeSize,
-                                                        }),
+                                                    handleUpdateQuantity(
+                                                        item?.product._id,
+                                                        item?.variant?._id,
+                                                        item?.quantity - 1,
                                                     )
                                                 }
                                             >
@@ -301,8 +339,19 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
                                                     mb: 0,
                                                 }}
                                             >
-                                                {item.quantity}
+                                                {
+                                                    // Check if the productId and variantId match the updated product,
+                                                    // otherwise render the original quantity
+                                                    productToUpdate &&
+                                                    item?.product._id ===
+                                                        productToUpdate.product._id &&
+                                                    item?.variant._id ===
+                                                        productToUpdate.variant._id
+                                                        ? pQuantity
+                                                        : item.quantity
+                                                }
                                             </CustomizeTypography>
+
                                             <CustomizeTypography
                                                 sx={{
                                                     fontSize: '16px',
@@ -314,11 +363,10 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
                                                     cursor: 'pointer',
                                                 }}
                                                 onClick={() =>
-                                                    dispatch(
-                                                        increaseQuantity({
-                                                            productId: item.perfumeID,
-                                                            productSize: item.perfumeSize,
-                                                        }),
+                                                    handleUpdateQuantity(
+                                                        item?.product._id,
+                                                        item?.variant?._id,
+                                                        item?.quantity + 1,
                                                     )
                                                 }
                                             >
@@ -326,6 +374,7 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
                                             </CustomizeTypography>
                                         </Box>
                                     </Box>
+                                    {/* calculate total product */}
                                     <Box>
                                         <CustomizeTypography
                                             sx={{
@@ -336,7 +385,7 @@ export const ProductInCart = ({ productsList, selectedProducts, setSelectedProdu
                                                 },
                                             }}
                                         >
-                                            {converToVND(item.quantity * item.perfumePrice)}
+                                            {converToVND(item.quantity * item?.variant.price)}
                                         </CustomizeTypography>
                                         <Button
                                             onClick={() =>
