@@ -252,28 +252,30 @@ function PerfumesCard() {
                                             },
                                         }}
                                     >
-                                        <CustomizeTypography
-                                            sx={{
-                                                fontWeight: 'bold',
-                                                zIndex: 99,
-                                                textDecoration: perfume.discount
-                                                    ? 'line-through'
-                                                    : 'null',
-                                                [ipadProScreen]: {
-                                                    mb: 0,
-                                                },
-                                                [tabletScreen]: {
-                                                    fontSize: theme.fontSize.mobile.text14,
-                                                },
-                                                [mobileScreen]: {
-                                                    fontSize: theme.fontSize.mobile.text14,
-                                                    mb: 0,
-                                                },
-                                            }}
-                                        >
-                                            {/* 3.280.000 */}
-                                            {converToVND(perfume.variants[0].priceSale)}
-                                        </CustomizeTypography>
+                                        {perfume.variants[0]?.priceSale && (
+                                            <CustomizeTypography
+                                                sx={{
+                                                    fontWeight: 'bold',
+                                                    zIndex: 99,
+                                                    textDecoration: perfume.discount
+                                                        ? 'line-through'
+                                                        : 'null',
+                                                    [ipadProScreen]: {
+                                                        mb: 0,
+                                                    },
+                                                    [tabletScreen]: {
+                                                        fontSize: theme.fontSize.mobile.text14,
+                                                    },
+                                                    [mobileScreen]: {
+                                                        fontSize: theme.fontSize.mobile.text14,
+                                                        mb: 0,
+                                                    },
+                                                }}
+                                            >
+                                                {/* 3.280.000 */}
+                                                {converToVND(perfume.variants[0]?.priceSale)}
+                                            </CustomizeTypography>
+                                        )}
 
                                         <CustomizeTypography
                                             sx={{
