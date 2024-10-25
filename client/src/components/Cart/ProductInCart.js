@@ -77,21 +77,20 @@ export const ProductInCart = ({
         }, 1000);
     };
 
-    const handleSelectProduct = (isChecked, productSizeId, productId) => {
-        const check = selectedProducts.findIndex(
-            (item) => item.variant._id === productSizeId && item.product._id === productId,
+    console.log('selectedProducts: ', selectedProducts);
+    const handleSelectProduct = (isChecked, variantId, productId) => {
+        const check = selectedProducts?.findIndex(
+            (item) => item.variantId === variantId && item.productId === productId,
         );
 
         // if !== -1 --> exists --> checked --> remove from list
         if (!isChecked && check !== -1) {
             setSelectedProducts((prev) =>
-                prev.filter(
-                    (item) => item.product._id !== productId || item.variant._id !== productSizeId,
-                ),
+                prev.filter((item) => item.productId !== productId || item.variantId !== variantId),
             );
         } else {
             // add to list want to buy
-            setSelectedProducts((prev) => [...prev, { productId, productSizeId }]);
+            setSelectedProducts((prev) => [...prev, { productId, variantId }]);
         }
     };
     console.log('list selected product: ', selectedProducts);
@@ -203,11 +202,15 @@ export const ProductInCart = ({
                                 <Checkbox
                                     checked={selectedProducts.some(
                                         (selectedItem) =>
-                                            selectedItem.productId === item.product._id &&
-                                            selectedItem.variantId === item.variant._id,
+                                            selectedItem?.productId === item.product._id &&
+                                            selectedItem?.variantId === item.variant._id,
                                     )}
                                     onChange={(e) =>
-                                        handleSelectProduct(e.target.checked, item, item)
+                                        handleSelectProduct(
+                                            e.target.checked,
+                                            item.variant._id,
+                                            item.product._id,
+                                        )
                                     }
                                     sx={{
                                         mr: 2,
