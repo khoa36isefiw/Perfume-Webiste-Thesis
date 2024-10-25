@@ -396,7 +396,7 @@ function CheckoutInformation() {
                         </CustomizeTypography>
                         <CustomizeCheckoutInput
                             placeholder="Nhập số điện thoại"
-                            value={loggedInAccount?.phoneNumber}
+                            value={userData?.phoneNumber}
                         />
                         <CustomizeCheckoutInput
                             placeholder="Nhập họ tên"

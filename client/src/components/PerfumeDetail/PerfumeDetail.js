@@ -37,7 +37,14 @@ function PerfumeDetail() {
     } = useShowNotificationMessage();
     // get the perfume data passed from navigation
     const { perfume } = location.state || {};
-    const [selectedSize, setSelectedSize] = useState(perfume.variants[0].size);
+    // const [selectedSize, setSelectedSize] = useState(perfume.variants[0].size);
+    const [selectedSize, setSelectedSize] = useState({
+        size: perfume.variants[0].size,
+        price: perfume.variants[0].price,
+        priceSale: perfume.variants[0].priceSale,
+        variantIDSelected: perfume.variants[0]?._id,
+        discount: perfume.variants[0]?.discountPercent,
+    });
 
     // get list product added to cart
     const cartItems = useSelector((state) => state.cartManagement.productInfor);
@@ -157,33 +164,18 @@ function PerfumeDetail() {
     //     }
     // };
 
-    const handleAddProduct = async () => { // add to cart, when users moving to cart --> get user byID get all information
+    const handleAddProduct = async () => {
+        // add to cart, when users moving to cart --> get user byID get all information
         if (userData) {
             const userId = userData.userId; // id user here
             const mockData = {
                 product: perfume?._id, // id product here
-                variant: '67148e73e24c52831551db7e', // id variant here
+                variant: selectedSize.variantIDSelected, // id variant here
                 quantity: 1,
-                // productName, productImage
-                // productName: perfume.nameEn,
-                // productImage: perfume?.imagePath[0],
             };
             const result = await userAPI.addProductToCart(userId, mockData);
             console.log('product information: ', result.data);
             if (result) {
-                // window.localStorage.setItem('cart', JSON.stringify(result.data));
-                window.localStorage.setItem(
-                    'cart',
-                    JSON.stringify({
-                        userId: result.data?._id,
-                        cart: result.data?.cart,
-                        email: result.data.email,
-                        firstName: result.data.firstName,
-                        lastName: result.data.lastName,
-                        imagePath: result.data.imagePath,
-                        phoneNumber: result.data.phoneNumber,
-                    }),
-                );
                 showMessage(
                     'success',
                     'Add to cart',
@@ -200,7 +192,13 @@ function PerfumeDetail() {
 
     const handleSizeSelected = (index) => {
         // setSelectedSize(size);
-        selectedSize(perfume.variants[index].size);
+        setSelectedSize({
+            size: perfume.variants[index].size,
+            price: perfume.variants[index].price,
+            priceSale: perfume.variants[index].priceSale,
+            variantIDSelected: perfume.variants[index]?._id,
+            discount: perfume.variants[index]?.discountPercent,
+        });
     };
 
     console.log('selectedSize: ', selectedSize);
@@ -248,7 +246,7 @@ function PerfumeDetail() {
                                 }}
                             >
                                 {/* discount must !== 0 */}
-                                {perfume?.perfumeDiscount !== 0 && (
+                                {selectedSize?.discount !== 0 && (
                                     <Box
                                         sx={{
                                             position: 'absolute',
@@ -268,7 +266,7 @@ function PerfumeDetail() {
                                             justifyContent: 'center',
                                         }}
                                     >
-                                        {/* - 15% */}- {perfume.perfumeDiscount}%
+                                        {/* - 15% */}- {selectedSize?.discount}%
                                     </Box>
                                 )}
 
@@ -495,16 +493,15 @@ function PerfumeDetail() {
 
                             <CustomizeTypography
                                 sx={{
-                                    textDecoration: perfume.discount ? 'line-through' : null,
+                                    textDecoration: selectedSize.discount ? 'line-through' : null,
                                     fontWeight: 'bold',
                                 }}
                             >
                                 {/* {converToVND(perfume.perfumePriceVND)} */}
-                                {/* {converToVND(selectedSize.perfumePrice)} */}
-                                10.500.000 ₫
+                                {converToVND(selectedSize.price)}
                             </CustomizeTypography>
                             {/* price sale off */}
-                            {perfume.discount && perfume.perfumePriceDiscount !== null && (
+                            {selectedSize.discount && (
                                 <CustomizeTypography
                                     sx={{
                                         color: theme.palette.text.primary,
@@ -513,7 +510,7 @@ function PerfumeDetail() {
                                     }}
                                 >
                                     {/* 9.980.000 ₫ */}
-                                    {converToVND(perfume.perfumePriceDiscount)}
+                                    {converToVND(selectedSize.priceSale)}
                                 </CustomizeTypography>
                             )}
                         </Box>
@@ -554,7 +551,7 @@ function PerfumeDetail() {
                                             {converToVND(size.price)}
                                         </CustomizeTypography>
                                     </Box>
-                                    {selectedSize.perfumeSize === size.perfumeSize && (
+                                    {selectedSize.size === size.size && (
                                         <IconButton>
                                             <CheckIcon
                                                 sx={{ color: '#18920D', fontSize: '18px' }}

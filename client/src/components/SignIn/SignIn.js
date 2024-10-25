@@ -56,6 +56,7 @@ function SignIn() {
                         firstName: loginData.data.firstName,
                         lastName: loginData.data.lastName,
                         roles: loginData.data.roles,
+                        address: loginData.data.address,
                     }),
                 );
                 showMessage('success', 'Login', 'Login successfully!');

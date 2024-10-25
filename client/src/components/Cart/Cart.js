@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, Container, Divider, Grid } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -13,17 +13,25 @@ import TotalPriceInCart from './TotalPriceInCart';
 import EmptyCart from '../EmptyCart/EmptyCart';
 import EmptyOrders from '../EmptyOrders/EmptyOrders';
 import Check from '@mui/icons-material/Check';
+import useUserById from '../../api/useUserById';
 
 function Cart() {
     const navigate = useNavigate();
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
+    const [priceChange, setPriceChange] = useState(false);
+    const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+    const { data, isLoading, error } = useUserById(userId);
 
-    const productInCart = JSON.parse(window.localStorage.getItem('cart'));
     const [selectedProducts, setSelectedProducts] = useState([]);
+
+    console.log('selectedProducts: ', selectedProducts);
+    useEffect(() => {
+        window.localStorage.setItem('list_product_selected', JSON.stringify(selectedProducts));
+    }, [selectedProducts]);
 
     return (
         <React.Fragment>
-            {productInCart?.cart.length > 0 ? (
+            {data?.data?.cart.length > 0 ? (
                 <Container sx={{ my: 16 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} lg={12}>
@@ -101,18 +109,20 @@ function Cart() {
                         >
                             <Grid item xs={12} lg={8}>
                                 <ProductInCart
-                                    // productsList={productAdded}
-                                    productsList={productInCart.cart}
+                                    productsList={data.data.cart}
                                     selectedProducts={selectedProducts}
                                     setSelectedProducts={setSelectedProducts}
+                                    setPriceChange={setPriceChange}
                                 />
                             </Grid>
 
                             <Grid item xs={12} lg={4}>
                                 <TotalPriceInCart
-                                    productsList={productAdded}
+                                    productsList={data.data.cart}
                                     selectedProducts={selectedProducts}
                                     setSelectedProducts={setSelectedProducts}
+                                    setPriceChange={setPriceChange}
+                                    priceChange={priceChange}
                                 />
                             </Grid>
                         </Grid>
