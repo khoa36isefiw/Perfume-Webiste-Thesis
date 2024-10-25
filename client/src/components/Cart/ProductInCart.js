@@ -77,19 +77,21 @@ export const ProductInCart = ({
         }, 1000);
     };
 
-    const handleSelectProduct = (isChecked, size, productId) => {
+    const handleSelectProduct = (isChecked, productSizeId, productId) => {
         const check = selectedProducts.findIndex(
-            (item) => item.variant._id === size && item.product._id === productId,
+            (item) => item.variant._id === productSizeId && item.product._id === productId,
         );
 
         // if !== -1 --> exists --> checked --> remove from list
         if (!isChecked && check !== -1) {
             setSelectedProducts((prev) =>
-                prev.filter((item) => item.productId !== productId || item.size !== size),
+                prev.filter(
+                    (item) => item.product._id !== productId || item.variant._id !== productSizeId,
+                ),
             );
         } else {
             // add to list want to buy
-            setSelectedProducts((prev) => [...prev, { productId, size }]);
+            setSelectedProducts((prev) => [...prev, { productId, productSizeId }]);
         }
     };
     console.log('list selected product: ', selectedProducts);
@@ -190,7 +192,7 @@ export const ProductInCart = ({
             >
                 {/* render list of the products added  */}
                 {productsList.map((item, index) => (
-                    <Box key={item.perfumeID}>
+                    <Box key={index}>
                         <Box>
                             <Box
                                 sx={{
@@ -205,11 +207,7 @@ export const ProductInCart = ({
                                             selectedItem.variantId === item.variant._id,
                                     )}
                                     onChange={(e) =>
-                                        handleSelectProduct(
-                                            e.target.checked,
-                                            item.perfumeSize,
-                                            item.perfumeID,
-                                        )
+                                        handleSelectProduct(e.target.checked, item, item)
                                     }
                                     sx={{
                                         mr: 2,

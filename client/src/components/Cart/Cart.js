@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, Container, Divider, Grid } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -23,6 +23,11 @@ function Cart() {
     const { data, isLoading, error } = useUserById(userId);
 
     const [selectedProducts, setSelectedProducts] = useState([]);
+
+    console.log('selectedProducts: ', selectedProducts);
+    useEffect(() => {
+        window.localStorage.setItem('list_product_selected', JSON.stringify(selectedProducts));
+    }, [selectedProducts]);
 
     return (
         <React.Fragment>
