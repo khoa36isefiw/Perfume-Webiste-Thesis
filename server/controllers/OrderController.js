@@ -6,7 +6,20 @@ const OrderController = {
             const orders = await Order.find({ deleted: false }, null, { lean: true });
             res.status(200).json(orders);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    getByUserId: async (req, res) => {
+        try {
+            const { userId } = req.params;
+            const orders = await Order.find({ userId });
+            if (!orders) {
+                return res.status(404).json({ message: 'Order not found' });
+            }
+            res.status(200).json(orders);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -19,46 +32,40 @@ const OrderController = {
             }
             res.status(200).json(order);
         } catch (error) {
-            res.status(404).json({ message: error.message });
-        }
-    },
-
-    getByUserId: async (req, res) => {
-        try {
-            const { userId } = req.params;
-            const orders = await Order.find({ userId }, null, { lean: true });
-            res.status(200).json(orders);
-        } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
     create: async (req, res) => {
-        const { userId, item } = req.body;
+        const { userId, items } = req.body;
         try {
             const newOrder = new Order({
                 userId,
-                status: 'IN_SHOPPING_CART',
+                status: 'PENDING_PAYMENT',
+                totalPrice: 0,
             });
-            if (!!item) {
-                const product = await Product.findOne({ _id: item.productId });
-                const variant = await Variant.findOne({ _id: item.variantId });
-                newOrder.item = {
-                    productId: product._id,
-                    productName: product.nameEn,
-                    imagePath: product.imagePath,
-                    size: variant.size,
-                    price: variant.price,
-                    priceSale: variant.priceSale,
-                    quantity: item.quantity,
-                };
-                const totalPrice = (newOrder.item.priceSale ?? newOrder.item.price) * item.quantity;
-                newOrder.totalPrice = totalPrice;
+            if (!!items.length) {
+                item.map(async (item) => {
+                    const product = await Product.findOne({ _id: item.productId });
+                    const variant = await Variant.findOne({ _id: item.variantId });
+                    newOrder.items.push({
+                        productId: product._id,
+                        productName: product.nameEn,
+                        imagePath: product.imagePath,
+                        size: variant.size,
+                        price: variant.price,
+                        priceSale: variant.priceSale,
+                        quantity: item.quantity,
+                    });
+                    const totalPrice =
+                        (newOrder.item.priceSale ?? newOrder.item.price) * item.quantity;
+                    newOrder.totalPrice = totalPrice;
+                });
             }
             const order = await newOrder.save();
             res.status(201).json(order);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -80,7 +87,7 @@ const OrderController = {
             );
             res.status(200).json({ message: 'Order updated successfully' });
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -94,7 +101,7 @@ const OrderController = {
             await Order.updateOne({ _id: id }, { deleted: true });
             res.status(200).json({ message: 'Order deleted successfully' });
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 };
