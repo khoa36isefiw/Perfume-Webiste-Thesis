@@ -101,6 +101,11 @@ export const ProductInCart = ({
             const allProducts = productsList.map((item) => ({
                 productId: item.product._id,
                 variantId: item.variant._id,
+                productName: item.product.nameEn,
+                productSize: item.variant.size,
+                productImage: item.product?.imagePath[0],
+                productQuantity: item.quantity,
+                productPrice: item.variant.price,
             }));
 
             setSelectedProducts(allProducts);
