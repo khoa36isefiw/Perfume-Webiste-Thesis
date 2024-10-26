@@ -1,64 +1,97 @@
+const { PAYPAL_API, getPayPalToken } = require('../configs/paypal.config');
 const Payment = require('../models/Payment.model');
 
 const PaymentController = {
-    getAll: async (req, res) => {
+    createOrder: async (req, res) => {
+        const { userId, orderDetails } = req.body;
         try {
-            const orders = await Payment.find({ deleted: false }, null, { lean: true });
-            res.status(200).json(orders);
+            const newOrder = new Order({
+                user: userId,
+                items: orderDetails.items,
+                totalPrice: orderDetails.totalPrice,
+                email: orderDetails.email,
+                address: orderDetails.address,
+                phoneNumber: orderDetails.phoneNumber,
+                status: 'PENDING_PAYMENT',
+            });
+
+            const savedOrder = await newOrder.save();
+
+            const token = await getPayPalToken();
+
+            const response = await axios.post(
+                `${PAYPAL_API}/v2/checkout/orders`,
+                {
+                    intent: 'CAPTURE',
+                    purchase_units: [
+                        {
+                            amount: {
+                                currency_code: 'USD',
+                                value: savedOrder.totalPrice,
+                            },
+                        },
+                    ],
+                    application_context: {
+                        return_url: `${process.env.CLIENT_URL}/success?orderId=${orderId}`,
+                        cancel_url: `${process.env.CLIENT_URL}/cancel`,
+                    },
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+
+            const newPayment = new Payment({
+                orderId: savedOrder._id,
+                amount: savedOrder.totalPrice,
+                details: response.data.id, // PayPal order ID
+                paid: false,
+                paymentMethod: 'PAYPAL',
+            });
+            await newPayment.save();
+
+            res.json({ id: response.data.id });
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ error: error.message });
         }
     },
 
-    getById: async (req, res) => {
+    captureOrder: async (req, res) => {
+        const { paymentId } = req.body;
+
         try {
-            const { id } = req.params;
-            const order = await Payment.findOne({ _id: id });
-            if (!order) {
-                return res.status(404).json({ message: 'Payment not found' });
+            const token = await getPayPalToken();
+            const response = await axios.post(
+                `${PAYPAL_API}/v2/checkout/orders/${paymentId}/capture`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+
+            if (response.data.status === 'COMPLETED') {
+                // Update the payment and order status in MongoDB
+                await Payment.findOneAndUpdate(
+                    { details: paymentId },
+                    { paid: true, details: JSON.stringify(response.data) },
+                );
+
+                await Order.findOneAndUpdate(
+                    { _id: response.data.purchase_units[0].reference_id },
+                    { status: 'PAID' },
+                );
+
+                res.json({ message: 'Payment successful', status: 'PAID' });
+            } else {
+                await Payment.findOneAndUpdate({ details: paymentId }, { paid: false });
+                res.json({ message: 'Payment failed', status: 'PENDING_PAYMENT' });
             }
-            res.status(200).json(order);
         } catch (error) {
-            res.status(404).json({ message: error.message });
-        }
-    },
-
-    create: async (req, res) => {
-        const { userId } = req.body;
-        try {
-            const order = await Payment.create({});
-            res.status(201).json(order);
-        } catch (error) {
-            res.status(404).json({ message: error.message });
-        }
-    },
-
-    update: async (req, res) => {
-        const { id } = req.params;
-        const updateData = req.body;
-        try {
-            const order = await Payment.findOne({ _id: id });
-            if (!order) {
-                return res.status(404).json({ message: 'Payment not found' });
-            }
-            await Payment.updateOne({ _id: id }, updateData);
-            res.status(200).json({ message: 'Payment updated successfully' });
-        } catch (error) {
-            res.status(404).json({ message: error.message });
-        }
-    },
-
-    delete: async (req, res) => {
-        const { id } = req.params;
-        try {
-            const order = await Payment.findOne({ _id: id });
-            if (!order) {
-                return res.status(404).json({ message: 'Payment not found' });
-            }
-            await Payment.updateOne({ _id: id }, { deleted: true });
-            res.status(200).json({ message: 'Payment deleted successfully' });
-        } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ error: error.message });
         }
     },
 };

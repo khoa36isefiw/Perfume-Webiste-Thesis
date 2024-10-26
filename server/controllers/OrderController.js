@@ -1,4 +1,6 @@
 const Order = require('../models/Order.model');
+const Product = require('../models/Product.model');
+const Variant = require('../models/Variant.model');
 
 const OrderController = {
     getAll: async (req, res) => {
@@ -13,7 +15,7 @@ const OrderController = {
     getByUserId: async (req, res) => {
         try {
             const { userId } = req.params;
-            const orders = await Order.find({ userId });
+            const orders = await Order.find({ user: userId });
             if (!orders) {
                 return res.status(404).json({ message: 'Order not found' });
             }
@@ -37,19 +39,21 @@ const OrderController = {
     },
 
     create: async (req, res) => {
-        const { userId, items } = req.body;
+        const { user, items } = req.body;
         try {
             const newOrder = new Order({
-                userId,
+                user,
                 status: 'PENDING_PAYMENT',
                 totalPrice: 0,
             });
-            if (!!items.length) {
-                items.map(async (item) => {
-                    const product = await Product.findOne({ _id: item.productId });
-                    const variant = await Variant.findOne({ _id: item.variantId });
+
+            if (items.length) {
+                for (const item of items) {
+                    const product = await Product.findOne({ _id: item.product });
+                    const variant = await Variant.findOne({ _id: item.variant });
                     newOrder.items.push({
-                        productId: product._id,
+                        product: product._id,
+                        variant: variant._id,
                         productName: product.nameEn,
                         imagePath: product.imagePath,
                         size: variant.size,
@@ -58,9 +62,9 @@ const OrderController = {
                         quantity: item.quantity,
                     });
                     const totalPrice =
-                        (newOrder.item.priceSale ?? newOrder.item.price) * item.quantity;
+                        item.quantity * (variant.priceSale ? variant.priceSale : variant.price);
                     newOrder.totalPrice = totalPrice;
-                });
+                }
             }
             const order = await newOrder.save();
             res.status(201).json(order);
