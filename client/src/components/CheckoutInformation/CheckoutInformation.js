@@ -46,7 +46,8 @@ function CheckoutInformation() {
     const [listProvince, setListProvince] = useState([]);
     const [listDistrict, setListDistrict] = useState([]);
     const [listWardTown, setListWardTown] = useState([]);
-    const [userData, setUserData] = useState(JSON.parse(window.localStorage.getItem('user_data')));
+    const userData = useState(JSON.parse(window.localStorage.getItem('user_data')));
+    const getListProductSelected = JSON.parse(window.localStorage.getItem('list_product_selected'));
 
     // component parent
     const [promoCode, setPromoCode] = useState('');
@@ -99,13 +100,14 @@ function CheckoutInformation() {
     //     }
     // }, [selectedProvince, selectedDistrict]);
 
+    //....
     // get value of object, must get data of object to render into UI
-    const getListProductSelected = Object.values(productSelectedList);
-    console.log('getListProductSelected v2: ', getListProductSelected);
+    // const getListProductSelected = Object.values(productSelectedList);
+    // console.log('getListProductSelected v2: ', getListProductSelected);
 
     // get list product id
-    const listProductId =
-        getListProductSelected && getListProductSelected.map((product) => product.perfumeID);
+    // const listProductId =
+    //     getListProductSelected && getListProductSelected.map((product) => product.perfumeID);
 
     // checkout and show notification
     // const handleCheckout = () => {
@@ -213,7 +215,7 @@ function CheckoutInformation() {
     const calculateTotalPrice = (getListProductSelected) => {
         // calculate the subtotal (sum of all products in the cart)
         const subtotal = getListProductSelected.reduce(
-            (accumulator, product) => accumulator + product.quantity * product.perfumePrice,
+            (accumulator, product) => accumulator + product.productQuantity * product.productPrice,
             0,
         );
 
@@ -305,7 +307,7 @@ function CheckoutInformation() {
         );
 
         // reset comment if user continues buying this product just bought
-        dispatch(resetIsCommented({ productIds: listProductId, userId: loggedInAccount?.userId }));
+        // dispatch(resetIsCommented({ productIds: listProductId, userId: loggedInAccount?.userId }));
 
         dispatch(clearCart());
         dispatch(clearSelectedProducts());
@@ -573,7 +575,7 @@ function CheckoutInformation() {
                                 >
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <Avatar
-                                            src={product.perfumeImage}
+                                            src={product.productImage}
                                             sx={{
                                                 width: '56px',
                                                 height: '56px',
@@ -603,7 +605,7 @@ function CheckoutInformation() {
                                                 }}
                                             >
                                                 {/* Versace Eros EDT - 100 ml */}
-                                                {product.perfumeName}
+                                                {product.productName}
                                             </CustomizeTypography>
                                             <CustomizeTypography
                                                 sx={{
@@ -614,7 +616,7 @@ function CheckoutInformation() {
                                                     },
                                                 }}
                                             >
-                                                Size: {product.perfumeSize}ml
+                                                Size: {product.productSize}
                                             </CustomizeTypography>
                                             <CustomizeTypography
                                                 sx={{
@@ -625,7 +627,7 @@ function CheckoutInformation() {
                                                     },
                                                 }}
                                             >
-                                                {converToVND(product.perfumePrice)}
+                                                {converToVND(product.productPrice)}
                                             </CustomizeTypography>
                                         </Box>
                                     </Box>
@@ -658,7 +660,7 @@ function CheckoutInformation() {
                                                 },
                                             }}
                                         >
-                                            <strong>Qty:</strong> {product.quantity}
+                                            <strong>Qty:</strong> {product.productQuantity}
                                         </CustomizeTypography>
                                     </Box>
                                 </Box>
