@@ -318,10 +318,10 @@ function CheckoutInformation() {
 
         const orderData = {
             userId: userData.userId,
-            items: '',
+            items: getListProductSelected,
         };
 
-        const createOrder = await ordersAPI.createOrder(currentCheckout);
+        const createOrder = await ordersAPI.createOrder(orderData);
         if (createOrder) {
             console.log('createOrder: ', createOrder);
         }
