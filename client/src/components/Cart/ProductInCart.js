@@ -78,7 +78,7 @@ export const ProductInCart = ({
     };
 
     console.log('selectedProducts: ', selectedProducts);
-    const handleSelectProduct = (isChecked, variantId, productId) => {
+    const handleSelectProductV1 = (isChecked, variantId, productId) => {
         const check = selectedProducts?.findIndex(
             (item) => item.variantId === variantId && item.productId === productId,
         );
@@ -93,22 +93,44 @@ export const ProductInCart = ({
             setSelectedProducts((prev) => [...prev, { productId, variantId }]);
         }
     };
+
+    const handleSelectProduct = (isChecked, product) => {
+        const check = selectedProducts?.findIndex(
+            (item) =>
+                item.variant._id === product.variant._id &&
+                item.product._id === product.product._id,
+        );
+
+        // if !== -1 --> exists --> checked --> remove from list
+        if (!isChecked && check !== -1) {
+            setSelectedProducts((prev) =>
+                prev.filter(
+                    (item) =>
+                        item.product._id !== product.product._id ||
+                        item.variant._id !== product.variant._id,
+                ),
+            );
+        } else {
+            // add to list want to buy
+            setSelectedProducts((prev) => [...prev, { ...product }]);
+        }
+    };
     console.log('list selected product: ', selectedProducts);
 
     const handleSelectAll = (isChecked) => {
         if (isChecked) {
             // Add all products to selectedProducts
-            const allProducts = productsList.map((item) => ({
-                productId: item.product._id,
-                variantId: item.variant._id,
-                productName: item.product.nameEn,
-                productSize: item.variant.size,
-                productImage: item.product?.imagePath[0],
-                productQuantity: item.quantity,
-                productPrice: item.variant.price,
-            }));
+            // const allProducts = productsList.map((item) => ({
+            //     productId: item.product._id,
+            //     variantId: item.variant._id,
+            //     productName: item.product.nameEn,
+            //     productSize: item.variant.size,
+            //     productImage: item.product?.imagePath[0],
+            //     productQuantity: item.quantity,
+            //     productPrice: item.variant.price,
+            // }));
 
-            setSelectedProducts(allProducts);
+            setSelectedProducts(productsList);
         } else {
             // Clear selectedProducts when unchecked
             setSelectedProducts([]);
@@ -207,16 +229,10 @@ export const ProductInCart = ({
                                 <Checkbox
                                     checked={selectedProducts.some(
                                         (selectedItem) =>
-                                            selectedItem?.productId === item.product._id &&
-                                            selectedItem?.variantId === item.variant._id,
+                                            selectedItem?.product._id === item.product._id &&
+                                            selectedItem?.variant._id === item.variant._id,
                                     )}
-                                    onChange={(e) =>
-                                        handleSelectProduct(
-                                            e.target.checked,
-                                            item.variant._id,
-                                            item.product._id,
-                                        )
-                                    }
+                                    onChange={(e) => handleSelectProduct(e.target.checked, item)}
                                     sx={{
                                         mr: 2,
                                         '& .MuiSvgIcon-root': { fontSize: 22 },
