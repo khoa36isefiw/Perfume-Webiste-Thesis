@@ -58,7 +58,7 @@ function CartTotal({
     const calculateSubtotal = () => {
         let subtotal = 0;
         productsList.forEach((product) => {
-            subtotal += product.quantity * product.perfumePrice;
+            subtotal += product.productQuantity * product.productPrice;
         });
         return subtotal;
     };
@@ -67,7 +67,7 @@ function CartTotal({
     const calculateDiscountTotal = () => {
         let discountTotal = 0;
         productsList.forEach((product) => {
-            const price = product.quantity * product.perfumePrice;
+            const price = product.productQuantity * product.productPrice;
             discountTotal += calculateDiscount(price);
         });
         return discountTotal;
@@ -77,7 +77,7 @@ function CartTotal({
     const calculateTaxTotal = () => {
         let taxTotal = 0;
         productsList.forEach((product) => {
-            const price = product.quantity * product.perfumePrice;
+            const price = product.productQuantity * product.productPrice;
             taxTotal += calculateTax(price);
         });
         return taxTotal;
@@ -91,7 +91,7 @@ function CartTotal({
 
         // Loop through each product to calculate subtotal, discount, and tax
         productsList.forEach((product) => {
-            const price = product.quantity * product.perfumePrice;
+            const price = product.productQuantity * product.productPrice;
             const discount = calculateDiscount(price);
             const tax = calculateTax(price);
 
