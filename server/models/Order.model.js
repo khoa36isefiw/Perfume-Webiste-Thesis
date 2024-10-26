@@ -8,6 +8,11 @@ const orderItemSchema = new Schema(
             ref: 'Product',
             required: true,
         },
+        variant: {
+            type: Schema.Types.ObjectId,
+            ref: 'Variant',
+            required: true,
+        },
         productName: String,
         image: String,
         size: String,
@@ -50,7 +55,7 @@ const orderSchema = new Schema(
         paymentMethod: String,
         status: {
             type: String,
-            enum: ['PENDING_PAYMENT', 'PAID', 'IN_SHOPPING_CART', 'CANCELLED'],
+            enum: ['PENDING_PAYMENT', 'PAID', 'CANCELLED'],
             required: true,
         },
     },
