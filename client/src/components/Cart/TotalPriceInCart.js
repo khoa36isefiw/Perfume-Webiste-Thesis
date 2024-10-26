@@ -28,8 +28,8 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
         productsList.forEach((productItem) => {
             const product = selectedProducts.find(
                 (p) =>
-                    p.productId === productItem.product._id &&
-                    p.variantId === productItem.variant._id,
+                    p.product._id === productItem.product._id &&
+                    p.variant._id === productItem.variant._id,
             );
 
             if (product) {
