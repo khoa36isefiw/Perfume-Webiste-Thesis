@@ -45,7 +45,7 @@ const OrderController = {
                 totalPrice: 0,
             });
             if (!!items.length) {
-                item.map(async (item) => {
+                items.map(async (item) => {
                     const product = await Product.findOne({ _id: item.productId });
                     const variant = await Variant.findOne({ _id: item.variantId });
                     newOrder.items.push({
