@@ -215,7 +215,7 @@ function CheckoutInformation() {
     const calculateTotalPrice = (getListProductSelected) => {
         // calculate the subtotal (sum of all products in the cart)
         const subtotal = getListProductSelected.reduce(
-            (accumulator, product) => accumulator + product.productQuantity * product.productPrice,
+            (accumulator, product) => accumulator + product.quantity * product.variant.price,
             0,
         );
 
@@ -242,7 +242,6 @@ function CheckoutInformation() {
     };
 
     const finalTotalPrice = calculateTotalPrice(getListProductSelected);
-    console.log('finalTotalPrice: ', finalTotalPrice);
 
     const handleCheckout = async () => {
         setShowNotification(true);
@@ -316,6 +315,11 @@ function CheckoutInformation() {
         //      navigate('/');
         // }, 2000);
         // "Order validation failed: adjustedPrice: Path `adjustedPrice` is required., originalPrice: Path `originalPrice` is required., totalPrice: Path `totalPrice` is required., userId: Path `userId` is required."
+
+        const orderData = {
+            userId: userData.userId,
+            items: '',
+        };
 
         const createOrder = await ordersAPI.createOrder(currentCheckout);
         if (createOrder) {
@@ -575,7 +579,7 @@ function CheckoutInformation() {
                                 >
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <Avatar
-                                            src={product.productImage}
+                                            src={product.product.imagePath[0]}
                                             sx={{
                                                 width: '56px',
                                                 height: '56px',
@@ -605,7 +609,7 @@ function CheckoutInformation() {
                                                 }}
                                             >
                                                 {/* Versace Eros EDT - 100 ml */}
-                                                {product.productName}
+                                                {product.product.nameEn}
                                             </CustomizeTypography>
                                             <CustomizeTypography
                                                 sx={{
@@ -616,7 +620,7 @@ function CheckoutInformation() {
                                                     },
                                                 }}
                                             >
-                                                Size: {product.productSize}
+                                                Size: {product.variant.size}
                                             </CustomizeTypography>
                                             <CustomizeTypography
                                                 sx={{
@@ -627,7 +631,7 @@ function CheckoutInformation() {
                                                     },
                                                 }}
                                             >
-                                                {converToVND(product.productPrice)}
+                                                {converToVND(product.variant.price)}
                                             </CustomizeTypography>
                                         </Box>
                                     </Box>
@@ -660,7 +664,7 @@ function CheckoutInformation() {
                                                 },
                                             }}
                                         >
-                                            <strong>Qty:</strong> {product.productQuantity}
+                                            <strong>Qty:</strong> {product.quantity}
                                         </CustomizeTypography>
                                     </Box>
                                 </Box>
