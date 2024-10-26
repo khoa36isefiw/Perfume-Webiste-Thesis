@@ -297,19 +297,19 @@ function CheckoutInformation() {
 
         // final step: save the updated information back into state
         setInformationSaved(existingData);
-        dispatch(
-            saveOrders({
-                userId: loggedInAccount?.userId,
-                purchaseInfo: currentCheckout,
-                // productId:
-            }),
-        );
+        // dispatch(
+        //     saveOrders({
+        //         userId: loggedInAccount?.userId,
+        //         purchaseInfo: currentCheckout,
+        //         // productId:
+        //     }),
+        // );
 
         // reset comment if user continues buying this product just bought
         // dispatch(resetIsCommented({ productIds: listProductId, userId: loggedInAccount?.userId }));
 
-        dispatch(clearCart());
-        dispatch(clearSelectedProducts());
+        // dispatch(clearCart());
+        // dispatch(clearSelectedProducts());
 
         // setTimeout(() => {
         //      navigate('/');
