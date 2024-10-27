@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NewArrival from '../../assets/images/homepage_new_arrivals.png';
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Container, Grid, Modal } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { fadeInAnimation } from '../AnimationEffects/AnimationEffects';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
+import ModalDesgin from '../Modal/ModalDesgin';
+import PaymentSuccess from '../PaymentSuccess/PaymentSuccess';
 
 function NewArrivals() {
+    const [open, setOpen] = useState(false);
+    const [animateStyle, setAnimateStyle] = useState('animate__fadeIn');
+    const handleOpen = () => {
+        setAnimateStyle('animate__fadeIn');
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
     const navigate = useNavigate();
     return (
         <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
@@ -68,6 +79,7 @@ function NewArrivals() {
                                 textAction={'Shop Now'}
                                 onHandleClick={() => navigate('/shop')}
                             />
+                            <CustomizeButton textAction={'Open Modal'} onHandleClick={handleOpen} />
                         </Box>
                     </Box>
                 </Grid>
@@ -91,6 +103,15 @@ function NewArrivals() {
                         }}
                     />
                 </Grid>
+
+                <ModalDesgin
+                    open={open}
+                    onHandleClose={handleClose}
+                    animateStyle={animateStyle}
+                    setAnimateStyle={setAnimateStyle}
+                >
+                    <PaymentSuccess />
+                </ModalDesgin>
             </Grid>
         </Container>
     );
