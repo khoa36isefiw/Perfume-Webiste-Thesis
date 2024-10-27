@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Paper from '@mui/material/Paper';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,7 +12,7 @@ import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import { blue } from '@mui/material/colors';
 import {
@@ -22,7 +21,7 @@ import {
     CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
-import { Box, InputAdornment, InputBase, Tooltip, Typography } from '@mui/material';
+import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { theme } from '../../Theme/Theme';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
@@ -212,11 +211,6 @@ export default function UserTable() {
         }, 1000);
     };
 
-    // Handle navigation to the "Add User" page
-    const handleAddUser = () => {
-        navigate('/admin/manage-users/add-user');
-    };
-
     return (
         <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
             {/* Search Bar */}
@@ -251,25 +245,7 @@ export default function UserTable() {
                         ),
                     }}
                 />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                        marginBottom: 2,
-                        padding: '10px 18px',
-                        borderRadius: 3,
-                        bgcolor: theme.palette.admin.bgColor,
-                        textTransform: 'initial',
-                        fontSize: '14px',
-                        '&:hover': {
-                            bgcolor: theme.palette.admin.bgColor,
-                        },
-                    }}
-                    onClick={handleAddUser}
-                    startIcon={<PersonAddIcon />}
-                >
-                    Add User
-                </Button>
+
                 <Button
                     variant="contained"
                     color="primary"
@@ -280,7 +256,7 @@ export default function UserTable() {
                         textTransform: 'initial',
                         fontSize: '14px',
                     }}
-                    onClick={handleAddUser}
+                    // onClick={}
                     startIcon={<FileDownloadIcon />}
                 >
                     Export
@@ -329,29 +305,6 @@ export default function UserTable() {
                                                     ) : column.id === 'actions' ? (
                                                         // Render Edit and Delete buttons in the 'actions' column
                                                         <>
-                                                            <Tooltip
-                                                                title={
-                                                                    <CustomizeTypography
-                                                                        sx={{
-                                                                            fontSize: '13px',
-                                                                            mb: 0,
-                                                                        }}
-                                                                    >
-                                                                        Edit Users
-                                                                    </CustomizeTypography>
-                                                                }
-                                                            >
-                                                                <IconButton
-                                                                    onClick={() =>
-                                                                        handleEdit(row.id)
-                                                                    }
-                                                                    color="primary"
-                                                                >
-                                                                    <EditIcon
-                                                                        sx={{ fontSize: '22px' }}
-                                                                    />
-                                                                </IconButton>
-                                                            </Tooltip>
                                                             <Tooltip
                                                                 title={
                                                                     <CustomizeTypography

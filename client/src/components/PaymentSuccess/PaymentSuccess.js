@@ -90,26 +90,42 @@ function PaymentSuccess() {
                 </Grid>
                 <Grid item lg={6}>
                     <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
-                        <CustomizeTypography>Ref Number</CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0 }}>090909909</CustomizeTypography>
+                        <CustomizeTypography sx={{ fontSize: '15px' }}>
+                            Ref Number
+                        </CustomizeTypography>
+                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                            090909909
+                        </CustomizeTypography>
                     </Box>
                 </Grid>
                 <Grid item lg={6}>
                     <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
-                        <CustomizeTypography>Payment Time</CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0 }}>25 Feb 2024, 13:22</CustomizeTypography>
+                        <CustomizeTypography sx={{ fontSize: '15px' }}>
+                            Payment Time
+                        </CustomizeTypography>
+                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                            25 Feb 2024, 13:22
+                        </CustomizeTypography>
                     </Box>
                 </Grid>
                 <Grid item lg={6}>
                     <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
-                        <CustomizeTypography>Payment Method</CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0 }}>Paypal</CustomizeTypography>
+                        <CustomizeTypography sx={{ fontSize: '15px' }}>
+                            Payment Method
+                        </CustomizeTypography>
+                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                            Paypal
+                        </CustomizeTypography>
                     </Box>
                 </Grid>
                 <Grid item lg={6}>
                     <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
-                        <CustomizeTypography>Sender Name</CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0 }}>Luna Kei</CustomizeTypography>
+                        <CustomizeTypography sx={{ fontSize: '15px' }}>
+                            Sender Name
+                        </CustomizeTypography>
+                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                            Luna Kei
+                        </CustomizeTypography>
                     </Box>
                 </Grid>
             </Grid>
