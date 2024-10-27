@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
@@ -30,6 +30,7 @@ function PaymentFailed() {
                 }}
             >
                 <iframe
+                    title="payment failed"
                     src="https://lottie.host/embed/fb326bcc-21c5-4f37-9779-c4d3c888a88f/zDdD1MoRsl.json"
                     style={{ border: 0, width: '70%', height: '70%' }}
                 />

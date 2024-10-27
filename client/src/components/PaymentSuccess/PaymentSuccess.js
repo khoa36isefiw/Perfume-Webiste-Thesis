@@ -53,6 +53,7 @@ function PaymentSuccess() {
                 }}
             >
                 <iframe
+                    title="payment success"
                     src="https://lottie.host/embed/9c1bccd5-bac7-4a16-b491-5aaea61690dd/UcsJQFV6Qe.json"
                     style={{ border: 0, width: '50%', height: '50%' }}
                 />
