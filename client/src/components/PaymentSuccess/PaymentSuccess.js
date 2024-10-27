@@ -1,22 +1,13 @@
-import { Box, Grid } from '@mui/material';
-import React, { useRef, useState, useEffect } from 'react';
+import { Box, Button, Grid } from '@mui/material';
+import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
+import { useNavigate } from 'react-router-dom';
 
 function PaymentSuccess() {
-    const boxRef = useRef(null); // Tạo một ref cho Box
-    const [boxWidth, setBoxWidth] = useState(0); // Lưu độ dài width của Box
-
-    useEffect(() => {
-        // Kiểm tra nếu boxRef.current có giá trị và lấy độ rộng của Box
-        if (boxRef.current) {
-            setBoxWidth(boxRef.current.offsetWidth);
-        }
-    }, []); // useEffect chạy một lần khi component được render
-
+    const navigate = useNavigate();
     return (
         <Box
-            ref={boxRef}
             sx={{
                 margin: 'auto',
                 mt: 12,
@@ -37,7 +28,6 @@ function PaymentSuccess() {
                     alignItems: 'center',
                     borderBottom: '1px dashed #ccc',
                     position: 'relative',
-
                     '&::before': {
                         content: '""',
                         height: '20px',
@@ -68,10 +58,11 @@ function PaymentSuccess() {
                 />
                 <CustomizeTypography
                     sx={{
+                        mb: 0,
                         textAlign: 'center',
                         fontWeight: 'bold',
-                        fontSize: '24px',
-                        color: theme.palette.text.secondary,
+                        fontSize: '22px',
+                        color: '#08e508',
                     }}
                 >
                     Payment Success
@@ -80,7 +71,7 @@ function PaymentSuccess() {
                     Your payment has been successfully done.
                 </CustomizeTypography>
             </Box>
-            <Grid container spacing={4} sx={{ p: 1, mb: 2 }}>
+            <Grid container spacing={4} sx={{ p: 1 }}>
                 <Grid item lg={12}>
                     <CustomizeTypography
                         sx={{
@@ -99,25 +90,25 @@ function PaymentSuccess() {
                 <Grid item lg={6}>
                     <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
                         <CustomizeTypography>Ref Number</CustomizeTypography>
-                        <CustomizeTypography>090909909</CustomizeTypography>
+                        <CustomizeTypography sx={{ mb: 0 }}>090909909</CustomizeTypography>
                     </Box>
                 </Grid>
                 <Grid item lg={6}>
                     <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
                         <CustomizeTypography>Payment Time</CustomizeTypography>
-                        <CustomizeTypography>25 Feb 2024, 13:22</CustomizeTypography>
+                        <CustomizeTypography sx={{ mb: 0 }}>25 Feb 2024, 13:22</CustomizeTypography>
                     </Box>
                 </Grid>
                 <Grid item lg={6}>
                     <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
                         <CustomizeTypography>Payment Method</CustomizeTypography>
-                        <CustomizeTypography>Paypal</CustomizeTypography>
+                        <CustomizeTypography sx={{ mb: 0 }}>Paypal</CustomizeTypography>
                     </Box>
                 </Grid>
                 <Grid item lg={6}>
                     <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
                         <CustomizeTypography>Sender Name</CustomizeTypography>
-                        <CustomizeTypography>Luna Kei</CustomizeTypography>
+                        <CustomizeTypography sx={{ mb: 0 }}>Luna Kei</CustomizeTypography>
                     </Box>
                 </Grid>
             </Grid>
@@ -144,6 +135,54 @@ function PaymentSuccess() {
                         }}
                     />
                 ))}
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    mt: 2,
+                    mb: 4,
+                }}
+            >
+                <Button
+                    onClick={() => navigate('/shop')}
+                    variant="outlined"
+                    sx={{
+                        py: 1,
+                        borderRadius: '24px',
+                        color: theme.palette.text.secondary,
+                        borderColor: theme.palette.text.secondary,
+
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        textTransform: 'initial',
+                        '&:hover': {
+                            borderColor: theme.palette.text.secondary,
+                            filter: 'drop-shadow(2em 0 0.75rem #000)',
+                        },
+                    }}
+                >
+                    View Order
+                </Button>
+                <Button
+                    onClick={() => navigate('/shop')}
+                    variant="contained"
+                    sx={{
+                        py: 1,
+                        borderRadius: '24px',
+                        bgcolor: theme.palette.text.secondary,
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        textTransform: 'initial',
+                        '&:hover': {
+                            filter: 'drop-shadow(0 0 0.75rem #000)',
+                            bgcolor: theme.palette.text.secondary,
+                        },
+                    }}
+                >
+                    Continue Shopping
+                </Button>
             </Box>
         </Box>
     );
