@@ -3,7 +3,7 @@ import React, { useId, useRef, useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
-import ButtonComponent from '../SignIn/test';
+import ButtonComponent from '../SignIn/ButtonComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUpAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';

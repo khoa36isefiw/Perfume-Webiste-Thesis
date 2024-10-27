@@ -2,7 +2,7 @@ import { Box, Container, Grid } from '@mui/material';
 import React, { useRef } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
-import ButtonComponent from './test';
+import ButtonComponent from './ButtonComponent';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
