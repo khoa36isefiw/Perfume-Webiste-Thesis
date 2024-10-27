@@ -66,6 +66,14 @@ function NewHeader() {
         };
     }, []);
 
+    // define logic for header location, when reload the page
+    useEffect(() => {
+        const currentPath = location.pathname; // get the current location path
+        // check, if the current Path is the same as header.header Link
+        const currentHeader = headerData.find((header) => header.headerLink === currentPath);
+        setActiveHeader(currentHeader ? currentHeader.headerText : 'Home');
+    }, [location.pathname]);
+
     const handleHeaderClick = (header) => {
         setActiveHeader(header.headerText);
         navigate(header.headerLink);
