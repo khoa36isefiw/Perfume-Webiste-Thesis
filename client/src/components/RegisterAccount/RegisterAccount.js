@@ -1,4 +1,4 @@
-import { Container, Grid, Box } from '@mui/material';
+import { Container, Grid, Box, IconButton, Tooltip, Typography } from '@mui/material';
 import React, { useId, useRef, useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
@@ -10,6 +10,9 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import { authAPI } from '../../api/authAPI';
+import HelpCenterIcon from '@mui/icons-material/HelpCenter';
+import useValidation from '../../hooks/useValidation';
+import { Requirement } from '../Requirement/Requirement';
 
 function RegisterAccount() {
     const navigate = useNavigate();
@@ -28,6 +31,14 @@ function RegisterAccount() {
     const [messageType, setMessageType] = useState('');
     const [messageContent, setMessageContent] = useState('');
     const [messageTitle, setMessageTitle] = useState('');
+
+    //
+    const firstNameValidation = useValidation({ value: '' });
+    const lastNameValidation = useValidation({ value: '' });
+    const phoneValidation = useValidation({ value: '' });
+    const addressValidation = useValidation({ value: '' });
+    const emailValidation = useValidation({ value: '' });
+    const passwordValidation = useValidation({ value: '' });
 
     // const handleRegisterAccount = () => {
     //     // get value of first name input
@@ -62,8 +73,77 @@ function RegisterAccount() {
     // };
 
     //create user with api
+    // const handleRegisterAccount = async () => {
+    //     // get value of first name input
+    //     const userImage =
+    //         'https://res.cloudinary.com/dxulhqdp3/image/upload/v1726898366/perfumes/user-image/default-image-1.png';
+    //     const firstName = firstNameRef.current.value.trim();
+    //     const lastName = lastNameRef.current.value.trim();
+    //     const phoneNumber = phoneRef.current.value.trim();
+    //     const address = addressRef.current.value.trim();
+    //     const email = emailRef.current.value.trim();
+    //     const password = passwordRef.current.value.trim();
+
+    //     if (firstName && lastName && phoneNumber && address && email && password) {
+    //         dispatch(
+    //             signUpAccount({
+    //                 userImage, // default image
+    //                 userId,
+    //                 firstName,
+    //                 lastName,
+    //                 phoneNumber,
+    //                 address,
+    //                 email,
+    //                 password,
+    //             }),
+    //         );
+
+    //         const registrationData = {
+    //             email,
+    //             password,
+    //             firstName,
+    //             lastName,
+    //             address,
+    //             phoneNumber: phoneNumber,
+    //             imagePath: userImage, // default image
+    //         };
+
+    //         console.log('registrationData: ', registrationData);
+
+    //         try {
+    //             const response = await authAPI.registerAccount(registrationData);
+    //             if (response.status === 200) {
+    //                 setShowNotification(true);
+    //                 setShowAnimation('animate__bounceInRight');
+    //                 setMessageType('success');
+    //                 setMessageTitle('Register account');
+    //                 setMessageContent('Create new account successfully!');
+    //             } else {
+    //                 setShowNotification(true);
+    //                 setShowAnimation('animate__bounceInRight');
+    //                 setMessageType('warning');
+    //                 setMessageTitle('Register account');
+    //                 setMessageContent('Email exists, Please try another email!');
+    //             }
+    //         } catch (error) {
+    //             setShowNotification(true);
+    //             setShowAnimation('animate__bounceInRight');
+    //             setMessageType('warning');
+    //             setMessageTitle('Register account');
+    //             setMessageContent('Email exists, Please try another email2!');
+    //         }
+    //     } else {
+    //         setShowNotification(true);
+    //         setShowAnimation('animate__bounceInRight');
+    //         setMessageType('warning');
+    //         setMessageTitle('Register account');
+    //         setMessageContent('Please fill your information!');
+    //     }
+    // };
     const handleRegisterAccount = async () => {
-        // get value of first name input
+        // Initialize the validation hook for each field
+
+        // Get values from refs
         const userImage =
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1726898366/perfumes/user-image/default-image-1.png';
         const firstName = firstNameRef.current.value.trim();
@@ -73,11 +153,34 @@ function RegisterAccount() {
         const email = emailRef.current.value.trim();
         const password = passwordRef.current.value.trim();
 
-        if (firstName) {
+        // Update the validation hook states with current values
+        firstNameValidation.setState((prev) => ({ ...prev, value: firstName }));
+        lastNameValidation.setState((prev) => ({ ...prev, value: lastName }));
+        phoneValidation.setState((prev) => ({ ...prev, value: phoneNumber }));
+        addressValidation.setState((prev) => ({ ...prev, value: address }));
+        emailValidation.setState((prev) => ({ ...prev, value: email }));
+        passwordValidation.setState((prev) => ({ ...prev, value: password }));
+
+        // Perform validation checks
+        const isFirstNameValid = firstNameValidation.validateRequiredWithoutDigits();
+        const isLastNameValid = lastNameValidation.validateRequiredWithoutDigits();
+        const isPhoneValid = phoneValidation.validatePhone();
+        const isAddressValid = addressValidation.validateRequired();
+        const isEmailValid = emailValidation.validateEmail();
+        const isPasswordValid = passwordValidation.validatePassword();
+        console.log('isFirstNameValid:', firstNameValidation.state.message);
+
+        if (
+            isFirstNameValid &&
+            isLastNameValid &&
+            isPhoneValid &&
+            isAddressValid &&
+            isEmailValid &&
+            isPasswordValid
+        ) {
             dispatch(
                 signUpAccount({
-                    userImage, // default image
-                    userId,
+                    userImage,
                     firstName,
                     lastName,
                     phoneNumber,
@@ -93,8 +196,8 @@ function RegisterAccount() {
                 firstName,
                 lastName,
                 address,
-                phoneNumber: phoneNumber,
-                imagePath: userImage, // default image
+                phoneNumber,
+                imagePath: userImage,
             };
 
             console.log('registrationData: ', registrationData);
@@ -119,8 +222,14 @@ function RegisterAccount() {
                 setShowAnimation('animate__bounceInRight');
                 setMessageType('warning');
                 setMessageTitle('Register account');
-                setMessageContent('Email exists, Please try another email2!');
+                setMessageContent('Email exists, Please try another email!');
             }
+        } else {
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
+            setMessageType('warning');
+            setMessageTitle('Register account');
+            setMessageContent('Please fill your information correctly!');
         }
     };
 
@@ -190,6 +299,22 @@ function RegisterAccount() {
                             </CustomizeTypography>
                         </Grid>
                         <Grid container item spacing={2} sx={{ p: 2 }}>
+                            <Grid item xs={12} sm={12} lg={12}>
+                                <Tooltip
+                                    title={
+                                        <Typography
+                                            sx={{
+                                                fontSize: '13px',
+                                            }}
+                                        >
+                                            Require*
+                                        </Typography>
+                                    }
+                                >
+                                    <Requirement />
+                                </Tooltip>
+                            </Grid>
+
                             <Grid item xs={12} sm={6} lg={6}>
                                 <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
                                     First Name<span style={{ color: '#d14949' }}>*</span> :
@@ -232,39 +357,41 @@ function RegisterAccount() {
                             </Grid>
                         </Grid>
 
-                        <Grid
-                            item
-                            xs={12}
-                            sm={12}
-                            lg={12}
-                            sx={{
-                                borderTop: '1px solid #555',
+                        <Box sx={{ width: '100%', borderTop: '1px solid #555' }}>
+                            <Grid
+                                container
+                                spacing={4}
+                                sx={{
+                                    p: 2,
+                                }}
+                            >
+                                <Grid item xs={12} sm={6} lg={6}>
+                                    <CustomizeTypography
+                                        sx={{ color: theme.palette.text.secondary }}
+                                    >
+                                        E-mail<span style={{ color: '#d14949' }}>*</span> :
+                                    </CustomizeTypography>
+                                    <TextFieldLogin
+                                        placeholder="E-mail"
+                                        fullWidth
+                                        inputRef={emailRef}
+                                    />
+                                </Grid>
 
-                                p: 2,
-                            }}
-                        >
-                            <Grid item xs={12} sm={12} lg={12}>
-                                <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
-                                    E-mail<span style={{ color: '#d14949' }}>*</span> :
-                                </CustomizeTypography>
-                                <TextFieldLogin
-                                    placeholder="E-mail"
-                                    fullWidth
-                                    inputRef={emailRef}
-                                />
+                                <Grid item xs={12} sm={6} lg={6} sx={{ mb: '4px' }}>
+                                    <CustomizeTypography
+                                        sx={{ color: theme.palette.text.secondary }}
+                                    >
+                                        Password<span style={{ color: '#d14949' }}>*</span> :
+                                    </CustomizeTypography>
+                                    <TextFieldLogin
+                                        placeholder="Password"
+                                        fullWidth
+                                        inputRef={passwordRef}
+                                    />
+                                </Grid>
                             </Grid>
-
-                            <Grid item xs={12} sm={12} lg={12} sx={{ mt: 2, mb: '4px' }}>
-                                <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
-                                    Password<span style={{ color: '#d14949' }}>*</span> :
-                                </CustomizeTypography>
-                                <TextFieldLogin
-                                    placeholder="Password"
-                                    fullWidth
-                                    inputRef={passwordRef}
-                                />
-                            </Grid>
-                        </Grid>
+                        </Box>
                         <Grid
                             item
                             xs={12}

@@ -128,10 +128,14 @@ export const TextFieldLogin = ({
     disabled = false,
     fullWidth = true,
     defaultValue,
+    error,
+    helperText,
 }) => {
     return (
         <TextField
             inputRef={inputRef}
+            error={error}
+            helperText={helperText}
             disabled={disabled}
             variant="outlined"
             fullWidth={fullWidth}
