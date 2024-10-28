@@ -88,12 +88,30 @@ const useValidationWithRef = () => {
         return true;
     };
 
+    const validatePhoneNumber = (input) => {
+        // Check for exactly 10 digits and no special characters
+        // start: 0
+        // second: is 3,5,7,8,9
+        let validPhone = input.match(/^(0[3|5|7|8|9])[0-9]{8}$/);
+
+        if (!validPhone) {
+            setState({
+                ...state,
+                message: 'Số Điện Chỉ Có 10 Số và Không Chứa Ký Tự Đặc Biệt!',
+            });
+            return false;
+        }
+        setState({ message: '', isValid: true });
+        return true;
+    };
+
     return {
         state,
         validateName,
         validateRequired,
         validateEmail,
         validatePassword,
+        validatePhoneNumber,
     };
 };
 

@@ -92,13 +92,21 @@ function RegisterAccount() {
         const isLastNameValid = lastNameValidation.validateName(lastName);
         const isEmailValid = emailValidation.validateEmail(email);
         const isPasswordValid = passwordValidation.validatePassword(password);
+        const isPhoneNumberValid = phoneValidation.validatePhoneNumber(phoneNumber);
         console.log('isFirstNameValid: ', isFirstNameValid);
-        console.log('isFirstNameValid: ', isLastNameValid);
-        console.log('isFirstNameValid: ', isEmailValid);
-        console.log('isFirstNameValid: ', isPasswordValid);
+        console.log('isLastNameValid: ', isLastNameValid);
+        console.log('isEmailValid: ', isEmailValid);
+        console.log('isPasswordValid: ', isPasswordValid);
+        console.log('isPhoneNumberValid: ', isPhoneNumberValid);
 
         if (firstName && lastName && phoneNumber && address && email && password) {
-            if (isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid) {
+            if (
+                isFirstNameValid &&
+                isLastNameValid &&
+                isEmailValid &&
+                isPasswordValid &&
+                isPhoneNumberValid
+            ) {
                 dispatch(
                     signUpAccount({
                         userImage, // default image
