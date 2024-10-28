@@ -13,6 +13,8 @@ import { authAPI } from '../../api/authAPI';
 import { Requirement } from '../Requirement/Requirement';
 import useValidationWithRef from '../../hooks/useValidationWithRef';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import useRequirements from '../../hooks/useRequirements';
+import { RequirementV2 } from '../Requirement/RequirementV2';
 
 function RegisterAccount() {
     const navigate = useNavigate();
@@ -28,6 +30,9 @@ function RegisterAccount() {
         showMessage,
         handleCloseNotification,
     } = useShowNotificationMessage();
+    const [open, setOpen] = useState(false);
+    const { handleOpen, handleClose, anchorEl, PopperContent } = useRequirements(open, setOpen);
+
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
     const phoneRef = useRef(null);
@@ -39,41 +44,8 @@ function RegisterAccount() {
     const firstNameValidation = useValidationWithRef();
     const lastNameValidation = useValidationWithRef();
     const phoneValidation = useValidationWithRef();
-    const addressValidation = useValidationWithRef();
     const emailValidation = useValidationWithRef();
     const passwordValidation = useValidationWithRef();
-
-    // const handleRegisterAccount = () => {
-    //     // get value of first name input
-    //     const userImage =
-    //         'https://res.cloudinary.com/dxulhqdp3/image/upload/v1726898366/perfumes/user-image/default-image-1.png';
-    //     const firstName = firstNameRef.current.value.trim();
-    //     const lastName = lastNameRef.current.value.trim();
-    //     const phoneNumber = phoneRef.current.value.trim();
-    //     const address = addressRef.current.value.trim();
-    //     const email = emailRef.current.value.trim();
-    //     const password = passwordRef.current.value.trim();
-    //     if (firstName) {
-    //         dispatch(
-    //             signUpAccount({
-    //                 userImage, // default image
-    //                 userId,
-    //                 firstName,
-    //                 lastName,
-    //                 phoneNumber,
-    //                 address,
-    //                 email,
-    //                 password,
-    //             }),
-    //         );
-    //     }
-
-    //     setShowNotification(true);
-    //     setShowAnimation('animate__bounceInRight');
-    //     setMessageType('success');
-    //     setMessageTitle('Register account');
-    //     setMessageContent('Create new account successfully!');
-    // };
 
     //create user with api
     const handleRegisterAccount = async () => {
@@ -107,19 +79,6 @@ function RegisterAccount() {
                 isPasswordValid &&
                 isPhoneNumberValid
             ) {
-                dispatch(
-                    signUpAccount({
-                        userImage, // default image
-                        userId,
-                        firstName,
-                        lastName,
-                        phoneNumber,
-                        address,
-                        email,
-                        password,
-                    }),
-                );
-
                 const registrationData = {
                     email,
                     password,
@@ -155,6 +114,7 @@ function RegisterAccount() {
                     );
                 }
             } else {
+                setOpen(true);
                 showMessage(
                     'warning',
                     'Register account',
@@ -162,6 +122,7 @@ function RegisterAccount() {
                 );
             }
         } else {
+            setOpen(true);
             showMessage('warning', 'Register account', 'Please fill your information');
         }
     };
@@ -238,6 +199,27 @@ function RegisterAccount() {
                                     }
                                 >
                                     <Requirement />
+                                </Tooltip>
+                            </Grid>
+                            <Grid item xs={12} sm={12} lg={12}>
+                                <Tooltip
+                                    title={
+                                        <Typography
+                                            sx={{
+                                                fontSize: '13px',
+                                            }}
+                                        >
+                                            Requirement
+                                        </Typography>
+                                    }
+                                >
+                                    <RequirementV2
+                                        open={open}
+                                        setOpen={setOpen}
+                                        anchorEl={anchorEl}
+                                        handleClose={handleClose}
+                                        handleClick={handleOpen('right')}
+                                    />
                                 </Tooltip>
                             </Grid>
 
