@@ -10,35 +10,38 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import { authAPI } from '../../api/authAPI';
-import HelpCenterIcon from '@mui/icons-material/HelpCenter';
-import useValidation from '../../hooks/useValidation';
 import { Requirement } from '../Requirement/Requirement';
+import useValidationWithRef from '../../hooks/useValidationWithRef';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function RegisterAccount() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const userId = useId();
-    const listAccountRegistered = useSelector((state) => state.accountManagement.listAccounts);
-    console.log('listAccountRegistered: ', listAccountRegistered);
+
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageTitle,
+        messageContent,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
     const phoneRef = useRef(null);
     const addressRef = useRef(null);
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
-    const [showNotification, setShowNotification] = useState(false);
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    const [messageType, setMessageType] = useState('');
-    const [messageContent, setMessageContent] = useState('');
-    const [messageTitle, setMessageTitle] = useState('');
 
-    //
-    const firstNameValidation = useValidation({ value: '' });
-    const lastNameValidation = useValidation({ value: '' });
-    const phoneValidation = useValidation({ value: '' });
-    const addressValidation = useValidation({ value: '' });
-    const emailValidation = useValidation({ value: '' });
-    const passwordValidation = useValidation({ value: '' });
+    // check input validation
+    const firstNameValidation = useValidationWithRef();
+    const lastNameValidation = useValidationWithRef();
+    const phoneValidation = useValidationWithRef();
+    const addressValidation = useValidationWithRef();
+    const emailValidation = useValidationWithRef();
+    const passwordValidation = useValidationWithRef();
 
     // const handleRegisterAccount = () => {
     //     // get value of first name input
@@ -73,77 +76,8 @@ function RegisterAccount() {
     // };
 
     //create user with api
-    // const handleRegisterAccount = async () => {
-    //     // get value of first name input
-    //     const userImage =
-    //         'https://res.cloudinary.com/dxulhqdp3/image/upload/v1726898366/perfumes/user-image/default-image-1.png';
-    //     const firstName = firstNameRef.current.value.trim();
-    //     const lastName = lastNameRef.current.value.trim();
-    //     const phoneNumber = phoneRef.current.value.trim();
-    //     const address = addressRef.current.value.trim();
-    //     const email = emailRef.current.value.trim();
-    //     const password = passwordRef.current.value.trim();
-
-    //     if (firstName && lastName && phoneNumber && address && email && password) {
-    //         dispatch(
-    //             signUpAccount({
-    //                 userImage, // default image
-    //                 userId,
-    //                 firstName,
-    //                 lastName,
-    //                 phoneNumber,
-    //                 address,
-    //                 email,
-    //                 password,
-    //             }),
-    //         );
-
-    //         const registrationData = {
-    //             email,
-    //             password,
-    //             firstName,
-    //             lastName,
-    //             address,
-    //             phoneNumber: phoneNumber,
-    //             imagePath: userImage, // default image
-    //         };
-
-    //         console.log('registrationData: ', registrationData);
-
-    //         try {
-    //             const response = await authAPI.registerAccount(registrationData);
-    //             if (response.status === 200) {
-    //                 setShowNotification(true);
-    //                 setShowAnimation('animate__bounceInRight');
-    //                 setMessageType('success');
-    //                 setMessageTitle('Register account');
-    //                 setMessageContent('Create new account successfully!');
-    //             } else {
-    //                 setShowNotification(true);
-    //                 setShowAnimation('animate__bounceInRight');
-    //                 setMessageType('warning');
-    //                 setMessageTitle('Register account');
-    //                 setMessageContent('Email exists, Please try another email!');
-    //             }
-    //         } catch (error) {
-    //             setShowNotification(true);
-    //             setShowAnimation('animate__bounceInRight');
-    //             setMessageType('warning');
-    //             setMessageTitle('Register account');
-    //             setMessageContent('Email exists, Please try another email2!');
-    //         }
-    //     } else {
-    //         setShowNotification(true);
-    //         setShowAnimation('animate__bounceInRight');
-    //         setMessageType('warning');
-    //         setMessageTitle('Register account');
-    //         setMessageContent('Please fill your information!');
-    //     }
-    // };
     const handleRegisterAccount = async () => {
-        // Initialize the validation hook for each field
-
-        // Get values from refs
+        // get value of first name input
         const userImage =
             'https://res.cloudinary.com/dxulhqdp3/image/upload/v1726898366/perfumes/user-image/default-image-1.png';
         const firstName = firstNameRef.current.value.trim();
@@ -153,91 +87,75 @@ function RegisterAccount() {
         const email = emailRef.current.value.trim();
         const password = passwordRef.current.value.trim();
 
-        // Update the validation hook states with current values
-        firstNameValidation.setState((prev) => ({ ...prev, value: firstName }));
-        lastNameValidation.setState((prev) => ({ ...prev, value: lastName }));
-        phoneValidation.setState((prev) => ({ ...prev, value: phoneNumber }));
-        addressValidation.setState((prev) => ({ ...prev, value: address }));
-        emailValidation.setState((prev) => ({ ...prev, value: email }));
-        passwordValidation.setState((prev) => ({ ...prev, value: password }));
+        // check information from user input
+        const isFirstNameValid = firstNameValidation?.validateName(firstName);
+        const isLastNameValid = lastNameValidation.validateName(lastName);
+        const isEmailValid = emailValidation.validateEmail(email);
+        const isPasswordValid = passwordValidation.validatePassword(password);
+        console.log('isFirstNameValid: ', isFirstNameValid);
+        console.log('isFirstNameValid: ', isLastNameValid);
+        console.log('isFirstNameValid: ', isEmailValid);
+        console.log('isFirstNameValid: ', isPasswordValid);
 
-        // Perform validation checks
-        const isFirstNameValid = firstNameValidation.validateRequiredWithoutDigits();
-        const isLastNameValid = lastNameValidation.validateRequiredWithoutDigits();
-        const isPhoneValid = phoneValidation.validatePhone();
-        const isAddressValid = addressValidation.validateRequired();
-        const isEmailValid = emailValidation.validateEmail();
-        const isPasswordValid = passwordValidation.validatePassword();
-        console.log('isFirstNameValid:', firstNameValidation.state.message);
+        if (firstName && lastName && phoneNumber && address && email && password) {
+            if (isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid) {
+                dispatch(
+                    signUpAccount({
+                        userImage, // default image
+                        userId,
+                        firstName,
+                        lastName,
+                        phoneNumber,
+                        address,
+                        email,
+                        password,
+                    }),
+                );
 
-        if (
-            isFirstNameValid &&
-            isLastNameValid &&
-            isPhoneValid &&
-            isAddressValid &&
-            isEmailValid &&
-            isPasswordValid
-        ) {
-            dispatch(
-                signUpAccount({
-                    userImage,
-                    firstName,
-                    lastName,
-                    phoneNumber,
-                    address,
+                const registrationData = {
                     email,
                     password,
-                }),
-            );
+                    firstName,
+                    lastName,
+                    address,
+                    phoneNumber: phoneNumber,
+                    imagePath: userImage, // default image
+                };
 
-            const registrationData = {
-                email,
-                password,
-                firstName,
-                lastName,
-                address,
-                phoneNumber,
-                imagePath: userImage,
-            };
+                console.log('registrationData: ', registrationData);
 
-            console.log('registrationData: ', registrationData);
-
-            try {
-                const response = await authAPI.registerAccount(registrationData);
-                if (response.status === 200) {
-                    setShowNotification(true);
-                    setShowAnimation('animate__bounceInRight');
-                    setMessageType('success');
-                    setMessageTitle('Register account');
-                    setMessageContent('Create new account successfully!');
-                } else {
-                    setShowNotification(true);
-                    setShowAnimation('animate__bounceInRight');
-                    setMessageType('warning');
-                    setMessageTitle('Register account');
-                    setMessageContent('Email exists, Please try another email!');
+                try {
+                    const response = await authAPI.registerAccount(registrationData);
+                    if (response.status === 200) {
+                        showMessage(
+                            'success',
+                            'Register account',
+                            'Create new account successfully!',
+                        );
+                    } else {
+                        showMessage(
+                            'warning',
+                            'Register account',
+                            'Email exists, Please try another email!',
+                        );
+                    }
+                } catch (error) {
+                    showMessage(
+                        'warning',
+                        'Register account',
+                        'Email exists, Please try another email2!',
+                    );
                 }
-            } catch (error) {
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
-                setMessageType('warning');
-                setMessageTitle('Register account');
-                setMessageContent('Email exists, Please try another email!');
+            } else {
+                showMessage(
+                    'warning',
+                    'Register account',
+                    'Please fill your information correctly!',
+                );
             }
         } else {
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
-            setMessageType('warning');
-            setMessageTitle('Register account');
-            setMessageContent('Please fill your information correctly!');
+            showMessage('warning', 'Register account', 'Please fill your information');
         }
-    };
-
-    const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
     };
 
     const handleNavigateSignIn = () => {
@@ -307,7 +225,7 @@ function RegisterAccount() {
                                                 fontSize: '13px',
                                             }}
                                         >
-                                            Require*
+                                            Requirement
                                         </Typography>
                                     }
                                 >
