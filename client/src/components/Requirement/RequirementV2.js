@@ -4,23 +4,7 @@ import { Box, Typography, IconButton, Popper, Paper, Fade } from '@mui/material'
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import CloseIcon from '@mui/icons-material/Close';
 
-export function Requirement() {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [open, setOpen] = React.useState(false);
-
-    const handleClick = () => (event) => {
-        setAnchorEl(event.currentTarget);
-        setOpen(true);
-        // Hide Popper after 6 seconds
-        setTimeout(() => {
-            setOpen(false);
-        }, 6000);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
+export function RequirementV2({ open, setOpen, anchorEl, handleClose, handleClick }) {
     return (
         <Box>
             <Popper
@@ -81,7 +65,7 @@ export function Requirement() {
                 )}
             </Popper>
             <HelpCenterIcon
-                onClick={handleClick('right')}
+                onClick={handleClick}
                 disableTouchRipple
                 sx={{
                     backgroundColor: '#fff',
