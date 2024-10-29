@@ -1,4 +1,4 @@
-import { Avatar, Container, Grid, Tooltip, IconButton } from '@mui/material';
+import { Avatar, Container, Grid, Tooltip, IconButton, Button } from '@mui/material';
 import React, { useState, useRef } from 'react';
 import {
     CustomizeAccountText,
@@ -21,6 +21,8 @@ function AccountInfo() {
 
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
+    const phoneNumberRef = useRef(null);
+    const addressRef = useRef(null);
 
     const handleClickEdit = () => {
         setEditAccount(false);
@@ -140,9 +142,19 @@ function AccountInfo() {
                                     },
                                 }}
                             >
-                                <IconButton component="span">
-                                    <CameraEnhanceIcon sx={{ fontSize: '24px' }} />
-                                </IconButton>
+                                <Button
+                                    sx={{ textTransform: 'initial', fontSize: '14px', color:'#fff' }}
+                                    startIcon={
+                                        <CameraEnhanceIcon
+                                            sx={{
+                                                fontSize: '24px',
+                                                color: '#fff',
+                                            }}
+                                        />
+                                    }
+                                >
+                                    Upload Photo
+                                </Button>
                             </Tooltip>
                         </label>
                     )}
@@ -216,6 +228,55 @@ function AccountInfo() {
                         // use default value to get value of ref input
                         defaultValue={userData?.lastName}
                         inputRef={lastNameRef}
+                    />
+                </Grid>
+            </Grid>
+
+            <Grid container item spacing={2} sx={{ mb: 4 }}>
+                <Grid item xs={12} md={12} lg={4}>
+                    <CustomizeAccountText
+                        sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
+                    >
+                        Phone Number
+                    </CustomizeAccountText>
+                    <CustomizeAccountText
+                        sx={{ fontSize: '14px', color: theme.palette.text.subText }}
+                    >
+                        Enter your phone number
+                    </CustomizeAccountText>
+                </Grid>
+                <Grid item xs={12} md={12} lg={8}>
+                    <TextFieldLogin
+                        disabled={editAccount}
+                        fullWidth
+                        placeholder="0986969869"
+                        // use default value to get value of ref input
+                        defaultValue={userData?.phoneNumber}
+                        inputRef={phoneNumberRef}
+                    />
+                </Grid>
+            </Grid>
+            <Grid container item spacing={2} sx={{ mb: 4 }}>
+                <Grid item xs={12} md={12} lg={4}>
+                    <CustomizeAccountText
+                        sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
+                    >
+                        Address
+                    </CustomizeAccountText>
+                    <CustomizeAccountText
+                        sx={{ fontSize: '14px', color: theme.palette.text.subText }}
+                    >
+                        Enter your address
+                    </CustomizeAccountText>
+                </Grid>
+                <Grid item xs={12} md={12} lg={8}>
+                    <TextFieldLogin
+                        disabled={editAccount}
+                        fullWidth
+                        placeholder="Số 1 Võ Văn Ngân, Thành phố Thủ Đức"
+                        // use default value to get value of ref input
+                        defaultValue={userData?.address}
+                        inputRef={addressRef}
                     />
                 </Grid>
             </Grid>
