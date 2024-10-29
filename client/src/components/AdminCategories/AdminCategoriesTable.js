@@ -72,8 +72,8 @@ function AdminCategoriesTable() {
         setShowPopup(false);
     };
 
-    const handleEdit = (id) => {
-        navigate(`${id}/edit`);
+    const handleEdit = (category) => {
+        navigate(`/admin/manage-categories/edit/${category._id}`, { state: { category } });
     };
 
     return (
@@ -165,7 +165,7 @@ function AdminCategoriesTable() {
                                             <DeleteIcon color="error" fontSize="large" />
                                         </IconButton>
 
-                                        <IconButton onClick={() => handleEdit(category._id)}>
+                                        <IconButton onClick={() => handleEdit(category)}>
                                             <EditNoteIcon color="info" fontSize="large" />
                                         </IconButton>
                                     </TableCell>
