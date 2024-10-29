@@ -1,5 +1,5 @@
 import { Avatar, Box, Button } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAvatar from '../../assets/images/defaultA.png';
 import { AdminTypography } from '../../components/CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
@@ -9,7 +9,8 @@ import Inventory2Icon from '@mui/icons-material/Inventory2';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PercentIcon from '@mui/icons-material/Percent';
 import CategoryIcon from '@mui/icons-material/Category';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { backTop } from '../../components/goBackTop/goBackTop';
 
 const sidebarData = [
     {
@@ -47,11 +48,23 @@ const sidebarData = [
 
 function AdminSidebar() {
     const navigate = useNavigate();
+    const location = useLocation();
     const [activeButton, setActiveButton] = useState('Dashboard');
     const handleChooseSidebar = (buttonText) => {
         setActiveButton(buttonText.sidebarText);
         navigate(buttonText.sidebarAddress);
+        backTop();
     };
+
+    useEffect(() => {
+        const currentPath = location.pathname;
+        // find current path include dashboard.sidebarAddress
+        // true: set activeButton
+        const currentDashboard = sidebarData.find((dashboard) =>
+            currentPath.includes(dashboard.sidebarAddress),
+        );
+        setActiveButton(currentDashboard ? currentDashboard.sidebarText : 'Dashboard');
+    }, [location.pathname]);
 
     return (
         <Box sx={{ p: 2, position: 'sticky', top: 100, left: 0 }}>

@@ -32,6 +32,7 @@ import AdminCreateCoupon from '../components/AdminCoupons/AdminCreateCoupon';
 import AdminEditCoupon from '../components/AdminCoupons/AdminEditCoupon';
 import AdminCategoriesPage from '../pages/AdminCategoriesPage';
 import AddCategory from '../components/AdminCategories/AddCategory';
+import AdminEditCategory from '../components/AdminCategories/AdminEditCategory';
 
 // not sign into this website
 const publicRoutes = [
@@ -112,7 +113,11 @@ const privateRoutes = [
         component: AddCategory,
         layout: AdminLayout,
     },
-    //
+    {
+        path: '/admin/manage-categories/edit/:id',
+        component: AdminEditCategory,
+        layout: AdminLayout,
+    },
 ];
 
 export { publicRoutes, privateRoutes };
