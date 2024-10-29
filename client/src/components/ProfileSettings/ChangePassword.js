@@ -12,10 +12,12 @@ import { authAPI } from '../../api/authAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { userAPI } from '../../api/userAPI';
+import { useNavigate } from 'react-router-dom';
 
 // current password --> cho tự nhập --> check với password login
 // nếu oke --> cho nhảy sang step đổi mật khẩu
 function ChangePassword() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentPasswordRef = useRef();
     const newPasswordRef = useRef();
@@ -57,83 +59,66 @@ function ChangePassword() {
             password: currentPassword,
         };
 
-        try {
-            const loginData = await authAPI.login(data);
+        if (currentPassword) {
+            try {
+                const loginData = await authAPI.login(data);
+                console.log('loginData: ', loginData);
 
-            if (loginData) {
-                console.log('Correct password');
-                setShowChangePassword(true);
-                showMessage('success', 'Change Password', 'Starting create new your password');
-            } else {
+                if (loginData.status === 200) {
+                    console.log('Correct password');
+                    setShowChangePassword(true);
+                    showMessage('success', 'Change Password', 'Starting create new your password');
+                } else {
+                    showMessage('warning', 'Change Password', 'Your current password is incorrect');
+                    setShowChangePassword(false);
+                }
+            } catch (error) {
                 showMessage('warning', 'Change Password', 'Your current password is incorrect');
+                console.error('Error during login attempt:', error);
                 setShowChangePassword(false);
             }
-        } catch (error) {
-            showMessage('warning', 'Change Password', 'Your current password is incorrect');
-            console.error('Error during login attempt:', error);
-            setShowChangePassword(false);
+        } else {
+            showMessage('warning', 'Change Password', 'Please enter your email!');
         }
     };
 
-    // const handleChangePassword = async () => {
-    //     const newPassword = newPasswordRef.current.value.trim();
-    //     const confirmPassword = confirmPasswordRef.current.value.trim();
-    //     if (newPassword === confirmPassword) {
-    //         console.log('chayj voo day');
-    //         //same
-
-    //         // dispatch(changePassword({ email: loggedInAccount.email, password: newPassword }));
-    //         const data = {
-    //             userId: userData.userId,
-    //             // email: userData.email,
-    //             password: newPassword,
-    //             newPassword: confirmPassword,
-    //         };
-
-    //         const response = await userAPI.changePassword(data);
-    //         if (response) {
-    //             console.log('chay vo change password');
-    //             showMessage(
-    //                 'success',
-    //                 'Change Password',
-    //                 'You have successfully changed your password!',
-    //             );
-    //         }
-    //     } else {
-    //         showMessage('warning', 'Change Password', 'Your password is not match');
-    //         console.log('không change change password');
-    //     }
-    // };
     const handleChangePassword = async () => {
         const newPassword = newPasswordRef.current.value.trim();
         const confirmPassword = confirmPasswordRef.current.value.trim();
         console.log('userData.userId: ', userData.userId);
-        if (newPassword === confirmPassword) {
-            const data = {
-                // password, newPassword
+        if (newPassword && confirmPassword) {
+            if (newPassword === confirmPassword) {
+                const data = {
+                    // password, newPassword
 
-                newPassword,
-                confirmPassword, // New password
-            };
+                    newPassword,
+                    confirmPassword, // New password
+                };
 
-            try {
-                const response = await userAPI.changePassword(userData.userId, data);
-                if (response) {
+                try {
+                    const response = await userAPI.changePassword(userData.userId, data);
+                    if (response) {
+                        showMessage(
+                            'success',
+                            'Change Password',
+                            'You have successfully changed your password!',
+                        );
+                        setTimeout(() => {
+                            navigate('/');
+                        }, 2500);
+                    }
+                } catch (error) {
                     showMessage(
-                        'success',
+                        'error',
                         'Change Password',
-                        'You have successfully changed your password!',
+                        error.response?.data || 'Failed to change password',
                     );
                 }
-            } catch (error) {
-                showMessage(
-                    'error',
-                    'Change Password',
-                    error.response?.data || 'Failed to change password',
-                );
+            } else {
+                showMessage('warning', 'Change Password', 'Your passwords do not match');
             }
         } else {
-            showMessage('warning', 'Change Password', 'Your passwords do not match');
+            showMessage('warning', 'Change Password', 'Please enter new password!');
         }
     };
 
