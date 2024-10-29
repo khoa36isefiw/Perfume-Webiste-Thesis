@@ -11,13 +11,13 @@ import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import { authAPI } from '../../api/authAPI';
 import useValidationWithRef from '../../hooks/useValidationWithRef';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+
 import { RequirementV2 } from '../Requirement/RequirementV2';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function RegisterAccount() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const userId = useId();
 
     const {
         showNotification,
@@ -29,7 +29,6 @@ function RegisterAccount() {
         handleCloseNotification,
     } = useShowNotificationMessage();
     const [open, setOpen] = useState(false);
-    const [anchorEl, setAnchorEl] = useState(null);
 
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
