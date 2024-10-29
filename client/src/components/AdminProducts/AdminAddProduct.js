@@ -225,7 +225,7 @@ const AdminAddProduct = () => {
 
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <AdminButtonDesign
-                    title={'Add Product'}
+                    title={'Create Product'}
                     bgcolor={theme.palette.admin.bgColor}
                     onHandleClick={handleAddProduct}
                     type={'contained'}
