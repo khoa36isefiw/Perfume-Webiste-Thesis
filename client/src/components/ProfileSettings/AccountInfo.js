@@ -31,12 +31,16 @@ function AccountInfo() {
     const handleSaveInformation = async () => {
         const firstName = firstNameRef.current.value.trim();
         const lastName = lastNameRef.current.value.trim();
+        const phoneNumber = phoneNumberRef.current.value.trim();
+        const address = addressRef.current.value.trim();
 
         const data = {
             ...userData,
             firstName,
             lastName,
             imagePath: selectedImage,
+            phoneNumber,
+            address,
         };
         window.localStorage.setItem('user_data', JSON.stringify(data));
         const updateUserInfor = await userAPI.updateUserProfile(userData.userId, data);
@@ -143,7 +147,11 @@ function AccountInfo() {
                                 }}
                             >
                                 <Button
-                                    sx={{ textTransform: 'initial', fontSize: '14px', color:'#fff' }}
+                                    sx={{
+                                        textTransform: 'initial',
+                                        fontSize: '14px',
+                                        color: '#fff',
+                                    }}
                                     startIcon={
                                         <CameraEnhanceIcon
                                             sx={{
