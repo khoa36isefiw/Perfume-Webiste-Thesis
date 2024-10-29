@@ -2,7 +2,7 @@ import { Box, Container, Grid } from '@mui/material';
 import React, { useRef } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
-import ButtonComponent from './test';
+import ButtonComponent from './ButtonComponent';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,43 +31,42 @@ function SignIn() {
         const email = emailRef.current.value.trim();
         const password = passwordRef.current.value.trim();
 
-        const user = listAccounts.find(
-            (account) => account.email === email && account.password === password,
-        );
-
         const data = {
             email,
             password,
         };
-
-        try {
-            const loginData = await authAPI.login(data);
-            // console.log('request: ', loginData);
-            console.log('response Sign In: ', loginData);
-            if (loginData.status === 200) {
-                // store all user data in localStorage as a JSON string
-                window.localStorage.setItem(
-                    'user_data',
-                    JSON.stringify({
-                        userId: loginData.data._id,
-                        imagePath: loginData.data.imagePath,
-                        email: loginData.data.email,
-                        // Add any other data you want to store
-                        firstName: loginData.data.firstName,
-                        lastName: loginData.data.lastName,
-                        roles: loginData.data.roles,
-                        address: loginData.data.address,
-                    }),
-                );
-                showMessage('success', 'Login', 'Login successfully!');
-                setTimeout(() => {
-                    navigate('/');
-                }, 1500);
-            } else {
+        if (email && email) {
+            try {
+                const loginData = await authAPI.login(data);
+                // console.log('request: ', loginData);
+                console.log('response Sign In: ', loginData);
+                if (loginData.status === 200) {
+                    // store all user data in localStorage as a JSON string
+                    window.localStorage.setItem(
+                        'user_data',
+                        JSON.stringify({
+                            userId: loginData.data._id,
+                            imagePath: loginData.data.imagePath,
+                            email: loginData.data.email,
+                            // Add any other data you want to store
+                            firstName: loginData.data.firstName,
+                            lastName: loginData.data.lastName,
+                            roles: loginData.data.roles,
+                            address: loginData.data.address,
+                        }),
+                    );
+                    showMessage('success', 'Login', 'Login successfully!');
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 1500);
+                } else {
+                    showMessage('warning', 'Login', 'Your email or password is incorrect!');
+                }
+            } catch (error) {
                 showMessage('warning', 'Login', 'Your email or password is incorrect!');
             }
-        } catch (error) {
-            showMessage('warning', 'Login', 'Your email or password is incorrect!');
+        } else {
+            showMessage('warning', 'Login', 'You should fill your information before login');
         }
 
         // if (user) {

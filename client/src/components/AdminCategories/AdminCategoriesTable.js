@@ -77,7 +77,7 @@ function AdminCategoriesTable() {
     };
 
     return (
-        <Box>
+        <Box sx={{ height: '100vh' }}>
             <Box
                 sx={{
                     display: 'flex',
@@ -104,7 +104,7 @@ function AdminCategoriesTable() {
                     startIcon={<AddIcon />}
                     sx={{ fontSize: '1.6rem', borderRadius: 2.5, textTransform: 'capitalize' }}
                     component={Link}
-                    to="create"
+                    to="/admin/manage-categories/add"
                 >
                     Add
                 </Button>

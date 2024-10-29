@@ -552,11 +552,7 @@ function PerfumeDetail() {
                                         </CustomizeTypography>
                                     </Box>
                                     {selectedSize.size === size.size && (
-                                        <IconButton>
-                                            <CheckIcon
-                                                sx={{ color: '#18920D', fontSize: '18px' }}
-                                            />
-                                        </IconButton>
+                                        <CheckIcon sx={{ color: '#18920D', fontSize: '18px' }} />
                                     )}
                                 </Button>
                             ))}

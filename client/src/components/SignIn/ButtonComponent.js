@@ -52,7 +52,7 @@ const StyledButton = styled(Button)(({}) => ({
     },
 }));
 
-// Main Component
+
 const ButtonComponent = ({ textAction, onHandleClick, onHandleKeyEvent }) => {
     return (
         <Container onClick={onHandleClick}>

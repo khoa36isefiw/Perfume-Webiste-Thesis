@@ -1,5 +1,14 @@
 import React from 'react';
-import { Box, FormHelperText, Paper, Typography, MenuItem, Button, TextField } from '@mui/material';
+import {
+    Box,
+    FormHelperText,
+    Paper,
+    Typography,
+    MenuItem,
+    Button,
+    TextField,
+    Grid,
+} from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +22,21 @@ function AddCategory() {
         {
             name: 'unisex',
             parentCategory: '...',
-            description: 'test',
+            description: 'men and women can use',
+            isActive: true,
+            _id: 1,
+        },
+        {
+            name: 'men',
+            parentCategory: '...',
+            description: 'for men',
+            isActive: true,
+            _id: 1,
+        },
+        {
+            name: 'women',
+            parentCategory: '...',
+            description: 'for women',
             isActive: true,
             _id: 1,
         },
@@ -41,11 +64,11 @@ function AddCategory() {
 
     const fetchAllParentCategory = async () => {
         const listCategory = 'await categoryService.getAllParentCategory()';
-        setCategories(listCategory);
+        // setCategories(listCategory);
     };
     const fetchCategoryByParentId = async (id) => {
         const listCategory = 'await categoryService.getChildCategoryByPId(id)';
-        setSubCategories(listCategory);
+        // setSubCategories(listCategory);
     };
 
     React.useEffect(() => {
@@ -115,8 +138,7 @@ function AddCategory() {
         }, 3000);
     };
     const handleBack = () => {
-        navigate('/manage-category');
-        // window.history.back(); // Quay trở lại trang trước
+        window.history.back(); // Quay trở lại trang trước
     };
 
     const handleSelectedCategory = (e) => {
@@ -128,7 +150,7 @@ function AddCategory() {
     };
 
     return (
-        <Box>
+        <Box sx={{ p: 3, height: '100vh' }}>
             <Button
                 startIcon={<ArrowBackIosNewIcon />}
                 sx={{ display: 'inline-flex', padding: '10px 30px 10px 0px', mb: '16px' }}
@@ -137,90 +159,96 @@ function AddCategory() {
                 Back
             </Button>
             <Typography sx={{ fontSize: '3rem', fontWeight: 600 }}>New Category</Typography>
-            <Paper sx={{ mt: 4, mb: 4, padding: 1.5, borderRadius: 4 }}>
+            <Box sx={{ bgcolor: '#fff', mt: 4, px: 2, borderRadius: 2, minHeight: 200 }}>
                 <form onSubmit={handleCreate}>
-                    <Box>
-                        <TextField
-                            label="Category Name"
-                            required
-                            fullWidth
-                            value={name.value}
-                            error={name.message ? true : false}
-                            variant="outlined"
-                            placeholder="Enter Category Name"
-                            sx={{ width: '100%', mr: 2, mb: 2 }}
-                            onBlur={validateName}
-                            onChange={(e) => setName({ ...name, value: e.target.value })}
-                        />
-                        <FormHelperText error sx={{ fontSize: '1.4rem' }}>
-                            {name.message}
-                        </FormHelperText>
-                    </Box>
-                    <Box>
-                        <TextField
-                            sx={{ width: '100%', mb: 2 }}
-                            label="Description"
-                            required
-                            fullWidth
-                            value={description.value}
-                            error={description.message ? true : false}
-                            variant="outlined"
-                            placeholder="Enter Description"
-                            onBlur={validateDescription}
-                            onChange={(e) =>
-                                setDescription({ ...description, value: e.target.value })
-                            }
-                        />
-                        <FormHelperText error sx={{ fontSize: '1.4rem' }}>
-                            {description.message}
-                        </FormHelperText>
-                    </Box>
-                    {categories.length > 0 && (
-                        <TextField
-                            select
-                            value={selectedCategoryId}
-                            onChange={handleSelectedCategory}
-                            label="Select Category"
-                            sx={{ minWidth: '30%', mb: 2, fontSize: '14px' }}
-                        >
-                            <MenuItem value="" sx={{ fontSize: '14px' }}>
-                                <em>None</em>
-                            </MenuItem>
-                            {categories.map((category) => (
-                                <MenuItem
-                                    key={category._id}
-                                    value={category._id}
+                    <Grid container spacing={4}>
+                        <Grid item lg={6}>
+                            <TextField
+                                label="Category Name"
+                                required
+                                fullWidth
+                                value={name.value}
+                                error={name.message ? true : false}
+                                variant="outlined"
+                                placeholder="Enter Category Name"
+                                onBlur={validateName}
+                                onChange={(e) => setName({ ...name, value: e.target.value })}
+                            />
+                        </Grid>
+                        <Grid item lg={6}>
+                            <TextField
+                                sx={{ width: '100%' }}
+                                label="Description"
+                                required
+                                fullWidth
+                                value={description.value}
+                                error={description.message ? true : false}
+                                variant="outlined"
+                                placeholder="Enter Description"
+                                onBlur={validateDescription}
+                                onChange={(e) =>
+                                    setDescription({ ...description, value: e.target.value })
+                                }
+                            />
+                        </Grid>
+                        <Grid item lg={6}>
+                            {categories.length > 0 && (
+                                <TextField
+                                    fullWidth
+                                    select
+                                    value={selectedCategoryId}
+                                    onChange={handleSelectedCategory}
+                                    label="Select Category"
                                     sx={{ fontSize: '14px' }}
                                 >
-                                    {category.name}
-                                </MenuItem>
-                            ))}{' '}
-                            *
-                        </TextField>
-                    )}
-                    {subCategories?.length > 0 && (
-                        <TextField
-                            select
-                            value={selectedSubCategoryId}
-                            onChange={handleSelectedSubCategory}
-                            label="Select Sub Category"
-                            sx={{ width: '100%', fontSize: '14px', mb: 2 }}
-                        >
-                            {subCategories.map((category) => (
-                                <MenuItem
-                                    key={category._id}
-                                    value={category._id}
-                                    sx={{ fontSize: '14px' }}
+                                    <MenuItem value="" sx={{ fontSize: '14px' }}>
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {categories.map((category) => (
+                                        <MenuItem
+                                            key={category._id}
+                                            value={category._id}
+                                            sx={{ fontSize: '14px' }}
+                                        >
+                                            {category.name}
+                                        </MenuItem>
+                                    ))}{' '}
+                                    *
+                                </TextField>
+                            )}
+                        </Grid>
+                        <Grid item lg={6}>
+                            {subCategories?.length > 0 && (
+                                <TextField
+                                    select
+                                    value={selectedSubCategoryId}
+                                    onChange={handleSelectedSubCategory}
+                                    label="Select Sub Category"
+                                    sx={{ width: '100%', fontSize: '14px' }}
                                 >
-                                    {category.name}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                    )}
+                                    {subCategories.map((category) => (
+                                        <MenuItem
+                                            key={category._id}
+                                            value={category._id}
+                                            sx={{ fontSize: '14px' }}
+                                        >
+                                            {category.name}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            )}
+                        </Grid>
+                    </Grid>
 
-                    <Button type="submit">Create Category</Button>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{ textTransform: 'initial', fontSize: '14px', my: 4 }}
+                    >
+                        Create Category
+                    </Button>
                 </form>
-            </Paper>
+            </Box>
         </Box>
     );
 }

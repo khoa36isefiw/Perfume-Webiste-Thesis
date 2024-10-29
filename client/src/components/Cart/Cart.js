@@ -19,7 +19,7 @@ function Cart() {
     const navigate = useNavigate();
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
     const [priceChange, setPriceChange] = useState(false);
-    const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId;
     const { data, isLoading, error } = useUserById(userId);
 
     const [selectedProducts, setSelectedProducts] = useState([]);
