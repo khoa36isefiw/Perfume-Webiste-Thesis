@@ -104,7 +104,13 @@ export default function AdminAuth() {
                             disableTouchRipple
                         >
                             <Box>
-                                <AdminTypography fontBold={true}>Admin Tomtoc</AdminTypography>
+                                <AdminTypography
+                                    sx={{
+                                        fontWeight: 'bold',
+                                    }}
+                                >
+                                    Admin Tomtoc
+                                </AdminTypography>
                                 <AdminTypography sx={{ fontSize: 14 }}>
                                     @admintomtoc
                                 </AdminTypography>

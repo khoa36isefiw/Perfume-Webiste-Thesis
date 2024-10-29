@@ -160,7 +160,7 @@ export default function AdminOrdersTable() {
                             {filteredRows
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.orderId}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (
