@@ -10,10 +10,8 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import { authAPI } from '../../api/authAPI';
-import { Requirement } from '../Requirement/Requirement';
 import useValidationWithRef from '../../hooks/useValidationWithRef';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
-import useRequirements from '../../hooks/useRequirements';
 import { RequirementV2 } from '../Requirement/RequirementV2';
 
 function RegisterAccount() {
@@ -31,7 +29,7 @@ function RegisterAccount() {
         handleCloseNotification,
     } = useShowNotificationMessage();
     const [open, setOpen] = useState(false);
-    const { handleOpen, handleClose, anchorEl, PopperContent } = useRequirements(open, setOpen);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
@@ -115,6 +113,9 @@ function RegisterAccount() {
                 }
             } else {
                 setOpen(true);
+                setTimeout(() => {
+                    setOpen(false);
+                }, 6000);
                 showMessage(
                     'warning',
                     'Register account',
@@ -123,6 +124,9 @@ function RegisterAccount() {
             }
         } else {
             setOpen(true);
+            setTimeout(() => {
+                setOpen(false);
+            }, 6000);
             showMessage('warning', 'Register account', 'Please fill your information');
         }
     };
@@ -185,23 +189,26 @@ function RegisterAccount() {
                                 </strong>
                             </CustomizeTypography>
                         </Grid>
-                        <Grid container item spacing={2} sx={{ p: 2 }}>
-                            <Grid item xs={12} sm={12} lg={12}>
-                                <Tooltip
-                                    title={
-                                        <Typography
-                                            sx={{
-                                                fontSize: '13px',
-                                            }}
-                                        >
-                                            Requirement
-                                        </Typography>
-                                    }
-                                >
-                                    <Requirement />
-                                </Tooltip>
-                            </Grid>
-                            <Grid item xs={12} sm={12} lg={12}>
+                        {/* MuiGrid-root  */}
+                        <Grid
+                            container
+                            item
+                            spacing={2}
+                            sx={{
+                                p: 2,
+                            }}
+                        >
+                            <Grid
+                                item
+                                xs={12}
+                                sm={12}
+                                lg={12}
+                                sx={{
+                                    '&.MuiGrid-item': {
+                                        pt: 1,
+                                    },
+                                }}
+                            >
                                 <Tooltip
                                     title={
                                         <Typography
@@ -214,16 +221,24 @@ function RegisterAccount() {
                                     }
                                 >
                                     <RequirementV2
+                                        onHandleOpen={() => setOpen(true)}
                                         open={open}
-                                        setOpen={setOpen}
-                                        anchorEl={anchorEl}
-                                        handleClose={handleClose}
-                                        handleClick={handleOpen('right')}
+                                        onHandleClose={() => setOpen(false)}
                                     />
                                 </Tooltip>
                             </Grid>
 
-                            <Grid item xs={12} sm={6} lg={6}>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={6}
+                                lg={6}
+                                sx={{
+                                    '&.MuiGrid-item': {
+                                        pt: 1,
+                                    },
+                                }}
+                            >
                                 <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
                                     First Name<span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
@@ -233,7 +248,17 @@ function RegisterAccount() {
                                     inputRef={firstNameRef}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6} lg={6}>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={6}
+                                lg={6}
+                                sx={{
+                                    '&.MuiGrid-item': {
+                                        pt: 1,
+                                    },
+                                }}
+                            >
                                 <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
                                     Last Name<span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
@@ -243,7 +268,17 @@ function RegisterAccount() {
                                     inputRef={lastNameRef}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6} lg={6}>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={6}
+                                lg={6}
+                                sx={{
+                                    '&.MuiGrid-item': {
+                                        pt: 1,
+                                    },
+                                }}
+                            >
                                 <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
                                     Phone Number<span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
@@ -253,7 +288,17 @@ function RegisterAccount() {
                                     inputRef={phoneRef}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6} lg={6}>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={6}
+                                lg={6}
+                                sx={{
+                                    '&.MuiGrid-item': {
+                                        pt: 1,
+                                    },
+                                }}
+                            >
                                 <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
                                     Address<span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
@@ -273,7 +318,17 @@ function RegisterAccount() {
                                     p: 2,
                                 }}
                             >
-                                <Grid item xs={12} sm={6} lg={6}>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    lg={6}
+                                    sx={{
+                                        '&.MuiGrid-item': {
+                                            pt: 1,
+                                        },
+                                    }}
+                                >
                                     <CustomizeTypography
                                         sx={{ color: theme.palette.text.secondary }}
                                     >
@@ -286,7 +341,18 @@ function RegisterAccount() {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12} sm={6} lg={6} sx={{ mb: '4px' }}>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    lg={6}
+                                    sx={{
+                                        // mb: '4px',
+                                        '&.MuiGrid-item': {
+                                            pt: 1,
+                                        },
+                                    }}
+                                >
                                     <CustomizeTypography
                                         sx={{ color: theme.palette.text.secondary }}
                                     >
