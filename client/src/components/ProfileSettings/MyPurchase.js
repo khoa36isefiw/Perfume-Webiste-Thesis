@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, Box, IconButton, Grid, Button, Divider } from '@mui/material';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -10,6 +10,8 @@ import { orderHistoryData } from './orderHistoryData';
 import { useSelector } from 'react-redux';
 import { formatDate } from '../FormatDate/formatDate';
 import { converToVND } from '../convertToVND/convertToVND';
+import useOrderByUser from '../../api/useOrderByUser';
+import { blue } from '@mui/material/colors';
 
 const OrderSummary = ({ iconBgColor, iconColor, orderCount, orderLabel }) => (
     <>
@@ -116,7 +118,7 @@ const OrderItem = ({ listData }) => (
                         width: '100%',
                     },
                 }}
-                key={index}
+                key={item?.orderNumber}
             >
                 <Box sx={{ display: 'flex' }}>
                     <Avatar
@@ -210,7 +212,8 @@ const OrderItem2 = ({ listData }) => (
                 >
                     <Box sx={{ display: 'flex' }}>
                         <Avatar
-                            src={item.image}
+                            src={'item.image'}
+                            alt={'Product Name'}
                             sx={{
                                 borderRadius: 1,
                                 width: '100px',
@@ -228,7 +231,7 @@ const OrderItem2 = ({ listData }) => (
                                     },
                                 }}
                             >
-                                {item.name}
+                                {item.productName}
                             </CustomizeTypography>
                             <CustomizeTypography
                                 sx={{
@@ -238,7 +241,7 @@ const OrderItem2 = ({ listData }) => (
                                     },
                                 }}
                             >
-                                {item.brand}
+                                brand
                             </CustomizeTypography>
                             <CustomizeTypography
                                 sx={{
@@ -248,26 +251,8 @@ const OrderItem2 = ({ listData }) => (
                                     },
                                 }}
                             >
-                                {item.size} ml
+                                {item.size}
                             </CustomizeTypography>
-                            {/* <Button
-                                startIcon={<StarIcon />}
-                                sx={{
-                                    padding: '6px 0',
-                                    textTransform: 'initial',
-                                    fontSize: '14px',
-                                    fontWeight: 'bold',
-                                    color: theme.palette.text.secondary,
-                                    '&:hover': {
-                                        bgcolor: 'transparent',
-                                    },
-                                    [mobileScreen]: {
-                                        fontSize: '13px',
-                                    },
-                                }}
-                            >
-                                Rate Now
-                            </Button> */}
                         </Box>
                     </Box>
                     <CustomizeTypography
@@ -279,7 +264,7 @@ const OrderItem2 = ({ listData }) => (
                             },
                         }}
                     >
-                        {converToVND(item.price)}
+                        {converToVND(item.price)} - price sale {converToVND(item.priceSale)}
                     </CustomizeTypography>
                 </Box>
                 {index !== listData.length - 1 && <Divider sx={{ bgcolor: '#ccc', my: 1 }} />}
@@ -288,22 +273,18 @@ const OrderItem2 = ({ listData }) => (
     </>
 );
 
-const OrderLists = ({ ordersListData }) => {
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+const OrderLists = ({ ordersListData, orderHistory }) => {
+    // const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     // const orderHistory = useSelector(
     //     (state) => state.checkoutManagement.listOrders[loggedInAccount.userId],
     // );
-
-    const orderHistory = useSelector(
-        // get for each user
-        (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
-    );
 
     console.log('orderHistory: ', orderHistory);
 
     return (
         <>
-            {ordersListData.map((order, index) => (
+            {/* sample */}
+            {ordersListData?.map((order, index) => (
                 <Box
                     sx={{
                         bgcolor: '#555',
@@ -384,115 +365,8 @@ const OrderLists = ({ ordersListData }) => {
                 </Box>
             ))}
 
-            {/* Test 2 */}
-            {/* {Object.entries(orderHistory).map(([key, value]) => {
-                console.log('key is: ', key);
-                console.log('value is: ', value);
-                return (
-                    <Box sx={{ bgcolor: '#fff' }} key={key}>
-                        {Object.entries(value).map(([key2, value2]) => {
-                            console.log('key2 is: ', key2);
-                            console.log('value2 is: ', value2); // Check the structure of value2
-                            return (
-                                <Box>
-                                    {value2.map((val, index) => (
-                                        <Box
-                                            sx={{
-                                                bgcolor: '#555',
-                                                minHeight: '20px',
-                                                borderRadius: 1,
-                                                p: 2,
-                                                my: 4,
-                                                width: '100%',
-                                            }}
-                                            key={index}
-                                        >
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={3} sm={3} lg={3}>
-                                                    <OrderInfo
-                                                        label="Order Num"
-                                                        value={`#${val.orderId}`}
-                                                    />
-                                                </Grid>
-                                                <Grid item xs={1} sm={1} lg={1}>
-                                                    <VerticalDivider />
-                                                </Grid>
-                                                <Grid item xs={3} sm={3} lg={3}>
-                                                    <OrderInfo
-                                                        label="Order Date"
-                                                        // value={val.timestamp.toISOString()}
-                                                        value={formatDate(val.timestamp)}
-                                                    />
-                                                </Grid>
-                                                <Grid item xs={1} sm={1}>
-                                                    <VerticalDivider />
-                                                </Grid>
-                                                <Grid item xs={4} sm={4} lg={4}>
-                                                    <OrderInfo
-                                                        label="Ship To"
-                                                        value={val.user.address}
-                                                    />
-                                                </Grid>
-                                            </Grid>
-
-                                            <CustomizeDividerVertical8 />
-                                            <OrderItem2 listData={val.products} />
-                                            <CustomizeDividerVertical8 />
-                                            <Box
-                                                sx={{
-                                                    display: 'flex',
-                                                    justifyContent: 'space-between',
-                                                    alignItems: 'center',
-                                                }}
-                                            >
-                                                <CustomizeTypography
-                                                    sx={{
-                                                        mb: 0,
-                                                        [mobileScreen]: {
-                                                            fontSize: '13px',
-                                                        },
-                                                    }}
-                                                >
-                                                    <span
-                                                        style={{
-                                                            color: '#d9d9d9',
-                                                        }}
-                                                    >
-                                                        Total Amount:
-                                                    </span>{' '}
-                                                    <strong>${val.totalPrice}</strong>
-                                                </CustomizeTypography>
-                                                <Button
-                                                    startIcon={<SystemUpdateAltIcon />}
-                                                    sx={{
-                                                        padding: '6px 0',
-                                                        textTransform: 'initial',
-                                                        fontSize: '14px',
-                                                        fontWeight: 'bold',
-                                                        // color: theme.palette.text.secondary,
-
-                                                        '&:hover': {
-                                                            bgcolor: 'transparent',
-                                                        },
-
-                                                        [mobileScreen]: {
-                                                            fontSize: '13px',
-                                                        },
-                                                    }}
-                                                >
-                                                    Download Invoice
-                                                </Button>
-                                            </Box>
-                                        </Box>
-                                    ))}
-                                </Box>
-                            );
-                        })}
-                    </Box>
-                );
-            })} */}
-
-            {orderHistory.map((order, index) => (
+            {/* sample */}
+            {orderHistory?.map((order, index) => (
                 <Box
                     sx={{
                         bgcolor: '#555',
@@ -502,31 +376,28 @@ const OrderLists = ({ ordersListData }) => {
                         my: 4,
                         width: '100%',
                     }}
-                    key={index}
+                    key={order._id}
                 >
                     <Grid container spacing={2}>
                         <Grid item xs={3} sm={3} lg={3}>
-                            <OrderInfo label="Order Num" value={`#${order.purchaseInfo.orderId}`} />
+                            <OrderInfo label="Order Num" value={`#${order._id}`} />
                         </Grid>
                         <Grid item xs={1} sm={1} lg={1}>
                             <VerticalDivider />
                         </Grid>
                         <Grid item xs={3} sm={3} lg={3}>
-                            <OrderInfo
-                                label="Order Date"
-                                value={formatDate(order.purchaseInfo.timestamp)}
-                            />
+                            <OrderInfo label="Order Date" value={formatDate(order.createdAt)} />
                         </Grid>
                         <Grid item xs={1} sm={1}>
                             <VerticalDivider />
                         </Grid>
                         <Grid item xs={4} sm={4} lg={4}>
-                            <OrderInfo label="Ship To" value={order.purchaseInfo.user.address} />
+                            <OrderInfo label="Ship To" value={'ahiahihi'} />
                         </Grid>
                     </Grid>
 
                     <CustomizeDividerVertical8 />
-                    <OrderItem2 listData={order.purchaseInfo.products} />
+                    <OrderItem2 listData={order.items} />
                     <CustomizeDividerVertical8 />
                     <Box
                         sx={{
@@ -550,7 +421,7 @@ const OrderLists = ({ ordersListData }) => {
                             >
                                 Total Amount:
                             </span>{' '}
-                            <strong>{converToVND(order.purchaseInfo.totalPrice)}</strong>
+                            <strong>{converToVND(order.totalPrice)}</strong>
                         </CustomizeTypography>
                         <Button
                             startIcon={<SystemUpdateAltIcon />}
@@ -580,6 +451,24 @@ const OrderLists = ({ ordersListData }) => {
 };
 
 function MyPurchase() {
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId || null;
+    const { data: orders, isLoading, error } = useOrderByUser(userId);
+    const filterOrdersList = [
+        { filter: 'All Orders', status: 'ALL' },
+        { filter: 'Pending', status: 'PENDING_PAYMENT' },
+        { filter: 'Paid', status: 'PAID' },
+        { filter: 'Cancelled', status: 'CANCELLED' },
+    ];
+    const [filterOrders, setFilterOrders] = useState({ filter: 'All Orders', status: 'ALL' });
+    const filterListOrders =
+        filterOrders.status !== filterOrdersList[0]?.status
+            ? orders?.data.filter((order) => order.status === filterOrders.status)
+            : orders?.data;
+
+    const handleSelectFilterOrders = (filter) => {
+        setFilterOrders(filter);
+    };
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -598,7 +487,7 @@ function MyPurchase() {
                     <OrderSummary
                         iconBgColor={theme.palette.orderHistory.total.bg}
                         iconColor={theme.palette.orderHistory.total.icon}
-                        orderCount="36"
+                        orderCount={orders?.data.length}
                         orderLabel="Total Order"
                     />
                 </Grid>
@@ -607,7 +496,7 @@ function MyPurchase() {
                         iconBgColor={theme.palette.orderHistory.deliveried.bg}
                         iconColor={theme.palette.orderHistory.deliveried.icon}
                         orderCount="2"
-                        orderLabel="Active Order"
+                        orderLabel="Pending Payment"
                     />
                 </Grid>
                 <Grid item xs={6} sm={6} lg={3}>
@@ -615,7 +504,7 @@ function MyPurchase() {
                         iconBgColor={theme.palette.orderHistory.pending.bg}
                         iconColor={theme.palette.orderHistory.pending.icon}
                         orderCount="24"
-                        orderLabel="Completed"
+                        orderLabel="Paid"
                     />
                 </Grid>
                 <Grid item xs={6} sm={6} lg={3}>
@@ -623,9 +512,59 @@ function MyPurchase() {
                         iconBgColor={theme.palette.orderHistory.cancel.bg}
                         iconColor={theme.palette.orderHistory.cancel.icon}
                         orderCount="12"
-                        orderLabel="Canceled"
+                        orderLabel="Cancelled"
                     />
                 </Grid>
+            </Grid>
+            {/* filter  */}
+            <Grid
+                item
+                container
+                spacing={0}
+                xs={12}
+                sm={12}
+                sx={{
+                    [mobileScreen]: {
+                        paddingLeft: 0,
+                    },
+                }}
+            >
+                {filterOrdersList.map((filter, index) => (
+                    <Button
+                        onClick={() => handleSelectFilterOrders(filter)}
+                        key={index}
+                        variant={filterOrders.status === filter.status ? 'contained' : 'outlined'}
+                        sx={{
+                            margin: 0.5,
+                            fontSize: '14px',
+                            textTransform: 'initial',
+                            mb: 2,
+                            borderRadius: 5,
+                            color:
+                                filter.status === 'ALL'
+                                    ? theme.palette.orderHistory.total.icon
+                                    : filter.status === 'PENDING_PAYMENT'
+                                    ? theme.palette.orderHistory.deliveried.icon
+                                    : filter.status === 'PAID'
+                                    ? theme.palette.orderHistory.pending.icon
+                                    : theme.palette.orderHistory.cancel.icon,
+
+                            fontWeight: 'bold',
+                            '&:focus': {
+                                bgcolor:
+                                    filter.status === 'ALL'
+                                        ? theme.palette.orderHistory.total.bg
+                                        : filter.status === 'PENDING_PAYMENT'
+                                        ? theme.palette.orderHistory.deliveried.bg
+                                        : filter.status === 'PAID'
+                                        ? theme.palette.orderHistory.pending.bg
+                                        : theme.palette.orderHistory.cancel.bg,
+                            },
+                        }}
+                    >
+                        {filter.filter}
+                    </Button>
+                ))}
             </Grid>
             <Grid
                 item
@@ -639,7 +578,7 @@ function MyPurchase() {
                     },
                 }}
             >
-                <OrderLists ordersListData={orderHistoryData} />
+                <OrderLists ordersListData={orderHistoryData} orderHistory={filterListOrders} />
             </Grid>
         </Grid>
     );

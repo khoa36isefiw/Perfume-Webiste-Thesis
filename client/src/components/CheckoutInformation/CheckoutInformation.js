@@ -37,7 +37,6 @@ import { resetIsCommented } from '../../redux/feature/CommentsManagement/Comment
 import { useLocation, useNavigate } from 'react-router-dom';
 import PayPalButtonsComponents from '../PayPalButtonComponents/PayPalButtonComponents';
 import { ordersAPI } from '../../api/ordersAPI';
-import { useGridOverlays } from '@mui/x-data-grid/hooks/features/overlays/useGridOverlays';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
@@ -50,6 +49,7 @@ function CheckoutInformation() {
     const [listDistrict, setListDistrict] = useState([]);
     const [listWardTown, setListWardTown] = useState([]);
     const userData = useState(JSON.parse(window.localStorage.getItem('user_data')));
+    // console.log('userData: ',userData);
     const getListProductSelected = JSON.parse(window.localStorage.getItem('list_product_selected'));
 
     // component parent
@@ -68,6 +68,7 @@ function CheckoutInformation() {
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const productSelectedList = useSelector((state) => state.cartManagement.productSelected);
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+    console.log('userId: ', userId);
 
     // // get province
     // useEffect(() => {

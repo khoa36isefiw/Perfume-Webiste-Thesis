@@ -7,7 +7,7 @@ function PaymentFailed() {
         <Box
             sx={{
                 margin: 'auto',
-                mt: 12,
+                mt: 24,
                 minHeight: '400px',
                 width: '380px',
                 bgcolor: '#000',
@@ -42,10 +42,10 @@ function PaymentFailed() {
                         color: 'red',
                     }}
                 >
-                    Payment Failed
+                    Payment Cancel
                 </CustomizeTypography>
                 <CustomizeTypography sx={{ textAlign: 'center' }}>
-                    We're sorry about something went wrong...
+                    Oops, what happened????
                 </CustomizeTypography>
                 <Button
                     // onClick={onHandleClick}
