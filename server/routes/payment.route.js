@@ -3,9 +3,9 @@ const router = express.Router();
 
 const paymentController = require('../controllers/PaymentController');
 
-router.post('/capture-order', paymentController.captureOrder);
-router.post('/create-order', paymentController.createOrder);
-router.get('/payment-ref/:payRef', paymentController.getByPayRef);
+router.post('/paypal/capture-order', paymentController.captureOrder);
+router.post('/paypal/create-order', paymentController.createOrder);
+router.get('/paypal/:payRef', paymentController.getByPayRef);
 router.get('/:id', paymentController.getById);
 router.get('/', paymentController.getAll);
 
