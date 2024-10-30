@@ -299,6 +299,43 @@ const UserController = {
             return res.status(500).json({ message: error.message });
         }
     },
+
+    removeItemFromCart: async (req, res) => {
+        const { id } = req.params;
+        const { product, variant } = req.body;
+
+        try {
+            const user = await User.findById(id);
+
+            const cartItemIndex = user.cart.findIndex(
+                (cartItem) =>
+                    cartItem.product.toString() === product &&
+                    cartItem.variant.toString() === variant,
+            );
+
+            if (cartItemIndex > -1) {
+                user.cart.splice(cartItemIndex, 1);
+                await user.save();
+                return res.status(200).json({ message: 'Item removed from cart.' });
+            } else {
+                return res.status(404).json({ message: 'Item not found in cart.' });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    },
+
+    clearCart: async (req, res) => {
+        const { id } = req.params;
+        try {
+            const user = await User.findById(id);
+            user.cart = [];
+            await user.save();
+            return res.status(200).json({ message: 'Cart cleared.' });
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    },
 };
 
 module.exports = UserController;
