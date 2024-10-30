@@ -12,8 +12,8 @@ import PaymentFailed from '../components/PaymentSuccess/PaymentFailed';
 function HomePage() {
     return (
         <div style={{ overflow: 'hidden' }}>
-            <PaymentSuccess />
-            <PaymentFailed />
+            {/* <PaymentSuccess />
+            <PaymentFailed /> */}
             <NewArrivals />
             <WelcomeHomePage />
             <OurValues />

@@ -453,12 +453,19 @@ const OrderLists = ({ ordersListData, orderHistory }) => {
 function MyPurchase() {
     const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId || null;
     const { data: orders, isLoading, error } = useOrderByUser(userId);
+    const statusCount = orders?.data.reduce((acc, order) => {
+        acc[order.status] = (acc[order.status] || 0) + 1;
+
+        return acc;
+    }, {});
+
     const filterOrdersList = [
         { filter: 'All Orders', status: 'ALL' },
         { filter: 'Pending', status: 'PENDING_PAYMENT' },
         { filter: 'Paid', status: 'PAID' },
         { filter: 'Cancelled', status: 'CANCELLED' },
     ];
+
     const [filterOrders, setFilterOrders] = useState({ filter: 'All Orders', status: 'ALL' });
     const filterListOrders =
         filterOrders.status !== filterOrdersList[0]?.status
@@ -468,6 +475,13 @@ function MyPurchase() {
     const handleSelectFilterOrders = (filter) => {
         setFilterOrders(filter);
     };
+
+    const totalOrderBasedStatus = (orderStatus) => {
+        return orders?.data?.filter((order) => order.status === orderStatus).length;
+    };
+    const pending = totalOrderBasedStatus('PENDING_PAYMENT');
+    const paid = totalOrderBasedStatus('PAID');
+    const cancelled = totalOrderBasedStatus('CANCELLED');
 
     return (
         <Grid container spacing={2}>
@@ -495,7 +509,7 @@ function MyPurchase() {
                     <OrderSummary
                         iconBgColor={theme.palette.orderHistory.deliveried.bg}
                         iconColor={theme.palette.orderHistory.deliveried.icon}
-                        orderCount="2"
+                        orderCount={pending}
                         orderLabel="Pending Payment"
                     />
                 </Grid>
@@ -503,7 +517,7 @@ function MyPurchase() {
                     <OrderSummary
                         iconBgColor={theme.palette.orderHistory.pending.bg}
                         iconColor={theme.palette.orderHistory.pending.icon}
-                        orderCount="24"
+                        orderCount={paid}
                         orderLabel="Paid"
                     />
                 </Grid>
@@ -511,7 +525,7 @@ function MyPurchase() {
                     <OrderSummary
                         iconBgColor={theme.palette.orderHistory.cancel.bg}
                         iconColor={theme.palette.orderHistory.cancel.icon}
-                        orderCount="12"
+                        orderCount={cancelled}
                         orderLabel="Cancelled"
                     />
                 </Grid>
