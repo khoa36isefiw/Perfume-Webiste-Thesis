@@ -5,7 +5,7 @@ const Variant = require('../models/Variant.model');
 const OrderController = {
     getAll: async (req, res) => {
         try {
-            const orders = await Order.find({ deleted: false }, null, { lean: true });
+            const orders = await Order.find({});
             res.status(200).json(orders);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -55,7 +55,7 @@ const OrderController = {
                         product: product._id,
                         variant: variant._id,
                         productName: product.nameEn,
-                        imagePath: product.imagePath,
+                        image: product.imagePath,
                         size: variant.size,
                         price: variant.price,
                         priceSale: variant.priceSale,

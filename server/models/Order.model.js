@@ -13,8 +13,10 @@ const orderItemSchema = new Schema(
             ref: 'Variant',
             required: true,
         },
+        category: String,
+        brand: String,
         productName: String,
-        image: String,
+        image: [String],
         size: String,
         price: {
             type: Number,

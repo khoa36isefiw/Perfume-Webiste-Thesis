@@ -47,32 +47,38 @@ const PaymentController = {
     createOrder: async (req, res) => {
         const { user, items } = req.body;
         try {
+            if (items.length === 0) {
+                return res.status(400).json({ message: 'Cart is empty' });
+            }
             const newOrder = new Order({
                 user,
                 status: 'PENDING_PAYMENT',
                 totalPrice: 0,
             });
 
-            if (items.length > 0) {
-                for (const item of items) {
-                    const product = await Product.findOne({ _id: item.product });
-                    const variant = await Variant.findOne({ _id: item.variant });
+            for (const item of items) {
+                const product = await Product.findOne({ _id: item.product })
+                    .populate('brand')
+                    .populate('category');
+                const variant = await Variant.findOne({ _id: item.variant });
 
-                    newOrder.items.push({
-                        product: product._id,
-                        variant: variant._id,
-                        productName: product.nameEn,
-                        imagePath: product.imagePath,
-                        size: variant.size,
-                        price: variant.price,
-                        priceSale: variant.priceSale,
-                        quantity: item.quantity,
-                    });
-                    const totalPrice =
-                        item.quantity * (variant.priceSale ? variant.priceSale : variant.price);
-                    newOrder.totalPrice += totalPrice;
-                }
+                newOrder.items.push({
+                    product: product._id,
+                    variant: variant._id,
+                    productName: product.nameEn,
+                    category: product.category.nameEn,
+                    brand: product.brand.nameEn,
+                    image: product.imagePath,
+                    size: variant.size,
+                    price: variant.price,
+                    priceSale: variant.priceSale,
+                    quantity: item.quantity,
+                });
+                const totalPrice =
+                    item.quantity * (variant.priceSale ? variant.priceSale : variant.price);
+                newOrder.totalPrice += totalPrice;
             }
+
             const savedOrder = await newOrder.save();
 
             // remove item in cart
