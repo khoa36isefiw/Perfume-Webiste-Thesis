@@ -67,6 +67,7 @@ function CheckoutInformation() {
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const productSelectedList = useSelector((state) => state.cartManagement.productSelected);
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+    console.log('userId: ', userId);
 
     // // get province
     // useEffect(() => {

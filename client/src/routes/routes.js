@@ -33,6 +33,9 @@ import AdminEditCoupon from '../components/AdminCoupons/AdminEditCoupon';
 import AdminCategoriesPage from '../pages/AdminCategoriesPage';
 import AddCategory from '../components/AdminCategories/AddCategory';
 import AdminEditCategory from '../components/AdminCategories/AdminEditCategory';
+import PaymentSuccess from '../components/PaymentSuccess/PaymentSuccess';
+
+import PaymentFailed from '../components/PaymentSuccess/PaymentFailed';
 
 // not sign into this website
 const publicRoutes = [
@@ -55,6 +58,8 @@ const publicRoutes = [
     { path: '/profile-settings', component: AccountInfoPage, layout: ProfileSettingsLayout },
     { path: '/change-password', component: ChangePassword, layout: ProfileSettingsLayout },
     { path: '/my-purchase', component: PurchasePage, layout: ProfileSettingsLayout },
+    { path: '/success', component: PaymentSuccess, layout: UserLayouts },
+    { path: '/cancel', component: PaymentFailed, layout: UserLayouts },
 ];
 
 // must signed into

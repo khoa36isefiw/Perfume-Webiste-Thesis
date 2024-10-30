@@ -115,7 +115,7 @@ function AdminSidebar() {
                             m: '4px',
                             py: '8px',
                             px: 4,
-                            fontWeight: activeButton === sidebar.sidebarText ? 'bold' : 'normal',
+
                             '&:hover': {
                                 fontWeight: 'bold',
                                 color: theme.palette.admin.primaryColor,
