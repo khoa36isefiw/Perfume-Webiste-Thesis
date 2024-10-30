@@ -44,7 +44,7 @@ function PayPalButtonsComponents({ user, items }) {
             }}
         >
             <PayPalButtons
-                style={{ layout: 'vertical', color: 'blue', shape: 'rect', label: 'paypal' }}
+                style={{ layout: 'vertical', color: 'gold', shape: 'pill', label: 'paypal' }}
                 createOrder={createOrder}
                 onApprove={onApprove}
                 onCancel={onCancel}

@@ -37,7 +37,6 @@ import { resetIsCommented } from '../../redux/feature/CommentsManagement/Comment
 import { useLocation, useNavigate } from 'react-router-dom';
 import PayPalButtonsComponents from '../PayPalButtonComponents/PayPalButtonComponents';
 import { ordersAPI } from '../../api/ordersAPI';
-import { useGridOverlays } from '@mui/x-data-grid/hooks/features/overlays/useGridOverlays';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
