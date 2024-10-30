@@ -21,6 +21,7 @@ import Footer from '../components/Footer/Footer';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import EmptyOrders from '../components/EmptyOrders/EmptyOrders';
+import useOrderByUser from '../api/useOrderByUser';
 
 const darkTheme = createTheme({
     palette: {
@@ -42,6 +43,10 @@ const darkTheme = createTheme({
 function ProfileSettingsLayout({ children }) {
     const location = useLocation();
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+    const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+    console.log('user id in mypu: ', userId);
+    const { data: orders, isLoading, error } = useOrderByUser(userId);
+    console.log('data: ', orders?.data);
     const orderHistory = useSelector(
         // get for each user
         (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
@@ -51,7 +56,7 @@ function ProfileSettingsLayout({ children }) {
             {/* pre-defined layout */}
             <NewHeader />
             {/* any components call this layout */}
-            {location.pathname === '/my-purchase' && orderHistory.length === 0 ? (
+            {location.pathname === '/my-purchase' && orders?.data?.length === 0 ? (
                 <EmptyOrders />
             ) : (
                 <ThemeProvider theme={darkTheme}>
