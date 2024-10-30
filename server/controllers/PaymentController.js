@@ -11,7 +11,7 @@ const { getAll } = require('./ProductController');
 const PaymentController = {
     getAll: async (req, res) => {
         try {
-            const payments = await Payment.find();
+            const payments = await Payment.find({}).populate('order');
             res.status(200).json(payments);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -21,7 +21,7 @@ const PaymentController = {
     getById: async (req, res) => {
         try {
             const { id } = req.params;
-            const payment = await Payment.findOne({ _id: id });
+            const payment = await Payment.findOne({ _id: id }).populate('order');
             if (!payment) {
                 return res.status(404).json({ message: 'Payment not found' });
             }
@@ -34,7 +34,7 @@ const PaymentController = {
     getByPayRef: async (req, res) => {
         try {
             const { payRef } = req.params;
-            const payment = await Payment.findOne({ payRef });
+            const payment = await Payment.findOne({ payRef }).populate('order');
             if (!payment) {
                 return res.status(404).json({ message: 'Payment not found' });
             }
