@@ -1,9 +1,6 @@
 const axios = require('axios');
 
-const PAYPAL_API =
-    process.env.NODE_ENV === 'prod'
-        ? 'https://api-m.paypal.com'
-        : 'https://api-m.sandbox.paypal.com';
+const PAYPAL_API = 'https://api-m.sandbox.paypal.com';
 const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_KEY;
 const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_SECRET_KEY;
 

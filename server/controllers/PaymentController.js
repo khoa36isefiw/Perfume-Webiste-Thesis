@@ -1,58 +1,154 @@
+const axios = require('axios');
 const { PAYPAL_API, getPayPalToken } = require('../configs/paypal.config');
 const Payment = require('../models/Payment.model');
+const Product = require('../models/Product.model');
+const Variant = require('../models/Variant.model');
+const User = require('../models/User.model');
+const Order = require('../models/Order.model');
+const { getConversionRate } = require('../utils/convertCurrency');
+const { getAll } = require('./ProductController');
 
 const PaymentController = {
+    getAll: async (req, res) => {
+        try {
+            const payments = await Payment.find();
+            res.status(200).json(payments);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    getById: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const payment = await Payment.findOne({ _id: id });
+            if (!payment) {
+                return res.status(404).json({ message: 'Payment not found' });
+            }
+            res.status(200).json(payment);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    getByPayRef: async (req, res) => {
+        try {
+            const { payRef } = req.params;
+            const payment = await Payment.findOne({ payRef });
+            if (!payment) {
+                return res.status(404).json({ message: 'Payment not found' });
+            }
+            res.status(200).json(payment);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
     createOrder: async (req, res) => {
-        const { userId, orderDetails } = req.body;
+        const { user, items } = req.body;
         try {
             const newOrder = new Order({
-                user: userId,
-                items: orderDetails.items,
-                totalPrice: orderDetails.totalPrice,
-                email: orderDetails.email,
-                address: orderDetails.address,
-                phoneNumber: orderDetails.phoneNumber,
+                user,
                 status: 'PENDING_PAYMENT',
+                totalPrice: 0,
             });
 
+            if (items.length > 0) {
+                for (const item of items) {
+                    const product = await Product.findOne({ _id: item.product });
+                    const variant = await Variant.findOne({ _id: item.variant });
+
+                    newOrder.items.push({
+                        product: product._id,
+                        variant: variant._id,
+                        productName: product.nameEn,
+                        imagePath: product.imagePath,
+                        size: variant.size,
+                        price: variant.price,
+                        priceSale: variant.priceSale,
+                        quantity: item.quantity,
+                    });
+                    const totalPrice =
+                        item.quantity * (variant.priceSale ? variant.priceSale : variant.price);
+                    newOrder.totalPrice += totalPrice;
+                }
+            }
             const savedOrder = await newOrder.save();
 
-            const token = await getPayPalToken();
+            // remove item in cart
+            const updatedUser = await User.findById(user);
+            updatedUser.cart = updatedUser.cart.filter(
+                (cartItem) =>
+                    !items.find(
+                        (item) =>
+                            item.product === cartItem.product.toString() &&
+                            item.variant === cartItem.variant.toString(),
+                    ),
+            );
+            await updatedUser.save();
 
-            const response = await axios.post(
-                `${PAYPAL_API}/v2/checkout/orders`,
-                {
+            const token = await getPayPalToken();
+            const rate = await getConversionRate();
+            const response = await axios({
+                method: 'post',
+                url: `${PAYPAL_API}/v2/checkout/orders`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                data: JSON.stringify({
                     intent: 'CAPTURE',
                     purchase_units: [
                         {
+                            reference_id: savedOrder._id,
+                            items: savedOrder.items.map((item) => ({
+                                name: item.productName,
+                                description: item.productName,
+                                unit_amount: {
+                                    currency_code: 'USD',
+                                    value: ((item.priceSale || item.price) * rate).toFixed(2),
+                                },
+                                quantity: item.quantity.toString(),
+                            })),
                             amount: {
                                 currency_code: 'USD',
-                                value: savedOrder.totalPrice,
+                                value: (savedOrder.totalPrice * rate).toFixed(2),
+                                breakdown: {
+                                    item_total: {
+                                        currency_code: 'USD',
+                                        value: (savedOrder.totalPrice * rate).toFixed(2),
+                                    },
+                                },
                             },
                         },
                     ],
-                    application_context: {
-                        return_url: `${process.env.CLIENT_URL}/success?orderId=${orderId}`,
-                        cancel_url: `${process.env.CLIENT_URL}/cancel`,
+                    payment_source: {
+                        paypal: {
+                            experience_context: {
+                                brand_name: 'TOMTOC PERFUMES',
+                                shipping_preference: 'NO_SHIPPING',
+                                user_action: 'PAY_NOW',
+                                // return_url: `${process.env.CLIENT_URL}/success`,
+                                // cancel_url: `${process.env.CLIENT_URL}/cancel`,
+                            },
+                        },
                     },
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                },
-            );
+                }),
+            });
 
             const newPayment = new Payment({
-                orderId: savedOrder._id,
+                order: savedOrder._id,
                 amount: savedOrder.totalPrice,
-                details: response.data.id, // PayPal order ID
+                details: '',
+                payRef: response.data.id,
                 paid: false,
                 paymentMethod: 'PAYPAL',
             });
             await newPayment.save();
-
-            res.json({ id: response.data.id });
+            // const approvalUrl = response.data.links.find(
+            //     (link) => link.rel === 'payer-action',
+            // ).href;
+            res.status(200).json({ payRef: response.data.id });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -74,21 +170,19 @@ const PaymentController = {
             );
 
             if (response.data.status === 'COMPLETED') {
-                // Update the payment and order status in MongoDB
                 await Payment.findOneAndUpdate(
-                    { details: paymentId },
+                    { payRef: paymentId },
                     { paid: true, details: JSON.stringify(response.data) },
                 );
 
-                await Order.findOneAndUpdate(
+                const updatedOrder = await Order.findOneAndUpdate(
                     { _id: response.data.purchase_units[0].reference_id },
                     { status: 'PAID' },
                 );
 
-                res.json({ message: 'Payment successful', status: 'PAID' });
+                res.status(200).json({ message: 'Payment successful', order: updatedOrder });
             } else {
-                await Payment.findOneAndUpdate({ details: paymentId }, { paid: false });
-                res.json({ message: 'Payment failed', status: 'PENDING_PAYMENT' });
+                res.status(400).json({ message: 'Payment not completed' });
             }
         } catch (error) {
             res.status(500).json({ error: error.message });

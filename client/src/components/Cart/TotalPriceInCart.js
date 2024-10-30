@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
@@ -19,10 +19,10 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
     useEffect(() => {
         setTotalSubtotal(JSON.parse(window.localStorage.getItem('current_price')) || 0);
         setPriceChange(false);
-    }, [productsList, selectedProducts, priceChange]);
+    }, [productsList, selectedProducts, priceChange, setPriceChange]);
 
     // Calculate total price
-    const calculateTotal = () => {
+    const calculateTotal = useCallback(() => {
         let total = 0;
 
         productsList.forEach((productItem) => {
@@ -39,16 +39,17 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
         });
 
         return total;
-    };
+    }, [productsList, selectedProducts]);
 
     // Update total price when productsList or selectedProducts change
     useEffect(() => {
         const newTotal = calculateTotal();
         setTotalSubtotal(newTotal);
-    }, [productsList, selectedProducts]);
+    }, [calculateTotal]);
 
     const handleCheckout = () => {
-        if (selectedProducts.length > 0) navigate('/checkout');
+        if (selectedProducts.length > 0)
+            navigate('/checkout', { state: { items: selectedProducts } });
         else navigate('');
     };
 

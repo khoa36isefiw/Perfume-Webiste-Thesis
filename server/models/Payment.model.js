@@ -3,11 +3,14 @@ const Schema = mongoose.Schema;
 
 const paymentSchema = new Schema(
     {
-        orderId: {
+        order: {
             type: [mongoose.Schema.Types.ObjectId],
             required: true,
         },
         details: {
+            type: String,
+        },
+        payRef: {
             type: String,
         },
         amount: {

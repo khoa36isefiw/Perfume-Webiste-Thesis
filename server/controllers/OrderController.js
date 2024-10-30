@@ -63,47 +63,11 @@ const OrderController = {
                     });
                     const totalPrice =
                         item.quantity * (variant.priceSale ? variant.priceSale : variant.price);
-                    newOrder.totalPrice = totalPrice;
+                    newOrder.totalPrice += totalPrice;
                 }
             }
             const order = await newOrder.save();
             res.status(201).json(order);
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
-    },
-
-    update: async (req, res) => {
-        const { id } = req.params;
-        const { item } = req.body;
-        try {
-            const order = await Order.findOne({ _id: id });
-            if (!order) {
-                return res.status(404).json({ message: 'Order not found' });
-            }
-            await Order.updateOne(
-                { _id: order._id },
-                {
-                    status: 'IN_SHOPPING_CART',
-                    item,
-                    totalPrice: item.quantity * product.price,
-                },
-            );
-            res.status(200).json({ message: 'Order updated successfully' });
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
-    },
-
-    delete: async (req, res) => {
-        const { id } = req.params;
-        try {
-            const order = await Order.findOne({ _id: id });
-            if (!order) {
-                return res.status(404).json({ message: 'Order not found' });
-            }
-            await Order.updateOne({ _id: id }, { deleted: true });
-            res.status(200).json({ message: 'Order deleted successfully' });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

@@ -34,13 +34,16 @@ import { CustomizeDividerVertical } from '../CustomizeDivider/CustomizeDivider';
 import { CustomizeCheckoutInput } from './CustomizeCheckoutInput';
 import { saveOrders } from '../../redux/feature/CheckoutManagement/CheckoutManagementSlice';
 import { resetIsCommented } from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PayPalButtonsComponents from '../PayPalButtonComponents/PayPalButtonComponents';
 import { ordersAPI } from '../../api/ordersAPI';
 import { useGridOverlays } from '@mui/x-data-grid/hooks/features/overlays/useGridOverlays';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const { items } = location.state || { items: [] };
+
     const dispatch = useDispatch();
     const [informationSaved, setInformationSaved] = useState({});
     const [listProvince, setListProvince] = useState([]);
@@ -64,6 +67,7 @@ function CheckoutInformation() {
     const listProductInCart = useSelector((state) => state.cartManagement.productInfor);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const productSelectedList = useSelector((state) => state.cartManagement.productSelected);
+    const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
 
     // // get province
     // useEffect(() => {
@@ -532,13 +536,14 @@ function CheckoutInformation() {
                         )}
                         {paymentMethod === 'paypal' ? (
                             // {paymentMethod === 'cod' && (
-                            <Box sx={{ mt: 3, bgcolor: '#fff' }}>
+                            <Box sx={{ mt: 3 }}>
                                 <PayPalButtonsComponents
-                                    loggedInAccount={loggedInAccount}
-                                    listProductInCart={getListProductSelected}
-                                    paymentMethod={paymentMethod}
-                                    promoCodeApplied={promoCodeApplied}
-                                    promoCode={promoCode}
+                                    user={userId}
+                                    items={items?.map((item) => ({
+                                        product: item.product._id,
+                                        variant: item.variant._id,
+                                        quantity: item.quantity,
+                                    }))}
                                 />
                             </Box>
                         ) : (
