@@ -453,11 +453,6 @@ const OrderLists = ({ ordersListData, orderHistory }) => {
 function MyPurchase() {
     const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId || null;
     const { data: orders, isLoading, error } = useOrderByUser(userId);
-    const statusCount = orders?.data.reduce((acc, order) => {
-        acc[order.status] = (acc[order.status] || 0) + 1;
-
-        return acc;
-    }, {});
 
     const filterOrdersList = [
         { filter: 'All Orders', status: 'ALL' },
