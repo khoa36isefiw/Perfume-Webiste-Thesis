@@ -49,6 +49,7 @@ function CheckoutInformation() {
     const [listDistrict, setListDistrict] = useState([]);
     const [listWardTown, setListWardTown] = useState([]);
     const userData = useState(JSON.parse(window.localStorage.getItem('user_data')));
+    // console.log('userData: ',userData);
     const getListProductSelected = JSON.parse(window.localStorage.getItem('list_product_selected'));
 
     // component parent

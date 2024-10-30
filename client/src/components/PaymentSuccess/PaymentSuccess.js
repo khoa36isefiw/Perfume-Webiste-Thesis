@@ -2,7 +2,7 @@ import { Box, Button, Grid } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function PaymentSuccess() {
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ function PaymentSuccess() {
         <Box
             sx={{
                 margin: 'auto',
-                mt: 8,
+                mt: 16,
                 minHeight: '400px',
                 width: '380px',
                 bgcolor: '#000',
