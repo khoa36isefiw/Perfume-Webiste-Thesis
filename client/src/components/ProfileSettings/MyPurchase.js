@@ -212,8 +212,7 @@ const OrderItem2 = ({ listData }) => (
                 >
                     <Box sx={{ display: 'flex' }}>
                         <Avatar
-                            src={'item.image'}
-                            alt={'Product Name'}
+                            src={item.image[0]}
                             sx={{
                                 borderRadius: 1,
                                 width: '100px',
@@ -274,13 +273,6 @@ const OrderItem2 = ({ listData }) => (
 );
 
 const OrderLists = ({ ordersListData, orderHistory }) => {
-    // const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
-    // const orderHistory = useSelector(
-    //     (state) => state.checkoutManagement.listOrders[loggedInAccount.userId],
-    // );
-
-    console.log('orderHistory: ', orderHistory);
-
     return (
         <>
             {/* sample */}
