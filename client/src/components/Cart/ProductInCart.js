@@ -15,6 +15,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { userAPI } from '../../api/userAPI';
 import { mutate } from 'swr';
+import Loading from '../Loading/Loading';
 
 export const ProductInCart = ({
     productsList,
@@ -32,6 +33,7 @@ export const ProductInCart = ({
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
     const [pQuantity, setPQuantity] = useState(0);
     const [productToUpdate, setProductToUpdate] = useState(null);
+    const [isLoadingAPI, setIsLoadingAPI] = useState(false);
 
     // open the confirm dialog message and save the products are removed
     const handleRemoveProductInCart = (productId, productSizeId) => {
@@ -127,7 +129,9 @@ export const ProductInCart = ({
             // find product is selected to update product quantity
             (product) => product.product._id === pId && product.variant._id === vId,
         );
+        console.log('productToUpdate: ', productToUpdate);
         if (productToUpdate) {
+            setIsLoadingAPI(true);
             // update the quantity of the product
             productToUpdate.quantity = newQuantity;
             setPQuantity(newQuantity);
@@ -142,6 +146,7 @@ export const ProductInCart = ({
 
             const response = await userAPI.updateProductQuantity(userId, updateData);
             if (response.status === 200) {
+                setIsLoadingAPI(false);
                 setPriceChange(true);
                 // if the API call succeeds, revalidate data to ensure consistency
                 mutate(); // fetch fresh data from the server
@@ -171,6 +176,8 @@ export const ProductInCart = ({
 
     return (
         <Box>
+            {/* loading api  */}
+            {isLoadingAPI && <Loading />}
             {/* First Product - In Stock */}
             <Box
                 sx={{
@@ -338,13 +345,19 @@ export const ProductInCart = ({
                                                 p: 2,
                                             }}
                                         >
-                                            <CustomizeTypography
+                                            <Button
+                                                disabled={item?.quantity === 1}
                                                 sx={{
                                                     fontSize: '24px',
-                                                    p: '4px',
+                                                    // p: '4px',
+                                                    minWidth: 0,
+                                                    color: theme.palette.text.secondary,
                                                     mb: 0,
                                                     '&:hover': {
                                                         color: theme.palette.text.secondary,
+                                                    },
+                                                    '&.Mui-disabled': {
+                                                        color: '#d5d5d5',
                                                     },
                                                     cursor: 'pointer',
                                                 }}
@@ -357,7 +370,9 @@ export const ProductInCart = ({
                                                 }
                                             >
                                                 -
-                                            </CustomizeTypography>
+                                            </Button>
+
+                                            {/* product quantity */}
                                             <CustomizeTypography
                                                 sx={{
                                                     fontSize: '16px',
@@ -382,9 +397,9 @@ export const ProductInCart = ({
                                                     fontSize: '16px',
                                                     mb: 0,
                                                     p: '4px',
-                                                    '&:hover': {
-                                                        color: theme.palette.text.secondary,
-                                                    },
+
+                                                    color: theme.palette.text.secondary,
+
                                                     cursor: 'pointer',
                                                 }}
                                                 onClick={() =>
