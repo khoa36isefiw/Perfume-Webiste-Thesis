@@ -45,7 +45,7 @@ const PaymentController = {
     },
 
     createOrder: async (req, res) => {
-        const { user, items } = req.body;
+        const { user, items, method } = req.body;
         try {
             if (items.length === 0) {
                 return res.status(400).json({ message: 'Cart is empty' });
@@ -92,6 +92,19 @@ const PaymentController = {
                     ),
             );
             await updatedUser.save();
+
+            if (method === 'COD') {
+                const newPayment = new Payment({
+                    order: savedOrder._id,
+                    amount: savedOrder.totalPrice,
+                    details: '',
+                    payRef: savedOrder._id,
+                    paid: false,
+                    paymentMethod: method,
+                });
+                await newPayment.save();
+                return res.status(200).json({ message: 'Order created', order: savedOrder });
+            }
 
             const token = await getPayPalToken();
             const rate = await getConversionRate();
@@ -148,7 +161,7 @@ const PaymentController = {
                 details: '',
                 payRef: response.data.id,
                 paid: false,
-                paymentMethod: 'PAYPAL',
+                paymentMethod: method,
             });
             await newPayment.save();
             // const approvalUrl = response.data.links.find(
