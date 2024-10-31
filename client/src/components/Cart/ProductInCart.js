@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, Divider, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,6 +16,8 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { userAPI } from '../../api/userAPI';
 import { mutate } from 'swr';
 import Loading from '../Loading/Loading';
+import { useLocation } from 'react-router-dom';
+import EmptyCart from '../EmptyCart/EmptyCart';
 
 export const ProductInCart = ({
     productsList,
@@ -25,6 +27,14 @@ export const ProductInCart = ({
 }) => {
     // get userId from local storage
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+    const location = useLocation();
+    useEffect(() => {
+        if (productsList) {
+            window.localStorage.setItem('productsList', JSON.stringify(productsList));
+        }
+    }, [productsList]);
+    const getProductsListFromLocalStorage =
+        JSON.parse(window.localStorage.getItem('productsList')) || [];
 
     const dispatch = useDispatch();
     const [productToRemove, setProductToRemove] = useState(null);
@@ -53,18 +63,28 @@ export const ProductInCart = ({
     const handleConfirmAgree = async () => {
         // click agree button actions
         if (productToRemove) {
+            setIsLoadingAPI(true);
             const dataToRemove = {
                 // product, variant
                 product: productToRemove.productId,
                 variant: productToRemove.productSizeId,
             };
+            const updatedProductsList = getProductsListFromLocalStorage.filter(
+                (item) =>
+                    item.product._id !== productToRemove.productId ||
+                    item.variant._id !== productToRemove.productSizeId,
+            );
 
             const removeProduct = await userAPI.removeProductFromCart(userId, dataToRemove);
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
+            setOpenConfirmMessage(false);
 
             if (removeProduct.status === 200) {
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
-                setOpenConfirmMessage(false);
+                window.localStorage.setItem('productsList', JSON.stringify(updatedProductsList));
+                setIsLoadingAPI(false);
+                setProductToRemove(null); // clear
+                mutate();
             } else {
                 console.log('we gotcha the problem tehee!');
             }
@@ -104,17 +124,6 @@ export const ProductInCart = ({
 
     const handleSelectAll = (isChecked) => {
         if (isChecked) {
-            // Add all products to selectedProducts
-            // const allProducts = productsList.map((item) => ({
-            //     productId: item.product._id,
-            //     variantId: item.variant._id,
-            //     productName: item.product.nameEn,
-            //     productSize: item.variant.size,
-            //     productImage: item.product?.imagePath[0],
-            //     productQuantity: item.quantity,
-            //     productPrice: item.variant.price,
-            // }));
-
             setSelectedProducts(productsList);
         } else {
             // Clear selectedProducts when unchecked
@@ -131,7 +140,6 @@ export const ProductInCart = ({
         );
         console.log('productToUpdate: ', productToUpdate);
         if (productToUpdate) {
-            setIsLoadingAPI(true);
             // update the quantity of the product
             productToUpdate.quantity = newQuantity;
             setPQuantity(newQuantity);
@@ -146,7 +154,6 @@ export const ProductInCart = ({
 
             const response = await userAPI.updateProductQuantity(userId, updateData);
             if (response.status === 200) {
-                setIsLoadingAPI(false);
                 setPriceChange(true);
                 // if the API call succeeds, revalidate data to ensure consistency
                 mutate(); // fetch fresh data from the server
@@ -178,6 +185,7 @@ export const ProductInCart = ({
         <Box>
             {/* loading api  */}
             {isLoadingAPI && <Loading />}
+
             {/* First Product - In Stock */}
             <Box
                 sx={{
@@ -207,7 +215,7 @@ export const ProductInCart = ({
                 }}
             >
                 {/* render list of the products added  */}
-                {productsList.map((item, index) => (
+                {getProductsListFromLocalStorage.map((item, index) => (
                     <Box key={index}>
                         <Box>
                             <Box
