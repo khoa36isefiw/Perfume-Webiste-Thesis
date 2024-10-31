@@ -407,11 +407,11 @@ function CheckoutInformation() {
                         </CustomizeTypography>
                         <CustomizeCheckoutInput
                             placeholder="Nhập số điện thoại"
-                            value={userData?.phoneNumber}
+                            value={userData[0]?.phoneNumber}
                         />
                         <CustomizeCheckoutInput
                             placeholder="Nhập họ tên"
-                            value={userData?.firstName + ' ' + userData?.lastName}
+                            value={userData[0]?.firstName + ' ' + userData[0]?.lastName}
                         />
                         <SelectAddress
                             type="province"
