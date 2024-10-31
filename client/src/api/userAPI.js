@@ -63,10 +63,9 @@ export const userAPI = {
         return axiosClient.put(url, data);
     },
 
-
     // /:id/remove-from-cart
     removeProductFromCart: (userId, data) => {
-        const url = `/users/${userId}/remove-from-cart`;
-        return axiosClient.delete(url, data);
+        const url = `/users/${userId}/remove-item`;
+        return axiosClient.post(url, data);
     },
 };
