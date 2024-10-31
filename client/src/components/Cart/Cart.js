@@ -14,13 +14,14 @@ import EmptyCart from '../EmptyCart/EmptyCart';
 import EmptyOrders from '../EmptyOrders/EmptyOrders';
 import Check from '@mui/icons-material/Check';
 import useUserById from '../../api/useUserById';
+import { ProductInCartV2 } from './ProductInCartV2';
 
 function Cart() {
     const navigate = useNavigate();
     const productAdded = useSelector((state) => state.cartManagement.productInfor);
     const [priceChange, setPriceChange] = useState(false);
     const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId;
-    const { data, isLoading, error } = useUserById(userId);
+    const { data, mutate, isLoading, error } = useUserById(userId);
 
     const [selectedProducts, setSelectedProducts] = useState([]);
 
@@ -74,28 +75,7 @@ function Cart() {
                                 Your Cart
                             </CustomizeTypography>
                         </Grid>
-                        {/* <Grid item xs={12} lg={8}>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    px: 1,
-                                }}
-                            >
-                                <Checkbox
-                                    sx={{
-                                        '& .MuiSvgIcon-root': { fontSize: 22 },
-                                        color: 'white',
-                                        '&.Mui-checked': {
-                                            color: theme.palette.background.thirth,
-                                        },
-                                    }}
-                                    checked={isAllSelected}
-                                    onChange={(e) => handleSelectAll(e.target.checked)}
-                                />
-                                <CustomizeTypography sx={{ mb: 0 }}>Select All</CustomizeTypography>
-                            </Box>
-                        </Grid> */}
+
                         <Grid item xs={12} lg={12}>
                             <Divider sx={{ bgcolor: '#fff', my: 2 }} />
                         </Grid>
@@ -108,11 +88,13 @@ function Cart() {
                             }}
                         >
                             <Grid item xs={12} lg={8}>
-                                <ProductInCart
+                                {/* <ProductInCart */}
+                                <ProductInCartV2
                                     productsList={data.data.cart}
                                     selectedProducts={selectedProducts}
                                     setSelectedProducts={setSelectedProducts}
                                     setPriceChange={setPriceChange}
+                                    mutate={mutate}
                                 />
                             </Grid>
 
