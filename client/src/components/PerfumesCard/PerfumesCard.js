@@ -143,7 +143,6 @@ function PerfumesCard() {
                                             mt: 2,
                                         },
                                     }}
-                                    lazy="loading"
                                 />
                                 <Box
                                     sx={{

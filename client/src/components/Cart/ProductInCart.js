@@ -33,6 +33,13 @@ export const ProductInCart = ({
     const [pQuantity, setPQuantity] = useState(0);
     const [productToUpdate, setProductToUpdate] = useState(null);
 
+    // open the confirm dialog message and save the products are removed
+    const handleRemoveProductInCart = (productId, productSizeId) => {
+        // for showing confirm message dialog
+        setOpenConfirmMessage(true);
+        setProductToRemove({ productId, productSizeId }); // store product is removed
+    };
+
     // disagree, not delete the products
     const handleConfirmDisagree = () => {
         // click disagree button actions
@@ -62,36 +69,12 @@ export const ProductInCart = ({
         }
     };
 
-    // open the confirm dialog message and save the products are removed
-    const handleRemoveProductInCart = (productId, productSizeId) => {
-        // for showing confirm message dialog
-        setOpenConfirmMessage(true);
-        setProductToRemove({ productId, productSizeId }); // store product is removed
-    };
-
     // handle Close notification
     const handleCloseNotification = () => {
         setShowAnimation('animate__fadeOut');
         setTimeout(() => {
             setShowNotification(false);
         }, 1000);
-    };
-
-    console.log('selectedProducts: ', selectedProducts);
-    const handleSelectProductV1 = (isChecked, variantId, productId) => {
-        const check = selectedProducts?.findIndex(
-            (item) => item.variantId === variantId && item.productId === productId,
-        );
-
-        // if !== -1 --> exists --> checked --> remove from list
-        if (!isChecked && check !== -1) {
-            setSelectedProducts((prev) =>
-                prev.filter((item) => item.productId !== productId || item.variantId !== variantId),
-            );
-        } else {
-            // add to list want to buy
-            setSelectedProducts((prev) => [...prev, { productId, variantId }]);
-        }
     };
 
     const handleSelectProduct = (isChecked, product) => {
