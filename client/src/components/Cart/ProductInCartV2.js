@@ -133,7 +133,7 @@ export const ProductInCartV2 = ({
             setPQuantity(newQuantity);
             setProductToUpdate(productToUpdate);
             // update the UI immediately (optimistic update)
-            mutate({ updatedProductsList }, true); // if change something, call api
+            // mutate({ updatedProductsList }, true); // if change something, call api
             const updateData = {
                 product: pId,
                 variant: vId,

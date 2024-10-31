@@ -105,6 +105,7 @@ function Cart() {
                                     setSelectedProducts={setSelectedProducts}
                                     setPriceChange={setPriceChange}
                                     priceChange={priceChange}
+                                    mutate={mutate}
                                 />
                             </Grid>
                         </Grid>
