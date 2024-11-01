@@ -37,6 +37,8 @@ import { resetIsCommented } from '../../redux/feature/CommentsManagement/Comment
 import { useLocation, useNavigate } from 'react-router-dom';
 import PayPalButtonsComponents from '../PayPalButtonComponents/PayPalButtonComponents';
 import { ordersAPI } from '../../api/ordersAPI';
+import { paymentAPI } from '../../api/paymentAPI';
+import { PAYMENT_METHOD } from '../../utils/constants';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
@@ -252,86 +254,91 @@ function CheckoutInformation() {
         setShowNotification(true);
         setShowAnimation('animate__bounceInRight');
 
-        // Create the checkout object for the current purchase
-        // temporary checkout object
-        const currentCheckout = {
-            userId: userData.userId,
-            orderId: `${new Date().getTime()}`,
-            paymentMethod,
-            user: {
-                name: userData?.firstName + ' ' + userData?.lastName,
-                email: loggedInAccount?.email,
-                phone: loggedInAccount?.phoneNumber,
-                address: loggedInAccount?.address,
-                shipTo:
-                    selectedProvince.name +
-                    ', ' +
-                    selectedDistrict.name +
-                    ', ' +
-                    selectedWardTown.name,
-            },
-            products: getListProductSelected.map((product) => ({
-                productId: product.perfumeID,
-                name: product.perfumeName,
-                image: product.perfumeImage,
-                quantity: product.quantity,
-                size: product.perfumeSize,
-                price: product.quantity * product.perfumePrice,
-                brand: product.perfumeBrand,
-            })),
-            totalPrice: finalTotalPrice,
-            // add timestamp for when the purchase was made
-            timestamp: new Date().toISOString(),
-            // test for commenting
-            isCommented: false,
-        };
-
-        // Step 2: retrieve the existing saved information from the state
-        const existingData = { ...informationSaved };
-
-        // step 3: update the saved information with the new order
-        if (existingData[loggedInAccount?.userId]) {
-            // exist
-            // if the user already has previous orders, add the new one
-            existingData[loggedInAccount?.userId].push(currentCheckout);
-        } else {
-            //not existed yet
-            // the user's first purchase, create a new array with the current order
-            existingData[loggedInAccount?.userId] = [currentCheckout];
+        const response = await paymentAPI.createOrder(userId, items, PAYMENT_METHOD.COD);
+        if (response.data?.order) {
+            navigate(`/success?Ref=${response.data.order._id}`);
         }
 
-        // final step: save the updated information back into state
-        setInformationSaved(existingData);
-        // dispatch(
-        //     saveOrders({
-        //         userId: loggedInAccount?.userId,
-        //         purchaseInfo: currentCheckout,
-        //         // productId:
-        //     }),
-        // );
+        // // Create the checkout object for the current purchase
+        // // temporary checkout object
+        // const currentCheckout = {
+        //     userId: userData.userId,
+        //     orderId: `${new Date().getTime()}`,
+        //     paymentMethod,
+        //     user: {
+        //         name: userData?.firstName + ' ' + userData?.lastName,
+        //         email: loggedInAccount?.email,
+        //         phone: loggedInAccount?.phoneNumber,
+        //         address: loggedInAccount?.address,
+        //         shipTo:
+        //             selectedProvince.name +
+        //             ', ' +
+        //             selectedDistrict.name +
+        //             ', ' +
+        //             selectedWardTown.name,
+        //     },
+        //     products: getListProductSelected.map((product) => ({
+        //         productId: product.perfumeID,
+        //         name: product.perfumeName,
+        //         image: product.perfumeImage,
+        //         quantity: product.quantity,
+        //         size: product.perfumeSize,
+        //         price: product.quantity * product.perfumePrice,
+        //         brand: product.perfumeBrand,
+        //     })),
+        //     totalPrice: finalTotalPrice,
+        //     // add timestamp for when the purchase was made
+        //     timestamp: new Date().toISOString(),
+        //     // test for commenting
+        //     isCommented: false,
+        // };
 
-        // reset comment if user continues buying this product just bought
-        // dispatch(resetIsCommented({ productIds: listProductId, userId: loggedInAccount?.userId }));
+        // // Step 2: retrieve the existing saved information from the state
+        // const existingData = { ...informationSaved };
 
-        // dispatch(clearCart());
-        // dispatch(clearSelectedProducts());
+        // // step 3: update the saved information with the new order
+        // if (existingData[loggedInAccount?.userId]) {
+        //     // exist
+        //     // if the user already has previous orders, add the new one
+        //     existingData[loggedInAccount?.userId].push(currentCheckout);
+        // } else {
+        //     //not existed yet
+        //     // the user's first purchase, create a new array with the current order
+        //     existingData[loggedInAccount?.userId] = [currentCheckout];
+        // }
 
-        // setTimeout(() => {
-        //      navigate('/');
-        // }, 2000);
-        // "Order validation failed: adjustedPrice: Path `adjustedPrice` is required., originalPrice: Path `originalPrice` is required., totalPrice: Path `totalPrice` is required., userId: Path `userId` is required."
+        // // final step: save the updated information back into state
+        // setInformationSaved(existingData);
+        // // dispatch(
+        // //     saveOrders({
+        // //         userId: loggedInAccount?.userId,
+        // //         purchaseInfo: currentCheckout,
+        // //         // productId:
+        // //     }),
+        // // );
 
-        const orderData = {
-            userId: userData.userId,
-            items: getListProductSelected,
-        };
+        // // reset comment if user continues buying this product just bought
+        // // dispatch(resetIsCommented({ productIds: listProductId, userId: loggedInAccount?.userId }));
 
-        const createOrder = await ordersAPI.createOrder(orderData);
-        if (createOrder) {
-            console.log('createOrder: ', createOrder);
-        }
+        // // dispatch(clearCart());
+        // // dispatch(clearSelectedProducts());
 
-        console.log('All saved information: ', existingData);
+        // // setTimeout(() => {
+        // //      navigate('/');
+        // // }, 2000);
+        // // "Order validation failed: adjustedPrice: Path `adjustedPrice` is required., originalPrice: Path `originalPrice` is required., totalPrice: Path `totalPrice` is required., userId: Path `userId` is required."
+
+        // const orderData = {
+        //     userId: userData.userId,
+        //     items: getListProductSelected,
+        // };
+
+        // const createOrder = await ordersAPI.createOrder(orderData);
+        // if (createOrder) {
+        //     console.log('createOrder: ', createOrder);
+        // }
+
+        // console.log('All saved information: ', existingData);
     };
 
     // handle Close notification

@@ -2,12 +2,13 @@ import React from 'react';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { paymentAPI } from '../../api/paymentAPI';
 import { useNavigate } from 'react-router-dom';
+import { PAYMENT_METHOD } from '../../utils/constants';
 function PayPalButtonsComponents({ user, items }) {
     const navigate = useNavigate();
 
     const createOrder = async () => {
         try {
-            const response = await paymentAPI.createPayPalPayment(user, items);
+            const response = await paymentAPI.createOrder(user, items, PAYMENT_METHOD.PAYPAL);
             return response.data.payRef;
         } catch (error) {
             console.error('Error creating PayPal order:', error);
