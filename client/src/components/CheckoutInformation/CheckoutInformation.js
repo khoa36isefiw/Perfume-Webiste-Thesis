@@ -258,87 +258,6 @@ function CheckoutInformation() {
         if (response.data?.order) {
             navigate(`/success?Ref=${response.data.order._id}`);
         }
-
-        // // Create the checkout object for the current purchase
-        // // temporary checkout object
-        // const currentCheckout = {
-        //     userId: userData.userId,
-        //     orderId: `${new Date().getTime()}`,
-        //     paymentMethod,
-        //     user: {
-        //         name: userData?.firstName + ' ' + userData?.lastName,
-        //         email: loggedInAccount?.email,
-        //         phone: loggedInAccount?.phoneNumber,
-        //         address: loggedInAccount?.address,
-        //         shipTo:
-        //             selectedProvince.name +
-        //             ', ' +
-        //             selectedDistrict.name +
-        //             ', ' +
-        //             selectedWardTown.name,
-        //     },
-        //     products: getListProductSelected.map((product) => ({
-        //         productId: product.perfumeID,
-        //         name: product.perfumeName,
-        //         image: product.perfumeImage,
-        //         quantity: product.quantity,
-        //         size: product.perfumeSize,
-        //         price: product.quantity * product.perfumePrice,
-        //         brand: product.perfumeBrand,
-        //     })),
-        //     totalPrice: finalTotalPrice,
-        //     // add timestamp for when the purchase was made
-        //     timestamp: new Date().toISOString(),
-        //     // test for commenting
-        //     isCommented: false,
-        // };
-
-        // // Step 2: retrieve the existing saved information from the state
-        // const existingData = { ...informationSaved };
-
-        // // step 3: update the saved information with the new order
-        // if (existingData[loggedInAccount?.userId]) {
-        //     // exist
-        //     // if the user already has previous orders, add the new one
-        //     existingData[loggedInAccount?.userId].push(currentCheckout);
-        // } else {
-        //     //not existed yet
-        //     // the user's first purchase, create a new array with the current order
-        //     existingData[loggedInAccount?.userId] = [currentCheckout];
-        // }
-
-        // // final step: save the updated information back into state
-        // setInformationSaved(existingData);
-        // // dispatch(
-        // //     saveOrders({
-        // //         userId: loggedInAccount?.userId,
-        // //         purchaseInfo: currentCheckout,
-        // //         // productId:
-        // //     }),
-        // // );
-
-        // // reset comment if user continues buying this product just bought
-        // // dispatch(resetIsCommented({ productIds: listProductId, userId: loggedInAccount?.userId }));
-
-        // // dispatch(clearCart());
-        // // dispatch(clearSelectedProducts());
-
-        // // setTimeout(() => {
-        // //      navigate('/');
-        // // }, 2000);
-        // // "Order validation failed: adjustedPrice: Path `adjustedPrice` is required., originalPrice: Path `originalPrice` is required., totalPrice: Path `totalPrice` is required., userId: Path `userId` is required."
-
-        // const orderData = {
-        //     userId: userData.userId,
-        //     items: getListProductSelected,
-        // };
-
-        // const createOrder = await ordersAPI.createOrder(orderData);
-        // if (createOrder) {
-        //     console.log('createOrder: ', createOrder);
-        // }
-
-        // console.log('All saved information: ', existingData);
     };
 
     // handle Close notification
@@ -644,7 +563,9 @@ function CheckoutInformation() {
                                                     },
                                                 }}
                                             >
-                                                {converToVND(product.variant.price)}
+                                                {product.variant.discountPercent !== 0
+                                                    ? converToVND(product.variant.priceSale)
+                                                    : converToVND(product.variant.price)}
                                             </CustomizeTypography>
                                         </Box>
                                     </Box>
