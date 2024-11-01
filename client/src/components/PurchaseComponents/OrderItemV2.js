@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Box, Button, Divider } from '@mui/material';
+import { Avatar, Box, Divider } from '@mui/material';
 
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen } from '../../Theme/Theme';
