@@ -31,7 +31,7 @@ export default function ModalDesgin({
         // deplay closing the modal to allow the animation to play
         setTimeout(() => {
             onHandleClose();
-        }, 500);
+        }, 10000);
     };
     return (
         <Modal
@@ -48,6 +48,25 @@ export default function ModalDesgin({
                 </IconButton>
                 {children}
             </Box>
+        </Modal>
+    );
+}
+
+export function ModalDesginV2({ open, onHandleClose, animateStyle, setAnimateStyle, children }) {
+    const handleCloseModal = () => {
+        setAnimateStyle('animate__fadeOut');
+        // deplay closing the modal to allow the animation to play
+        setTimeout(() => {
+            onHandleClose();
+        }, 200);
+    };
+    return (
+        <Modal
+            open={open}
+            onClose={handleCloseModal}
+            className={`animate__animated ${animateStyle}`}
+        >
+            <Box sx={style.modalStyle}>{children}</Box>
         </Modal>
     );
 }

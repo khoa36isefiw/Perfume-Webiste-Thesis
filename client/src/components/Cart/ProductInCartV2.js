@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, Divider, Typography } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -14,27 +14,20 @@ import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import WarningIcon from '@mui/icons-material/Warning';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { userAPI } from '../../api/userAPI';
-import { mutate } from 'swr';
+
 import Loading from '../Loading/Loading';
 import { useLocation } from 'react-router-dom';
-import EmptyCart from '../EmptyCart/EmptyCart';
 
-export const ProductInCart = ({
+export const ProductInCartV2 = ({
     productsList,
     selectedProducts,
     setSelectedProducts,
     setPriceChange,
+    mutate,
 }) => {
     // get userId from local storage
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
     const location = useLocation();
-    useEffect(() => {
-        if (productsList) {
-            window.localStorage.setItem('productsList', JSON.stringify(productsList));
-        }
-    }, [productsList]);
-    const getProductsListFromLocalStorage =
-        JSON.parse(window.localStorage.getItem('productsList')) || [];
 
     const dispatch = useDispatch();
     const [productToRemove, setProductToRemove] = useState(null);
@@ -69,20 +62,15 @@ export const ProductInCart = ({
                 product: productToRemove.productId,
                 variant: productToRemove.productSizeId,
             };
-            const updatedProductsList = getProductsListFromLocalStorage.filter(
-                (item) =>
-                    item.product._id !== productToRemove.productId ||
-                    item.variant._id !== productToRemove.productSizeId,
-            );
 
             const removeProduct = await userAPI.removeProductFromCart(userId, dataToRemove);
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
-            setOpenConfirmMessage(false);
 
             if (removeProduct.status === 200) {
-                window.localStorage.setItem('productsList', JSON.stringify(updatedProductsList));
                 setIsLoadingAPI(false);
+                // window.location.reload();
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setOpenConfirmMessage(false);
                 setProductToRemove(null); // clear
                 mutate();
             } else {
@@ -145,7 +133,7 @@ export const ProductInCart = ({
             setPQuantity(newQuantity);
             setProductToUpdate(productToUpdate);
             // update the UI immediately (optimistic update)
-            mutate({ updatedProductsList }, true); // if change something, call api
+            // mutate({ updatedProductsList }, true); // if change something, call api
             const updateData = {
                 product: pId,
                 variant: vId,
@@ -184,8 +172,7 @@ export const ProductInCart = ({
     return (
         <Box>
             {/* loading api  */}
-            {isLoadingAPI && <Loading />}
-
+            {/* {isLoadingAPI && <Loading />} */}
             {/* First Product - In Stock */}
             <Box
                 sx={{
@@ -215,7 +202,7 @@ export const ProductInCart = ({
                 }}
             >
                 {/* render list of the products added  */}
-                {getProductsListFromLocalStorage.map((item, index) => (
+                {productsList.map((item, index) => (
                     <Box key={index}>
                         <Box>
                             <Box

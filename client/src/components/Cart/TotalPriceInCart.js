@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
@@ -10,8 +10,8 @@ import { converToVND } from '../convertToVND/convertToVND';
 import { useDispatch } from 'react-redux';
 import { saveSelectedProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
 
-function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, priceChange }) {
-    console.log('productsList: ', productsList);
+function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, priceChange, mutate }) {
+    // console.log('productsList: ', productsList);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [totalSubtotal, setTotalSubtotal] = useState(0);
@@ -19,33 +19,33 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
     useEffect(() => {
         setTotalSubtotal(JSON.parse(window.localStorage.getItem('current_price')) || 0);
         setPriceChange(false);
-    }, [productsList, selectedProducts, priceChange, setPriceChange]);
+    }, [productsList, selectedProducts, priceChange]);
 
     // Calculate total price
     const calculateTotal = useCallback(() => {
-        let total = 0;
-
-        productsList.forEach((productItem) => {
+        return productsList.reduce((total, productItem) => {
+            console.log('productItem: ', productItem);
             const product = selectedProducts.find(
                 (p) =>
                     p.product._id === productItem.product._id &&
                     p.variant._id === productItem.variant._id,
             );
+            console.log('total: ', total);
+            console.log('product: ', product);
 
             if (product) {
-                const price = productItem.quantity * productItem.variant.price;
-                total += price;
+                return total + productItem.quantity * productItem.variant.price;
             }
-        });
-
-        return total;
+            return total;
+        }, 0);
     }, [productsList, selectedProducts]);
 
     // Update total price when productsList or selectedProducts change
+
     useEffect(() => {
-        const newTotal = calculateTotal();
-        setTotalSubtotal(newTotal);
-    }, [calculateTotal]);
+        const initialTotal = calculateTotal();
+        setTotalSubtotal(initialTotal);
+    }, [productsList]);
 
     const handleCheckout = () => {
         if (selectedProducts.length > 0)
