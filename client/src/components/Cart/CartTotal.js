@@ -58,7 +58,11 @@ function CartTotal({
     const calculateSubtotal = () => {
         let subtotal = 0;
         productsList.forEach((product) => {
-            subtotal += product.quantity * product.variant.price;
+            subtotal +=
+                product.quantity *
+                (product.variant.discountPercent !== 0
+                    ? product.variant.priceSale
+                    : product.variant.price);
         });
         return subtotal;
     };
@@ -66,20 +70,16 @@ function CartTotal({
     // Calculate total discount
     const calculateDiscountTotal = () => {
         let discountTotal = 0;
-        productsList.forEach((product) => {
-            const price = product.quantity * product.variant.price;
-            discountTotal += calculateDiscount(price);
-        });
+        const price = calculateSubtotal();
+        discountTotal += calculateDiscount(price);
         return discountTotal;
     };
 
     // Calculate total tax
     const calculateTaxTotal = () => {
         let taxTotal = 0;
-        productsList.forEach((product) => {
-            const price = product.quantity * product.variant.price;
-            taxTotal += calculateTax(price);
-        });
+        const price = calculateSubtotal();
+        taxTotal += calculateTax(price);
         return taxTotal;
     };
 
@@ -91,7 +91,11 @@ function CartTotal({
 
         // Loop through each product to calculate subtotal, discount, and tax
         productsList.forEach((product) => {
-            const price = product.quantity * product.variant.price;
+            const price =
+                product.quantity *
+                (product.variant.discountPercent !== 0
+                    ? product.variant.priceSale
+                    : product.variant.price);
             const discount = calculateDiscount(price);
             const tax = calculateTax(price);
 
