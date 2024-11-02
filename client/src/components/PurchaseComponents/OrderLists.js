@@ -1,12 +1,9 @@
-import React, { useRef } from 'react';
-import { Box, Grid, Button } from '@mui/material';
-
+import React from 'react';
+import { Box, Grid, Button, Tooltip, Typography } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen } from '../../Theme/Theme';
-
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { PDFTemplate } from '../PDFTemplate/PDFTemplate';
 import { VerticalDivider } from './VerticalDivider';
@@ -15,10 +12,19 @@ import { OrderItem } from './OrderItem';
 import { formatDate } from '../FormatDate/formatDate';
 import { converToVND } from '../convertToVND/convertToVND';
 import { OrderItemV2 } from './OrderItemV2';
-import generatePDF from 'react-to-pdf';
+
+import { useNavigate } from 'react-router-dom';
+import PreviewIcon from '@mui/icons-material/Preview';
+import { backTop } from '../goBackTop/goBackTop';
 
 export const OrderLists = ({ ordersListData, orderHistory }) => {
-    const targetRef = useRef();
+    const navigate = useNavigate();
+
+    const handleInvoicePage = (order) => {
+        navigate(`/order-invoice?id=${order._id}`, { state: { order } });
+        backTop();
+    };
+
     return (
         <>
             {/* sample */}
@@ -100,7 +106,6 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                         width: '100%',
                     }}
                     key={order._id}
-                    ref={targetRef}
                 >
                     <Grid container spacing={2}>
                         <Grid item xs={3} sm={3} lg={3}>
@@ -147,12 +152,21 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                             </span>{' '}
                             <strong>{converToVND(order.totalPrice)}</strong>
                         </CustomizeTypography>
-                        <PDFDownloadLink
-                            document={<PDFTemplate order={order} />}
-                            fileName={`order_${order._id}.pdf`}
+                        <Tooltip
+                            title={
+                                <Typography
+                                    sx={{
+                                        fontSize: '13px',
+                                        mb: 0,
+                                    }}
+                                >
+                                    View your invoice
+                                </Typography>
+                            }
                         >
                             <Button
-                                startIcon={<SystemUpdateAltIcon />}
+                                onClick={() => handleInvoicePage(order)}
+                                startIcon={<PreviewIcon />}
                                 sx={{
                                     padding: '6px 0',
                                     textTransform: 'initial',
@@ -163,24 +177,9 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                     },
                                 }}
                             >
-                                Download Invoice
+                                Preview
                             </Button>
-                        </PDFDownloadLink>
-                        <Button
-                            startIcon={<SystemUpdateAltIcon />}
-                            sx={{
-                                padding: '6px 0',
-                                textTransform: 'initial',
-                                fontSize: '14px',
-                                fontWeight: 'bold',
-                                '&:hover': {
-                                    bgcolor: 'transparent',
-                                },
-                            }}
-                            onClick={() => generatePDF(targetRef, { filename: 'page.pdf' })}
-                        >
-                            Download Invoice V2
-                        </Button>
+                        </Tooltip>
                     </Box>
                 </Box>
             ))}
