@@ -147,7 +147,6 @@ function NewHeader() {
         //     console.error('Error fetching data:', error);
         // }
     };
-    console.log('product in cart: ', products.data.cart);
 
     return (
         <Box
@@ -416,8 +415,8 @@ function NewHeader() {
                         >
                             <Badge
                                 badgeContent={
-                                    products.data.cart && products.data.cart?.length > 0
-                                        ? products.data.cart?.length
+                                    products?.data.cart && products?.data.cart?.length > 0
+                                        ? products?.data.cart?.length
                                         : ''
                                 }
                                 max={9}
@@ -429,7 +428,7 @@ function NewHeader() {
                                         top: 4,
                                         color: '#fff',
                                         bgcolor:
-                                            products.data.cart && products.data.cart?.length > 0
+                                            products?.data.cart && products?.data.cart?.length > 0
                                                 ? theme.palette.background.thirth
                                                 : 'black',
                                     },
