@@ -36,6 +36,7 @@ import AdminEditCategory from '../components/AdminCategories/AdminEditCategory';
 import PaymentSuccess from '../components/PaymentSuccess/PaymentSuccess';
 
 import PaymentFailed from '../components/PaymentSuccess/PaymentFailed';
+import { OrderInvoicePDF } from '../components/PDFTemplate/OrderInvoicePDF';
 
 // not sign into this website
 const publicRoutes = [
@@ -60,6 +61,7 @@ const publicRoutes = [
     { path: '/my-purchase', component: PurchasePage, layout: ProfileSettingsLayout },
     { path: '/success', component: PaymentSuccess, layout: UserLayouts },
     { path: '/cancel', component: PaymentFailed, layout: UserLayouts },
+    { path: '/order-invoice', component: OrderInvoicePDF, layout: UserLayouts },
 ];
 
 // must signed into
