@@ -164,7 +164,6 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                             </Button>
                         </PDFDownloadLink>
                     </Box>
-                    <PDFTemplate order={order} />
                 </Box>
             ))}
         </>
