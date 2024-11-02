@@ -25,6 +25,8 @@ import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
 import { backTop } from '../goBackTop/goBackTop';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import useProduct from '../../api/useProduct';
+import useUserById from '../../api/useUserById';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -36,6 +38,7 @@ const headerData = [
 
 function NewHeader() {
     const navigate = useNavigate();
+
     const location = useLocation();
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -54,6 +57,8 @@ function NewHeader() {
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
     const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
     const userData = JSON.parse(localStorage.getItem('user_data'));
+
+    const { data: products, mutate, isLoading, error } = useUserById(userData.userId);
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
@@ -142,6 +147,7 @@ function NewHeader() {
         //     console.error('Error fetching data:', error);
         // }
     };
+    console.log('product in cart: ', products.data.cart);
 
     return (
         <Box
@@ -410,8 +416,8 @@ function NewHeader() {
                         >
                             <Badge
                                 badgeContent={
-                                    productListInCart && productListInCart.length > 0
-                                        ? productListInCart.length
+                                    products.data.cart && products.data.cart?.length > 0
+                                        ? products.data.cart?.length
                                         : ''
                                 }
                                 max={9}
@@ -423,7 +429,7 @@ function NewHeader() {
                                         top: 4,
                                         color: '#fff',
                                         bgcolor:
-                                            productListInCart && productListInCart.length > 0
+                                            products.data.cart && products.data.cart?.length > 0
                                                 ? theme.palette.background.thirth
                                                 : 'black',
                                     },
