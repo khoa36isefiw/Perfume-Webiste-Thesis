@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Box, Grid, Button } from '@mui/material';
 
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -15,8 +15,10 @@ import { OrderItem } from './OrderItem';
 import { formatDate } from '../FormatDate/formatDate';
 import { converToVND } from '../convertToVND/convertToVND';
 import { OrderItemV2 } from './OrderItemV2';
+import generatePDF from 'react-to-pdf';
 
 export const OrderLists = ({ ordersListData, orderHistory }) => {
+    const targetRef = useRef();
     return (
         <>
             {/* sample */}
@@ -98,6 +100,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                         width: '100%',
                     }}
                     key={order._id}
+                    ref={targetRef}
                 >
                     <Grid container spacing={2}>
                         <Grid item xs={3} sm={3} lg={3}>
@@ -163,6 +166,21 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                 Download Invoice
                             </Button>
                         </PDFDownloadLink>
+                        <Button
+                            startIcon={<SystemUpdateAltIcon />}
+                            sx={{
+                                padding: '6px 0',
+                                textTransform: 'initial',
+                                fontSize: '14px',
+                                fontWeight: 'bold',
+                                '&:hover': {
+                                    bgcolor: 'transparent',
+                                },
+                            }}
+                            onClick={() => generatePDF(targetRef, { filename: 'page.pdf' })}
+                        >
+                            Download Invoice V2
+                        </Button>
                     </Box>
                 </Box>
             ))}
