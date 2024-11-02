@@ -1,12 +1,9 @@
 import React from 'react';
-import { Box, Grid, Button } from '@mui/material';
-
+import { Box, Grid, Button, Tooltip, Typography } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { mobileScreen } from '../../Theme/Theme';
-
+import { mobileScreen, theme } from '../../Theme/Theme';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { PDFTemplate } from '../PDFTemplate/PDFTemplate';
 import { VerticalDivider } from './VerticalDivider';
@@ -16,7 +13,18 @@ import { formatDate } from '../FormatDate/formatDate';
 import { converToVND } from '../convertToVND/convertToVND';
 import { OrderItemV2 } from './OrderItemV2';
 
+import { useNavigate } from 'react-router-dom';
+import PreviewIcon from '@mui/icons-material/Preview';
+import { backTop } from '../goBackTop/goBackTop';
+
 export const OrderLists = ({ ordersListData, orderHistory }) => {
+    const navigate = useNavigate();
+
+    const handleInvoicePage = (order) => {
+        navigate(`/order-invoice?id=${order._id}`, { state: { order } });
+        backTop();
+    };
+
     return (
         <>
             {/* sample */}
@@ -144,27 +152,37 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                             </span>{' '}
                             <strong>{converToVND(order.totalPrice)}</strong>
                         </CustomizeTypography>
-                        <PDFDownloadLink
-                            document={<PDFTemplate order={order} />}
-                            fileName={`order_${order._id}.pdf`}
+                        <Tooltip
+                            title={
+                                <Typography
+                                    sx={{
+                                        fontSize: '13px',
+                                        mb: 0,
+                                    }}
+                                >
+                                    View your invoice
+                                </Typography>
+                            }
                         >
                             <Button
-                                startIcon={<SystemUpdateAltIcon />}
+                                onClick={() => handleInvoicePage(order)}
+                                startIcon={<PreviewIcon />}
                                 sx={{
                                     padding: '6px 0',
                                     textTransform: 'initial',
                                     fontSize: '14px',
                                     fontWeight: 'bold',
+                                    color: theme.palette.text.secondary,
                                     '&:hover': {
                                         bgcolor: 'transparent',
+                                        color: theme.palette.text.secondary,
                                     },
                                 }}
                             >
-                                Download Invoice
+                                Preview
                             </Button>
-                        </PDFDownloadLink>
+                        </Tooltip>
                     </Box>
-                    <PDFTemplate order={order} />
                 </Box>
             ))}
         </>

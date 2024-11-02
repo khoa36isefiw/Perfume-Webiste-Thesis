@@ -39,11 +39,11 @@ function PerfumeDetail() {
     const { perfume } = location.state || {};
     // const [selectedSize, setSelectedSize] = useState(perfume.variants[0].size);
     const [selectedSize, setSelectedSize] = useState({
-        size: perfume.variants[0].size,
-        price: perfume.variants[0].price,
-        priceSale: perfume.variants[0].priceSale,
-        variantIDSelected: perfume.variants[0]?._id,
-        discount: perfume.variants[0]?.discountPercent,
+        size: perfume?.variants[0].size,
+        price: perfume?.variants[0].price,
+        priceSale: perfume?.variants[0].priceSale,
+        variantIDSelected: perfume?.variants[0]?._id,
+        discount: perfume?.variants[0]?.discountPercent,
     });
 
     // get list product added to cart
@@ -56,7 +56,7 @@ function PerfumeDetail() {
     };
     console.log('perfume', perfume);
     // Sử dụng trong component
-    const productId = perfume._id;
+    const productId = perfume?._id;
     const soldQuantity = useSelector((state) => selectSoldQuantityByProductId(state, productId));
 
     const [selectedImage, setSelectedImage] = React.useState(0);
@@ -193,11 +193,11 @@ function PerfumeDetail() {
     const handleSizeSelected = (index) => {
         // setSelectedSize(size);
         setSelectedSize({
-            size: perfume.variants[index].size,
-            price: perfume.variants[index].price,
-            priceSale: perfume.variants[index].priceSale,
-            variantIDSelected: perfume.variants[index]?._id,
-            discount: perfume.variants[index]?.discountPercent,
+            size: perfume?.variants[index].size,
+            price: perfume?.variants[index].price,
+            priceSale: perfume?.variants[index].priceSale,
+            variantIDSelected: perfume?.variants[index]?._id,
+            discount: perfume?.variants[index]?.discountPercent,
         });
     };
 
@@ -517,7 +517,7 @@ function PerfumeDetail() {
 
                         {/* Product Size */}
                         <Box sx={{ display: 'flex' }}>
-                            {perfume.variants.map((size, index) => (
+                            {perfume?.variants.map((size, index) => (
                                 <Button
                                     key={index}
                                     sx={{

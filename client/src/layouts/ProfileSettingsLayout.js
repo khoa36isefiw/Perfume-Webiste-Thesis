@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Box,
     List,
@@ -42,15 +42,12 @@ const darkTheme = createTheme({
 
 function ProfileSettingsLayout({ children }) {
     const location = useLocation();
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
     console.log('user id in mypu: ', userId);
     const { data: orders, isLoading, error } = useOrderByUser(userId);
     console.log('data: ', orders?.data);
-    const orderHistory = useSelector(
-        // get for each user
-        (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
-    );
+
     return (
         <Box sx={{ minHeight: '100vh', width: '100vw', bgcolor: '#000' }}>
             {/* pre-defined layout */}
@@ -75,6 +72,16 @@ export default ProfileSettingsLayout;
 
 const Layout = ({ children }) => {
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log('current location: ', location.pathname);
+    const [activeButton, setActiveButton] = useState(null);
+    // define logic for header location, when reload the page
+    useEffect(() => {
+        const currentPath = location.pathname; // get the current location path
+        // check, if the current Path is the same as header.header Link
+
+        setActiveButton(currentPath ? currentPath : null);
+    }, [location.pathname]);
     return (
         <Container
             sx={{
@@ -123,11 +130,31 @@ const Layout = ({ children }) => {
                         <List component="nav" sx={{ width: '100%' }}>
                             <ListItem button onClick={() => navigate('/profile-settings')}>
                                 <ListItemIcon sx={{ color: 'text.primary' }}>
-                                    <AccountCircle />
+                                    <AccountCircle
+                                        sx={{
+                                            color:
+                                                activeButton === '/profile-settings'
+                                                    ? theme.palette.text.secondary
+                                                    : '#fff',
+                                        }}
+                                    />
                                 </ListItemIcon>
                                 <ListItemText
                                     primary={
-                                        <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
+                                        <CustomizeTypography
+                                            sx={{
+                                                fontSize: '14px',
+                                                mb: 0,
+                                                color:
+                                                    activeButton === '/profile-settings'
+                                                        ? theme.palette.text.secondary
+                                                        : '#fff',
+                                                fontWeight:
+                                                    activeButton === '/profile-settings'
+                                                        ? 'bold'
+                                                        : null,
+                                            }}
+                                        >
                                             Account Info
                                         </CustomizeTypography>
                                     }
@@ -136,11 +163,31 @@ const Layout = ({ children }) => {
 
                             <ListItem button onClick={() => navigate('/change-password')}>
                                 <ListItemIcon sx={{ color: 'text.primary' }}>
-                                    <VpnKey />
+                                    <VpnKey
+                                        sx={{
+                                            color:
+                                                activeButton === '/change-password'
+                                                    ? theme.palette.text.secondary
+                                                    : '#fff',
+                                        }}
+                                    />
                                 </ListItemIcon>
                                 <ListItemText
                                     primary={
-                                        <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
+                                        <CustomizeTypography
+                                            sx={{
+                                                fontSize: '14px',
+                                                mb: 0,
+                                                color:
+                                                    activeButton === '/change-password'
+                                                        ? theme.palette.text.secondary
+                                                        : '#fff',
+                                                fontWeight:
+                                                    activeButton === '/change-password'
+                                                        ? 'bold'
+                                                        : null,
+                                            }}
+                                        >
                                             Change Password
                                         </CustomizeTypography>
                                     }
@@ -148,11 +195,29 @@ const Layout = ({ children }) => {
                             </ListItem>
                             <ListItem button onClick={() => navigate('/my-purchase')}>
                                 <ListItemIcon sx={{ color: 'text.primary' }}>
-                                    <AccountCircle />
+                                    <AccountCircle
+                                        sx={{
+                                            color:
+                                                activeButton === '/my-purchase'
+                                                    ? theme.palette.text.secondary
+                                                    : '#fff',
+                                        }}
+                                    />
                                 </ListItemIcon>
                                 <ListItemText
                                     primary={
-                                        <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
+                                        <CustomizeTypography
+                                            sx={{
+                                                fontSize: '14px',
+                                                mb: 0,
+                                                color:
+                                                    activeButton === '/my-purchase'
+                                                        ? theme.palette.text.secondary
+                                                        : '#fff',
+                                                fontWeight:
+                                                    activeButton === '/my-purchase' ? 'bold' : null,
+                                            }}
+                                        >
                                             My Purchase
                                         </CustomizeTypography>
                                     }

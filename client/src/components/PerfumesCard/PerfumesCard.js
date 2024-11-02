@@ -1,5 +1,5 @@
 import { Box, Button, Container, Grid } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { perfumeData } from './perfumeData';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -13,13 +13,13 @@ import PerfumeBrands from '../PerfumeBrands/PerfumeBrands';
 import EmptyCart from '../EmptyCart/EmptyCart';
 import notFound from '../../assets/images/no-results.png';
 import useProduct from '../../api/useProduct';
-import ModalDesgin, { ModalDesginV2 } from '../Modal/ModalDesgin';
+import { ModalDesginV2 } from '../Modal/ModalDesgin';
 import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
 
 function PerfumesCard() {
     const navigate = useNavigate();
-    const { open, animateStyle, handleOpen, handleClose, setOpen, setAnimateStyle } = useLoading();
+    const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [sortedList, setSortedList] = useState([]);
     const [selectedBrandList, setSelectedBrandList] = useState([]);
 

@@ -21,23 +21,46 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
         setPriceChange(false);
     }, [productsList, selectedProducts, priceChange]);
 
-    // Calculate total price
+    // calculate total price
+    // const calculateTotal = useCallback(() => {
+    //     return productsList.reduce((total, productItem) => {
+    //         console.log('productItem: ', productItem);
+    //         const product = selectedProducts.find(
+    //             (p) =>
+    //                 p.product._id === productItem.product._id &&
+    //                 p.variant._id === productItem.variant._id,
+    //         );
+
+    //         console.log('product: ', product);
+
+    //         if (product) {
+    //             return total + productItem.quantity * productItem.variant.price;
+    //         }
+    //         return total;
+    //     }, 0);
+    // }, [productsList, selectedProducts]);
+
     const calculateTotal = useCallback(() => {
-        return productsList.reduce((total, productItem) => {
-            console.log('productItem: ', productItem);
-            const product = selectedProducts.find(
-                (p) =>
-                    p.product._id === productItem.product._id &&
-                    p.variant._id === productItem.variant._id,
-            );
-            console.log('total: ', total);
-            console.log('product: ', product);
+        const selectedProductMap = new Map(
+            selectedProducts.map((p) => [`${p.product._id}-${p.variant._id}`, p]),
+        );
+
+        let total = 0;
+        productsList.forEach((productItem) => {
+            const key = `${productItem.product._id}-${productItem.variant._id}`;
+            const product = selectedProductMap.get(key);
+            console.log('product information: ', product);
 
             if (product) {
-                return total + productItem.quantity * productItem.variant.price;
+                total +=
+                    productItem.quantity *
+                    (product.variant.discountPercent !== 0
+                        ? product.variant.priceSale
+                        : productItem.variant.price);
             }
-            return total;
-        }, 0);
+        });
+
+        return total;
     }, [productsList, selectedProducts]);
 
     // Update total price when productsList or selectedProducts change

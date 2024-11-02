@@ -302,13 +302,7 @@ export const ProductInCart = ({
                                                 },
                                             }}
                                         >
-                                            <span>
-                                                {converToVND(item.variant?.price)}
-                                                {/* {item.perfumePrice.toLocaleString('it-IT', {
-                                                    style: 'currency',
-                                                    currency: 'VND',
-                                                })} */}
-                                            </span>
+                                            <span>{converToVND(item.variant?.price)}</span> -{' '}
                                             <Box
                                                 sx={{
                                                     // height: '20px',
@@ -319,7 +313,6 @@ export const ProductInCart = ({
                                                     mx: 2,
                                                 }}
                                             />
-
                                             <span
                                                 style={{
                                                     color: theme.palette.text.verified,
