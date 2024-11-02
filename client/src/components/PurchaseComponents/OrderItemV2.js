@@ -1,9 +1,11 @@
 import React from 'react';
-import { Avatar, Box, Divider } from '@mui/material';
+import { Avatar, Box, Divider, Button } from '@mui/material';
 
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { mobileScreen } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import { converToVND } from '../convertToVND/convertToVND';
+import StarIcon from '@mui/icons-material/Star';
+import { red } from '@mui/material/colors';
 
 export const OrderItemV2 = ({ listData }) => (
     <>
@@ -61,19 +63,55 @@ export const OrderItemV2 = ({ listData }) => (
                             >
                                 {item.size}
                             </CustomizeTypography>
+                            <Button
+                                startIcon={<StarIcon />}
+                                sx={{
+                                    padding: '6px 0',
+                                    textTransform: 'initial',
+                                    fontSize: '14px',
+                                    fontWeight: 'bold',
+                                    color: theme.palette.text.secondary,
+                                    '&:hover': {
+                                        bgcolor: 'transparent',
+                                    },
+                                    [mobileScreen]: {
+                                        fontSize: '13px',
+                                    },
+                                }}
+                            >
+                                Rate Now
+                            </Button>
                         </Box>
                     </Box>
-                    <CustomizeTypography
-                        sx={{
-                            fontWeight: 'bold',
-                            fontSize: '14px',
-                            [mobileScreen]: {
-                                fontSize: '12.5px',
-                            },
-                        }}
-                    >
-                        {converToVND(item.price)} - price sale {converToVND(item.priceSale)}
-                    </CustomizeTypography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <CustomizeTypography
+                            sx={{
+                                fontWeight: 'bold',
+                                fontSize: '14px',
+                                [mobileScreen]: {
+                                    fontSize: '12.5px',
+                                },
+                                textDecoration:
+                                    item.price - item.priceSale !== 0 ? 'line-through' : null,
+                            }}
+                        >
+                            {converToVND(item.price)}
+                        </CustomizeTypography>
+                        {item.price - item.priceSale !== 0 && (
+                            <CustomizeTypography
+                                sx={{
+                                    fontWeight: 'bold',
+                                    fontSize: '14px',
+                                    color: red[500],
+                                    [mobileScreen]: {
+                                        fontSize: '12.5px',
+                                    },
+                                }}
+                            >
+                                {converToVND(item.priceSale)}
+                            </CustomizeTypography>
+                        )}
+                    </Box>
                 </Box>
                 {index !== listData.length - 1 && <Divider sx={{ bgcolor: '#ccc', my: 1 }} />}
             </Box>
