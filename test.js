@@ -6,10 +6,7 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { formatDate } from '../FormatDate/formatDate';
 import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
 
-import generatePDF from 'react-to-pdf';
-
 import { useLocation } from 'react-router-dom';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 export const OrderInvoicePDF = () => {
     // get order data from state

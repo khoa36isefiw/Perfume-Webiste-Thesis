@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Grid, Button, Tooltip, Typography } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { mobileScreen } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import { PDFDownloadLink } from '@react-pdf/renderer';
@@ -172,8 +172,10 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                     textTransform: 'initial',
                                     fontSize: '14px',
                                     fontWeight: 'bold',
+                                    color: theme.palette.text.secondary,
                                     '&:hover': {
                                         bgcolor: 'transparent',
+                                        color: theme.palette.text.secondary,
                                     },
                                 }}
                             >
