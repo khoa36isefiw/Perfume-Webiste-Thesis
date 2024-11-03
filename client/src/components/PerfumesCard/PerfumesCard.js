@@ -16,7 +16,6 @@ import useProduct from '../../api/useProduct';
 import { ModalDesginV2 } from '../Modal/ModalDesgin';
 import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
-import { useEffect } from 'react';
 
 function PerfumesCard() {
     const navigate = useNavigate();

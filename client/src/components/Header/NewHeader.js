@@ -112,7 +112,7 @@ function NewHeader() {
     // Parse URL parameters on mount to set initial searchQuery and filter values
     // Function to handle searching
     const handleSearch = (search = searchQuery) => {
-        const params = new URLSearchParams(location.search); // get current query string params
+        const params = new URLSearchParams(); // get current query string params
         if (search) params.set('q', search); // add to the current path with q=search value
 
         console.log('current params: ', params);
