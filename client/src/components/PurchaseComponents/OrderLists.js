@@ -114,11 +114,6 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
         return total;
     };
 
-    const finalSubtotal = calculateSubtotal();
-    const finalDiscount = calculateDiscountTotal();
-    const finalTax = calculateTaxTotal();
-    const finalTotalPrice = calculateFinalTotal();
-
     return (
         <>
             {/* sample */}

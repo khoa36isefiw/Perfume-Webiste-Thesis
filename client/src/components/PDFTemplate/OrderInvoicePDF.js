@@ -12,9 +12,10 @@ import generatePDF from 'react-to-pdf';
 
 import { useLocation } from 'react-router-dom';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { backTop } from '../goBackTop/goBackTop';
+import { OrderInvoiceShowing } from './OrderInvoiceShowing';
 
 export const OrderInvoicePDF = () => {
     // get order data from state
@@ -126,6 +127,14 @@ export const OrderInvoicePDF = () => {
                     justifyContent: 'space-between',
                     margin: 'auto',
                     width: 800,
+                    [tabletScreen]: {
+                        width: '85%',
+                    },
+                    [mobileScreen]: {
+                        width: '100%',
+                    },
+                    borderBottom: '1px solid #ccc',
+                    mb: 2,
                 }}
             >
                 <Button
@@ -144,11 +153,23 @@ export const OrderInvoicePDF = () => {
                             bgcolor: 'transparent',
                             color: theme.palette.admin.bgColor,
                         },
+                        [mobileScreen]: {
+                            fontSize: '16px',
+                        },
                     }}
                 >
                     List Purchases
                 </Button>
-                <CustomizeTypography sx={{ fontSize: '32px', fontWeight: 'bold' }}>
+                <CustomizeTypography
+                    sx={{
+                        fontSize: '32px',
+                        fontWeight: 'bold',
+                        mb: 0,
+                        [mobileScreen]: {
+                            fontSize: '24px',
+                        },
+                    }}
+                >
                     Preview
                 </CustomizeTypography>
                 <Tooltip
@@ -185,6 +206,7 @@ export const OrderInvoicePDF = () => {
                 </Tooltip>
             </Box>
 
+            <OrderInvoiceShowing />
             <Box
                 sx={{
                     border: '1px solid #ccc',
@@ -193,6 +215,7 @@ export const OrderInvoicePDF = () => {
                     width: '800px',
                     margin: 'auto',
                     filter: 'drop-shadow(0 0 0.5rem #fff)',
+                    display: 'none',
                 }}
             >
                 <Box
@@ -202,7 +225,6 @@ export const OrderInvoicePDF = () => {
                         px: 9,
                         pt: 8,
                         width: '800px',
-                        display: location.pathname.includes('/order-invoice') ? 'block' : 'none',
                     }}
                 >
                     {/* seller information */}
