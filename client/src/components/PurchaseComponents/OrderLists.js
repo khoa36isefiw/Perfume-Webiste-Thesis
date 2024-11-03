@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Button, Tooltip, Typography, Avatar, Divider } from '@mui/material';
+import { Box, Grid, Button, Tooltip, Typography, Avatar } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
@@ -44,8 +44,10 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                 return 'Friday';
             case 6:
                 return 'Saturday';
-            case 7:
+            case 0:
                 return 'Sunday';
+            default:
+                return 'Tomtoc';
         }
     };
 
