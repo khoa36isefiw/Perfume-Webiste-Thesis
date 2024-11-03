@@ -14,22 +14,18 @@ import { backTop } from '../goBackTop/goBackTop';
 export const OrderItemV2 = ({ listData }) => {
     const userData = JSON.parse(localStorage.getItem('user_data')) || [];
     const { data: products } = useProduct();
-    console.log('products: ', products?.data);
 
     console.log('listData: ', listData);
     const navigate = useNavigate();
     const handleRating = (item) => {
-        console.log('item infor:', item);
-
         const perfume = products?.data?.find(
             (product) =>
                 product._id === item.product &&
                 product?.variants.find((variant) => variant._id === item.variant),
         );
-        console.log('perfume: ', perfume);
         navigate(`/product/${perfume._id}`, { state: { perfume } });
         setTimeout(() => {
-            backTop();
+            backTop(); // deplay 100ml waiting for navigating
         }, 100);
     };
     return (
@@ -59,6 +55,7 @@ export const OrderItemV2 = ({ listData }) => {
                             <Box sx={{ ml: 2 }}>
                                 <CustomizeTypography
                                     sx={{
+                                        mb: '2px',
                                         fontSize: '15px',
                                         fontWeight: 'bold',
                                         [mobileScreen]: {
@@ -70,23 +67,41 @@ export const OrderItemV2 = ({ listData }) => {
                                 </CustomizeTypography>
                                 <CustomizeTypography
                                     sx={{
+                                        mb: '2px',
                                         fontSize: '13.5px',
                                         [mobileScreen]: {
                                             fontSize: '12.5px',
+                                            mb: '4px',
                                         },
                                     }}
                                 >
-                                    brand
+                                    {item.brand}
                                 </CustomizeTypography>
                                 <CustomizeTypography
                                     sx={{
+                                        mb: '2px',
                                         fontSize: '13.5px',
+
                                         [mobileScreen]: {
                                             fontSize: '12.5px',
+                                            mb: '4px',
                                         },
                                     }}
                                 >
-                                    {item.size}
+                                    <strong>Size:</strong> {item.size}
+                                </CustomizeTypography>
+                                <CustomizeTypography
+                                    sx={{
+                                        mb: '2px',
+                                        fontSize: '13.5px',
+
+                                        [mobileScreen]: {
+                                            fontSize: '12.5px',
+                                            mb: '4px',
+                                        },
+                                    }}
+                                >
+                                    <strong>Qty:</strong> {item.quantity}
                                 </CustomizeTypography>
                                 <Button
                                     startIcon={<StarIcon />}
