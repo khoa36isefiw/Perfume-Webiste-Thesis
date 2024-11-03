@@ -6,7 +6,7 @@ const Variant = require('../models/Variant.model');
 const User = require('../models/User.model');
 const Order = require('../models/Order.model');
 const { getConversionRate } = require('../utils/convertCurrency');
-const { getAll } = require('./ProductController');
+const { isInStock } = require('../services/VariantService');
 
 const PaymentController = {
     getAll: async (req, res) => {
@@ -50,6 +50,20 @@ const PaymentController = {
             if (items.length === 0) {
                 return res.status(400).json({ message: 'Cart is empty' });
             }
+
+            for (const item of items) {
+                const { product, variant } = item;
+
+                const isMatchProduct = variant.product.toString() === product._id.toString();
+                if (!isMatchProduct) {
+                    return res.status(400).json({ message: 'Cart is not match with product' });
+                }
+                const inStock = await isInStock(variant._id);
+                if (!inStock) {
+                    return res.status(400).json({ message: 'Out of stock' });
+                }
+            }
+
             const newOrder = new Order({
                 user,
                 status: 'PENDING_PAYMENT',
@@ -57,10 +71,7 @@ const PaymentController = {
             });
 
             for (const item of items) {
-                const product = await Product.findOne({ _id: item.product })
-                    .populate('brand')
-                    .populate('category');
-                const variant = await Variant.findOne({ _id: item.variant });
+                const { product, variant } = item;
 
                 newOrder.items.push({
                     product: product._id,
@@ -87,12 +98,11 @@ const PaymentController = {
                 (cartItem) =>
                     !items.find(
                         (item) =>
-                            item.product === cartItem.product.toString() &&
-                            item.variant === cartItem.variant.toString(),
+                            item.product._id === cartItem.product.toString() &&
+                            item.variant._id === cartItem.variant.toString(),
                     ),
             );
             await updatedUser.save();
-
             if (method === 'COD') {
                 const newPayment = new Payment({
                     order: savedOrder._id,
@@ -103,6 +113,17 @@ const PaymentController = {
                     paymentMethod: method,
                 });
                 await newPayment.save();
+                const variants = items.map((item) => ({
+                    varaint: item.variant,
+                    quantity: item.quantity,
+                }));
+                for (const variant of variants) {
+                    const updatedVariant = await Variant.findOne({
+                        _id: variant.varaint._id,
+                    });
+                    updatedVariant.stock -= variant.quantity;
+                    await updatedVariant.save();
+                }
                 return res.status(200).json({ message: 'Order created', order: savedOrder });
             }
 
@@ -164,9 +185,6 @@ const PaymentController = {
                 paymentMethod: method,
             });
             await newPayment.save();
-            // const approvalUrl = response.data.links.find(
-            //     (link) => link.rel === 'payer-action',
-            // ).href;
             res.status(200).json({ payRef: response.data.id });
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -175,7 +193,6 @@ const PaymentController = {
 
     captureOrder: async (req, res) => {
         const { paymentId } = req.body;
-
         try {
             const token = await getPayPalToken();
             const response = await axios.post(
@@ -198,7 +215,17 @@ const PaymentController = {
                     { _id: response.data.purchase_units[0].reference_id },
                     { status: 'PAID' },
                 );
+                // should be minus variant stock
+                const variants = updatedOrder.items.map((item) => ({
+                    varaint: item.variant,
+                    quantity: item.quantity,
+                }));
 
+                for (const variant of variants) {
+                    const updatedVariant = await Variant.findOne({ _id: variant.varaint });
+                    updatedVariant.stock -= variant.quantity;
+                    await updatedVariant.save();
+                }
                 res.status(200).json({ message: 'Payment successful', order: updatedOrder });
             } else {
                 res.status(400).json({ message: 'Payment not completed' });

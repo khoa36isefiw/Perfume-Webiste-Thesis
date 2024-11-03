@@ -95,7 +95,7 @@ export default function AuthenticatedUser() {
                     >
                         <Avatar
                             sx={{ width: 48, height: 48 }}
-                            src={userData?.imagePath}
+                            src={userData?.imagePath || 'https://i.pravatar.cc/300'}
                             alt="User Image"
                         />
                     </IconButton>

@@ -58,7 +58,7 @@ function NewHeader() {
     const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
     const userData = JSON.parse(localStorage.getItem('user_data'));
 
-    const { data: products, mutate, isLoading, error } = useUserById(userData.userId);
+    const { data: products, mutate, isLoading, error } = useUserById(userData?.userId);
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
