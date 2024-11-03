@@ -23,6 +23,7 @@ function PerfumesCard() {
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [sortingSelected, setSortingSelected] = useState('');
     const [brandSelected, setBrandSelected] = useState('');
+    // const getSearchQuery = JSON.parse(window.localStorage.getItem('search_query')) || null;
 
     const handleNavigationProductDetail = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
@@ -30,9 +31,8 @@ function PerfumesCard() {
         backTop();
     };
 
-    const { data: products, isLoading, error } = useProduct();
-
-    console.log('search value: ', location.search); // get current location path name
+    const { data: products, isLoading, error } = useProduct('', 'Gucci', 'price', 'desc');
+    console.log('current data âhiahi: ', products);
 
     return (
         <React.Fragment>
