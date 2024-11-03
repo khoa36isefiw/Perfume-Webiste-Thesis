@@ -26,7 +26,7 @@ export default function AuthenticatedUser() {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
-    const userData = JSON.parse(localStorage.getItem('user_data'));
+    const userData = JSON.parse(localStorage.getItem('user_data')) || null;
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -74,10 +74,18 @@ export default function AuthenticatedUser() {
             console.error('An error occurred during logout:', error);
         }
     };
+    console.log('userData: ', userData !== null);
 
     return (
         <React.Fragment>
-            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    display: userData !== null ? 'block' : 'none',
+                }}
+            >
                 <Tooltip
                     title={
                         <CustomizeTypography sx={{ fontSize: '13px', mb: 0 }}>
