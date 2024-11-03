@@ -14,6 +14,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const filterPriceLists = [
     {
@@ -28,7 +29,9 @@ const filterPriceLists = [
     },
 ];
 
-function SortProducts({ listData, setSortedList }) {
+function SortProducts({ listData, sortingSelected, setSortingSelected }) {
+    const location = useLocation();
+    const navigate = useNavigate();
     const [getFilterPrice, setGetFilterPrice] = React.useState(null);
     // Default to the first item
     const [selectedOptionFilter, setSelectedOptionFilter] = React.useState('Price');
@@ -45,17 +48,21 @@ function SortProducts({ listData, setSortedList }) {
     };
 
     const handleGetFilterPrice = (item) => {
-        // Clone the list to avoid mutating original data
-        let sortedList = [...listData];
-        if (item === 'Low to High') {
-            sortedList = sortedList.sort((a, b) => a.perfumePriceVND - b.perfumePriceVND);
-        } else {
-            sortedList = sortedList.sort((a, b) => b.perfumePriceVND - a.perfumePriceVND);
-        }
+        //  this list to avoid mutating original data
+        // let sortedList = [...listData];
+        // if (item === 'Low to High') {
+        //     sortedList = sortedList.sort((a, b) => a.perfumePriceVND - b.perfumePriceVND);
+        // } else {
+        //     sortedList = sortedList.sort((a, b) => b.perfumePriceVND - a.perfumePriceVND);
+        // }
         setSelectedOptionFilter(item);
-        setSortedList(sortedList);
-        setGetFilterPrice(null);
-        // console.log('sortedList: ', sortedList);
+        setSortingSelected(item);
+
+        setGetFilterPrice(null); // close menu
+
+        const currentQueryParams = new URLSearchParams(location.search); // get the current search params
+        currentQueryParams.set('sorting', item);
+        navigate(`/shop?${currentQueryParams.toString()}`);
     };
 
     return (
