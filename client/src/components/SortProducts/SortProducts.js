@@ -61,7 +61,12 @@ function SortProducts({ listData, sortingSelected, setSortingSelected }) {
         setGetFilterPrice(null); // close menu
 
         const currentQueryParams = new URLSearchParams(location.search); // get the current search params
-        currentQueryParams.set('sorting', item);
+        if (item === 'High to Low' || item === 'Low to High') {
+            currentQueryParams.set('sortBy', 'price');
+        } else {
+            currentQueryParams.set('sortBy', 'name');
+        }
+
         navigate(`/shop?${currentQueryParams.toString()}`);
     };
 
