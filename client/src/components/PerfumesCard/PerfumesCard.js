@@ -21,7 +21,7 @@ function PerfumesCard() {
     const navigate = useNavigate();
     const location = useLocation();
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
-    const [sortedList, setSortedList] = useState([]);
+    const [sortingSelected, setSortingSelected] = useState('');
     const [brandSelected, setBrandSelected] = useState('');
 
     const handleNavigationProductDetail = (perfume) => {
@@ -60,7 +60,11 @@ function PerfumesCard() {
                         setBrandSelected={setBrandSelected}
                         brandSelected={brandSelected}
                     />
-                    <SortProducts listData={products?.data} setSortedList={setSortedList} />
+                    <SortProducts
+                        listData={products?.data}
+                        sortingSelected={sortingSelected}
+                        setSortingSelected={setSortingSelected}
+                    />
                     {products?.data?.length ? (
                         <Grid container spacing={2}>
                             {products?.data.map((perfume, index) => (
