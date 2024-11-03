@@ -1,21 +1,15 @@
 import React, { useRef } from 'react';
 import { Box, Button, Tooltip, Typography, Avatar, Divider } from '@mui/material';
-
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-
 import { formatDate } from '../FormatDate/formatDate';
 import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
-
 import { ArrowBackIos } from '@mui/icons-material';
-
 import generatePDF from 'react-to-pdf';
-
 import { useLocation } from 'react-router-dom';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
-import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
+
 import { backTop } from '../goBackTop/goBackTop';
-import { OrderInvoiceShowing } from './OrderInvoiceShowing';
 
 export const OrderInvoicePDF = () => {
     // get order data from state
@@ -187,6 +181,10 @@ export const OrderInvoicePDF = () => {
                     <Button
                         startIcon={<PictureAsPdfIcon />}
                         sx={{
+                            [mobileScreen]: {
+                                visibility: 'hidden',
+                            },
+                            visibility: 'visible',
                             padding: '6px 0',
                             textTransform: 'initial',
                             fontSize: '14px',
@@ -206,7 +204,6 @@ export const OrderInvoicePDF = () => {
                 </Tooltip>
             </Box>
 
-            <OrderInvoiceShowing />
             <Box
                 sx={{
                     border: '1px solid #ccc',
@@ -215,7 +212,13 @@ export const OrderInvoicePDF = () => {
                     width: '800px',
                     margin: 'auto',
                     filter: 'drop-shadow(0 0 0.5rem #fff)',
-                    display: 'none',
+                    [tabletScreen]: {
+                        width: '85%',
+                    },
+                    [mobileScreen]: {
+                        width: '100%',
+                        borderRadius: 0,
+                    },
                 }}
             >
                 <Box
@@ -225,6 +228,15 @@ export const OrderInvoicePDF = () => {
                         px: 9,
                         pt: 8,
                         width: '800px',
+                        [tabletScreen]: {
+                            width: '100%',
+                            px: 2,
+                        },
+                        [mobileScreen]: {
+                            width: '100%',
+                            pt: 4,
+                            px: 2,
+                        },
                     }}
                 >
                     {/* seller information */}
@@ -267,6 +279,10 @@ export const OrderInvoicePDF = () => {
                             alignItems: 'center',
                             justifyContent: 'space-between',
                             mb: 4,
+                            [mobileScreen]: {
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                            },
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -291,17 +307,50 @@ export const OrderInvoicePDF = () => {
                             </Box>
                         </Box>
                         <Box>
-                            <CustomizeTypography sx={{ mb: 0, textAlign: 'end' }}>
+                            <CustomizeTypography
+                                sx={{
+                                    mb: 0,
+                                    textAlign: 'end',
+                                    [mobileScreen]: {
+                                        mt: 4,
+                                        textAlign: 'start',
+                                    },
+                                }}
+                            >
                                 HCMC University of Technology and Education
                             </CustomizeTypography>
-                            <CustomizeTypography sx={{ mb: 0, textAlign: 'end' }}>
+                            <CustomizeTypography
+                                sx={{
+                                    mb: 0,
+                                    textAlign: 'end',
+                                    [mobileScreen]: {
+                                        textAlign: 'start',
+                                    },
+                                }}
+                            >
                                 Thu Duc City
                             </CustomizeTypography>
-                            <CustomizeTypography sx={{ mb: 0, textAlign: 'end' }}>
+                            <CustomizeTypography
+                                sx={{
+                                    mb: 0,
+                                    textAlign: 'end',
+                                    [mobileScreen]: {
+                                        textAlign: 'start',
+                                    },
+                                }}
+                            >
                                 Số 1 Võ Văn Ngân
                             </CustomizeTypography>
-                            <CustomizeTypography sx={{ mb: 0, textAlign: 'end' }}>
-                                Created: {convertDayToText(getDay)} , {getDateTime}
+                            <CustomizeTypography
+                                sx={{
+                                    mb: 0,
+                                    textAlign: 'end',
+                                    [mobileScreen]: {
+                                        textAlign: 'start',
+                                    },
+                                }}
+                            >
+                                Created: {convertDayToText(getDay)}, {getDateTime}
                             </CustomizeTypography>
                         </Box>
                     </Box>
@@ -318,6 +367,11 @@ export const OrderInvoicePDF = () => {
                             alignItems: 'center',
                             justifyContent: 'space-between',
                             mb: 4,
+                            [mobileScreen]: {
+                                flexDirection: 'column',
+                                alignItems: 'start',
+                                justifyContent: 'start',
+                            },
                         }}
                     >
                         <Box>
@@ -332,7 +386,13 @@ export const OrderInvoicePDF = () => {
                                 Issued date: {formatDate(order?.updatedAt)}
                             </CustomizeTypography>
                         </Box>
-                        <Box>
+                        <Box
+                            sx={{
+                                [mobileScreen]: {
+                                    mt: 2,
+                                },
+                            }}
+                        >
                             <CustomizeTypography sx={{ color: '#000', fontWeight: 'bold' }}>
                                 Billed to
                             </CustomizeTypography>
@@ -453,6 +513,32 @@ export const OrderInvoicePDF = () => {
                         </Box>
                     </Box>
                 </Box>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+                <Button
+                    startIcon={<PictureAsPdfIcon />}
+                    sx={{
+                        [mobileScreen]: {
+                            visibility: 'visible',
+                        },
+                        visibility: 'hidden',
+                        padding: '12px 24px',
+                        mt: 1,
+                        textTransform: 'initial',
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        color: '#fff',
+                        '&:hover': {
+                            bgcolor: 'transparent',
+                            color: theme.palette.text.secondary,
+                        },
+                    }}
+                    onClick={() =>
+                        generatePDF(targetRef, { filename: `Invoice Order-${order?._id}` })
+                    }
+                >
+                    Download
+                </Button>
             </Box>
         </Box>
     );
