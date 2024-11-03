@@ -13,13 +13,12 @@ function PerfumeBrands({ listData, brandSelected, setBrandSelected }) {
     console.log('âhiahihi');
 
     const handleSelectBrand = (brand) => {
-        const brandName = brand.nameEn;
-        setBrandSelected(brandName);
-        window.localStorage.setItem('filter', JSON.stringify(brandName));
-        // Lấy query hiện tại mà không làm thay đổi mã hóa của nó
+        setBrandSelected(brand.nameEn);
+        window.localStorage.setItem('filter', JSON.stringify(brand.nameEn));
+        // lấy query hiện tại mà không làm thay đổi mã hóa của nó
         const currentQueryParams = new URLSearchParams(location.search);
         // Xóa thương hiệu cũ (nếu có) và thêm thương hiệu mới
-        currentQueryParams.set('brand', brandSelected);
+        currentQueryParams.set('brand', brand.nameEn);
         console.log('currentQueryParams.toString(): ', currentQueryParams.toString());
 
         // Cập nhật URL với `navigate` mà không mã hóa thêm
