@@ -3,19 +3,52 @@ const Variant = require('../models/Variant.model');
 
 const ProductController = {
     getAll: async (req, res) => {
-        const { limit } = req.query;
+        const { limit, keyword, sortBy, sortOrder = 'asc' } = req.query;
         try {
-            const queryOptions = {
-                lean: true,
-            };
-            let productsQuery = Product.find({ status: 'active' }, null, queryOptions)
-                .populate('variants')
-                .populate('category')
-                .populate('brand');
-            if (limit) {
-                productsQuery = productsQuery.limit(Number(limit));
+            const sortDirection = sortOrder === 'asc' ? 1 : -1;
+
+            // Base aggregation pipeline
+            const pipeline = [
+                {
+                    $match: {
+                        status: 'active',
+                        ...(keyword && {
+                            $or: [
+                                { nameEn: { $regex: keyword, $options: 'i' } },
+                                // Add more fields if needed
+                            ],
+                        }),
+                    },
+                },
+                {
+                    $lookup: {
+                        from: 'variants',
+                        localField: 'variants',
+                        foreignField: '_id',
+                        as: 'variants',
+                    },
+                },
+                {
+                    $addFields: {
+                        minPriceSale: { $min: '$variants.priceSale' }, // Calculates min priceSale from variants
+                    },
+                },
+            ];
+
+            // Adding sort step if sortBy is variantPrice
+            if (sortBy === 'price') {
+                pipeline.push({ $sort: { minPriceSale: sortDirection } });
+            } else if (sortBy === 'name') {
+                pipeline.push({ $sort: { nameEn: sortDirection } });
             }
-            const products = await productsQuery;
+
+            // Limit the results if 'limit' is provided
+            if (limit) {
+                pipeline.push({ $limit: Number(limit) });
+            }
+
+            // Execute the aggregation pipeline
+            const products = await Product.aggregate(pipeline);
             res.status(200).json(products);
         } catch (error) {
             res.status(500).json({ message: error.message });
