@@ -3,7 +3,7 @@ const Variant = require('../models/Variant.model');
 
 const ProductController = {
     getAll: async (req, res) => {
-        const { limit, keyword, sortBy, sortOrder = 'asc' } = req.query;
+        const { limit, keyword, brand, sortBy, sortOrder = 'asc' } = req.query;
         try {
             const sortDirection = sortOrder === 'asc' ? 1 : -1;
 
@@ -22,6 +22,38 @@ const ProductController = {
                 },
                 {
                     $lookup: {
+                        from: 'brands', // Collection name for Brand
+                        localField: 'brand', // Field in Product schema
+                        foreignField: '_id', // Field in Brand schema
+                        as: 'brand', // Name for joined data
+                    },
+                },
+                {
+                    $unwind: '$brand',
+                },
+                // Optional filtering by brandName
+                ...(brand
+                    ? [
+                          {
+                              $match: {
+                                  'brand.nameEn': { $regex: brand, $options: 'i' },
+                              },
+                          },
+                      ]
+                    : []),
+                {
+                    $lookup: {
+                        from: 'categories', // Collection name for Category
+                        localField: 'category', // Field in Product schema
+                        foreignField: '_id', // Field in Category schema
+                        as: 'category', // Name for joined data
+                    },
+                },
+                {
+                    $unwind: '$category', // Unwind to get direct access to category fields
+                },
+                {
+                    $lookup: {
                         from: 'variants',
                         localField: 'variants',
                         foreignField: '_id',
@@ -35,14 +67,12 @@ const ProductController = {
                 },
             ];
 
-            // Adding sort step if sortBy is variantPrice
             if (sortBy === 'price') {
                 pipeline.push({ $sort: { minPriceSale: sortDirection } });
             } else if (sortBy === 'name') {
                 pipeline.push({ $sort: { nameEn: sortDirection } });
             }
 
-            // Limit the results if 'limit' is provided
             if (limit) {
                 pipeline.push({ $limit: Number(limit) });
             }
