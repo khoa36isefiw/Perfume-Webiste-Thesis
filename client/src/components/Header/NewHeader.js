@@ -25,7 +25,7 @@ import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
 import { backTop } from '../goBackTop/goBackTop';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import useProduct from '../../api/useProduct';
+
 import useUserById from '../../api/useUserById';
 
 const headerData = [
@@ -41,10 +41,8 @@ function NewHeader() {
 
     const location = useLocation();
     const [searchQuery, setSearchQuery] = useState('');
+    const [filterQuery, setFilterQuery] = useState('');
 
-    const [filter, setFilter] = useState('');
-
-    const [anchorEl, setAnchorEl] = useState(null);
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -56,7 +54,8 @@ function NewHeader() {
     // get product in cart
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
     const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
-    const userData = JSON.parse(localStorage.getItem('user_data'));
+    const userData = JSON.parse(localStorage.getItem('user_data')) || null;
+    const getFilter = JSON.parse(localStorage.getItem('filter')) || null;
 
     const { data: products, mutate, isLoading, error } = useUserById(userData?.userId);
 
@@ -111,28 +110,15 @@ function NewHeader() {
     };
 
     // Parse URL parameters on mount to set initial searchQuery and filter values
-    useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
-        const q = searchParams.get('q') || '';
-        const filterParam = searchParams.get('filter') || '';
-        setSearchQuery(q);
-        setFilter(filterParam);
-
-        // If there are initial parameters, trigger the search
-        if (q || filterParam) {
-            handleSearch(q, filterParam);
-        }
-    }, [location.search]);
-
     // Function to handle searching
-    const handleSearch = async (search = searchQuery, filterVal = filter) => {
-        // Update URL with search query and filter
-        const params = new URLSearchParams();
-        if (search) params.append('q', search);
-        if (filterVal) params.append('filter', filterVal);
+    const handleSearch = (search = searchQuery) => {
+        const params = new URLSearchParams(); // get current query string params
+        if (search) params.set('q', search); // add to the current path with q=search value
 
-        // Navigate to update the URL with query params
-        navigate(`/shop?${params.toString()}`);
+        console.log('current params: ', params);
+
+        // navigate to update the URL with query params
+        navigate(`/shop?${params.toString()}`); // href to shop with query string params
 
         // waiting for getting data
         // try {
@@ -336,7 +322,7 @@ function NewHeader() {
                                         mr: 4,
                                     },
                                 }}
-                                onClick={() => handleSearch(searchQuery, filter)}
+                                onClick={() => handleSearch(searchQuery)}
                             >
                                 <SearchIcon sx={{ fontSize: '24px', color: 'white' }} />
                             </IconButton>
@@ -344,7 +330,7 @@ function NewHeader() {
                     )}
 
                     {userData && !isMobile ? (
-                        <AuthenticatedUser userData={userData} />
+                        <AuthenticatedUser />
                     ) : (
                         <React.Fragment>
                             <Box

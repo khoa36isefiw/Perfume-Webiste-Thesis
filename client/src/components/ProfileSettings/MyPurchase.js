@@ -103,7 +103,7 @@ function MyPurchase() {
                     <Button
                         onClick={() => handleSelectFilterOrders(filter)}
                         key={index}
-                        variant={filterOrders.status === filter.status ? 'contained' : 'outlined'}
+                        variant={filterOrders?.status === filter.status ? 'contained' : 'outlined'}
                         sx={{
                             margin: 0.5,
                             fontSize: '14px',

@@ -4,7 +4,7 @@ import { perfumeData } from './perfumeData';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import Rating from '@mui/material/Rating';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import BoltIcon from '@mui/icons-material/Bolt';
 import { converToVND } from '../convertToVND/convertToVND';
@@ -19,9 +19,10 @@ import useLoading from '../../hooks/useLoading';
 
 function PerfumesCard() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
-    const [sortedList, setSortedList] = useState([]);
-    const [selectedBrandList, setSelectedBrandList] = useState([]);
+    const [sortingSelected, setSortingSelected] = useState('');
+    const [brandSelected, setBrandSelected] = useState('');
 
     const handleNavigationProductDetail = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
@@ -29,15 +30,9 @@ function PerfumesCard() {
         backTop();
     };
 
-    const mixedFilter =
-        sortedList.length > 0
-            ? sortedList
-            : selectedBrandList.length > 0
-            ? selectedBrandList
-            : perfumeData;
     const { data: products, isLoading, error } = useProduct();
 
-    console.log('products from api: ', products?.data);
+    console.log('search value: ', location.search); // get current location path name
 
     return (
         <React.Fragment>
@@ -62,9 +57,14 @@ function PerfumesCard() {
                 >
                     <PerfumeBrands
                         listData={products?.data}
-                        setSelectedBrandList={setSelectedBrandList}
+                        setBrandSelected={setBrandSelected}
+                        brandSelected={brandSelected}
                     />
-                    <SortProducts listData={products?.data} setSortedList={setSortedList} />
+                    <SortProducts
+                        listData={products?.data}
+                        sortingSelected={sortingSelected}
+                        setSortingSelected={setSortingSelected}
+                    />
                     {products?.data?.length ? (
                         <Grid container spacing={2}>
                             {products?.data.map((perfume, index) => (
