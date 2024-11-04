@@ -19,7 +19,6 @@ import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../Theme/Theme
 import BackToTop from '../components/ScrollTop/ScrollTop';
 import Footer from '../components/Footer/Footer';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import EmptyOrders from '../components/EmptyOrders/EmptyOrders';
 import useOrderByUser from '../api/useOrderByUser';
 
@@ -42,10 +41,18 @@ const darkTheme = createTheme({
 
 function ProfileSettingsLayout({ children }) {
     const location = useLocation();
+    const navigate = useNavigate();
 
-    const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
-    console.log('user id in mypu: ', userId);
-    const { data: orders, isLoading, error } = useOrderByUser(userId);
+    const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
+    console.log('userData: ', userData);
+    console.log();
+    useEffect(() => {
+        if (userData === null) {
+            navigate('/');
+        }
+    }, [userData]);
+
+    const { data: orders, isLoading, error } = useOrderByUser(userData?.userId);
     console.log('data: ', orders?.data);
 
     return (
