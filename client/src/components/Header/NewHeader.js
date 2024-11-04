@@ -111,14 +111,15 @@ function NewHeader() {
 
     // Parse URL parameters on mount to set initial searchQuery and filter values
     // Function to handle searching
-    const handleSearch = (search = searchQuery) => {
+    const handleSearch = async (search = searchQuery) => {
         const params = new URLSearchParams(); // get current query string params
-        if (search) params.set('q', search); // add to the current path with q=search value
-
-        console.log('current params: ', params);
+        if (search) params.set('keyword', search); // add to the current path with q=search value
+        window.localStorage.setItem('search_query', search);
 
         // navigate to update the URL with query params
-        navigate(`/shop?${params.toString()}`); // href to shop with query string params
+        // navigate(`/products?${params.toString()}`); // href to shop with query string params
+
+        navigate(`/shop?${params.toString()}`, { replace: true });
 
         // waiting for getting data
         // try {

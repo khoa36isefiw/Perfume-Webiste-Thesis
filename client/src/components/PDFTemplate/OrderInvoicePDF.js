@@ -29,7 +29,7 @@ export const OrderInvoicePDF = () => {
                 return 'Friday';
             case 6:
                 return 'Saturday';
-            case 7:
+            default:
                 return 'Sunday';
         }
     };

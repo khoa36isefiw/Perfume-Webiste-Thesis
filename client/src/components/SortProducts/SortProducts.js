@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-    Box,
-    Button,
-    Container,
-    ListItemIcon,
-    ListItemText,
-    Menu,
-    MenuItem,
-    Typography,
-} from '@mui/material';
+import { Box, Button, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from '@mui/material';
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -61,7 +52,12 @@ function SortProducts({ listData, sortingSelected, setSortingSelected }) {
         setGetFilterPrice(null); // close menu
 
         const currentQueryParams = new URLSearchParams(location.search); // get the current search params
-        currentQueryParams.set('sorting', item);
+        if (item === 'High to Low' || item === 'Low to High') {
+            currentQueryParams.set('sortBy', 'price');
+        } else {
+            currentQueryParams.set('sortBy', 'name');
+        }
+
         navigate(`/shop?${currentQueryParams.toString()}`);
     };
 

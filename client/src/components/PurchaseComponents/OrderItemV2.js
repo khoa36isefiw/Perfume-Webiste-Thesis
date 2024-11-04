@@ -7,12 +7,11 @@ import { converToVND } from '../convertToVND/convertToVND';
 import StarIcon from '@mui/icons-material/Star';
 import { red } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
-import useUserById from '../../api/useUserById';
+
 import useProduct from '../../api/useProduct';
 import { backTop } from '../goBackTop/goBackTop';
 
 export const OrderItemV2 = ({ listData }) => {
-    const userData = JSON.parse(localStorage.getItem('user_data')) || [];
     const { data: products } = useProduct();
 
     console.log('listData: ', listData);

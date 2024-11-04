@@ -1,6 +1,6 @@
 import { Box, Button, Container, Grid } from '@mui/material';
 import React, { useState } from 'react';
-import { perfumeData } from './perfumeData';
+
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import Rating from '@mui/material/Rating';
@@ -19,10 +19,11 @@ import useLoading from '../../hooks/useLoading';
 
 function PerfumesCard() {
     const navigate = useNavigate();
-    const location = useLocation();
+
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [sortingSelected, setSortingSelected] = useState('');
     const [brandSelected, setBrandSelected] = useState('');
+    // const getSearchQuery = JSON.parse(window.localStorage.getItem('search_query')) || null;
 
     const handleNavigationProductDetail = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
@@ -30,9 +31,8 @@ function PerfumesCard() {
         backTop();
     };
 
-    const { data: products, isLoading, error } = useProduct();
-
-    console.log('search value: ', location.search); // get current location path name
+    const { data: products, isLoading, error } = useProduct('', 'Gucci', 'price', 'desc');
+    console.log('current data âhiahi: ', products);
 
     return (
         <React.Fragment>
