@@ -23,7 +23,6 @@ function PerfumesCard() {
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [sortingSelected, setSortingSelected] = useState('');
     const [brandSelected, setBrandSelected] = useState('');
-    // const getSearchQuery = JSON.parse(window.localStorage.getItem('search_query')) || null;
 
     const handleNavigationProductDetail = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
@@ -31,7 +30,10 @@ function PerfumesCard() {
         backTop();
     };
 
-    const { data: products, isLoading, error } = useProduct('', 'Gucci', 'price', 'desc');
+    const searchQuery = window.localStorage.getItem('search_query') || null;
+    console.log('searchQuery: ', searchQuery);
+
+    const { data: products, isLoading, error } = useProduct(searchQuery, 'Dior', 'price', 'desc');
     console.log('current data âhiahi: ', products);
 
     return (
