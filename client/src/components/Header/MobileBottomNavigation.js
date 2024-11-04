@@ -142,7 +142,7 @@ export default function MobileBottomNavigation() {
                 />
 
                 {/* Sign In */}
-                {loggedInAccount ? (
+                {userData ? (
                     //  {/* for logged in */}
                     <BottomNavigationAction
                         // label="Sign In"
