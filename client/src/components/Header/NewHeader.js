@@ -39,7 +39,7 @@ const headerData = [
 function NewHeader() {
     const navigate = useNavigate();
     const location = useLocation();
-    const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search_query') || ''); // prevent lost data when reload the page
+    const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search_query') || null); // prevent lost data when reload the page
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
 

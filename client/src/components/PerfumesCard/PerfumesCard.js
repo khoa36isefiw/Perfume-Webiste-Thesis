@@ -30,10 +30,16 @@ function PerfumesCard() {
         backTop();
     };
 
-    const searchQuery = window.localStorage.getItem('search_query') || null;
+    const searchQuery = localStorage.getItem('search_query') || null;
+    // JSON.parse(localStorage.getItem('user_data')) || null;
+    const brandFilter = JSON.parse(localStorage.getItem('filter')) || null;
     console.log('searchQuery: ', searchQuery);
 
-    const { data: products, isLoading, error } = useProduct(searchQuery, 'Dior', 'price', 'desc');
+    const {
+        data: products,
+        isLoading,
+        error,
+    } = useProduct(searchQuery, brandFilter, 'price', 'desc');
     console.log('current data âhiahi: ', products);
 
     return (
