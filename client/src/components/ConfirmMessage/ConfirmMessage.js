@@ -35,7 +35,7 @@ export default function ConfirmMessage({
                     <ConfirmMessageButton
                         onHandleAction={onHandleConfirmDisagree}
                         autoFocus
-                        textAction={'Disagree'}
+                        textAction={'Cancel'}
                         bgColorHovered={'transparent'}
                         textColor={theme.palette.background.secondary}
                     />
@@ -44,7 +44,7 @@ export default function ConfirmMessage({
                         variant="contained"
                         onHandleAction={onHandleConfirmAgree}
                         autoFocus
-                        textAction={'Agree'}
+                        textAction={'Yes'}
                         bgcolor={theme.palette.background.secondary}
                         bgColorHovered={theme.palette.background.secondary}
                     />
