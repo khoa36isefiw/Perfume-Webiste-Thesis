@@ -16,12 +16,13 @@ import useProduct from '../../api/useProduct';
 import { ModalDesginV2 } from '../Modal/ModalDesgin';
 import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
+import { useEffect } from 'react';
 
 function PerfumesCard() {
     const navigate = useNavigate();
 
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
-    const [sortingSelected, setSortingSelected] = useState('');
+    // const [sortingSelected, setSortingSelected] = useState('');
     // const [brandSelected, setBrandSelected] = useState('');
 
     const handleNavigationProductDetail = (perfume) => {
@@ -33,13 +34,18 @@ function PerfumesCard() {
     const searchQuery = localStorage.getItem('search_query') || null;
     // JSON.parse(localStorage.getItem('user_data')) || null;
     const brandFilter = JSON.parse(localStorage.getItem('filter')) || null;
+    const sortingFilter = JSON.parse(localStorage.getItem('sortBy')) || null;
     console.log('searchQuery: ', searchQuery);
 
     const {
         data: products,
         isLoading,
+        mutate,
         error,
-    } = useProduct(searchQuery, brandFilter, 'price', 'desc');
+    } = useProduct(searchQuery, brandFilter, sortingFilter?.sortBy, sortingFilter?.sortType);
+    useEffect(() => {
+        mutate(); // render after choose params to filter
+    }, [searchQuery, brandFilter, sortingFilter]);
     console.log('current data âhiahi: ', products);
 
     return (
@@ -70,8 +76,8 @@ function PerfumesCard() {
                     />
                     <SortProducts
                         listData={products?.data}
-                        sortingSelected={sortingSelected}
-                        setSortingSelected={setSortingSelected}
+                        // sortingSelected={sortingSelected}
+                        // setSortingSelected={setSortingSelected}
                     />
                     {products?.data?.length ? (
                         <Grid container spacing={2}>
