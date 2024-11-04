@@ -120,6 +120,8 @@ function NewHeader() {
         if (search !== '') {
             params.set('keyword', search); // add to the current path with q=search value
             window.localStorage.setItem('search_query', search);
+            // window.localStorage.setItem('filter', JSON.stringify('')); // reset filter
+            localStorage.removeItem('filter');
             // navigate to update the URL with query params
             // navigate(`/products?${params.toString()}`); // href to shop with query string params
             navigate(`/shop?${params.toString()}`, { replace: true });
