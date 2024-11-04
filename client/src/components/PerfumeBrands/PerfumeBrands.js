@@ -4,13 +4,21 @@ import React, { useState } from 'react';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import useBrand from '../../api/useBrand';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
-function PerfumeBrands({ listData, brandSelected, setBrandSelected }) {
-    console.log('listData: ', listData);
+// function PerfumeBrands({ listData, brandSelected, setBrandSelected }) {
+function PerfumeBrands({ listData }) {
+    const [brandSelected, setBrandSelected] = useState('');
+
     const { data: brands, isLoading, error } = useBrand();
     const location = useLocation();
     const navigate = useNavigate();
-    console.log('âhiahihi');
+
+    useEffect(() => {
+        const currentBrand = JSON.parse(localStorage.getItem('filter'));
+        setBrandSelected(currentBrand);
+    }, [JSON.parse(localStorage.getItem('filter'))]);
+    console.log('current filter: ', brandSelected);
 
     const handleSelectBrand = (brand) => {
         setBrandSelected(brand.nameEn);
@@ -25,8 +33,6 @@ function PerfumeBrands({ listData, brandSelected, setBrandSelected }) {
         navigate(`/shop?${currentQueryParams.toString()}`);
     };
 
-    console.log('brandSelected: ', brandSelected);
-
     return (
         // <Container
         <Box
@@ -37,7 +43,7 @@ function PerfumeBrands({ listData, brandSelected, setBrandSelected }) {
                 flexWrap: 'wrap',
             }}
         >
-            {brands?.data.map((brand) => (
+            {brands?.data?.map((brand) => (
                 <Box
                     key={brand._id}
                     onClick={() => handleSelectBrand(brand)}

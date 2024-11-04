@@ -38,11 +38,8 @@ const headerData = [
 
 function NewHeader() {
     const navigate = useNavigate();
-
     const location = useLocation();
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filterQuery, setFilterQuery] = useState('');
-
+    const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search_query') || null); // prevent lost data when reload the page
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -55,7 +52,6 @@ function NewHeader() {
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
     const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
     const userData = JSON.parse(localStorage.getItem('user_data')) || null;
-    const getFilter = JSON.parse(localStorage.getItem('filter')) || null;
 
     const { data: products, mutate, isLoading, error } = useUserById(userData?.userId);
 
@@ -109,30 +105,29 @@ function NewHeader() {
         navigate(`/product/${perfume.perfumeID}`, { state: { perfume } });
     };
 
+    useEffect(() => {
+        if (searchQuery === '') {
+            window.localStorage.setItem('search_query', '');
+            navigate('/shop');
+        }
+    }, [searchQuery]);
+
     // Parse URL parameters on mount to set initial searchQuery and filter values
     // Function to handle searching
     const handleSearch = async (search = searchQuery) => {
+        console.log('search: ', search);
         const params = new URLSearchParams(); // get current query string params
-        if (search) params.set('keyword', search); // add to the current path with q=search value
-        window.localStorage.setItem('search_query', search);
-
-        // navigate to update the URL with query params
-        // navigate(`/products?${params.toString()}`); // href to shop with query string params
-
-        navigate(`/shop?${params.toString()}`, { replace: true });
-
-        // waiting for getting data
-        // try {
-        //     const response = await axios.get('/api/products', {
-        //         params: {
-        //             q: search,
-        //             filter: filterVal,
-        //         },
-        //     });
-        //     setResults(response.data); // handle results from API
-        // } catch (error) {
-        //     console.error('Error fetching data:', error);
-        // }
+        if (search !== '') {
+            params.set('keyword', search); // add to the current path with q=search value
+            window.localStorage.setItem('search_query', search);
+            // window.localStorage.setItem('filter', JSON.stringify('')); // reset filter
+            localStorage.removeItem('filter');
+            localStorage.removeItem('sortBy');
+            // navigate to update the URL with query params
+            // navigate(`/products?${params.toString()}`); // href to shop with query string params
+            navigate(`/shop?${params.toString()}`, { replace: true });
+            setShowSuggestions(false); // hide the show suggestions
+        }
     };
 
     return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from '@mui/material';
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -20,15 +20,23 @@ const filterPriceLists = [
     },
 ];
 
-function SortProducts({ listData, sortingSelected, setSortingSelected }) {
+// function SortProducts({ listData, sortingSelected, setSortingSelected }) {
+function SortProducts({ listData }) {
     const location = useLocation();
     const navigate = useNavigate();
-    const [getFilterPrice, setGetFilterPrice] = React.useState(null);
+
+    const [getFilterPrice, setGetFilterPrice] = useState(null);
     // Default to the first item
-    const [selectedOptionFilter, setSelectedOptionFilter] = React.useState('Price');
+    const [sortingSelected, setSortingSelected] = useState('');
     // console.log('list data in sort: ', listData);
 
     const openSortMenu = Boolean(getFilterPrice);
+    console.log('selectedOptionFilter: ', sortingSelected);
+
+    useEffect(() => {
+        const currentSorting = JSON.parse(localStorage.getItem('sortBy'));
+        setSortingSelected(currentSorting);
+    }, [JSON.parse(localStorage.getItem('sortBy'))]);
 
     const handleSortMenuClick = (event) => {
         setGetFilterPrice(event.currentTarget);
@@ -39,22 +47,24 @@ function SortProducts({ listData, sortingSelected, setSortingSelected }) {
     };
 
     const handleGetFilterPrice = (item) => {
-        //  this list to avoid mutating original data
-        // let sortedList = [...listData];
-        // if (item === 'Low to High') {
-        //     sortedList = sortedList.sort((a, b) => a.perfumePriceVND - b.perfumePriceVND);
-        // } else {
-        //     sortedList = sortedList.sort((a, b) => b.perfumePriceVND - a.perfumePriceVND);
-        // }
-        setSelectedOptionFilter(item);
-        setSortingSelected(item);
-
         setGetFilterPrice(null); // close menu
-
         const currentQueryParams = new URLSearchParams(location.search); // get the current search params
         if (item === 'High to Low' || item === 'Low to High') {
+            const data = {
+                sortBy: 'price',
+                sortText: item,
+                sortType: item === 'High to Low' ? 'desc' : 'asc',
+            };
+            setSortingSelected(data);
+            window.localStorage.setItem('sortBy', JSON.stringify(data));
             currentQueryParams.set('sortBy', 'price');
         } else {
+            const data = {
+                sortBy: 'name',
+                sortText: item,
+            };
+            setSortingSelected(data);
+            window.localStorage.setItem('sortBy', JSON.stringify(data));
             currentQueryParams.set('sortBy', 'name');
         }
 
@@ -93,7 +103,7 @@ function SortProducts({ listData, sortingSelected, setSortingSelected }) {
                 }}
                 onClick={handleSortMenuClick}
             >
-                {selectedOptionFilter}
+                {sortingSelected !== null ? sortingSelected?.sortText : 'Price'}
             </Button>
             <Menu
                 anchorEl={getFilterPrice}

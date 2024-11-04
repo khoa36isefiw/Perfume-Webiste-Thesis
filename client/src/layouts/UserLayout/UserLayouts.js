@@ -5,8 +5,18 @@ import Footer from '../../components/Footer/Footer';
 import { theme } from '../../Theme/Theme';
 import BackToTop from '../../components/ScrollTop/ScrollTop';
 import NewHeader from '../../components/Header/NewHeader';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function UserLayouts({ children }) {
+    const navigate = useNavigate();
+    const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
+
+    useEffect(() => {
+        if (userData === null) {
+            navigate('/');
+        }
+    }, [userData]);
     return (
         <Box sx={{ minHeight: '100vh', width: '100vw', bgcolor: '#000' }}>
             {/* pre-defined layout */}

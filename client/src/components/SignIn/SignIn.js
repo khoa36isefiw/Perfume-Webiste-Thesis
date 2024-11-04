@@ -59,6 +59,7 @@ function SignIn() {
                     setTimeout(() => {
                         navigate('/');
                     }, 1500);
+                    window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
                 } else {
                     showMessage('warning', 'Login', 'Your email or password is incorrect!');
                 }

@@ -16,14 +16,14 @@ import useProduct from '../../api/useProduct';
 import { ModalDesginV2 } from '../Modal/ModalDesgin';
 import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
+import { useEffect } from 'react';
 
 function PerfumesCard() {
     const navigate = useNavigate();
 
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
-    const [sortingSelected, setSortingSelected] = useState('');
-    const [brandSelected, setBrandSelected] = useState('');
-    // const getSearchQuery = JSON.parse(window.localStorage.getItem('search_query')) || null;
+    // const [sortingSelected, setSortingSelected] = useState('');
+    // const [brandSelected, setBrandSelected] = useState('');
 
     const handleNavigationProductDetail = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
@@ -31,7 +31,21 @@ function PerfumesCard() {
         backTop();
     };
 
-    const { data: products, isLoading, error } = useProduct('', 'Gucci', 'price', 'desc');
+    const searchQuery = localStorage.getItem('search_query') || null;
+    // JSON.parse(localStorage.getItem('user_data')) || null;
+    const brandFilter = JSON.parse(localStorage.getItem('filter')) || null;
+    const sortingFilter = JSON.parse(localStorage.getItem('sortBy')) || null;
+    console.log('searchQuery: ', searchQuery);
+
+    const {
+        data: products,
+        isLoading,
+        mutate,
+        error,
+    } = useProduct(searchQuery, brandFilter, sortingFilter?.sortBy, sortingFilter?.sortType);
+    useEffect(() => {
+        mutate(); // render after choose params to filter
+    }, [searchQuery, brandFilter, sortingFilter]);
     console.log('current data âhiahi: ', products);
 
     return (
@@ -57,13 +71,13 @@ function PerfumesCard() {
                 >
                     <PerfumeBrands
                         listData={products?.data}
-                        setBrandSelected={setBrandSelected}
-                        brandSelected={brandSelected}
+                        // setBrandSelected={setBrandSelected}
+                        // brandSelected={brandSelected}
                     />
                     <SortProducts
                         listData={products?.data}
-                        sortingSelected={sortingSelected}
-                        setSortingSelected={setSortingSelected}
+                        // sortingSelected={sortingSelected}
+                        // setSortingSelected={setSortingSelected}
                     />
                     {products?.data?.length ? (
                         <Grid container spacing={2}>
