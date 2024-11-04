@@ -50,9 +50,9 @@ function ProfileSettingsLayout({ children }) {
         if (userData === null) {
             navigate('/');
         }
-    }, [userData]);
+    }, [userData, navigate]);
 
-    const { data: orders, isLoading, error } = useOrderByUser(userData?.userId);
+    const { data: orders } = useOrderByUser(userData?.userId);
     console.log('data: ', orders?.data);
 
     return (
