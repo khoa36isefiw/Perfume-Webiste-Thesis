@@ -21,6 +21,7 @@ import Footer from '../components/Footer/Footer';
 import { useLocation, useNavigate } from 'react-router-dom';
 import EmptyOrders from '../components/EmptyOrders/EmptyOrders';
 import useOrderByUser from '../api/useOrderByUser';
+import { authAPI } from '../api/authAPI';
 
 const darkTheme = createTheme({
     palette: {
@@ -79,15 +80,35 @@ export default ProfileSettingsLayout;
 const Layout = ({ children }) => {
     const navigate = useNavigate();
     const location = useLocation();
+    const userData = JSON.parse(localStorage.getItem('user_data')) || null;
     console.log('current location: ', location.pathname);
     const [activeButton, setActiveButton] = useState(null);
     // define logic for header location, when reload the page
     useEffect(() => {
         const currentPath = location.pathname; // get the current location path
         // check, if the current Path is the same as header.header Link
-
         setActiveButton(currentPath ? currentPath : null);
     }, [location.pathname]);
+
+    const handleLogOut = async () => {
+        try {
+            const logout = await authAPI.logout(userData.email);
+
+            if (logout) {
+                window.localStorage.removeItem('user_data');
+
+                console.log('Logged out successfully');
+
+                // dispatch(logoutAccount());
+
+                navigate('/sign-in');
+            } else {
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            console.error('An error occurred during logout:', error);
+        }
+    };
     return (
         <Container
             sx={{
@@ -229,7 +250,7 @@ const Layout = ({ children }) => {
                                     }
                                 />
                             </ListItem>
-                            <ListItem button onClick={() => console.log('Logout clicked')}>
+                            <ListItem button onClick={handleLogOut}>
                                 <ListItemIcon sx={{ color: 'text.primary' }}>
                                     <ExitToApp />
                                 </ListItemIcon>
