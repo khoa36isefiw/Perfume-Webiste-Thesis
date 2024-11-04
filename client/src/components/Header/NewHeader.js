@@ -122,6 +122,7 @@ function NewHeader() {
             window.localStorage.setItem('search_query', search);
             // window.localStorage.setItem('filter', JSON.stringify('')); // reset filter
             localStorage.removeItem('filter');
+            localStorage.removeItem('sortBy');
             // navigate to update the URL with query params
             // navigate(`/products?${params.toString()}`); // href to shop with query string params
             navigate(`/shop?${params.toString()}`, { replace: true });
