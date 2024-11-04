@@ -10,31 +10,39 @@ import { useNavigate } from 'react-router-dom';
 import { theme } from '../../Theme/Theme';
 import { backTop } from '../goBackTop/goBackTop';
 import { Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
 import Face5Icon from '@mui/icons-material/Face5';
 
 export default function MobileBottomNavigation() {
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0); // Track selected icon
     const userData = JSON.parse(window.localStorage.getItem('user_data')); // get data of user who logged into the system
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
 
-    const handleNavigateHomePage = () => {
+    const currentValue = JSON.parse(localStorage.getItem('bottom_nav_number'));
+
+    const handleNavigateHomePage = (value) => {
+        setValue(value);
+        window.localStorage.setItem('bottom_nav_number', JSON.stringify(value));
         backTop();
         navigate('/');
     };
 
-    const handleNavigateSignIn = () => {
+    const handleNavigateSignIn = (value) => {
+        window.localStorage.setItem('bottom_nav_number', JSON.stringify(value));
+        setValue(value);
         backTop();
         navigate('/sign-in');
     };
 
-    const handleNavigateSearch = () => {
+    const handleNavigateSearch = (value) => {
+        window.localStorage.setItem('bottom_nav_number', JSON.stringify(value));
+        setValue(value);
         backTop();
         navigate('/search');
     };
 
-    const handleNavigateProfile = () => {
+    const handleNavigateProfile = (value) => {
+        window.localStorage.setItem('bottom_nav_number', JSON.stringify(value));
+        setValue(value);
         backTop();
         navigate('/profile-settings');
     };
@@ -51,14 +59,14 @@ export default function MobileBottomNavigation() {
             >
                 {/* Recents */}
                 <BottomNavigationAction
-                    onClick={handleNavigateHomePage}
+                    onClick={() => handleNavigateHomePage(0)}
                     // label="Home"
                     label={
                         <Typography
                             sx={{
-                                color: value === 0 ? theme.palette.text.secondary : '#fff',
+                                color: currentValue === 0 ? theme.palette.text.secondary : '#fff',
                                 fontSize: '13px',
-                                fontWeight: value === 0 ? 'bold' : 'normal', // Bold when selected
+                                fontWeight: currentValue === 0 ? 'bold' : 'normal', // Bold when selected
                             }}
                         >
                             Home
@@ -72,13 +80,13 @@ export default function MobileBottomNavigation() {
                         },
                         '.MuiBottomNavigationAction-label': { fontSize: '14px' },
                         fontSize: '16px',
-                        fontWeight: value === 0 ? 'bold' : 'normal', // Bold when selected
+                        fontWeight: currentValue === 0 ? 'bold' : 'normal', // Bold when selected
                     }}
                     icon={
                         <StoreIcon
                             sx={{
                                 // change icon color
-                                color: value === 0 ? theme.palette.text.secondary : '#fff',
+                                color: currentValue === 0 ? theme.palette.text.secondary : '#fff',
                                 fontSize: '24px',
                             }}
                         />
@@ -88,13 +96,13 @@ export default function MobileBottomNavigation() {
                 {/* Favorites */}
                 <BottomNavigationAction
                     // label="Search"
-                    onClick={handleNavigateSearch}
+                    onClick={() => handleNavigateSearch(1)}
                     label={
                         <Typography
                             sx={{
-                                color: value === 1 ? theme.palette.text.secondary : '#fff',
+                                color: currentValue === 1 ? theme.palette.text.secondary : '#fff',
                                 fontSize: '13px',
-                                fontWeight: value === 1 ? 'bold' : 'normal', // Bold when selected
+                                fontWeight: currentValue === 1 ? 'bold' : 'normal', // Bold when selected
                             }}
                         >
                             Search
@@ -107,12 +115,12 @@ export default function MobileBottomNavigation() {
                             color: theme.palette.text.secondary,
                         },
                         fontSize: '16px',
-                        fontWeight: value === 1 ? 'bold' : 'normal',
+                        fontWeight: currentValue === 1 ? 'bold' : 'normal',
                     }}
                     icon={
                         <SearchIcon
                             sx={{
-                                color: value === 1 ? theme.palette.text.secondary : '#fff',
+                                color: currentValue === 1 ? theme.palette.text.secondary : '#fff',
                                 fontSize: '24px',
                             }}
                         />
@@ -129,12 +137,12 @@ export default function MobileBottomNavigation() {
                             color: theme.palette.text.secondary,
                         },
                         fontSize: '16px',
-                        fontWeight: value === 2 ? 'bold' : 'normal',
+                        fontWeight: currentValue === 2 ? 'bold' : 'normal',
                     }}
                     icon={
                         <LocationOnIcon
                             sx={{
-                                color: value === 2 ? theme.palette.text.secondary : '#fff',
+                                color: currentValue === 2 ? theme.palette.text.secondary : '#fff',
                                 fontSize: '24px',
                             }}
                         />
@@ -149,9 +157,10 @@ export default function MobileBottomNavigation() {
                         label={
                             <Typography
                                 sx={{
-                                    color: value === 3 ? theme.palette.text.secondary : '#fff',
+                                    color:
+                                        currentValue === 3 ? theme.palette.text.secondary : '#fff',
                                     fontSize: '13px',
-                                    fontWeight: value === 3 ? 'bold' : 'normal', // Bold when selected
+                                    fontWeight: currentValue === 3 ? 'bold' : 'normal', // Bold when selected
                                 }}
                             >
                                 Me
@@ -164,17 +173,18 @@ export default function MobileBottomNavigation() {
                                 color: theme.palette.text.secondary,
                             },
                             fontSize: '16px',
-                            fontWeight: value === 3 ? 'bold' : 'normal',
+                            fontWeight: currentValue === 3 ? 'bold' : 'normal',
                         }}
                         icon={
                             <Face5Icon
                                 sx={{
-                                    color: value === 3 ? theme.palette.text.secondary : '#fff',
+                                    color:
+                                        currentValue === 3 ? theme.palette.text.secondary : '#fff',
                                     fontSize: '24px',
                                 }}
                             />
                         }
-                        onClick={handleNavigateProfile}
+                        onClick={() => handleNavigateProfile(3)}
                     />
                 ) : (
                     <BottomNavigationAction
@@ -182,9 +192,10 @@ export default function MobileBottomNavigation() {
                         label={
                             <Typography
                                 sx={{
-                                    color: value === 3 ? theme.palette.text.secondary : '#fff',
+                                    color:
+                                        currentValue === 4 ? theme.palette.text.secondary : '#fff',
                                     fontSize: '13px',
-                                    fontWeight: value === 3 ? 'bold' : 'normal', // Bold when selected
+                                    fontWeight: currentValue === 4 ? 'bold' : 'normal', // Bold when selected
                                 }}
                             >
                                 Sign In{' '}
@@ -197,17 +208,18 @@ export default function MobileBottomNavigation() {
                                 color: theme.palette.text.secondary,
                             },
                             fontSize: '16px',
-                            fontWeight: value === 3 ? 'bold' : 'normal',
+                            fontWeight: currentValue === 4 ? 'bold' : 'normal',
                         }}
                         icon={
                             <PersonIcon
                                 sx={{
-                                    color: value === 3 ? theme.palette.text.secondary : '#fff',
+                                    color:
+                                        currentValue === 4 ? theme.palette.text.secondary : '#fff',
                                     fontSize: '24px',
                                 }}
                             />
                         }
-                        onClick={handleNavigateSignIn}
+                        onClick={() => handleNavigateSignIn(4)}
                     />
                 )}
             </BottomNavigation>
