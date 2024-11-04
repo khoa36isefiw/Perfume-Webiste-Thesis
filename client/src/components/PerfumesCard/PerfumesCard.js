@@ -1,6 +1,6 @@
 import { Box, Button, Container, Grid } from '@mui/material';
 import React, { useState } from 'react';
-import { perfumeData } from './perfumeData';
+
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import Rating from '@mui/material/Rating';
@@ -19,7 +19,7 @@ import useLoading from '../../hooks/useLoading';
 
 function PerfumesCard() {
     const navigate = useNavigate();
-    const location = useLocation();
+
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [sortingSelected, setSortingSelected] = useState('');
     const [brandSelected, setBrandSelected] = useState('');
