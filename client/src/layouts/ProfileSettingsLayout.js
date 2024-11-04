@@ -44,8 +44,7 @@ function ProfileSettingsLayout({ children }) {
     const navigate = useNavigate();
 
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
-    console.log('userData: ', userData);
-    console.log();
+
     useEffect(() => {
         if (userData === null) {
             navigate('/');
