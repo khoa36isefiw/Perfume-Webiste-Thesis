@@ -22,7 +22,7 @@ function PerfumesCard() {
 
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [sortingSelected, setSortingSelected] = useState('');
-    const [brandSelected, setBrandSelected] = useState('');
+    // const [brandSelected, setBrandSelected] = useState('');
 
     const handleNavigationProductDetail = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
@@ -65,8 +65,8 @@ function PerfumesCard() {
                 >
                     <PerfumeBrands
                         listData={products?.data}
-                        setBrandSelected={setBrandSelected}
-                        brandSelected={brandSelected}
+                        // setBrandSelected={setBrandSelected}
+                        // brandSelected={brandSelected}
                     />
                     <SortProducts
                         listData={products?.data}
