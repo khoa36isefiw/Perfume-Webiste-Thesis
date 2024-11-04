@@ -93,7 +93,7 @@ const Layout = ({ children }) => {
     const handleLogOut = async () => {
         try {
             const logout = await authAPI.logout(userData.email);
-
+            window.localStorage.setItem('bottom_nav_number', 0);
             if (logout) {
                 window.localStorage.removeItem('user_data');
 

@@ -193,9 +193,9 @@ export default function MobileBottomNavigation() {
                             <Typography
                                 sx={{
                                     color:
-                                        currentValue === 4 ? theme.palette.text.secondary : '#fff',
+                                        currentValue === 3 ? theme.palette.text.secondary : '#fff',
                                     fontSize: '13px',
-                                    fontWeight: currentValue === 4 ? 'bold' : 'normal', // Bold when selected
+                                    fontWeight: currentValue === 3 ? 'bold' : 'normal', // Bold when selected
                                 }}
                             >
                                 Sign In{' '}
@@ -208,18 +208,18 @@ export default function MobileBottomNavigation() {
                                 color: theme.palette.text.secondary,
                             },
                             fontSize: '16px',
-                            fontWeight: currentValue === 4 ? 'bold' : 'normal',
+                            fontWeight: currentValue === 3 ? 'bold' : 'normal',
                         }}
                         icon={
                             <PersonIcon
                                 sx={{
                                     color:
-                                        currentValue === 4 ? theme.palette.text.secondary : '#fff',
+                                        currentValue === 3 ? theme.palette.text.secondary : '#fff',
                                     fontSize: '24px',
                                 }}
                             />
                         }
-                        onClick={() => handleNavigateSignIn(4)}
+                        onClick={() => handleNavigateSignIn(3)}
                     />
                 )}
             </BottomNavigation>
