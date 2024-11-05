@@ -13,18 +13,33 @@ import { formatDate } from '../FormatDate/formatDate';
 import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
 import { OrderItemV2 } from './OrderItemV2';
 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { backTop } from '../goBackTop/goBackTop';
 import { useRef } from 'react';
 import generatePDF from 'react-to-pdf';
+import { useState } from 'react';
 
 export const OrderLists = ({ ordersListData, orderHistory }) => {
     const navigate = useNavigate();
+    const targetRef = useRef();
 
     const handleInvoicePage = (order) => {
         navigate(`/order-invoice?id=${order._id}`, { state: { order } });
         backTop();
+    };
+
+    const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+
+    const handleDownload = (order) => {
+        setIsGeneratingPDF(true);
+        setTimeout(() => {
+            generatePDF(targetRef, {
+                filename: `Invoice Order-${order?._id}`,
+            }).then(() => {
+                setIsGeneratingPDF(false); // Reset after PDF generation
+            });
+        }, 200);
     };
 
     // handle download
@@ -58,7 +73,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
     ).padStart(2, '0')}${date.getHours() < 12 ? 'AM' : 'PM'}`;
 
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || [];
-    const targetRef = useRef();
+
     // Calculate subtotal
     const calculateSubtotal = (order) => {
         let subtotal = 0;
@@ -290,11 +305,12 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                 }
                             >
                                 <Button
-                                    onClick={() =>
-                                        generatePDF(targetRef, {
-                                            filename: `Invoice Order-${order?._id}`,
-                                        })
-                                    }
+                                    // onClick={() =>
+                                    //     generatePDF(targetRef, {
+                                    //         filename: `Invoice Order-${order?._id}`,
+                                    //     })
+                                    // }
+                                    onClick={() => handleDownload(order)}
                                     startIcon={<PreviewIcon />}
                                     sx={{
                                         padding: '6px 0',
@@ -321,7 +337,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                             px: 9,
                             pt: 8,
                             width: '800px',
-                            display: 'none',
+                            display: isGeneratingPDF ? 'block' : 'none',
                         }}
                     >
                         {/* seller information */}
@@ -467,12 +483,22 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                 }}
                             >
                                 <CustomizeTypography
-                                    sx={{ color: '#000', mb: 0, fontSize: 13, fontWeight: 'bold' }}
+                                    sx={{
+                                        color: '#000',
+                                        mb: 0,
+                                        fontSize: 13,
+                                        fontWeight: 'bold',
+                                    }}
                                 >
                                     Description
                                 </CustomizeTypography>
                                 <CustomizeTypography
-                                    sx={{ color: '#000', mb: 0, fontSize: 13, fontWeight: 'bold' }}
+                                    sx={{
+                                        color: '#000',
+                                        mb: 0,
+                                        fontSize: 13,
+                                        fontWeight: 'bold',
+                                    }}
                                 >
                                     Amount
                                 </CustomizeTypography>
@@ -505,7 +531,12 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                             <Box sx={{ height: '1px', width: '100%', bgcolor: '#ccc' }} />
                             <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
                                 <CustomizeTypography
-                                    sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
+                                    sx={{
+                                        color: '#595959',
+                                        mb: 0,
+                                        fontWeight: 'bold',
+                                        flex: 1,
+                                    }}
                                 >
                                     Subtotal
                                 </CustomizeTypography>
@@ -517,7 +548,12 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <CustomizeTypography
-                                    sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
+                                    sx={{
+                                        color: '#595959',
+                                        mb: 0,
+                                        fontWeight: 'bold',
+                                        flex: 1,
+                                    }}
                                 >
                                     Discount - 20%
                                 </CustomizeTypography>
@@ -529,7 +565,12 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <CustomizeTypography
-                                    sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
+                                    sx={{
+                                        color: '#595959',
+                                        mb: 0,
+                                        fontWeight: 'bold',
+                                        flex: 1,
+                                    }}
                                 >
                                     Shipping Fee
                                 </CustomizeTypography>
@@ -541,7 +582,12 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <CustomizeTypography
-                                    sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
+                                    sx={{
+                                        color: '#595959',
+                                        mb: 0,
+                                        fontWeight: 'bold',
+                                        flex: 1,
+                                    }}
                                 >
                                     Tax + 10%
                                 </CustomizeTypography>
@@ -553,7 +599,12 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <CustomizeTypography
-                                    sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
+                                    sx={{
+                                        color: '#595959',
+                                        mb: 0,
+                                        fontWeight: 'bold',
+                                        flex: 1,
+                                    }}
                                 >
                                     Amount due
                                 </CustomizeTypography>
