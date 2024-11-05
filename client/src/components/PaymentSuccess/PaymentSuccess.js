@@ -3,9 +3,33 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useOrderByUser from '../../api/useOrderByUser';
+import { formatDate } from '../FormatDate/formatDate';
+import { converToVND } from '../convertToVND/convertToVND';
 
 function PaymentSuccess() {
     const navigate = useNavigate();
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId || null;
+    console.log('userid: ', userId);
+    const currentPaymentData = JSON.parse(window.localStorage.getItem('payment_data')) || null;
+    const { data: orders } = useOrderByUser(userId);
+    console.log('orders: ', orders);
+    const lastPaymentData = orders?.data[orders?.data?.length - 1]; // get the last orders
+
+    // handle time
+    const createdAt = lastPaymentData?.createdAt;
+
+    // Convert the string to a Date object
+    const dateObject = new Date(createdAt);
+
+    // Format the date and time for Vietnam timezone
+    const options = { timeZone: 'Asia/Ho_Chi_Minh', hour12: false };
+    const date = dateObject.toLocaleDateString('en-GB', options); // Format: DD/MM/YYYY
+    const time = dateObject.toLocaleTimeString('en-GB', options); // Format: HH:MM:SS
+
+    console.log(`Date (Vietnam Time): ${date}`); // e.g., "05/11/2024"
+    console.log(`Time (Vietnam Time): ${time}`); // e.g., "12:50:26"
+
     return (
         <Box
             sx={{
@@ -84,9 +108,11 @@ function PaymentSuccess() {
                     >
                         Total Payment
                     </CustomizeTypography>
-                    <CustomizeTypography sx={{ textAlign: 'center', mb: 0 }}>
-                        1.000.000 VND
-                    </CustomizeTypography>
+                    {lastPaymentData?.totalPrice && (
+                        <CustomizeTypography sx={{ textAlign: 'center', mb: 0 }}>
+                            {converToVND(lastPaymentData?.totalPrice)}
+                        </CustomizeTypography>
+                    )}
                 </Grid>
                 <Grid item lg={6}>
                     <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
@@ -94,7 +120,7 @@ function PaymentSuccess() {
                             Ref Number
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                            090909909
+                            {currentPaymentData?.userPhoneNumber}
                         </CustomizeTypography>
                     </Box>
                 </Grid>
@@ -104,7 +130,7 @@ function PaymentSuccess() {
                             Payment Time
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                            25 Feb 2024, 13:22
+                            {date} - {time}
                         </CustomizeTypography>
                     </Box>
                 </Grid>
@@ -114,7 +140,7 @@ function PaymentSuccess() {
                             Payment Method
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                            Paypal
+                            {currentPaymentData?.userPaymentType}
                         </CustomizeTypography>
                     </Box>
                 </Grid>
@@ -124,7 +150,7 @@ function PaymentSuccess() {
                             Sender Name
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                            Luna Kei
+                            Tomtoc Stores
                         </CustomizeTypography>
                     </Box>
                 </Grid>
