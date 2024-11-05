@@ -63,9 +63,6 @@ export default function AuthenticatedUser() {
                 window.localStorage.removeItem('user_data');
 
                 console.log('Logged out successfully');
-
-                // dispatch(logoutAccount());
-
                 navigate('/sign-in');
             } else {
                 console.error('Logout failed');
@@ -74,7 +71,6 @@ export default function AuthenticatedUser() {
             console.error('An error occurred during logout:', error);
         }
     };
-    console.log('userData: ', userData !== null);
 
     return (
         <React.Fragment>
