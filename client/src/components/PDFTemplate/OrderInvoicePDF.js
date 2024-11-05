@@ -204,6 +204,7 @@ export const OrderInvoicePDF = () => {
                 </Tooltip>
             </Box>
 
+            {/* invoice pdf template to download */}
             <Box
                 sx={{
                     border: '1px solid #ccc',
@@ -455,7 +456,9 @@ export const OrderInvoicePDF = () => {
                                         </CustomizeTypography>
                                     </Box>
                                     <CustomizeTypography sx={{ color: '#595959', mb: 0 }}>
-                                        {converToVND(item.price)}
+                                        {item.price - item?.priceSale === 0
+                                            ? converToVND(item.price)
+                                            : converToVND(item.priceSale)}
                                     </CustomizeTypography>
                                 </Box>
                             ))}

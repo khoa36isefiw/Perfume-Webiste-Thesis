@@ -2,9 +2,8 @@ import { Box, Button, Grid } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useOrderByUser from '../../api/useOrderByUser';
-import { formatDate } from '../FormatDate/formatDate';
 import { converToVND } from '../convertToVND/convertToVND';
 
 function PaymentSuccess() {

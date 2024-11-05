@@ -254,6 +254,7 @@ function CheckoutInformation() {
         const response = await paymentAPI.createOrder(userId, items, PAYMENT_METHOD.COD);
 
         if (response.data?.order) {
+            console.log('response: ', response);
             const dataShowInvoice = {
                 userName: userData[0].firstName + ' ' + userData[0].lastName,
                 userPhoneNumber: userData[0].phoneNumber,
