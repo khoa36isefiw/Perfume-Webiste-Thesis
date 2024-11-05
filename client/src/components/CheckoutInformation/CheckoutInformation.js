@@ -251,11 +251,18 @@ function CheckoutInformation() {
     const finalTotalPrice = calculateTotalPrice(getListProductSelected);
 
     const handleCheckout = async () => {
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
-
         const response = await paymentAPI.createOrder(userId, items, PAYMENT_METHOD.COD);
+
         if (response.data?.order) {
+            console.log('response: ', response);
+            const dataShowInvoice = {
+                userName: userData[0].firstName + ' ' + userData[0].lastName,
+                userPhoneNumber: userData[0].phoneNumber,
+                userPaymentType: 'COD',
+            };
+            window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
             navigate(`/success?Ref=${response.data.order._id}`);
         }
     };

@@ -13,8 +13,6 @@ import { backTop } from '../goBackTop/goBackTop';
 
 export const OrderItemV2 = ({ listData }) => {
     const { data: products } = useProduct();
-
-    console.log('listData: ', listData);
     const navigate = useNavigate();
     const handleRating = (item) => {
         const perfume = products?.data?.find(

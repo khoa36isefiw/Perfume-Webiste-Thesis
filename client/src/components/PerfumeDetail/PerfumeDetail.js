@@ -1,4 +1,15 @@
-import { Avatar, Box, Button, Container, Divider, Grid, IconButton, Rating } from '@mui/material';
+import {
+    Avatar,
+    Box,
+    Button,
+    Container,
+    Divider,
+    Grid,
+    IconButton,
+    Rating,
+    Tooltip,
+    Typography,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -44,6 +55,7 @@ function PerfumeDetail() {
         priceSale: perfume?.variants[0].priceSale,
         variantIDSelected: perfume?.variants[0]?._id,
         discount: perfume?.variants[0]?.discountPercent,
+        numberStock: perfume?.variants[0]?.stock, // get the number of product in stock
     });
 
     // get list product added to cart
@@ -198,6 +210,7 @@ function PerfumeDetail() {
             priceSale: perfume?.variants[index].priceSale,
             variantIDSelected: perfume?.variants[index]?._id,
             discount: perfume?.variants[index]?.discountPercent,
+            numberStock: perfume?.variants[index]?.stock,
         });
     };
 
@@ -377,13 +390,13 @@ function PerfumeDetail() {
                             <span
                                 style={{
                                     color:
-                                        perfume.perfumeQuantity !== 0
-                                            ? theme.palette.text.verified
-                                            : theme.palette.text.primary,
+                                        selectedSize.numberStock <= 0
+                                            ? theme.palette.orderHistory.cancel.icon
+                                            : theme.palette.text.verified,
                                     fontWeight: 'bold',
                                 }}
                             >
-                                {perfume.perfumeQuantity !== 0 ? 'Còn hàng' : 'Hết Hàng'}
+                                {selectedSize.numberStock <= 0 ? 'Hết Hàng' : 'Còn hàng'}
                             </span>
                         </CustomizeTypography>
 
@@ -562,7 +575,9 @@ function PerfumeDetail() {
                             <CustomizeButtonOutlined
                                 textAction={'Add to cart'}
                                 onHandleClick={() => handleAddProduct()}
+                                disabled={selectedSize.numberStock <= 0}
                             />
+
                             {/* <CustomizeButton textAction={'Add to cart'} /> */}
                             <Box sx={{ ml: 2 }}>
                                 <CustomizeButton textAction={'Buy Now'} />
