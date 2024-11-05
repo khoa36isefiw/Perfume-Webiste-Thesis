@@ -390,13 +390,13 @@ function PerfumeDetail() {
                             <span
                                 style={{
                                     color:
-                                        perfume.perfumeQuantity !== 0
-                                            ? theme.palette.text.verified
-                                            : theme.palette.text.primary,
+                                        selectedSize.numberStock <= 0
+                                            ? theme.palette.orderHistory.cancel.icon
+                                            : theme.palette.text.verified,
                                     fontWeight: 'bold',
                                 }}
                             >
-                                {perfume.perfumeQuantity !== 0 ? 'Còn hàng' : 'Hết Hàng'}
+                                {selectedSize.numberStock <= 0 ? 'Hết Hàng' : 'Còn hàng'}
                             </span>
                         </CustomizeTypography>
 
