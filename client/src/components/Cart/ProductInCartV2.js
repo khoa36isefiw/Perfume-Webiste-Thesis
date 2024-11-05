@@ -337,6 +337,7 @@ export const ProductInCartV2 = ({
                                                         ? theme.palette.notification.errorIcon
                                                         : theme.palette.text.verified,
                                                 fontWeight: 'bold',
+                                                fontSize: '13px',
                                             }}
                                         >
                                             {/* In Stock */}

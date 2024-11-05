@@ -320,6 +320,7 @@ export const ProductInCart = ({
                                                 style={{
                                                     color: theme.palette.text.verified,
                                                     fontWeight: 'bold',
+                                                    fontSize: '14px',
                                                 }}
                                             >
                                                 {/* In Stock */}
