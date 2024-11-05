@@ -92,7 +92,8 @@ export const ProductInCart = ({
         const check = selectedProducts?.findIndex(
             (item) =>
                 item.variant._id === product.variant._id &&
-                item.product._id === product.product._id,
+                item.product._id === product.product._id &&
+                item.variant.stock > 0,
         );
 
         // if !== -1 --> exists --> checked --> remove from list
@@ -105,15 +106,21 @@ export const ProductInCart = ({
                 ),
             );
         } else {
-            // add to list want to buy
-            setSelectedProducts((prev) => [...prev, { ...product }]);
+            // add to list if stock > 0
+            if (product.variant.stock > 0) {
+                setSelectedProducts((prev) => [...prev, { ...product }]);
+            }
         }
     };
     console.log('list selected product: ', selectedProducts);
-
+    const getListProductIsStock = productsList.filter((product) => product.variant.stock > 0);
     const handleSelectAll = (isChecked) => {
+        // filter list products by stock > 0.
+        // const getListProductIsStock = productsList.filter((product) => product.variant.stock > 0);
+        //. console.log('getListProductIsStock: ', getListProductIsStock);
         if (isChecked) {
-            setSelectedProducts(productsList);
+            // setSelectedProducts(productsList);
+            setSelectedProducts(getListProductIsStock);
         } else {
             // Clear selectedProducts when unchecked
             setSelectedProducts([]);
@@ -167,8 +174,11 @@ export const ProductInCart = ({
         }
     };
 
+    // check if all items with stock > 0 are selected
+
     const isAllSelected =
-        productsList.length > 0 && selectedProducts.length === productsList.length;
+        getListProductIsStock.length > 0 &&
+        selectedProducts.length === getListProductIsStock.length;
 
     return (
         <Box>
