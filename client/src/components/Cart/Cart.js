@@ -4,9 +4,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
-
-import { ProductInCart } from './ProductInCart';
-
 import { useSelector } from 'react-redux';
 import CartTotal from './CartTotal';
 import TotalPriceInCart from './TotalPriceInCart';
@@ -14,7 +11,7 @@ import EmptyCart from '../EmptyCart/EmptyCart';
 import EmptyOrders from '../EmptyOrders/EmptyOrders';
 import Check from '@mui/icons-material/Check';
 import useUserById from '../../api/useUserById';
-import { ProductInCartV2 } from './ProductInCartV2';
+import { ProductInCart } from './ProductInCart';
 
 function Cart() {
     const navigate = useNavigate();
@@ -89,7 +86,7 @@ function Cart() {
                         >
                             <Grid item xs={12} lg={8}>
                                 {/* <ProductInCart */}
-                                <ProductInCartV2
+                                <ProductInCart
                                     productsList={data.data.cart}
                                     selectedProducts={selectedProducts}
                                     setSelectedProducts={setSelectedProducts}

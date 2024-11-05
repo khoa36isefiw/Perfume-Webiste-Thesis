@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, Divider, Typography } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -14,27 +14,21 @@ import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import WarningIcon from '@mui/icons-material/Warning';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { userAPI } from '../../api/userAPI';
-import { mutate } from 'swr';
+
 import Loading from '../Loading/Loading';
 import { useLocation } from 'react-router-dom';
-import EmptyCart from '../EmptyCart/EmptyCart';
+import { red } from '@mui/material/colors';
 
 export const ProductInCart = ({
     productsList,
     selectedProducts,
     setSelectedProducts,
     setPriceChange,
+    mutate,
 }) => {
     // get userId from local storage
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
     const location = useLocation();
-    // useEffect(() => {
-    //     if (productsList) {
-    //         window.localStorage.setItem('productsList', JSON.stringify(productsList));
-    //     }
-    // }, [productsList]);
-    // const getProductsListFromLocalStorage =
-    //     JSON.parse(window.localStorage.getItem('productsList')) || [];
 
     const dispatch = useDispatch();
     const [productToRemove, setProductToRemove] = useState(null);
@@ -69,20 +63,15 @@ export const ProductInCart = ({
                 product: productToRemove.productId,
                 variant: productToRemove.productSizeId,
             };
-            const updatedProductsList = productsList.filter(
-                (item) =>
-                    item.product._id !== productToRemove.productId ||
-                    item.variant._id !== productToRemove.productSizeId,
-            );
 
             const removeProduct = await userAPI.removeProductFromCart(userId, dataToRemove);
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
-            setOpenConfirmMessage(false);
 
             if (removeProduct.status === 200) {
-                window.localStorage.setItem('productsList', JSON.stringify(updatedProductsList));
                 setIsLoadingAPI(false);
+                // window.location.reload();
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setOpenConfirmMessage(false);
                 setProductToRemove(null); // clear
                 mutate();
             } else {
@@ -132,7 +121,6 @@ export const ProductInCart = ({
     };
 
     const handleUpdateQuantity = async (pId, vId, newQuantity) => {
-        console.log('pId and vid: ', pId, vId);
         let total = 0;
         const updatedProductsList = [...productsList];
         const productToUpdate = updatedProductsList.find(
@@ -146,7 +134,7 @@ export const ProductInCart = ({
             setPQuantity(newQuantity);
             setProductToUpdate(productToUpdate);
             // update the UI immediately (optimistic update)
-            mutate({ updatedProductsList }, true); // if change something, call api
+            // mutate({ updatedProductsList }, true); // if change something, call api
             const updateData = {
                 product: pId,
                 variant: vId,
@@ -182,13 +170,10 @@ export const ProductInCart = ({
     const isAllSelected =
         productsList.length > 0 && selectedProducts.length === productsList.length;
 
-    console.log('productsList: ', productsList);
-
     return (
         <Box>
             {/* loading api  */}
-            {isLoadingAPI && <Loading />}
-
+            {/* {isLoadingAPI && <Loading />} */}
             {/* First Product - In Stock */}
             <Box
                 sx={{
@@ -286,6 +271,8 @@ export const ProductInCart = ({
                                     <Box sx={{ flexGrow: 1 }}>
                                         <CustomizeTypography
                                             sx={{
+                                                mb: 0,
+
                                                 [mobileScreen]: {
                                                     fontSize: '13.5px',
                                                     mb: '4px',
@@ -299,38 +286,68 @@ export const ProductInCart = ({
                                             sx={{
                                                 display: 'flex',
                                                 alignItems: 'center',
+                                                mb: 0,
+                                                fontSize: 13,
+
                                                 [mobileScreen]: {
                                                     fontSize: '13.5px',
                                                     mb: '4px',
                                                 },
                                             }}
                                         >
-                                            <span>{converToVND(item.variant?.price)}</span> -{' '}
-                                            <Box
-                                                sx={{
-                                                    // height: '20px',
-                                                    // width: '1px',
-                                                    width: '10px',
-                                                    height: '1px',
-                                                    bgcolor: '#fff',
-                                                    mx: 2,
-                                                }}
-                                            />
                                             <span
                                                 style={{
-                                                    color: theme.palette.text.verified,
-                                                    fontWeight: 'bold',
-                                                    fontSize: '14px',
+                                                    textDecoration:
+                                                        item.variant?.discountPercent !== 0
+                                                            ? 'line-through'
+                                                            : null,
+                                                    color:
+                                                        item.variant?.discountPercent !== 0
+                                                            ? '#ccc'
+                                                            : '#fff',
                                                 }}
                                             >
-                                                {/* In Stock */}
-                                                {item?.variant?.stock === 0
-                                                    ? 'Out of Stock'
-                                                    : 'In Stock'}
+                                                {converToVND(item.variant?.price)}
                                             </span>
+
+                                            <Box
+                                                sx={{
+                                                    display:
+                                                        item.variant?.discountPercent !== 0
+                                                            ? 'block'
+                                                            : 'none',
+                                                    width: '5px',
+                                                    height: '1px',
+                                                    bgcolor: '#fff',
+                                                    mx: '4px',
+                                                }}
+                                            />
+
+                                            {item.variant?.discountPercent !== 0 && (
+                                                <span style={{ color: red[600] }}>
+                                                    {converToVND(item.variant?.priceSale)}
+                                                </span>
+                                            )}
                                         </CustomizeTypography>
+
+                                        <span
+                                            style={{
+                                                color:
+                                                    item?.variant?.stock <= 0
+                                                        ? theme.palette.notification.errorIcon
+                                                        : theme.palette.text.verified,
+                                                fontWeight: 'bold',
+                                                fontSize: '13px',
+                                            }}
+                                        >
+                                            {/* In Stock */}
+                                            {item?.variant?.stock === 0
+                                                ? 'Out of Stock'
+                                                : 'In Stock'}
+                                        </span>
                                         <CustomizeTypography
                                             sx={{
+                                                fontSize: 13,
                                                 [mobileScreen]: {
                                                     fontSize: '13.5px',
                                                     mb: '4px',
@@ -400,10 +417,30 @@ export const ProductInCart = ({
                                                 }
                                             </CustomizeTypography>
 
+                                            {/* <CustomizeTypography
+                                                sx={{
+                                                    fontSize: '16px',
+                                                    mb: 0,
+                                                    p: '4px',
+
+                                                    color: theme.palette.text.secondary,
+
+                                                    cursor: 'pointer',
+                                                }}
+                                                onClick={() =>
+                                                    handleUpdateQuantity(
+                                                        item?.product._id,
+                                                        item?.variant?._id,
+                                                        item?.quantity + 1,
+                                                    )
+                                                }
+                                            >
+                                                +
+                                            </CustomizeTypography> */}
                                             <Button
                                                 disabled={item?.variant?.stock === 0}
                                                 sx={{
-                                                    fontSize: '24px',
+                                                    fontSize: '18px',
                                                     // p: '4px',
                                                     minWidth: 0,
                                                     color: theme.palette.text.secondary,
@@ -429,42 +466,38 @@ export const ProductInCart = ({
                                             >
                                                 +
                                             </Button>
-                                            {/* 
-                                            <CustomizeTypography
-                                                sx={{
-                                                    fontSize: '16px',
-                                                    mb: 0,
-                                                    p: '4px',
-
-                                                    color: theme.palette.text.secondary,
-
-                                                    cursor: 'pointer',
-                                                }}
-                                                onClick={() =>
-                                                    handleUpdateQuantity(
-                                                        item?.product._id,
-                                                        item?.variant?._id,
-                                                        item?.quantity + 1,
-                                                    )
-                                                }
-                                            >
-                                                +
-                                            </CustomizeTypography> */}
                                         </Box>
                                     </Box>
                                     {/* calculate total product */}
                                     <Box>
-                                        <CustomizeTypography
-                                            sx={{
-                                                mb: 0,
-                                                [mobileScreen]: {
-                                                    mt: 1,
-                                                    fontSize: '13.5px',
-                                                },
-                                            }}
-                                        >
-                                            {converToVND(item.quantity * item?.variant.price)}
-                                        </CustomizeTypography>
+                                        {item.variant?.discountPercent !== 0 ? ( // calculate with discount
+                                            <CustomizeTypography
+                                                sx={{
+                                                    mb: 0,
+                                                    [mobileScreen]: {
+                                                        mt: 1,
+                                                        fontSize: '13.5px',
+                                                    },
+                                                }}
+                                            >
+                                                {converToVND(
+                                                    item.quantity * item?.variant.priceSale,
+                                                )}
+                                            </CustomizeTypography>
+                                        ) : (
+                                            <CustomizeTypography
+                                                sx={{
+                                                    mb: 0,
+                                                    [mobileScreen]: {
+                                                        mt: 1,
+                                                        fontSize: '13.5px',
+                                                    },
+                                                }}
+                                            >
+                                                {converToVND(item.quantity * item?.variant.price)}
+                                            </CustomizeTypography>
+                                        )}
+
                                         <Button
                                             onClick={() =>
                                                 handleRemoveProductInCart(
