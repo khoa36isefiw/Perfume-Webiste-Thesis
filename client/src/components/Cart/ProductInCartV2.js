@@ -332,11 +332,17 @@ export const ProductInCartV2 = ({
 
                                         <span
                                             style={{
-                                                color: theme.palette.text.verified,
+                                                color:
+                                                    item?.variant?.stock <= 0
+                                                        ? theme.palette.notification.errorIcon
+                                                        : theme.palette.text.verified,
                                                 fontWeight: 'bold',
                                             }}
                                         >
-                                            In Stock
+                                            {/* In Stock */}
+                                            {item?.variant?.stock === 0
+                                                ? 'Out of Stock'
+                                                : 'In Stock'}
                                         </span>
                                         <CustomizeTypography
                                             sx={{
@@ -410,7 +416,7 @@ export const ProductInCartV2 = ({
                                                 }
                                             </CustomizeTypography>
 
-                                            <CustomizeTypography
+                                            {/* <CustomizeTypography
                                                 sx={{
                                                     fontSize: '16px',
                                                     mb: 0,
@@ -429,7 +435,36 @@ export const ProductInCartV2 = ({
                                                 }
                                             >
                                                 +
-                                            </CustomizeTypography>
+                                            </CustomizeTypography> */}
+                                            <Button
+                                                disabled={item?.variant?.stock === 0}
+                                                sx={{
+                                                    fontSize: '18px',
+                                                    // p: '4px',
+                                                    minWidth: 0,
+                                                    color: theme.palette.text.secondary,
+                                                    cursor:
+                                                        item?.variant.stock <= 0
+                                                            ? 'not-allowed'
+                                                            : 'pointer',
+                                                    mb: 0,
+                                                    '&:hover': {
+                                                        color: theme.palette.text.secondary,
+                                                    },
+                                                    '&.Mui-disabled': {
+                                                        color: '#d5d5d5',
+                                                    },
+                                                }}
+                                                onClick={() =>
+                                                    handleUpdateQuantity(
+                                                        item?.product._id,
+                                                        item?.variant?._id,
+                                                        item?.quantity + 1,
+                                                    )
+                                                }
+                                            >
+                                                +
+                                            </Button>
                                         </Box>
                                     </Box>
                                     {/* calculate total product */}

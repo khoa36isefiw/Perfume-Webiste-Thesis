@@ -28,13 +28,13 @@ export const ProductInCart = ({
     // get userId from local storage
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
     const location = useLocation();
-    useEffect(() => {
-        if (productsList) {
-            window.localStorage.setItem('productsList', JSON.stringify(productsList));
-        }
-    }, [productsList]);
-    const getProductsListFromLocalStorage =
-        JSON.parse(window.localStorage.getItem('productsList')) || [];
+    // useEffect(() => {
+    //     if (productsList) {
+    //         window.localStorage.setItem('productsList', JSON.stringify(productsList));
+    //     }
+    // }, [productsList]);
+    // const getProductsListFromLocalStorage =
+    //     JSON.parse(window.localStorage.getItem('productsList')) || [];
 
     const dispatch = useDispatch();
     const [productToRemove, setProductToRemove] = useState(null);
@@ -69,7 +69,7 @@ export const ProductInCart = ({
                 product: productToRemove.productId,
                 variant: productToRemove.productSizeId,
             };
-            const updatedProductsList = getProductsListFromLocalStorage.filter(
+            const updatedProductsList = productsList.filter(
                 (item) =>
                     item.product._id !== productToRemove.productId ||
                     item.variant._id !== productToRemove.productSizeId,
@@ -132,6 +132,7 @@ export const ProductInCart = ({
     };
 
     const handleUpdateQuantity = async (pId, vId, newQuantity) => {
+        console.log('pId and vid: ', pId, vId);
         let total = 0;
         const updatedProductsList = [...productsList];
         const productToUpdate = updatedProductsList.find(
@@ -181,6 +182,8 @@ export const ProductInCart = ({
     const isAllSelected =
         productsList.length > 0 && selectedProducts.length === productsList.length;
 
+    console.log('productsList: ', productsList);
+
     return (
         <Box>
             {/* loading api  */}
@@ -215,7 +218,7 @@ export const ProductInCart = ({
                 }}
             >
                 {/* render list of the products added  */}
-                {getProductsListFromLocalStorage.map((item, index) => (
+                {productsList.map((item, index) => (
                     <Box key={index}>
                         <Box>
                             <Box
@@ -319,7 +322,10 @@ export const ProductInCart = ({
                                                     fontWeight: 'bold',
                                                 }}
                                             >
-                                                In Stock
+                                                {/* In Stock */}
+                                                {item?.variant?.stock === 0
+                                                    ? 'Out of Stock'
+                                                    : 'In Stock'}
                                             </span>
                                         </CustomizeTypography>
                                         <CustomizeTypography
@@ -393,6 +399,36 @@ export const ProductInCart = ({
                                                 }
                                             </CustomizeTypography>
 
+                                            <Button
+                                                disabled={item?.variant?.stock === 0}
+                                                sx={{
+                                                    fontSize: '24px',
+                                                    // p: '4px',
+                                                    minWidth: 0,
+                                                    color: theme.palette.text.secondary,
+                                                    cursor:
+                                                        item?.variant.stock <= 0
+                                                            ? 'not-allowed'
+                                                            : 'pointer',
+                                                    mb: 0,
+                                                    '&:hover': {
+                                                        color: theme.palette.text.secondary,
+                                                    },
+                                                    '&.Mui-disabled': {
+                                                        color: '#d5d5d5',
+                                                    },
+                                                }}
+                                                onClick={() =>
+                                                    handleUpdateQuantity(
+                                                        item?.product._id,
+                                                        item?.variant?._id,
+                                                        item?.quantity + 1,
+                                                    )
+                                                }
+                                            >
+                                                +
+                                            </Button>
+                                            {/* 
                                             <CustomizeTypography
                                                 sx={{
                                                     fontSize: '16px',
@@ -412,7 +448,7 @@ export const ProductInCart = ({
                                                 }
                                             >
                                                 +
-                                            </CustomizeTypography>
+                                            </CustomizeTypography> */}
                                         </Box>
                                     </Box>
                                     {/* calculate total product */}

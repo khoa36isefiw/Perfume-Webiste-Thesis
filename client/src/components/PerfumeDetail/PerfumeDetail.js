@@ -1,4 +1,15 @@
-import { Avatar, Box, Button, Container, Divider, Grid, IconButton, Rating } from '@mui/material';
+import {
+    Avatar,
+    Box,
+    Button,
+    Container,
+    Divider,
+    Grid,
+    IconButton,
+    Rating,
+    Tooltip,
+    Typography,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -566,6 +577,7 @@ function PerfumeDetail() {
                                 onHandleClick={() => handleAddProduct()}
                                 disabled={selectedSize.numberStock <= 0}
                             />
+
                             {/* <CustomizeButton textAction={'Add to cart'} /> */}
                             <Box sx={{ ml: 2 }}>
                                 <CustomizeButton textAction={'Buy Now'} />
