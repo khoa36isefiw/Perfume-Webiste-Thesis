@@ -19,7 +19,7 @@ function CustomizeButton({ onHandleClick, textAction }) {
                     bgcolor: theme.palette.secondaryText,
                 },
                 [tabletScreen]: {
-                    fontSize: '13px',   
+                    fontSize: '13px',
                 },
             }}
         >
@@ -30,9 +30,10 @@ function CustomizeButton({ onHandleClick, textAction }) {
 
 export default CustomizeButton;
 
-export const CustomizeButtonOutlined = ({ textAction, onHandleClick }) => {
+export const CustomizeButtonOutlined = ({ textAction, onHandleClick, disabled }) => {
     return (
         <Button
+            disabled={disabled}
             onClick={onHandleClick}
             variant="outlined"
             sx={{
@@ -47,6 +48,10 @@ export const CustomizeButtonOutlined = ({ textAction, onHandleClick }) => {
                 '&:hover': {
                     cursor: 'pointer',
                     borderColor: theme.palette.text.main,
+                },
+                '&.Mui-disabled': {
+                    color: '#ccc',
+                    borderColor: '#ccc',
                 },
             }}
         >
