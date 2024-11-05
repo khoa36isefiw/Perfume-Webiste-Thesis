@@ -13,7 +13,7 @@ import { formatDate } from '../FormatDate/formatDate';
 import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
 import { OrderItemV2 } from './OrderItemV2';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { backTop } from '../goBackTop/goBackTop';
 import { useRef } from 'react';

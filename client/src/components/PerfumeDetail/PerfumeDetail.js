@@ -44,6 +44,7 @@ function PerfumeDetail() {
         priceSale: perfume?.variants[0].priceSale,
         variantIDSelected: perfume?.variants[0]?._id,
         discount: perfume?.variants[0]?.discountPercent,
+        numberStock: perfume?.variants[0]?.stock, // get the number of product in stock
     });
 
     // get list product added to cart
@@ -198,6 +199,7 @@ function PerfumeDetail() {
             priceSale: perfume?.variants[index].priceSale,
             variantIDSelected: perfume?.variants[index]?._id,
             discount: perfume?.variants[index]?.discountPercent,
+            numberStock: perfume?.variants[index]?.stock,
         });
     };
 
@@ -562,6 +564,7 @@ function PerfumeDetail() {
                             <CustomizeButtonOutlined
                                 textAction={'Add to cart'}
                                 onHandleClick={() => handleAddProduct()}
+                                disabled={selectedSize.numberStock <= 0}
                             />
                             {/* <CustomizeButton textAction={'Add to cart'} /> */}
                             <Box sx={{ ml: 2 }}>
