@@ -236,6 +236,7 @@ export const ProductInCart = ({
                                         '&.Mui-checked': {
                                             color: theme.palette.background.thirth,
                                         },
+                                        mr: 0,
                                     }}
                                 />
 
@@ -247,8 +248,8 @@ export const ProductInCart = ({
                                         width: '120px',
                                         borderRadius: '8px',
                                         [mobileScreen]: {
-                                            height: '150px',
-                                            width: '150px',
+                                            height: '200px',
+                                            width: '140px',
                                         },
                                     }}
                                 >
@@ -261,6 +262,9 @@ export const ProductInCart = ({
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
+                                            [mobileScreen]: {
+                                                width: '140px',
+                                            },
                                         }}
                                     />
                                 </Box>
@@ -302,6 +306,8 @@ export const ProductInCart = ({
                                                 [mobileScreen]: {
                                                     fontSize: '13.5px',
                                                     mb: '4px',
+                                                    flexDirection: 'column',
+                                                    alignItems: 'start',
                                                 },
                                             }}
                                         >
@@ -330,6 +336,9 @@ export const ProductInCart = ({
                                                     height: '1px',
                                                     bgcolor: '#fff',
                                                     mx: '4px',
+                                                    [mobileScreen]: {
+                                                        display: 'none',
+                                                    },
                                                 }}
                                             />
 

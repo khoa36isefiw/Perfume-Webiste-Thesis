@@ -82,10 +82,14 @@ function Cart() {
                             spacing={4}
                             sx={{
                                 ml: '-16px',
+                                [mobileScreen]: {
+                                    '.MuiGrid-item': {
+                                        pr: 1,
+                                    },
+                                },
                             }}
                         >
                             <Grid item xs={12} lg={8}>
-                                {/* <ProductInCart */}
                                 <ProductInCart
                                     productsList={data.data.cart}
                                     selectedProducts={selectedProducts}
