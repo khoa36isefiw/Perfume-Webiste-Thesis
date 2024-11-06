@@ -83,9 +83,9 @@ function Cart() {
                             sx={{
                                 ml: '-16px',
                                 [mobileScreen]: {
-                                    '.MuiGrid-item': {
-                                        pr: 1,
-                                    },
+                                    // '.MuiGrid-item': {
+                                    //     pr: 1,
+                                    // },
                                 },
                             }}
                         >

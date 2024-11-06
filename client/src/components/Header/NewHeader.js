@@ -185,7 +185,7 @@ function NewHeader() {
                                 mt: 1,
                             },
                             [mobileScreen]: {
-                                fontSize: '20px',
+                                fontSize: '24px',
                             },
                             cursor: 'pointer',
                         }}
