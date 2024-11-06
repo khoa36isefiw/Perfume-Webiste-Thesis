@@ -28,15 +28,17 @@ import CategoryIcon from '@mui/icons-material/Category';
 import productData from '../../data/admin/products.json';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import useProduct from '../../api/useProduct';
+import { converToVND } from '../convertToVND/convertToVND';
 
 const columns = [
     { id: 'image', label: 'Image' },
     { id: 'productName', label: 'Name' },
+    { id: 'brand', label: 'Brand' },
     { id: 'size', label: 'Size' },
     { id: 'price', label: 'Price' },
     { id: 'stock', label: 'Stock' },
     { id: 'ratings', label: 'Rating' },
-    { id: 'brand', label: 'Brand' },
+
     // { id: 'category', label: 'Category' },
     { id: 'actions', label: 'Actions' },
 ];
@@ -52,14 +54,12 @@ export default function ProductTable() {
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
     const [productToRemove, setProductToRemove] = useState(null);
-    console.log('chay 1: ', products?.data);
 
     useEffect(() => {
         const i = 0;
         if (products && products?.data) {
             setRows(products?.data);
         }
-        console.log('chay row: ', i, rows);
     }, [products]);
 
     // Handle page change for pagination
@@ -101,12 +101,20 @@ export default function ProductTable() {
             row?.brand?.toLowerCase().includes(searchTerm?.toLowerCase()),
     );
 
+    console.log('filteredRows: ', filteredRows);
+
     const handleEdit = (productId, size) => {
         // /admin/manage-products/edit?productId=:id&size=:size
+        const getPrice = filteredRows.find(
+            (row) => row.productId === productId && row.size === size,
+        );
+        console.log('get price: ', getPrice.price);
         navigate(`/admin/manage-products/edit?productId=${productId}&size=${size}`, {
             state: {
-                productData: filteredRows.find((row) => row.productId === productId),
-                selectedSize: size, // Pass the selected size
+                productData: filteredRows.find(
+                    (row) => row.productId === productId && row.size === size,
+                ),
+                selectedSize: getPrice.size, // Pass the selected size
             },
         });
     };
@@ -322,6 +330,10 @@ export default function ProductTable() {
                                                                 </IconButton>
                                                             </Tooltip>
                                                         </>
+                                                    ) : column.id === 'price' ? (
+                                                        <Typography sx={{ fontSize: '13px' }}>
+                                                            {converToVND(row.price)}
+                                                        </Typography>
                                                     ) : column.format &&
                                                       typeof value === 'object' ? (
                                                         column.format(value)
