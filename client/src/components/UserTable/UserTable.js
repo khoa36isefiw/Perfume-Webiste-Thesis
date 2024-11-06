@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
@@ -27,47 +27,25 @@ import { theme } from '../../Theme/Theme';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import WarningIcon from '@mui/icons-material/Warning';
-
-const columns = [
-    { id: 'avatar', label: 'Avatar', minWidth: 50 },
-    { id: 'name', label: 'Name', minWidth: 70 },
-    {
-        id: 'email',
-        label: 'Email',
-        minWidth: 170,
-        align: 'left',
-    },
-    {
-        id: 'password',
-        label: 'Password',
-        minWidth: 170,
-        align: 'left',
-    },
-    {
-        id: 'address',
-        label: 'Address',
-        minWidth: 170,
-        align: 'left',
-        format: (value) => `${value.street}, ${value.city}`,
-    },
-    {
-        id: 'phone',
-        label: 'Phone',
-        minWidth: 70,
-        align: 'left',
-    },
-    { id: 'actions', label: 'Actions', minWidth: 170, align: 'center' }, // New column for actions
-];
+import useUsers from '../../api/useUsers';
+import { ModalDesginV2 } from '../Modal/ModalDesgin';
+import Loading from '../Loading/Loading';
+import useLoading from '../../hooks/useLoading';
+import { columns } from './userColumn';
+import { userAPI } from '../../api/userAPI';
+import * as XLSX from 'xlsx';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
 // Component to render the table with dynamic data
 export default function UserTable() {
     const navigate = useNavigate();
+    const { data: users, mutate, isLoading, error } = useUsers();
+
+    const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [rows, setRows] = useState([]); // Dynamic user data
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
-    // tracks if data is already fetched
-    const [isDataFetched, setIsDataFetched] = useState(false);
 
     // confirm delete
     const [showNotification, setShowNotification] = useState(false);
@@ -79,21 +57,13 @@ export default function UserTable() {
     const [messageContent, setMessageContent] = useState('');
     const [messageTitle, setMessageTitle] = useState('');
 
-    // Fetch the data from an API
-    React.useEffect(() => {
-        const fetchUserData = async () => {
-            if (!isDataFetched) {
-                const response = await fetch(
-                    'https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users',
-                );
-                const data = await response.json();
-                setRows(data); // Update the state with fetched data
-                setIsDataFetched(true);
-            }
-        };
+    useEffect(() => {
+        if (users && users.data) {
+            setRows(users.data);
+        }
+    }, [users]);
 
-        fetchUserData();
-    }, [isDataFetched]);
+    // // Fetch the data from an API
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -108,22 +78,18 @@ export default function UserTable() {
 
     // Handle search input change
     const handleSearch = (event) => {
-        setSearchTerm(event.target.value.toLowerCase());
+        setSearchTerm(event.target.value?.toLowerCase());
     };
 
     // Filter rows based on search term
-    const filteredRows = rows.filter(
-        (row) =>
-            row.name.toLowerCase().includes(searchTerm) ||
-            row.email.toLowerCase().includes(searchTerm),
-    );
-
-    // Handle edit action (you can implement your own logic for editing)
-    const handleEdit = (id) => {
-        navigate(`/admin/manage-users/${id}`, {
-            state: { userData: rows.find((row) => row.id === id) },
-        });
-    };
+    const filteredRows =
+        rows?.filter(
+            (row) =>
+                row?.firstName?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+                row?.lastName?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+                row?.address?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+                row?.email?.toLowerCase().includes(searchTerm?.toLowerCase()),
+        ) || [];
 
     // Handle delete action (with API interaction)
     const handleDelete = (userID) => {
@@ -131,28 +97,8 @@ export default function UserTable() {
         // 1.  open confirm message
         setOpenConfirmMessage(true);
         // 2. store the user information data
+        console.log('userID?: ', userID);
         setUserToRemove({ userId: userID });
-        // const confirmed = window.confirm('Are you sure you want to delete this user?');
-        // if (confirmed) {
-        //     try {
-        //         const response = await fetch(
-        //             `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${id}`,
-        //             {
-        //                 method: 'DELETE',
-        //             },
-        //         );
-        //         if (response.ok) {
-        //             // Remove the user from the state
-        //             setRows((prevRows) => prevRows.filter((row) => row.id !== id));
-        //             alert(`User with ID: ${id} has been deleted.`);
-        //         } else {
-        //             alert('Failed to delete user.');
-        //         }
-        //     } catch (error) {
-        //         console.error('Error deleting user:', error);
-        //         alert('An error occurred while deleting the user.');
-        //     }
-        // }
     };
 
     // confirm message is opened
@@ -168,39 +114,27 @@ export default function UserTable() {
         // click agree button actions
         if (userToRemove) {
             try {
-                const response = await fetch(
-                    `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${userToRemove.userId}`,
-                    {
-                        method: 'DELETE',
-                    },
-                );
-
-                if (response.ok) {
+                const response = await userAPI.deleteUserById(userToRemove.userId);
+                if (response) {
                     // Remove the user from the state
                     setRows((prevRows) => prevRows.filter((row) => row.id !== userToRemove.userId));
-                    alert(`User with ID: ${userToRemove.userId} has been deleted.`);
+                    mutate();
                     setShowNotification(true);
                     setShowAnimation('animate__bounceInRight');
                     setMessageType('success');
                     setMessageContent('Delete user successfully!');
                     setMessageTitle('Delete user');
-                } else {
-                    alert('Failed to delete user.');
-                    setShowNotification(true);
-                    setShowAnimation('animate__bounceInRight');
-                    setMessageTitle('Delete user');
-                    setMessageType('error');
-                    setMessageContent('Delete user failed!');
+                    setUserToRemove(null);
                 }
             } catch (error) {
-                console.error('Error deleting user:', error);
-                alert('An error occurred while deleting the user.');
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageTitle('Delete user');
+                setMessageType('error');
+                setMessageContent('Delete user failed!');
             }
         }
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
         setOpenConfirmMessage(false);
-        setUserToRemove(null);
     };
 
     // handle Close notification
@@ -211,217 +145,291 @@ export default function UserTable() {
         }, 1000);
     };
 
+    console.log('filteredRows: ', filteredRows);
+    const exportToExcel = () => {
+        // create a new workbook and worksheet
+        const workbook = XLSX.utils.book_new();
+        const worksheetData = rows.map((row, index) => ({
+            // define column name and get data
+            No: index + 1,
+            ID: row._id,
+            Avatar: row.imagePath,
+            'First Name': row.firstName,
+            'Last Name': row.lastName,
+            Email: row.email,
+            Address: row.address,
+            'Phone Number': row.phoneNumber,
+        }));
+
+        // convert JSON data to worksheet
+        const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+
+        // append the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'TableData');
+
+        // export the workbook as an Excel file
+        XLSX.writeFile(workbook, 'Users Table.xlsx');
+    };
+
     return (
-        <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
-            {/* Search Bar */}
-            <AdminHeadingTypography sx={{ mb: 2 }}>List Users</AdminHeadingTypography>
-            <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
-                We can <strong>Search</strong> by Name or Email
-            </AdminTypography>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <TextField
-                    placeholder="Search by Name or Email"
-                    variant="outlined"
-                    sx={{
-                        marginBottom: 2,
-                        width: 750,
-                        '.MuiInputBase-root': {
-                            fontSize: '14px',
-                            height: '50px',
-                        },
-                        '& .MuiOutlinedInput-root': {
-                            '&.Mui-focused fieldset': {
-                                borderColor: theme.palette.admin.bgColor,
-                            },
-                        },
-                    }}
-                    onChange={handleSearch}
-                    value={searchTerm}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                        marginBottom: 2,
-                        padding: '10px 18px',
-                        borderRadius: 3,
-                        textTransform: 'initial',
-                        fontSize: '14px',
-                    }}
-                    // onClick={}
-                    startIcon={<FileDownloadIcon />}
+        <React.Fragment>
+            {isLoading ? (
+                <ModalDesginV2
+                    open={open}
+                    onHandleClose={handleClose}
+                    animateStyle={animateStyle}
+                    setAnimateStyle={setAnimateStyle}
                 >
-                    Export
-                </Button>
-            </Box>
-            <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
-                <TableContainer sx={{ maxHeight: 440 }}>
-                    <Table stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                {columns.map((column) => (
-                                    <TableCell
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{ minWidth: column.minWidth }}
-                                        sx={{
-                                            bgcolor: blue[200],
-                                            fontSize: '13px',
-                                        }}
-                                    >
-                                        {column.label}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {filteredRows
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <TableCell
-                                                    key={column.id}
-                                                    align={column.align}
-                                                    sx={{ fontSize: '13px' }}
-                                                >
-                                                    {/* Render avatar if the column is 'avatar', otherwise display text */}
-                                                    {column.id === 'avatar' ? (
-                                                        <Avatar
-                                                            alt={row.name}
-                                                            src={row.avatar}
-                                                            sx={{ height: '56px', width: '56px' }}
-                                                        />
-                                                    ) : column.id === 'actions' ? (
-                                                        // Render Edit and Delete buttons in the 'actions' column
-                                                        <>
-                                                            <Tooltip
-                                                                title={
-                                                                    <CustomizeTypography
-                                                                        sx={{
-                                                                            fontSize: '13px',
-                                                                            mb: 0,
-                                                                        }}
-                                                                    >
-                                                                        Delete Users
-                                                                    </CustomizeTypography>
-                                                                }
-                                                            >
-                                                                <IconButton
-                                                                    onClick={() =>
-                                                                        handleDelete(row.id)
-                                                                    }
-                                                                    color="secondary"
-                                                                >
-                                                                    <DeleteIcon
-                                                                        sx={{ fontSize: '22px' }}
-                                                                    />
-                                                                </IconButton>
-                                                            </Tooltip>
-                                                        </>
-                                                    ) : column.format &&
-                                                      typeof value === 'object' ? (
-                                                        column.format(value)
-                                                    ) : (
-                                                        value
-                                                    )}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
-                    component="div"
-                    count={filteredRows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                    sx={{
-                        '.MuiTablePagination-selectLabel': {
-                            fontSize: '13px',
-                        },
-                        '.MuiTablePagination-select': {
-                            fontSize: '13px',
-                            mt: 1,
-                        },
-                        '.MuiTablePagination-displayedRows': {
-                            fontSize: '13px',
-                        },
-
-                        '.MuiSvgIcon-root': { fontSize: '14px' },
-                        '.MuiSelect-icon': {
-                            fontSize: '24px',
-                        },
-
-                        // next and previous button
-                        '.MuiSvgIcon-root': {
-                            fontSize: '24px',
-                        },
-                    }}
-                />
-            </Box>
-            {/* Open Confirm Message */}
-            <ConfirmMessage
-                openConfirmMessage={openConfirmMessage}
-                msgTitle={
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <WarningIcon
+                    <Loading />
+                </ModalDesginV2>
+            ) : (
+                <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
+                    {/* Search Bar */}
+                    <AdminHeadingTypography sx={{ mb: 2 }}>List Users</AdminHeadingTypography>
+                    <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
+                        We can <strong>Search</strong> by Name or Email
+                    </AdminTypography>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                        }}
+                    >
+                        <TextField
+                            placeholder="Search by Name or Email"
+                            variant="outlined"
                             sx={{
-                                color: theme.icon.color.primary,
-                                fontSize: theme.icon.size.desktop,
+                                marginBottom: 2,
+                                width: 750,
+                                '.MuiInputBase-root': {
+                                    fontSize: '14px',
+                                    height: '50px',
+                                },
+                                '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: theme.palette.admin.bgColor,
+                                    },
+                                },
+                            }}
+                            onChange={handleSearch}
+                            value={searchTerm}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <Search />
+                                    </InputAdornment>
+                                ),
                             }}
                         />
-                        <CustomizeTypography
+
+                        <Button
+                            onClick={exportToExcel}
+                            variant="contained"
+                            color="primary"
                             sx={{
-                                color: theme.palette.text.main,
-                                fontSize: '18px',
-                                mb: 0,
-                                ml: 2,
-                                fontWeight: 'bold',
+                                marginBottom: 2,
+                                padding: '10px 18px',
+                                borderRadius: 3,
+                                textTransform: 'initial',
+                                fontSize: '14px',
                             }}
+                            // onClick={}
+                            startIcon={<FileDownloadIcon />}
                         >
-                            Delete Products
-                        </CustomizeTypography>
+                            Export
+                        </Button>
                     </Box>
-                }
-                msgContent={
-                    <Typography sx={{ fontSize: '16px' }}>
-                        Are you sure you want to delete this product?
-                    </Typography>
-                }
-                onHandleClickClose={() => setOpenConfirmMessage(false)}
-                onHandleConfirmAgree={handleConfirmAgree}
-                onHandleConfirmDisagree={handleConfirmDisagree}
-            />
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
+                    <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
+                        <TableContainer sx={{ maxHeight: 440 }}>
+                            <Table stickyHeader aria-label="sticky table">
+                                <TableHead>
+                                    <TableRow>
+                                        {columns.map((column) => (
+                                            <TableCell
+                                                key={column.id}
+                                                align={column.align}
+                                                style={{ minWidth: column.minWidth }}
+                                                sx={{
+                                                    bgcolor: blue[200],
+                                                    fontSize: '13px',
+                                                }}
+                                            >
+                                                {column.label}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {filteredRows
+                                        ?.slice(
+                                            page * rowsPerPage,
+                                            page * rowsPerPage + rowsPerPage,
+                                        )
+                                        .map((row) => (
+                                            <TableRow
+                                                hover
+                                                role="checkbox"
+                                                tabIndex={-1}
+                                                key={row.id}
+                                            >
+                                                {columns.map((column) => {
+                                                    const value = row[column.id];
+
+                                                    return (
+                                                        <TableCell
+                                                            key={column.id}
+                                                            align={column.align}
+                                                            sx={{ fontSize: '13px' }}
+                                                        >
+                                                            {/* Render avatar if the column is 'avatar', otherwise display text */}
+                                                            {column.id === 'avatar' ? (
+                                                                <Avatar
+                                                                    alt={'User Image'}
+                                                                    src={
+                                                                        row?.imagePath !== null
+                                                                            ? row.imagePath
+                                                                            : 'https://static.vecteezy.com/system/resources/thumbnails/030/353/225/small_2x/beautiful-night-sky-background-ai-generated-photo.jpg'
+                                                                    }
+                                                                    sx={{
+                                                                        height: '56px',
+                                                                        width: '56px',
+                                                                    }}
+                                                                />
+                                                            ) : column.id === 'actions' ? (
+                                                                // Render Edit and Delete buttons in the 'actions' column
+                                                                <>
+                                                                    <Tooltip
+                                                                        title={
+                                                                            <CustomizeTypography
+                                                                                sx={{
+                                                                                    fontSize:
+                                                                                        '13px',
+                                                                                    mb: 0,
+                                                                                }}
+                                                                            >
+                                                                                Delete Users
+                                                                            </CustomizeTypography>
+                                                                        }
+                                                                    >
+                                                                        <IconButton
+                                                                            onClick={() =>
+                                                                                handleDelete(
+                                                                                    row._id,
+                                                                                )
+                                                                            }
+                                                                            color="secondary"
+                                                                        >
+                                                                            <DeleteIcon
+                                                                                sx={{
+                                                                                    fontSize:
+                                                                                        '22px',
+                                                                                }}
+                                                                            />
+                                                                        </IconButton>
+                                                                    </Tooltip>
+                                                                </>
+                                                            ) : column.format &&
+                                                              typeof value === 'object' ? (
+                                                                column.format(value)
+                                                            ) : column.id === 'name' ? (
+                                                                <Typography
+                                                                    sx={{ fontSize: '13px' }}
+                                                                >
+                                                                    {row.firstName} {row.lastName}
+                                                                </Typography>
+                                                            ) : (
+                                                                value
+                                                            )}
+                                                        </TableCell>
+                                                    );
+                                                })}
+                                            </TableRow>
+                                        ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <TablePagination
+                            rowsPerPageOptions={[10, 25, 100]}
+                            component="div"
+                            count={filteredRows?.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                            sx={{
+                                '.MuiTablePagination-selectLabel': {
+                                    fontSize: '13px',
+                                },
+                                '.MuiTablePagination-select': {
+                                    fontSize: '13px',
+                                    mt: 1,
+                                },
+                                '.MuiTablePagination-displayedRows': {
+                                    fontSize: '13px',
+                                },
+
+                                '.MuiSvgIcon-root': { fontSize: '14px' },
+                                '.MuiSelect-icon': {
+                                    fontSize: '24px',
+                                },
+
+                                // next and previous button
+                                '.MuiSvgIcon-root': {
+                                    fontSize: '24px',
+                                },
+                            }}
+                        />
+                    </Box>
+                    {/* Open Confirm Message */}
+                    <ConfirmMessage
+                        openConfirmMessage={openConfirmMessage}
+                        msgTitle={
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <WarningIcon
+                                    sx={{
+                                        color: theme.icon.color.primary,
+                                        fontSize: theme.icon.size.desktop,
+                                    }}
+                                />
+                                <CustomizeTypography
+                                    sx={{
+                                        color: theme.palette.text.main,
+                                        fontSize: '18px',
+                                        mb: 0,
+                                        ml: 2,
+                                        fontWeight: 'bold',
+                                    }}
+                                >
+                                    Delete Products
+                                </CustomizeTypography>
+                            </Box>
+                        }
+                        msgContent={
+                            <Typography sx={{ fontSize: '16px' }}>
+                                Are you sure you want to delete this product?
+                            </Typography>
+                        }
+                        onHandleClickClose={() => setOpenConfirmMessage(false)}
+                        onHandleConfirmAgree={handleConfirmAgree}
+                        onHandleConfirmDisagree={handleConfirmDisagree}
                     />
+                    {showNotification && (
+                        <Box
+                            sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                            className={`animate__animated ${showAnimation}`}
+                        >
+                            <NotificationMessage
+                                msgType={messageType}
+                                msgTitle={messageTitle}
+                                msgContent={messageContent}
+                                autoHideDuration={3000} // Auto-hide after 5 seconds
+                                onClose={handleCloseNotification}
+                            />
+                        </Box>
+                    )}
                 </Box>
             )}
-        </Box>
+        </React.Fragment>
     );
 }

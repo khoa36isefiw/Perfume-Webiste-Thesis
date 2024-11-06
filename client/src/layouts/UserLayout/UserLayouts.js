@@ -16,7 +16,7 @@ function UserLayouts({ children }) {
         if (userData === null) {
             navigate('/');
         }
-    }, [userData]);
+    }, [userData, navigate]);
     return (
         <Box sx={{ minHeight: '100vh', width: '100vw', bgcolor: '#000' }}>
             {/* pre-defined layout */}

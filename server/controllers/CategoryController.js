@@ -41,7 +41,7 @@ const CategoryController = {
         if (!parentId) parentId = null;
         const category = new Category({
             ...req.body,
-            parentId: parentId,
+            parent: parentId,
         });
         try {
             category.save();

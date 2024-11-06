@@ -1,55 +1,16 @@
 import React from 'react';
-import {
-    Box,
-    FormHelperText,
-    Paper,
-    Typography,
-    MenuItem,
-    Button,
-    TextField,
-    Grid,
-} from '@mui/material';
+import { Box, Typography, MenuItem, Button, TextField, Grid } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import { useNavigate } from 'react-router-dom';
+import { categoriesAPI } from '../../api/categoriesAPI';
 
 function AddCategory() {
     const [name, setName] = React.useState({
         value: '',
         message: '',
     });
-    const [categories, setCategories] = React.useState([
-        {
-            name: 'unisex',
-            parentCategory: '...',
-            description: 'men and women can use',
-            isActive: true,
-            _id: 1,
-        },
-        {
-            name: 'men',
-            parentCategory: '...',
-            description: 'for men',
-            isActive: true,
-            _id: 1,
-        },
-        {
-            name: 'women',
-            parentCategory: '...',
-            description: 'for women',
-            isActive: true,
-            _id: 1,
-        },
-    ]);
-    const [subCategories, setSubCategories] = React.useState([
-        {
-            name: 'unisex',
-            parentCategory: '...',
-            description: 'test',
-            isActive: true,
-            _id: 1,
-        },
-    ]);
+    const [categories, setCategories] = React.useState(null);
 
     const [description, setDescription] = React.useState({
         value: '',
@@ -63,8 +24,9 @@ function AddCategory() {
     const navigate = useNavigate();
 
     const fetchAllParentCategory = async () => {
-        const listCategory = 'await categoryService.getAllParentCategory()';
-        // setCategories(listCategory);
+        const listCategory = await categoriesAPI.getAllCategory();
+        console.log('listCategory: ', listCategory.data);
+        setCategories(listCategory.data);
     };
     const fetchCategoryByParentId = async (id) => {
         const listCategory = 'await categoryService.getChildCategoryByPId(id)';
@@ -109,14 +71,15 @@ function AddCategory() {
         e.preventDefault();
         if (!checkError()) {
             const data = {
-                name: name.value,
-                description: description.value,
-                parentId: selectedSubCategoryId ? selectedSubCategoryId : selectedCategoryId,
+                nameEn: name.value,
+                descriptionEn: description.value,
+                parentId: selectedCategoryId,
             };
-            const respone = await 'categoryService.createCategory(data)';
+            const respone = await categoriesAPI.createCategory(data);
 
             // call api to create new user
             if (respone.status === 201) {
+                console.log('respone: ', respone);
                 setMessage('Tạo category thành công');
                 setTypeMessage('success');
                 setName({ value: '', message: '' });
@@ -191,8 +154,8 @@ function AddCategory() {
                                 }
                             />
                         </Grid>
-                        <Grid item lg={6}>
-                            {categories.length > 0 && (
+                        <Grid item lg={12}>
+                            {categories?.length > 0 && (
                                 <TextField
                                     fullWidth
                                     select
@@ -210,31 +173,10 @@ function AddCategory() {
                                             value={category._id}
                                             sx={{ fontSize: '14px' }}
                                         >
-                                            {category.name}
+                                            {category.nameEn}
                                         </MenuItem>
                                     ))}{' '}
                                     *
-                                </TextField>
-                            )}
-                        </Grid>
-                        <Grid item lg={6}>
-                            {subCategories?.length > 0 && (
-                                <TextField
-                                    select
-                                    value={selectedSubCategoryId}
-                                    onChange={handleSelectedSubCategory}
-                                    label="Select Sub Category"
-                                    sx={{ width: '100%', fontSize: '14px' }}
-                                >
-                                    {subCategories.map((category) => (
-                                        <MenuItem
-                                            key={category._id}
-                                            value={category._id}
-                                            sx={{ fontSize: '14px' }}
-                                        >
-                                            {category.name}
-                                        </MenuItem>
-                                    ))}
                                 </TextField>
                             )}
                         </Grid>

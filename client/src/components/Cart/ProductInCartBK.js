@@ -18,7 +18,6 @@ import { userAPI } from '../../api/userAPI';
 import Loading from '../Loading/Loading';
 import { useLocation } from 'react-router-dom';
 import { red } from '@mui/material/colors';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 export const ProductInCart = ({
     productsList,
@@ -30,21 +29,12 @@ export const ProductInCart = ({
     // get userId from local storage
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
     const location = useLocation();
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
 
     const dispatch = useDispatch();
     const [productToRemove, setProductToRemove] = useState(null);
     const [openConfirmMessage, setOpenConfirmMessage] = React.useState(false);
-    // const [showNotification, setShowNotification] = useState(false);
-    // const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
     const [pQuantity, setPQuantity] = useState(0);
     const [productToUpdate, setProductToUpdate] = useState(null);
     const [isLoadingAPI, setIsLoadingAPI] = useState(false);
@@ -79,11 +69,8 @@ export const ProductInCart = ({
             if (removeProduct.status === 200) {
                 setIsLoadingAPI(false);
                 // window.location.reload();
-                showMessage(
-                    'success',
-                    'Delete Products',
-                    'Products are removed successfully from cart!',
-                );
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
                 setOpenConfirmMessage(false);
                 setProductToRemove(null); // clear
                 mutate();
@@ -94,6 +81,12 @@ export const ProductInCart = ({
     };
 
     // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
+    };
 
     const handleSelectProduct = (isChecked, product) => {
         const check = selectedProducts?.findIndex(
@@ -141,18 +134,12 @@ export const ProductInCart = ({
             // find product is selected to update product quantity
             (product) => product.product._id === pId && product.variant._id === vId,
         );
-        const checkStockStatus = updatedProductsList.some(
+        const checkStockStatus = updatedProductsList.find(
             // find product is selected to update product quantity
-            (product) =>
-                product.product._id === pId &&
-                product.variant._id === vId &&
-                product.variant.stock - newQuantity >= 0, // check if the current quantity is greater than the number of products in stock
+            (product) => product.product._id === pId && product.variant._id === vId,
         );
-        console.log('product is updated information status: ', checkStockStatus);
         console.log('productToUpdate: ', productToUpdate);
-        // if (productToUpdate) {
-        // update product quantity if the current product equals to or less than the product in stock
-        if (productToUpdate && checkStockStatus) {
+        if (productToUpdate) {
             // update the quantity of the product
             productToUpdate.quantity = newQuantity;
             setPQuantity(newQuantity);
@@ -187,7 +174,7 @@ export const ProductInCart = ({
                 throw new Error('Failed to update quantity');
             }
         } else {
-            showMessage('error', 'Update Product Quantity', 'Ayyy cha, We run out of this product');
+            console.error('Product not found');
         }
     };
 
@@ -626,9 +613,9 @@ export const ProductInCart = ({
                         className={`animate__animated ${showAnimation}`}
                     >
                         <NotificationMessage
-                            msgType={messageType}
-                            msgTitle={messageTitle}
-                            msgContent={messageContent}
+                            msgType={'success'}
+                            msgTitle={'Delete Products'}
+                            msgContent={'Products are removed successfully from cart!'}
                             autoHideDuration={3000} // Auto-hide after 5 seconds
                             onClose={handleCloseNotification}
                         />
