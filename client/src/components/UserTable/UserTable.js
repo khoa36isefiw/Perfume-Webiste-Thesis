@@ -31,32 +31,7 @@ import useUsers from '../../api/useUsers';
 import { ModalDesginV2 } from '../Modal/ModalDesgin';
 import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
-
-const columns = [
-    { id: 'avatar', label: 'Avatar', minWidth: 50 },
-    { id: `name`, label: 'Name', minWidth: 70 },
-    {
-        id: 'email',
-        label: 'Email',
-        minWidth: 170,
-        align: 'left',
-    },
-
-    {
-        id: 'address',
-        label: 'Address',
-        minWidth: 170,
-        align: 'left',
-        format: (value) => `${value.street}, ${value.city}`,
-    },
-    {
-        id: 'phoneNumber',
-        label: 'Phone',
-        minWidth: 70,
-        align: 'left',
-    },
-    { id: 'actions', label: 'Actions', minWidth: 170, align: 'center' }, // New column for actions
-];
+import { columns } from './userColumn';
 
 // Component to render the table with dynamic data
 export default function UserTable() {
@@ -67,7 +42,7 @@ export default function UserTable() {
     console.log('users: ', users?.data);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [rows, setRows] = useState(null); // Dynamic user data
+    const [rows, setRows] = useState([]); // Dynamic user data
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
     console.log('rows: ', rows);
 
@@ -85,6 +60,9 @@ export default function UserTable() {
         if (users && users.data) {
             setRows(users.data);
         }
+        // rows?.filter((row) => {
+        //     console.log('row: ', row);
+        // });
     }, [users]);
 
     // // Fetch the data from an API
@@ -102,17 +80,19 @@ export default function UserTable() {
 
     // Handle search input change
     const handleSearch = (event) => {
-        setSearchTerm(event.target.value.toLowerCase());
+        setSearchTerm(event.target.value?.toLowerCase());
     };
 
     // Filter rows based on search term
-    const filteredRows = rows?.filter(
-        (row) =>
-            row.firstName.toLowerCase().includes(searchTerm) ||
-            row.lastName.toLowerCase().includes(searchTerm) ||
-            row.address.toLowerCase().includes(searchTerm) ||
-            row.email.toLowerCase().includes(searchTerm),
-    );
+    console.log('rows: ', rows);
+    const filteredRows =
+        rows?.filter(
+            (row) =>
+                row?.firstName?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+                row?.lastName?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+                row?.address?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+                row?.email?.toLowerCase().includes(searchTerm?.toLowerCase()),
+        ) || [];
 
     // Handle delete action (with API interaction)
     const handleDelete = (userID) => {
@@ -121,27 +101,6 @@ export default function UserTable() {
         setOpenConfirmMessage(true);
         // 2. store the user information data
         setUserToRemove({ userId: userID });
-        // const confirmed = window.confirm('Are you sure you want to delete this user?');
-        // if (confirmed) {
-        //     try {
-        //         const response = await fetch(
-        //             `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${id}`,
-        //             {
-        //                 method: 'DELETE',
-        //             },
-        //         );
-        //         if (response.ok) {
-        //             // Remove the user from the state
-        //             setRows((prevRows) => prevRows.filter((row) => row.id !== id));
-        //             alert(`User with ID: ${id} has been deleted.`);
-        //         } else {
-        //             alert('Failed to delete user.');
-        //         }
-        //     } catch (error) {
-        //         console.error('Error deleting user:', error);
-        //         alert('An error occurred while deleting the user.');
-        //     }
-        // }
     };
 
     // confirm message is opened
