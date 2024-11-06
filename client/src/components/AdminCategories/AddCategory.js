@@ -24,7 +24,7 @@ function AddCategory() {
     const navigate = useNavigate();
 
     const fetchAllParentCategory = async () => {
-        const listCategory = await categoriesAPI.getAllCategory();
+        const listCategory = await categoriesAPI.getAllParentCategory();
         console.log('listCategory: ', listCategory.data);
         setCategories(listCategory.data);
     };
@@ -70,6 +70,7 @@ function AddCategory() {
     const handleCreate = async (e) => {
         e.preventDefault();
         if (!checkError()) {
+            console.log('selectedCategoryId: ', selectedCategoryId);
             const data = {
                 nameEn: name.value,
                 descriptionEn: description.value,
@@ -108,6 +109,7 @@ function AddCategory() {
         console.log(selectedCategoryId);
         setSelectedCategoryId(e.target.value);
     };
+    console.log('after: ', selectedCategoryId);
     const handleSelectedSubCategory = (e) => {
         setSelectedSubCategoryId(e.target.value);
     };
