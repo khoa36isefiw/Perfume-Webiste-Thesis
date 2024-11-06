@@ -231,7 +231,8 @@ export const ProductInCart = ({
                                     onChange={(e) => handleSelectProduct(e.target.checked, item)}
                                     sx={{
                                         mr: 2,
-                                        visibility: item?.variant?.stock <= 0 ? 'hidden' : 'visible',
+                                        visibility:
+                                            item?.variant?.stock <= 0 ? 'hidden' : 'visible',
                                         '& .MuiSvgIcon-root': { fontSize: 22 },
                                         color: 'white',
                                         '&.Mui-checked': {
