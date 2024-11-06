@@ -33,6 +33,7 @@ import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
 import { columns } from './userColumn';
 import { userAPI } from '../../api/userAPI';
+import * as XLSX from 'xlsx';
 
 // Component to render the table with dynamic data
 export default function UserTable() {
@@ -144,6 +145,30 @@ export default function UserTable() {
     };
 
     console.log('filteredRows: ', filteredRows);
+    const exportToExcel = () => {
+        // create a new workbook and worksheet
+        const workbook = XLSX.utils.book_new();
+        const worksheetData = rows.map((row, index) => ({
+            No: index + 1,
+            ID: row._id,
+            Avatar: row.imagePath,
+            'First Name': row.firstName,
+            'Last Name': row.lastName,
+            Email: row.email,
+            Address: row.address,
+            'Phone Number': row.phoneNumber,
+        }));
+
+        // convert JSON data to worksheet
+        const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+
+        // append the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'TableData');
+
+        // export the workbook as an Excel file
+        XLSX.writeFile(workbook, 'Users Table.xlsx');
+    };
+
     return (
         <React.Fragment>
             {isLoading ? (
@@ -197,6 +222,7 @@ export default function UserTable() {
                         />
 
                         <Button
+                            onClick={exportToExcel}
                             variant="contained"
                             color="primary"
                             sx={{
