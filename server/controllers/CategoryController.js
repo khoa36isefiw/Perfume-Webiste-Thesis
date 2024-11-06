@@ -8,7 +8,7 @@ const CategoryController = {
     },
 
     getParentCategory: (req, res) => {
-        Category.find({ parentId: null })
+        Category.find({ parent: null })
             .then((categories) => res.status(200).json(categories))
             .catch(() => res.status(404).json('Không tìm thấy danh sách danh mục.'));
     },
@@ -16,7 +16,7 @@ const CategoryController = {
     getChildByPId: (req, res) => {
         Category.findOne({ _id: req.params.id })
             .then((category) => {
-                Category.find({ parentId: category._id })
+                Category.find({ parent: category._id })
                     .then((categories) => res.status(200).json(categories))
                     .catch(() => res.status(404).json('Không tìm thấy danh sách danh con.'));
             })
