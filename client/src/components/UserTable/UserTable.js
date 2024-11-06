@@ -32,6 +32,7 @@ import { ModalDesginV2 } from '../Modal/ModalDesgin';
 import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
 import { columns } from './userColumn';
+import { userAPI } from '../../api/userAPI';
 
 // Component to render the table with dynamic data
 export default function UserTable() {
@@ -39,12 +40,10 @@ export default function UserTable() {
     const { data: users, mutate, isLoading, error } = useUsers();
 
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
-    console.log('users: ', users?.data);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [rows, setRows] = useState([]); // Dynamic user data
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
-    console.log('rows: ', rows);
 
     // confirm delete
     const [showNotification, setShowNotification] = useState(false);
@@ -60,9 +59,6 @@ export default function UserTable() {
         if (users && users.data) {
             setRows(users.data);
         }
-        // rows?.filter((row) => {
-        //     console.log('row: ', row);
-        // });
     }, [users]);
 
     // // Fetch the data from an API
@@ -84,7 +80,6 @@ export default function UserTable() {
     };
 
     // Filter rows based on search term
-    console.log('rows: ', rows);
     const filteredRows =
         rows?.filter(
             (row) =>
@@ -100,6 +95,7 @@ export default function UserTable() {
         // 1.  open confirm message
         setOpenConfirmMessage(true);
         // 2. store the user information data
+        console.log('userID?: ', userID);
         setUserToRemove({ userId: userID });
     };
 
@@ -116,39 +112,27 @@ export default function UserTable() {
         // click agree button actions
         if (userToRemove) {
             try {
-                const response = await fetch(
-                    `https://66f50b829aa4891f2a23a097.mockapi.io/tomtoc/api/v1/users/${userToRemove.userId}`,
-                    {
-                        method: 'DELETE',
-                    },
-                );
-
-                if (response.ok) {
+                const response = await userAPI.deleteUserById(userToRemove.userId);
+                if (response) {
                     // Remove the user from the state
                     setRows((prevRows) => prevRows.filter((row) => row.id !== userToRemove.userId));
-                    alert(`User with ID: ${userToRemove.userId} has been deleted.`);
+                    mutate();
                     setShowNotification(true);
                     setShowAnimation('animate__bounceInRight');
                     setMessageType('success');
                     setMessageContent('Delete user successfully!');
                     setMessageTitle('Delete user');
-                } else {
-                    alert('Failed to delete user.');
-                    setShowNotification(true);
-                    setShowAnimation('animate__bounceInRight');
-                    setMessageTitle('Delete user');
-                    setMessageType('error');
-                    setMessageContent('Delete user failed!');
+                    setUserToRemove(null);
                 }
             } catch (error) {
-                console.error('Error deleting user:', error);
-                alert('An error occurred while deleting the user.');
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageTitle('Delete user');
+                setMessageType('error');
+                setMessageContent('Delete user failed!');
             }
         }
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
         setOpenConfirmMessage(false);
-        setUserToRemove(null);
     };
 
     // handle Close notification
@@ -302,7 +286,9 @@ export default function UserTable() {
                                                                     >
                                                                         <IconButton
                                                                             onClick={() =>
-                                                                                handleDelete(row.id)
+                                                                                handleDelete(
+                                                                                    row._id,
+                                                                                )
                                                                             }
                                                                             color="secondary"
                                                                         >
