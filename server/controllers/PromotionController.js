@@ -30,6 +30,10 @@ const PromotionController = {
 
     create: async (req, res) => {
         try {
+            const { discount } = req.body;
+            if (discount < 0 || discount > 100) {
+                return res.status(400).json({ message: 'Discount must be between 0 and 100' });
+            }
             const promotion = await Promotion.create(req.body);
             res.status(201).json(promotion);
         } catch (error) {

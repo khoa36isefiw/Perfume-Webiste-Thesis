@@ -20,6 +20,8 @@ const promotionSchema = new Schema(
         },
         discount: {
             type: Number,
+            min: 0,
+            max: 100,
             default: 0,
         },
         startDate: Date,

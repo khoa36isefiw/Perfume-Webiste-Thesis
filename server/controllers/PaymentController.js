@@ -101,10 +101,10 @@ const PaymentController = {
 
                 const totalPrice =
                     item.quantity * (variant.priceSale ? variant.priceSale : variant.price);
-                const reducedPrice = totalPrice - (totalPrice * promotion.discount) / 100;
-                newOrder.totalPrice += reducedPrice;
+                newOrder.totalPrice += totalPrice;
             }
 
+            newOrder.totalPrice *= 1 - promotion.discount / 100;
             const savedOrder = await newOrder.save();
 
             // remove item in cart
