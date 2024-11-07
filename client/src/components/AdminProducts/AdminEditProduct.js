@@ -52,8 +52,15 @@ const AdminEditProduct = () => {
         };
         const productId = productData.productId;
         const data = {
-            variants: productData.variantId,
-            nameEn: 'Ahihihi',
+            variants: [
+                {
+                    _id: productData.variantId,
+                    size: size,
+                    discountPercent: '12',
+                },
+            ],
+            nameEn: productName,
+            // brand: brand,
         };
 
         const updateResponse = await productAPI.editProduct(productId, data);

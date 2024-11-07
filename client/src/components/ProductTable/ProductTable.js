@@ -81,6 +81,7 @@ export default function ProductTable() {
     // Flatten rows based on product sizes
 
     const flattenedRows = rows?.flatMap((row) =>
+        // row.variants.map((size) => ({
         row.variants.map((size) => ({
             productId: row._id,
             productName: row.nameEn,
@@ -90,7 +91,7 @@ export default function ProductTable() {
             image: row?.imagePath[0],
             stock: size.stock,
             ratings: row.rating,
-            variantId: size._id,
+            variants: [size],
         })),
     );
 
