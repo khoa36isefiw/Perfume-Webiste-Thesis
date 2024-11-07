@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -27,29 +27,40 @@ import { theme } from '../../Theme/Theme';
 import CategoryIcon from '@mui/icons-material/Category';
 import productData from '../../data/admin/products.json';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
+import useProduct from '../../api/useProduct';
+import { converToVND } from '../convertToVND/convertToVND';
 
 const columns = [
     { id: 'image', label: 'Image' },
     { id: 'productName', label: 'Name' },
+    { id: 'brand', label: 'Brand' },
     { id: 'size', label: 'Size' },
     { id: 'price', label: 'Price' },
     { id: 'stock', label: 'Stock' },
     { id: 'ratings', label: 'Rating' },
-    { id: 'brand', label: 'Brand' },
+
     // { id: 'category', label: 'Category' },
     { id: 'actions', label: 'Actions' },
 ];
 
 export default function ProductTable() {
     const navigate = useNavigate();
+    const { data: products, isLoading } = useProduct();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [rows, setRows] = useState(productData); // Dynamic user data
+    const [rows, setRows] = useState([]); // Dynamic user data
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
     const [productToRemove, setProductToRemove] = useState(null);
+
+    useEffect(() => {
+        const i = 0;
+        if (products && products?.data) {
+            setRows(products?.data);
+        }
+    }, [products]);
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -68,32 +79,44 @@ export default function ProductTable() {
     };
 
     // Flatten rows based on product sizes
-    const flattenedRows = rows.flatMap((row) =>
-        row.sizes.map((size) => ({
-            productId: row.productId,
-            productName: row.productName,
-            brand: row.brand,
+
+    const flattenedRows = rows?.flatMap((row) =>
+        // row.variants.map((size) => ({
+        row.variants.map((size) => ({
+            productId: row._id,
+            productName: row.nameEn,
+            brand: row.brand.nameEn,
             size: size.size,
             price: size.price,
-            image: row.images[0],
+            image: row?.imagePath[0],
             stock: size.stock,
-            ratings: row.ratings,
+            ratings: row.rating,
+            variants: [size],
         })),
     );
 
     // Filter flattened rows based on product name, and brand
+    // const filteredRows2 = flattenedRows.filter((row) => console.log('row2989: ', row));
     const filteredRows = flattenedRows.filter(
         (row) =>
-            row.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            row.brand.toLowerCase().includes(searchTerm.toLowerCase()),
+            row?.productName?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+            row?.brand?.toLowerCase().includes(searchTerm?.toLowerCase()),
     );
+
+    console.log('filteredRows: ', filteredRows);
 
     const handleEdit = (productId, size) => {
         // /admin/manage-products/edit?productId=:id&size=:size
+        const getPrice = filteredRows.find(
+            (row) => row.productId === productId && row.size === size,
+        );
+        console.log('get price: ', getPrice.price);
         navigate(`/admin/manage-products/edit?productId=${productId}&size=${size}`, {
             state: {
-                productData: filteredRows.find((row) => row.productId === productId),
-                selectedSize: size, // Pass the selected size
+                productData: filteredRows.find(
+                    (row) => row.productId === productId && row.size === size,
+                ),
+                selectedSize: getPrice.size, // Pass the selected size
             },
         });
     };
@@ -309,6 +332,10 @@ export default function ProductTable() {
                                                                 </IconButton>
                                                             </Tooltip>
                                                         </>
+                                                    ) : column.id === 'price' ? (
+                                                        <Typography sx={{ fontSize: '13px' }}>
+                                                            {converToVND(row.price)}
+                                                        </Typography>
                                                     ) : column.format &&
                                                       typeof value === 'object' ? (
                                                         column.format(value)
