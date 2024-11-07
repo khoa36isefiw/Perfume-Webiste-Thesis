@@ -20,11 +20,11 @@ const AuthController = {
                 return res.status(200).json(user);
             } else {
                 return res.status(400).json({
-                    message: 'Email đã tồn tại! Bạn có muốn đăng nhập không?',
+                    message: 'Email has already been registered',
                 });
             }
         } catch (err) {
-            return res.status(400).json(`Có lỗi trong quá trình đăng ký :  ${err}`);
+            return res.status(500).json({ message: err.message });
         }
     },
 
@@ -61,7 +61,7 @@ const AuthController = {
             const { email, password } = req.body;
             console.log('req.body: ', req.body);
             const user = await User.findOne({ email: email });
-            if (!user) return res.status(404).json('Không tìm thấy người dùng');
+            if (!user) return res.status(404).json({ message: 'User not found' });
 
             // Tìm thấy tài khoản, so sánh mật khẩu
             const isSamePassword = bcrypt.compareSync(password, user.password);
@@ -80,10 +80,10 @@ const AuthController = {
                 const { password, ...others } = user._doc;
                 return res.status(200).json(others);
             } else {
-                return res.status(401).json('Mật khẩu không chính xác! Vui lòng nhập lại');
+                return res.status(401).json({ message: 'Wrong password' });
             }
         } catch (err) {
-            return res.status(400).json({ message: `Có lỗi trong quá trình đăng nhập : ${err}` });
+            return res.status(500).json({ message: err.message });
         }
     },
 
@@ -115,14 +115,14 @@ const AuthController = {
             const { email } = req.body;
             const user = await User.findOne({ email: email });
             if (!user) {
-                return res.status(404).json('Không tìm thấy người dùng');
+                return res.status(404).json({ message: 'User not found' });
             }
             user.accessToken = '';
             user.refreshTokens = [];
             await User.updateOne({ _id: user._id }, user);
             return res.status(200).json(user);
         } catch (err) {
-            return res.status(400).json({ message: `Có lỗi trong quá trình đăng xuất : ${err}` });
+            return res.status(500).json({ message: err.message });
         }
     },
 };

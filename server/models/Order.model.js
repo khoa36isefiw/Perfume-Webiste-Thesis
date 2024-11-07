@@ -55,6 +55,10 @@ const orderSchema = new Schema(
         address: String,
         phoneNumber: String,
         paymentMethod: String,
+        promotionCode: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Promotion',
+        },
         status: {
             type: String,
             enum: ['PENDING_PAYMENT', 'PAID', 'CANCELLED'],

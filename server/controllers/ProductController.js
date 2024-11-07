@@ -11,7 +11,6 @@ const ProductController = {
             const pipeline = [
                 {
                     $match: {
-                        status: 'active',
                         ...(keyword && {
                             $or: [
                                 { nameEn: { $regex: keyword, $options: 'i' } },
@@ -104,7 +103,7 @@ const ProductController = {
     getByCategoryId: async (req, res) => {
         try {
             const { categoryId } = req.params;
-            const products = await Product.find({ category: categoryId, status: 'active' })
+            const products = await Product.find({ category: categoryId })
                 .populate('variants')
                 .populate('category')
                 .populate('brand');
@@ -117,7 +116,7 @@ const ProductController = {
     getByBrandId: async (req, res) => {
         try {
             const { brandId } = req.params;
-            const products = await Product.find({ brand: brandId, status: 'active' })
+            const products = await Product.find({ brand: brandId })
                 .populate('variants')
                 .populate('category')
                 .populate('brand');

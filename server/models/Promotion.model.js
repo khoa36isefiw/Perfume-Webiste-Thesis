@@ -5,22 +5,32 @@ const promotionSchema = new Schema(
     {
         nameVn: {
             type: String,
-            required: true,
         },
         nameEn: {
             type: String,
-            required: true,
         },
         code: {
             type: String,
             required: true,
         },
         description: String,
-        quantity: Number,
-        discount: Number,
+        quantity: {
+            type: Number,
+            default: 0,
+        },
+        discount: {
+            type: Number,
+            min: 0,
+            max: 100,
+            default: 0,
+        },
         startDate: Date,
         endDate: Date,
-        status: String,
+        status: {
+            type: String,
+            enum: ['active', 'inactive', 'expired'],
+            default: 'active',
+        },
     },
     {
         timestamps: true,

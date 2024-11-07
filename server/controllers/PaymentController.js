@@ -7,6 +7,8 @@ const User = require('../models/User.model');
 const Order = require('../models/Order.model');
 const { getConversionRate } = require('../utils/convertCurrency');
 const { isInStock } = require('../services/VariantService');
+const Promotion = require('../models/Promotion.model');
+const VariantService = require('../services/VariantService');
 
 const PaymentController = {
     getAll: async (req, res) => {
@@ -45,20 +47,30 @@ const PaymentController = {
     },
 
     createOrder: async (req, res) => {
-        const { user, items, method } = req.body;
+        const { user, items, promotionCode, method } = req.body;
         try {
             if (items.length === 0) {
                 return res.status(400).json({ message: 'Cart is empty' });
             }
 
+            const promotion = await Promotion.findOne({ _id: promotionCode });
+            if (!promotion) {
+                return res.status(400).json({ message: 'Promotion code not found' });
+            }
+            if (promotion.quantity > 0) {
+                promotion.quantity -= 1;
+                await promotion.save();
+            } else {
+                return res.status(400).json({ message: 'Promotion out of stock' });
+            }
+
             for (const item of items) {
                 const { product, variant } = item;
-
                 const isMatchProduct = variant.product.toString() === product._id.toString();
                 if (!isMatchProduct) {
                     return res.status(400).json({ message: 'Cart is not match with product' });
                 }
-                const inStock = await isInStock(variant._id);
+                const inStock = await VariantService.isInStock(variant._id);
                 if (!inStock) {
                     return res.status(400).json({ message: 'Out of stock' });
                 }
@@ -84,12 +96,15 @@ const PaymentController = {
                     price: variant.price,
                     priceSale: variant.priceSale,
                     quantity: item.quantity,
+                    promotionCode: promotion._id,
                 });
+
                 const totalPrice =
                     item.quantity * (variant.priceSale ? variant.priceSale : variant.price);
                 newOrder.totalPrice += totalPrice;
             }
 
+            newOrder.totalPrice *= 1 - promotion.discount / 100;
             const savedOrder = await newOrder.save();
 
             // remove item in cart
