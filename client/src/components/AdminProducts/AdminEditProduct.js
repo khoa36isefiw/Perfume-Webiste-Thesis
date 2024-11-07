@@ -3,6 +3,7 @@ import { Avatar, Box, Button, TextField, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { productAPI } from '../../api/productAPI';
 
 const AdminEditProduct = () => {
     const location = useLocation();
@@ -36,7 +37,7 @@ const AdminEditProduct = () => {
     };
 
     // Handle form submission (you can connect this to your API to save the updated data)
-    const handleSave = () => {
+    const handleSave = async () => {
         // Prepare updated product data for submission
         setShowNotification(true);
         setShowAnimation('animate__bounceInRight');
@@ -49,8 +50,15 @@ const AdminEditProduct = () => {
             brand,
             ratings,
         };
+        const productId = productData.productId;
+        const data = {
+            variants: productData.variantId,
+            nameEn: 'Ahihihi',
+        };
 
-        console.log('Updated Product:', updatedProduct);
+        const updateResponse = await productAPI.editProduct(productId, data);
+
+        console.log('Updated Product:', updateResponse);
 
         // Add API call here to save the updated product details
     };

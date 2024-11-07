@@ -90,6 +90,7 @@ export default function ProductTable() {
             image: row?.imagePath[0],
             stock: size.stock,
             ratings: row.rating,
+            variantId: size._id,
         })),
     );
 
