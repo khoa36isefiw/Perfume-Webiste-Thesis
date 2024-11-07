@@ -3,8 +3,13 @@ const Promotion = require('../models/Promotion.model');
 const PromotionController = {
     getAll: async (req, res) => {
         try {
-            const orders = await Promotion.find({ deleted: false }, null, { lean: true });
-            res.status(200).json(orders);
+            const { status } = req.query;
+            if (!status) {
+                const promotions = await Promotion.find();
+                return res.status(200).json(promotions);
+            }
+            const promotions = await Promotion.find({ status: status });
+            res.status(200).json(promotions);
         } catch (error) {
             res.status(404).json({ message: error.message });
         }
@@ -13,21 +18,20 @@ const PromotionController = {
     getById: async (req, res) => {
         try {
             const { id } = req.params;
-            const order = await Promotion.findOne({ _id: id });
-            if (!order) {
+            const promotion = await Promotion.findOne({ _id: id });
+            if (!promotion) {
                 return res.status(404).json({ message: 'Promotion not found' });
             }
-            res.status(200).json(order);
+            res.status(200).json(promotion);
         } catch (error) {
             res.status(404).json({ message: error.message });
         }
     },
 
     create: async (req, res) => {
-        const { userId } = req.body;
         try {
-            const order = await Promotion.create({});
-            res.status(201).json(order);
+            const promotion = await Promotion.create(req.body);
+            res.status(201).json(promotion);
         } catch (error) {
             res.status(404).json({ message: error.message });
         }
@@ -37,8 +41,8 @@ const PromotionController = {
         const { id } = req.params;
         const updateData = req.body;
         try {
-            const order = await Promotion.findOne({ _id: id });
-            if (!order) {
+            const promotion = await Promotion.findOne({ _id: id });
+            if (!promotion) {
                 return res.status(404).json({ message: 'Promotion not found' });
             }
             await Promotion.updateOne({ _id: id }, updateData);
@@ -51,11 +55,11 @@ const PromotionController = {
     delete: async (req, res) => {
         const { id } = req.params;
         try {
-            const order = await Promotion.findOne({ _id: id });
-            if (!order) {
+            const promotion = await Promotion.findOne({ _id: id });
+            if (!promotion) {
                 return res.status(404).json({ message: 'Promotion not found' });
             }
-            await Promotion.updateOne({ _id: id }, { deleted: true });
+            await Promotion.updateOne({ _id: id }, { status: 'inactive' });
             res.status(200).json({ message: 'Promotion deleted successfully' });
         } catch (error) {
             res.status(404).json({ message: error.message });

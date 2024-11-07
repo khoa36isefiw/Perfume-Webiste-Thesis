@@ -1,64 +1,67 @@
 const Brand = require('../models/Brand.model');
 
 const BrandController = {
-    getAll: (req, res) => {
-        Brand.find({})
-            .then((brands) => res.status(200).json(brands))
-            .catch(() => res.status(404).json('Không tìm thấy danh sách danh mục.'));
-    },
-
-    getById: (req, res) => {
-        Brand.findOne({ _id: req.params.id })
-            .then((brand) => {
-                res.status(200).json(brand);
-            })
-            .catch(() => {
-                res.status(404).json('Không tìm thấy danh mục.');
-            });
-    },
-
-    create: (req, res) => {
-        const brand = new Brand(req.body);
+    getAll: async (req, res) => {
         try {
-            brand.save();
-            res.status(201).json(brand);
+            const brands = await Brand.find();
+            res.status(200).json(brands);
         } catch (error) {
-            res.status(500).json('Xảy ra lỗi trong quá trình tạo danh mục.');
+            res.status(500).json({ message: error.message });
         }
     },
 
-    update: (req, res) => {
-        Brand.findOne({ _id: req.params.id })
-            .then((brand) => {
-                brand
-                    .updateOne({ _id: brand._id }, req.body)
-                    .then(() => {
-                        res.status(200).json('Cập nhật danh mục thành công.');
-                    })
-                    .catch((err) => {
-                        res.status(500).json('Có lỗi xảy ra trong quá trình cập nhật danh mục.');
-                    });
-            })
-            .catch(() => {
-                res.status(404).json('Không tìm thấy danh mục.');
-            });
+    getById: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const brand = await Brand.findOne({ _id: id });
+
+            if (!brand) {
+                res.status(404).json({ message: 'Brand not found' });
+            }
+            res.status(200).json(brand);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
     },
 
-    delete: (req, res) => {
-        Brand.findOne({ _id: req.params.id })
-            .then((brand) => {
-                brand
-                    .updateOne({ _id: brand._id }, req.body)
-                    .then(() => {
-                        res.status(204).json('Xóa danh mục thành công.');
-                    })
-                    .catch((err) => {
-                        res.status(500).json('Có lỗi khi xóa danh mục.');
-                    });
-            })
-            .catch(() => {
-                res.status(404).json('Không tìm thấy danh mục.');
-            });
+    create: async (req, res) => {
+        try {
+            const brand = new Brand(req.body);
+            await brand.save();
+            res.status(201).json(brand);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    update: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const updateData = req.body;
+
+            const brand = await Brand.findOne({ _id: id });
+            if (!brand) {
+                res.status(404).json({ message: 'Brand not found' });
+            }
+
+            await brand.updateOne({ _id: id }, updateData);
+            res.status(200).json(brand);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    delete: async (req, res) => {
+        try {
+            const brand = await Brand.findOne({ _id: req.params.id });
+            if (!brand) {
+                res.status(404).json({ message: 'Brand not found' });
+            }
+            await brand.deleteOne({ _id: req.params.id });
+            res.status(200).json({ message: 'Brand deleted successfully' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
     },
 
     destroy: async (req, res) => {
