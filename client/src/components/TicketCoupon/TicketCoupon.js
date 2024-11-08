@@ -4,7 +4,7 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 
 function TicketCoupon() {
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 20`` }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 20 }}>
             <Box sx={{ height: '200px', display: 'flex' }}>
                 {/*  */}
                 <Box

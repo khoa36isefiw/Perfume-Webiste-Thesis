@@ -11,8 +11,15 @@ import {
 import Copyrights from '../Copyrights/Copyrights';
 import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { useNavigate } from 'react-router-dom';
+import { backTop } from '../goBackTop/goBackTop';
 
 function Footer() {
+    const navigate = useNavigate();
+    const handleNavigate = (dest) => {
+        navigate(dest);
+        backTop();
+    };
     return (
         <Box
             sx={{
@@ -163,8 +170,18 @@ function Footer() {
                                 Pages
                             </CustomizeTypography>
                             {pagesFooterData.map((page, index) => (
-                                <CustomizeTypography key={index} sx={{ color: 'white' }}>
-                                    {page}
+                                <CustomizeTypography
+                                    key={index}
+                                    sx={{
+                                        color: 'white',
+                                        '&:hover': {
+                                            cursor: 'pointer',
+                                            textDecoration: 'underline',
+                                        },
+                                    }}
+                                    onClick={() => handleNavigate(page.address)}
+                                >
+                                    {page.text}
                                 </CustomizeTypography>
                             ))}
                         </Grid>
