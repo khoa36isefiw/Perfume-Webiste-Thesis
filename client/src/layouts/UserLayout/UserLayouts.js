@@ -10,6 +10,7 @@ function UserLayouts({ children }) {
         <Box sx={{ minHeight: '100vh', width: '100vw', bgcolor: '#000' }}>
             {/* pre-defined layout */}
             <NewHeader />
+
             {/* any components call this layout */}
             <Box sx={{ mt: 10 }}>{children}</Box>
             <Divider sx={{ p: '2px', bgcolor: theme.palette.text.secondary, my: 10 }} />

@@ -27,6 +27,7 @@ import { backTop } from '../goBackTop/goBackTop';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 import useUserById from '../../api/useUserById';
+import CouponRunning from '../CouponRunning/CouponRunning';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -138,7 +139,7 @@ function NewHeader() {
     return (
         <Box
             sx={{
-                minHeight: '120px',
+                minHeight: '140px',
                 width: '100%',
                 position: 'fixed',
                 backgroundColor: 'black',
@@ -147,6 +148,7 @@ function NewHeader() {
                 right: 0,
                 zIndex: 1000,
                 display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 [tabletScreen]: {
@@ -505,6 +507,7 @@ function NewHeader() {
                     </Box>
                 )}
             </Container>
+            <CouponRunning />
         </Box>
     );
 }
