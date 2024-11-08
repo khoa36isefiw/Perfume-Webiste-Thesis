@@ -17,6 +17,11 @@ export const categoriesAPI = {
         const url = `/categories/${id}/child`;
         return axiosClient.get(url);
     },
+
+    getCategoryById: (id) => {
+        const url = `/categories/${id}`;
+        return axiosClient.get(url);
+    },
 };
 
 //     getAllParentCategory: async () => {

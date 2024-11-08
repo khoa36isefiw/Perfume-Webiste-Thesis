@@ -17,6 +17,9 @@ import { theme } from '../../Theme/Theme';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import useBrand from '../../api/useBrand';
 import useCategory from '../../api/useCategory';
+import { productAPI } from '../../api/productAPI';
+import { categoriesAPI } from '../../api/categoriesAPI';
+import { brandApi } from '../../api/brandApi';
 
 const AdminAddProduct = () => {
     const [image, setImage] = useState(null);
@@ -25,7 +28,7 @@ const AdminAddProduct = () => {
     const [selectedSizes, setSelectedSizes] = useState([]); // Multiple sizes
     const [stock, setStock] = useState('');
     const [brand, setBrand] = useState('');
-    const [category, setCategpry] = useState('');
+    const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
     const [discount, setDiscount] = useState('');
 
@@ -39,10 +42,10 @@ const AdminAddProduct = () => {
     const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
 
     const { data: brands } = useBrand();
-    const brandOptions = brands || [];
+    const brandOptions = brands?.data || [];
 
     const { data: categories } = useCategory();
-    const categoryOptions = categories || [];
+    const categoryOptions = categories?.data || [];
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -60,20 +63,48 @@ const AdminAddProduct = () => {
         return price - price * (discount / 100);
     };
 
-    const handleAddProduct = () => {
-        const newProduct = {
-            image,
-            productName,
-            price: +price,
-            sizes: selectedSizes, // Using selected sizes
-            stock,
-            brand,
-            ratings: 0,
-            discount: calculateDiscountPrice(price, discount),
-            description,
-        };
+    const handleAddProduct = async () => {
+        // nameVn,
+        //     nameEn,
+        //     descriptionVn,
+        //     descriptionEn,
+        //     variants,
+        //     content,
+        //     imagePath,
+        //     category,
+        //     brand,
+        console.log('category: ', category);
+        const getCategoryById = await categoriesAPI.getCategoryById(category);
+        const getBrandById = await brandApi.getBrandById(brand);
 
-        console.log('New Product Data:', newProduct);
+        console.log('getCategoryById: ', getCategoryById);
+        const newProductData = {
+            nameVn: productName,
+            nameEn: productName,
+            variants: [
+                {
+                    size: selectedSizes,
+                    stock: stock,
+                    price: price,
+                    discountPercent: +discount,
+                },
+            ],
+            imagePath: [image],
+            category: {
+                _id: category, //category is an ID
+                nameVn: getCategoryById.nameVn,
+                nameEn: getCategoryById.nameEn,
+                parentId: null,
+            },
+            brand: {
+                _id: brand,
+                nameVn: getBrandById.nameVn,
+                nameEn: getBrandById.nameEn,
+            },
+        };
+        const addProductResponse = await productAPI.createProduct(newProductData);
+        console.log('New Product Data:', newProductData);
+        console.log('addProductResponse: ', addProductResponse);
 
         // successfully added
         setShowNotification(true);
@@ -105,6 +136,10 @@ const AdminAddProduct = () => {
         setTimeout(() => {
             setShowNotification(false);
         }, 1000);
+    };
+
+    const handleCategorySelected = (e) => {
+        setCategory(e.target.value);
     };
 
     return (
@@ -202,7 +237,7 @@ const AdminAddProduct = () => {
                         labelId="category-select-label"
                         value={category}
                         label="Category"
-                        onChange={(e) => setCategpry(e.target.value)}
+                        onChange={handleCategorySelected}
                     >
                         {categoryOptions?.map((category) => (
                             <MenuItem key={category._id} value={category._id}>
@@ -214,6 +249,15 @@ const AdminAddProduct = () => {
             </Box>
 
             <TextField
+                label="Discount"
+                fullWidth
+                type="number"
+                value={discount}
+                onChange={(e) => setDiscount(e.target.value)}
+                sx={{ mb: 2 }}
+            />
+
+            {/* <TextField
                 label="Description"
                 fullWidth
                 multiline
@@ -221,7 +265,7 @@ const AdminAddProduct = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 sx={{ mb: 2 }}
-            />
+            /> */}
 
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <AdminButtonDesign

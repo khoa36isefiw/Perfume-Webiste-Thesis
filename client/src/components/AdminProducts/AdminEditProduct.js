@@ -8,8 +8,7 @@ import { productAPI } from '../../api/productAPI';
 const AdminEditProduct = () => {
     const location = useLocation();
     const { productData, selectedSize } = location.state;
-    console.log('productData: ', productData);
-    console.log('selectedSize: ', selectedSize);
+    console.log('productData.variants[0]?._id: ', productData.variants[0]?._id);
 
     // Set up local state for editable product information
     const [image, setImage] = useState(productData.image);
@@ -18,6 +17,7 @@ const AdminEditProduct = () => {
     const [size, setSize] = useState(selectedSize);
     const [stock, setStock] = useState(productData.stock);
     const [brand, setBrand] = useState(productData.brand);
+    const [discount, setDiscount] = useState(productData.variants[0]?.discountPercent);
     const [ratings, setRatings] = useState(productData.ratings);
 
     const [showNotification, setShowNotification] = useState(false);
@@ -38,36 +38,36 @@ const AdminEditProduct = () => {
 
     // Handle form submission (you can connect this to your API to save the updated data)
     const handleSave = async () => {
-        // Prepare updated product data for submission
         setShowNotification(true);
         setShowAnimation('animate__bounceInRight');
-        const updatedProduct = {
-            ...productData,
-            image: image,
-            productName,
-            size,
-            stock,
-            brand,
-            ratings,
-        };
+
         const productId = productData.productId;
+
+        const discountPercent = Number('discount') || 0; // Convert to Number and default to 0
+        const newPrice = Number(price) || 0; // Convert price to Number with default
+        console.log('type of discountPercent: ', typeof discountPercent);
+        // Log values to check before sending
+        console.log('discountPercent:', discountPercent);
+        console.log('price:', price);
+
         const data = {
             variants: [
                 {
-                    _id: productData.variantId,
-                    size: size,
-                    discountPercent: '12',
+                    _id: productData.variants[0]?._id,
+                    discountPercent: discountPercent, // Ensure discountPercent is a number
+                    size: '27ml',
+                    price: newPrice, // Ensure price is a number
                 },
             ],
             nameEn: productName,
             // brand: brand,
         };
 
+        console.log('product id:', productId);
+        console.log('data:', data);
+
         const updateResponse = await productAPI.editProduct(productId, data);
-
         console.log('Updated Product:', updateResponse);
-
-        // Add API call here to save the updated product details
     };
 
     // handle Close notification
@@ -149,10 +149,19 @@ const AdminEditProduct = () => {
                     sx={{ mb: 2 }}
                 />
 
+                {/* discount percent */}
+                <TextField
+                    label="Discount"
+                    fullWidth
+                    value={discount}
+                    onChange={(e) => setDiscount(e.target.value)}
+                    sx={{ mb: 2 }}
+                />
+
                 {/* admin can't change this value */}
                 <TextField
                     label="Rating"
-                    disable
+                    disabled={true}
                     fullWidth
                     value={ratings}
                     // onChange={(e) => setRatings(e.target.value)}

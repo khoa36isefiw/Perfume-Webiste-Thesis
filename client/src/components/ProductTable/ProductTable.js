@@ -61,7 +61,7 @@ export default function ProductTable() {
             setRows(products?.data);
         }
     }, [products]);
-
+    
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
