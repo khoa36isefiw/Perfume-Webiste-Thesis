@@ -131,8 +131,8 @@ function NewHeader() {
     };
 
     // get the current products in stock from the list, by user id
-    const getListProductInStock = products?.data?.cart.filter(
-        (product) => product.variant.stock > 0,
+    const getListProductInStock = products?.data?.cart?.filter(
+        (product) => product.variant?.stock > 0,
     );
 
     return (
