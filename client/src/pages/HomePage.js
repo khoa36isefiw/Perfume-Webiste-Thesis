@@ -6,15 +6,14 @@ import BestSellingProducts from '../components/BestSellingProducts/BestSellingPr
 import OurCollections from '../components/OurCollections/OurCollections';
 import SaleOff from '../components/SaleOff/SaleOff';
 import LatestArticle from '../components/LatestArticle/LatestArticle';
-import PaymentSuccess from '../components/PaymentSuccess/PaymentSuccess';
-import PaymentFailed from '../components/PaymentSuccess/PaymentFailed';
+
+import TicketCoupon from '../components/TicketCoupon/TicketCoupon';
 
 function HomePage() {
     return (
         <div style={{ overflow: 'hidden' }}>
-            {/* <PaymentSuccess />
-            <PaymentFailed /> */}
             <NewArrivals />
+            <TicketCoupon />
             <WelcomeHomePage />
             <OurValues />
             <BestSellingProducts />
