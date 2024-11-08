@@ -61,9 +61,8 @@ export default function AuthenticatedUser() {
 
             if (logout) {
                 window.localStorage.removeItem('user_data');
-
                 console.log('Logged out successfully');
-                navigate('/sign-in');
+                navigate('/');
             } else {
                 console.error('Logout failed');
             }

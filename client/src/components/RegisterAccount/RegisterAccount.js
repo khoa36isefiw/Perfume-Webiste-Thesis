@@ -33,7 +33,7 @@ function RegisterAccount() {
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
     const phoneRef = useRef(null);
-    const addressRef = useRef(null);
+
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
 
@@ -52,7 +52,7 @@ function RegisterAccount() {
         const firstName = firstNameRef.current.value.trim();
         const lastName = lastNameRef.current.value.trim();
         const phoneNumber = phoneRef.current.value.trim();
-        const address = addressRef.current.value.trim();
+
         const email = emailRef.current.value.trim();
         const password = passwordRef.current.value.trim();
 
@@ -68,7 +68,7 @@ function RegisterAccount() {
         console.log('isPasswordValid: ', isPasswordValid);
         console.log('isPhoneNumberValid: ', isPhoneNumberValid);
 
-        if (firstName && lastName && phoneNumber && address && email && password) {
+        if (firstName && lastName && phoneNumber && email && password) {
             if (
                 isFirstNameValid &&
                 isLastNameValid &&
@@ -81,7 +81,7 @@ function RegisterAccount() {
                     password,
                     firstName,
                     lastName,
-                    address,
+
                     phoneNumber: phoneNumber,
                     imagePath: userImage, // default image
                 };
@@ -270,8 +270,8 @@ function RegisterAccount() {
                             <Grid
                                 item
                                 xs={12}
-                                sm={6}
-                                lg={6}
+                                sm={12}
+                                lg={12}
                                 sx={{
                                     '&.MuiGrid-item': {
                                         pt: 1,
@@ -285,26 +285,6 @@ function RegisterAccount() {
                                     placeholder="Phone Number"
                                     fullWidth
                                     inputRef={phoneRef}
-                                />
-                            </Grid>
-                            <Grid
-                                item
-                                xs={12}
-                                sm={6}
-                                lg={6}
-                                sx={{
-                                    '&.MuiGrid-item': {
-                                        pt: 1,
-                                    },
-                                }}
-                            >
-                                <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
-                                    Address<span style={{ color: '#d14949' }}>*</span> :
-                                </CustomizeTypography>
-                                <TextFieldLogin
-                                    placeholder="Address"
-                                    fullWidth
-                                    inputRef={addressRef}
                                 />
                             </Grid>
                         </Grid>

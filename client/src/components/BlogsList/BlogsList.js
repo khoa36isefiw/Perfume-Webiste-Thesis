@@ -65,7 +65,7 @@ const blogsData = [
 function BlogsList() {
     return (
         <Box sx={{ my: theme.spacingAxis.boxVerticalAxis16 }}>
-            <Container sx={{}}>
+            <Container sx={{ mt: 24 }}>
                 <Grid container spacing={2}>
                     <BlogItem listData={blogsData} />
                 </Grid>

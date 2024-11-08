@@ -37,10 +37,12 @@ import PaymentSuccess from '../components/PaymentSuccess/PaymentSuccess';
 
 import PaymentFailed from '../components/PaymentSuccess/PaymentFailed';
 import { OrderInvoicePDF } from '../components/PDFTemplate/OrderInvoicePDF';
+import TicketCoupon from '../components/TicketCoupon/TicketCoupon';
 
 // not sign into this website
 const publicRoutes = [
     { path: '/', component: HomePage, layout: UserLayouts },
+    { path: '/coupon', component: TicketCoupon, layout: UserLayouts },
     { path: '/about-us', component: AboutUs, layout: UserLayouts },
     { path: '/our-services', component: Services, layout: UserLayouts },
     { path: '/shop', component: Shop, layout: UserLayouts },

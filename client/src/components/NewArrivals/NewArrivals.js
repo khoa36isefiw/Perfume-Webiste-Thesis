@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import NewArrival from '../../assets/images/homepage_new_arrivals.png';
 import { Box, Container, Grid, Modal } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import CustomizeButton from '../CustomizeButton/CustomizeButton';
+import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { fadeInAnimation } from '../AnimationEffects/AnimationEffects';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
@@ -62,7 +62,7 @@ function NewArrivals() {
                                     },
                                 }}
                             >
-                                Shop now and embrace the sweet smell of victory with Local Face.
+                                Shop now and embrace the sweet smell of victory with Tomtoc.
                             </CustomizeTypography>
                         </Box>
                         <Box
@@ -73,13 +73,20 @@ function NewArrivals() {
                                     from: { opacity: 0, transform: 'translateY(20px)' },
                                     to: { opacity: 1, transform: 'translateY(0)' },
                                 },
+                                display: 'flex',
                             }}
                         >
                             <CustomizeButton
                                 textAction={'Shop Now'}
                                 onHandleClick={() => navigate('/shop')}
                             />
-                            <CustomizeButton textAction={'Open Modal'} onHandleClick={handleOpen} />
+
+                            <Box sx={{ mx: 2 }}>
+                                <CustomizeButtonOutlined
+                                    textAction={'Coupons'}
+                                    onHandleClick={() => navigate('/coupon')}
+                                />
+                            </Box>
                         </Box>
                     </Box>
                 </Grid>

@@ -6,15 +6,11 @@ import BestSellingProducts from '../components/BestSellingProducts/BestSellingPr
 import OurCollections from '../components/OurCollections/OurCollections';
 import SaleOff from '../components/SaleOff/SaleOff';
 import LatestArticle from '../components/LatestArticle/LatestArticle';
-import PaymentSuccess from '../components/PaymentSuccess/PaymentSuccess';
-import PaymentFailed from '../components/PaymentSuccess/PaymentFailed';
-
 function HomePage() {
     return (
         <div style={{ overflow: 'hidden' }}>
-            {/* <PaymentSuccess />
-            <PaymentFailed /> */}
             <NewArrivals />
+
             <WelcomeHomePage />
             <OurValues />
             <BestSellingProducts />

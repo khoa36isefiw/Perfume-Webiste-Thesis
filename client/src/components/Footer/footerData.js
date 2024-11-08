@@ -24,4 +24,11 @@ export const customersFooterData = [
     'Survey & feedback',
 ];
 
-export const pagesFooterData = ['Abous Us', 'Shop', 'Contact Us', 'Services', 'Blog'];
+export const pagesFooterData = [
+    { text: 'Home', address: '/' },
+    { text: 'Abous Us', address: '/about-us' },
+    { text: 'Shop', address: '/shop' },
+    { text: 'Services', address: '/our-services' },
+    { text: 'Blog', address: 'blog' },
+    { text: 'Promotions Code', address: '/coupon' },
+];
