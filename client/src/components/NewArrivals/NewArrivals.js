@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import NewArrival from '../../assets/images/homepage_new_arrivals.png';
 import { Box, Container, Grid, Modal } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import CustomizeButton from '../CustomizeButton/CustomizeButton';
+import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { fadeInAnimation } from '../AnimationEffects/AnimationEffects';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
@@ -78,6 +78,11 @@ function NewArrivals() {
                             <CustomizeButton
                                 textAction={'Shop Now'}
                                 onHandleClick={() => navigate('/shop')}
+                            />
+
+                            <CustomizeButtonOutlined
+                                textAction={'Coupon'}
+                                onHandleClick={() => navigate('/coupon')}
                             />
                             <CustomizeButton textAction={'Open Modal'} onHandleClick={handleOpen} />
                         </Box>
