@@ -1,10 +1,26 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
+import { theme } from '../../Theme/Theme';
 
 function TicketCoupon() {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 20 }}>
+            <CustomizeTypography
+                sx={{
+                    fontSize: '32px',
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    fontFamily: 'Libre Barcode',
+                    textAlign: 'start',
+                    zIndex: 2,
+
+                    mb: 2,
+                }}
+            >
+                Tomtoc Promotions Code 🎉
+            </CustomizeTypography>
             <Box sx={{ height: '200px', display: 'flex' }}>
                 {/*  */}
                 <Box
@@ -125,6 +141,33 @@ function TicketCoupon() {
                     >
                         Valid until: 30/11/2024
                     </CustomizeTypography>
+                    <Button
+                        variant="contained"
+                        // disabled={true}
+                        sx={{
+                            p: '4px 24px',
+                            borderRadius: '24px',
+                            color: 'gold',
+                            bgcolor: '#000',
+                            fontSize: '14px',
+                            fontWeight: 'bold',
+                            textTransform: 'initial',
+
+                            borderColor: theme.palette.text.main,
+                            '&:hover': {
+                                cursor: 'pointer',
+                                borderColor: theme.palette.text.main,
+                                bgcolor: '#000',
+                            },
+                            '&.Mui-disabled': {
+                                color: '#ccc',
+                                borderColor: '#ccc',
+                                bgcolor: '#ccc',
+                            },
+                        }}
+                    >
+                        Claim
+                    </Button>
                 </Box>
             </Box>
         </Box>
