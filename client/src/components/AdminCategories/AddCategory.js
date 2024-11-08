@@ -73,6 +73,7 @@ function AddCategory() {
             console.log('selectedCategoryId: ', selectedCategoryId);
             const data = {
                 nameEn: name.value,
+                nameVn: name.value,
                 descriptionEn: description.value,
                 parentId: selectedCategoryId,
             };

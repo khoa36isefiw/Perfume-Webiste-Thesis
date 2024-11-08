@@ -25,9 +25,10 @@ import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
 import { backTop } from '../goBackTop/goBackTop';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-
 import useUserById from '../../api/useUserById';
 import CouponRunning from '../CouponRunning/CouponRunning';
+import VNFlag from '../../assets/images/VN-circle.png';
+import UKFlag from '../../assets/images/UK-circle.png';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -43,16 +44,15 @@ function NewHeader() {
     const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search_query') || null); // prevent lost data when reload the page
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
-
     const [activeHeader, setActiveHeader] = useState('');
     const listSuggestions = suggestions.slice(0, 4); // just show 4 product items to UI
-
     // get product in cart
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
     const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
     const userData = JSON.parse(localStorage.getItem('user_data')) || null;
+    // translate text
+    const [enLanguage, setEnLanguage] = useState(true);
 
     const { data: products, mutate, isLoading, error } = useUserById(userData?.userId);
 
@@ -135,6 +135,16 @@ function NewHeader() {
     const getListProductInStock = products?.data?.cart?.filter(
         (product) => product.variant?.stock > 0,
     );
+
+    // translate text
+    const handleChangeLanguage = (lng) => {
+        const currentPath = window.location.pathname;
+        // const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
+        // console.log('newPath: ', newPath);
+        // navigate(newPath);
+        setEnLanguage(!enLanguage);
+        // i18n.changeLanguage(lng);
+    };
 
     return (
         <Box
@@ -389,6 +399,51 @@ function NewHeader() {
                                     />
                                 </IconButton>
                             </Tooltip>
+                        )}
+                        {!enLanguage ? (
+                            <Box
+                                sx={{
+                                    height: '40px',
+                                    width: '40px',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '50%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer',
+                                }}
+                                onClick={() => handleChangeLanguage('en')}
+                            >
+                                <Box
+                                    sx={{ height: '36px', width: '36px', borderRadius: '50%' }}
+                                    src={UKFlag}
+                                    alt="React Image"
+                                    component={'img'}
+                                />
+                            </Box>
+                        ) : (
+                            <Box
+                                sx={{
+                                    height: '40px',
+                                    width: '40px',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '50%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer',
+                                }}
+                                onClick={() => handleChangeLanguage('vi')}
+                            >
+                                <Box
+                                    sx={{ height: '36px', width: '36px', borderRadius: '50%' }}
+                                    src={VNFlag}
+                                    alt="React Image"
+                                    component={'img'}
+                                />
+                            </Box>
                         )}
                         <Tooltip
                             title={

@@ -17,7 +17,7 @@ const AdminEditProduct = () => {
     const [size, setSize] = useState(selectedSize);
     const [stock, setStock] = useState(productData.stock);
     const [brand, setBrand] = useState(productData.brand);
-    const [discount, setDiscount] = useState(productData.variants[0]?.discountPercent);
+    const [discount, setDiscount] = useState(productData.variants[0]?.priceSale);
     const [ratings, setRatings] = useState(productData.ratings);
 
     const [showNotification, setShowNotification] = useState(false);
@@ -43,18 +43,16 @@ const AdminEditProduct = () => {
 
         const productId = productData.productId;
 
-        const discountPercent = Number('discount') || 0; // Convert to Number and default to 0
         const newPrice = Number(price) || 0; // Convert price to Number with default
         console.log('type of discountPercent: ', typeof discountPercent);
-        // Log values to check before sending
-        console.log('discountPercent:', discountPercent);
+
         console.log('price:', price);
 
         const data = {
             variants: [
                 {
                     _id: productData.variants[0]?._id,
-                    discountPercent: discountPercent, // Ensure discountPercent is a number
+                    priceSale: +discount, // Ensure discountPercent is a number
                     size: '27ml',
                     price: newPrice, // Ensure price is a number
                 },

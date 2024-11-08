@@ -1,7 +1,6 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { theme } from '../../Theme/Theme';
 
 function TicketCoupon() {
