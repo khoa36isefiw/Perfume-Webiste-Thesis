@@ -29,8 +29,9 @@ const AdminAddProduct = () => {
     const [stock, setStock] = useState('');
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');
-    const [description, setDescription] = useState('');
-    const [discount, setDiscount] = useState('');
+
+    const [priceSale, setPriceSale] = useState('');
+    const [sizes, setSizes] = useState([]);
 
     // notifications
     const [showNotification, setShowNotification] = useState(false);
@@ -58,21 +59,12 @@ const AdminAddProduct = () => {
         }
     };
 
-    const calculateDiscountPrice = (price, discount) => {
-        if (discount === 0) return;
-        return price - price * (discount / 100);
+    const calculatepriceSalePrice = (price, priceSale) => {
+        if (priceSale === 0) return;
+        return price - price * (priceSale / 100);
     };
 
     const handleAddProduct = async () => {
-        // nameVn,
-        //     nameEn,
-        //     descriptionVn,
-        //     descriptionEn,
-        //     variants,
-        //     content,
-        //     imagePath,
-        //     category,
-        //     brand,
         console.log('category: ', category);
         const getCategoryById = await categoriesAPI.getCategoryById(category);
         const getBrandById = await brandApi.getBrandById(brand);
@@ -81,15 +73,30 @@ const AdminAddProduct = () => {
         const newProductData = {
             nameVn: productName,
             nameEn: productName,
-            variants: [
-                {
-                    size: selectedSizes,
-                    stock: stock,
-                    price: price,
-                    discountPercent: +discount,
+            variants: sizes.map((size) => ({
+                size: size.size,
+                price: +size.price, // + operator converts string to number
+                priceSale: +size.priceSale,
+                stock: +size.stock,
+                content: {
+                    origin: 'France',
+                    yearOfRelease: '2017',
+                    concentration: 'Extrait de Parfum (EDP)',
+                    fragranceGroup: 'Oriental Floral',
+                    manufacturer: 'Francis Kurkdjian',
+                    shortContent:
+                        'Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.',
+                    topNotes: 'Nghệ tây, Hạnh nhân đắng',
+                    heartNotes: 'Hoa nhài Ai Cập, Gỗ tuyết tùng',
+                    baseNotes: "Hương gỗ, 'Hổ phách, Xạ hương",
+                    mainContent:
+                        'Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.',
+                    longevity: 5,
+                    sillage: 5,
+                    likability: 4,
                 },
-            ],
-            imagePath: [image],
+            })),
+            // imagePath: [image],
             category: {
                 _id: category, //category is an ID
                 nameVn: getCategoryById.nameVn,
@@ -128,7 +135,22 @@ const AdminAddProduct = () => {
     };
 
     const handleSizeChange = (e) => {
-        setSelectedSizes(e.target.value);
+        const selectedSize = e.target.value; // get size _id
+        // add information with their size
+        const newSize = selectedSize.map((size) => ({
+            size, // get size
+            price: '', // reset value for new size
+            priceSale: '',
+            stock: '',
+        }));
+        setSizes(newSize);
+    };
+
+    const handleSizeDetailChange = (index, field, value) => {
+        console.log('field: ', field);
+        setSizes((prevSize) =>
+            prevSize.map((size, i) => (i === index ? { ...size, [field]: value } : size)),
+        );
     };
 
     const handleCloseNotification = () => {
@@ -181,7 +203,8 @@ const AdminAddProduct = () => {
                     <InputLabel id="size-select-label">Size</InputLabel>
                     <Select
                         labelId="size-select-label"
-                        value={selectedSizes}
+                        multiple
+                        value={sizes.map((size) => size.size)}
                         label="Brand"
                         onChange={handleSizeChange}
                     >
@@ -194,25 +217,45 @@ const AdminAddProduct = () => {
                 </FormControl>
             </Box>
 
-            <Box sx={{ display: 'flex', gap: 4 }}>
-                <TextField
-                    label="Price"
-                    fullWidth
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
+            {sizes.map((size, index) => (
+                <Box key={size.size}>
+                    <Typography variant="body1" sx={{ fontSize: '16px' }}>
+                        Size Selected: {size.size}
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 4 }}>
+                        <TextField
+                            label="Price"
+                            fullWidth
+                            type="number"
+                            value={size.price}
+                            // onChange={(e) => setPrice(e.target.value)}
+                            onChange={(e) => handleSizeDetailChange(index, 'price', e.target.value)}
+                            sx={{ mb: 2 }}
+                        />
+                        <TextField
+                            label="Price Sale"
+                            fullWidth
+                            type="number"
+                            value={size.priceSale}
+                            // onChange={(e) => setPriceSale(e.target.value)}
+                            onChange={(e) =>
+                                handleSizeDetailChange(index, 'priceSale', e.target.value)
+                            }
+                            sx={{ mb: 2 }}
+                        />
 
-                <TextField
-                    label="Stock"
-                    fullWidth
-                    type="number"
-                    value={stock}
-                    onChange={(e) => setStock(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-            </Box>
+                        <TextField
+                            label="Stock"
+                            fullWidth
+                            type="number"
+                            value={size.stock}
+                            // onChange={(e) => setStock(e.target.value)}
+                            onChange={(e) => handleSizeDetailChange(index, 'stock', e.target.value)}
+                            sx={{ mb: 2 }}
+                        />
+                    </Box>
+                </Box>
+            ))}
 
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <FormControl fullWidth sx={{ mb: 2 }}>
@@ -247,15 +290,6 @@ const AdminAddProduct = () => {
                     </Select>
                 </FormControl>
             </Box>
-
-            <TextField
-                label="Discount"
-                fullWidth
-                type="number"
-                value={discount}
-                onChange={(e) => setDiscount(e.target.value)}
-                sx={{ mb: 2 }}
-            />
 
             {/* <TextField
                 label="Description"
