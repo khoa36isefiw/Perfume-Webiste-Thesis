@@ -62,7 +62,7 @@ function NewArrivals() {
                                     },
                                 }}
                             >
-                                Shop now and embrace the sweet smell of victory with Local Face.
+                                Shop now and embrace the sweet smell of victory with Tomtoc.
                             </CustomizeTypography>
                         </Box>
                         <Box
@@ -73,6 +73,7 @@ function NewArrivals() {
                                     from: { opacity: 0, transform: 'translateY(20px)' },
                                     to: { opacity: 1, transform: 'translateY(0)' },
                                 },
+                                display: 'flex',
                             }}
                         >
                             <CustomizeButton
@@ -80,11 +81,12 @@ function NewArrivals() {
                                 onHandleClick={() => navigate('/shop')}
                             />
 
-                            <CustomizeButtonOutlined
-                                textAction={'Coupon'}
-                                onHandleClick={() => navigate('/coupon')}
-                            />
-                            <CustomizeButton textAction={'Open Modal'} onHandleClick={handleOpen} />
+                            <Box sx={{ mx: 2 }}>
+                                <CustomizeButtonOutlined
+                                    textAction={'Coupons'}
+                                    onHandleClick={() => navigate('/coupon')}
+                                />
+                            </Box>
                         </Box>
                     </Box>
                 </Grid>

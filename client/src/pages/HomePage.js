@@ -6,14 +6,11 @@ import BestSellingProducts from '../components/BestSellingProducts/BestSellingPr
 import OurCollections from '../components/OurCollections/OurCollections';
 import SaleOff from '../components/SaleOff/SaleOff';
 import LatestArticle from '../components/LatestArticle/LatestArticle';
-
-import TicketCoupon from '../components/TicketCoupon/TicketCoupon';
-
 function HomePage() {
     return (
         <div style={{ overflow: 'hidden' }}>
             <NewArrivals />
-            <TicketCoupon />
+
             <WelcomeHomePage />
             <OurValues />
             <BestSellingProducts />

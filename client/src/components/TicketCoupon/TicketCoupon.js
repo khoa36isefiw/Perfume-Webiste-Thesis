@@ -80,7 +80,7 @@ function TicketCoupon() {
                             top: '50%',
                             right: '0%',
                             transform: 'translate(0%, -50%)',
-                            bgcolor: 'green',
+                            bgcolor: '#000',
                             backgroundImage:
                                 'radial-gradient(circle at 100% 50%,transparent 20px,gold 15px)',
                         },
