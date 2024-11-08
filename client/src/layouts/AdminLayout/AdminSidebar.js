@@ -9,6 +9,7 @@ import Inventory2Icon from '@mui/icons-material/Inventory2';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PercentIcon from '@mui/icons-material/Percent';
 import CategoryIcon from '@mui/icons-material/Category';
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { backTop } from '../../components/goBackTop/goBackTop';
 
@@ -25,24 +26,31 @@ const sidebarData = [
         sidebarAddress: '/admin/manage-users',
     },
     {
-        sidebarText: 'Category',
-        sidebarIcon: <CategoryIcon />,
-        sidebarAddress: '/admin/manage-categories',
-    },
-    {
         sidebarText: 'Products',
         sidebarIcon: <Inventory2Icon />,
         sidebarAddress: '/admin/manage-products',
     },
     {
-        sidebarText: 'Orders',
-        sidebarIcon: <LocalShippingIcon />,
-        sidebarAddress: '/admin/manage-orders',
-    },
-    {
         sidebarText: 'Coupons',
         sidebarIcon: <PercentIcon />,
         sidebarAddress: '/admin/manage-coupons',
+    },
+    {
+        sidebarText: 'Brand',
+        sidebarIcon: <LoyaltyIcon />,
+        sidebarAddress: '/admin/manage-brands',
+    },
+
+    {
+        sidebarText: 'Category',
+        sidebarIcon: <CategoryIcon />,
+        sidebarAddress: '/admin/manage-categories',
+    },
+
+    {
+        sidebarText: 'Orders',
+        sidebarIcon: <LocalShippingIcon />,
+        sidebarAddress: '/admin/manage-orders',
     },
 ];
 
