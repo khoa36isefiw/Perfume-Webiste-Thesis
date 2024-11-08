@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react';
+import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
 function TicketCoupon() {
     return (
@@ -9,10 +10,15 @@ function TicketCoupon() {
                 <Box
                     sx={{
                         height: '100%',
-                        width: '100px',
+                        width: '140px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         bgcolor: 'gold',
                         borderRadius: 2,
                         position: 'relative',
+                        borderRight: '3px dashed #ccc',
                         '&::before': {
                             content: '""',
                             position: 'absolute',
@@ -21,19 +27,51 @@ function TicketCoupon() {
                             top: '50%',
                             left: '0%',
                             transform: 'translate(0%, -50%)',
-                            bgcolor: 'green',
+                            bgcolor: '#000',
                             backgroundImage:
-                                'radial-gradient(circle at 0 50%,transparent 25px,gold 26px)',
+                                'radial-gradient(circle at 0 50%,transparent 20px,gold 15px)',
                         },
                     }}
-                ></Box>
+                >
+                    <CustomizeTypography
+                        sx={{
+                            fontSize: '20px',
+                            color: '#000',
+                            fontWeight: 'bold',
+                            fontFamily: 'Libre Barcode',
+                            textAlign: 'center',
+                            zIndex: 2,
+
+                            mb: 2,
+                        }}
+                    >
+                        Tomtoc
+                    </CustomizeTypography>
+                    <CustomizeTypography
+                        sx={{
+                            fontSize: '18px',
+                            color: '#000',
+                            textAlign: 'center',
+                            zIndex: 2,
+                            fontWeight: 'bold',
+                            fontFamily: 'Libre Barcode',
+                        }}
+                    >
+                        Summer
+                    </CustomizeTypography>
+                </Box>
                 <Box
                     sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         height: '100%',
                         width: '400px',
                         bgcolor: 'gold',
                         borderRadius: 2,
                         position: 'relative',
+                        borderleft: '3px dashed #ccc',
                         '&::after': {
                             content: '""',
                             position: 'absolute',
@@ -44,10 +82,50 @@ function TicketCoupon() {
                             transform: 'translate(0%, -50%)',
                             bgcolor: 'green',
                             backgroundImage:
-                                'radial-gradient(circle at 100% 50%,transparent 25px,gold 26px)',
+                                'radial-gradient(circle at 100% 50%,transparent 20px,gold 15px)',
                         },
                     }}
-                ></Box>
+                >
+                    {/* Discription */}
+                    <CustomizeTypography
+                        sx={{
+                            fontSize: '20px',
+                            color: '#000',
+                            textAlign: 'center',
+                            zIndex: 2,
+                            fontFamily: 'Libre Barcode',
+                        }}
+                    >
+                        Summer discount 10% off.
+                    </CustomizeTypography>
+                    {/* Code */}
+
+                    <CustomizeTypography
+                        sx={{
+                            fontSize: '32px',
+                            textAlign: 'center',
+                            padding: '0 14px',
+                            zIndex: 2,
+                            color: 'gold',
+                            fontFamily: 'Libre Barcode',
+                            bgcolor: '#000',
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        Summer2020
+                    </CustomizeTypography>
+                    <CustomizeTypography
+                        sx={{
+                            fontSize: '18px',
+                            color: '#000',
+                            textAlign: 'center',
+                            zIndex: 2,
+                            fontFamily: 'Libre Barcode',
+                        }}
+                    >
+                        Valid until: 30/11/2024
+                    </CustomizeTypography>
+                </Box>
             </Box>
         </Box>
     );
