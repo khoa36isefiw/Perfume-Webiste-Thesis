@@ -46,7 +46,7 @@ function NewHeader() {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
 
-    const [activeHeader, setActiveHeader] = useState('Home');
+    const [activeHeader, setActiveHeader] = useState('');
     const listSuggestions = suggestions.slice(0, 4); // just show 4 product items to UI
 
     // get product in cart
@@ -72,7 +72,7 @@ function NewHeader() {
         const currentPath = location.pathname; // get the current location path
         // check, if the current Path is the same as header.header Link
         const currentHeader = headerData.find((header) => header.headerLink === currentPath);
-        setActiveHeader(currentHeader ? currentHeader.headerText : 'Home');
+        setActiveHeader(currentHeader ? currentHeader.headerText : '');
     }, [location.pathname]);
 
     const handleHeaderClick = (header) => {
