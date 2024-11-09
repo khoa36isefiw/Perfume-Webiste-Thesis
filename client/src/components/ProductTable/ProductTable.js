@@ -25,10 +25,13 @@ import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { theme } from '../../Theme/Theme';
 import CategoryIcon from '@mui/icons-material/Category';
-import productData from '../../data/admin/products.json';
+
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import useProduct from '../../api/useProduct';
 import { converToVND } from '../convertToVND/convertToVND';
+import { ModalDesginV2 } from '../Modal/ModalDesgin';
+import Loading from '../Loading/Loading';
+import useLoading from '../../hooks/useLoading';
 
 const columns = [
     { id: 'image', label: 'Image' },
@@ -46,6 +49,7 @@ const columns = [
 export default function ProductTable() {
     const navigate = useNavigate();
     const { data: products, isLoading } = useProduct();
+    const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [rows, setRows] = useState([]); // Dynamic user data
@@ -56,12 +60,11 @@ export default function ProductTable() {
     const [productToRemove, setProductToRemove] = useState(null);
 
     useEffect(() => {
-        const i = 0;
         if (products && products?.data) {
             setRows(products?.data);
         }
     }, [products]);
-    
+
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -183,216 +186,253 @@ export default function ProductTable() {
     };
 
     return (
-        <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
-            {/* Search Bar */}
-            <AdminHeadingTypography>List Products</AdminHeadingTypography>
-            <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
-                We can <strong>Search product</strong> by Name or Brand
-            </AdminTypography>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <TextField
-                    placeholder="Search by Name"
-                    variant="outlined"
-                    sx={{ marginBottom: 2, width: 750 }}
-                    onChange={handleSearch}
-                    value={searchTerm}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                        marginBottom: 2,
-                        padding: '10px 18px',
-                        borderRadius: 3,
-                        bgcolor: theme.palette.admin.bgColor,
-                        textTransform: 'initial',
-                        fontSize: '14px',
-                        '&:hover': {
-                            bgcolor: theme.palette.admin.bgColor,
-                        },
-                    }}
-                    startIcon={<CategoryIcon />}
-                    onClick={() => navigate('/admin/manage-products/add-product')}
+        <React.Fragment>
+            {isLoading ? (
+                <ModalDesginV2
+                    open={open}
+                    onHandleClose={handleClose}
+                    animateStyle={animateStyle}
+                    setAnimateStyle={setAnimateStyle}
                 >
-                    Add Product
-                </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                        marginBottom: 2,
-                        padding: '10px 18px',
-                        borderRadius: 3,
-                        textTransform: 'initial',
-                        fontSize: '14px',
-                    }}
-                    startIcon={<FileDownloadIcon />}
-                >
-                    Export
-                </Button>
-            </Box>
-            <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
-                <TableContainer sx={{ maxHeight: 440 }}>
-                    <Table stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                {columns.map((column) => (
-                                    <TableCell
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{ minWidth: column.minWidth }}
-                                        sx={{ bgcolor: blue[200], fontSize: '13px' }}
-                                    >
-                                        {column.label}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {filteredRows
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <TableCell
-                                                    key={column.id}
-                                                    align={column.align}
-                                                    sx={{ fontSize: '13px' }}
-                                                >
-                                                    {/* Render avatar if the column is 'avatar', otherwise display text */}
-                                                    {column.id === 'image' ? (
-                                                        <Avatar
-                                                            alt={row.name}
-                                                            src={row.image}
-                                                            sx={{ height: '56px', width: '56px' }}
-                                                        />
-                                                    ) : column.id === 'actions' ? (
-                                                        // Render Edit and Delete buttons in the 'actions' column
-                                                        <>
-                                                            <Tooltip
-                                                                title={
-                                                                    <CustomizeTypography
-                                                                        sx={{
-                                                                            fontSize: '13px',
-                                                                            mb: 0,
-                                                                        }}
-                                                                    >
-                                                                        Edit Users
-                                                                    </CustomizeTypography>
-                                                                }
-                                                            >
-                                                                <IconButton
-                                                                    onClick={() =>
-                                                                        handleEdit(
-                                                                            row.productId,
-                                                                            row.size,
-                                                                        )
-                                                                    }
-                                                                    color="primary"
-                                                                >
-                                                                    <EditIcon
-                                                                        sx={{ fontSize: '22px' }}
-                                                                    />
-                                                                </IconButton>
-                                                            </Tooltip>
-                                                            <Tooltip
-                                                                title={
-                                                                    <CustomizeTypography
-                                                                        sx={{
-                                                                            fontSize: '13px',
-                                                                            mb: 0,
-                                                                        }}
-                                                                    >
-                                                                        Delete Users
-                                                                    </CustomizeTypography>
-                                                                }
-                                                            >
-                                                                <IconButton
-                                                                    onClick={() =>
-                                                                        handleDeleteProduct(
-                                                                            row.productId,
-                                                                            row.size,
-                                                                        )
-                                                                    }
-                                                                    color="secondary"
-                                                                >
-                                                                    <DeleteIcon
-                                                                        sx={{ fontSize: '22px' }}
-                                                                    />
-                                                                </IconButton>
-                                                            </Tooltip>
-                                                        </>
-                                                    ) : column.id === 'price' ? (
-                                                        <Typography sx={{ fontSize: '13px' }}>
-                                                            {converToVND(row.price)}
-                                                        </Typography>
-                                                    ) : column.format &&
-                                                      typeof value === 'object' ? (
-                                                        column.format(value)
-                                                    ) : (
-                                                        value
-                                                    )}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
-                    component="div"
-                    count={filteredRows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </Box>
-            {/* Open Confirm Message */}
-            <ConfirmMessage
-                openConfirmMessage={openConfirmMessage}
-                msgTitle={
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <WarningIcon
-                            sx={{
-                                color: theme.icon.color.primary,
-                                fontSize: theme.icon.size.desktop,
+                    <Loading />
+                </ModalDesginV2>
+            ) : (
+                <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
+                    {/* Search Bar */}
+                    <AdminHeadingTypography>List Products</AdminHeadingTypography>
+                    <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
+                        We can <strong>Search product</strong> by Name or Brand
+                    </AdminTypography>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                        }}
+                    >
+                        <TextField
+                            placeholder="Search by Name"
+                            variant="outlined"
+                            sx={{ marginBottom: 2, width: 750 }}
+                            onChange={handleSearch}
+                            value={searchTerm}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <Search />
+                                    </InputAdornment>
+                                ),
                             }}
                         />
-                        <CustomizeTypography
+
+                        <Button
+                            variant="contained"
+                            color="primary"
                             sx={{
-                                color: theme.palette.text.main,
-                                fontSize: '18px',
-                                mb: 0,
-                                ml: 2,
-                                fontWeight: 'bold',
+                                marginBottom: 2,
+                                padding: '10px 18px',
+                                borderRadius: 3,
+                                bgcolor: theme.palette.admin.bgColor,
+                                textTransform: 'initial',
+                                fontSize: '14px',
+                                '&:hover': {
+                                    bgcolor: theme.palette.admin.bgColor,
+                                },
                             }}
+                            startIcon={<CategoryIcon />}
+                            onClick={() => navigate('/admin/manage-products/add-product')}
                         >
-                            Delete Products
-                        </CustomizeTypography>
+                            Add Product
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            sx={{
+                                marginBottom: 2,
+                                padding: '10px 18px',
+                                borderRadius: 3,
+                                textTransform: 'initial',
+                                fontSize: '14px',
+                            }}
+                            startIcon={<FileDownloadIcon />}
+                        >
+                            Export
+                        </Button>
                     </Box>
-                }
-                msgContent={
-                    <Typography sx={{ fontSize: '16px' }}>
-                        Are you sure you want to delete this product?
-                    </Typography>
-                }
-                onHandleClickClose={() => setOpenConfirmMessage(false)}
-                onHandleConfirmAgree={handleConfirmAgree}
-                onHandleConfirmDisagree={handleConfirmDisagree}
-            />
-        </Box>
+                    <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
+                        <TableContainer sx={{ maxHeight: 440 }}>
+                            <Table stickyHeader aria-label="sticky table">
+                                <TableHead>
+                                    <TableRow>
+                                        {columns.map((column) => (
+                                            <TableCell
+                                                key={column.id}
+                                                align={column.align}
+                                                style={{ minWidth: column.minWidth }}
+                                                sx={{ bgcolor: blue[200], fontSize: '13px' }}
+                                            >
+                                                {column.label}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {filteredRows
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        .map((row) => (
+                                            <TableRow
+                                                hover
+                                                role="checkbox"
+                                                tabIndex={-1}
+                                                key={row.id}
+                                            >
+                                                {columns.map((column) => {
+                                                    const value = row[column.id];
+                                                    return (
+                                                        <TableCell
+                                                            key={column.id}
+                                                            align={column.align}
+                                                            sx={{ fontSize: '13px' }}
+                                                        >
+                                                            {/* Render avatar if the column is 'avatar', otherwise display text */}
+                                                            {column.id === 'image' ? (
+                                                                <Avatar
+                                                                    alt={row.name}
+                                                                    src={row.image}
+                                                                    sx={{
+                                                                        height: '56px',
+                                                                        width: '56px',
+                                                                    }}
+                                                                />
+                                                            ) : column.id === 'actions' ? (
+                                                                // Render Edit and Delete buttons in the 'actions' column
+                                                                <>
+                                                                    <Tooltip
+                                                                        title={
+                                                                            <CustomizeTypography
+                                                                                sx={{
+                                                                                    fontSize:
+                                                                                        '13px',
+                                                                                    mb: 0,
+                                                                                }}
+                                                                            >
+                                                                                Edit Users
+                                                                            </CustomizeTypography>
+                                                                        }
+                                                                    >
+                                                                        <IconButton
+                                                                            onClick={() =>
+                                                                                handleEdit(
+                                                                                    row.productId,
+                                                                                    row.size,
+                                                                                )
+                                                                            }
+                                                                            color="primary"
+                                                                        >
+                                                                            <EditIcon
+                                                                                sx={{
+                                                                                    fontSize:
+                                                                                        '22px',
+                                                                                }}
+                                                                            />
+                                                                        </IconButton>
+                                                                    </Tooltip>
+                                                                    <Tooltip
+                                                                        title={
+                                                                            <CustomizeTypography
+                                                                                sx={{
+                                                                                    fontSize:
+                                                                                        '13px',
+                                                                                    mb: 0,
+                                                                                }}
+                                                                            >
+                                                                                Delete Users
+                                                                            </CustomizeTypography>
+                                                                        }
+                                                                    >
+                                                                        <IconButton
+                                                                            onClick={() =>
+                                                                                handleDeleteProduct(
+                                                                                    row.productId,
+                                                                                    row.size,
+                                                                                )
+                                                                            }
+                                                                            color="secondary"
+                                                                        >
+                                                                            <DeleteIcon
+                                                                                sx={{
+                                                                                    fontSize:
+                                                                                        '22px',
+                                                                                }}
+                                                                            />
+                                                                        </IconButton>
+                                                                    </Tooltip>
+                                                                </>
+                                                            ) : column.id === 'price' ? (
+                                                                <Typography
+                                                                    sx={{ fontSize: '13px' }}
+                                                                >
+                                                                    {converToVND(row.price)}
+                                                                </Typography>
+                                                            ) : column.format &&
+                                                              typeof value === 'object' ? (
+                                                                column.format(value)
+                                                            ) : (
+                                                                value
+                                                            )}
+                                                        </TableCell>
+                                                    );
+                                                })}
+                                            </TableRow>
+                                        ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <TablePagination
+                            rowsPerPageOptions={[10, 25, 100]}
+                            component="div"
+                            count={filteredRows.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                    </Box>
+                    {/* Open Confirm Message */}
+                    <ConfirmMessage
+                        openConfirmMessage={openConfirmMessage}
+                        msgTitle={
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <WarningIcon
+                                    sx={{
+                                        color: theme.icon.color.primary,
+                                        fontSize: theme.icon.size.desktop,
+                                    }}
+                                />
+                                <CustomizeTypography
+                                    sx={{
+                                        color: theme.palette.text.main,
+                                        fontSize: '18px',
+                                        mb: 0,
+                                        ml: 2,
+                                        fontWeight: 'bold',
+                                    }}
+                                >
+                                    Delete Products
+                                </CustomizeTypography>
+                            </Box>
+                        }
+                        msgContent={
+                            <Typography sx={{ fontSize: '16px' }}>
+                                Are you sure you want to delete this product?
+                            </Typography>
+                        }
+                        onHandleClickClose={() => setOpenConfirmMessage(false)}
+                        onHandleConfirmAgree={handleConfirmAgree}
+                        onHandleConfirmDisagree={handleConfirmDisagree}
+                    />
+                </Box>
+            )}
+        </React.Fragment>
     );
 }
