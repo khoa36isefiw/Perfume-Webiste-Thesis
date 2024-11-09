@@ -25,13 +25,14 @@ const AdminAddProduct = () => {
     const [image, setImage] = useState(null);
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState('');
-    const [selectedSizes, setSelectedSizes] = useState([]); // Multiple sizes
+
     const [stock, setStock] = useState('');
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');
 
     const [priceSale, setPriceSale] = useState('');
     const [sizes, setSizes] = useState([]);
+    const [selectedSizes, setSelectedSizes] = useState([]);
 
     // notifications
     const [showNotification, setShowNotification] = useState(false);
@@ -73,28 +74,11 @@ const AdminAddProduct = () => {
         const newProductData = {
             nameVn: productName,
             nameEn: productName,
-            variants: sizes.map((size) => ({
+            variants: selectedSizes.map((size) => ({
                 size: size.size,
                 price: +size.price, // + operator converts string to number
                 priceSale: +size.priceSale,
                 stock: +size.stock,
-                content: {
-                    origin: 'France',
-                    yearOfRelease: '2017',
-                    concentration: 'Extrait de Parfum (EDP)',
-                    fragranceGroup: 'Oriental Floral',
-                    manufacturer: 'Francis Kurkdjian',
-                    shortContent:
-                        'Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.',
-                    topNotes: 'Nghệ tây, Hạnh nhân đắng',
-                    heartNotes: 'Hoa nhài Ai Cập, Gỗ tuyết tùng',
-                    baseNotes: "Hương gỗ, 'Hổ phách, Xạ hương",
-                    mainContent:
-                        'Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.',
-                    longevity: 5,
-                    sillage: 5,
-                    likability: 4,
-                },
             })),
             // imagePath: [image],
             category: {
@@ -107,6 +91,23 @@ const AdminAddProduct = () => {
                 _id: brand,
                 nameVn: getBrandById.nameVn,
                 nameEn: getBrandById.nameEn,
+            },
+            content: {
+                origin: 'France',
+                yearOfRelease: '2017',
+                concentration: 'Extrait de Parfum (EDP)',
+                fragranceGroup: 'Oriental Floral',
+                manufacturer: 'Francis Kurkdjian',
+                shortContent:
+                    'Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.',
+                topNotes: 'Nghệ tây, Hạnh nhân đắng',
+                heartNotes: 'Hoa nhài Ai Cập, Gỗ tuyết tùng',
+                baseNotes: "Hương gỗ, 'Hổ phách, Xạ hương",
+                mainContent:
+                    'Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.',
+                longevity: 5,
+                sillage: 5,
+                likability: 4,
             },
         };
         const addProductResponse = await productAPI.createProduct(newProductData);
@@ -135,22 +136,23 @@ const AdminAddProduct = () => {
     };
 
     const handleSizeChange = (e) => {
-        const selectedSize = e.target.value; // get size _id
-        // add information with their size
-        const newSize = selectedSize.map((size) => ({
-            size, // get size
-            price: '', // reset value for new size
-            priceSale: '',
-            stock: '',
-        }));
-        setSizes(newSize);
+        const newSize = e.target.value;
+        // Kiểm tra nếu size chưa tồn tại trong danh sách selectedSizes thì thêm mới
+        if (!selectedSizes.find((size) => size.size === newSize)) {
+            setSelectedSizes((prevSizes) => [
+                ...prevSizes,
+                { size: newSize, price: '', priceSale: '', stock: '' },
+            ]);
+        }
     };
 
-    const handleSizeDetailChange = (index, field, value) => {
-        console.log('field: ', field);
-        setSizes((prevSize) =>
-            prevSize.map((size, i) => (i === index ? { ...size, [field]: value } : size)),
-        );
+    const handleSizeFieldChange = (index, field) => (e) => {
+        const newValue = e.target.value;
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            updatedSizes[index] = { ...updatedSizes[index], [field]: newValue };
+            return updatedSizes;
+        });
     };
 
     const handleCloseNotification = () => {
@@ -173,8 +175,8 @@ const AdminAddProduct = () => {
 
             <Avatar
                 alt="Product Image"
-                src={image || 'https://via.placeholder.com/256'}
-                sx={{ width: 256, height: 256, marginBottom: 2, borderRadius: 0 }}
+                src={image || 'https://via.placeholder.com/128'}
+                sx={{ width: 128, height: 128, marginBottom: 2, borderRadius: 0 }}
             />
             <Button
                 variant="outlined"
@@ -203,12 +205,11 @@ const AdminAddProduct = () => {
                     <InputLabel id="size-select-label">Size</InputLabel>
                     <Select
                         labelId="size-select-label"
-                        multiple
-                        value={sizes.map((size) => size.size)}
-                        label="Brand"
+                        value={selectedSizes.map((size) => size.size)}
+                        label="Size"
                         onChange={handleSizeChange}
                     >
-                        {sizeOptions?.map((size) => (
+                        {sizeOptions.map((size) => (
                             <MenuItem key={size} value={size}>
                                 {size}
                             </MenuItem>
@@ -217,9 +218,9 @@ const AdminAddProduct = () => {
                 </FormControl>
             </Box>
 
-            {sizes.map((size, index) => (
-                <Box key={size.size}>
-                    <Typography variant="body1" sx={{ fontSize: '16px' }}>
+            {selectedSizes.map((size, index) => (
+                <Box key={size.size} sx={{ mb: 3 }}>
+                    <Typography variant="body1" sx={{ fontSize: '16px', fontWeight: 'bold' }}>
                         Size Selected: {size.size}
                     </Typography>
                     <Box sx={{ display: 'flex', gap: 4 }}>
@@ -228,8 +229,7 @@ const AdminAddProduct = () => {
                             fullWidth
                             type="number"
                             value={size.price}
-                            // onChange={(e) => setPrice(e.target.value)}
-                            onChange={(e) => handleSizeDetailChange(index, 'price', e.target.value)}
+                            onChange={handleSizeFieldChange(index, 'price')}
                             sx={{ mb: 2 }}
                         />
                         <TextField
@@ -237,20 +237,15 @@ const AdminAddProduct = () => {
                             fullWidth
                             type="number"
                             value={size.priceSale}
-                            // onChange={(e) => setPriceSale(e.target.value)}
-                            onChange={(e) =>
-                                handleSizeDetailChange(index, 'priceSale', e.target.value)
-                            }
+                            onChange={handleSizeFieldChange(index, 'priceSale')}
                             sx={{ mb: 2 }}
                         />
-
                         <TextField
                             label="Stock"
                             fullWidth
                             type="number"
                             value={size.stock}
-                            // onChange={(e) => setStock(e.target.value)}
-                            onChange={(e) => handleSizeDetailChange(index, 'stock', e.target.value)}
+                            onChange={handleSizeFieldChange(index, 'stock')}
                             sx={{ mb: 2 }}
                         />
                     </Box>
@@ -266,7 +261,7 @@ const AdminAddProduct = () => {
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)}
                     >
-                        {brandOptions?.map((brand) => (
+                        {brandOptions.map((brand) => (
                             <MenuItem key={brand._id} value={brand._id}>
                                 {brand.nameEn}
                             </MenuItem>
@@ -280,9 +275,9 @@ const AdminAddProduct = () => {
                         labelId="category-select-label"
                         value={category}
                         label="Category"
-                        onChange={handleCategorySelected}
+                        onChange={(e) => setCategory(e.target.value)}
                     >
-                        {categoryOptions?.map((category) => (
+                        {categoryOptions.map((category) => (
                             <MenuItem key={category._id} value={category._id}>
                                 {category.nameEn}
                             </MenuItem>
@@ -290,16 +285,6 @@ const AdminAddProduct = () => {
                     </Select>
                 </FormControl>
             </Box>
-
-            {/* <TextField
-                label="Description"
-                fullWidth
-                multiline
-                rows={4}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                sx={{ mb: 2 }}
-            /> */}
 
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <AdminButtonDesign
@@ -309,7 +294,6 @@ const AdminAddProduct = () => {
                     type={'contained'}
                     textColor={'white'}
                 />
-
                 <AdminButtonDesign
                     title={'Cancel'}
                     onHandleClick={handleAddProduct}
@@ -318,20 +302,6 @@ const AdminAddProduct = () => {
                     borderColor={theme.palette.admin.bgColor}
                 />
             </Box>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Box>
     );
 };

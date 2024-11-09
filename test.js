@@ -1,342 +1,267 @@
-import React, { useRef } from 'react';
-import { Box, Button, Tooltip, Typography, Avatar, Divider } from '@mui/material';
+const AdminAddProduct = () => {
+    const [image, setImage] = useState(null);
+    const [productName, setProductName] = useState('');
+    const [price, setPrice] = useState('');
 
-import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+    const [stock, setStock] = useState('');
+    const [brand, setBrand] = useState('');
+    const [category, setCategory] = useState('');
 
-import { formatDate } from '../FormatDate/formatDate';
-import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
+    const [priceSale, setPriceSale] = useState('');
+    const [sizes, setSizes] = useState([]);
+    const [selectedSizes, setSelectedSizes] = useState([]);
 
-import { useLocation } from 'react-router-dom';
+    // notifications
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [messageType, setMessageType] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+    const [messageTitle, setMessageTitle] = useState('');
 
-export const OrderInvoicePDF = () => {
-    // get order data from state
-    const date = new Date();
-    const getDay = date.getDay();
-    const convertDayToText = (getDay) => {
-        switch (getDay) {
-            case 1:
-                return 'Monday';
-            case 2:
-                return 'Tuesday';
-            case 3:
-                return 'Wednesday';
-            case 4:
-                return 'Thursday';
-            case 5:
-                return 'Friday';
-            case 6:
-                return 'Saturday';
-            case 7:
-                return 'Sunday';
+    const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
+
+    const { data: brands } = useBrand();
+    const brandOptions = brands?.data || [];
+
+    const { data: categories } = useCategory();
+    const categoryOptions = categories?.data || [];
+
+    const handleAddProduct = async () => {
+        console.log('category: ', category);
+        const getCategoryById = await categoriesAPI.getCategoryById(category);
+        const getBrandById = await brandApi.getBrandById(brand);
+
+        console.log('getCategoryById: ', getCategoryById);
+        const newProductData = {
+            nameVn: productName,
+            nameEn: productName,
+            variants: selectedSizes.map((size) => ({
+                size: size.size,
+                price: +size.price, // + operator converts string to number
+                priceSale: +size.priceSale,
+                stock: +size.stock,
+            })),
+            // imagePath: [image],
+            category: {
+                _id: category, //category is an ID
+                nameVn: getCategoryById.nameVn,
+                nameEn: getCategoryById.nameEn,
+                parentId: null,
+            },
+            brand: {
+                _id: brand,
+                nameVn: getBrandById.nameVn,
+                nameEn: getBrandById.nameEn,
+            },
+            content: {
+                origin: 'France',
+                yearOfRelease: '2017',
+                concentration: 'Extrait de Parfum (EDP)',
+                fragranceGroup: 'Oriental Floral',
+                manufacturer: 'Francis Kurkdjian',
+                shortContent:
+                    'Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.',
+                topNotes: 'Nghệ tây, Hạnh nhân đắng',
+                heartNotes: 'Hoa nhài Ai Cập, Gỗ tuyết tùng',
+                baseNotes: "Hương gỗ, 'Hổ phách, Xạ hương",
+                mainContent:
+                    'Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.',
+                longevity: 5,
+                sillage: 5,
+                likability: 4,
+            },
+        };
+        const addProductResponse = await productAPI.createProduct(newProductData);
+        console.log('New Product Data:', newProductData);
+        console.log('addProductResponse: ', addProductResponse);
+
+        // successfully added
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
+        setMessageType('success');
+        setMessageTitle('Add New Product');
+        setMessageContent('Add new prodcut successfully!');
+        setTimeout(() => {
+            // navigate('/admin/manage-products');
+        }, 2800);
+
+        // error?
+        // setShowNotification(true);
+        // setShowAnimation('animate__bounceInRight');
+        // setMessageType('error');
+        // setMessageTitle('Add New Product');
+        // setMessageContent('Add new prodcut failed!');
+        // setTimeout(() => {
+        //     // navigate('/admin/manage-products');
+        // }, 2800);
+    };
+
+    const handleSizeChange = (e) => {
+        const newSize = e.target.value;
+        // Kiểm tra nếu size chưa tồn tại trong danh sách selectedSizes thì thêm mới
+        if (!selectedSizes.find((size) => size.size === newSize)) {
+            setSelectedSizes((prevSizes) => [
+                ...prevSizes,
+                { size: newSize, price: '', priceSale: '', stock: '' },
+            ]);
         }
     };
 
-    const getDateTime = `${
-        date.getMonth() + 1
-    }/${date.getDate()}/${date.getFullYear()} - ${date.getHours()}:${String(
-        date.getMinutes(),
-    ).padStart(2, '0')}${date.getHours() < 12 ? 'AM' : 'PM'}`;
-
-    const location = useLocation();
-    const { order } = location.state || {};
-    const userData = JSON.parse(window.localStorage.getItem('user_data')) || [];
-    const targetRef = useRef();
-    // Calculate subtotal
-    const calculateSubtotal = () => {
-        let subtotal = 0;
-        order?.items?.forEach((product) => {
-            subtotal +=
-                product.quantity *
-                (product.price - product.priceSale !== 0 ? product.priceSale : product.price);
+    const handleSizeFieldChange = (index, field) => (e) => {
+        const newValue = e.target.value;
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            updatedSizes[index] = { ...updatedSizes[index], [field]: newValue };
+            return updatedSizes;
         });
-        return subtotal;
     };
 
-    // Calculate total discount
-    const calculateDiscountTotal = () => {
-        let discountTotal = 0;
-        const price = calculateSubtotal();
-        discountTotal += calculateDiscount(price);
-        return discountTotal;
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
     };
 
-    // Calculate total tax
-    const calculateTaxTotal = () => {
-        let taxTotal = 0;
-        const price = calculateSubtotal();
-        taxTotal += calculateTax(price);
-        return taxTotal;
+    const handleCategorySelected = (e) => {
+        setCategory(e.target.value);
     };
-
-    // Calculate the total price including discount, tax, and promo code
-    const calculateFinalTotal = () => {
-        let totalSubtotal = 0;
-        let totalDiscount = 0;
-        let totalTax = 0;
-
-        // Loop through each product to calculate subtotal, discount, and tax
-        order?.items?.forEach((product) => {
-            const price =
-                product.quantity *
-                (product.price - product.priceSale !== 0 ? product.priceSale : product.price);
-
-            const discount = calculateDiscount(price);
-            const tax = calculateTax(price);
-
-            totalSubtotal += price;
-            totalDiscount += discount;
-            totalTax += tax;
-        });
-
-        let total = totalSubtotal - totalDiscount + totalTax;
-
-        // Apply 5% promo code discount if promo code "UTE99" is applied
-        // if (promoCodeApplied && promoCode === 'UTE99') {
-        //     total = total * 0.95; // Apply 5% discount
-        // }
-
-        return total;
-    };
-
-    const finalSubtotal = calculateSubtotal();
-    const finalDiscount = calculateDiscountTotal();
-    const finalTax = calculateTaxTotal();
-    const finalTotalPrice = calculateFinalTotal();
 
     return (
-        <Box sx={{ display: 'none' }}>
-            <Box
-                ref={targetRef}
+        <Box sx={{ p: 3, mx: 4, borderRadius: 2 }}>
+            <AdminButtonBackPage title={'List Products'} />
+            <Typography variant="h4" sx={{ mb: 3 }}>
+                Add New Product
+            </Typography>
+
+            <Avatar
+                alt="Product Image"
+                src={image || 'https://via.placeholder.com/256'}
+                sx={{ width: 256, height: 256, marginBottom: 2, borderRadius: 0 }}
+            />
+            <Button
+                variant="outlined"
+                component="label"
                 sx={{
-                    margin: 'auto',
-                    px: 9,
-                    pt: 8,
-                    width: '800px',
+                    marginBottom: 2,
+                    textTransform: 'initial',
+                    padding: '10px 18px',
+                    fontSize: '13px',
                 }}
             >
-                {/* seller information */}
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                    }}
-                >
-                    <Avatar
-                        sx={{
-                            bgcolor: '#000',
-                            height: '50px',
-                            width: '50px',
-                            color: '#fff',
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        Tomtoc
-                    </Avatar>
-                    <CustomizeTypography sx={{ color: '#000', fontWeight: 'bold', fontSize: 32 }}>
-                        Hi {userData.firstName} {userData.lastName},
-                    </CustomizeTypography>
-                    <CustomizeTypography sx={{ color: '#000', mb: 2 }}>
-                        Your order information was just dropped off. Go on, check it out
-                    </CustomizeTypography>
-                </Box>
-                <Box
-                    sx={{
-                        minHeight: 120,
-                        width: '100%',
-                        borderRadius: 2,
-                        bgcolor: '#000',
-                        p: 2,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        mb: 4,
-                    }}
-                >
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Avatar
-                            sx={{
-                                bgcolor: '#fff',
-                                height: '50px',
-                                width: '50px',
-                                color: '#000',
-                                fontWeight: 'bold',
-                            }}
-                        >
-                            Tomtoc
-                        </Avatar>
-                        <Box sx={{ ml: 1 }}>
-                            <CustomizeTypography sx={{ mb: 0 }}>
-                                Tomtoc Perfumes
-                            </CustomizeTypography>
-                            <CustomizeTypography sx={{ mb: 0 }}>
-                                tomtoc.perfumes@gmail.com
-                            </CustomizeTypography>
-                        </Box>
-                    </Box>
-                    <Box>
-                        <CustomizeTypography sx={{ mb: 0, textAlign: 'end' }}>
-                            HCMC University of Technology and Education
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0, textAlign: 'end' }}>
-                            Thu Duc City
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0, textAlign: 'end' }}>
-                            Số 1 Võ Văn Ngân
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0, textAlign: 'end' }}>
-                            Created: {convertDayToText(getDay)} , {getDateTime}
-                        </CustomizeTypography>
-                    </Box>
-                </Box>
+                Upload Image
+                <input type="file" accept="image/*" hidden onChange={handleImageChange} />
+            </Button>
 
-                {/* vendee /customer */}
-                <Box
-                    sx={{
-                        minHeight: 120,
-                        width: '100%',
-                        borderRadius: 2,
-                        bgcolor: '#BAB6B6FF',
-                        p: 2,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        mb: 4,
-                    }}
-                >
-                    <Box>
-                        <CustomizeTypography sx={{ color: '#000', fontWeight: 'bold' }}>
-                            Invoice Number
-                        </CustomizeTypography>
+            <Box sx={{ display: 'flex', gap: 4 }}>
+                <TextField
+                    label="Product Name"
+                    fullWidth
+                    value={productName}
+                    onChange={(e) => setProductName(e.target.value)}
+                    sx={{ mb: 2 }}
+                />
 
-                        <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                            {order?._id}
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                            Issued date: {formatDate(order?.updatedAt)}
-                        </CustomizeTypography>
-                    </Box>
-                    <Box>
-                        <CustomizeTypography sx={{ color: '#000', fontWeight: 'bold' }}>
-                            Billed to
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                            Luna Kei
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                            Số 1 Võ Văn Ngân
-                        </CustomizeTypography>
-                    </Box>
-                </Box>
-
-                {/* item detail, information */}
-                <Box>
-                    <Box>
-                        <CustomizeTypography sx={{ color: '#000', fontWeight: 'bold', mb: 0 }}>
-                            Item details
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ color: '#000', mb: 0 }}>
-                            Details item with more information
-                        </CustomizeTypography>
-                    </Box>
-                    <Box
-                        sx={{
-                            mt: 2,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            border: '1px solid #90caf9',
-                            borderRadius: 1,
-                            bgcolor: '#90caf9',
-                            p: 1,
-                        }}
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                    <InputLabel id="size-select-label">Size</InputLabel>
+                    <Select
+                        labelId="size-select-label"
+                        value={selectedSizes.map((size) => size.size)}
+                        label="Size"
+                        onChange={handleSizeChange}
                     >
-                        <CustomizeTypography
-                            sx={{ color: '#000', mb: 0, fontSize: 13, fontWeight: 'bold' }}
-                        >
-                            Description
-                        </CustomizeTypography>
-                        <CustomizeTypography
-                            sx={{ color: '#000', mb: 0, fontSize: 13, fontWeight: 'bold' }}
-                        >
-                            Amount
-                        </CustomizeTypography>
-                    </Box>
-                    <Box
-                        sx={{
-                            p: 1,
-                        }}
-                    >
-                        {order?.items?.map((item) => (
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <Avatar src={item.image[0]} sx={{ height: 50, width: 50 }} />
-                                <Box sx={{ flex: 1 }}>
-                                    <CustomizeTypography sx={{ color: '#595959', mb: 0 }}>
-                                        {item.productName}
-                                    </CustomizeTypography>
-                                    <CustomizeTypography sx={{ color: '#595959', mb: 0 }}>
-                                        Qty: {item.quantity}
-                                    </CustomizeTypography>
-                                </Box>
-                                <CustomizeTypography sx={{ color: '#595959', mb: 0 }}>
-                                    {converToVND(item.price)}
-                                </CustomizeTypography>
-                            </Box>
+                        {sizeOptions.map((size) => (
+                            <MenuItem key={size} value={size}>
+                                {size}
+                            </MenuItem>
                         ))}
-                    </Box>
-                    <Divider />
-                    <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-                        <CustomizeTypography
-                            sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
-                        >
-                            Subtotal
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
-                            {converToVND(finalSubtotal)}
-                        </CustomizeTypography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <CustomizeTypography
-                            sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
-                        >
-                            Discount - 20%
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
-                            {converToVND(finalDiscount)}
-                        </CustomizeTypography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <CustomizeTypography
-                            sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
-                        >
-                            Shipping Fee
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
-                            Free
-                        </CustomizeTypography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <CustomizeTypography
-                            sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
-                        >
-                            Tax + 10%
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
-                            {converToVND(finalTax)}
-                        </CustomizeTypography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <CustomizeTypography
-                            sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
-                        >
-                            Amount due
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
-                            {converToVND(finalTotalPrice)}
-                        </CustomizeTypography>
+                    </Select>
+                </FormControl>
+            </Box>
+
+            {selectedSizes.map((size, index) => (
+                <Box key={size.size} sx={{ mb: 3 }}>
+                    <Typography variant="body1" sx={{ fontSize: '16px', fontWeight: 'bold' }}>
+                        Size Selected: {size.size}
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 4 }}>
+                        <TextField
+                            label="Price"
+                            fullWidth
+                            type="number"
+                            value={size.price}
+                            onChange={handleSizeFieldChange(index, 'price')}
+                            sx={{ mb: 2 }}
+                        />
+                        <TextField
+                            label="Price Sale"
+                            fullWidth
+                            type="number"
+                            value={size.priceSale}
+                            onChange={handleSizeFieldChange(index, 'priceSale')}
+                            sx={{ mb: 2 }}
+                        />
+                        <TextField
+                            label="Stock"
+                            fullWidth
+                            type="number"
+                            value={size.stock}
+                            onChange={handleSizeFieldChange(index, 'stock')}
+                            sx={{ mb: 2 }}
+                        />
                     </Box>
                 </Box>
+            ))}
+
+            <Box sx={{ display: 'flex', gap: 4 }}>
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                    <InputLabel id="brand-select-label">Brand</InputLabel>
+                    <Select
+                        labelId="brand-select-label"
+                        value={brand}
+                        label="Brand"
+                        onChange={(e) => setBrand(e.target.value)}
+                    >
+                        {brandOptions.map((brand) => (
+                            <MenuItem key={brand._id} value={brand._id}>
+                                {brand.nameEn}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                    <InputLabel id="category-select-label">Category</InputLabel>
+                    <Select
+                        labelId="category-select-label"
+                        value={category}
+                        label="Category"
+                        onChange={(e) => setCategory(e.target.value)}
+                    >
+                        {categoryOptions.map((category) => (
+                            <MenuItem key={category._id} value={category._id}>
+                                {category.nameEn}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Box>
+
+            <Box sx={{ display: 'flex', gap: 4 }}>
+                <AdminButtonDesign
+                    title={'Create Product'}
+                    bgcolor={theme.palette.admin.bgColor}
+                    onHandleClick={handleAddProduct}
+                    type={'contained'}
+                    textColor={'white'}
+                />
+                <AdminButtonDesign
+                    title={'Cancel'}
+                    onHandleClick={handleAddProduct}
+                    type={'outlined'}
+                    textColor={theme.palette.admin.bgColor}
+                    borderColor={theme.palette.admin.bgColor}
+                />
             </Box>
         </Box>
     );
