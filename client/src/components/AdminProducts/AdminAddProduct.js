@@ -10,7 +10,8 @@ import {
     InputLabel,
     FormControl,
     Checkbox,
-    ListItemText,
+    Tooltip,
+    IconButton,
 } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { theme } from '../../Theme/Theme';
@@ -20,6 +21,7 @@ import useCategory from '../../api/useCategory';
 import { productAPI } from '../../api/productAPI';
 import { categoriesAPI } from '../../api/categoriesAPI';
 import { brandApi } from '../../api/brandApi';
+import BackspaceIcon from '@mui/icons-material/Backspace';
 
 const AdminAddProduct = () => {
     const [image, setImage] = useState(null);
@@ -266,26 +268,33 @@ const AdminAddProduct = () => {
 
             {selectedSizes.map((size, index) => (
                 <Box key={size.size} sx={{ mb: 3 }}>
-                    <Typography
-                        key={size.size}
-                        variant="body1"
-                        sx={{
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <span>Size Selected: {size.size}</span>
-                        {/* Thêm nút remove */}
-                        <button
-                            onClick={() => handleRemoveSizeSelected(size.size)}
-                            style={{ marginLeft: '10px', cursor: 'pointer' }}
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                        <Typography
+                            key={size.size}
+                            variant="body1"
+                            sx={{
+                                fontSize: '16px',
+                            }}
                         >
-                            Remove
-                        </button>
-                    </Typography>
+                            <strong>Size</strong>: {size.size}
+                        </Typography>
+                        <Tooltip
+                            title={
+                                <Typography
+                                    sx={{
+                                        fontSize: '13px',
+                                        mb: 0,
+                                    }}
+                                >
+                                    Remove Size
+                                </Typography>
+                            }
+                        >
+                            <IconButton onClick={() => handleRemoveSizeSelected(size.size)}>
+                                <BackspaceIcon sx={{ fontSize: '20px', color: '#000' }} />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
                     <Box sx={{ display: 'flex', gap: 4 }}>
                         <TextField
                             label="Price"
