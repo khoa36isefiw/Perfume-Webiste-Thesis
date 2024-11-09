@@ -25,13 +25,10 @@ const AdminAddProduct = () => {
     const [image, setImage] = useState(null);
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState('');
-
     const [stock, setStock] = useState('');
+    const [priceSale, setPriceSale] = useState('');
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');
-
-    const [priceSale, setPriceSale] = useState('');
-    const [sizes, setSizes] = useState([]);
     const [selectedSizes, setSelectedSizes] = useState([]);
 
     // notifications
@@ -60,79 +57,85 @@ const AdminAddProduct = () => {
         }
     };
 
-    const calculatepriceSalePrice = (price, priceSale) => {
-        if (priceSale === 0) return;
-        return price - price * (priceSale / 100);
-    };
-
     const handleAddProduct = async () => {
         console.log('category: ', category);
         const getCategoryById = await categoriesAPI.getCategoryById(category);
         const getBrandById = await brandApi.getBrandById(brand);
 
         console.log('getCategoryById: ', getCategoryById);
-        const newProductData = {
-            nameVn: productName,
-            nameEn: productName,
-            variants: selectedSizes.map((size) => ({
-                size: size.size,
-                price: +size.price, // + operator converts string to number
-                priceSale: +size.priceSale,
-                stock: +size.stock,
-            })),
-            // imagePath: [image],
-            category: {
-                _id: category, //category is an ID
-                nameVn: getCategoryById.nameVn,
-                nameEn: getCategoryById.nameEn,
-                parentId: null,
-            },
-            brand: {
-                _id: brand,
-                nameVn: getBrandById.nameVn,
-                nameEn: getBrandById.nameEn,
-            },
-            content: {
-                origin: 'France',
-                yearOfRelease: '2017',
-                concentration: 'Extrait de Parfum (EDP)',
-                fragranceGroup: 'Oriental Floral',
-                manufacturer: 'Francis Kurkdjian',
-                shortContent:
-                    'Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.',
-                topNotes: 'Nghệ tây, Hạnh nhân đắng',
-                heartNotes: 'Hoa nhài Ai Cập, Gỗ tuyết tùng',
-                baseNotes: "Hương gỗ, 'Hổ phách, Xạ hương",
-                mainContent:
-                    'Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.',
-                longevity: 5,
-                sillage: 5,
-                likability: 4,
-            },
-        };
-        const addProductResponse = await productAPI.createProduct(newProductData);
-        console.log('New Product Data:', newProductData);
-        console.log('addProductResponse: ', addProductResponse);
+        if (
+            image !== null &&
+            productName !== '' &&
+            brand !== '' &&
+            category !== '' &&
+            selectedSizes.length > 0 &&
+            selectedSizes.every(
+                (size) =>
+                    size.size != '' && size.price != '' && size.priceSale != '' && size.stock != '',
+            )
+        ) {
+            const newProductData = {
+                nameVn: productName,
+                nameEn: productName,
+                variants: selectedSizes.map((size) => ({
+                    size: size.size,
+                    price: +size.price, // + operator converts string to number
+                    priceSale: +size.priceSale,
+                    stock: +size.stock,
+                })),
+                // imagePath: [image],
+                category: {
+                    _id: category, //category is an ID
+                    nameVn: getCategoryById.nameVn,
+                    nameEn: getCategoryById.nameEn,
+                    parentId: null,
+                },
+                brand: {
+                    _id: brand,
+                    nameVn: getBrandById.nameVn,
+                    nameEn: getBrandById.nameEn,
+                },
 
-        // successfully added
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
-        setMessageType('success');
-        setMessageTitle('Add New Product');
-        setMessageContent('Add new prodcut successfully!');
-        setTimeout(() => {
-            // navigate('/admin/manage-products');
-        }, 2800);
+                // default content
+                content: {
+                    origin: 'France',
+                    yearOfRelease: '2017',
+                    concentration: 'Extrait de Parfum (EDP)',
+                    fragranceGroup: 'Oriental Floral',
+                    manufacturer: 'Francis Kurkdjian',
+                    shortContent:
+                        'Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.',
+                    topNotes: 'Nghệ tây, Hạnh nhân đắng',
+                    heartNotes: 'Hoa nhài Ai Cập, Gỗ tuyết tùng',
+                    baseNotes: "Hương gỗ, 'Hổ phách, Xạ hương",
+                    mainContent:
+                        'Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.',
+                    longevity: 5,
+                    sillage: 5,
+                    likability: 4,
+                },
+            };
+            const addProductResponse = await productAPI.createProduct(newProductData);
+            console.log('New Product Data:', newProductData);
+            console.log('addProductResponse: ', addProductResponse);
 
-        // error?
-        // setShowNotification(true);
-        // setShowAnimation('animate__bounceInRight');
-        // setMessageType('error');
-        // setMessageTitle('Add New Product');
-        // setMessageContent('Add new prodcut failed!');
-        // setTimeout(() => {
-        //     // navigate('/admin/manage-products');
-        // }, 2800);
+            // successfully added
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
+            setMessageType('success');
+            setMessageTitle('Add New Product');
+            setMessageContent('Add new prodcut successfully!');
+            setTimeout(() => {
+                // navigate('/admin/manage-products');
+            }, 2800);
+        } else {
+            console.log('chay vo day ne');
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
+            setMessageType('warning');
+            setMessageTitle('Add New Product');
+            setMessageContent('Please fill product information!');
+        }
     };
 
     const handleSizeChange = (e) => {
@@ -143,8 +146,19 @@ const AdminAddProduct = () => {
                 ...prevSizes,
                 { size: newSize, price: '', priceSale: '', stock: '' },
             ]);
+        } else {
+            // size exists, was selected --> remove
+            const listRemoved = selectedSizes.filter((size) => size.size != newSize);
+            setSelectedSizes(listRemoved);
         }
     };
+
+    const handleRemoveSizeSelected = (sizeToRemove) => {
+        const updatedSizes = selectedSizes.filter((size) => size.size !== sizeToRemove);
+        setSelectedSizes(updatedSizes);
+    };
+
+    console.log('current list: ', selectedSizes);
 
     const handleSizeFieldChange = (index, field) => (e) => {
         const newValue = e.target.value;
@@ -208,6 +222,7 @@ const AdminAddProduct = () => {
                         value={selectedSizes.map((size) => size.size)}
                         label="Size"
                         onChange={handleSizeChange}
+                        renderValue={(selected) => selected.join(', ')} // join value selected from list
                     >
                         {sizeOptions.map((size) => (
                             <MenuItem key={size} value={size}>
@@ -220,8 +235,25 @@ const AdminAddProduct = () => {
 
             {selectedSizes.map((size, index) => (
                 <Box key={size.size} sx={{ mb: 3 }}>
-                    <Typography variant="body1" sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-                        Size Selected: {size.size}
+                    <Typography
+                        key={size.size}
+                        variant="body1"
+                        sx={{
+                            fontSize: '16px',
+                            fontWeight: 'bold',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <span>Size Selected: {size.size}</span>
+                        {/* Thêm nút remove */}
+                        <button
+                            onClick={() => handleRemoveSizeSelected(size.size)}
+                            style={{ marginLeft: '10px', cursor: 'pointer' }}
+                        >
+                            Remove
+                        </button>
                     </Typography>
                     <Box sx={{ display: 'flex', gap: 4 }}>
                         <TextField
@@ -302,6 +334,20 @@ const AdminAddProduct = () => {
                     borderColor={theme.palette.admin.bgColor}
                 />
             </Box>
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 };
