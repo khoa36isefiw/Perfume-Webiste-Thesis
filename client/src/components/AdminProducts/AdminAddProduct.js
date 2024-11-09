@@ -32,6 +32,7 @@ const AdminAddProduct = () => {
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');
     const [selectedSizes, setSelectedSizes] = useState([]);
+    const [checked, setChecked] = useState(true);
 
     // notifications
     const [showNotification, setShowNotification] = useState(false);
@@ -140,19 +141,43 @@ const AdminAddProduct = () => {
         }
     };
 
-    const handleSizeChange = (e) => {
-        const newSize = e.target.value;
-        // Kiểm tra nếu size chưa tồn tại trong danh sách selectedSizes thì thêm mới
-        if (!selectedSizes.find((size) => size.size === newSize)) {
-            setSelectedSizes((prevSizes) => [
-                ...prevSizes,
-                { size: newSize, price: '', priceSale: '', stock: '' },
-            ]);
+    // const handleSizeChange = (e) => {
+    //     const newSize = e.target.value;
+    //     setChecked(e.target.checked);
+    //     // Kiểm tra nếu size chưa tồn tại trong danh sách selectedSizes thì thêm mới
+    //     if (!selectedSizes.find((size) => size.size === newSize)) {
+    //         setSelectedSizes((prevSizes) => [
+    //             ...prevSizes,
+    //             { size: newSize, price: '', priceSale: '', stock: '' },
+    //         ]);
+    //     } else {
+    //         // size exists, was selected --> remove
+    //         const listRemoved = selectedSizes.filter((size) => size.size != newSize);
+    //         setSelectedSizes(listRemoved);
+    //     }
+    // };
+
+    //v2
+    const handleSizeChange = (size) => (e) => {
+        const isChecked = e.target.checked;
+
+        console.log('before changing: ', selectedSizes);
+
+        if (isChecked) {
+            // size is checked, add to selectedSizes if not already present
+            if (!selectedSizes.find((s) => s.size === size)) {
+                setSelectedSizes((prevSizes) => [
+                    ...prevSizes,
+                    { size: size, price: '', priceSale: '', stock: '' },
+                ]);
+            }
         } else {
-            // size exists, was selected --> remove
-            const listRemoved = selectedSizes.filter((size) => size.size != newSize);
-            setSelectedSizes(listRemoved);
+            // size is unchecked, remove from selectedSizes
+            const updatedSizes = selectedSizes.filter((s) => s.size !== size);
+            setSelectedSizes(updatedSizes);
         }
+
+        console.log('after changing: ', selectedSizes);
     };
 
     const handleRemoveSizeSelected = (sizeToRemove) => {
@@ -239,6 +264,7 @@ const AdminAddProduct = () => {
                 <input type="file" accept="image/*" hidden onChange={handleImageChange} />
             </Button>
 
+            {/* select size */}
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <TextField
                     label="Product Name"
@@ -254,11 +280,15 @@ const AdminAddProduct = () => {
                         labelId="size-select-label"
                         value={selectedSizes.map((size) => size.size)}
                         label="Size"
-                        onChange={handleSizeChange}
-                        renderValue={(selected) => selected.join(', ')} // join value selected from list
+                        // onChange={handleSizeChange}
+                        renderValue={(selected) => selected.join(', ')} // joins value selected from list
                     >
                         {sizeOptions.map((size) => (
                             <MenuItem key={size} value={size}>
+                                <Checkbox
+                                    checked={selectedSizes.some((s) => s.size === size)}
+                                    onChange={handleSizeChange(size)}
+                                />
                                 {size}
                             </MenuItem>
                         ))}
