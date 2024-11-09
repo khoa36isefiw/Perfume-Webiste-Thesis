@@ -191,7 +191,7 @@ const AdminAddProduct = () => {
             if (priceSale > price) {
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
-                setMessageType('warning');
+                setMessageType('error');
                 setMessageTitle('Price Error');
                 setMessageContent('Sale price cannot be greater than the original price!');
             }
