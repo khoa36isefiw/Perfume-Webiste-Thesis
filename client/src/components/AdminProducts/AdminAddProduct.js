@@ -162,9 +162,40 @@ const AdminAddProduct = () => {
 
     const handleSizeFieldChange = (index, field) => (e) => {
         const newValue = e.target.value;
+        console.log('new value: ', newValue);
+
+        // Kiểm tra nếu giá trị là một số hợp lệ
+        if (isNaN(newValue) || !isFinite(newValue)) {
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
+            setMessageType('warning');
+            setMessageTitle('Invalid Input');
+            setMessageContent('Please enter a valid number!');
+            return;
+        }
+
         setSelectedSizes((prevSizes) => {
             const updatedSizes = [...prevSizes];
             updatedSizes[index] = { ...updatedSizes[index], [field]: newValue };
+
+            return updatedSizes;
+        });
+    };
+
+    const handlePriceSaleBlur = (index) => {
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            const { price, priceSale } = updatedSizes[index];
+
+            // Kiểm tra điều kiện priceSale > price
+            if (priceSale > price) {
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageType('warning');
+                setMessageTitle('Price Error');
+                setMessageContent('Sale price cannot be greater than the original price!');
+            }
+
             return updatedSizes;
         });
     };
@@ -270,6 +301,7 @@ const AdminAddProduct = () => {
                             type="number"
                             value={size.priceSale}
                             onChange={handleSizeFieldChange(index, 'priceSale')}
+                            onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
                         />
                         <TextField
