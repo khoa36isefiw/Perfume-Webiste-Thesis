@@ -1,121 +1,75 @@
-const AdminAddProduct = () => {
-    const [image, setImage] = useState(null);
-    const [productName, setProductName] = useState('');
-    const [price, setPrice] = useState('');
+const AdminEditProduct = () => {
+    const location = useLocation();
+    const { productData, selectedSize, productTest } = location.state;
+    console.log('productData.variants[0]?._id: ', productData.variants[0]?._id);
+    console.log('productTest: ', productTest);
+    console.log(
+        'productTest.category.nameEn: ',
+        productTest?.variants.map((size) => size.size),
+    );
 
-    const [stock, setStock] = useState('');
-    const [brand, setBrand] = useState('');
-    const [category, setCategory] = useState('');
-
-    const [priceSale, setPriceSale] = useState('');
-    const [sizes, setSizes] = useState([]);
-    const [selectedSizes, setSelectedSizes] = useState([]);
-
-    // notifications
-    const [showNotification, setShowNotification] = useState(false);
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    const [messageType, setMessageType] = useState('');
-    const [messageContent, setMessageContent] = useState('');
-    const [messageTitle, setMessageTitle] = useState('');
-
+    // Set up local state for editable product information
+    const [image, setImage] = useState(productData.image);
+    const [productName, setProductName] = useState(productData.productName);
+    const [price, setPrice] = useState(productData.price);
+    const [category, setCategory] = useState(productTest.category._id);
+    const [brand2, setBrand2] = useState(productTest.brand._id);
+    const [priceSale, setPriceSale] = useState(productData.variants[0]?.priceSale);
+    const [selectedSizes, setSelectedSizes] = useState([
+        { price: productTest?.variants.map((size) => size.size) || [] },
+    ]);
     const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
-
     const { data: brands } = useBrand();
     const brandOptions = brands?.data || [];
 
     const { data: categories } = useCategory();
     const categoryOptions = categories?.data || [];
 
-    const handleAddProduct = async () => {
-        console.log('category: ', category);
-        const getCategoryById = await categoriesAPI.getCategoryById(category);
-        const getBrandById = await brandApi.getBrandById(brand);
-
-        console.log('getCategoryById: ', getCategoryById);
-        const newProductData = {
-            nameVn: productName,
-            nameEn: productName,
-            variants: selectedSizes.map((size) => ({
-                size: size.size,
-                price: +size.price, // + operator converts string to number
-                priceSale: +size.priceSale,
-                stock: +size.stock,
-            })),
-            // imagePath: [image],
-            category: {
-                _id: category, //category is an ID
-                nameVn: getCategoryById.nameVn,
-                nameEn: getCategoryById.nameEn,
-                parentId: null,
-            },
-            brand: {
-                _id: brand,
-                nameVn: getBrandById.nameVn,
-                nameEn: getBrandById.nameEn,
-            },
-            content: {
-                origin: 'France',
-                yearOfRelease: '2017',
-                concentration: 'Extrait de Parfum (EDP)',
-                fragranceGroup: 'Oriental Floral',
-                manufacturer: 'Francis Kurkdjian',
-                shortContent:
-                    'Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.',
-                topNotes: 'Nghệ tây, Hạnh nhân đắng',
-                heartNotes: 'Hoa nhài Ai Cập, Gỗ tuyết tùng',
-                baseNotes: "Hương gỗ, 'Hổ phách, Xạ hương",
-                mainContent:
-                    'Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.',
-                longevity: 5,
-                sillage: 5,
-                likability: 4,
-            },
-        };
-        const addProductResponse = await productAPI.createProduct(newProductData);
-        console.log('New Product Data:', newProductData);
-        console.log('addProductResponse: ', addProductResponse);
-
-        // successfully added
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
-        setMessageType('success');
-        setMessageTitle('Add New Product');
-        setMessageContent('Add new prodcut successfully!');
-        setTimeout(() => {
-            // navigate('/admin/manage-products');
-        }, 2800);
-
-        // error?
-        // setShowNotification(true);
-        // setShowAnimation('animate__bounceInRight');
-        // setMessageType('error');
-        // setMessageTitle('Add New Product');
-        // setMessageContent('Add new prodcut failed!');
-        // setTimeout(() => {
-        //     // navigate('/admin/manage-products');
-        // }, 2800);
-    };
-
-    const handleSizeChange = (e) => {
-        const newSize = e.target.value;
-        // Kiểm tra nếu size chưa tồn tại trong danh sách selectedSizes thì thêm mới
-        if (!selectedSizes.find((size) => size.size === newSize)) {
-            setSelectedSizes((prevSizes) => [
-                ...prevSizes,
-                { size: newSize, price: '', priceSale: '', stock: '' },
-            ]);
+    // Handle file input for image update
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImage(reader.result); // Update the image with base64 string
+            };
+            reader.readAsDataURL(file);
         }
     };
 
-    const handleSizeFieldChange = (index, field) => (e) => {
-        const newValue = e.target.value;
-        setSelectedSizes((prevSizes) => {
-            const updatedSizes = [...prevSizes];
-            updatedSizes[index] = { ...updatedSizes[index], [field]: newValue };
-            return updatedSizes;
-        });
+    // Handle form submission (you can connect this to your API to save the updated data)
+    const handleSave = async () => {
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
+
+        const productId = productData.productId;
+
+        const newPrice = Number(price) || 0; // Convert price to Number with default
+        console.log('type of discountPercent: ', typeof discountPercent);
+
+        console.log('price:', price);
+
+        const data = {
+            variants: [
+                {
+                    _id: productData.variants[0]?._id,
+                    priceSale: +priceSale, // Ensure discountPercent is a number
+                    size: '27ml',
+                    price: newPrice, // Ensure price is a number
+                },
+            ],
+            nameEn: productName,
+            // brand: brand,
+        };
+
+        console.log('product id:', productId);
+        console.log('data:', data);
+
+        const updateResponse = await productAPI.editProduct(productId, data);
+        console.log('Updated Product:', updateResponse);
     };
 
+    // handle Close notification
     const handleCloseNotification = () => {
         setShowAnimation('animate__fadeOut');
         setTimeout(() => {
@@ -123,33 +77,88 @@ const AdminAddProduct = () => {
         }, 1000);
     };
 
-    const handleCategorySelected = (e) => {
-        setCategory(e.target.value);
+    const handleSizeFieldChange = (index, field) => (e) => {
+        const newValue = e.target.value;
+        console.log('new value: ', newValue);
+
+        // Kiểm tra nếu giá trị là một số hợp lệ
+        if (isNaN(newValue) || !isFinite(newValue)) {
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
+            setMessageType('warning');
+            setMessageTitle('Invalid Input');
+            setMessageContent('Please enter a valid number!');
+            return;
+        }
+
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            updatedSizes[index] = { ...updatedSizes[index], [field]: newValue };
+
+            return updatedSizes;
+        });
+    };
+
+    const handleMenuItemClick = (size) => {
+        const alreadySelected = selectedSizes.some((s) => s.size === size);
+
+        if (alreadySelected) {
+            // remove the size was selected from the list
+            setSelectedSizes(selectedSizes.filter((s) => s.size !== size));
+        } else {
+            // add size to list if it was not chose
+            setSelectedSizes([
+                ...selectedSizes,
+                { size: size, price: '', priceSale: '', stock: '' },
+            ]);
+        }
+    };
+
+    const handlePriceSaleBlur = (index) => {
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            const { price, priceSale } = updatedSizes[index];
+
+            // Kiểm tra điều kiện priceSale > price
+            if (priceSale > price) {
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageType('error');
+                setMessageTitle('Price Error');
+                setMessageContent('Sale price cannot be greater than the original price!');
+            }
+
+            return updatedSizes;
+        });
+    };
+
+    const handleRemoveSizeSelected = (sizeToRemove) => {
+        const updatedSizes = selectedSizes.filter((size) => size.size !== sizeToRemove);
+        setSelectedSizes(updatedSizes);
     };
 
     return (
-        <Box sx={{ p: 3, mx: 4, borderRadius: 2 }}>
+        <Box
+            sx={{
+                p: 3,
+                mx: 4,
+                borderRadius: 2,
+            }}
+        >
             <AdminButtonBackPage title={'List Products'} />
             <Typography variant="h4" sx={{ mb: 3 }}>
-                Add New Product
+                Edit Product: {productData.productName}
             </Typography>
 
             <Avatar
-                alt="Product Image"
-                src={image || 'https://via.placeholder.com/256'}
+                alt={productName}
+                src={image}
                 sx={{ width: 256, height: 256, marginBottom: 2, borderRadius: 0 }}
             />
-            <Button
-                variant="outlined"
-                component="label"
-                sx={{
-                    marginBottom: 2,
-                    textTransform: 'initial',
-                    padding: '10px 18px',
-                    fontSize: '13px',
-                }}
-            >
-                Upload Image
+
+            {/* Input for updating image */}
+            <Button variant="outlined" component="label" sx={{ marginBottom: 2 }}>
+                Update Image
                 <input type="file" accept="image/*" hidden onChange={handleImageChange} />
             </Button>
 
@@ -161,18 +170,23 @@ const AdminAddProduct = () => {
                     onChange={(e) => setProductName(e.target.value)}
                     sx={{ mb: 2 }}
                 />
-
                 <FormControl fullWidth sx={{ mb: 2 }}>
                     <InputLabel id="size-select-label">Size</InputLabel>
                     <Select
                         labelId="size-select-label"
+                        multiple
                         value={selectedSizes.map((size) => size.size)}
                         label="Size"
-                        onChange={handleSizeChange}
+                        renderValue={(selected) => selected.join(', ')}
                     >
                         {sizeOptions.map((size) => (
-                            <MenuItem key={size} value={size}>
-                                {size}
+                            <MenuItem
+                                key={size}
+                                value={size}
+                                onClick={() => handleMenuItemClick(size)}
+                            >
+                                <Checkbox checked={selectedSizes.some((s) => s.size === size)} />
+                                <ListItemText primary={size} />
                             </MenuItem>
                         ))}
                     </Select>
@@ -181,9 +195,33 @@ const AdminAddProduct = () => {
 
             {selectedSizes.map((size, index) => (
                 <Box key={size.size} sx={{ mb: 3 }}>
-                    <Typography variant="body1" sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-                        Size Selected: {size.size}
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                        <Typography
+                            key={size.size}
+                            variant="body1"
+                            sx={{
+                                fontSize: '16px',
+                            }}
+                        >
+                            <strong>Size</strong>: {size.size}
+                        </Typography>
+                        <Tooltip
+                            title={
+                                <Typography
+                                    sx={{
+                                        fontSize: '13px',
+                                        mb: 0,
+                                    }}
+                                >
+                                    Remove Size
+                                </Typography>
+                            }
+                        >
+                            <IconButton onClick={() => handleRemoveSizeSelected(size.size)}>
+                                <BackspaceIcon sx={{ fontSize: '20px', color: '#000' }} />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
                     <Box sx={{ display: 'flex', gap: 4 }}>
                         <TextField
                             label="Price"
@@ -199,6 +237,7 @@ const AdminAddProduct = () => {
                             type="number"
                             value={size.priceSale}
                             onChange={handleSizeFieldChange(index, 'priceSale')}
+                            onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
                         />
                         <TextField
@@ -218,9 +257,9 @@ const AdminAddProduct = () => {
                     <InputLabel id="brand-select-label">Brand</InputLabel>
                     <Select
                         labelId="brand-select-label"
-                        value={brand}
+                        value={brand2}
                         label="Brand"
-                        onChange={(e) => setBrand(e.target.value)}
+                        onChange={(e) => setBrand2(e.target.value)}
                     >
                         {brandOptions.map((brand) => (
                             <MenuItem key={brand._id} value={brand._id}>
@@ -246,23 +285,16 @@ const AdminAddProduct = () => {
                     </Select>
                 </FormControl>
             </Box>
-
-            <Box sx={{ display: 'flex', gap: 4 }}>
-                <AdminButtonDesign
-                    title={'Create Product'}
-                    bgcolor={theme.palette.admin.bgColor}
-                    onHandleClick={handleAddProduct}
-                    type={'contained'}
-                    textColor={'white'}
-                />
-                <AdminButtonDesign
-                    title={'Cancel'}
-                    onHandleClick={handleAddProduct}
-                    type={'outlined'}
-                    textColor={theme.palette.admin.bgColor}
-                    borderColor={theme.palette.admin.bgColor}
-                />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+                <Button variant="contained" color="primary" onClick={handleSave}>
+                    Save Changes
+                </Button>
+                <Button variant="outlined" color="secondary">
+                    Cancel
+                </Button>
             </Box>
         </Box>
     );
 };
+
+export default AdminEditProduct;

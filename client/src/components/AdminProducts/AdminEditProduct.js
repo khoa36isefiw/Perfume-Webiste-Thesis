@@ -1,14 +1,36 @@
 import React, { useState } from 'react';
-import { Avatar, Box, Button, TextField, Typography } from '@mui/material';
+import {
+    Avatar,
+    Box,
+    Button,
+    TextField,
+    Typography,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+    Checkbox,
+    ListItemText,
+    Tooltip,
+    IconButton,
+} from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { productAPI } from '../../api/productAPI';
+import useBrand from '../../api/useBrand';
+import useCategory from '../../api/useCategory';
+import BackspaceIcon from '@mui/icons-material/Backspace';
 
 const AdminEditProduct = () => {
     const location = useLocation();
-    const { productData, selectedSize } = location.state;
+    const { productData, selectedSize, productTest } = location.state;
     console.log('productData.variants[0]?._id: ', productData.variants[0]?._id);
+    console.log('productTest: ', productTest);
+    console.log(
+        'productTest.category.nameEn: ',
+        productTest?.variants.map((size) => size.size),
+    );
 
     // Set up local state for editable product information
     const [image, setImage] = useState(productData.image);
@@ -17,12 +39,33 @@ const AdminEditProduct = () => {
     const [size, setSize] = useState(selectedSize);
     const [stock, setStock] = useState(productData.stock);
     const [brand, setBrand] = useState(productData.brand);
-    const [discount, setDiscount] = useState(productData.variants[0]?.priceSale);
+    const [category, setCategory] = useState(productTest.category._id);
+    const [brand2, setBrand2] = useState(productTest.brand._id);
+    const [priceSale, setPriceSale] = useState(productData.variants[0]?.priceSale);
+    const [selectedSizes, setSelectedSizes] = useState(
+        productTest?.variants.map((variant) => ({
+            size: variant.size,
+            price: '',
+            priceSale: '',
+            stock: '',
+        })) || [],
+    );
+
     const [ratings, setRatings] = useState(productData.ratings);
 
+    // notifications
     const [showNotification, setShowNotification] = useState(false);
-
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [messageType, setMessageType] = useState('');
+    const [messageContent, setMessageContent] = useState('');
+    const [messageTitle, setMessageTitle] = useState('');
+
+    const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
+    const { data: brands } = useBrand();
+    const brandOptions = brands?.data || [];
+
+    const { data: categories } = useCategory();
+    const categoryOptions = categories?.data || [];
 
     // Handle file input for image update
     const handleImageChange = (e) => {
@@ -52,7 +95,7 @@ const AdminEditProduct = () => {
             variants: [
                 {
                     _id: productData.variants[0]?._id,
-                    priceSale: +discount, // Ensure discountPercent is a number
+                    priceSale: +priceSale, // Ensure discountPercent is a number
                     size: '27ml',
                     price: newPrice, // Ensure price is a number
                 },
@@ -74,6 +117,66 @@ const AdminEditProduct = () => {
         setTimeout(() => {
             setShowNotification(false);
         }, 1000);
+    };
+
+    const handleSizeFieldChange = (index, field) => (e) => {
+        const newValue = e.target.value;
+        console.log('new value: ', newValue);
+
+        // Kiểm tra nếu giá trị là một số hợp lệ
+        if (isNaN(newValue) || !isFinite(newValue)) {
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
+            setMessageType('warning');
+            setMessageTitle('Invalid Input');
+            setMessageContent('Please enter a valid number!');
+            return;
+        }
+
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            updatedSizes[index] = { ...updatedSizes[index], [field]: newValue };
+
+            return updatedSizes;
+        });
+    };
+
+    const handleMenuItemClick = (size) => {
+        const alreadySelected = selectedSizes.some((s) => s.size === size);
+
+        if (alreadySelected) {
+            // remove the size was selected from the list
+            setSelectedSizes(selectedSizes.filter((s) => s.size !== size));
+        } else {
+            // add size to list if it was not chose
+            setSelectedSizes([
+                ...selectedSizes,
+                { size: size, price: '', priceSale: '', stock: '' },
+            ]);
+        }
+    };
+
+    const handlePriceSaleBlur = (index) => {
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            const { price, priceSale } = updatedSizes[index];
+
+            // Kiểm tra điều kiện priceSale > price
+            if (priceSale > price) {
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageType('error');
+                setMessageTitle('Price Error');
+                setMessageContent('Sale price cannot be greater than the original price!');
+            }
+
+            return updatedSizes;
+        });
+    };
+
+    const handleRemoveSizeSelected = (sizeToRemove) => {
+        const updatedSizes = selectedSizes.filter((size) => size.size !== sizeToRemove);
+        setSelectedSizes(updatedSizes);
     };
 
     return (
@@ -115,8 +218,88 @@ const AdminEditProduct = () => {
                     value={size}
                     onChange={(e) => setSize(e.target.value)}
                     sx={{ mb: 2 }}
-                />{' '}
+                />
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                    <InputLabel id="size-select-label">Size</InputLabel>
+                    <Select
+                        labelId="size-select-label"
+                        multiple
+                        value={selectedSizes.map((size) => size.size)}
+                        label="Size"
+                        renderValue={(selected) => selected.join(', ')}
+                    >
+                        {sizeOptions.map((size) => (
+                            <MenuItem
+                                key={size}
+                                value={size}
+                                onClick={() => handleMenuItemClick(size)}
+                            >
+                                <Checkbox checked={selectedSizes.some((s) => s.size === size)} />
+                                <ListItemText primary={size} />
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
             </Box>
+
+            {selectedSizes.map((size, index) => (
+                <Box key={size.size} sx={{ mb: 3 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                        <Typography
+                            key={size.size}
+                            variant="body1"
+                            sx={{
+                                fontSize: '16px',
+                            }}
+                        >
+                            <strong>Size</strong>: {size.size}
+                        </Typography>
+                        <Tooltip
+                            title={
+                                <Typography
+                                    sx={{
+                                        fontSize: '13px',
+                                        mb: 0,
+                                    }}
+                                >
+                                    Remove Size
+                                </Typography>
+                            }
+                        >
+                            <IconButton onClick={() => handleRemoveSizeSelected(size.size)}>
+                                <BackspaceIcon sx={{ fontSize: '20px', color: '#000' }} />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 4 }}>
+                        <TextField
+                            label="Price"
+                            fullWidth
+                            type="number"
+                            value={size.price}
+                            onChange={handleSizeFieldChange(index, 'price')}
+                            sx={{ mb: 2 }}
+                        />
+                        <TextField
+                            label="Price Sale"
+                            fullWidth
+                            type="number"
+                            value={size.priceSale}
+                            onChange={handleSizeFieldChange(index, 'priceSale')}
+                            onBlur={() => handlePriceSaleBlur(index)}
+                            sx={{ mb: 2 }}
+                        />
+                        <TextField
+                            label="Stock"
+                            fullWidth
+                            type="number"
+                            value={size.stock}
+                            onChange={handleSizeFieldChange(index, 'stock')}
+                            sx={{ mb: 2 }}
+                        />
+                    </Box>
+                </Box>
+            ))}
 
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <TextField
@@ -125,6 +308,14 @@ const AdminEditProduct = () => {
                     type="number"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
+                    sx={{ mb: 2 }}
+                />
+                {/* discount percent */}
+                <TextField
+                    label="Price Sale"
+                    fullWidth
+                    value={priceSale}
+                    onChange={(e) => setPriceSale(e.target.value)}
                     sx={{ mb: 2 }}
                 />
 
@@ -146,13 +337,11 @@ const AdminEditProduct = () => {
                     onChange={(e) => setBrand(e.target.value)}
                     sx={{ mb: 2 }}
                 />
-
-                {/* discount percent */}
                 <TextField
-                    label="Discount"
+                    label="Category"
                     fullWidth
-                    value={discount}
-                    onChange={(e) => setDiscount(e.target.value)}
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
                     sx={{ mb: 2 }}
                 />
 
@@ -165,6 +354,38 @@ const AdminEditProduct = () => {
                     // onChange={(e) => setRatings(e.target.value)}
                     sx={{ mb: 2 }}
                 />
+
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                    <InputLabel id="brand-select-label">Brand</InputLabel>
+                    <Select
+                        labelId="brand-select-label"
+                        value={brand2}
+                        label="Brand"
+                        onChange={(e) => setBrand2(e.target.value)}
+                    >
+                        {brandOptions.map((brand) => (
+                            <MenuItem key={brand._id} value={brand._id}>
+                                {brand.nameEn}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                    <InputLabel id="category-select-label">Category</InputLabel>
+                    <Select
+                        labelId="category-select-label"
+                        value={category}
+                        label="Category"
+                        onChange={(e) => setCategory(e.target.value)}
+                    >
+                        {categoryOptions.map((category) => (
+                            <MenuItem key={category._id} value={category._id}>
+                                {category.nameEn}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
                 <Button variant="contained" color="primary" onClick={handleSave}>
