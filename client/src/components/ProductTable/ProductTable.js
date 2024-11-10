@@ -120,6 +120,12 @@ export default function ProductTable() {
                 productData: filteredRows.find(
                     (row) => row.productId === productId && row.size === size,
                 ),
+
+                productTest: products.data?.find(
+                    (product) =>
+                        product._id === productId &&
+                        product?.variants.map((size) => size.size === size),
+                ),
                 selectedSize: getPrice.size, // Pass the selected size
             },
         });
