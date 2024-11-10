@@ -21,6 +21,7 @@ import { productAPI } from '../../api/productAPI';
 import useBrand from '../../api/useBrand';
 import useCategory from '../../api/useCategory';
 import BackspaceIcon from '@mui/icons-material/Backspace';
+import { converToVND } from '../convertToVND/convertToVND';
 
 const AdminEditProduct = () => {
     const location = useLocation();
@@ -45,11 +46,13 @@ const AdminEditProduct = () => {
     const [selectedSizes, setSelectedSizes] = useState(
         productTest?.variants.map((variant) => ({
             size: variant.size,
-            price: variant.price,
-            priceSale: variant.priceSale,
-            stock: variant.stock,
+            price: +variant.price,
+            priceSale: +variant.priceSale,
+            stock: +variant.stock,
         })) || [],
     );
+
+    console.log('selectedSizes: ', selectedSizes);
 
     const [ratings, setRatings] = useState(productData.ratings);
 
@@ -60,7 +63,7 @@ const AdminEditProduct = () => {
     const [messageContent, setMessageContent] = useState('');
     const [messageTitle, setMessageTitle] = useState('');
 
-    const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
+    const sizeOptions = productTest?.variants.map((size) => size.size) || [];
     const { data: brands } = useBrand();
     const brandOptions = brands?.data || [];
 
@@ -97,7 +100,7 @@ const AdminEditProduct = () => {
                     _id: productData.variants[0]?._id,
                     priceSale: +priceSale, // Ensure discountPercent is a number
                     size: '27ml',
-                    price: newPrice, // Ensure price is a number
+                    price: +newPrice, // Ensure price is a number
                 },
             ],
             nameEn: productName,
@@ -212,13 +215,6 @@ const AdminEditProduct = () => {
                     onChange={(e) => setProductName(e.target.value)}
                     sx={{ mb: 2 }}
                 />
-                <TextField
-                    label="Size"
-                    fullWidth
-                    value={size}
-                    onChange={(e) => setSize(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
                 <FormControl fullWidth sx={{ mb: 2 }}>
                     <InputLabel id="size-select-label">Size</InputLabel>
                     <Select
@@ -300,34 +296,6 @@ const AdminEditProduct = () => {
                     </Box>
                 </Box>
             ))}
-
-            <Box sx={{ display: 'flex', gap: 4 }}>
-                <TextField
-                    label="Price"
-                    fullWidth
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-                {/* discount percent */}
-                <TextField
-                    label="Price Sale"
-                    fullWidth
-                    value={priceSale}
-                    onChange={(e) => setPriceSale(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-
-                <TextField
-                    label="Stock"
-                    fullWidth
-                    type="number"
-                    value={stock}
-                    onChange={(e) => setStock(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-            </Box>
 
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <TextField

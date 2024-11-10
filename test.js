@@ -1,3 +1,28 @@
+import React, { useState } from 'react';
+import {
+    Avatar,
+    Box,
+    Button,
+    TextField,
+    Typography,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+    Checkbox,
+    ListItemText,
+    Tooltip,
+    IconButton,
+} from '@mui/material';
+import { useLocation } from 'react-router-dom';
+import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { productAPI } from '../../api/productAPI';
+import useBrand from '../../api/useBrand';
+import useCategory from '../../api/useCategory';
+import BackspaceIcon from '@mui/icons-material/Backspace';
+import { converToVND } from '../convertToVND/convertToVND';
+
 const AdminEditProduct = () => {
     const location = useLocation();
     const { productData, selectedSize, productTest } = location.state;
@@ -12,12 +37,25 @@ const AdminEditProduct = () => {
     const [image, setImage] = useState(productData.image);
     const [productName, setProductName] = useState(productData.productName);
     const [price, setPrice] = useState(productData.price);
+
+    const [brand, setBrand] = useState(productData.brand);
     const [category, setCategory] = useState(productTest.category._id);
     const [brand2, setBrand2] = useState(productTest.brand._id);
     const [priceSale, setPriceSale] = useState(productData.variants[0]?.priceSale);
-    const [selectedSizes, setSelectedSizes] = useState([
-        { price: productTest?.variants.map((size) => size.size) || [] },
-    ]);
+    const [selectedSizes, setSelectedSizes] = useState(
+        productTest?.variants.map((variant) => ({
+            _id: variant._id,
+            size: variant.size,
+            price: +variant.price,
+            priceSale: +variant.priceSale,
+            stock: +variant.stock,
+        })) || [],
+    );
+
+    console.log('selectedSizes: ', selectedSizes);
+
+    const [ratings, setRatings] = useState(productData.ratings);
+
     const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
     const { data: brands } = useBrand();
     const brandOptions = brands?.data || [];
@@ -52,10 +90,10 @@ const AdminEditProduct = () => {
         const data = {
             variants: [
                 {
-                    _id: productData.variants[0]?._id,
+                    _id: size._id,
                     priceSale: +priceSale, // Ensure discountPercent is a number
                     size: '27ml',
-                    price: newPrice, // Ensure price is a number
+                    price: +newPrice, // Ensure price is a number
                 },
             ],
             nameEn: productName,
@@ -253,6 +291,31 @@ const AdminEditProduct = () => {
             ))}
 
             <Box sx={{ display: 'flex', gap: 4 }}>
+                <TextField
+                    label="Brand"
+                    fullWidth
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
+                    sx={{ mb: 2 }}
+                />
+                <TextField
+                    label="Category"
+                    fullWidth
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
+                    sx={{ mb: 2 }}
+                />
+
+                {/* admin can't change this value */}
+                <TextField
+                    label="Rating"
+                    disabled={true}
+                    fullWidth
+                    value={ratings}
+                    // onChange={(e) => setRatings(e.target.value)}
+                    sx={{ mb: 2 }}
+                />
+
                 <FormControl fullWidth sx={{ mb: 2 }}>
                     <InputLabel id="brand-select-label">Brand</InputLabel>
                     <Select
