@@ -37,13 +37,8 @@ const AdminEditProduct = () => {
     // Set up local state for editable product information
     const [image, setImage] = useState(productData.image);
     const [productName, setProductName] = useState(productData.productName);
-    const [price, setPrice] = useState(productData.price);
-    const [size, setSize] = useState(selectedSize);
-    const [stock, setStock] = useState(productData.stock);
-    const [brand, setBrand] = useState(productData.brand);
     const [category, setCategory] = useState(productTest.category._id);
-    const [brand2, setBrand2] = useState(productTest.brand._id);
-    const [priceSale, setPriceSale] = useState(productData.variants[0]?.priceSale);
+    const [brand, setBrand] = useState(productTest.brand._id);
     const [selectedSizes, setSelectedSizes] = useState(
         productTest?.variants.map((variant) => ({
             _id: variant._id,
@@ -84,11 +79,11 @@ const AdminEditProduct = () => {
         }
     };
 
-    console.log('brand2: ', brand2);
+    console.log('brand: ', brand);
     // Handle form submission (you can connect this to your API to save the updated data)
     const handleSave = async () => {
         const getCategoryById = await categoriesAPI.getCategoryById(category);
-        const getBrandById = await brandApi.getBrandById(brand2);
+        const getBrandById = await brandApi.getBrandById(brand);
         setShowNotification(true);
         setShowAnimation('animate__bounceInRight');
         const productId = productData.productId;
@@ -103,7 +98,7 @@ const AdminEditProduct = () => {
             variants: variants,
             nameEn: productName,
             brand: {
-                _id: brand2,
+                _id: brand,
                 nameVn: getBrandById.nameVn,
                 nameEn: getBrandById.nameEn,
             },
@@ -114,12 +109,7 @@ const AdminEditProduct = () => {
                 parentId: null,
             },
         };
-
-        console.log('product id:', productId);
-        console.log('data:', data);
-
         const updateResponse = await productAPI.editProduct(productId, data);
-        console.log('Updated Product:', updateResponse);
     };
 
     // handle Close notification
@@ -185,11 +175,6 @@ const AdminEditProduct = () => {
         });
     };
 
-    const handleRemoveSizeSelected = (sizeToRemove) => {
-        const updatedSizes = selectedSizes.filter((size) => size.size !== sizeToRemove);
-        setSelectedSizes(updatedSizes);
-    };
-
     return (
         <Box
             sx={{
@@ -223,7 +208,7 @@ const AdminEditProduct = () => {
                     onChange={(e) => setProductName(e.target.value)}
                     sx={{ mb: 2 }}
                 />
-                <FormControl fullWidth sx={{ mb: 2 }}>
+                {/* <FormControl fullWidth sx={{ mb: 2 }}>
                     <InputLabel id="size-select-label">Size</InputLabel>
                     <Select
                         labelId="size-select-label"
@@ -243,7 +228,7 @@ const AdminEditProduct = () => {
                             </MenuItem>
                         ))}
                     </Select>
-                </FormControl>
+                </FormControl> */}
             </Box>
 
             {selectedSizes.map((size, index) => (
@@ -258,22 +243,6 @@ const AdminEditProduct = () => {
                         >
                             <strong>Size</strong>: {size.size}
                         </Typography>
-                        <Tooltip
-                            title={
-                                <Typography
-                                    sx={{
-                                        fontSize: '13px',
-                                        mb: 0,
-                                    }}
-                                >
-                                    Remove Size
-                                </Typography>
-                            }
-                        >
-                            <IconButton onClick={() => handleRemoveSizeSelected(size.size)}>
-                                <BackspaceIcon sx={{ fontSize: '20px', color: '#000' }} />
-                            </IconButton>
-                        </Tooltip>
                     </Box>
                     <Box sx={{ display: 'flex', gap: 4 }}>
                         <TextField
@@ -310,9 +279,9 @@ const AdminEditProduct = () => {
                     <InputLabel id="brand-select-label">Brand</InputLabel>
                     <Select
                         labelId="brand-select-label"
-                        value={brand2}
+                        value={brand}
                         label="Brand"
-                        onChange={(e) => setBrand2(e.target.value)} // get id of value
+                        onChange={(e) => setBrand(e.target.value)} // get id of value
                     >
                         {brandOptions.map((brand) => (
                             <MenuItem key={brand._id} value={brand._id}>
