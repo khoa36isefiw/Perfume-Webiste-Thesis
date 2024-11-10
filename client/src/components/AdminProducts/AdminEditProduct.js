@@ -45,6 +45,7 @@ const AdminEditProduct = () => {
     const [priceSale, setPriceSale] = useState(productData.variants[0]?.priceSale);
     const [selectedSizes, setSelectedSizes] = useState(
         productTest?.variants.map((variant) => ({
+            _id: variant._id,
             size: variant.size,
             price: +variant.price,
             priceSale: +variant.priceSale,
@@ -86,23 +87,17 @@ const AdminEditProduct = () => {
     const handleSave = async () => {
         setShowNotification(true);
         setShowAnimation('animate__bounceInRight');
-
         const productId = productData.productId;
-
-        const newPrice = Number(price) || 0; // Convert price to Number with default
-        console.log('type of discountPercent: ', typeof discountPercent);
-
-        console.log('price:', price);
-
+        const variants = selectedSizes.map((variant) => ({
+            _id: variant._id,
+            size: variant.size,
+            price: +variant.price, // + operator --> convert to number
+            priceSale: +variant.priceSale, // convert to number
+            stock: +variant.stock, // convert to number
+        }));
         const data = {
-            variants: [
-                {
-                    _id: productData.variants[0]?._id,
-                    priceSale: +priceSale, // Ensure discountPercent is a number
-                    size: '27ml',
-                    price: +newPrice, // Ensure price is a number
-                },
-            ],
+            variants: variants,
+
             nameEn: productName,
             // brand: brand,
         };
