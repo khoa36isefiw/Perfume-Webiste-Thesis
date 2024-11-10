@@ -32,6 +32,7 @@ import { converToVND } from '../convertToVND/convertToVND';
 import { ModalDesginV2 } from '../Modal/ModalDesgin';
 import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
+import { productAPI } from '../../api/productAPI';
 
 const columns = [
     { id: 'image', label: 'Image' },
@@ -48,7 +49,7 @@ const columns = [
 
 export default function ProductTable() {
     const navigate = useNavigate();
-    const { data: products, isLoading } = useProduct();
+    const { data: products, isLoading, mutate } = useProduct();
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -63,7 +64,7 @@ export default function ProductTable() {
         if (products && products?.data) {
             setRows(products?.data);
         }
-    }, [products]);
+    }, [products?.data]);
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -119,6 +120,12 @@ export default function ProductTable() {
                 productData: filteredRows.find(
                     (row) => row.productId === productId && row.size === size,
                 ),
+
+                productTest: products.data?.find(
+                    (product) =>
+                        product._id === productId &&
+                        product?.variants.map((size) => size.size === size),
+                ),
                 selectedSize: getPrice.size, // Pass the selected size
             },
         });
@@ -127,10 +134,11 @@ export default function ProductTable() {
     // delete feature
 
     const handleDeleteProduct = (productId, size) => {
+        console.log('product id: ', productId);
         // 1.  open confirm message
         setOpenConfirmMessage(true);
         // 2. store the product information data
-        setProductToRemove({ productId, size });
+        setProductToRemove({ productId: productId, size });
         // try {
         //     // const response = await fetch(
         //     //     `https://api.example.com/products/${productId}/sizes/${size}`,
@@ -138,6 +146,7 @@ export default function ProductTable() {
         //     // );
     };
 
+    console.log('product to remove information: ', productToRemove);
     // disagree, not delete the products
     const handleConfirmDisagree = () => {
         setOpenConfirmMessage(false);
@@ -147,32 +156,41 @@ export default function ProductTable() {
     console.log('before delete product: ', rows);
 
     const handleConfirmAgree = async () => {
+        console.log('chay vo day');
         if (productToRemove) {
+            const id = productToRemove.productId;
             try {
                 // filter products and update rows
-                setRows(
-                    (prevRows) =>
-                        // prevRow is a list of products, contain many sizes
-                        prevRows
-                            .map((row) => {
-                                // remove the size of product is selected to delete by product id
-                                if (row.productId === productToRemove.productId) {
-                                    // the remaining product list after deleting products of selected size
-                                    const updatedSizes = row.sizes.filter(
-                                        (size) => size.size !== productToRemove.size,
-                                    );
-                                    // if there are no sizes left, remove the entire product
-                                    if (updatedSizes.length === 0) {
-                                        return null;
-                                    }
+                const deleteResponse = await productAPI.deleteProduct(id);
+                console.log('deleteResponse: ', deleteResponse);
+                mutate();
+                // setRows(
+                //     (prevRows) =>
+                //         // prevRow is a list of products, contain many sizes
+                //         prevRows
+                //             .map((row) => {
+                //                 // remove the size of product is selected to delete by product id
+                //                 if (row.productId === productToRemove.productId) {
+                //                     console.log('row: ', row);
+                //                     console.log('prevRows: ', prevRows);
+                //                     // the remaining product list after deleting products of selected size
+                //                     const updatedSizes = row.variants.filter(
+                //                         (size) => size.size !== productToRemove.size,
+                //                     );
+                //                     // if there are no sizes left, remove the entire product
+                //                     if (updatedSizes.length === 0) {
+                //                         return null;
+                //                     }
 
-                                    // update list products with new size
-                                    return { ...row, sizes: updatedSizes };
-                                }
-                                return row;
-                            })
-                            .filter(Boolean), //remove all products are null
-                );
+                //                     // update list products with new size
+                //                     return { ...row, sizes: updatedSizes };
+                //                 }
+                //                 return row;
+                //             })
+                //             .filter(Boolean), //remove all products are null
+                // );
+
+                console.log('deleteResponse: ', deleteResponse);
 
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
