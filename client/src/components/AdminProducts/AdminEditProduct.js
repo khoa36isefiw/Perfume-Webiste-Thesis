@@ -73,7 +73,7 @@ const AdminEditProduct = () => {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setImage(reader.result); // Update the image with base64 string
+                setImage(reader.result); // update the image with base64 string
             };
             reader.readAsDataURL(file);
         }
@@ -109,7 +109,22 @@ const AdminEditProduct = () => {
                 parentId: null,
             },
         };
-        const updateResponse = await productAPI.editProduct(productId, data);
+        const checkPriceSale = selectedSizes.some((variant) => variant.priceSale > variant.price);
+        console.log('checkPriceSale: ', checkPriceSale);
+        if (!checkPriceSale) {
+            const updateResponse = await productAPI.editProduct(productId, data);
+            if (updateResponse.status == 200) {
+                setMessageType('success');
+                setMessageContent('Update product information successfully!');
+                setMessageTitle('Edit Product');
+            }
+        } else {
+            setShowNotification(true);
+            setShowAnimation('animate__bounceInRight');
+            setMessageType('error');
+            setMessageTitle('Price Error2');
+            setMessageContent('Sale price cannot be greater than the original price!');
+        }
     };
 
     // handle Close notification
@@ -122,9 +137,7 @@ const AdminEditProduct = () => {
 
     const handleSizeFieldChange = (index, field) => (e) => {
         const newValue = e.target.value;
-        console.log('new value: ', newValue);
-
-        // Kiểm tra nếu giá trị là một số hợp lệ
+        // check input for number
         if (isNaN(newValue) || !isFinite(newValue)) {
             setShowNotification(true);
             setShowAnimation('animate__bounceInRight');
@@ -170,7 +183,6 @@ const AdminEditProduct = () => {
                 setMessageTitle('Price Error');
                 setMessageContent('Sale price cannot be greater than the original price!');
             }
-
             return updatedSizes;
         });
     };
@@ -321,9 +333,12 @@ const AdminEditProduct = () => {
                     className={`animate__animated ${showAnimation}`}
                 >
                     <NotificationMessage
-                        msgType={'success'}
-                        msgTitle={'Edit Product'}
-                        msgContent={'Update product information successfully!'}
+                        msgType={messageType}
+                        msgContent={messageContent}
+                        msgTitle={messageTitle}
+                        // msgType={'success'}
+                        // msgContent={'Update product information successfully!'}
+                        // msgTitle={'Edit Product'}
                         autoHideDuration={3000} // Auto-hide after 5 seconds
                         onClose={handleCloseNotification}
                     />
