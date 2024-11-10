@@ -21,7 +21,8 @@ import { productAPI } from '../../api/productAPI';
 import useBrand from '../../api/useBrand';
 import useCategory from '../../api/useCategory';
 import BackspaceIcon from '@mui/icons-material/Backspace';
-import { converToVND } from '../convertToVND/convertToVND';
+import { categoriesAPI } from '../../api/categoriesAPI';
+import { brandApi } from '../../api/brandApi';
 
 const AdminEditProduct = () => {
     const location = useLocation();
@@ -83,8 +84,11 @@ const AdminEditProduct = () => {
         }
     };
 
+    console.log('brand2: ', brand2);
     // Handle form submission (you can connect this to your API to save the updated data)
     const handleSave = async () => {
+        const getCategoryById = await categoriesAPI.getCategoryById(category);
+        const getBrandById = await brandApi.getBrandById(brand2);
         setShowNotification(true);
         setShowAnimation('animate__bounceInRight');
         const productId = productData.productId;
@@ -97,9 +101,18 @@ const AdminEditProduct = () => {
         }));
         const data = {
             variants: variants,
-
             nameEn: productName,
-            // brand: brand,
+            brand: {
+                _id: brand2,
+                nameVn: getBrandById.nameVn,
+                nameEn: getBrandById.nameEn,
+            },
+            category: {
+                _id: category, //category is an ID
+                nameVn: getCategoryById.nameVn,
+                nameEn: getCategoryById.nameEn,
+                parentId: null,
+            },
         };
 
         console.log('product id:', productId);
@@ -293,38 +306,13 @@ const AdminEditProduct = () => {
             ))}
 
             <Box sx={{ display: 'flex', gap: 4 }}>
-                <TextField
-                    label="Brand"
-                    fullWidth
-                    value={brand}
-                    onChange={(e) => setBrand(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-                <TextField
-                    label="Category"
-                    fullWidth
-                    value={brand}
-                    onChange={(e) => setBrand(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-
-                {/* admin can't change this value */}
-                <TextField
-                    label="Rating"
-                    disabled={true}
-                    fullWidth
-                    value={ratings}
-                    // onChange={(e) => setRatings(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-
                 <FormControl fullWidth sx={{ mb: 2 }}>
                     <InputLabel id="brand-select-label">Brand</InputLabel>
                     <Select
                         labelId="brand-select-label"
                         value={brand2}
                         label="Brand"
-                        onChange={(e) => setBrand2(e.target.value)}
+                        onChange={(e) => setBrand2(e.target.value)} // get id of value
                     >
                         {brandOptions.map((brand) => (
                             <MenuItem key={brand._id} value={brand._id}>
