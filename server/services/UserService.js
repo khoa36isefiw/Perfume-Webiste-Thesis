@@ -1,3 +1,4 @@
+const ProductBuyer = require('../models/ProductBuyer.model');
 const User = require('../models/User.model');
 
 const UserService = {
@@ -28,6 +29,19 @@ const UserService = {
 
         const userUpdated = await user.save();
         return userUpdated;
+    },
+
+    checkProductBoughtByUser: async (userId, productId) => {
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        const product = await Product.findById(productId);
+        if (!product) {
+            throw new Error('Product not found');
+        }
+        const isProductBought = await ProductBuyer.findOne({ user: user._id, product: productId });
+        return isProductBought;
     },
 };
 

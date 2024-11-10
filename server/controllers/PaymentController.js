@@ -9,6 +9,7 @@ const { getConversionRate } = require('../utils/convertCurrency');
 const { isInStock } = require('../services/VariantService');
 const Promotion = require('../models/Promotion.model');
 const VariantService = require('../services/VariantService');
+const ProductBuyer = require('../models/ProductBuyer.model');
 
 const PaymentController = {
     getAll: async (req, res) => {
@@ -53,17 +54,6 @@ const PaymentController = {
                 return res.status(400).json({ message: 'Cart is empty' });
             }
 
-            const promotion = await Promotion.findOne({ _id: promotionCode });
-            if (!promotion) {
-                return res.status(400).json({ message: 'Promotion code not found' });
-            }
-            if (promotion.quantity > 0) {
-                promotion.quantity -= 1;
-                await promotion.save();
-            } else {
-                return res.status(400).json({ message: 'Promotion out of stock' });
-            }
-
             for (const item of items) {
                 const { product, variant } = item;
                 const isMatchProduct = variant.product.toString() === product._id.toString();
@@ -96,7 +86,6 @@ const PaymentController = {
                     price: variant.price,
                     priceSale: variant.priceSale,
                     quantity: item.quantity,
-                    promotionCode: promotion._id,
                 });
 
                 const totalPrice =
@@ -104,7 +93,20 @@ const PaymentController = {
                 newOrder.totalPrice += totalPrice;
             }
 
-            newOrder.totalPrice *= 1 - promotion.discount / 100;
+            if (promotionCode) {
+                const promotion = await Promotion.findOne({ _id: promotionCode });
+                if (!promotion) {
+                    return res.status(400).json({ message: 'Promotion code not found' });
+                }
+                if (promotion.quantity > 0) {
+                    promotion.quantity -= 1;
+                    await promotion.save();
+                } else {
+                    return res.status(400).json({ message: 'Promotion out of stock' });
+                }
+                newOrder.totalPrice *= 1 - promotion?.discount / 100;
+            }
+
             const savedOrder = await newOrder.save();
 
             // remove item in cart
@@ -241,6 +243,10 @@ const PaymentController = {
                     updatedVariant.stock -= variant.quantity;
                     await updatedVariant.save();
                 }
+                await ProductBuyer.create({
+                    user: updatedOrder.user,
+                    product: updatedOrder.items[0].product,
+                });
                 res.status(200).json({ message: 'Payment successful', order: updatedOrder });
             } else {
                 res.status(400).json({ message: 'Payment not completed' });
