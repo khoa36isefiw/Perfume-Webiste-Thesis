@@ -45,9 +45,9 @@ const AdminEditProduct = () => {
     const [selectedSizes, setSelectedSizes] = useState(
         productTest?.variants.map((variant) => ({
             size: variant.size,
-            price: '',
-            priceSale: '',
-            stock: '',
+            price: variant.price,
+            priceSale: variant.priceSale,
+            stock: variant.stock,
         })) || [],
     );
 
