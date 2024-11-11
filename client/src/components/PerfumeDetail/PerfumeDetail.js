@@ -1,15 +1,4 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    Container,
-    Divider,
-    Grid,
-    IconButton,
-    Rating,
-    Tooltip,
-    Typography,
-} from '@mui/material';
+import { Avatar, Box, Button, Container, Divider, Grid, IconButton, Rating } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -18,17 +7,14 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { quickViewImage } from './perfumeDetailData';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    addToCart,
-    increaseQuantity,
-} from '../../redux/feature/CartManagement/CartManagementSlice';
+
 import { converToVND } from '../convertToVND/convertToVND';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { CountdownTimer } from '../CountdownTimer/CountdownTimer';
 import CheckIcon from '@mui/icons-material/Check';
-import { ordersAPI } from '../../api/ordersAPI';
+
 import { userAPI } from '../../api/userAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
