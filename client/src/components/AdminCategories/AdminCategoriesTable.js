@@ -17,31 +17,35 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link, useNavigate } from 'react-router-dom';
+import useCategory from '../../api/useCategory';
+import { useEffect } from 'react';
+import { categoriesAPI } from '../../api/categoriesAPI';
+import useParentCategory from '../../api/useParentCategory';
 
 function AdminCategoriesTable() {
-    const [categories, setCategories] = React.useState([
-        {
-            name: 'unisex',
-            parentCategory: '...',
-            description: 'test',
-            isActive: true,
-            _id: 1,
-        },
-    ]);
+    const { data: categoriesData } = useCategory();
+    const responseCategories = categoriesData?.data || [];
+    const { data: parentCategoriesData } = useParentCategory();
+    const responseParentCategories = parentCategoriesData?.data || [];
+    const [categories, setCategories] = React.useState(responseCategories);
     const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
     const [showPopup, setShowPopup] = React.useState(false);
     const [message, setMessage] = React.useState('');
     const [typeMessage, setTypeMessage] = React.useState('');
+    const [parentCategory, setParentCategory] = React.useState(responseParentCategories);
     const navigate = useNavigate();
 
-    // const fetchCategory = async () => {
-    //     const listCategory = 'await categoryService.getAllCategory()';
-    //     setCategories(listCategory);
-    // };
-    // React.useEffect(() => {
-    //     fetchCategory();
-    // }, []);
+    useEffect(() => {
+        setCategories(categoriesData?.data);
+    }, [categoriesData?.data]);
 
+    useEffect(() => {
+        setParentCategory(responseParentCategories);
+    }, [responseParentCategories]);
+
+    console.log('categories: ', categories);
+
+    console.log('parentCategory: ', parentCategory);
     const handleDelete = (cateId) => {
         setSelectedCategoryId(cateId);
         // show pop up to confirm this action
@@ -131,46 +135,75 @@ function AdminCategoriesTable() {
                         <TableRow>
                             <TableCell>No</TableCell>
                             <TableCell align="left">Name</TableCell>
-                            <TableCell align="left">Parent Category</TableCell>
-                            <TableCell align="left">Description</TableCell>
+                            <TableCell align="center">Parent Category</TableCell>
+                            <TableCell align="center">Description</TableCell>
                             <TableCell align="center">Active</TableCell>
                             <TableCell align="center">Action</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {categories.length > 0 &&
-                            categories.map((category, index) => (
-                                <TableRow
-                                    key={category._id}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell component="th" scope="category">
-                                        {index + 1}
-                                    </TableCell>
-                                    <TableCell align="left">{category.name}</TableCell>
-                                    <TableCell align="left">{category.parentCategory}</TableCell>
-                                    <TableCell align="left" sx={{ maxWidth: '400px' }}>
-                                        {category.description}
-                                    </TableCell>
+                        {categories?.length > 0 &&
+                            categories.map((category, index) => {
+                                // find the parent category by matching the parentId
+                                const parent = parentCategory.find(
+                                    (pCategory) => pCategory._id === category.parent, // from category list
+                                );
+                                console.log('parent: ', parent);
 
-                                    <TableCell align="center">
-                                        {category.isActive ? (
-                                            <CheckIcon color="success" fontSize="large" />
-                                        ) : (
-                                            <CloseIcon color="error" fontSize="large" />
-                                        )}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        <IconButton onClick={() => handleDelete(category._id)}>
-                                            <DeleteIcon color="error" fontSize="large" />
-                                        </IconButton>
+                                return (
+                                    <TableRow
+                                        key={category._id}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell component="th" scope="category">
+                                            {index + 1}
+                                        </TableCell>
+                                        <TableCell align="left">{category.nameEn}</TableCell>
+                                        <TableCell align="left">
+                                            {parent ? (
+                                                <Typography sx={{ textAlign: 'center' }}>
+                                                    {parent.nameEn}
+                                                </Typography>
+                                            ) : (
+                                                <Typography
+                                                    sx={{ bgcolor: '#d5d5d5', textAlign: 'center' }}
+                                                >
+                                                    No Parent
+                                                </Typography>
+                                            )}
+                                        </TableCell>
+                                        <TableCell align="left" sx={{ maxWidth: '400px' }}>
+                                            {category.descriptionEn ? (
+                                                <Typography sx={{ textAlign: 'center' }}>
+                                                    {category.descriptionEn}
+                                                </Typography>
+                                            ) : (
+                                                <Typography
+                                                    sx={{ bgcolor: '#d5d5d5', textAlign: 'center' }}
+                                                >
+                                                    No Description
+                                                </Typography>
+                                            )}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {category.status === 'active' ? (
+                                                <CheckIcon color="success" fontSize="large" />
+                                            ) : (
+                                                <CloseIcon color="error" fontSize="large" />
+                                            )}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            <IconButton onClick={() => handleDelete(category._id)}>
+                                                <DeleteIcon color="error" fontSize="large" />
+                                            </IconButton>
 
-                                        <IconButton onClick={() => handleEdit(category)}>
-                                            <EditNoteIcon color="info" fontSize="large" />
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                                            <IconButton onClick={() => handleEdit(category)}>
+                                                <EditNoteIcon color="info" fontSize="large" />
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })}
                     </TableBody>
                 </Table>
             </TableContainer>
