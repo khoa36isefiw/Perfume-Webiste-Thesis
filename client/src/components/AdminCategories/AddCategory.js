@@ -4,8 +4,19 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import { useNavigate } from 'react-router-dom';
 import { categoriesAPI } from '../../api/categoriesAPI';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function AddCategory() {
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageTitle,
+        messageContent,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
     const [name, setName] = React.useState({
         value: '',
         message: '',
@@ -17,10 +28,7 @@ function AddCategory() {
         message: '',
     });
     const [selectedCategoryId, setSelectedCategoryId] = React.useState('');
-    const [selectedSubCategoryId, setSelectedSubCategoryId] = React.useState('');
 
-    const [message, setMessage] = React.useState('');
-    const [typeMessage, setTypeMessage] = React.useState('');
     const navigate = useNavigate();
 
     const fetchAllParentCategory = async () => {
@@ -28,17 +36,10 @@ function AddCategory() {
         console.log('listCategory: ', listCategory.data);
         setCategories(listCategory.data);
     };
-    const fetchCategoryByParentId = async (id) => {
-        const listCategory = 'await categoryService.getChildCategoryByPId(id)';
-        // setSubCategories(listCategory);
-    };
 
     React.useEffect(() => {
         fetchAllParentCategory();
     }, []);
-    React.useEffect(() => {
-        fetchCategoryByParentId(selectedCategoryId);
-    }, [selectedCategoryId]);
 
     const validateName = () => {
         if (name.value.trim() === '') {
@@ -81,38 +82,27 @@ function AddCategory() {
 
             // call api to create new user
             if (respone.status === 201) {
-                console.log('respone: ', respone);
-                setMessage('Tạo category thành công');
-                setTypeMessage('success');
                 setName({ value: '', message: '' });
                 setDescription({ value: '', message: '' });
                 setSelectedCategoryId('');
-                setSelectedSubCategoryId('');
-                // navigate('/manage-category');
+                showMessage('success', 'Create Category', 'Tạo category thành công');
+                setTimeout(() => {
+                    navigate('/admin/manage-categories');
+                }, 2800);
             } else {
-                setMessage('Tạo category thất bại');
-                setTypeMessage('error');
+                showMessage('error', 'Create Category', 'Tạo category thất bại');
             }
         } else {
-            setMessage('Vui lòng kiểm tra các trường đã nhập');
-            setTypeMessage('error');
+            showMessage('error', 'Create Category', 'Vui lòng kiểm tra các trường đã nhập');
         }
-        setTimeout(() => {
-            setMessage('');
-            setTypeMessage('');
-        }, 3000);
     };
     const handleBack = () => {
-        window.history.back(); // Quay trở lại trang trước
+        window.history.back(); // return the previous page
     };
 
     const handleSelectedCategory = (e) => {
         console.log(selectedCategoryId);
         setSelectedCategoryId(e.target.value);
-    };
-    console.log('after: ', selectedCategoryId);
-    const handleSelectedSubCategory = (e) => {
-        setSelectedSubCategoryId(e.target.value);
     };
 
     return (
@@ -194,6 +184,20 @@ function AddCategory() {
                     </Button>
                 </form>
             </Box>
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 }
