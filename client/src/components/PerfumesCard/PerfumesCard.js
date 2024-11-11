@@ -105,7 +105,7 @@ function PerfumesCard() {
                                         }}
                                         onClick={() => handleNavigationProductDetail(perfume)}
                                     >
-                                        {perfume.discount && (
+                                        {perfume?.variants[0]?.discountPercent && (
                                             <Box
                                                 sx={{
                                                     position: 'absolute',
@@ -125,10 +125,11 @@ function PerfumesCard() {
                                                     justifyContent: 'center',
                                                 }}
                                             >
-                                                - {perfume.perfumeDiscount}%
+                                                - {perfume?.variants[0]?.discountPercent}%
                                             </Box>
                                         )}
 
+                                        {/* cần không? */}
                                         {perfume.flashSale && (
                                             <Button
                                                 sx={{
