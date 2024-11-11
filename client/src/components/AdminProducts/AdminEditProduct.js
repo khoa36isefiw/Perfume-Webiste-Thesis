@@ -73,13 +73,10 @@ const AdminEditProduct = () => {
         }
     };
 
-    console.log('brand: ', brand);
-    // Handle form submission (you can connect this to your API to save the updated data)
     const handleSave = async () => {
         const getCategoryById = await categoriesAPI.getCategoryById(category);
         const getBrandById = await brandApi.getBrandById(brand);
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
+
         const productId = productData.productId;
         const variants = selectedSizes.map((variant) => ({
             _id: variant._id,
@@ -106,21 +103,27 @@ const AdminEditProduct = () => {
 
         //check if price sale is greater than the original price???
         const checkPriceSale = selectedSizes.some((variant) => variant.priceSale > variant.price);
+
+        const checkEmpty = selectedSizes.every(
+            (size) =>
+                size.size !== '' && size.price !== '' && size.priceSale !== '' && size.stock !== '',
+        );
+
         // check empty, null
         if (
             image !== '' &&
             productName !== '' &&
             category !== '' &&
             brand !== '' &&
-            selectedSizes.size !== '' &&
-            selectedSizes.price !== '' &&
-            selectedSizes.priceSale !== '' &&
-            selectedSizes.stock !== ''
+            selectedSizes.length > 0 &&
+            checkEmpty
         ) {
             console.log('checkPriceSale: ', checkPriceSale);
             if (!checkPriceSale) {
                 const updateResponse = await productAPI.editProduct(productId, data);
                 if (updateResponse.status == 200) {
+                    setShowNotification(true);
+                    setShowAnimation('animate__bounceInRight');
                     setMessageType('success');
                     setMessageContent('Update product information successfully!');
                     setMessageTitle('Edit Product');

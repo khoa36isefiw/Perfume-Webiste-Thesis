@@ -76,7 +76,10 @@ const AdminAddProduct = () => {
             selectedSizes.length > 0 &&
             selectedSizes.every(
                 (size) =>
-                    size.size != '' && size.price != '' && size.priceSale != '' && size.stock != '',
+                    size.size !== '' &&
+                    size.price !== '' &&
+                    size.priceSale !== '' &&
+                    size.stock !== '',
             )
         ) {
             const newProductData = {
