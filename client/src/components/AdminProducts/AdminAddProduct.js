@@ -76,7 +76,10 @@ const AdminAddProduct = () => {
             selectedSizes.length > 0 &&
             selectedSizes.every(
                 (size) =>
-                    size.size != '' && size.price != '' && size.priceSale != '' && size.stock != '',
+                    size.size !== '' &&
+                    size.price !== '' &&
+                    size.priceSale !== '' &&
+                    size.stock !== '',
             )
         ) {
             const newProductData = {
@@ -414,7 +417,7 @@ const AdminButtonDesign = ({ type, bgcolor, title, onHandleClick, textColor, bor
                 padding: '10px 18px',
                 fontSize: '14px',
                 textTransform: 'initial',
-                borderRadius: 2,
+                borderRadius: 1,
                 bgcolor: bgcolor,
                 borderColor: borderColor,
                 '&:hover': {

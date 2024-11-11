@@ -5,4 +5,12 @@ export const brandApi = {
         const url = `/brands/${id}`;
         return axiosClient.get(url);
     },
+    deleteBrand: (id) => {
+        const url = `/brands/${id}`;
+        return axiosClient.delete(url);
+    },
+    createBrand: (data) => {
+        const url = `/brands/`;
+        return axiosClient.post(url, data);
+    },
 };

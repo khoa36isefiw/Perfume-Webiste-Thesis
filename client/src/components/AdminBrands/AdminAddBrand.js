@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { categoriesAPI } from '../../api/categoriesAPI';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import { brandApi } from '../../api/brandApi';
 
-function AddCategory() {
+function AdminAddBrand() {
     const {
         showNotification,
         showAnimation,
@@ -21,25 +22,13 @@ function AddCategory() {
         value: '',
         message: '',
     });
-    const [categories, setCategories] = React.useState(null);
 
     const [description, setDescription] = React.useState({
         value: '',
         message: '',
     });
-    const [selectedCategoryId, setSelectedCategoryId] = React.useState('');
 
     const navigate = useNavigate();
-
-    const fetchAllParentCategory = async () => {
-        const listCategory = await categoriesAPI.getAllParentCategory();
-        console.log('listCategory: ', listCategory.data);
-        setCategories(listCategory.data);
-    };
-
-    React.useEffect(() => {
-        fetchAllParentCategory();
-    }, []);
 
     const validateName = () => {
         if (name.value.trim() === '') {
@@ -71,38 +60,31 @@ function AddCategory() {
     const handleCreate = async (e) => {
         e.preventDefault();
         if (!checkError()) {
-            console.log('selectedCategoryId: ', selectedCategoryId);
             const data = {
                 nameEn: name.value,
                 nameVn: name.value,
-                descriptionEn: description.value,
-                parentId: selectedCategoryId,
+                descriptionEN: description.value,
             };
-            const respone = await categoriesAPI.createCategory(data);
-
+            const createBrandResponse = await brandApi.createBrand(data);
+            console.log('createBrandResponse: ', createBrandResponse);
             // call api to create new user
-            if (respone.status === 201) {
+            if (createBrandResponse.status === 201) {
                 setName({ value: '', message: '' });
                 setDescription({ value: '', message: '' });
-                setSelectedCategoryId('');
-                showMessage('success', 'Create Category', 'Tạo category thành công');
+
+                showMessage('success', 'Create Brand', 'Tạo brand mới thành công');
                 setTimeout(() => {
-                    navigate('/admin/manage-categories');
+                    navigate('/admin/manage-brands');
                 }, 2800);
             } else {
-                showMessage('error', 'Create Category', 'Tạo category thất bại');
+                showMessage('error', 'Create Brand', 'Tạo Brand thất bại');
             }
         } else {
-            showMessage('error', 'Create Category', 'Vui lòng kiểm tra các trường đã nhập');
+            showMessage('error', 'Create Brand', 'Vui lòng kiểm tra các trường đã nhập');
         }
     };
     const handleBack = () => {
         window.history.back(); // return the previous page
-    };
-
-    const handleSelectedCategory = (e) => {
-        console.log(selectedCategoryId);
-        setSelectedCategoryId(e.target.value);
     };
 
     return (
@@ -114,19 +96,19 @@ function AddCategory() {
             >
                 Back
             </Button>
-            <Typography sx={{ fontSize: '3rem', fontWeight: 600 }}>New Category</Typography>
+            <Typography sx={{ fontSize: '3rem', fontWeight: 600 }}>New Brand</Typography>
             <Box sx={{ bgcolor: '#fff', mt: 4, px: 2, borderRadius: 2, minHeight: 200 }}>
                 <form onSubmit={handleCreate}>
                     <Grid container spacing={4}>
                         <Grid item lg={6}>
                             <TextField
-                                label="Category Name"
+                                label="Brand Name"
                                 required
                                 fullWidth
                                 value={name.value}
                                 error={name.message ? true : false}
                                 variant="outlined"
-                                placeholder="Enter Category Name"
+                                placeholder="Enter Brand Name"
                                 onBlur={validateName}
                                 onChange={(e) => setName({ ...name, value: e.target.value })}
                             />
@@ -147,32 +129,6 @@ function AddCategory() {
                                 }
                             />
                         </Grid>
-                        <Grid item lg={12}>
-                            {categories?.length > 0 && (
-                                <TextField
-                                    fullWidth
-                                    select
-                                    value={selectedCategoryId}
-                                    onChange={handleSelectedCategory}
-                                    label="Select Category"
-                                    sx={{ fontSize: '14px' }}
-                                >
-                                    <MenuItem value="" sx={{ fontSize: '14px' }}>
-                                        <em>None</em>
-                                    </MenuItem>
-                                    {categories.map((category) => (
-                                        <MenuItem
-                                            key={category._id}
-                                            value={category._id}
-                                            sx={{ fontSize: '14px' }}
-                                        >
-                                            {category.nameEn}
-                                        </MenuItem>
-                                    ))}{' '}
-                                    *
-                                </TextField>
-                            )}
-                        </Grid>
                     </Grid>
 
                     <Button
@@ -180,7 +136,7 @@ function AddCategory() {
                         variant="contained"
                         sx={{ textTransform: 'initial', fontSize: '14px', my: 4 }}
                     >
-                        Create Category
+                        Create Brand
                     </Button>
                 </form>
             </Box>
@@ -202,4 +158,4 @@ function AddCategory() {
     );
 }
 
-export default AddCategory;
+export default AdminAddBrand;

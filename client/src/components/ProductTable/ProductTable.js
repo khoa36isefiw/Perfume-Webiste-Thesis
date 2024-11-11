@@ -58,6 +58,7 @@ export default function ProductTable() {
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+
     const [productToRemove, setProductToRemove] = useState(null);
 
     useEffect(() => {
@@ -132,7 +133,6 @@ export default function ProductTable() {
     };
 
     // delete feature
-
     const handleDeleteProduct = (productId, size) => {
         console.log('product id: ', productId);
         // 1.  open confirm message

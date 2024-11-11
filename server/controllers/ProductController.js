@@ -11,6 +11,7 @@ const ProductController = {
             const pipeline = [
                 {
                     $match: {
+                        status: 'active',
                         ...(keyword && {
                             $or: [
                                 { nameEn: { $regex: keyword, $options: 'i' } },

@@ -9,10 +9,6 @@ import {
     InputLabel,
     Select,
     MenuItem,
-    Checkbox,
-    ListItemText,
-    Tooltip,
-    IconButton,
 } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
@@ -20,9 +16,9 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { productAPI } from '../../api/productAPI';
 import useBrand from '../../api/useBrand';
 import useCategory from '../../api/useCategory';
-import BackspaceIcon from '@mui/icons-material/Backspace';
 import { categoriesAPI } from '../../api/categoriesAPI';
 import { brandApi } from '../../api/brandApi';
+import { theme } from '../../Theme/Theme';
 
 const AdminEditProduct = () => {
     const location = useLocation();
@@ -51,8 +47,6 @@ const AdminEditProduct = () => {
 
     console.log('selectedSizes: ', selectedSizes);
 
-    const [ratings, setRatings] = useState(productData.ratings);
-
     // notifications
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
@@ -79,13 +73,10 @@ const AdminEditProduct = () => {
         }
     };
 
-    console.log('brand: ', brand);
-    // Handle form submission (you can connect this to your API to save the updated data)
     const handleSave = async () => {
         const getCategoryById = await categoriesAPI.getCategoryById(category);
         const getBrandById = await brandApi.getBrandById(brand);
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
+
         const productId = productData.productId;
         const variants = selectedSizes.map((variant) => ({
             _id: variant._id,
@@ -109,21 +100,47 @@ const AdminEditProduct = () => {
                 parentId: null,
             },
         };
+
+        //check if price sale is greater than the original price???
         const checkPriceSale = selectedSizes.some((variant) => variant.priceSale > variant.price);
-        console.log('checkPriceSale: ', checkPriceSale);
-        if (!checkPriceSale) {
-            const updateResponse = await productAPI.editProduct(productId, data);
-            if (updateResponse.status == 200) {
-                setMessageType('success');
-                setMessageContent('Update product information successfully!');
-                setMessageTitle('Edit Product');
+
+        const checkEmpty = selectedSizes.every(
+            (size) =>
+                size.size !== '' && size.price !== '' && size.priceSale !== '' && size.stock !== '',
+        );
+
+        // check empty, null
+        if (
+            image !== '' &&
+            productName !== '' &&
+            category !== '' &&
+            brand !== '' &&
+            selectedSizes.length > 0 &&
+            checkEmpty
+        ) {
+            console.log('checkPriceSale: ', checkPriceSale);
+            if (!checkPriceSale) {
+                const updateResponse = await productAPI.editProduct(productId, data);
+                if (updateResponse.status == 200) {
+                    setShowNotification(true);
+                    setShowAnimation('animate__bounceInRight');
+                    setMessageType('success');
+                    setMessageContent('Update product information successfully!');
+                    setMessageTitle('Edit Product');
+                }
+            } else {
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageType('error');
+                setMessageTitle('Price Error2');
+                setMessageContent('Sale price cannot be greater than the original price!');
             }
         } else {
             setShowNotification(true);
             setShowAnimation('animate__bounceInRight');
-            setMessageType('error');
-            setMessageTitle('Price Error2');
-            setMessageContent('Sale price cannot be greater than the original price!');
+            setMessageType('warning');
+            setMessageTitle('Update Product');
+            setMessageContent('Please fill product information!');
         }
     };
 
@@ -320,11 +337,24 @@ const AdminEditProduct = () => {
                 </FormControl>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
-                <Button variant="contained" color="primary" onClick={handleSave}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSave}
+                    sx={{
+                        fontSize: '12px',
+                        textTransform: 'initial',
+                        padding: '10px 18px',
+                        bgcolor: theme.palette.admin.bgColor,
+                        borderColor: theme.palette.admin.bgColor,
+                        color: 'white',
+                        '&:hover': {
+                            bgcolor: theme.palette.admin.bgColor,
+                            borderColor: theme.palette.admin.bgColor,
+                        },
+                    }}
+                >
                     Save Changes
-                </Button>
-                <Button variant="outlined" color="secondary">
-                    Cancel
                 </Button>
             </Box>
             {showNotification && (

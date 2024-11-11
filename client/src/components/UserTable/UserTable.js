@@ -34,7 +34,6 @@ import useLoading from '../../hooks/useLoading';
 import { columns } from './userColumn';
 import { userAPI } from '../../api/userAPI';
 import * as XLSX from 'xlsx';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
 // Component to render the table with dynamic data
 export default function UserTable() {

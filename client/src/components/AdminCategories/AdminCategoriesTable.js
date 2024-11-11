@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
@@ -17,67 +17,132 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link, useNavigate } from 'react-router-dom';
+import useCategory from '../../api/useCategory';
+import { useEffect } from 'react';
+import { categoriesAPI } from '../../api/categoriesAPI';
+import useParentCategory from '../../api/useParentCategory';
+import WarningIcon from '@mui/icons-material/Warning';
+import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
+import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import { theme } from '../../Theme/Theme';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { blue } from '@mui/material/colors';
+import * as XLSX from 'xlsx';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 function AdminCategoriesTable() {
-    const [categories, setCategories] = React.useState([
-        {
-            name: 'unisex',
-            parentCategory: '...',
-            description: 'test',
-            isActive: true,
-            _id: 1,
-        },
-    ]);
-    const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
-    const [showPopup, setShowPopup] = React.useState(false);
-    const [message, setMessage] = React.useState('');
-    const [typeMessage, setTypeMessage] = React.useState('');
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageTitle,
+        messageContent,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
+    const { data: categoriesData, mutate } = useCategory();
+    const responseCategories = categoriesData?.data || [];
+    const { data: parentCategoriesData } = useParentCategory();
+    const responseParentCategories = parentCategoriesData?.data || [];
+    const [categories, setCategories] = useState(responseCategories);
+    const [parentCategory, setParentCategory] = useState(responseParentCategories);
+    const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
+    const [categoryToRemove, setCategoryToRemove] = useState(null);
+
     const navigate = useNavigate();
 
-    // const fetchCategory = async () => {
-    //     const listCategory = 'await categoryService.getAllCategory()';
-    //     setCategories(listCategory);
-    // };
-    // React.useEffect(() => {
-    //     fetchCategory();
-    // }, []);
+    useEffect(() => {
+        setCategories(categoriesData?.data);
+    }, [categoriesData?.data]);
 
-    const handleDelete = (cateId) => {
-        setSelectedCategoryId(cateId);
-        // show pop up to confirm this action
-        setShowPopup(true);
-    };
-
-    const confirmDelete = async (id) => {
-        // call api để xóa
-        const respone = 'await categoryService.deleteCategory(id)';
-        console.log(respone);
-        if (respone.status === 204) {
-            setMessage('Xóa category thành công');
-            setTypeMessage('success');
-
-            const updatedCategories = categories.filter((category) => category._id !== id);
-            setCategories(updatedCategories);
-        } else {
-            setMessage('Xóa category thất bại');
-            setTypeMessage('error');
-        }
-        setTimeout(() => {
-            setMessage('');
-            setTypeMessage('');
-        }, 3000);
-    };
-
-    const handleClosePopup = () => {
-        setShowPopup(false);
-    };
+    useEffect(() => {
+        setParentCategory(responseParentCategories);
+    }, [responseParentCategories]);
 
     const handleEdit = (category) => {
         navigate(`/admin/manage-categories/edit/${category._id}`, { state: { category } });
     };
 
+    // delete category
+    const handleDeleteCategory = (categoryId) => {
+        console.log('categoryId id: ', categoryId);
+        // 1.  open confirm message
+        setOpenConfirmMessage(true);
+        // 2. store the product information data
+        setCategoryToRemove({ categoryId: categoryId });
+    };
+
+    console.log('product to remove information: ', categoryToRemove);
+    // disagree, not delete the products
+    const handleConfirmDisagree = () => {
+        setOpenConfirmMessage(false);
+        setCategoryToRemove(null);
+    };
+
+    const handleConfirmAgree = async () => {
+        console.log('chay vo day');
+        if (categoryToRemove) {
+            const id = categoryToRemove.categoryId;
+            try {
+                // filter products and update rows
+                const deleteResponse = await categoriesAPI.deleteCategory(id);
+                console.log('deleteResponse: ', deleteResponse);
+                mutate();
+
+                if (deleteResponse.status === 200) {
+                    showMessage('success', 'Delete Category', 'Xóa category thành công');
+                    // re-update to list
+                    const updatedCategories = categories.filter((category) => category._id !== id);
+                    setCategories(updatedCategories);
+                    setOpenConfirmMessage(false);
+                    setCategoryToRemove(null);
+                }
+
+                console.log('deleteResponse: ', deleteResponse);
+            } catch (error) {
+                showMessage('error', 'Delete Category', 'Xóa category thất bại');
+                console.error('Error deleting product:', error);
+            }
+        }
+    };
+
+    // export to excel
+    const exportToExcel = async () => {
+        // Create a new workbook
+        const workbook = XLSX.utils.book_new();
+
+        // Fetch parent category names asynchronously
+        const worksheetData = await Promise.all(
+            responseCategories.map(async (category, index) => {
+                console.log('category.parent: ', category.parent);
+                const parentCategory = await categoriesAPI.getCategoryById(category.parent);
+
+                console.log('parentCategory', parentCategory);
+                return {
+                    // Define column names and get data
+                    No: index + 1,
+                    ID: category._id,
+                    'Category Name': category.nameEn,
+                    'Parent Category':
+                        parentCategory.status === 200 ? parentCategory?.data?.nameEn : 'N/A',
+                    Description: category.descriptionEn,
+                };
+            }),
+        );
+
+        // Convert JSON data to worksheet
+        const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+
+        // Append the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'CategoryTable');
+
+        // Export the workbook as an Excel file
+        XLSX.writeFile(workbook, 'Categories Table.xlsx');
+    };
+
     return (
-        <Box sx={{ height: '100vh' }}>
+        <Box sx={{ height: '100vh', mr: 8 }}>
             <Box
                 sx={{
                     display: 'flex',
@@ -93,7 +158,10 @@ function AdminCategoriesTable() {
                             <UploadIcon sx={{ mr: 1 }} />
                             Import
                         </Button>
-                        <Button sx={{ fontSize: '1.4rem', textTransform: 'none' }}>
+                        <Button
+                            sx={{ fontSize: '1.4rem', textTransform: 'none' }}
+                            onClick={exportToExcel}
+                        >
                             <DownloadIcon sx={{ mr: 1 }} />
                             Export
                         </Button>
@@ -113,6 +181,7 @@ function AdminCategoriesTable() {
             <Paper sx={{ mt: 4, mb: 4, padding: 1.5, borderRadius: 4 }}>
                 <TextField
                     placeholder="Search Category"
+                    fullWidth
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -129,50 +198,164 @@ function AdminCategoriesTable() {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>No</TableCell>
-                            <TableCell align="left">Name</TableCell>
-                            <TableCell align="left">Parent Category</TableCell>
-                            <TableCell align="left">Description</TableCell>
-                            <TableCell align="center">Active</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }}>No</TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="left">
+                                Name
+                            </TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="center">
+                                Parent Category
+                            </TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="center">
+                                Description
+                            </TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="center">
+                                Active
+                            </TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="center">
+                                Action
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {categories.length > 0 &&
-                            categories.map((category, index) => (
-                                <TableRow
-                                    key={category._id}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell component="th" scope="category">
-                                        {index + 1}
-                                    </TableCell>
-                                    <TableCell align="left">{category.name}</TableCell>
-                                    <TableCell align="left">{category.parentCategory}</TableCell>
-                                    <TableCell align="left" sx={{ maxWidth: '400px' }}>
-                                        {category.description}
-                                    </TableCell>
+                        {categories?.length > 0 &&
+                            categories.map((category, index) => {
+                                // find the parent category by matching the parentId
+                                const parent = parentCategory.find(
+                                    (pCategory) => pCategory._id === category.parent, // from category list
+                                );
 
-                                    <TableCell align="center">
-                                        {category.isActive ? (
-                                            <CheckIcon color="success" fontSize="large" />
-                                        ) : (
-                                            <CloseIcon color="error" fontSize="large" />
-                                        )}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        <IconButton onClick={() => handleDelete(category._id)}>
-                                            <DeleteIcon color="error" fontSize="large" />
-                                        </IconButton>
+                                return (
+                                    <TableRow
+                                        key={category._id}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell
+                                            sx={{ fontSize: '13px' }}
+                                            component="th"
+                                            scope="category"
+                                        >
+                                            {index + 1}
+                                        </TableCell>
+                                        <TableCell sx={{ fontSize: '13px' }} align="left">
+                                            {category.nameEn}
+                                        </TableCell>
+                                        <TableCell sx={{ fontSize: '13px' }} align="left">
+                                            {parent ? (
+                                                <Typography
+                                                    sx={{ textAlign: 'center', fontSize: '12px' }}
+                                                >
+                                                    {parent.nameEn}
+                                                </Typography>
+                                            ) : (
+                                                <Typography
+                                                    sx={{
+                                                        bgcolor: '#d5d5d5',
+                                                        textAlign: 'center',
+                                                        padding: '4px 8px',
+                                                        borderRadius: 1,
+                                                        filter: 'drop-shadow(0 0 1mm #d5d5d5)',
+                                                        fontSize: '12px',
+                                                    }}
+                                                >
+                                                    No Parent
+                                                </Typography>
+                                            )}
+                                        </TableCell>
+                                        <TableCell
+                                            align="left"
+                                            sx={{ maxWidth: '400px', fontSize: '13px' }}
+                                        >
+                                            {category.descriptionEn ? (
+                                                <Typography
+                                                    sx={{ textAlign: 'center', fontSize: '12px' }}
+                                                >
+                                                    {category.descriptionEn}
+                                                </Typography>
+                                            ) : (
+                                                <Typography
+                                                    sx={{
+                                                        bgcolor: '#d5d5d5',
+                                                        textAlign: 'center',
+                                                        padding: '4px 8px',
+                                                        borderRadius: 1,
+                                                        filter: 'drop-shadow(0 0 1mm #d5d5d5)',
+                                                        fontSize: '12px',
+                                                    }}
+                                                >
+                                                    No Description
+                                                </Typography>
+                                            )}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {category.status === 'active' ? (
+                                                <CheckIcon color="success" fontSize="large" />
+                                            ) : (
+                                                <CloseIcon color="error" fontSize="large" />
+                                            )}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            <IconButton
+                                                onClick={() => handleDeleteCategory(category._id)}
+                                            >
+                                                <DeleteIcon color="error" fontSize="large" />
+                                            </IconButton>
 
-                                        <IconButton onClick={() => handleEdit(category)}>
-                                            <EditNoteIcon color="info" fontSize="large" />
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                                            <IconButton onClick={() => handleEdit(category)}>
+                                                <EditNoteIcon color="info" fontSize="large" />
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })}
                     </TableBody>
                 </Table>
+                {/* Open Confirm Message */}
+                <ConfirmMessage
+                    openConfirmMessage={openConfirmMessage}
+                    msgTitle={
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <WarningIcon
+                                sx={{
+                                    color: theme.icon.color.primary,
+                                    fontSize: theme.icon.size.desktop,
+                                }}
+                            />
+                            <CustomizeTypography
+                                sx={{
+                                    color: theme.palette.text.main,
+                                    fontSize: '18px',
+                                    mb: 0,
+                                    ml: 2,
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                Delete Products
+                            </CustomizeTypography>
+                        </Box>
+                    }
+                    msgContent={
+                        <Typography sx={{ fontSize: '16px' }}>
+                            Are you sure you want to delete this product?
+                        </Typography>
+                    }
+                    onHandleClickClose={() => setOpenConfirmMessage(false)}
+                    onHandleConfirmAgree={handleConfirmAgree}
+                    onHandleConfirmDisagree={handleConfirmDisagree}
+                />
+                {showNotification && (
+                    <Box
+                        sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                        className={`animate__animated ${showAnimation}`}
+                    >
+                        <NotificationMessage
+                            msgType={messageType}
+                            msgTitle={messageTitle}
+                            msgContent={messageContent}
+                            autoHideDuration={3000} // Auto-hide after 5 seconds
+                            onClose={handleCloseNotification}
+                        />
+                    </Box>
+                )}
             </TableContainer>
         </Box>
     );
