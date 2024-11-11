@@ -259,7 +259,7 @@ function PerfumeDetail() {
                                 }}
                             >
                                 {/* discount must !== 0 */}
-                                {selectedSize?.discount !== 0 && (
+                                {/* {selectedSize?.discount !== 0 && (
                                     <Box
                                         sx={{
                                             position: 'absolute',
@@ -279,9 +279,9 @@ function PerfumeDetail() {
                                             justifyContent: 'center',
                                         }}
                                     >
-                                        {/* - 15% */}- {selectedSize?.discount}%
+                                        - {selectedSize?.discount}%
                                     </Box>
-                                )}
+                                )} */}
 
                                 <IconButton
                                     onClick={handlePrevious}
@@ -501,31 +501,89 @@ function PerfumeDetail() {
                         </Box> */}
 
                         {/* Price */}
-                        <Box sx={{ display: 'flex' }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                minHeight: '50px',
+                                width: '100%',
+                                background: `linear-gradient(to right, #101820FF, #F2AA4CFF)`,
+                                mb: 2,
+                            }}
+                        >
                             {/* original price */}
-
                             <CustomizeTypography
                                 sx={{
-                                    textDecoration: selectedSize.discount ? 'line-through' : null,
                                     fontWeight: 'bold',
+                                    fontSize: '18px',
+                                    bgcolor: '#4a545e',
+                                    p: '4px',
                                 }}
                             >
-                                {/* {converToVND(perfume.perfumePriceVND)} */}
-                                {converToVND(selectedSize.price)}
+                                Sale
                             </CustomizeTypography>
-                            {/* price sale off */}
-                            {selectedSize.discount && (
+
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    p: '4px',
+                                }}
+                            >
+                                {/* price sale off */}
+                                {selectedSize.discount && (
+                                    <CustomizeTypography
+                                        sx={{
+                                            color: theme.palette.text.primary,
+                                            fontWeight: 'bold',
+                                            fontSize: '20px',
+                                        }}
+                                    >
+                                        {/* 9.980.000 ₫ */}
+                                        {converToVND(selectedSize.priceSale)}
+                                    </CustomizeTypography>
+                                )}
                                 <CustomizeTypography
                                     sx={{
-                                        color: theme.palette.text.primary,
+                                        textDecoration: selectedSize.discount
+                                            ? 'line-through'
+                                            : null,
                                         fontWeight: 'bold',
-                                        ml: 2,
+                                        ml: selectedSize?.discount !== 0 ? 1 : 0,
+                                        color:
+                                            selectedSize?.discount === 0
+                                                ? theme.palette.text.primary
+                                                : '#d5d5d5',
                                     }}
                                 >
-                                    {/* 9.980.000 ₫ */}
-                                    {converToVND(selectedSize.priceSale)}
+                                    {/* {converToVND(perfume.perfumePriceVND)} */}
+                                    {converToVND(selectedSize.price)}
                                 </CustomizeTypography>
-                            )}
+
+                                {/* percen discount */}
+                                {selectedSize?.discount !== 0 && (
+                                    <Box
+                                        sx={{
+                                            ml: 2,
+                                            height: '20px',
+                                            mb: 1,
+                                            // bgcolor: 'red',
+                                            bgcolor: `#feeeea`,
+                                            borderRadius: 1,
+                                            fontSize: '12px',
+                                            color: '#ff2a00',
+                                            fontWeight: 'bold',
+                                            textAlign: 'center',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            padding: '0px 8px',
+                                        }}
+                                    >
+                                        -{selectedSize?.discount}%
+                                    </Box>
+                                )}
+                            </Box>
                         </Box>
 
                         {/* Product Size */}
