@@ -27,6 +27,7 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { theme } from '../../Theme/Theme';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { blue } from '@mui/material/colors';
 
 function AdminCategoriesTable() {
     const {
@@ -105,7 +106,7 @@ function AdminCategoriesTable() {
     };
 
     return (
-        <Box sx={{ height: '100vh' }}>
+        <Box sx={{ height: '100vh', mr: 8 }}>
             <Box
                 sx={{
                     display: 'flex',
@@ -141,6 +142,7 @@ function AdminCategoriesTable() {
             <Paper sx={{ mt: 4, mb: 4, padding: 1.5, borderRadius: 4 }}>
                 <TextField
                     placeholder="Search Category"
+                    fullWidth
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -157,12 +159,22 @@ function AdminCategoriesTable() {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>No</TableCell>
-                            <TableCell align="left">Name</TableCell>
-                            <TableCell align="center">Parent Category</TableCell>
-                            <TableCell align="center">Description</TableCell>
-                            <TableCell align="center">Active</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }}>No</TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="left">
+                                Name
+                            </TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="center">
+                                Parent Category
+                            </TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="center">
+                                Description
+                            </TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="center">
+                                Active
+                            </TableCell>
+                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="center">
+                                Action
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -179,31 +191,58 @@ function AdminCategoriesTable() {
                                         key={category._id}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
-                                        <TableCell component="th" scope="category">
+                                        <TableCell
+                                            sx={{ fontSize: '13px' }}
+                                            component="th"
+                                            scope="category"
+                                        >
                                             {index + 1}
                                         </TableCell>
-                                        <TableCell align="left">{category.nameEn}</TableCell>
-                                        <TableCell align="left">
+                                        <TableCell sx={{ fontSize: '13px' }} align="left">
+                                            {category.nameEn}
+                                        </TableCell>
+                                        <TableCell sx={{ fontSize: '13px' }} align="left">
                                             {parent ? (
-                                                <Typography sx={{ textAlign: 'center' }}>
+                                                <Typography
+                                                    sx={{ textAlign: 'center', fontSize: '12px' }}
+                                                >
                                                     {parent.nameEn}
                                                 </Typography>
                                             ) : (
                                                 <Typography
-                                                    sx={{ bgcolor: '#d5d5d5', textAlign: 'center' }}
+                                                    sx={{
+                                                        bgcolor: '#d5d5d5',
+                                                        textAlign: 'center',
+                                                        padding: '4px 8px',
+                                                        borderRadius: 1,
+                                                        filter: 'drop-shadow(0 0 1mm #d5d5d5)',
+                                                        fontSize: '12px',
+                                                    }}
                                                 >
                                                     No Parent
                                                 </Typography>
                                             )}
                                         </TableCell>
-                                        <TableCell align="left" sx={{ maxWidth: '400px' }}>
+                                        <TableCell
+                                            align="left"
+                                            sx={{ maxWidth: '400px', fontSize: '13px' }}
+                                        >
                                             {category.descriptionEn ? (
-                                                <Typography sx={{ textAlign: 'center' }}>
+                                                <Typography
+                                                    sx={{ textAlign: 'center', fontSize: '12px' }}
+                                                >
                                                     {category.descriptionEn}
                                                 </Typography>
                                             ) : (
                                                 <Typography
-                                                    sx={{ bgcolor: '#d5d5d5', textAlign: 'center' }}
+                                                    sx={{
+                                                        bgcolor: '#d5d5d5',
+                                                        textAlign: 'center',
+                                                        padding: '4px 8px',
+                                                        borderRadius: 1,
+                                                        filter: 'drop-shadow(0 0 1mm #d5d5d5)',
+                                                        fontSize: '12px',
+                                                    }}
                                                 >
                                                     No Description
                                                 </Typography>
