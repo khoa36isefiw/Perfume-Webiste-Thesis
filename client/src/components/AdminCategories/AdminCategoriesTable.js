@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
@@ -21,18 +21,36 @@ import useCategory from '../../api/useCategory';
 import { useEffect } from 'react';
 import { categoriesAPI } from '../../api/categoriesAPI';
 import useParentCategory from '../../api/useParentCategory';
+import WarningIcon from '@mui/icons-material/Warning';
+import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
+import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import { theme } from '../../Theme/Theme';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 function AdminCategoriesTable() {
-    const { data: categoriesData } = useCategory();
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageTitle,
+        messageContent,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
+    const { data: categoriesData, mutate } = useCategory();
     const responseCategories = categoriesData?.data || [];
     const { data: parentCategoriesData } = useParentCategory();
     const responseParentCategories = parentCategoriesData?.data || [];
-    const [categories, setCategories] = React.useState(responseCategories);
-    const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
-    const [showPopup, setShowPopup] = React.useState(false);
-    const [message, setMessage] = React.useState('');
-    const [typeMessage, setTypeMessage] = React.useState('');
-    const [parentCategory, setParentCategory] = React.useState(responseParentCategories);
+    const [categories, setCategories] = useState(responseCategories);
+    const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+    const [showPopup, setShowPopup] = useState(false);
+    const [message, setMessage] = useState('');
+    const [typeMessage, setTypeMessage] = useState('');
+    const [parentCategory, setParentCategory] = useState(responseParentCategories);
+    const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
+    const [categoryToRemove, setCategoryToRemove] = useState(null);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -52,32 +70,51 @@ function AdminCategoriesTable() {
         setShowPopup(true);
     };
 
-    const confirmDelete = async (id) => {
-        // call api để xóa
-        const respone = 'await categoryService.deleteCategory(id)';
-        console.log(respone);
-        if (respone.status === 204) {
-            setMessage('Xóa category thành công');
-            setTypeMessage('success');
-
-            const updatedCategories = categories.filter((category) => category._id !== id);
-            setCategories(updatedCategories);
-        } else {
-            setMessage('Xóa category thất bại');
-            setTypeMessage('error');
-        }
-        setTimeout(() => {
-            setMessage('');
-            setTypeMessage('');
-        }, 3000);
-    };
-
-    const handleClosePopup = () => {
-        setShowPopup(false);
-    };
-
     const handleEdit = (category) => {
         navigate(`/admin/manage-categories/edit/${category._id}`, { state: { category } });
+    };
+
+    // delete category
+    const handleDeleteCategory = (categoryId) => {
+        console.log('categoryId id: ', categoryId);
+        // 1.  open confirm message
+        setOpenConfirmMessage(true);
+        // 2. store the product information data
+        setCategoryToRemove({ categoryId: categoryId });
+    };
+
+    console.log('product to remove information: ', categoryToRemove);
+    // disagree, not delete the products
+    const handleConfirmDisagree = () => {
+        setOpenConfirmMessage(false);
+        setCategoryToRemove(null);
+    };
+
+    const handleConfirmAgree = async () => {
+        console.log('chay vo day');
+        if (categoryToRemove) {
+            const id = categoryToRemove.categoryId;
+            try {
+                // filter products and update rows
+                const deleteResponse = await categoriesAPI.deleteCategory(id);
+                console.log('deleteResponse: ', deleteResponse);
+                mutate();
+
+                if (deleteResponse.status === 200) {
+                    showMessage('success', 'Delete Category', 'Xóa category thành công');
+                    // re-update to list
+                    const updatedCategories = categories.filter((category) => category._id !== id);
+                    setCategories(updatedCategories);
+                    setOpenConfirmMessage(false);
+                    setCategoryToRemove(null);
+                }
+
+                console.log('deleteResponse: ', deleteResponse);
+            } catch (error) {
+                showMessage('error', 'Delete Category', 'Xóa category thất bại');
+                console.error('Error deleting product:', error);
+            }
+        }
     };
 
     return (
@@ -193,7 +230,9 @@ function AdminCategoriesTable() {
                                             )}
                                         </TableCell>
                                         <TableCell align="center">
-                                            <IconButton onClick={() => handleDelete(category._id)}>
+                                            <IconButton
+                                                onClick={() => handleDeleteCategory(category._id)}
+                                            >
                                                 <DeleteIcon color="error" fontSize="large" />
                                             </IconButton>
 
@@ -206,6 +245,53 @@ function AdminCategoriesTable() {
                             })}
                     </TableBody>
                 </Table>
+                {/* Open Confirm Message */}
+                <ConfirmMessage
+                    openConfirmMessage={openConfirmMessage}
+                    msgTitle={
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <WarningIcon
+                                sx={{
+                                    color: theme.icon.color.primary,
+                                    fontSize: theme.icon.size.desktop,
+                                }}
+                            />
+                            <CustomizeTypography
+                                sx={{
+                                    color: theme.palette.text.main,
+                                    fontSize: '18px',
+                                    mb: 0,
+                                    ml: 2,
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                Delete Products
+                            </CustomizeTypography>
+                        </Box>
+                    }
+                    msgContent={
+                        <Typography sx={{ fontSize: '16px' }}>
+                            Are you sure you want to delete this product?
+                        </Typography>
+                    }
+                    onHandleClickClose={() => setOpenConfirmMessage(false)}
+                    onHandleConfirmAgree={handleConfirmAgree}
+                    onHandleConfirmDisagree={handleConfirmDisagree}
+                />
+                {showNotification && (
+                    <Box
+                        sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                        className={`animate__animated ${showAnimation}`}
+                    >
+                        <NotificationMessage
+                            msgType={messageType}
+                            msgTitle={messageTitle}
+                            msgContent={messageContent}
+                            autoHideDuration={3000} // Auto-hide after 5 seconds
+                            onClose={handleCloseNotification}
+                        />
+                    </Box>
+                )}
             </TableContainer>
         </Box>
     );
