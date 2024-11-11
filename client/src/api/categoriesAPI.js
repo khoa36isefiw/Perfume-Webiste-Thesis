@@ -22,6 +22,10 @@ export const categoriesAPI = {
         const url = `/categories/${id}`;
         return axiosClient.get(url);
     },
+    deleteCategory: (id) => {
+        const url = `/categories/${id}`;
+        return axiosClient.delete(url);
+    },
 };
 
 //     getAllParentCategory: async () => {
