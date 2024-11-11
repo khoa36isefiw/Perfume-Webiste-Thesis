@@ -38,6 +38,8 @@ import PaymentSuccess from '../components/PaymentSuccess/PaymentSuccess';
 import PaymentFailed from '../components/PaymentSuccess/PaymentFailed';
 import { OrderInvoicePDF } from '../components/PDFTemplate/OrderInvoicePDF';
 import TicketCoupon from '../components/TicketCoupon/TicketCoupon';
+import AdminTableBrands from '../components/AdminBrands/AdminTableBrands';
+import AdminAddBrand from '../components/AdminBrands/AdminAddBrand';
 
 // not sign into this website
 const publicRoutes = [
@@ -125,6 +127,16 @@ const privateRoutes = [
     {
         path: '/admin/manage-categories/edit/:id',
         component: AdminEditCategory,
+        layout: AdminLayout,
+    },
+    {
+        path: 'admin/manage-brands',
+        component: AdminTableBrands,
+        layout: AdminLayout,
+    },
+    {
+        path: 'admin/manage-brands/add',
+        component: AdminAddBrand,
         layout: AdminLayout,
     },
 ];
