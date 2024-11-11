@@ -414,7 +414,7 @@ const AdminButtonDesign = ({ type, bgcolor, title, onHandleClick, textColor, bor
                 padding: '10px 18px',
                 fontSize: '14px',
                 textTransform: 'initial',
-                borderRadius: 2,
+                borderRadius: 1,
                 bgcolor: bgcolor,
                 borderColor: borderColor,
                 '&:hover': {
