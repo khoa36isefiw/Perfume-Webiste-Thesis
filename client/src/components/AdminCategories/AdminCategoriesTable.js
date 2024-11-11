@@ -28,6 +28,8 @@ import { theme } from '../../Theme/Theme';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { blue } from '@mui/material/colors';
+import * as XLSX from 'xlsx';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 function AdminCategoriesTable() {
     const {
@@ -105,6 +107,40 @@ function AdminCategoriesTable() {
         }
     };
 
+    // export to excel
+    const exportToExcel = async () => {
+        // Create a new workbook
+        const workbook = XLSX.utils.book_new();
+
+        // Fetch parent category names asynchronously
+        const worksheetData = await Promise.all(
+            responseCategories.map(async (category, index) => {
+                console.log('category.parent: ', category.parent);
+                const parentCategory = await categoriesAPI.getCategoryById(category.parent);
+
+                console.log('parentCategory', parentCategory);
+                return {
+                    // Define column names and get data
+                    No: index + 1,
+                    ID: category._id,
+                    'Category Name': category.nameEn,
+                    'Parent Category':
+                        parentCategory.status === 200 ? parentCategory?.data?.nameEn : 'N/A',
+                    Description: category.descriptionEn,
+                };
+            }),
+        );
+
+        // Convert JSON data to worksheet
+        const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+
+        // Append the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'CategoryTable');
+
+        // Export the workbook as an Excel file
+        XLSX.writeFile(workbook, 'Categories Table.xlsx');
+    };
+
     return (
         <Box sx={{ height: '100vh', mr: 8 }}>
             <Box
@@ -122,7 +158,10 @@ function AdminCategoriesTable() {
                             <UploadIcon sx={{ mr: 1 }} />
                             Import
                         </Button>
-                        <Button sx={{ fontSize: '1.4rem', textTransform: 'none' }}>
+                        <Button
+                            sx={{ fontSize: '1.4rem', textTransform: 'none' }}
+                            onClick={exportToExcel}
+                        >
                             <DownloadIcon sx={{ mr: 1 }} />
                             Export
                         </Button>
@@ -184,7 +223,6 @@ function AdminCategoriesTable() {
                                 const parent = parentCategory.find(
                                     (pCategory) => pCategory._id === category.parent, // from category list
                                 );
-                                console.log('parent: ', parent);
 
                                 return (
                                     <TableRow
