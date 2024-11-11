@@ -43,10 +43,6 @@ function AdminCategoriesTable() {
     const { data: parentCategoriesData } = useParentCategory();
     const responseParentCategories = parentCategoriesData?.data || [];
     const [categories, setCategories] = useState(responseCategories);
-    const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-    const [showPopup, setShowPopup] = useState(false);
-    const [message, setMessage] = useState('');
-    const [typeMessage, setTypeMessage] = useState('');
     const [parentCategory, setParentCategory] = useState(responseParentCategories);
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const [categoryToRemove, setCategoryToRemove] = useState(null);
@@ -60,15 +56,6 @@ function AdminCategoriesTable() {
     useEffect(() => {
         setParentCategory(responseParentCategories);
     }, [responseParentCategories]);
-
-    console.log('categories: ', categories);
-
-    console.log('parentCategory: ', parentCategory);
-    const handleDelete = (cateId) => {
-        setSelectedCategoryId(cateId);
-        // show pop up to confirm this action
-        setShowPopup(true);
-    };
 
     const handleEdit = (category) => {
         navigate(`/admin/manage-categories/edit/${category._id}`, { state: { category } });

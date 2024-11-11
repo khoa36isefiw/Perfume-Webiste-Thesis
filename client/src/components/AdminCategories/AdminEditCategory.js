@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Box,
     FormHelperText,
@@ -11,58 +11,43 @@ import {
 } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { AdminButtonDesign } from '../AdminCoupons/AdminCreateCoupon';
 import { theme } from '../../Theme/Theme';
+import useCategory from '../../api/useCategory';
+import { categoriesAPI } from '../../api/categoriesAPI';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import { backTop } from '../goBackTop/goBackTop';
 
 function AdminEditCategory() {
+    const location = useLocation();
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageTitle,
+        messageContent,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
+    const { category } = location.state || [];
+    const { data: categoriesData, isLoading } = useCategory();
+    const responeCategoriesData = categoriesData?.data || [];
+    console.log('categoriesData: ', categoriesData?.data);
+    console.log('category: ', category);
     const [name, setName] = React.useState({
-        value: '',
+        value: category?.nameEn || '',
         message: '',
     });
-    const [categories, setCategories] = React.useState([
-        {
-            name: 'unisex',
-            parentCategory: '...',
-            description: 'men and women can use',
-            isActive: true,
-            _id: 1,
-        },
-        {
-            name: 'men',
-            parentCategory: '...',
-            description: 'for men',
-            isActive: true,
-            _id: 1,
-        },
-        {
-            name: 'women',
-            parentCategory: '...',
-            description: 'for women',
-            isActive: true,
-            _id: 1,
-        },
-    ]);
-    const [subCategories, setSubCategories] = React.useState([
-        {
-            name: 'unisex',
-            parentCategory: '...',
-            description: 'test',
-            isActive: true,
-            _id: 1,
-        },
-    ]);
-
+    const [categories, setCategories] = React.useState(responeCategoriesData);
     const [description, setDescription] = React.useState({
-        value: '',
+        value: category?.descriptionEn || '',
         message: '',
     });
-    const [selectedCategoryId, setSelectedCategoryId] = React.useState('');
-    const [selectedSubCategoryId, setSelectedSubCategoryId] = React.useState('');
+    const [selectedCategoryId, setSelectedCategoryId] = React.useState(category?._id);
 
-    const [message, setMessage] = React.useState('');
-    const [typeMessage, setTypeMessage] = React.useState('');
     const navigate = useNavigate();
 
     const fetchAllParentCategory = async () => {
@@ -101,157 +86,139 @@ function AdminEditCategory() {
         setDescription({ ...description, message: '' });
     };
 
-    const checkError = () => {
-        if (name.message !== '' || description.message !== '') {
-            return true;
-        }
-        return false;
-    };
-
-    const handleCreate = async (e) => {
-        e.preventDefault();
-        if (!checkError()) {
-            const data = {
-                name: name.value,
-                description: description.value,
-                parentId: selectedSubCategoryId ? selectedSubCategoryId : selectedCategoryId,
-            };
-            const respone = await 'categoryService.createCategory(data)';
-
-            // call api to create new user
-            if (respone.status === 201) {
-                setMessage('Tạo category thành công');
-                setTypeMessage('success');
-                setName({ value: '', message: '' });
-                setDescription({ value: '', message: '' });
-                setSelectedCategoryId('');
-                setSelectedSubCategoryId('');
-                // navigate('/manage-category');
-            } else {
-                setMessage('Tạo category thất bại');
-                setTypeMessage('error');
-            }
-        } else {
-            setMessage('Vui lòng kiểm tra các trường đã nhập');
-            setTypeMessage('error');
-        }
-        setTimeout(() => {
-            setMessage('');
-            setTypeMessage('');
-        }, 3000);
-    };
-    const handleBack = () => {
-        window.history.back(); // Quay trở lại trang trước
-    };
-
     const handleSelectedCategory = (e) => {
         console.log(selectedCategoryId);
         setSelectedCategoryId(e.target.value);
     };
-    const handleSelectedSubCategory = (e) => {
-        setSelectedSubCategoryId(e.target.value);
+
+    const handleUpdateCategory = async () => {
+        const getCategoryById = await categoriesAPI.getCategoryById(selectedCategoryId);
+        console.log('getCategoryById: ', getCategoryById);
+        if (getCategoryById !== '' && name.value !== '' && description.value !== '') {
+            const data = {
+                nameVn: name.value,
+                nameEn: name.value,
+                parent: getCategoryById.data.parent,
+                descriptionEn: description.value,
+            };
+            const editResponse = await categoriesAPI.updateCategory(category?._id, data);
+            if (editResponse.status === 200) {
+                showMessage('success', 'Edit Category', 'Edit Category Successfully');
+                setTimeout(() => {
+                    // window.history.back(); // return the previous page
+                    navigate('/admin/manage-categories');
+                }, 2800);
+            }
+            console.log('editResponse: ', editResponse);
+        } else {
+            showMessage('error', 'Edit Category', 'Please fill all fields');
+        }
     };
 
-    const handleUpdateCategory = () => {};
-
     return (
-        <Box sx={{ p: 3, height: '100vh' }}>
-            <AdminButtonBackPage title={'List Categories'} />
+        <React.Fragment>
+            {isLoading ? (
+                <Typography>Loading...</Typography>
+            ) : (
+                <Box sx={{ p: 3, height: '100vh' }}>
+                    <AdminButtonBackPage title={'List Categories'} />
 
-            <Typography sx={{ fontSize: '3rem', fontWeight: 600 }}>Edit Category</Typography>
-            <Box sx={{ bgcolor: '#fff', my: 4, p: 2, borderRadius: 2, minHeight: 200 }}>
-                <form onSubmit={handleCreate}>
-                    <Grid container spacing={4}>
-                        <Grid item lg={6}>
-                            <TextField
-                                label="Category Name"
-                                required
-                                fullWidth
-                                value={name.value}
-                                error={name.message ? true : false}
-                                variant="outlined"
-                                placeholder="Enter Category Name"
-                                onBlur={validateName}
-                                onChange={(e) => setName({ ...name, value: e.target.value })}
-                            />
-                        </Grid>
-                        <Grid item lg={6}>
-                            <TextField
-                                sx={{ width: '100%' }}
-                                label="Description"
-                                required
-                                fullWidth
-                                value={description.value}
-                                error={description.message ? true : false}
-                                variant="outlined"
-                                placeholder="Enter Description"
-                                onBlur={validateDescription}
-                                onChange={(e) =>
-                                    setDescription({ ...description, value: e.target.value })
-                                }
-                            />
-                        </Grid>
-                        <Grid item lg={6}>
-                            {categories.length > 0 && (
-                                <TextField
-                                    fullWidth
-                                    select
-                                    value={selectedCategoryId}
-                                    onChange={handleSelectedCategory}
-                                    label="Select Category"
-                                    sx={{ fontSize: '14px' }}
-                                >
-                                    <MenuItem value="" sx={{ fontSize: '14px' }}>
-                                        <em>None</em>
-                                    </MenuItem>
-                                    {categories.map((category) => (
-                                        <MenuItem
-                                            key={category._id}
-                                            value={category._id}
+                    <Typography sx={{ fontSize: '3rem', fontWeight: 600 }}>
+                        Edit Category
+                    </Typography>
+                    <Box sx={{ bgcolor: '#fff', my: 4, p: 2, borderRadius: 2, minHeight: 200 }}>
+                        <form onSubmit={handleUpdateCategory}>
+                            <Grid container spacing={4}>
+                                <Grid item lg={6}>
+                                    <TextField
+                                        label="Category Name"
+                                        required
+                                        fullWidth
+                                        value={name.value}
+                                        error={name.message ? true : false}
+                                        variant="outlined"
+                                        placeholder="Enter Category Name"
+                                        onBlur={validateName}
+                                        onChange={(e) =>
+                                            setName({ ...name, value: e.target.value })
+                                        }
+                                    />
+                                </Grid>
+                                <Grid item lg={6}>
+                                    <TextField
+                                        sx={{ width: '100%' }}
+                                        label="Description"
+                                        required
+                                        fullWidth
+                                        value={description.value}
+                                        error={description.message ? true : false}
+                                        variant="outlined"
+                                        placeholder="Enter Description"
+                                        onBlur={validateDescription}
+                                        onChange={(e) =>
+                                            setDescription({
+                                                ...description,
+                                                value: e.target.value,
+                                            })
+                                        }
+                                    />
+                                </Grid>
+                                <Grid item lg={6}>
+                                    {categories.length > 0 && (
+                                        <TextField
+                                            fullWidth
+                                            select
+                                            value={selectedCategoryId}
+                                            onChange={handleSelectedCategory}
+                                            label="Select Category"
                                             sx={{ fontSize: '14px' }}
                                         >
-                                            {category.name}
-                                        </MenuItem>
-                                    ))}{' '}
-                                    *
-                                </TextField>
-                            )}
-                        </Grid>
-                        <Grid item lg={6}>
-                            {subCategories?.length > 0 && (
-                                <TextField
-                                    select
-                                    value={selectedSubCategoryId}
-                                    onChange={handleSelectedSubCategory}
-                                    label="Select Sub Category"
-                                    sx={{ width: '100%', fontSize: '14px' }}
-                                >
-                                    {subCategories.map((category) => (
-                                        <MenuItem
-                                            key={category._id}
-                                            value={category._id}
-                                            sx={{ fontSize: '14px' }}
-                                        >
-                                            {category.name}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            )}
-                        </Grid>
-                    </Grid>
+                                            <MenuItem value="" sx={{ fontSize: '14px' }}>
+                                                <em>None</em>
+                                            </MenuItem>
+                                            {categories.map((category) => (
+                                                <MenuItem
+                                                    key={category._id}
+                                                    value={category._id}
+                                                    sx={{ fontSize: '14px' }}
+                                                >
+                                                    {category.nameEn}
+                                                </MenuItem>
+                                            ))}{' '}
+                                            *
+                                        </TextField>
+                                    )}
+                                </Grid>
+                            </Grid>
 
-                    <Box sx={{ mb: 2, mt: 2 }}>
-                        <AdminButtonDesign
-                            title={'Update Category'}
-                            bgcolor={theme.palette.admin.bgColor}
-                            onHandleClick={handleUpdateCategory}
-                            type={'contained'}
-                            textColor={'white'}
-                        />
+                            <Box sx={{ mb: 2, mt: 2 }}>
+                                <AdminButtonDesign
+                                    title={'Update Category'}
+                                    bgcolor={theme.palette.admin.bgColor}
+                                    onHandleClick={handleUpdateCategory}
+                                    type={'contained'}
+                                    textColor={'white'}
+                                />
+                            </Box>
+                        </form>
                     </Box>
-                </form>
-            </Box>
-        </Box>
+                    {showNotification && (
+                        <Box
+                            sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                            className={`animate__animated ${showAnimation}`}
+                        >
+                            <NotificationMessage
+                                msgType={messageType}
+                                msgTitle={messageTitle}
+                                msgContent={messageContent}
+                                autoHideDuration={3000} // Auto-hide after 5 seconds
+                                onClose={handleCloseNotification}
+                            />
+                        </Box>
+                    )}
+                </Box>
+            )}
+        </React.Fragment>
     );
 }
 
