@@ -6,7 +6,7 @@ import { Box } from '@mui/material';
 
 function Shop() {
     return (
-        <Box sx={{ mt: 20 }}>
+        <Box sx={{ mt: 22 }}>
             <PerfumesCard />
             {/* <SearchFilterComponent /> */}
             <ShopPageInformation />

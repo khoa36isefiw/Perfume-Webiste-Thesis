@@ -170,7 +170,7 @@ function NewHeader() {
                 },
             }}
         >
-            <Container>
+            <Container sx={{ mb: '4px' }}>
                 <Box
                     sx={{
                         display: 'flex',

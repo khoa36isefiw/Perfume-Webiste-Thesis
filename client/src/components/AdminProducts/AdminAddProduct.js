@@ -12,6 +12,8 @@ import {
     Checkbox,
     Tooltip,
     IconButton,
+    FormControlLabel,
+    ListItemText,
 } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { theme } from '../../Theme/Theme';
@@ -74,7 +76,10 @@ const AdminAddProduct = () => {
             selectedSizes.length > 0 &&
             selectedSizes.every(
                 (size) =>
-                    size.size != '' && size.price != '' && size.priceSale != '' && size.stock != '',
+                    size.size !== '' &&
+                    size.price !== '' &&
+                    size.priceSale !== '' &&
+                    size.stock !== '',
             )
         ) {
             const newProductData = {
@@ -141,43 +146,19 @@ const AdminAddProduct = () => {
         }
     };
 
-    // const handleSizeChange = (e) => {
-    //     const newSize = e.target.value;
-    //     setChecked(e.target.checked);
-    //     // Kiểm tra nếu size chưa tồn tại trong danh sách selectedSizes thì thêm mới
-    //     if (!selectedSizes.find((size) => size.size === newSize)) {
-    //         setSelectedSizes((prevSizes) => [
-    //             ...prevSizes,
-    //             { size: newSize, price: '', priceSale: '', stock: '' },
-    //         ]);
-    //     } else {
-    //         // size exists, was selected --> remove
-    //         const listRemoved = selectedSizes.filter((size) => size.size != newSize);
-    //         setSelectedSizes(listRemoved);
-    //     }
-    // };
+    const handleMenuItemClick = (size) => {
+        const alreadySelected = selectedSizes.some((s) => s.size === size);
 
-    //v2
-    const handleSizeChange = (size) => (e) => {
-        const isChecked = e.target.checked;
-
-        console.log('before changing: ', selectedSizes);
-
-        if (isChecked) {
-            // size is checked, add to selectedSizes if not already present
-            if (!selectedSizes.find((s) => s.size === size)) {
-                setSelectedSizes((prevSizes) => [
-                    ...prevSizes,
-                    { size: size, price: '', priceSale: '', stock: '' },
-                ]);
-            }
+        if (alreadySelected) {
+            // remove the size was selected from the list
+            setSelectedSizes(selectedSizes.filter((s) => s.size !== size));
         } else {
-            // size is unchecked, remove from selectedSizes
-            const updatedSizes = selectedSizes.filter((s) => s.size !== size);
-            setSelectedSizes(updatedSizes);
+            // add size to list if it was not chose
+            setSelectedSizes([
+                ...selectedSizes,
+                { size: size, price: '', priceSale: '', stock: '' },
+            ]);
         }
-
-        console.log('after changing: ', selectedSizes);
     };
 
     const handleRemoveSizeSelected = (sizeToRemove) => {
@@ -273,23 +254,23 @@ const AdminAddProduct = () => {
                     onChange={(e) => setProductName(e.target.value)}
                     sx={{ mb: 2 }}
                 />
-
                 <FormControl fullWidth sx={{ mb: 2 }}>
                     <InputLabel id="size-select-label">Size</InputLabel>
                     <Select
                         labelId="size-select-label"
+                        multiple
                         value={selectedSizes.map((size) => size.size)}
                         label="Size"
-                        // onChange={handleSizeChange}
-                        renderValue={(selected) => selected.join(', ')} // joins value selected from list
+                        renderValue={(selected) => selected.join(', ')}
                     >
                         {sizeOptions.map((size) => (
-                            <MenuItem key={size} value={size}>
-                                <Checkbox
-                                    checked={selectedSizes.some((s) => s.size === size)}
-                                    onChange={handleSizeChange(size)}
-                                />
-                                {size}
+                            <MenuItem
+                                key={size}
+                                value={size}
+                                onClick={() => handleMenuItemClick(size)}
+                            >
+                                <Checkbox checked={selectedSizes.some((s) => s.size === size)} />
+                                <ListItemText primary={size} />
                             </MenuItem>
                         ))}
                     </Select>
@@ -436,7 +417,7 @@ const AdminButtonDesign = ({ type, bgcolor, title, onHandleClick, textColor, bor
                 padding: '10px 18px',
                 fontSize: '14px',
                 textTransform: 'initial',
-                borderRadius: 2,
+                borderRadius: 1,
                 bgcolor: bgcolor,
                 borderColor: borderColor,
                 '&:hover': {
