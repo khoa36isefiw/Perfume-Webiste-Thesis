@@ -276,7 +276,6 @@ const AdminCreateCoupon = () => {
                 <AdminButtonDesign
                     title={'Cancel'}
                     // bgcolor={theme.palette.admin.bgColor}
-
                     type={'outlined'}
                     textColor={theme.palette.admin.bgColor}
                     borderColor={theme.palette.admin.bgColor}
