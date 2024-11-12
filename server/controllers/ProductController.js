@@ -31,7 +31,10 @@ const ProductController = {
                     },
                 },
                 {
-                    $unwind: '$brand',
+                    $unwind: {
+                        path: '$brand',
+                        preserveNullAndEmptyArrays: true,
+                    },
                 },
                 // Optional filtering by brandName
                 ...(brand
@@ -52,7 +55,10 @@ const ProductController = {
                     },
                 },
                 {
-                    $unwind: '$category', // Unwind to get direct access to category fields
+                    $unwind: {
+                        path: '$category',
+                        preserveNullAndEmptyArrays: true,
+                    },
                 },
                 {
                     $lookup: {
