@@ -22,7 +22,7 @@ import { theme } from '../../Theme/Theme';
 
 const AdminEditProduct = () => {
     const location = useLocation();
-    const { productData, selectedSize, productTest } = location.state;
+    const { productData, productTest } = location.state;
     console.log('productData.variants[0]?._id: ', productData.variants[0]?._id);
     console.log('productTest: ', productTest);
     console.log(
@@ -122,7 +122,7 @@ const AdminEditProduct = () => {
             console.log('checkPriceSale: ', checkPriceSale);
             if (!checkPriceSale) {
                 const updateResponse = await productAPI.editProduct(productId, data);
-                if (updateResponse.status == 200) {
+                if (updateResponse.status === 200) {
                     setShowNotification(true);
                     setShowAnimation('animate__bounceInRight');
                     setMessageType('success');
