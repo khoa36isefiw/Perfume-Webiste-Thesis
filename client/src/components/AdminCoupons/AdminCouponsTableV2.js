@@ -107,7 +107,7 @@ const CouponsTable = () => {
 
     const handleEdit = (couponId) => {
         console.log('couponId: ', couponId);
-        navigate(`edit-coupon/${couponId}`, {
+        navigate(`edit/${couponId}`, {
             state: {
                 couponData: listCoupons?.find((coupon) => coupon._id === couponId),
             },

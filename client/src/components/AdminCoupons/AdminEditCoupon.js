@@ -23,11 +23,22 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { AdminButtonDesign } from './AdminCreateCoupon';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import { couponAPI } from '../../api/couponAPI';
 
 function AdminEditCoupon() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageTitle,
+        messageContent,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
 
     const { couponData } = location.state || {};
     const [quantity, setQuantity] = useState(couponData.quantity);
@@ -35,50 +46,84 @@ function AdminEditCoupon() {
     const [status, setStatus] = useState(couponData.status);
     const [description, setDescription] = useState(couponData.description);
     const [discount, setDiscount] = useState(couponData.discount);
-    const [getCurrentDate, setGetCurrentDate] = useState(couponData.getCurrentDate);
-    const [getEndDate, setGetEndDate] = useState(couponData.getEndDate);
+    const [getCurrentDate, setGetCurrentDate] = useState(couponData.startDate);
+    const [getEndDate, setGetEndDate] = useState(couponData.endDate);
+    const [disabledButton, setDisabledButton] = useState(false);
 
-    // show message
-    const [showNotification, setShowNotification] = useState(false);
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    const [messageType, setMessageType] = useState('');
-    const [messageContent, setMessageContent] = useState('');
-    const [messageTitle, setMessageTitle] = useState('');
-    const statusOptions = ['Active', 'Expired'];
-    const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
-    console.log('listCoupons: ', listCoupons);
-
+    const statusOptions = ['active', 'inactive', 'expired'];
     // Handle form submission
-    const handleCreateNewCoupon = () => {
-        const newProduct = {
-            description,
-            code,
-            discount,
-            quantity,
-            used: 0,
-            status,
-            getCurrentDate,
-            getEndDate,
+    const handleUpdate = async () => {
+        const data = {
+            nameVn: code,
+            nameEn: code,
+            code: code,
+            quantity: +quantity,
+            description: description,
+            discount: +discount,
+            status: status,
+            startDate: getCurrentDate,
+            endDate: getEndDate,
         };
 
-        console.log('New Product Data:', newProduct);
-        dispatch(updateCoupon({ couponId: couponData.id, data: newProduct }));
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
-        setMessageType('success');
-        setMessageContent('Create new coupon successfully');
-        setMessageTitle('Create new coupon');
-        // setTimeout(() => {
-        //     navigate('/admin/manage-coupons/');
-        // }, 2800);
+        if (
+            quantity !== '' &&
+            code !== '' &&
+            status !== '' &&
+            description !== '' &&
+            discount !== '' &&
+            getCurrentDate !== '' &&
+            getEndDate !== ''
+        ) {
+            if (getCurrentDate > getEndDate) {
+                showMessage(
+                    'error',
+                    'Date Validation Error',
+                    'Start date must be less than end date.',
+                );
+                return;
+            }
+
+            const updateCouponResponse = await couponAPI.updateCoupon(couponData._id, data);
+            if (updateCouponResponse.status === 200) {
+                console.log('updateCouponResponse: ', updateCouponResponse);
+                showMessage('success', 'Update coupon', 'Update  coupon successfully');
+                setTimeout(() => {
+                    navigate('/admin/manage-coupons/');
+                }, 2800);
+            }
+        } else {
+            showMessage('warning', 'Update coupon', 'Please fill information of coupon!');
+        }
+
+        dispatch(updateCoupon({ couponId: couponData._id, data: data }));
     };
 
-    const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
+    const handleNumberBlur = () => {
+        if (quantity < 0 || discount < 0 || discount >= 100) {
+            showMessage(
+                'warning',
+                'Update Promotions',
+                discount > 100
+                    ? 'Discount number must be less or equal than 100!'
+                    : 'Number must be greater than 0!',
+            );
+
+            setDisabledButton(true);
+        } else {
+            setDisabledButton(false);
+        }
     };
+
+    const handleDateBlur = () => {
+        if (getCurrentDate > getEndDate) {
+            showMessage('error', 'Date Validation Error', 'Start date must be less than end date.');
+            setDisabledButton(true);
+            return;
+        } else {
+            setDisabledButton(false);
+        }
+    };
+
     return (
         <Box sx={{ height: '100vh', p: 3, mx: 4 }}>
             <AdminButtonBackPage title={'List Coupons'} />
@@ -112,6 +157,7 @@ function AdminEditCoupon() {
                         value={discount}
                         onChange={(e) => setDiscount(e.target.value)}
                         sx={{ mb: 2 }}
+                        onBlur={handleNumberBlur}
                     />
                 </Grid>
                 <Grid item lg={6}>
@@ -121,6 +167,7 @@ function AdminEditCoupon() {
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
                         sx={{ mb: 2 }}
+                        onBlur={handleNumberBlur}
                     />
                 </Grid>
 
@@ -137,7 +184,12 @@ function AdminEditCoupon() {
                                 <MenuItem key={option} value={option}>
                                     <Box
                                         sx={{
-                                            bgcolor: option === 'Active' ? '#bdf5d3' : grey[300],
+                                            bgcolor:
+                                                option === 'active'
+                                                    ? '#bdf5d3'
+                                                    : option === 'inactive'
+                                                    ? '#ffdfe4'
+                                                    : grey[300],
                                             borderRadius: 2,
                                             boxShadow: 1,
                                             padding: '4px 0',
@@ -147,7 +199,12 @@ function AdminEditCoupon() {
                                         <AdminTypography
                                             sx={{
                                                 fontSize: '14px',
-                                                color: option === 'Active' ? '#187d44' : grey[600],
+                                                color:
+                                                    option === 'active'
+                                                        ? '#187d44'
+                                                        : option === 'inactive'
+                                                        ? '#f11133'
+                                                        : grey[600],
                                                 fontWeight: 'bold',
                                                 textAlign: 'center',
                                             }}
@@ -166,12 +223,13 @@ function AdminEditCoupon() {
                     <TextField
                         id="date"
                         type="date"
-                        defaultValue={getCurrentDate}
-                        onChange={(e) => setGetCurrentDate(e.target.value)}
+                        defaultValue={getCurrentDate?.slice(0, 10)} // Show only the date part
+                        onChange={(e) => setGetCurrentDate(new Date(e.target.value).toISOString())} // Set to ISO format
                         sx={{ width: 220 }}
                         InputLabelProps={{
                             shrink: true,
                         }}
+                        onBlur={handleDateBlur}
                     />
                 </Grid>
                 <Grid item lg={6}>
@@ -179,12 +237,13 @@ function AdminEditCoupon() {
                     <TextField
                         id="date"
                         type="date"
-                        defaultValue={getEndDate}
-                        onChange={(e) => setGetEndDate(e.target.value)}
+                        defaultValue={getEndDate?.slice(0, 10)} // Show only the date part
+                        onChange={(e) => setGetEndDate(new Date(e.target.value).toISOString())} // Set to ISO format
                         sx={{ width: 220 }}
                         InputLabelProps={{
                             shrink: true,
                         }}
+                        onBlur={handleDateBlur}
                     />
                 </Grid>
             </Grid>
@@ -194,9 +253,10 @@ function AdminEditCoupon() {
                 <AdminButtonDesign
                     title={'Save Information'}
                     bgcolor={theme.palette.admin.bgColor}
-                    onHandleClick={handleCreateNewCoupon}
+                    onHandleClick={handleUpdate}
                     type={'contained'}
                     textColor={'white'}
+                    disabled={disabledButton}
                 />
 
                 <AdminButtonDesign
