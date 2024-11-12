@@ -79,7 +79,7 @@ export default function EditUser() {
             setMessageTitle('Update User');
             setMessageContent('Update user information successfully!');
             setTimeout(() => {
-                // navigate('/admin/manage-users');
+                navigate('/admin/manage-users');
             }, 1800);
         } else {
             setShowNotification(true);

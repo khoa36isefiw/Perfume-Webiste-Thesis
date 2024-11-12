@@ -33,6 +33,8 @@ import { ModalDesginV2 } from '../Modal/ModalDesgin';
 import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
 import { productAPI } from '../../api/productAPI';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 const columns = [
     { id: 'image', label: 'Image' },
@@ -49,6 +51,15 @@ const columns = [
 
 export default function ProductTable() {
     const navigate = useNavigate();
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageTitle,
+        messageContent,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
     const { data: products, isLoading, mutate } = useProduct();
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [page, setPage] = React.useState(0);
@@ -56,8 +67,6 @@ export default function ProductTable() {
     const [rows, setRows] = useState([]); // Dynamic user data
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
-    const [showNotification, setShowNotification] = useState(false);
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
 
     const [productToRemove, setProductToRemove] = useState(null);
 
@@ -101,7 +110,7 @@ export default function ProductTable() {
     );
 
     // Filter flattened rows based on product name, and brand
-    // const filteredRows2 = flattenedRows.filter((row) => console.log('row2989: ', row));
+
     const filteredRows = flattenedRows.filter(
         (row) =>
             row?.productName?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
@@ -139,21 +148,13 @@ export default function ProductTable() {
         setOpenConfirmMessage(true);
         // 2. store the product information data
         setProductToRemove({ productId: productId, size });
-        // try {
-        //     // const response = await fetch(
-        //     //     `https://api.example.com/products/${productId}/sizes/${size}`,
-        //     //     { method: 'DELETE' },
-        //     // );
     };
 
-    console.log('product to remove information: ', productToRemove);
     // disagree, not delete the products
     const handleConfirmDisagree = () => {
         setOpenConfirmMessage(false);
         setProductToRemove(null);
     };
-
-    console.log('before delete product: ', rows);
 
     const handleConfirmAgree = async () => {
         console.log('chay vo day');
@@ -162,39 +163,12 @@ export default function ProductTable() {
             try {
                 // filter products and update rows
                 const deleteResponse = await productAPI.deleteProduct(id);
-                console.log('deleteResponse: ', deleteResponse);
-                mutate();
-                // setRows(
-                //     (prevRows) =>
-                //         // prevRow is a list of products, contain many sizes
-                //         prevRows
-                //             .map((row) => {
-                //                 // remove the size of product is selected to delete by product id
-                //                 if (row.productId === productToRemove.productId) {
-                //                     console.log('row: ', row);
-                //                     console.log('prevRows: ', prevRows);
-                //                     // the remaining product list after deleting products of selected size
-                //                     const updatedSizes = row.variants.filter(
-                //                         (size) => size.size !== productToRemove.size,
-                //                     );
-                //                     // if there are no sizes left, remove the entire product
-                //                     if (updatedSizes.length === 0) {
-                //                         return null;
-                //                     }
-
-                //                     // update list products with new size
-                //                     return { ...row, sizes: updatedSizes };
-                //                 }
-                //                 return row;
-                //             })
-                //             .filter(Boolean), //remove all products are null
-                // );
-
-                console.log('deleteResponse: ', deleteResponse);
-
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
+                if (deleteResponse.status === 200) {
+                    mutate();
+                    showMessage('success', 'Delete Product', 'Delete product successfully!');
+                }
             } catch (error) {
+                showMessage('error', 'Delete Product', 'Something went wrong???');
                 console.error('Error deleting product:', error);
             } finally {
                 setOpenConfirmMessage(false);
@@ -449,6 +423,20 @@ export default function ProductTable() {
                         onHandleConfirmAgree={handleConfirmAgree}
                         onHandleConfirmDisagree={handleConfirmDisagree}
                     />
+                    {showNotification && (
+                        <Box
+                            sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                            className={`animate__animated ${showAnimation}`}
+                        >
+                            <NotificationMessage
+                                msgType={messageType}
+                                msgTitle={messageTitle}
+                                msgContent={messageContent}
+                                autoHideDuration={3000} // Auto-hide after 5 seconds
+                                onClose={handleCloseNotification}
+                            />
+                        </Box>
+                    )}
                 </Box>
             )}
         </React.Fragment>
