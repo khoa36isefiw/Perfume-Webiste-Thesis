@@ -171,7 +171,7 @@ const CouponsTable = () => {
                         },
                     }}
                     startIcon={<MoneyOffIcon />}
-                    onClick={() => navigate('/admin/manage-coupons/create-new-coupon')}
+                    onClick={() => navigate('/admin/manage-coupons/add')}
                 >
                     Add Coupon
                 </Button>
