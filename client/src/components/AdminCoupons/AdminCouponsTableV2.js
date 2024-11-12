@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -17,12 +17,16 @@ import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import WarningIcon from '@mui/icons-material/Warning';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import EmptyCart from '../EmptyCart/EmptyCart';
+import useCoupons from '../../api/useCoupons';
+import { formatDate, formatDDMM } from '../FormatDate/formatDate';
 
 const itemsPerPage = 5;
 
 const CouponsTable = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { data: couponsData, isLoading } = useCoupons();
+    const responeCouponsData = couponsData?.data || [];
     const [currentPage, setCurrentPage] = useState(1);
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
@@ -31,28 +35,33 @@ const CouponsTable = () => {
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
     const [couponToRemove, setCouponToRemove] = useState(null);
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
-    const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
+    // const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
+    const [listCoupons, setListCoupons] = useState(responeCouponsData);
+    useEffect(() => {
+        setListCoupons(responeCouponsData);
+    }, [couponsData?.data]);
     console.log('listCoupons: ', listCoupons);
 
-    const filters = ['All Coupons', 'Active', 'Unactive', 'Expired'];
+    const filters = ['All Coupons', 'active', 'inactive', 'expired'];
     const filterListCoupons =
         filterCoupons !== 'All Coupons'
             ? listCoupons?.filter((list) => list.status === filterCoupons)
             : listCoupons;
+
     const filteredSearchCoupons = filterListCoupons?.filter(
         (row) =>
-            row.discount.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            row.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            row.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            row.description.toLowerCase().includes(searchTerm.toLowerCase()),
+            row?.discount?.toString().toLowerCase().includes(searchTerm?.toLowerCase()) || // a number not a string
+            row?.status?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+            row?.code?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+            row?.description?.toLowerCase().includes(searchTerm?.toLowerCase()),
     );
 
     // Tính toán dữ liệu hiển thị cho trang hiện tại
     const indexOfLastItem = currentPage * itemsPerPage; // 5
     const indexOfFirstItem = indexOfLastItem - itemsPerPage; // 0
-    const currentItems = filteredSearchCoupons.slice(indexOfFirstItem, indexOfLastItem); // 0, 5 --> 5 items
+    const currentItems = filteredSearchCoupons?.slice(indexOfFirstItem, indexOfLastItem); // 0, 5 --> 5 items
     // Tính tổng số trang based on list coupons are filtered
-    const totalPages = Math.ceil(filteredSearchCoupons.length / itemsPerPage); // làm tròn lên
+    const totalPages = Math.ceil(filteredSearchCoupons?.length / itemsPerPage); // làm tròn lên
 
     const handlePageClick = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -77,7 +86,7 @@ const CouponsTable = () => {
 
     // Handle search input change
     const handleSearch = (event) => {
-        setSearchTerm(event.target.value.toLowerCase());
+        setSearchTerm(event.target.value?.toLowerCase());
         setCurrentPage(1);
     };
 
@@ -85,7 +94,7 @@ const CouponsTable = () => {
         console.log('couponId: ', couponId);
         navigate(`edit-coupon/${couponId}`, {
             state: {
-                couponData: listCoupons.find((coupon) => coupon.id === couponId),
+                couponData: listCoupons?.find((coupon) => coupon.id === couponId),
             },
         });
     };
@@ -124,6 +133,10 @@ const CouponsTable = () => {
             setShowNotification(false);
         }, 1000);
     };
+
+    if (isLoading) {
+        return <Typography>Loading...</Typography>;
+    }
 
     return (
         <Box sx={{ padding: 2 }}>
@@ -178,7 +191,7 @@ const CouponsTable = () => {
                 </Button>
             </Box>
             <Box>
-                {filters.map((filter, index) => (
+                {filters?.map((filter, index) => (
                     <Button
                         onClick={() => handleFilterCoupons(filter)}
                         key={index}
@@ -189,7 +202,7 @@ const CouponsTable = () => {
                             textTransform: 'initial',
                             mb: 2,
                             borderRadius: 5,
-
+                            textTransform: 'capitalize',
                             fontWeight: 'bold',
                         }}
                     >
@@ -244,9 +257,9 @@ const CouponsTable = () => {
                         Actions
                     </AdminTypography>
                 </Box>
-                {currentItems.length > 0 ? (
+                {currentItems?.length > 0 ? (
                     <React.Fragment>
-                        {currentItems.map((coupon) => (
+                        {currentItems?.map((coupon) => (
                             <Box
                                 key={coupon.id}
                                 sx={{
@@ -292,13 +305,13 @@ const CouponsTable = () => {
                                 </AdminTypography>
                                 <AdminTypography sx={{ flex: 1 }}>{coupon.used}</AdminTypography>
                                 <AdminTypography sx={{ flex: 1 }}>
-                                    {coupon.getCurrentDate}
+                                    {formatDate(coupon.startDate)}
                                 </AdminTypography>
                                 <AdminTypography sx={{ flex: 1 }}>
-                                    {coupon.getEndDate}
+                                    {formatDate(coupon.endDate)}
                                 </AdminTypography>
                                 <Box sx={{ flex: 1 }}>
-                                    {coupon.status === 'Active' ? (
+                                    {coupon.status === 'active' ? (
                                         <Box
                                             sx={{
                                                 bgcolor: '#bdf5d3',
@@ -320,7 +333,7 @@ const CouponsTable = () => {
                                                 {coupon.status}
                                             </AdminTypography>
                                         </Box>
-                                    ) : coupon.status === 'Unactive' ? (
+                                    ) : coupon.status === 'inactive' ? (
                                         <Box
                                             sx={{
                                                 bgcolor: '#ffdfe4',
@@ -391,7 +404,7 @@ const CouponsTable = () => {
 
             <Box
                 sx={{
-                    display: currentItems.length > 0 ? 'flex' : 'none',
+                    display: currentItems?.length > 0 ? 'flex' : 'none',
                     justifyContent: 'center',
                     marginTop: 2,
                 }}
