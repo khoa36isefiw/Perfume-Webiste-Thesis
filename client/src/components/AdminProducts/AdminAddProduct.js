@@ -202,7 +202,7 @@ const AdminAddProduct = () => {
     const handlePriceSaleBlur = (index) => {
         setSelectedSizes((prevSizes) => {
             const updatedSizes = [...prevSizes];
-            const { price, priceSale } = updatedSizes[index];
+            const { price, priceSale, stock } = updatedSizes[index];
 
             // Kiểm tra điều kiện priceSale > price
             if (priceSale > price) {
@@ -214,6 +214,15 @@ const AdminAddProduct = () => {
                 setDisabledButton(true);
             } else {
                 setDisabledButton(false);
+            }
+
+            if (price < 0 || priceSale < 0 || stock < 0) {
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageType('error');
+                setMessageTitle('Price Error');
+                setMessageContent('Number must be greater than 0!');
+                setDisabledButton(true);
             }
 
             return updatedSizes;
