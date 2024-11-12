@@ -40,6 +40,7 @@ import { OrderInvoicePDF } from '../components/PDFTemplate/OrderInvoicePDF';
 import TicketCoupon from '../components/TicketCoupon/TicketCoupon';
 import AdminTableBrands from '../components/AdminBrands/AdminTableBrands';
 import AdminAddBrand from '../components/AdminBrands/AdminAddBrand';
+import AdminEditBrand from '../components/AdminBrands/AdminEditBrand';
 
 // not sign into this website
 const publicRoutes = [
@@ -137,6 +138,11 @@ const privateRoutes = [
     {
         path: 'admin/manage-brands/add',
         component: AdminAddBrand,
+        layout: AdminLayout,
+    },
+    {
+        path: 'admin/manage-brands/edit/:id',
+        component: AdminEditBrand,
         layout: AdminLayout,
     },
 ];

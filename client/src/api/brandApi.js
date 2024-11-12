@@ -13,4 +13,8 @@ export const brandApi = {
         const url = `/brands/`;
         return axiosClient.post(url, data);
     },
+    updateBrand: (id, data) => {
+        const url = `/brands/${id}`;
+        return axiosClient.put(url, data);
+    },
 };
