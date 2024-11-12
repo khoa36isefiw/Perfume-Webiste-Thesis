@@ -22,7 +22,7 @@ import { theme } from '../../Theme/Theme';
 
 const AdminEditProduct = () => {
     const location = useLocation();
-    const { productData, selectedSize, productTest } = location.state;
+    const { productData, productTest } = location.state;
     console.log('productData.variants[0]?._id: ', productData.variants[0]?._id);
     console.log('productTest: ', productTest);
     console.log(
@@ -35,6 +35,7 @@ const AdminEditProduct = () => {
     const [productName, setProductName] = useState(productData.productName);
     const [category, setCategory] = useState(productTest.category._id);
     const [brand, setBrand] = useState(productTest.brand._id);
+    const [disabledButton, setDisabledButton] = useState(false);
     const [selectedSizes, setSelectedSizes] = useState(
         productTest?.variants.map((variant) => ({
             _id: variant._id,
@@ -121,7 +122,7 @@ const AdminEditProduct = () => {
             console.log('checkPriceSale: ', checkPriceSale);
             if (!checkPriceSale) {
                 const updateResponse = await productAPI.editProduct(productId, data);
-                if (updateResponse.status == 200) {
+                if (updateResponse.status === 200) {
                     setShowNotification(true);
                     setShowAnimation('animate__bounceInRight');
                     setMessageType('success');
@@ -190,7 +191,7 @@ const AdminEditProduct = () => {
     const handlePriceSaleBlur = (index) => {
         setSelectedSizes((prevSizes) => {
             const updatedSizes = [...prevSizes];
-            const { price, priceSale } = updatedSizes[index];
+            const { price, priceSale, stock } = updatedSizes[index];
 
             // Kiểm tra điều kiện priceSale > price
             if (priceSale > price) {
@@ -199,7 +200,19 @@ const AdminEditProduct = () => {
                 setMessageType('error');
                 setMessageTitle('Price Error');
                 setMessageContent('Sale price cannot be greater than the original price!');
+                setDisabledButton(true);
+            } else {
+                setDisabledButton(false);
             }
+            if (price < 0 || priceSale < 0 || stock < 0) {
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageType('error');
+                setMessageTitle('Price Error');
+                setMessageContent('Number must be greater than 0!');
+                setDisabledButton(true);
+            }
+
             return updatedSizes;
         });
     };
@@ -341,6 +354,7 @@ const AdminEditProduct = () => {
                     variant="contained"
                     color="primary"
                     onClick={handleSave}
+                    disabled={disabledButton}
                     sx={{
                         fontSize: '12px',
                         textTransform: 'initial',

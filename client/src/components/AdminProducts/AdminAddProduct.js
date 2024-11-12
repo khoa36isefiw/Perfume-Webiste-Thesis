@@ -35,6 +35,7 @@ const AdminAddProduct = () => {
     const [category, setCategory] = useState('');
     const [selectedSizes, setSelectedSizes] = useState([]);
     const [checked, setChecked] = useState(true);
+    const [disabledButton, setDisabledButton] = useState(false);
 
     // notifications
     const [showNotification, setShowNotification] = useState(false);
@@ -82,60 +83,68 @@ const AdminAddProduct = () => {
                     size.stock !== '',
             )
         ) {
-            const newProductData = {
-                nameVn: productName,
-                nameEn: productName,
-                variants: selectedSizes.map((size) => ({
-                    size: size.size,
-                    price: +size.price, // + operator converts string to number
-                    priceSale: +size.priceSale,
-                    stock: +size.stock,
-                })),
-                // imagePath: [image],
-                category: {
-                    _id: category, //category is an ID
-                    nameVn: getCategoryById.nameVn,
-                    nameEn: getCategoryById.nameEn,
-                    parentId: null,
-                },
-                brand: {
-                    _id: brand,
-                    nameVn: getBrandById.nameVn,
-                    nameEn: getBrandById.nameEn,
-                },
+            if (selectedSizes.every((size) => size.priceSale - size.stock < 0)) {
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageType('error');
+                setMessageTitle('Price Error');
+                setMessageContent('Sale price cannot be greater than the original price!');
+            } else {
+                const newProductData = {
+                    nameVn: productName,
+                    nameEn: productName,
+                    variants: selectedSizes.map((size) => ({
+                        size: size.size,
+                        price: +size.price, // + operator converts string to number
+                        priceSale: +size.priceSale,
+                        stock: +size.stock,
+                    })),
+                    imagePath: [image],
+                    category: {
+                        _id: category, //category is an ID
+                        nameVn: getCategoryById.nameVn,
+                        nameEn: getCategoryById.nameEn,
+                        parentId: null,
+                    },
+                    brand: {
+                        _id: brand,
+                        nameVn: getBrandById.nameVn,
+                        nameEn: getBrandById.nameEn,
+                    },
 
-                // default content
-                content: {
-                    origin: 'France',
-                    yearOfRelease: '2017',
-                    concentration: 'Extrait de Parfum (EDP)',
-                    fragranceGroup: 'Oriental Floral',
-                    manufacturer: 'Francis Kurkdjian',
-                    shortContent:
-                        'Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.',
-                    topNotes: 'Nghệ tây, Hạnh nhân đắng',
-                    heartNotes: 'Hoa nhài Ai Cập, Gỗ tuyết tùng',
-                    baseNotes: "Hương gỗ, 'Hổ phách, Xạ hương",
-                    mainContent:
-                        'Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.',
-                    longevity: 5,
-                    sillage: 5,
-                    likability: 4,
-                },
-            };
-            const addProductResponse = await productAPI.createProduct(newProductData);
-            console.log('New Product Data:', newProductData);
-            console.log('addProductResponse: ', addProductResponse);
+                    // default content
+                    content: {
+                        origin: 'France',
+                        yearOfRelease: '2017',
+                        concentration: 'Extrait de Parfum (EDP)',
+                        fragranceGroup: 'Oriental Floral',
+                        manufacturer: 'Francis Kurkdjian',
+                        shortContent:
+                            'Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.',
+                        topNotes: 'Nghệ tây, Hạnh nhân đắng',
+                        heartNotes: 'Hoa nhài Ai Cập, Gỗ tuyết tùng',
+                        baseNotes: "Hương gỗ, 'Hổ phách, Xạ hương",
+                        mainContent:
+                            'Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.',
+                        longevity: 5,
+                        sillage: 5,
+                        likability: 4,
+                    },
+                };
+                const addProductResponse = await productAPI.createProduct(newProductData);
+                console.log('New Product Data:', newProductData);
+                console.log('addProductResponse: ', addProductResponse);
 
-            // successfully added
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
-            setMessageType('success');
-            setMessageTitle('Add New Product');
-            setMessageContent('Add new prodcut successfully!');
-            setTimeout(() => {
-                // navigate('/admin/manage-products');
-            }, 2800);
+                // successfully added
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageType('success');
+                setMessageTitle('Add New Product');
+                setMessageContent('Add new prodcut successfully!');
+                setTimeout(() => {
+                    // navigate('/admin/manage-products');
+                }, 2800);
+            }
         } else {
             console.log('chay vo day ne');
             setShowNotification(true);
@@ -193,7 +202,7 @@ const AdminAddProduct = () => {
     const handlePriceSaleBlur = (index) => {
         setSelectedSizes((prevSizes) => {
             const updatedSizes = [...prevSizes];
-            const { price, priceSale } = updatedSizes[index];
+            const { price, priceSale, stock } = updatedSizes[index];
 
             // Kiểm tra điều kiện priceSale > price
             if (priceSale > price) {
@@ -202,6 +211,18 @@ const AdminAddProduct = () => {
                 setMessageType('error');
                 setMessageTitle('Price Error');
                 setMessageContent('Sale price cannot be greater than the original price!');
+                setDisabledButton(true);
+            } else {
+                setDisabledButton(false);
+            }
+
+            if (price < 0 || priceSale < 0 || stock < 0) {
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageType('error');
+                setMessageTitle('Price Error');
+                setMessageContent('Number must be greater than 0!');
+                setDisabledButton(true);
             }
 
             return updatedSizes;
@@ -377,6 +398,7 @@ const AdminAddProduct = () => {
                     onHandleClick={handleAddProduct}
                     type={'contained'}
                     textColor={'white'}
+                    disabled={disabledButton}
                 />
                 <AdminButtonDesign
                     title={'Cancel'}
@@ -406,11 +428,20 @@ const AdminAddProduct = () => {
 
 export default AdminAddProduct;
 
-const AdminButtonDesign = ({ type, bgcolor, title, onHandleClick, textColor, borderColor }) => {
+const AdminButtonDesign = ({
+    type,
+    bgcolor,
+    title,
+    onHandleClick,
+    textColor,
+    borderColor,
+    disabled,
+}) => {
     return (
         <Button
             variant={type}
             onClick={onHandleClick}
+            disabled={disabled}
             sx={{
                 color: textColor,
                 marginTop: 2,
