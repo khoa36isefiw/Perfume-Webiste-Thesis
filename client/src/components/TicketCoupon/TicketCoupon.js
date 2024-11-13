@@ -3,7 +3,7 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
 import useCoupons from '../../api/useCoupons';
-import { formatDate, formatDateDD } from '../FormatDate/formatDate';
+import { formatDateDD } from '../FormatDate/formatDate';
 import { useState } from 'react';
 
 function TicketCoupon() {
