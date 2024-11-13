@@ -46,7 +46,7 @@ const columns = [
         // format: (value) => `${value.street}, ${value.city}`,
     },
     { id: 'totalPrice', label: 'Total', minWidth: 40 },
-    { id: 'address', label: 'Address', minWidth: 40 },
+    { id: 'userAddress', label: 'Address', minWidth: 40 },
     {
         id: 'orderPaid',
         label: 'Pay',
@@ -123,8 +123,10 @@ export default function AdminOrdersTable() {
     // Handle search input change
     const handleSearch = (event) => {
         setSearchTerm(event.target.value.toLowerCase());
+        setPage(0); // Reset page to 0 when search term changes
     };
 
+    console.log('rows: ', rows);
     // Filter rows based on search term
     const filteredRows = rows.filter(
         (row) =>
