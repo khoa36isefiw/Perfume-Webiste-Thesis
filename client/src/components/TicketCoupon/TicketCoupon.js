@@ -4,10 +4,18 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { theme } from '../../Theme/Theme';
 import useCoupons from '../../api/useCoupons';
 import { formatDate, formatDateDD } from '../FormatDate/formatDate';
+import { useState } from 'react';
 
 function TicketCoupon() {
     const { data: couponsData } = useCoupons();
     console.log('couponsData: ', couponsData?.data);
+    const [claimedCoupon, setClaimedCoupon] = useState([]);
+
+    const handleClaimCoupon = (id) => {
+        if (!claimedCoupon.includes(id)) {
+            setClaimedCoupon([...claimedCoupon, id]);
+        }
+    };
     return (
         <Box
             sx={{
@@ -162,7 +170,8 @@ function TicketCoupon() {
                                     </CustomizeTypography>
                                     <Button
                                         variant="contained"
-                                        // disabled={true}
+                                        disabled={claimedCoupon.includes(coupon._id)}
+                                        onClick={() => handleClaimCoupon(coupon?._id)}
                                         sx={{
                                             p: '4px 24px',
                                             borderRadius: '24px',
@@ -179,13 +188,13 @@ function TicketCoupon() {
                                                 bgcolor: '#000',
                                             },
                                             '&.Mui-disabled': {
-                                                color: '#ccc',
+                                                color: 'green',
                                                 borderColor: '#ccc',
                                                 bgcolor: '#ccc',
                                             },
                                         }}
                                     >
-                                        Claim
+                                        {!claimedCoupon.includes(coupon._id) ? 'Claim' : 'Claimed'}
                                     </Button>
                                 </Box>
                             </Box>
