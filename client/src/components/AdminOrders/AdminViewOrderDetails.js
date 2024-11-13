@@ -6,6 +6,8 @@ import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
 import { CODPayment, PaypalPayment } from './PaymentDesign';
 
 import CallIcon from '@mui/icons-material/Call';
+import { converToVND } from '../convertToVND/convertToVND';
+import { formatDate } from '../FormatDate/formatDate';
 
 const orderTitle = ['Photo', 'Name', 'Quantity', 'Size', 'Price', 'Total'];
 
@@ -15,11 +17,11 @@ function AdminViewOrderDetails() {
     console.log('orderData', orderData);
 
     return (
-        <Box sx={{ height: '150vh' }}>
+        <Box sx={{ height: '150vh', px: 4 }}>
             <AdminButtonBackPage title={'List Orders'} />
             <Box>
                 <Grid container spacing={4}>
-                    <Grid item lg={8}>
+                    <Grid item lg={12}>
                         <Box sx={{ bgcolor: '#fff', borderRadius: 3, p: 2 }}>
                             <Box
                                 sx={{
@@ -32,7 +34,7 @@ function AdminViewOrderDetails() {
                                     <strong>Order No:</strong> #{orderData._id}
                                 </AdminTypography>
                                 <Box sx={{ flex: 1 }}>
-                                    {orderData.orderPaid === 'COD' ? (
+                                    {orderData.paymentMethod === 'COD' ? (
                                         <CODPayment />
                                     ) : (
                                         <PaypalPayment />
@@ -57,7 +59,7 @@ function AdminViewOrderDetails() {
                             >
                                 <UserInfor
                                     title={'Order Created at'}
-                                    content={orderData.createdAt}
+                                    content={formatDate(orderData.createdAt)}
                                 />
                                 <UserInfor title={'Name'} content={orderData.userName} />
                                 <UserInfor title={'Email'} content={orderData.userEmail} />
@@ -84,11 +86,11 @@ function AdminViewOrderDetails() {
                             </Box>
                         </Box>
                     </Grid>
-                    <Grid item lg={4}>
+                    {/* <Grid item lg={4}>
                         <Box sx={{ bgcolor: '#fff', borderRadius: 3 }}>aaddada</Box>
-                    </Grid>
+                    </Grid> */}
 
-                    <Grid item xs={8} sm={8} md={8} lg={8}>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
                         <AdminTypography sx={{ fontSize: '18px', fontWeight: 'bold' }}>
                             Order Items
                         </AdminTypography>
@@ -135,7 +137,7 @@ function AdminViewOrderDetails() {
                             <Divider sx={{ my: 2 }} />
 
                             {/* Content Rows */}
-                            {orderData?.items?.map((order, index) => (
+                            {orderData?.order?.items?.map((order, index) => (
                                 <Box key={index}>
                                     <Box
                                         sx={{
@@ -161,13 +163,19 @@ function AdminViewOrderDetails() {
                                             {order.size}
                                         </AdminTypography>
                                         <AdminTypography sx={{ fontSize: '16px' }}>
-                                            {order.price}
+                                            {converToVND(
+                                                order.priceSale ? order.priceSale : order.price,
+                                            )}
                                         </AdminTypography>
                                         <AdminTypography sx={{ fontSize: '16px' }}>
-                                            {orderData.totalPrice}
+                                            {converToVND(
+                                                order.priceSale
+                                                    ? order.priceSale * order.quantity
+                                                    : order.price * order.quantity,
+                                            )}
                                         </AdminTypography>
                                     </Box>
-                                    {orderData.items.length - 1 !== index && (
+                                    {orderData?.order?.items.length - 1 !== index && (
                                         <Divider sx={{ my: 2 }} />
                                     )}
                                 </Box>

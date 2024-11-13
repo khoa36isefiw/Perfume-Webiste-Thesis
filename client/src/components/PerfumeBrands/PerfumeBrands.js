@@ -16,21 +16,30 @@ function PerfumeBrands({ listData }) {
 
     useEffect(() => {
         const currentBrand = JSON.parse(localStorage.getItem('filter'));
+
         setBrandSelected(currentBrand);
     }, [JSON.parse(localStorage.getItem('filter'))]);
     console.log('current filter: ', brandSelected);
 
     const handleSelectBrand = (brand) => {
-        setBrandSelected(brand.nameEn);
-        window.localStorage.setItem('filter', JSON.stringify(brand.nameEn));
-        // get the current search query
-        const currentQueryParams = new URLSearchParams(location.search);
-        // remove the old brand and add new brand selected
-        currentQueryParams.set('brand', brand.nameEn);
-        console.log('currentQueryParams.toString(): ', currentQueryParams.toString());
+        // remove the brand selected when user clicks on it again
+        if (brandSelected === brand.nameEn) {
+            window.localStorage.removeItem('filter'); // delete key from the local storage
+            const currentQueryParams = new URLSearchParams(location.search);
+            currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
+            navigate(`/shop?${currentQueryParams.toString()}`);
+        } else {
+            setBrandSelected(brand.nameEn);
+            window.localStorage.setItem('filter', JSON.stringify(brand.nameEn));
+            // get the current search query
+            const currentQueryParams = new URLSearchParams(location.search);
+            // remove the old brand and add new brand selected
+            currentQueryParams.set('brand', brand.nameEn);
+            console.log('currentQueryParams.toString(): ', currentQueryParams.toString());
 
-        // update url
-        navigate(`/shop?${currentQueryParams.toString()}`);
+            // update url
+            navigate(`/shop?${currentQueryParams.toString()}`);
+        }
     };
 
     return (

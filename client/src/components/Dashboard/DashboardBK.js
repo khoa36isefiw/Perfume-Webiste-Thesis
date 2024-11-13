@@ -14,7 +14,6 @@ import AdminBestSellingProducts from './AdminBestSellingProducts';
 import RecentTransactions from './RecentTransactions';
 import TopProductsSale from './TopProductsSale';
 import useUsers from '../../api/useUsers';
-import DashboardV2 from './DashboardV2';
 
 const cardData = [
     {
@@ -90,7 +89,7 @@ function Dashboard() {
                 ? ((todayCount - yesterdayCount) / yesterdayCount) * 100
                 : 0;
 
-            // console.log('percentageChange: ', percentageChange);
+            console.log('percentageChange: ', percentageChange);
             setDailyChange({
                 today: todayCount,
                 yesterday: yesterdayCount,
@@ -222,9 +221,6 @@ function Dashboard() {
                         </Box>
                     </Grid>
                 ))}
-                <Grid item lg={12}>
-                    <DashboardV2 />
-                </Grid>
                 <Grid item lg={12}>
                     <TopSales />
                 </Grid>
