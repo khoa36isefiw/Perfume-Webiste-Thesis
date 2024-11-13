@@ -44,8 +44,8 @@ const BrandController = {
                 res.status(404).json({ message: 'Brand not found' });
             }
 
-            await brand.updateOne({ _id: id }, updateData);
-            res.status(200).json(brand);
+            const updatedBrand = await Brand.updateOne({ _id: id }, updateData);
+            res.status(200).json(updatedBrand);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
