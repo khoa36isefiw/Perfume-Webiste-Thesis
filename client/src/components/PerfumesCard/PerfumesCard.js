@@ -74,11 +74,22 @@ function PerfumesCard() {
                         // setBrandSelected={setBrandSelected}
                         // brandSelected={brandSelected}
                     />
-                    <SortProducts
-                        listData={products?.data}
-                        // sortingSelected={sortingSelected}
-                        // setSortingSelected={setSortingSelected}
-                    />
+                    <Box
+                        sx={{
+                            p: '12px',
+                            bgcolor: theme.palette.background.main,
+                            borderRadius: 2,
+                            // display: 'flex',
+                            // alignItems: 'center',
+                            my: theme.spacingAxis.boxVerticalAxis,
+                        }}
+                    >
+                        <SortProducts
+                            listData={products?.data}
+                            // sortingSelected={sortingSelected}
+                            // setSortingSelected={setSortingSelected}
+                        />
+                    </Box>
                     {products?.data?.length ? (
                         <Grid container spacing={2}>
                             {products?.data.map(
