@@ -99,7 +99,7 @@ export default function ProductTable() {
         row.variants.map((size) => ({
             productId: row._id,
             productName: row.nameEn,
-            brand: row.brand.nameEn,
+            brand: row.brand?.nameEn,
             size: size.size,
             price: size.price,
             image: row?.imagePath[0],

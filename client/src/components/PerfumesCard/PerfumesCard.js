@@ -217,7 +217,7 @@ function PerfumesCard() {
                                                         }}
                                                     >
                                                         {/* Dior */}
-                                                        {perfume.brand.nameEn}
+                                                        {perfume.brand?.nameEn}
                                                     </CustomizeTypography>
                                                     {/* perfume name */}
                                                     <CustomizeTypography

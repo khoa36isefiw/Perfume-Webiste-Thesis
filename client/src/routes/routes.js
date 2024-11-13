@@ -106,12 +106,12 @@ const privateRoutes = [
         layout: AdminLayout,
     },
     {
-        path: '/admin/manage-coupons/create-new-coupon',
+        path: '/admin/manage-coupons/add',
         component: AdminCreateCoupon,
         layout: AdminLayout,
     },
     {
-        path: '/admin/manage-coupons/edit-coupon/:id',
+        path: '/admin/manage-coupons/edit/:id',
         component: AdminEditCoupon,
         layout: AdminLayout,
     },

@@ -19,37 +19,22 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import EmptyCart from '../EmptyCart/EmptyCart';
 import useCoupons from '../../api/useCoupons';
 import { formatDate } from '../FormatDate/formatDate';
-import useDeleteItem from '../../hooks/useDeleteItem';
-import { couponAPI } from '../../api/couponAPI';
 
 const itemsPerPage = 5;
 
 const CouponsTable = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { data: couponsData, mutate, isLoading } = useCoupons();
+    const { data: couponsData, isLoading } = useCoupons();
     const responeCouponsData = couponsData?.data || [];
     const [currentPage, setCurrentPage] = useState(1);
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
 
-    // const [showNotification, setShowNotification] = useState(false);
-    // const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    // const [couponToRemove, setCouponToRemove] = useState(null);
-    // const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
-    const {
-        showNotification,
-        messageType,
-        messageTitle,
-        messageContent,
-        openConfirmMessage,
-        showAnimation,
-        openDeleteConfirmation,
-        handleCloseNotification,
-        handleConfirmDisagree,
-        handleConfirmAgree,
-        handleDeleteItem,
-    } = useDeleteItem(couponAPI.deleteCoupon, mutate, 'promotions');
+    const [showNotification, setShowNotification] = useState(false);
+    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
+    const [couponToRemove, setCouponToRemove] = useState(null);
+    const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     // const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
     const [listCoupons, setListCoupons] = useState(responeCouponsData);
     useEffect(() => {
@@ -107,47 +92,47 @@ const CouponsTable = () => {
 
     const handleEdit = (couponId) => {
         console.log('couponId: ', couponId);
-        navigate(`edit/${couponId}`, {
+        navigate(`edit-coupon/${couponId}`, {
             state: {
-                couponData: listCoupons?.find((coupon) => coupon._id === couponId),
+                couponData: listCoupons?.find((coupon) => coupon.id === couponId),
             },
         });
     };
 
     // delete coupon feature
     // open the confirm dialog message and save the products are removed
-    // const handleDeleteCoupon = (couponId) => {
-    //     // for showing confirm message dialog
-    //     setOpenConfirmMessage(true); // open
-    //     setCouponToRemove({ codeId: couponId }); // store coupon information is removed
-    // };
+    const handleDeleteCoupon = (couponId) => {
+        // for showing confirm message dialog
+        setOpenConfirmMessage(true); // open
+        setCouponToRemove({ codeId: couponId }); // store coupon information is removed
+    };
 
-    // // disagree, not delete the coupón
-    // const     = () => {
-    //     // click disagree button actions
-    //     setOpenConfirmMessage(false); // don't want to remove, hide the delete confirm message
-    //     setCouponToRemove(null);
-    // };
+    // disagree, not delete the coupón
+    const handleConfirmDisagree = () => {
+        // click disagree button actions
+        setOpenConfirmMessage(false); // don't want to remove, hide the delete confirm message
+        setCouponToRemove(null);
+    };
 
-    // // agree, delete the coupon
-    // const handleConfirmAgree = () => {
-    //     // click agree button actions
-    //     if (couponToRemove) {
-    //         dispatch(deleteCoupon({ codeId: couponToRemove.codeId }));
-    //     }
-    //     setShowNotification(true);
-    //     setShowAnimation('animate__bounceInRight');
-    //     setOpenConfirmMessage(false);
-    //     setCouponToRemove(null);
-    // };
+    // agree, delete the coupon
+    const handleConfirmAgree = () => {
+        // click agree button actions
+        if (couponToRemove) {
+            dispatch(deleteCoupon({ codeId: couponToRemove.codeId }));
+        }
+        setShowNotification(true);
+        setShowAnimation('animate__bounceInRight');
+        setOpenConfirmMessage(false);
+        setCouponToRemove(null);
+    };
 
-    // // handle Close notification
-    // const handleCloseNotification = () => {
-    //     setShowAnimation('animate__fadeOut');
-    //     setTimeout(() => {
-    //         setShowNotification(false);
-    //     }, 1000);
-    // };
+    // handle Close notification
+    const handleCloseNotification = () => {
+        setShowAnimation('animate__fadeOut');
+        setTimeout(() => {
+            setShowNotification(false);
+        }, 1000);
+    };
 
     if (isLoading) {
         return <Typography>Loading...</Typography>;
@@ -276,7 +261,7 @@ const CouponsTable = () => {
                     <React.Fragment>
                         {currentItems?.map((coupon) => (
                             <Box
-                                key={coupon._id}
+                                key={coupon.id}
                                 sx={{
                                     display: 'flex',
                                     justifyContent: 'space-between',
@@ -394,8 +379,8 @@ const CouponsTable = () => {
                                     )}
                                 </Box>
                                 <ActionsButton
-                                    onHandleClickEdit={() => handleEdit(coupon._id)}
-                                    onHandleClickDelete={() => handleDeleteItem(coupon._id)}
+                                    onHandleClickEdit={() => handleEdit(coupon.id)}
+                                    onHandleClickDelete={() => handleDeleteCoupon(coupon.id)}
                                 />
                             </Box>
                         ))}
@@ -475,7 +460,7 @@ const CouponsTable = () => {
                         Are you sure you want to delete this product?
                     </Typography>
                 }
-                onHandleClickClose={handleConfirmDisagree}
+                onHandleClickClose={() => setOpenConfirmMessage(false)}
                 onHandleConfirmAgree={handleConfirmAgree}
                 onHandleConfirmDisagree={handleConfirmDisagree}
             />
@@ -485,9 +470,9 @@ const CouponsTable = () => {
                     className={`animate__animated ${showAnimation}`}
                 >
                     <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
+                        msgType={'success'}
+                        msgTitle={'Delete Products'}
+                        msgContent={'Products are removed successfully from cart!'}
                         autoHideDuration={3000} // Auto-hide after 5 seconds
                         onClose={handleCloseNotification}
                     />
