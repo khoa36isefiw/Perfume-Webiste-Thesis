@@ -4,7 +4,7 @@ import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { useLocation } from 'react-router-dom';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
 import { CODPayment, PaypalPayment } from './PaymentDesign';
-import imageTest from '../../assets/images/rain7824.png';
+
 import CallIcon from '@mui/icons-material/Call';
 
 const orderTitle = ['Photo', 'Name', 'Quantity', 'Size', 'Price', 'Total'];
@@ -29,7 +29,7 @@ function AdminViewOrderDetails() {
                                 }}
                             >
                                 <AdminTypography sx={{ flex: 6 }}>
-                                    <strong>Order No:</strong> #{orderData.orderId}
+                                    <strong>Order No:</strong> #{orderData._id}
                                 </AdminTypography>
                                 <Box sx={{ flex: 1 }}>
                                     {orderData.orderPaid === 'COD' ? (
@@ -42,7 +42,7 @@ function AdminViewOrderDetails() {
                             {/* user image */}
                             <Box sx={{ mt: 2 }}>
                                 <Avatar
-                                    src={imageTest}
+                                    src={orderData.userImage}
                                     alt={orderData.userImage}
                                     sx={{ height: 128, width: 128 }}
                                 />
@@ -57,11 +57,11 @@ function AdminViewOrderDetails() {
                             >
                                 <UserInfor
                                     title={'Order Created at'}
-                                    content={orderData.orderDate}
+                                    content={orderData.createdAt}
                                 />
                                 <UserInfor title={'Name'} content={orderData.userName} />
-                                <UserInfor title={'Email'} content={orderData.orderDate} />
-                                <UserInfor title={'Contact No'} content={orderData.phone} />
+                                <UserInfor title={'Email'} content={orderData.userEmail} />
+                                <UserInfor title={'Contact No'} content={orderData.userPhone} />
                             </Box>
                             <Box sx={{ border: '1px solid #ccc', borderRadius: 3, p: 2 }}>
                                 <AdminTypography
@@ -73,12 +73,12 @@ function AdminViewOrderDetails() {
                                     <strong>Name:</strong> {orderData.userName}
                                 </AdminTypography>
                                 <AdminTypography sx={{ fontSize: '16px', mb: 1 }}>
-                                    {orderData.address}
+                                    {orderData.userAddress}
                                 </AdminTypography>
                                 <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                                     <CallIcon />
                                     <AdminTypography sx={{ fontSize: '16px', mb: 1 }}>
-                                        {orderData.phone}
+                                        {orderData.userPhone}
                                     </AdminTypography>
                                 </Box>
                             </Box>
@@ -135,7 +135,7 @@ function AdminViewOrderDetails() {
                             <Divider sx={{ my: 2 }} />
 
                             {/* Content Rows */}
-                            {orderData.ordersList.map((order, index) => (
+                            {orderData?.items?.map((order, index) => (
                                 <Box key={index}>
                                     <Box
                                         sx={{
@@ -147,27 +147,27 @@ function AdminViewOrderDetails() {
                                         }}
                                     >
                                         <Avatar
-                                            src={order.productImage}
-                                            alt={order.productImage}
+                                            src={order?.image[0]}
+                                            alt={order?.image[0]}
                                             sx={{ width: 56, height: 56 }}
                                         />
                                         <AdminTypography sx={{ fontSize: '16px' }}>
                                             {order.productName}
                                         </AdminTypography>
                                         <AdminTypography sx={{ fontSize: '16px' }}>
-                                            {order.productQuantity}
+                                            {order.quantity}
                                         </AdminTypography>
                                         <AdminTypography sx={{ fontSize: '16px' }}>
-                                            {order.productSize} ml
+                                            {order.size}
                                         </AdminTypography>
                                         <AdminTypography sx={{ fontSize: '16px' }}>
-                                            {order.productPrice}
+                                            {order.price}
                                         </AdminTypography>
                                         <AdminTypography sx={{ fontSize: '16px' }}>
-                                            {order.totalPrice}
+                                            {orderData.totalPrice}
                                         </AdminTypography>
                                     </Box>
-                                    {orderData.ordersList.length - 1 !== index && (
+                                    {orderData.items.length - 1 !== index && (
                                         <Divider sx={{ my: 2 }} />
                                     )}
                                 </Box>

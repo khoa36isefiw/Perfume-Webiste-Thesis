@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -23,19 +23,28 @@ import { Search } from '@mui/icons-material';
 import { theme } from '../../Theme/Theme';
 import ordersData from '../../data/admin/orders.json';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import useOrders from '../../api/useOrders';
+import { userAPI } from '../../api/userAPI';
+import { formatDate } from '../FormatDate/formatDate';
+import { useRef } from 'react';
+import { clearAllListeners } from '@reduxjs/toolkit';
+import useOrdersWithUserData from '../../api/useUsersByIds';
+import useUserById from '../../api/useUserById';
+import useUsersByIds from '../../api/useUsersByIds';
+import { converToVND } from '../convertToVND/convertToVND';
 
 const columns = [
-    { id: 'orderId', label: 'Order ID', minWidth: 20 },
+    { id: '_id', label: 'Order ID', minWidth: 20 },
 
     { id: 'userName', label: 'Name', minWidth: 50 },
     {
-        id: 'orderDate',
+        id: 'createdAt',
         label: 'Date',
         minWidth: 20,
         align: 'left',
         // format: (value) => `${value.street}, ${value.city}`,
     },
-    { id: 'totalOrder', label: 'Total', minWidth: 40 },
+    { id: 'totalPrice', label: 'Total', minWidth: 40 },
     { id: 'address', label: 'Address', minWidth: 40 },
     {
         id: 'orderPaid',
@@ -49,10 +58,35 @@ const columns = [
 // Component to render the table with dynamic data
 export default function AdminOrdersTable() {
     const navigate = useNavigate();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [rows, setRows] = React.useState(ordersData); // Dynamic user data
-    const [searchTerm, setSearchTerm] = React.useState(''); // Search term state
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rows, setRows] = useState([]); // Dynamic user data
+    const [searchTerm, setSearchTerm] = useState(''); // Search term state
+    const { data: ordersData, isLoading } = useOrders();
+
+    // Lấy danh sách userIds từ ordersData
+    const userIds = ordersData?.data?.map((order) => order.user) || [];
+
+    // Sử dụng useUsersByIds để lấy thông tin người dùng cho từng userId
+    const { usersData, isLoading: usersLoading, isError: usersError } = useUsersByIds(userIds);
+
+    // useEffect to set rows once ordersData and usersData are available
+    useEffect(() => {
+        if (ordersData && usersData) {
+            const ordersWithUserData = ordersData?.data?.map((order) => {
+                const user = usersData?.find((userData) => userData._id === order.user);
+                return {
+                    ...order,
+                    userName: user ? `${user.firstName} ${user.lastName}` : 'Unknown',
+                    userImage: user?.imagePath,
+                    userEmail: user?.email,
+                    userAddress: user?.address,
+                    userPhone: user?.phoneNumber,
+                };
+            });
+            setRows(ordersWithUserData);
+        }
+    }, [ordersData, usersData]); // Dependency array to update when ordersData or usersData changes
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -73,19 +107,21 @@ export default function AdminOrdersTable() {
     // Filter rows based on search term
     const filteredRows = rows.filter(
         (row) =>
-            row?.userName.toLowerCase().includes(searchTerm) ||
-            row?.orderPaid.toLowerCase().includes(searchTerm) ||
-            row?.orderDate.toLowerCase().includes(searchTerm),
+            row?.userName?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            row?.orderPaid?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            row?.orderDate?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()),
     );
-    console.log('filteredRows: ', filteredRows);
 
     // Handle edit action (you can implement your own logic for editing)
     const handleViewOrder = (id) => {
         navigate(`view-order/${id}`, {
-            state: { orderData: rows.find((row) => row.orderId === id) },
+            state: { orderData: rows.find((row) => row._id === id) },
         });
     };
 
+    if (isLoading || usersLoading) {
+        return <Typography>Loading...</Typography>;
+    }
     return (
         <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
             {/* Search Bar */}
@@ -187,7 +223,7 @@ export default function AdminOrdersTable() {
                                                             >
                                                                 <IconButton
                                                                     onClick={() =>
-                                                                        handleViewOrder(row.orderId)
+                                                                        handleViewOrder(row._id)
                                                                     }
                                                                     sx={{
                                                                         bgcolor: '#fbe5ff',
@@ -251,6 +287,14 @@ export default function AdminOrdersTable() {
                                                                 </Typography>
                                                             </Box>
                                                         )
+                                                    ) : column.id === 'createdAt' ? (
+                                                        <Typography sx={{ fontSize: 12 }}>
+                                                            {formatDate(row.createdAt)}
+                                                        </Typography>
+                                                    ) : column.id === 'totalPrice' ? (
+                                                        <Typography sx={{ fontSize: 12 }}>
+                                                            {converToVND(row.totalPrice)}
+                                                        </Typography>
                                                     ) : column.format &&
                                                       typeof value === 'object' ? (
                                                         column.format(value)
