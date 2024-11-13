@@ -121,6 +121,8 @@ const PaymentController = {
             );
             await updatedUser.save();
             if (method === 'COD') {
+                savedOrder.paymentMethod = 'COD';
+                await savedOrder.save();
                 const newPayment = new Payment({
                     order: savedOrder._id,
                     amount: savedOrder.totalPrice,
@@ -192,7 +194,8 @@ const PaymentController = {
                     },
                 }),
             });
-
+            savedOrder.paymentMethod = 'PAYPAL';
+            await savedOrder.save();
             const newPayment = new Payment({
                 order: savedOrder._id,
                 amount: savedOrder.totalPrice,
