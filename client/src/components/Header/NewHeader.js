@@ -29,6 +29,8 @@ import useUserById from '../../api/useUserById';
 import CouponRunning from '../CouponRunning/CouponRunning';
 import VNFlag from '../../assets/images/VN-circle.png';
 import UKFlag from '../../assets/images/UK-circle.png';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 const headerData = [
     { headerText: 'Home', headerLink: '/' },
@@ -40,6 +42,15 @@ const headerData = [
 
 function NewHeader() {
     const navigate = useNavigate();
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageTitle,
+        messageContent,
+        showMessage,
+        handleCloseNotification,
+    } = useShowNotificationMessage();
     const location = useLocation();
     const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search_query') || null); // prevent lost data when reload the page
     const [suggestions, setSuggestions] = useState([]);
@@ -47,6 +58,7 @@ function NewHeader() {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
     const [activeHeader, setActiveHeader] = useState('');
     const listSuggestions = suggestions.slice(0, 4); // just show 4 product items to UI
+
     // get product in cart
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
     const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
@@ -108,8 +120,15 @@ function NewHeader() {
 
     useEffect(() => {
         if (searchQuery === '') {
-            window.localStorage.setItem('search_query', '');
-            navigate('/shop');
+            window.localStorage.removeItem('search_query');
+            // navigate('/shop');
+            localStorage.removeItem('filter');
+            localStorage.removeItem('sortBy');
+            const currentQueryParams = new URLSearchParams(location.search);
+            currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
+            currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
+
+            navigate(`/shop?${currentQueryParams.toString()}`);
         }
     }, [searchQuery]);
 
@@ -128,6 +147,15 @@ function NewHeader() {
             // navigate(`/products?${params.toString()}`); // href to shop with query string params
             navigate(`/shop?${params.toString()}`, { replace: true });
             setShowSuggestions(false); // hide the show suggestions
+        } else {
+            localStorage.removeItem('filter');
+            localStorage.removeItem('sortBy');
+            const currentQueryParams = new URLSearchParams(location.search);
+            currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
+            currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
+
+            // navigate(`/shop?${currentQueryParams.toString()}`);
+            showMessage('warning', 'Search', 'Please fill product name!');
         }
     };
 
@@ -563,6 +591,20 @@ function NewHeader() {
                 )}
             </Container>
             <CouponRunning />
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 }
