@@ -57,7 +57,7 @@ const BrandController = {
             if (!brand) {
                 res.status(404).json({ message: 'Brand not found' });
             }
-            await brand.deleteOne({ _id: req.params.id });
+            await Brand.deleteOne({ _id: req.params.id });
             res.status(200).json({ message: 'Brand deleted successfully' });
         } catch (error) {
             res.status(500).json({ message: error.message });
