@@ -70,11 +70,9 @@ export default function AdminOrdersTable() {
     // Lấy danh sách userIds từ ordersData
     // const userIds = ordersData?.data?.map((order) => order.user) || [];
     const userIds = paymentData?.data?.map((order) => order.order.user) || [];
-    console.log('userIds: ', userIds);
 
     // Sử dụng useUsersByIds để lấy thông tin người dùng cho từng userId
     const { usersData, isLoading: usersLoading, isError: usersError } = useUsersByIds(userIds);
-    console.log('usersData: ', usersData);
 
     // useEffect(() => {
     //     if (ordersData && usersData) {
@@ -96,8 +94,8 @@ export default function AdminOrdersTable() {
     useEffect(() => {
         if (paymentData?.data && usersData) {
             const ordersWithUserData = paymentData?.data?.map((order) => {
+                // user information field to paymentData
                 const user = usersData?.find((userData) => userData._id === order.order.user);
-                console.log('user: ', user);
                 return {
                     ...order,
                     userName: user ? `${user.firstName} ${user.lastName}` : 'Unknown',

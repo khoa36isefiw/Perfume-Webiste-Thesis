@@ -34,7 +34,7 @@ function AdminViewOrderDetails() {
                                     <strong>Order No:</strong> #{orderData._id}
                                 </AdminTypography>
                                 <Box sx={{ flex: 1 }}>
-                                    {orderData.orderPaid === 'COD' ? (
+                                    {orderData.paymentMethod === 'COD' ? (
                                         <CODPayment />
                                     ) : (
                                         <PaypalPayment />
@@ -137,7 +137,7 @@ function AdminViewOrderDetails() {
                             <Divider sx={{ my: 2 }} />
 
                             {/* Content Rows */}
-                            {orderData?.items?.map((order, index) => (
+                            {orderData?.order?.items?.map((order, index) => (
                                 <Box key={index}>
                                     <Box
                                         sx={{
@@ -163,13 +163,19 @@ function AdminViewOrderDetails() {
                                             {order.size}
                                         </AdminTypography>
                                         <AdminTypography sx={{ fontSize: '16px' }}>
-                                            {converToVND(order.price)}
+                                            {converToVND(
+                                                order.priceSale ? order.priceSale : order.price,
+                                            )}
                                         </AdminTypography>
                                         <AdminTypography sx={{ fontSize: '16px' }}>
-                                            {converToVND(orderData.totalPrice)}
+                                            {converToVND(
+                                                order.priceSale
+                                                    ? order.priceSale * order.quantity
+                                                    : order.price * order.quantity,
+                                            )}
                                         </AdminTypography>
                                     </Box>
-                                    {orderData.items.length - 1 !== index && (
+                                    {orderData?.order?.items.length - 1 !== index && (
                                         <Divider sx={{ my: 2 }} />
                                     )}
                                 </Box>
