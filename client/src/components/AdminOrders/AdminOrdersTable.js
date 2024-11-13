@@ -32,6 +32,7 @@ import useOrdersWithUserData from '../../api/useUsersByIds';
 import useUserById from '../../api/useUserById';
 import useUsersByIds from '../../api/useUsersByIds';
 import { converToVND } from '../convertToVND/convertToVND';
+import usePayments from '../../api/usePayments';
 
 const columns = [
     { id: '_id', label: 'Order ID', minWidth: 20 },
@@ -63,18 +64,40 @@ export default function AdminOrdersTable() {
     const [rows, setRows] = useState([]); // Dynamic user data
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
     const { data: ordersData, isLoading } = useOrders();
+    const { data: paymentData } = usePayments();
+    console.log('paymentData: ', paymentData?.data);
 
     // Lấy danh sách userIds từ ordersData
-    const userIds = ordersData?.data?.map((order) => order.user) || [];
+    // const userIds = ordersData?.data?.map((order) => order.user) || [];
+    const userIds = paymentData?.data?.map((order) => order.order.user) || [];
+    console.log('userIds: ', userIds);
 
     // Sử dụng useUsersByIds để lấy thông tin người dùng cho từng userId
     const { usersData, isLoading: usersLoading, isError: usersError } = useUsersByIds(userIds);
+    console.log('usersData: ', usersData);
 
-    // useEffect to set rows once ordersData and usersData are available
+    // useEffect(() => {
+    //     if (ordersData && usersData) {
+    //         const ordersWithUserData = ordersData?.data?.map((order) => {
+    //             const user = usersData?.find((userData) => userData._id === order.user);
+    //             return {
+    //                 ...order,
+    //                 userName: user ? `${user.firstName} ${user.lastName}` : 'Unknown',
+    //                 userImage: user?.imagePath,
+    //                 userEmail: user?.email,
+    //                 userAddress: user?.address,
+    //                 userPhone: user?.phoneNumber,
+    //             };
+    //         });
+    //         setRows(ordersWithUserData);
+    //     }
+    // }, [ordersData, usersData]);
+
     useEffect(() => {
-        if (ordersData && usersData) {
-            const ordersWithUserData = ordersData?.data?.map((order) => {
-                const user = usersData?.find((userData) => userData._id === order.user);
+        if (paymentData?.data && usersData) {
+            const ordersWithUserData = paymentData?.data?.map((order) => {
+                const user = usersData?.find((userData) => userData._id === order.order.user);
+                console.log('user: ', user);
                 return {
                     ...order,
                     userName: user ? `${user.firstName} ${user.lastName}` : 'Unknown',
@@ -86,7 +109,7 @@ export default function AdminOrdersTable() {
             });
             setRows(ordersWithUserData);
         }
-    }, [ordersData, usersData]); // Dependency array to update when ordersData or usersData changes
+    }, [paymentData?.data, usersData]);
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -246,13 +269,13 @@ export default function AdminOrdersTable() {
                                                         </>
                                                     ) : column.id === 'orderPaid' ? (
                                                         // if value === COD return it value is designed
-                                                        value === 'COD' ? (
+                                                        row.paymentMethod === 'COD' ? (
                                                             <Box
                                                                 sx={{
                                                                     bgcolor: '#bdf5d3',
                                                                     borderRadius: 2,
                                                                     boxShadow: 1,
-                                                                    padding: '4px 0',
+                                                                    padding: '4px 8px',
                                                                 }}
                                                             >
                                                                 <Typography
@@ -263,7 +286,7 @@ export default function AdminOrdersTable() {
                                                                         textAlign: 'center',
                                                                     }}
                                                                 >
-                                                                    {value}
+                                                                    {row.paymentMethod}
                                                                 </Typography>
                                                             </Box>
                                                         ) : (
@@ -272,18 +295,18 @@ export default function AdminOrdersTable() {
                                                                     bgcolor: '#c1e1fc',
                                                                     borderRadius: 2,
                                                                     boxShadow: 1,
-                                                                    padding: '4px 0',
+                                                                    padding: '4px 8px',
                                                                 }}
                                                             >
                                                                 <Typography
                                                                     sx={{
-                                                                        fontSize: '14px',
+                                                                        fontSize: '13px',
                                                                         color: '#2262d3',
                                                                         fontWeight: 'bold',
                                                                         textAlign: 'center',
                                                                     }}
                                                                 >
-                                                                    {value}
+                                                                    {row.paymentMethod}
                                                                 </Typography>
                                                             </Box>
                                                         )
@@ -293,7 +316,7 @@ export default function AdminOrdersTable() {
                                                         </Typography>
                                                     ) : column.id === 'totalPrice' ? (
                                                         <Typography sx={{ fontSize: 12 }}>
-                                                            {converToVND(row.totalPrice)}
+                                                            {converToVND(row.order?.totalPrice)}
                                                         </Typography>
                                                     ) : column.format &&
                                                       typeof value === 'object' ? (
