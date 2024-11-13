@@ -17,6 +17,7 @@ import { ModalDesginV2 } from '../Modal/ModalDesgin';
 import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
 import { useEffect } from 'react';
+import CategoryFilter from '../CategoryFilter/CategoryFilter';
 
 function PerfumesCard() {
     const navigate = useNavigate();
@@ -81,6 +82,7 @@ function PerfumesCard() {
                             borderRadius: 2,
                             // display: 'flex',
                             // alignItems: 'center',
+
                             my: theme.spacingAxis.boxVerticalAxis,
                         }}
                     >
@@ -89,6 +91,7 @@ function PerfumesCard() {
                             // sortingSelected={sortingSelected}
                             // setSortingSelected={setSortingSelected}
                         />
+                        <CategoryFilter />
                     </Box>
                     {products?.data?.length ? (
                         <Grid container spacing={2}>
