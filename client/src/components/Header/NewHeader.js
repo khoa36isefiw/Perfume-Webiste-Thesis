@@ -31,17 +31,11 @@ import VNFlag from '../../assets/images/VN-circle.png';
 import UKFlag from '../../assets/images/UK-circle.png';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
-
-const headerData = [
-    { headerText: 'Home', headerLink: '/' },
-    { headerText: 'Shop', headerLink: '/shop' },
-    { headerText: 'About Us', headerLink: '/about-us' },
-    { headerText: 'Services', headerLink: '/our-services' },
-    { headerText: 'Blog', headerLink: '/blog' },
-];
+import { useTranslation } from 'react-i18next';
 
 function NewHeader() {
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation('translate');
     const {
         showNotification,
         showAnimation,
@@ -67,6 +61,15 @@ function NewHeader() {
     const [enLanguage, setEnLanguage] = useState(true);
 
     const { data: products, mutate, isLoading, error } = useUserById(userData?.userId);
+
+    // data
+    const headerData = [
+        { headerText: 'Home', headerLink: `/${i18n.language}` },
+        { headerText: 'Shop', headerLink: `/${i18n.language}/shop` },
+        { headerText: 'About Us', headerLink: `/${i18n.language}/about-us` },
+        { headerText: 'Services', headerLink: `/${i18n.language}/our-services` },
+        { headerText: 'Blog', headerLink: `/${i18n.language}/blog` },
+    ];
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
@@ -164,14 +167,22 @@ function NewHeader() {
         (product) => product.variant?.stock > 0,
     );
 
-    // translate text
+    // change language
     const handleChangeLanguage = (lng) => {
         const currentPath = window.location.pathname;
-        // const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
-        // console.log('newPath: ', newPath);
-        // navigate(newPath);
+        const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
+        console.log('newPath: ', newPath);
+        navigate(newPath);
         setEnLanguage(!enLanguage);
-        // i18n.changeLanguage(lng);
+        i18n.changeLanguage(lng);
+    };
+
+    const handleBackHome = () => {
+        if (window.location.pathname.includes('/vi')) {
+            navigate('/vi');
+        } else {
+            navigate('/en');
+        }
     };
 
     return (
@@ -229,7 +240,8 @@ function NewHeader() {
                             },
                             cursor: 'pointer',
                         }}
-                        onClick={() => navigate('/')}
+                        // onClick={() => navigate('/')}
+                        onClick={handleBackHome}
                     >
                         Tomtoc Perfumes
                     </CustomizeTypography>
@@ -407,7 +419,7 @@ function NewHeader() {
                         </React.Fragment>
                     )}
 
-                    <Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         {isLogged && (
                             <Tooltip
                                 title={
@@ -569,7 +581,9 @@ function NewHeader() {
                                 },
                             }}
                         >
-                            {header.headerText}
+                            {/* {header.headerText} */}
+                            {/* translate */}
+                            {t(`common.${header.headerText}`)}
                         </CustomizeTypography>
                     ))}
                 </Box>
