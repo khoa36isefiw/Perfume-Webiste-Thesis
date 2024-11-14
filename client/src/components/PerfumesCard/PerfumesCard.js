@@ -147,39 +147,6 @@ function PerfumesCard() {
                                                     </Box>
                                                 )}
 
-                                                {/* cần không? */}
-                                                {perfume.flashSale && (
-                                                    <Button
-                                                        sx={{
-                                                            position: 'absolute',
-                                                            top: '4%',
-                                                            right: 0,
-                                                            height: '30px',
-                                                            width: '80px',
-                                                            // bgcolor: 'red',
-                                                            backgroundColor:
-                                                                theme.palette.flashSale.bg,
-                                                            borderRadius: '8px',
-                                                            fontSize: '14px',
-                                                            // color: '#fff',
-                                                            fontWeight: 'bold',
-                                                            textAlign: 'center',
-                                                            display: 'flex',
-                                                            alignItems: 'center',
-                                                            justifyContent: 'center',
-                                                            color: theme.palette.flashSale.icon,
-                                                            '&:hover': {
-                                                                bgcolor: theme.palette.flashSale.bg,
-                                                            },
-                                                        }}
-                                                        startIcon={
-                                                            <BoltIcon sx={{ fontSize: '24px' }} />
-                                                        }
-                                                    >
-                                                        - {perfume.flashSaleNumber}%
-                                                    </Button>
-                                                )}
-
                                                 <Box
                                                     component={'img'}
                                                     src={perfume.imagePath[0]}
@@ -313,148 +280,42 @@ function PerfumesCard() {
                                                             },
                                                         }}
                                                     >
-                                                        {perfume.variants[0]?.priceSale && (
-                                                            <CustomizeTypography
-                                                                sx={{
-                                                                    fontWeight: 'bold',
-                                                                    zIndex: 99,
-                                                                    textDecoration: perfume.discount
-                                                                        ? 'line-through'
-                                                                        : 'null',
-                                                                    [ipadProScreen]: {
-                                                                        mb: 0,
-                                                                    },
-                                                                    [tabletScreen]: {
-                                                                        fontSize:
-                                                                            theme.fontSize.mobile
-                                                                                .text14,
-                                                                    },
-                                                                    [mobileScreen]: {
-                                                                        fontSize:
-                                                                            theme.fontSize.mobile
-                                                                                .text14,
-                                                                        mb: 0,
-                                                                    },
-                                                                }}
-                                                            >
-                                                                {/* 3.280.000 */}
-                                                                {converToVND(
-                                                                    perfume.variants[0]?.priceSale,
-                                                                )}
-                                                            </CustomizeTypography>
-                                                        )}
-
-                                                        <CustomizeTypography
-                                                            sx={{
-                                                                color: perfume.discount
-                                                                    ? theme.palette.thirth.main
-                                                                    : 'transparent',
-                                                                fontWeight: 'bold',
-                                                                zIndex: 99,
-                                                                ml: 2,
-                                                                [ipadProScreen]: {
-                                                                    ml: 0,
-                                                                },
-                                                                [tabletScreen]: {
-                                                                    fontSize:
-                                                                        theme.fontSize.tablet
-                                                                            .text14,
-                                                                    ml: 0,
-                                                                },
-
-                                                                [mobileScreen]: {
-                                                                    fontSize:
-                                                                        theme.fontSize.mobile
-                                                                            .text14,
-                                                                    ml: 0,
-                                                                },
-                                                            }}
-                                                        >
-                                                            {/* 2.280.000 */}
-                                                            {perfume.discount
-                                                                ? converToVND(
-                                                                      perfume.perfumePriceDiscount,
-                                                                  )
-                                                                : '-'}
-                                                        </CustomizeTypography>
+                                                        {perfume.variants[0]?.priceSale !==
+                                                            undefined &&
+                                                            perfume.variants[0]?.priceSale !==
+                                                                null && ( // check data for case price sale === original price --> 0
+                                                                <CustomizeTypography
+                                                                    sx={{
+                                                                        fontWeight: 'bold',
+                                                                        zIndex: 99,
+                                                                        textDecoration:
+                                                                            perfume.discount
+                                                                                ? 'line-through'
+                                                                                : 'none', // Changed 'null' to 'none'
+                                                                        [ipadProScreen]: {
+                                                                            mb: 0,
+                                                                        },
+                                                                        [tabletScreen]: {
+                                                                            fontSize:
+                                                                                theme.fontSize
+                                                                                    .mobile.text14,
+                                                                        },
+                                                                        [mobileScreen]: {
+                                                                            fontSize:
+                                                                                theme.fontSize
+                                                                                    .mobile.text14,
+                                                                            mb: 0,
+                                                                        },
+                                                                    }}
+                                                                >
+                                                                    {converToVND(
+                                                                        perfume.variants[0]
+                                                                            .priceSale,
+                                                                    )}
+                                                                </CustomizeTypography>
+                                                            )}
                                                     </Box>
                                                 </Box>
-
-                                                {/* flash sale, discount, chương trình khuyến mãi */}
-                                                {/* {perfume.flashSale && ( */}
-                                                {/* <Box
-                                    sx={{
-                                        px: 1,
-                                        visibility: perfume.flashSale ? 'visible' : 'hidden',
-                                        [ipadProScreen]: {
-                                            mb: 2,
-                                        },
-                                        [tabletScreen]: {
-                                            mb: 2,
-                                        },
-                                        [mobileScreen]: {
-                                            mb: 4,
-                                        },
-                                    }}
-                                >
-                                    <Box
-                                        sx={{
-                                            width: '100%',
-                                            height: '20px',
-                                            borderRadius: '12px',
-                                            bgcolor: '#ffbda6',
-                                            position: 'relative',
-                                        }}
-                                    >
-                                        <Box
-                                            src={
-                                                'https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/flashsale/c5316dd01de2b0d41d26.png'
-                                            }
-                                            alt="Flash Sale"
-                                            component={'img'}
-                                            sx={{
-                                                height: '25px',
-                                                width: '25px',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                transform: 'translateY(-15px)',
-                                            }}
-                                        />
-
-                                        <Box
-                                            sx={{
-                                                width: '50%',
-                                                overflow: 'hidden',
-                                                background:
-                                                    'linear-gradient(270deg, #ffb000, #eb1717)',
-                                                height: '100%',
-                                                borderRadius: '12px',
-                                            }}
-                                        />
-
-                                        <CustomizeTypography
-                                            sx={{
-                                                position: 'absolute',
-                                                textAlign: 'center',
-                                                fontSize: '14px',
-                                                fontWeight: 'bold',
-                                                // color: '#555',
-                                                borderRadius: '12px',
-                                                top: 0,
-                                                left: '10%',
-                                                zIndex: 99,
-                                                mb: 0,
-                                                [mobileScreen]: {
-                                                    fontSize: theme.fontSize.mobile.text12,
-                                                },
-                                            }}
-                                        >
-                                            Flash Sale
-                                        </CustomizeTypography>
-                                    </Box>
-                                </Box> */}
-                                                {/* )} */}
                                             </Box>
                                         </Grid>
                                     ),
