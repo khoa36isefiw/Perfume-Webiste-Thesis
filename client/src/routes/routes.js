@@ -44,7 +44,7 @@ import AdminEditBrand from '../components/AdminBrands/AdminEditBrand';
 
 // not sign into this website
 const publicRoutes = [
-    { path: '/', component: HomePage, layout: UserLayouts },
+    { path: '/:lang', component: HomePage, layout: UserLayouts },
     { path: '/coupon', component: TicketCoupon, layout: UserLayouts },
     { path: '/about-us', component: AboutUs, layout: UserLayouts },
     { path: '/our-services', component: Services, layout: UserLayouts },
