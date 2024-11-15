@@ -3,9 +3,13 @@ import React from 'react';
 import bg from '../../assets/images/about_us-bg2.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
+import { useTranslation } from 'react-i18next';
 // import { scrollAppearingAnimation } from '../AnimationEffects/AnimationEffects';
 
 function WelcomeHomePage() {
+    const { t } = useTranslation('translate');
+    const language = window.localStorage.getItem('language');
+
     return (
         <Box
             sx={{
@@ -83,6 +87,7 @@ function WelcomeHomePage() {
                     }}
                 >
                     Welcome to Tomtoc Perfumes
+                    {/* {language === 'en' ? t('common.newArrivalHeading') : ''} */}
                 </CustomizeTypography>
                 <CustomizeTypography sx={{ fontSize: '18px', color: '#FFFFFF' }}>
                     Welcome to Tomtoc Perfumes, where the spirit of victory and triumph come alive

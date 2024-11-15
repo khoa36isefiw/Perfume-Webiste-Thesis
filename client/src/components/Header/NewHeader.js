@@ -175,7 +175,7 @@ function NewHeader() {
         console.log('newPath: ', newPath);
         navigate(newPath);
         setEnLanguage(!enLanguage);
-        i18n.changeLanguage(lng); 
+        i18n.changeLanguage(lng);
     };
 
     const handleBackHome = () => {

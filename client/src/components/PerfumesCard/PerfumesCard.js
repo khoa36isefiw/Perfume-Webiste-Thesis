@@ -21,6 +21,8 @@ import CategoryFilter from '../CategoryFilter/CategoryFilter';
 
 function PerfumesCard() {
     const navigate = useNavigate();
+    const language = window.localStorage.getItem('language');
+    console.log('language222: ', language);
 
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     // const [sortingSelected, setSortingSelected] = useState('');
@@ -28,7 +30,7 @@ function PerfumesCard() {
 
     const handleNavigationProductDetail = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
-        navigate(`/product/${perfume._id}`, { state: { perfume } });
+        navigate(`/${language}/product/${perfume._id}`, { state: { perfume } });
         backTop();
     };
 
