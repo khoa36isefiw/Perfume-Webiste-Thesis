@@ -442,49 +442,75 @@ function NewHeader() {
                             </Tooltip>
                         )}
                         {!enLanguage ? (
-                            <Box
-                                sx={{
-                                    height: '40px',
-                                    width: '40px',
-                                    border: '1px solid #ccc',
-                                    borderRadius: '50%',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    cursor: 'pointer',
-                                }}
-                                onClick={() => handleChangeLanguage('en')}
+                            <Tooltip
+                                title={
+                                    <Typography
+                                        sx={{
+                                            fontSize: '13px',
+                                            mb: 0,
+                                        }}
+                                    >
+                                        Shopping Cart
+                                    </Typography>
+                                }
                             >
                                 <Box
-                                    sx={{ height: '36px', width: '36px', borderRadius: '50%' }}
-                                    src={UKFlag}
-                                    alt="React Image"
-                                    component={'img'}
-                                />
-                            </Box>
+                                    sx={{
+                                        height: '40px',
+                                        width: '40px',
+                                        border: '1px solid #ccc',
+                                        borderRadius: '50%',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={() => handleChangeLanguage('en')}
+                                >
+                                    <Box
+                                        sx={{ height: '36px', width: '36px', borderRadius: '50%' }}
+                                        src={UKFlag}
+                                        alt="React Image"
+                                        component={'img'}
+                                    />
+                                </Box>
+                            </Tooltip>
                         ) : (
-                            <Box
-                                sx={{
-                                    height: '40px',
-                                    width: '40px',
-                                    border: '1px solid #ccc',
-                                    borderRadius: '50%',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    cursor: 'pointer',
-                                }}
-                                onClick={() => handleChangeLanguage('vi')}
+                            <Tooltip
+                                title={
+                                    <Typography
+                                        sx={{
+                                            fontSize: '13px',
+                                            mb: 0,
+                                        }}
+                                    >
+                                        Shopping Cart
+                                    </Typography>
+                                }
                             >
                                 <Box
-                                    sx={{ height: '36px', width: '36px', borderRadius: '50%' }}
-                                    src={VNFlag}
-                                    alt="React Image"
-                                    component={'img'}
-                                />
-                            </Box>
+                                    sx={{
+                                        height: '40px',
+                                        width: '40px',
+                                        border: '1px solid #ccc',
+                                        borderRadius: '50%',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={() => handleChangeLanguage('vi')}
+                                >
+                                    <Box
+                                        sx={{ height: '36px', width: '36px', borderRadius: '50%' }}
+                                        src={VNFlag}
+                                        alt="React Image"
+                                        component={'img'}
+                                    />
+                                </Box>
+                            </Tooltip>
                         )}
                         <Tooltip
                             title={
