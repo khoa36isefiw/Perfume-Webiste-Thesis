@@ -3,8 +3,10 @@ import React from 'react';
 import ourValues from '../../assets/images/our_values.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { useTranslation } from 'react-i18next';
 
 function OurValues() {
+    const { t } = useTranslation('translate');
     return (
         <Box
             sx={{
@@ -57,17 +59,19 @@ function OurValues() {
                             },
                         }}
                     >
-                        Our Values
+                        {/* Our Values */}
+                        {t('common.homeValuesTitle')}
                     </CustomizeTypography>
                     <CustomizeTypography
                         sx={{ fontSize: '18px', textIndent: '48px', textAlign: 'justify', mb: 4 }}
                     >
-                        At Local Face, our perfume retail store is built on a foundation of passion
+                        {/* At Local Face, our perfume retail store is built on a foundation of passion
                         and authenticity. We believe in celebrating the individuality of every
                         customer, providing a diverse collection of scents that resonate with their
                         unique personality and style. Our dedicated team of fragrance enthusiasts is
                         committed to creating a welcoming and inclusive environment, where
-                        connections are forged, and inspiration thrives.
+                        connections are forged, and inspiration thrives. */}
+                        {t('common.homeValuesText')}
                     </CustomizeTypography>
 
                     <CustomizeTypography

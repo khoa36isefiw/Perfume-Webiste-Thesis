@@ -31,7 +31,10 @@
         "slick-carousel": "^1.8.1",
         "swr": "^2.2.5",
         "web-vitals": "^2.1.4",
-        "xlsx": "^0.18.5"
+        "xlsx": "^0.18.5",
+        "react-i18next": "^15.0.2",
+        "i18next": "^23.15.2"
+
     },
     "scripts": {
         "start": "react-scripts start",

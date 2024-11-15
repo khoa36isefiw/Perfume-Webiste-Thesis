@@ -75,12 +75,12 @@ function SortProducts({ listData }) {
         <Box
             sx={{
                 width: '100%',
-                p: '12px',
-                bgcolor: theme.palette.background.main,
-                borderRadius: 2,
+                // p: '12px',
+                // bgcolor: theme.palette.background.main,
+                // borderRadius: 2,
                 display: 'flex',
                 alignItems: 'center',
-                my: theme.spacingAxis.boxVerticalAxis,
+                // my: theme.spacingAxis.boxVerticalAxis,
                 // justifyContent: 'space-between',
             }}
         >

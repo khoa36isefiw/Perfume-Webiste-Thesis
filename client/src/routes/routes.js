@@ -44,29 +44,29 @@ import AdminEditBrand from '../components/AdminBrands/AdminEditBrand';
 
 // not sign into this website
 const publicRoutes = [
-    { path: '/', component: HomePage, layout: UserLayouts },
-    { path: '/coupon', component: TicketCoupon, layout: UserLayouts },
-    { path: '/about-us', component: AboutUs, layout: UserLayouts },
-    { path: '/our-services', component: Services, layout: UserLayouts },
-    { path: '/shop', component: Shop, layout: UserLayouts },
-    { path: '/search', component: SearchTerm, layout: UserLayouts },
+    { path: '/:lang', component: HomePage, layout: UserLayouts },
+    { path: '/:lang/coupon', component: TicketCoupon, layout: UserLayouts },
+    { path: '/:lang/about-us', component: AboutUs, layout: UserLayouts },
+    { path: '/:lang/our-services', component: Services, layout: UserLayouts },
+    { path: '/:lang/shop', component: Shop, layout: UserLayouts },
+    { path: '/:lang/search', component: SearchTerm, layout: UserLayouts },
     // navigate to product has id...
-    { path: `/product/:id`, component: ProductDetail, layout: UserLayouts },
-    { path: '/shopping-cart', component: ShoppingCart, layout: UserLayouts },
-    { path: '/checkout', component: Checkout, layout: UserLayouts },
-    { path: '/sign-in', component: SignInPage, layout: UserLayouts },
-    { path: '/create-account', component: CreateAccount, layout: UserLayouts },
+    { path: `/:lang/product/:id`, component: ProductDetail, layout: UserLayouts },
+    { path: '/:lang/shopping-cart', component: ShoppingCart, layout: UserLayouts },
+    { path: '/:lang/checkout', component: Checkout, layout: UserLayouts },
+    { path: '/:lang/sign-in', component: SignInPage, layout: UserLayouts },
+    { path: '/:lang/create-account', component: CreateAccount, layout: UserLayouts },
 
-    { path: '/blog', component: Blog, layout: UserLayouts },
-    { path: '/blog-detail/:id', component: BlogDetail, layout: UserLayouts },
-    { path: '/recover-password', component: RecoverPassword, layout: UserLayouts },
+    { path: '/:lang/blog', component: Blog, layout: UserLayouts },
+    { path: '/:lang/blog-detail/:id', component: BlogDetail, layout: UserLayouts },
+    { path: '/:lang/recover-password', component: RecoverPassword, layout: UserLayouts },
     // profile  settings
-    { path: '/profile-settings', component: AccountInfoPage, layout: ProfileSettingsLayout },
-    { path: '/change-password', component: ChangePassword, layout: ProfileSettingsLayout },
-    { path: '/my-purchase', component: PurchasePage, layout: ProfileSettingsLayout },
-    { path: '/success', component: PaymentSuccess, layout: UserLayouts },
-    { path: '/cancel', component: PaymentFailed, layout: UserLayouts },
-    { path: '/order-invoice', component: OrderInvoicePDF, layout: UserLayouts },
+    { path: '/:lang/profile-settings', component: AccountInfoPage, layout: ProfileSettingsLayout },
+    { path: '/:lang/change-password', component: ChangePassword, layout: ProfileSettingsLayout },
+    { path: '/:lang/my-purchase', component: PurchasePage, layout: ProfileSettingsLayout },
+    { path: '/:lang/success', component: PaymentSuccess, layout: UserLayouts },
+    { path: '/:lang/cancel', component: PaymentFailed, layout: UserLayouts },
+    { path: '/:lang/order-invoice', component: OrderInvoicePDF, layout: UserLayouts },
 ];
 
 // must signed into

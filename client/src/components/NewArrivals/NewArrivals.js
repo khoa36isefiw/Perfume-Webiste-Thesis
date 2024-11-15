@@ -6,19 +6,12 @@ import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/Cus
 import { fadeInAnimation } from '../AnimationEffects/AnimationEffects';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
-import ModalDesgin from '../Modal/ModalDesgin';
-import PaymentSuccess from '../PaymentSuccess/PaymentSuccess';
+
+import { useTranslation } from 'react-i18next';
 
 function NewArrivals() {
-    const [open, setOpen] = useState(false);
-    const [animateStyle, setAnimateStyle] = useState('animate__fadeIn');
-    const handleOpen = () => {
-        setAnimateStyle('animate__fadeIn');
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const { t } = useTranslation('translate');
+    const language = window.localStorage.getItem('language');
     const navigate = useNavigate();
     return (
         <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
@@ -40,7 +33,11 @@ function NewArrivals() {
                                     },
                                 }}
                             >
-                                Elevate Your Spirit with Victory Scented Fragrances!
+                                {/* Elevate Your Spirit with Victory Scented Fragrances! */}
+                                {/* {language === 'vi'
+                                    ? t('common.newArrivalHeading')
+                                    : t('common.newArrivalHeadingVN')} */}
+                                {t('common.newArrivalHeading')}
                             </CustomizeTypography>
                             <CustomizeTypography
                                 sx={{
@@ -62,7 +59,8 @@ function NewArrivals() {
                                     },
                                 }}
                             >
-                                Shop now and embrace the sweet smell of victory with Tomtoc.
+                                {/* Shop now and embrace the sweet smell of victory with Tomtoc. */}
+                                {t('common.newArrivalText')}
                             </CustomizeTypography>
                         </Box>
                         <Box
@@ -77,14 +75,14 @@ function NewArrivals() {
                             }}
                         >
                             <CustomizeButton
-                                textAction={'Shop Now'}
-                                onHandleClick={() => navigate('/shop')}
+                                textAction={t('common.shopNow')}
+                                onHandleClick={() => navigate(`/${language}/shop`)}
                             />
 
                             <Box sx={{ mx: 2 }}>
                                 <CustomizeButtonOutlined
-                                    textAction={'Coupons'}
-                                    onHandleClick={() => navigate('/coupon')}
+                                    textAction={t('common.coupon')}
+                                    onHandleClick={() => navigate(`/${language}/coupon`)}
                                 />
                             </Box>
                         </Box>
@@ -110,15 +108,6 @@ function NewArrivals() {
                         }}
                     />
                 </Grid>
-
-                <ModalDesgin
-                    open={open}
-                    onHandleClose={handleClose}
-                    animateStyle={animateStyle}
-                    setAnimateStyle={setAnimateStyle}
-                >
-                    <PaymentSuccess />
-                </ModalDesgin>
             </Grid>
         </Container>
     );

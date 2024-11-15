@@ -31,17 +31,12 @@ import VNFlag from '../../assets/images/VN-circle.png';
 import UKFlag from '../../assets/images/UK-circle.png';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
-
-const headerData = [
-    { headerText: 'Home', headerLink: '/' },
-    { headerText: 'Shop', headerLink: '/shop' },
-    { headerText: 'About Us', headerLink: '/about-us' },
-    { headerText: 'Services', headerLink: '/our-services' },
-    { headerText: 'Blog', headerLink: '/blog' },
-];
+import { useTranslation } from 'react-i18next';
 
 function NewHeader() {
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation('translate');
+
     const {
         showNotification,
         showAnimation,
@@ -65,8 +60,18 @@ function NewHeader() {
     const userData = JSON.parse(localStorage.getItem('user_data')) || null;
     // translate text
     const [enLanguage, setEnLanguage] = useState(true);
+    const language = window.localStorage.getItem('language');
 
     const { data: products, mutate, isLoading, error } = useUserById(userData?.userId);
+
+    // data
+    const headerData = [
+        { headerText: 'Home', headerLink: `/${i18n.language}` },
+        { headerText: 'Shop', headerLink: `/${i18n.language}/shop` },
+        { headerText: 'About Us', headerLink: `/${i18n.language}/about-us` },
+        { headerText: 'Services', headerLink: `/${i18n.language}/our-services` },
+        { headerText: 'Blog', headerLink: `/${i18n.language}/blog` },
+    ];
 
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
@@ -115,7 +120,7 @@ function NewHeader() {
         // hide the suggestions after selection
         setShowSuggestions(false);
         // navigate to product details page
-        navigate(`/product/${perfume.perfumeID}`, { state: { perfume } });
+        navigate(`/${i18n.language}/product/${perfume.perfumeID}`, { state: { perfume } });
     };
 
     useEffect(() => {
@@ -125,10 +130,11 @@ function NewHeader() {
             localStorage.removeItem('filter');
             localStorage.removeItem('sortBy');
             const currentQueryParams = new URLSearchParams(location.search);
+            console.log('location.search: ', location.search);
             currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
             currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
 
-            navigate(`/shop?${currentQueryParams.toString()}`);
+            navigate(`/${i18n.language}/shop?${currentQueryParams.toString()}`);
         }
     }, [searchQuery]);
 
@@ -145,7 +151,7 @@ function NewHeader() {
             localStorage.removeItem('sortBy');
             // navigate to update the URL with query params
             // navigate(`/products?${params.toString()}`); // href to shop with query string params
-            navigate(`/shop?${params.toString()}`, { replace: true });
+            navigate(`/${i18n.language}/shop?${params.toString()}`, { replace: true });
             setShowSuggestions(false); // hide the show suggestions
         } else {
             localStorage.removeItem('filter');
@@ -164,14 +170,30 @@ function NewHeader() {
         (product) => product.variant?.stock > 0,
     );
 
-    // translate text
+    // Initialize the app's language based on localStorage
+    useEffect(() => {
+        const savedLanguage = window.localStorage.getItem('language') || 'en';
+        i18n.changeLanguage(savedLanguage); // Set the language for i18n
+        setEnLanguage(savedLanguage === 'en'); // Update local state
+    }, []);
+
+    // change language
     const handleChangeLanguage = (lng) => {
         const currentPath = window.location.pathname;
-        // const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
-        // console.log('newPath: ', newPath);
-        // navigate(newPath);
+        const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
+        window.localStorage.setItem('language', lng); // set language is selected to local storage
+        console.log('newPath: ', newPath);
+        navigate(newPath);
         setEnLanguage(!enLanguage);
-        // i18n.changeLanguage(lng);
+        i18n.changeLanguage(lng);
+    };
+
+    const handleBackHome = () => {
+        if (window.location.pathname.includes('/vi')) {
+            navigate('/vi');
+        } else {
+            navigate('/en');
+        }
     };
 
     return (
@@ -229,7 +251,8 @@ function NewHeader() {
                             },
                             cursor: 'pointer',
                         }}
-                        onClick={() => navigate('/')}
+                        // onClick={() => navigate('/')}
+                        onClick={handleBackHome}
                     >
                         Tomtoc Perfumes
                     </CustomizeTypography>
@@ -407,7 +430,7 @@ function NewHeader() {
                         </React.Fragment>
                     )}
 
-                    <Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         {isLogged && (
                             <Tooltip
                                 title={
@@ -428,50 +451,78 @@ function NewHeader() {
                                 </IconButton>
                             </Tooltip>
                         )}
+
+                        {/* multiple languages */}
                         {!enLanguage ? (
-                            <Box
-                                sx={{
-                                    height: '40px',
-                                    width: '40px',
-                                    border: '1px solid #ccc',
-                                    borderRadius: '50%',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    cursor: 'pointer',
-                                }}
-                                onClick={() => handleChangeLanguage('en')}
+                            <Tooltip
+                                title={
+                                    <Typography
+                                        sx={{
+                                            fontSize: '13px',
+                                            mb: 0,
+                                        }}
+                                    >
+                                        Dịch sang Tiếng Anh
+                                    </Typography>
+                                }
                             >
                                 <Box
-                                    sx={{ height: '36px', width: '36px', borderRadius: '50%' }}
-                                    src={UKFlag}
-                                    alt="React Image"
-                                    component={'img'}
-                                />
-                            </Box>
+                                    sx={{
+                                        height: '40px',
+                                        width: '40px',
+                                        border: '1px solid #ccc',
+                                        borderRadius: '50%',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={() => handleChangeLanguage('en')}
+                                >
+                                    <Box
+                                        sx={{ height: '36px', width: '36px', borderRadius: '50%' }}
+                                        src={UKFlag}
+                                        alt="React Image"
+                                        component={'img'}
+                                    />
+                                </Box>
+                            </Tooltip>
                         ) : (
-                            <Box
-                                sx={{
-                                    height: '40px',
-                                    width: '40px',
-                                    border: '1px solid #ccc',
-                                    borderRadius: '50%',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    cursor: 'pointer',
-                                }}
-                                onClick={() => handleChangeLanguage('vi')}
+                            <Tooltip
+                                title={
+                                    <Typography
+                                        sx={{
+                                            fontSize: '13px',
+                                            mb: 0,
+                                        }}
+                                    >
+                                        Translate to Vietnamese
+                                    </Typography>
+                                }
                             >
                                 <Box
-                                    sx={{ height: '36px', width: '36px', borderRadius: '50%' }}
-                                    src={VNFlag}
-                                    alt="React Image"
-                                    component={'img'}
-                                />
-                            </Box>
+                                    sx={{
+                                        height: '40px',
+                                        width: '40px',
+                                        border: '1px solid #ccc',
+                                        borderRadius: '50%',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={() => handleChangeLanguage('vi')}
+                                >
+                                    <Box
+                                        sx={{ height: '36px', width: '36px', borderRadius: '50%' }}
+                                        src={VNFlag}
+                                        alt="React Image"
+                                        component={'img'}
+                                    />
+                                </Box>
+                            </Tooltip>
                         )}
                         <Tooltip
                             title={
@@ -569,7 +620,9 @@ function NewHeader() {
                                 },
                             }}
                         >
-                            {header.headerText}
+                            {/* {header.headerText} */}
+                            {/* translate */}
+                            {t(`common.${header.headerText}`)}
                         </CustomizeTypography>
                     ))}
                 </Box>

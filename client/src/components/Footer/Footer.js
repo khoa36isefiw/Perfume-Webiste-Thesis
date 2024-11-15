@@ -13,9 +13,11 @@ import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
+import { useTranslation } from 'react-i18next';
 
 function Footer() {
     const navigate = useNavigate();
+    const { t } = useTranslation('translate');
     const handleNavigate = (dest) => {
         navigate(dest);
         backTop();
@@ -150,7 +152,7 @@ function Footer() {
                             </CustomizeTypography>
                             {shoppingFooterData.map((shopping, index) => (
                                 <CustomizeTypography key={index} sx={{ color: 'white' }}>
-                                    {shopping}
+                                    {t(`common.${shopping}`)}
                                 </CustomizeTypography>
                             ))}
                         </Grid>
@@ -161,7 +163,8 @@ function Footer() {
                             </CustomizeTypography>
                             {customersFooterData.map((customer, index) => (
                                 <CustomizeTypography key={index} sx={{ color: 'white' }}>
-                                    {customer}
+                                    {/* {customer} */}
+                                    {t(`common.${customer}`)}
                                 </CustomizeTypography>
                             ))}
                         </Grid>
@@ -181,7 +184,8 @@ function Footer() {
                                     }}
                                     onClick={() => handleNavigate(page.address)}
                                 >
-                                    {page.text}
+                                    {/* {page.text} */}
+                                    {t(`common.${page.text}`)}
                                 </CustomizeTypography>
                             ))}
                         </Grid>

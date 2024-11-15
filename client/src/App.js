@@ -3,8 +3,15 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Box } from '@mui/material';
 import { privateRoutes, publicRoutes } from './routes/routes';
 import UserLayouts from './layouts/UserLayout/UserLayouts';
+import { useEffect } from 'react';
 
 function App() {
+    // default language for the website is English
+    useEffect(() => {
+        if (window.location.pathname === '/') {
+            window.location.replace('/en');
+        }
+    }, []);
     return (
         <Box sx={{ bgcolor: '#000000' }}>
             <Router>

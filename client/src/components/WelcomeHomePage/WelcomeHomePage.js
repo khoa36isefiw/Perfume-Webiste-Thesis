@@ -3,9 +3,12 @@ import React from 'react';
 import bg from '../../assets/images/about_us-bg2.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
+import { useTranslation } from 'react-i18next';
 // import { scrollAppearingAnimation } from '../AnimationEffects/AnimationEffects';
 
 function WelcomeHomePage() {
+    const { t } = useTranslation('translate');
+
     return (
         <Box
             sx={{
@@ -73,7 +76,7 @@ function WelcomeHomePage() {
                 <CustomizeTypography
                     sx={{
                         mb: 4,
-                        fontSize: '46px',
+                        fontSize: '40px',
                         fontWeight: 'bold',
                         color: theme.palette.secondaryText,
                         [mobileScreen]: {
@@ -82,16 +85,18 @@ function WelcomeHomePage() {
                         },
                     }}
                 >
-                    Welcome to Tomtoc Perfumes
+                    {/* Welcome to Tomtoc Perfumes */}
+                    {t('common.homeWelcomeTitle')}
                 </CustomizeTypography>
                 <CustomizeTypography sx={{ fontSize: '18px', color: '#FFFFFF' }}>
-                    Welcome to Tomtoc Perfumes, where the spirit of victory and triumph come alive
+                    {/* Welcome to Tomtoc Perfumes, where the spirit of victory and triumph come alive
                     through scents that empower and inspire. Our curated collection, aptly named
                     "Victory Scented," is a celebration of success and elegance, designed to unleash
                     your victorious essence. Indulge in the sweet taste of triumph with captivating
                     fragrances that tell the tale of your achievements. At Local Face, we believe
                     that every victory deserves a signature scent, and we are dedicated to providing
-                    unforgettable fragrances that elevate your spirit and empower your journey.
+                    unforgettable fragrances that elevate your spirit and empower your journey. */}
+                    {t('common.homeWelcomeContent')}
                 </CustomizeTypography>
             </Box>
         </Box>
