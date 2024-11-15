@@ -171,10 +171,11 @@ function NewHeader() {
     const handleChangeLanguage = (lng) => {
         const currentPath = window.location.pathname;
         const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
+        window.localStorage.setItem('language', lng); // set language is selected to local storage
         console.log('newPath: ', newPath);
         navigate(newPath);
         setEnLanguage(!enLanguage);
-        i18n.changeLanguage(lng);
+        i18n.changeLanguage(lng); 
     };
 
     const handleBackHome = () => {
