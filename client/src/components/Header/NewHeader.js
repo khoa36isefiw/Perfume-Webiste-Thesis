@@ -36,6 +36,7 @@ import { useTranslation } from 'react-i18next';
 function NewHeader() {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
+
     const {
         showNotification,
         showAnimation,
@@ -59,6 +60,7 @@ function NewHeader() {
     const userData = JSON.parse(localStorage.getItem('user_data')) || null;
     // translate text
     const [enLanguage, setEnLanguage] = useState(true);
+    const language = window.localStorage.getItem('language');
 
     const { data: products, mutate, isLoading, error } = useUserById(userData?.userId);
 
@@ -118,7 +120,7 @@ function NewHeader() {
         // hide the suggestions after selection
         setShowSuggestions(false);
         // navigate to product details page
-        navigate(`/product/${perfume.perfumeID}`, { state: { perfume } });
+        navigate(`/${i18n.language}/product/${perfume.perfumeID}`, { state: { perfume } });
     };
 
     useEffect(() => {
@@ -128,10 +130,11 @@ function NewHeader() {
             localStorage.removeItem('filter');
             localStorage.removeItem('sortBy');
             const currentQueryParams = new URLSearchParams(location.search);
+            console.log('location.search: ', location.search);
             currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
             currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
 
-            navigate(`/shop?${currentQueryParams.toString()}`);
+            navigate(`/${i18n.language}/shop?${currentQueryParams.toString()}`);
         }
     }, [searchQuery]);
 
@@ -148,7 +151,7 @@ function NewHeader() {
             localStorage.removeItem('sortBy');
             // navigate to update the URL with query params
             // navigate(`/products?${params.toString()}`); // href to shop with query string params
-            navigate(`/shop?${params.toString()}`, { replace: true });
+            navigate(`/${i18n.language}/shop?${params.toString()}`, { replace: true });
             setShowSuggestions(false); // hide the show suggestions
         } else {
             localStorage.removeItem('filter');
@@ -166,6 +169,13 @@ function NewHeader() {
     const getListProductInStock = products?.data?.cart?.filter(
         (product) => product.variant?.stock > 0,
     );
+
+    // Initialize the app's language based on localStorage
+    useEffect(() => {
+        const savedLanguage = window.localStorage.getItem('language') || 'en';
+        i18n.changeLanguage(savedLanguage); // Set the language for i18n
+        setEnLanguage(savedLanguage === 'en'); // Update local state
+    }, []);
 
     // change language
     const handleChangeLanguage = (lng) => {
@@ -441,6 +451,8 @@ function NewHeader() {
                                 </IconButton>
                             </Tooltip>
                         )}
+
+                        {/* multiple languages */}
                         {!enLanguage ? (
                             <Tooltip
                                 title={
@@ -450,7 +462,7 @@ function NewHeader() {
                                             mb: 0,
                                         }}
                                     >
-                                        Shopping Cart
+                                        Dịch sang Tiếng Anh
                                     </Typography>
                                 }
                             >
@@ -485,7 +497,7 @@ function NewHeader() {
                                             mb: 0,
                                         }}
                                     >
-                                        Shopping Cart
+                                        Translate to Vietnamese
                                     </Typography>
                                 }
                             >

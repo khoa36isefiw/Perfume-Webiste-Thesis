@@ -6,9 +6,13 @@ import useBrand from '../../api/useBrand';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 // function PerfumeBrands({ listData, brandSelected, setBrandSelected }) {
 function PerfumeBrands({ listData }) {
     const [brandSelected, setBrandSelected] = useState('');
+    const { t, i18n } = useTranslation();
+    console.log('current language: ', i18n.language); // get the current language
 
     const { data: brands, isLoading, error } = useBrand();
     const location = useLocation();
