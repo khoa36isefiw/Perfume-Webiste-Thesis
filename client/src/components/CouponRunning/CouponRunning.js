@@ -4,6 +4,7 @@ import { keyframes } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import { blue } from '@mui/material/colors';
+import { useTranslation } from 'react-i18next';
 
 const scrollAnimation = keyframes`
   0% {
@@ -15,6 +16,7 @@ const scrollAnimation = keyframes`
 `;
 
 function CouponRunning() {
+    const { t } = useTranslation('translate');
     const navigate = useNavigate();
     const handleNavCoupon = () => {
         navigate('/coupon');
@@ -50,8 +52,9 @@ function CouponRunning() {
                     animationPlayState: 'running',
                 }}
             >
-                🎉 Tomtoc promotions code 🎉 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🎉 Get more discount
-                from here 🎉 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🎉{' '}
+                {/* tomtocCoupon couponInfor couponLink */}
+                🎉 {t('common.tomtocCoupon')} 🎉 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🎉{' '}
+                {t('common.couponInfor')} 🎉 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🎉{' '}
                 <Link
                     onClick={handleNavCoupon}
                     sx={{
@@ -60,7 +63,8 @@ function CouponRunning() {
                         color: blue[500],
                     }}
                 >
-                    Click me to know more promotions information
+                    {/* Click me to know more promotions information */}
+                    {t('common.couponLink')}
                 </Link>{' '}
                 🎉
             </Typography>
