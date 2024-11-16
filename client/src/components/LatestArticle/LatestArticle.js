@@ -9,11 +9,12 @@ import { useTranslation } from 'react-i18next';
 
 function LatestArticle() {
     const navigate = useNavigate();
-    const { t, i18n } = useTranslation('translate');
+    const { t } = useTranslation('translate');
     const savedLanguage = window.localStorage.getItem('language');
 
     const handleNavigationProductDetail = (blog) => {
         navigate(`/${savedLanguage}/blog-detail/${blog.blogId}`, { state: { blog } });
+        window.localStorage.setItem('blog_detail_data', JSON.stringify(blog));
         // back to top when navigate to another page
         window.scrollTo({
             top: 0,
