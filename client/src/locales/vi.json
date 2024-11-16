@@ -28,6 +28,22 @@
         "Returns & refund": "Trả hàng & hoàn tiền",
         "Survey & feedback": "Khảo sát & phản hồi",
         "Abous Us": "Giới thiệu về chúng tôi",
-        "Promotions Code": "Mã khuyến mại"
+        "Promotions Code": "Mã khuyến mại",
+        "latestArticles": {
+            "homeArticle": "Bài viết mới nhất",
+            "readMore": "Đọc thêm",
+            "article1": {
+                "title": "Những hương thơm tuyệt vời cho mùa xuân",
+                "content": "Hoa oải hương, với hương thơm quyến rũ và lịch sử phong phú, đã được yêu quý qua nhiều thế kỷ như một biểu tượng của sự thư giãn, chữa lành và vẻ đẹp vượt thời gian. Trong thế giới nước hoa, hoa oải hương đóng vai trò quan trọng trong việc tạo ra những mùi hương mê hoặc được nhiều người yêu thích."
+            },
+            "article2": {
+                "title": "Ba hỗn hợp đặc trưng hàng đầu của chúng tôi cho mùa hè",
+                "content": "Bộ sưu tập nước hoa sang trọng không chỉ là một tập hợp các mùi hương; nó là sự phản ánh về sở thích, tính cách và trải nghiệm của một người. Mỗi chai đều chứa đựng một hành trình khứu giác độc đáo, được tạo nên từ những nguyên liệu tinh tế nhất và sự khéo léo của nghệ thuật."
+            },
+            "article3": {
+                "title": "Chúng tôi phát cuồng vì những mùi hương hạt",
+                "content": "Hoa hồng, thường được gọi là 'Nữ hoàng của các loài hoa,' đã giữ một vị trí đặc biệt trong văn hóa và lịch sử con người qua nhiều thế kỷ. Ngoài vẻ đẹp quyến rũ, loài hoa mang tính biểu tượng này còn truyền cảm hứng cho các nhà chế tạo nước hoa để tạo ra một số mùi hương vượt thời gian và tinh tế nhất trên thế giới."
+            }
+        }
     }
 }

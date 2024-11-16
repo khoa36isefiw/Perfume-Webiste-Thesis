@@ -28,6 +28,22 @@
         "Returns & refund": "Returns & refund",
         "Survey & feedback": "Survey & feedback",
         "Abous Us": "Abous Us",
-        "Promotions Code": "Promotions Code"
+        "Promotions Code": "Promotions Code",
+        "latestArticles": {
+            "homeArticle": "Latest Articles",
+            "readMore": "Read More",
+            "article1": {
+                "title": "The best scents for spring",
+                "content": "Lavender, with its enchanting aroma and rich history, has been cherished for centuries as a symbol of relaxation, healing, and timeless beauty. In the world of perfumery, lavender plays a key role in creating captivating fragrances loved by many."
+            },
+            "article2": {
+                "title": "Our Top Three Signature Blends for Summer",
+                "content": "A luxury perfume collection is not just an assortment of fragrances; it is a reflection of one's taste, personality, and experiences. Each bottle holds a unique olfactory journey, crafted with the finest ingredients and artistic mastery."
+            },
+            "article3": {
+                "title": "We are nuts about nutty scents",
+                "content": "Rose, often referred to as the 'Queen of Flowers,' has held a special place in human culture and history for centuries. Beyond its captivating beauty, this iconic bloom has also inspired perfumers to create some of the most timeless and exquisite fragrances in the world."
+            }
+        }
     }
 }

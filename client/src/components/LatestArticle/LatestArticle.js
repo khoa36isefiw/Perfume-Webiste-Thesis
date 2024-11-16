@@ -5,9 +5,11 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { latestArticlesData } from './latestArticlesData';
 import { theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function LatestArticle() {
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation('translate');
 
     const handleNavigationProductDetail = (blog) => {
         navigate(`/blog-detail/${blog.blogId}`, { state: { blog } });
@@ -20,7 +22,7 @@ function LatestArticle() {
     };
     return (
         <Container>
-            <CustomizeTitle heading={'Latest Articles'} />
+            <CustomizeTitle heading={t('common.latestArticles.homeArticle')} />
             <Box
                 sx={{
                     display: 'flex',
@@ -57,7 +59,8 @@ function LatestArticle() {
                         }}
                     >
                         <Avatar
-                            src={article.articleImage}
+                            src={article.image}
+                            alt={article.title}
                             sx={{
                                 borderTopLeftRadius: '8px',
                                 borderTopRightRadius: '8px',
@@ -81,9 +84,13 @@ function LatestArticle() {
                                     fontWeight: 'bold',
                                 }}
                             >
-                                {article.articleTitle}
+                                {/* {article.articleTitle} */}
+                                {t(`common.latestArticles.${article.articleKey}.title`)}
                             </CustomizeTypography>
-                            <CustomizeTypography>{article.articleContent}</CustomizeTypography>
+                            <CustomizeTypography>
+                                {' '}
+                                {t(`common.latestArticles.${article.articleKey}.content`)}
+                            </CustomizeTypography>
                             <Button
                                 // onClick={onHandleClick}
                                 variant="contained"
@@ -103,7 +110,7 @@ function LatestArticle() {
                                     },
                                 }}
                             >
-                                Read More
+                                {t('common.latestArticles.readMore')}
                             </Button>
                         </Box>
                     </Box>
