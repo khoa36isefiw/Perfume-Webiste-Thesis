@@ -58,7 +58,8 @@ const publicRoutes = [
     { path: '/:lang/create-account', component: CreateAccount, layout: UserLayouts },
 
     { path: '/:lang/blog', component: Blog, layout: UserLayouts },
-    { path: '/:lang/blog-detail/:id', component: BlogDetail, layout: UserLayouts },
+    // { path: '/:lang/blog-detail/:id', component: BlogDetail, layout: UserLayouts },
+    { path: '/:lang/blog-detail/:name', component: BlogDetail, layout: UserLayouts },
     { path: '/:lang/recover-password', component: RecoverPassword, layout: UserLayouts },
     // profile  settings
     { path: '/:lang/profile-settings', component: AccountInfoPage, layout: ProfileSettingsLayout },
