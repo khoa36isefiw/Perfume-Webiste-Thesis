@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import NewArrival from '../../assets/images/homepage_new_arrivals.png';
 import { Box, Container, Grid, Modal } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -10,9 +10,15 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 function NewArrivals() {
-    const { t } = useTranslation('translate');
-    const language = window.localStorage.getItem('language');
+    const { t, i18n } = useTranslation('translate');
+    const language = window.localStorage.getItem('language') || 'en';
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // prevent change to default language
+
+        i18n.changeLanguage(language); // Set the language for i18n
+    }, []);
     return (
         <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
             {/* <Grid container sx={{ display: 'flex', alignItems: 'center' }}> */}

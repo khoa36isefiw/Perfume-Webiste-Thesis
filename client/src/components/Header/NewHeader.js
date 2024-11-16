@@ -59,8 +59,8 @@ function NewHeader() {
     const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
     const userData = JSON.parse(localStorage.getItem('user_data')) || null;
     // translate text
-    const [enLanguage, setEnLanguage] = useState(true);
-    const language = window.localStorage.getItem('language');
+
+    const [enLanguage, setEnLanguage] = useState(false);
 
     const { data: products, mutate, isLoading, error } = useUserById(userData?.userId);
 

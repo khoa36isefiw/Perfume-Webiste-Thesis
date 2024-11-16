@@ -1,12 +1,17 @@
 import { Avatar, Box, Grid } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ourValues from '../../assets/images/our_values.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useTranslation } from 'react-i18next';
 
 function OurValues() {
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
+    const language = window.localStorage.getItem('language') || 'en';
+    useEffect(() => {
+        // prevent change to default language
+        i18n.changeLanguage(language); // Set the language for i18n
+    }, []);
     return (
         <Box
             sx={{

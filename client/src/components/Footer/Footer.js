@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Container, Grid } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
 import {
@@ -17,11 +17,17 @@ import { useTranslation } from 'react-i18next';
 
 function Footer() {
     const navigate = useNavigate();
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
     const handleNavigate = (dest) => {
         navigate(dest);
         backTop();
     };
+
+    const language = window.localStorage.getItem('language') || 'en';
+    useEffect(() => {
+        // prevent change to default language
+        i18n.changeLanguage(language); // Set the language for i18n
+    }, []);
     return (
         <Box
             sx={{
