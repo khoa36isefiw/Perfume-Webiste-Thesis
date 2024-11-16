@@ -3,8 +3,10 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { Box, Container, Grid, IconButton } from '@mui/material';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { missionsData } from './missionsData';
+import { useTranslation } from 'react-i18next';
 
 function Missions() {
+    const { t } = useTranslation('translate');
     return (
         <Container sx={{ my: theme.spacingAxis.boxVerticalAxis }}>
             <Box sx={{ textAlign: 'center' }}>
@@ -16,8 +18,9 @@ function Missions() {
                         },
                     }}
                 >
-                    Our mission is to empower individuals with knowledge and facilitate meaningful
-                    connections through our platform.
+                    {/* Our mission is to empower individuals with knowledge and facilitate meaningful
+                    connections through our platform. */}
+                    {t(`common.servicesPage.ser1`)}
                 </CustomizeTypography>
                 <CustomizeTypography
                     sx={{
@@ -27,8 +30,9 @@ function Missions() {
                         },
                     }}
                 >
-                    We understand the importance of reliable and up-to-date information in today's
-                    fast-paced world.
+                    {/* We understand the importance of reliable and up-to-date information in today's
+                    fast-paced world. */}
+                    {t(`common.servicesPage.ser2`)}
                 </CustomizeTypography>
             </Box>
             <Grid container spacing={4} sx={{ mt: 4 }}>
@@ -68,7 +72,9 @@ function Missions() {
                                         },
                                     }}
                                 >
-                                    {mission.missionTitle}
+                                    {t(
+                                        `common.servicesPage.listBenefits.${mission.missionKey}.title`,
+                                    )}
                                 </CustomizeTypography>
                                 <IconButton>{mission.missionIcon}</IconButton>
                             </Box>
@@ -77,7 +83,9 @@ function Missions() {
                                     textAlign: 'justify',
                                 }}
                             >
-                                {mission.missionContent}
+                                {t(
+                                    `common.servicesPage.listBenefits.${mission.missionKey}.content`,
+                                )}
                             </CustomizeTypography>
                         </Box>
                     </Grid>
@@ -95,10 +103,11 @@ function Missions() {
                         },
                     }}
                 >
-                    At Tomtoc, our passion for perfumery drives us to go above and beyond to serve
+                    {/* At Tomtoc, our passion for perfumery drives us to go above and beyond to serve
                     you better. We invite you to experience our exceptional services and indulge in
                     the world of luxurious scents. Let us be your trusted fragrance destination,
-                    where your olfactory dreams come to life.
+                    where your olfactory dreams come to life. */}
+                    {t(`common.servicesPage.ser3`)}
                 </CustomizeTypography>
                 <CustomizeTypography
                     sx={{
@@ -111,11 +120,12 @@ function Missions() {
                         },
                     }}
                 >
-                    If you have any questions or need assistance, please do not hesitate to reach
+                    {/* If you have any questions or need assistance, please do not hesitate to reach
                     out to our friendly team. We're here to make your fragrance exploration a truly
-                    memorable one.
+                    memorable one. */}
+                    {t(`common.servicesPage.ser4`)}
                 </CustomizeTypography>
-                <CustomizeTypography>Tomtoc Team.</CustomizeTypography>
+                <CustomizeTypography>{t(`common.servicesPage.ser5`)}</CustomizeTypography>
             </Box>
         </Container>
     );

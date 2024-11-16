@@ -11,12 +11,14 @@ export const missionsData = [
         ),
         missionContent:
             'The specific delivery time will vary depending on the shipping address and the selected delivery option. Customers can track their order online to see the estimated delivery date.',
+        missionKey: 'bene1',
     },
     {
         missionTitle: 'Many offers',
         missionIcon: <CategoryIcon sx={{ fontSize: '28px', color: theme.palette.secondaryText }} />,
         missionContent:
             'CMS also offers a variety of training and technical assistance to help providers and state agencies meet their responsibilities under Medicare, Medicaid, and SCHIP.',
+        missionKey: 'bene2',
     },
     {
         missionTitle: '24/7 support',
@@ -25,5 +27,6 @@ export const missionsData = [
         ),
         missionContent:
             'CMS Service support is available 24 hours a day, 7 days a week. You can reach them by phone, email, or chat. Here are the contact information for CMS Service support.',
+        missionKey: 'bene3',
     },
 ];
