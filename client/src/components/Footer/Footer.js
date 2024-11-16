@@ -19,7 +19,7 @@ function Footer() {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
     const handleNavigate = (dest) => {
-        navigate(dest);
+        navigate(`/${i18n.language}${dest}`);
         backTop();
     };
 
