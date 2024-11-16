@@ -1,12 +1,17 @@
 import { Avatar, Box, Grid } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ourValues from '../../assets/images/our_values.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useTranslation } from 'react-i18next';
 
 function OurValues() {
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
+    const language = window.localStorage.getItem('language') || 'en';
+    useEffect(() => {
+        // prevent change to default language
+        i18n.changeLanguage(language); // Set the language for i18n
+    }, []);
     return (
         <Box
             sx={{
@@ -77,9 +82,11 @@ function OurValues() {
                     <CustomizeTypography
                         sx={{ fontSize: '18px', textIndent: '48px', textAlign: 'justify' }}
                     >
-                        Embracing sustainability and continuous learning, Local Face strives to be
+                        {/* Embracing sustainability and continuous learning, Local Face strives to be
                         more than just a shopping destination; we are a community that inspires and
-                        empowers individuals on their fragrance journey.
+                        empowers individuals on their fragrance journey. */}
+
+                        {t('common.homeValuesText2')}
                     </CustomizeTypography>
                 </Grid>
             </Grid>

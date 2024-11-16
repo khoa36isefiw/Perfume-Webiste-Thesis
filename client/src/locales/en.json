@@ -16,7 +16,8 @@
         "homeWelcomeTitle": "Welcome to Tomtoc Perfumes",
         "homeWelcomeContent": "Welcome to Tomtoc Perfumes, where the spirit of victory and triumph come alive through scents that empower and inspire. Our curated collection, aptly named \"Tomtoc\", is a celebration of success and elegance, designed to unleash your victorious essence. Indulge in the sweet taste of triumph with captivating fragrances that tell the tale of your achievements. At Local Face, we believe that every victory deserves a signature scent, and we are dedicated to providing unforgettable fragrances that elevate your spirit and empower your journey.",
         "homeValuesTitle": "Our Values",
-        "homeValuesText": "At Local Face, our perfume retail store is built on a foundation of passion and authenticity. We believe in celebrating the individuality of every customer, providing a diverse collection of scents that resonate with their unique personality and style. Our dedicated team of fragrance enthusiasts is committed to creating a welcoming and inclusive environment, where connections are forged, and inspiration thrives.\n Embracing sustainability and continuous learning, Local Face strives to be more than just a shopping destination; we are a community that inspires and empowers individuals on their fragrance journey.",
+        "homeValuesText": "At Local Face, our perfume retail store is built on a foundation of passion and authenticity. We believe in celebrating the individuality of every customer, providing a diverse collection of scents that resonate with their unique personality and style. Our dedicated team of fragrance enthusiasts is committed to creating a welcoming and inclusive environment, where connections are forged, and inspiration thrives.",
+        "homeValuesText2": "Embracing sustainability and continuous learning, Local Face strives to be more than just a shopping destination; we are a community that inspires and empowers individuals on their fragrance journey.",
         "Shopping": "Shopping",
         "Payments": "Payments",
         "Delivery options": "Delivery options",
@@ -28,6 +29,87 @@
         "Returns & refund": "Returns & refund",
         "Survey & feedback": "Survey & feedback",
         "Abous Us": "Abous Us",
-        "Promotions Code": "Promotions Code"
+        "Promotions Code": "Promotions Code",
+        "latestArticles": {
+            "homeArticle": "Latest Articles",
+            "readMore": "Read More",
+            "article1": {
+                "title": "The best scents for spring",
+                "content": "Lavender, with its enchanting aroma and rich history, has been cherished for centuries as a symbol of relaxation, healing, and timeless beauty. In the world of perfumery, lavender plays a key role in creating captivating fragrances loved by many."
+            },
+            "article2": {
+                "title": "Our Top Three Signature Blends for Summer",
+                "content": "A luxury perfume collection is not just an assortment of fragrances; it is a reflection of one's taste, personality, and experiences. Each bottle holds a unique olfactory journey, crafted with the finest ingredients and artistic mastery."
+            },
+            "article3": {
+                "title": "We are nuts about nutty scents",
+                "content": "Rose, often referred to as the 'Queen of Flowers,' has held a special place in human culture and history for centuries. Beyond its captivating beauty, this iconic bloom has also inspired perfumers to create some of the most timeless and exquisite fragrances in the world."
+            }
+        },
+        "aboutPage": {
+            "aboutUs": "About Us",
+            "aboutText": "At Tomtoc Perfumes, we believe that perfumes are more than just scents; they are expressions of one's individuality and style. Our passion for exquisite fragrances led us to curate a collection that captures the essence of diverse personalities, bringing you an unparalleled olfactory experience.",
+            "aboutStory": "Our Story",
+            "aboutStoryText": "Tomtoc Perfumes was founded by a group of perfume enthusiasts with a shared vision to create a haven for perfume lovers seeking authentic, locally-inspired fragrances. Inspired by the diversity and richness of cultures around the world, we set out on a journey to curate a collection of scents that capture the essence of each region. Our aim is to bring you closer to the heart and soul of different cultures through the art of perfumery.",
+            "aboutUnique": "What Makes Us Unique",
+            "aboutUniqueList": {
+                "unique1": {
+                    "title": "Locally Inspired",
+                    "content": "Our perfumes are meticulously crafted to reflect the cultural heritage, traditions, and landscapes of various regions. From the vibrant streets of Marrakech to the serene cherry blossom gardens of Kyoto, each fragrance tells a unique story that resonates with its origin"
+                },
+                "unique2": {
+                    "title": "High-Quality Ingredients",
+                    "content": "We believe that the key to an extraordinary scent lies in the quality of ingredients. That's why we collaborate with expert perfumers who source the finest and ethically-sourced materials from around the world. We never compromise on the quality of our products, ensuring a long-lasting and luxurious experience."
+                },
+                "unique3": {
+                    "title": "Personalized Service",
+                    "content": "We understand that choosing the perfect scent is a deeply personal experience. Our team of fragrance experts is always ready to assist you in finding a fragrance that complements your personality and style. Whether you're exploring new scents or seeking to rediscover an old favorite, we're here to guide you every step of the way."
+                },
+                "thanks1": "Join us on this olfactory adventure as we celebrate the diverse tapestry of scents from around the world. Discover the captivating aromas that embrace the essence of local cultures and connect with the beauty of our shared humanity.",
+                "thanks2": "Thank you for being a part of our journey.",
+                "thanks3": "With love and gratitude, The Tomtoc Perfumes Team."
+            }
+        },
+        "servicesPage": {
+            "ourService": "Our Services",
+            "ourServiceText": "At Tomtoc, we are dedicated to providing you with a delightful and immersive perfume shopping experience. Our services are tailored to ensure that you find the perfect fragrance that complements your unique personality and style. We take pride in offering a range of services that go beyond just selling perfumes, aiming to make your journey with us truly special.",
+            "listServices": {
+                "service1": {
+                    "title": "Personal Fragrance Consultations",
+                    "content": "Choosing the right fragrance can be a deeply personal experience. Our team of knowledgeable fragrance experts is here to guide you through this process. Whether you're looking for a signature scent, a gift for a loved one, or need assistance in exploring new fragrance families, our consultants will take the time to understand your preferences and suggest the perfect matches"
+                },
+                "service2": {
+                    "title": "Custom Fragrance Creation",
+                    "content": "Experience the art of bespoke perfumery with our custom fragrance creation service. Work closely with our skilled perfumers to craft a scent that is uniquely yours. From selecting individual notes to blending them into a harmonious symphony, we'll help you bring your fragrance vision to life. Whether it's a special occasion, a gift for someone dear, or simply a way to indulge in luxury, a custom-created perfume is an unforgettable experience."
+                },
+                "service3": {
+                    "title": "Fragrance Events and Workshops",
+                    "content": "Join us for fragrance-centric events and workshops that celebrate the art of perfumery. Immerse yourself in the captivating world of scents, learn from experts, and discover the nuances of different fragrance families. These events are perfect for fragrance enthusiasts and novices alike, providing a unique opportunity to expand your olfactory knowledge."
+                },
+                "service4": {
+                    "title": "Online Shopping Convenience",
+                    "content": "Explore our carefully curated collection of perfumes from the comfort of your home. Our user-friendly website offers a seamless online shopping experience, complete with detailed product descriptions and customer reviews. You can also reach out to our customer support team for any assistance during your shopping journey."
+                }
+            },
+            "ser1": "Our mission is to empower individuals with knowledge and facilitate meaningful connections through our platform.",
+            "ser2": "We understand the importance of reliable and up-to-date information in today's fast-paced world.",
+            "listBenefits": {
+                "bene1": {
+                    "title": "Fast delivery",
+                    "content": "The specific delivery time will vary depending on the shipping address and the selected delivery option. Customers can track their order online to see the estimated delivery date."
+                },
+                "bene2": {
+                    "title": "Many offers",
+                    "content": "CMS Service support is available 24 hours a day, 7 days a week. You can reach them by phone, email, or chat. Here are the contact information for CMS Service support."
+                },
+                "bene3": {
+                    "title": "24/7 support",
+                    "content": "CMS Service support is available 24 hours a day, 7 days a week. You can reach them by phone, email, or chat. Here are the contact information for CMS Service support."
+                }
+            },
+            "ser3": "At Tomtoc, our passion for perfumery drives us to go above and beyond to serve you better. We invite you to experience our exceptional services and indulge in the world of luxurious scents. Let us be your trusted fragrance destination, where your olfactory dreams come to life.",
+            "ser4": "If you have any questions or need assistance, please do not hesitate to reach out to our friendly team. We're here to make your fragrance exploration a truly memorable one.",
+            "ser5": "Tomtoc Team."
+        }
     }
 }

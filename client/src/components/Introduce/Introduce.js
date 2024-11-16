@@ -5,8 +5,11 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { useTranslation } from 'react-i18next';
 
 function Introduce() {
+    const { t } = useTranslation('translate');
+
     return (
         <Box
             sx={{
@@ -66,7 +69,7 @@ function Introduce() {
                     },
                 }}
             >
-                <CustomizeTitle heading={'About Us'} />
+                <CustomizeTitle heading={t('common.aboutPage.aboutUs')} />
                 <CustomizeTypography sx={{ fontSize: '18px', color: '#FFFFFF' }}>
                     At Tomtoc Perfumes, we believe that perfumes are more than just scents; they are
                     expressions of one's individuality and style. Our passion for exquisite

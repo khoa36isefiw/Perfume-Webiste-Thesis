@@ -16,7 +16,8 @@
         "homeWelcomeTitle": "Chào mừng đến với Tomtoc Perfumes",
         "homeWelcomeContent": "Chào mừng đến với Tomtoc Perfumes, nơi tinh thần chiến thắng và chiến thắng trở nên sống động thông qua những mùi hương trao quyền và truyền cảm hứng. Bộ sưu tập được tuyển chọn của chúng tôi, được đặt tên khéo léo là \"Tomtoc\", là sự tôn vinh thành công và sự thanh lịch, được thiết kế để giải phóng bản chất chiến thắng của bạn. Hãy đắm mình trong hương vị ngọt ngào của chiến thắng với những mùi hương quyến rũ kể câu chuyện về những thành tựu của bạn. Tại Local Face, chúng tôi tin rằng mọi chiến thắng đều xứng đáng có một mùi hương đặc trưng và chúng tôi tận tâm cung cấp những mùi hương khó quên giúp nâng cao tinh thần và trao quyền cho hành trình của bạn.",
         "homeValuesTitle": "Giá trị của chúng tôi",
-        "homeValuesText": "Tại Local Face, cửa hàng bán lẻ nước hoa của chúng tôi được xây dựng trên nền tảng của niềm đam mê và tính xác thực. Chúng tôi tin vào việc tôn vinh cá tính của mỗi khách hàng, cung cấp một bộ sưu tập mùi hương đa dạng phù hợp với cá tính và phong cách độc đáo của họ. Đội ngũ những người đam mê nước hoa tận tụy của chúng tôi cam kết tạo ra một môi trường chào đón và hòa nhập, nơi các mối quan hệ được hình thành và nguồn cảm hứng phát triển mạnh mẽ.\n Với tinh thần bền vững và học hỏi liên tục, Local Face phấn đấu trở thành nhiều hơn là một điểm đến mua sắm; chúng tôi là một cộng đồng truyền cảm hứng và trao quyền cho mọi cá nhân trên hành trình hương thơm của họ.",
+        "homeValuesText": "Tại Local Face, cửa hàng bán lẻ nước hoa của chúng tôi được xây dựng trên nền tảng của niềm đam mê và tính xác thực. Chúng tôi tin vào việc tôn vinh cá tính của mỗi khách hàng, cung cấp một bộ sưu tập mùi hương đa dạng phù hợp với cá tính và phong cách độc đáo của họ. Đội ngũ những người đam mê nước hoa tận tụy của chúng tôi cam kết tạo ra một môi trường chào đón và hòa nhập, nơi các mối quan hệ được hình thành và nguồn cảm hứng phát triển mạnh mẽ.",
+        "homeValuesText2": "Với tinh thần bền vững và học hỏi liên tục, Local Face phấn đấu trở thành nhiều hơn là một điểm đến mua sắm; chúng tôi là một cộng đồng truyền cảm hứng và trao quyền cho mọi cá nhân trên hành trình hương thơm của họ.",
         "Shopping": "Mua sắm",
         "Payments": "Thanh toán",
         "Delivery options": "Tùy chọn giao hàng",
@@ -28,6 +29,87 @@
         "Returns & refund": "Trả hàng & hoàn tiền",
         "Survey & feedback": "Khảo sát & phản hồi",
         "Abous Us": "Giới thiệu về chúng tôi",
-        "Promotions Code": "Mã khuyến mại"
+        "Promotions Code": "Mã khuyến mại",
+        "latestArticles": {
+            "homeArticle": "Bài viết mới nhất",
+            "readMore": "Đọc thêm",
+            "article1": {
+                "title": "Những hương thơm tuyệt vời cho mùa xuân",
+                "content": "Hoa oải hương, với hương thơm quyến rũ và lịch sử phong phú, đã được yêu quý qua nhiều thế kỷ như một biểu tượng của sự thư giãn, chữa lành và vẻ đẹp vượt thời gian. Trong thế giới nước hoa, hoa oải hương đóng vai trò quan trọng trong việc tạo ra những mùi hương mê hoặc được nhiều người yêu thích."
+            },
+            "article2": {
+                "title": "Ba hỗn hợp đặc trưng hàng đầu của chúng tôi cho mùa hè",
+                "content": "Bộ sưu tập nước hoa sang trọng không chỉ là một tập hợp các mùi hương; nó là sự phản ánh về sở thích, tính cách và trải nghiệm của một người. Mỗi chai đều chứa đựng một hành trình khứu giác độc đáo, được tạo nên từ những nguyên liệu tinh tế nhất và sự khéo léo của nghệ thuật."
+            },
+            "article3": {
+                "title": "Chúng tôi phát cuồng vì những mùi hương hạt",
+                "content": "Hoa hồng, thường được gọi là 'Nữ hoàng của các loài hoa,' đã giữ một vị trí đặc biệt trong văn hóa và lịch sử con người qua nhiều thế kỷ. Ngoài vẻ đẹp quyến rũ, loài hoa mang tính biểu tượng này còn truyền cảm hứng cho các nhà chế tạo nước hoa để tạo ra một số mùi hương vượt thời gian và tinh tế nhất trên thế giới."
+            }
+        },
+        "aboutPage": {
+            "aboutUs": "Giới thiệu về chúng tôi",
+            "aboutText": "Tại Tomtoc Perfumes, chúng tôi tin rằng nước hoa không chỉ là mùi hương; chúng là sự thể hiện cá tính và phong cách của một người. Niềm đam mê của chúng tôi đối với những loại nước hoa tinh tế đã thúc đẩy chúng tôi tạo ra một bộ sưu tập nắm bắt được bản chất của nhiều tính cách khác nhau, mang đến cho bạn trải nghiệm khứu giác vô song.",
+            "aboutStory": "Câu chuyện của chúng tôi",
+            "aboutStoryText": "Tomtoc Perfumes được thành lập bởi một nhóm những người đam mê nước hoa với tầm nhìn chung là tạo ra một thiên đường cho những người yêu thích nước hoa đang tìm kiếm những loại nước hoa đích thực, lấy cảm hứng từ địa phương. Lấy cảm hứng từ sự đa dạng và phong phú của các nền văn hóa trên khắp thế giới, chúng tôi bắt đầu hành trình tạo ra một bộ sưu tập nước hoa nắm bắt được bản chất của từng vùng. Mục tiêu của chúng tôi là đưa bạn đến gần hơn với trái tim và tâm hồn của các nền văn hóa khác nhau thông qua nghệ thuật nước hoa.",
+            "aboutUnique": "Điều gì làm nên sự độc đáo của chúng tôi",
+            "aboutUniqueList": {
+                "unique1": {
+                    "title": "Lấy cảm hứng từ địa phương",
+                    "content": "Nước hoa của chúng tôi được chế tác tỉ mỉ để phản ánh di sản văn hóa, truyền thống và cảnh quan của nhiều vùng miền khác nhau. Từ những con phố sôi động của Marrakech đến những khu vườn hoa anh đào thanh bình của Kyoto, mỗi loại nước hoa đều kể một câu chuyện độc đáo gắn liền với nguồn gốc của nó"
+                },
+                "unique2": {
+                    "title": "Thành phần chất lượng cao",
+                    "content": "Chúng tôi tin rằng chìa khóa cho một mùi hương đặc biệt nằm ở chất lượng của các thành phần. Đó là lý do tại sao chúng tôi hợp tác với các chuyên gia nước hoa, những người tìm nguồn nguyên liệu tốt nhất và có nguồn gốc đạo đức từ khắp nơi trên thế giới. Chúng tôi không bao giờ thỏa hiệp về chất lượng sản phẩm của mình, đảm bảo trải nghiệm lâu dài và sang trọng."
+                },
+                "unique3": {
+                    "title": "Dịch vụ cá nhân hóa",
+                    "content": "Chúng tôi hiểu rằng việc lựa chọn mùi hương hoàn hảo là một trải nghiệm vô cùng riêng tư. Đội ngũ chuyên gia về nước hoa của chúng tôi luôn sẵn sàng hỗ trợ bạn tìm ra loại nước hoa phù hợp với tính cách và phong cách của bạn. Cho dù bạn đang khám phá những mùi hương mới hay muốn tìm lại mùi hương yêu thích cũ, chúng tôi luôn ở đây để hướng dẫn bạn từng bước trên chặng đường này."
+                },
+                "thanks1": "Hãy tham gia cùng chúng tôi trong chuyến phiêu lưu khứu giác này khi chúng ta tôn vinh sự kết hợp đa dạng của các mùi hương từ khắp nơi trên thế giới. Khám phá những mùi hương quyến rũ chứa đựng bản chất của các nền văn hóa địa phương và kết nối với vẻ đẹp của nhân loại chung của chúng ta.",
+                "thanks2": "Cảm ơn bạn đã là một phần trong hành trình của chúng tôi.",
+                "thanks3": "Với tình yêu thương và lòng biết ơn, Đội ngũ nước hoa Tomtoc."
+            }
+        },
+        "servicesPage": {
+            "ourService": "Dịch vụ của chúng tôi",
+            "ourServiceText": "Tại Tomtoc, chúng tôi tận tâm mang đến cho bạn trải nghiệm mua sắm nước hoa thú vị và hấp dẫn. Các dịch vụ của chúng tôi được thiết kế riêng để đảm bảo rằng bạn tìm thấy loại nước hoa hoàn hảo phù hợp với cá tính và phong cách độc đáo của mình. Chúng tôi tự hào cung cấp nhiều dịch vụ không chỉ dừng lại ở việc bán nước hoa, mà còn hướng đến mục tiêu biến hành trình của bạn cùng chúng tôi trở nên thực sự đặc biệt.",
+            "listServices": {
+                "service1": {
+                    "title": "Tư vấn nước hoa cá nhân",
+                    "content": "Việc lựa chọn loại nước hoa phù hợp có thể là một trải nghiệm vô cùng riêng tư. Đội ngũ chuyên gia nước hoa hiểu biết của chúng tôi luôn sẵn sàng hướng dẫn bạn trong suốt quá trình này. Cho dù bạn đang tìm kiếm một loại nước hoa đặc trưng, ​​một món quà cho người thân yêu hay cần hỗ trợ khám phá các dòng nước hoa mới, các chuyên gia tư vấn của chúng tôi sẽ dành thời gian để hiểu sở thích của bạn và gợi ý những loại nước hoa phù hợp nhất"
+                },
+                "service2": {
+                    "title": "Tạo nước hoa theo yêu cầu",
+                    "content": "Trải nghiệm nghệ thuật nước hoa theo yêu cầu với dịch vụ tạo nước hoa theo yêu cầu của chúng tôi. Làm việc chặt chẽ với các chuyên gia nước hoa lành nghề của chúng tôi để tạo ra một mùi hương độc đáo của riêng bạn. Từ việc lựa chọn các nốt hương riêng lẻ cho đến việc pha trộn chúng thành một bản giao hưởng hài hòa, chúng tôi sẽ giúp bạn hiện thực hóa tầm nhìn về nước hoa của mình. Cho dù đó là một dịp đặc biệt, một món quà cho người thân yêu hay chỉ đơn giản là một cách để tận hưởng sự xa xỉ, một loại nước hoa được tạo ra theo yêu cầu là một trải nghiệm khó quên."
+                },
+                "service3": {
+                    "title": "Sự kiện và hội thảo về nước hoa",
+                    "content": "Hãy tham gia cùng chúng tôi trong các sự kiện và hội thảo tập trung vào nước hoa để tôn vinh nghệ thuật nước hoa. Đắm mình vào thế giới quyến rũ của mùi hương, học hỏi từ các chuyên gia và khám phá sắc thái của các nhóm nước hoa khác nhau. Những sự kiện này hoàn hảo cho cả những người đam mê nước hoa và người mới bắt đầu, mang đến cơ hội độc đáo để mở rộng kiến ​​thức về khứu giác của bạn."
+                },
+                "service4": {
+                    "title": "Sự tiện lợi khi mua sắm trực tuyến",
+                    "content": "Khám phá bộ sưu tập nước hoa được tuyển chọn cẩn thận của chúng tôi ngay tại nhà. Trang web thân thiện với người dùng của chúng tôi cung cấp trải nghiệm mua sắm trực tuyến liền mạch, hoàn chỉnh với mô tả sản phẩm chi tiết và đánh giá của khách hàng. Bạn cũng có thể liên hệ với nhóm hỗ trợ khách hàng của chúng tôi để được hỗ trợ trong suốt hành trình mua sắm của mình."
+                }
+            },
+            "ser1": "Sứ mệnh của chúng tôi là trao quyền cho mọi người bằng kiến ​​thức và tạo điều kiện cho các kết nối có ý nghĩa thông qua nền tảng của chúng tôi.",
+            "ser2": "Chúng tôi hiểu tầm quan trọng của thông tin đáng tin cậy và cập nhật trong thế giới hối hả ngày nay.",
+            "listBenefits": {
+                "bene1": {
+                    "title": "Giao hàng nhanh",
+                    "content": "Thời gian giao hàng cụ thể sẽ khác nhau tùy thuộc vào địa chỉ giao hàng và tùy chọn giao hàng đã chọn. Khách hàng có thể theo dõi đơn hàng của mình trực tuyến để xem ngày giao hàng dự kiến."
+                },
+                "bene2": {
+                    "title": "Nhiều ưu đãi",
+                    "content": "Dịch vụ hỗ trợ CMS hoạt động 24 giờ một ngày, 7 ngày một tuần. Bạn có thể liên hệ với họ qua điện thoại, email hoặc trò chuyện. Sau đây là thông tin liên hệ để được hỗ trợ Dịch vụ CMS."
+                },
+                "bene3": {
+                    "title": "Hỗ trợ 24/7",
+                    "content": "Dịch vụ hỗ trợ CMS hoạt động 24 giờ một ngày, 7 ngày một tuần. Bạn có thể liên hệ với họ qua điện thoại, email hoặc trò chuyện. Sau đây là thông tin liên hệ để được hỗ trợ Dịch vụ CMS."
+                }
+            },
+            "ser3": "Tại Tomtoc, niềm đam mê đối với nước hoa thúc đẩy chúng tôi nỗ lực hết mình để phục vụ bạn tốt hơn. Chúng tôi mời bạn trải nghiệm các dịch vụ đặc biệt của chúng tôi và đắm mình trong thế giới của những mùi hương sang trọng. Hãy để chúng tôi trở thành điểm đến hương thơm đáng tin cậy của bạn, nơi những giấc mơ khứu giác của bạn trở thành hiện thực.",
+            "ser4": "Nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ, vui lòng liên hệ với nhóm thân thiện của chúng tôi. Chúng tôi ở đây để biến hành trình khám phá hương thơm của bạn trở thành một hành trình thực sự đáng nhớ.",
+            "ser5": "Nhóm Tomtoc."
+        }
     }
 }

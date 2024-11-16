@@ -7,18 +7,22 @@ import { blue } from '@mui/material/colors';
 function CategoryFilter() {
     return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <CustomizeTypography sx={{ fontWeight: 'bold', mb: 0 }}>Categories</CustomizeTypography>
+            <CustomizeTypography
+                sx={{ fontWeight: 'bold', mb: 0, color: blue[400], fontSize: '18px' }}
+            >
+                Categories
+            </CustomizeTypography>
 
             <Button
                 sx={{
                     py: 1,
                     borderRadius: '8px',
-                    fontSize: '14px',
+                    fontSize: '16px',
                     fontWeight: 'bold',
                     textTransform: 'initial',
-                    color: theme.palette.background.thirth,
+                    color: 'white',
                     '&:hover': {
-                        bgcolor: blue[50],
+                        bgcolor: theme.palette.background.thirth,
                     },
                     [tabletScreen]: {
                         fontSize: '13px',
@@ -34,7 +38,7 @@ function CategoryFilter() {
                     fontSize: '14px',
                     fontWeight: 'bold',
                     textTransform: 'initial',
-                    color: blue[50],
+                    color: 'white',
                     '&:hover': {
                         bgcolor: theme.palette.background.thirth,
                     },

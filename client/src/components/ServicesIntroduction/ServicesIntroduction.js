@@ -5,8 +5,10 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { mobileScreen } from '../../Theme/Theme';
+import { useTranslation } from 'react-i18next';
 
 function ServicesIntroduction() {
+    const { t } = useTranslation('translate');
     return (
         <Box
             sx={{
@@ -47,7 +49,7 @@ function ServicesIntroduction() {
                     },
                 }}
             >
-                <CustomizeTitle heading={'Our Services'} />
+                <CustomizeTitle heading={t('common.servicesPage.ourService')} />
                 <CustomizeTypography
                     sx={{
                         fontSize: '18px',
@@ -58,11 +60,12 @@ function ServicesIntroduction() {
                         },
                     }}
                 >
-                    At Tomtoc, we are dedicated to providing you with a delightful and immersive
+                    {/* At Tomtoc, we are dedicated to providing you with a delightful and immersive
                     perfume shopping experience. Our services are tailored to ensure that you find
                     the perfect fragrance that complements your unique personality and style. We
                     take pride in offering a range of services that go beyond just selling perfumes,
-                    aiming to make your journey with us truly special.
+                    aiming to make your journey with us truly special. */}
+                    {t('common.servicesPage.ourServiceText')}
                 </CustomizeTypography>
             </Box>
         </Box>

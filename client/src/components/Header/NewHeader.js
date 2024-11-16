@@ -59,18 +59,26 @@ function NewHeader() {
     const isLogged = useSelector((state) => state.accountManagement.loggedInAccount);
     const userData = JSON.parse(localStorage.getItem('user_data')) || null;
     // translate text
-    const [enLanguage, setEnLanguage] = useState(true);
-    const language = window.localStorage.getItem('language');
+
+    const [enLanguage, setEnLanguage] = useState(false);
 
     const { data: products, mutate, isLoading, error } = useUserById(userData?.userId);
 
     // data
     const headerData = [
-        { headerText: 'Home', headerLink: `/${i18n.language}` },
-        { headerText: 'Shop', headerLink: `/${i18n.language}/shop` },
-        { headerText: 'About Us', headerLink: `/${i18n.language}/about-us` },
-        { headerText: 'Services', headerLink: `/${i18n.language}/our-services` },
-        { headerText: 'Blog', headerLink: `/${i18n.language}/blog` },
+        { headerTextVi: 'Trang chủ', headerText: 'Home', headerLink: `/${i18n.language}` },
+        { headerTextVi: 'Cửa hàng', headerText: 'Shop', headerLink: `/${i18n.language}/shop` },
+        {
+            headerTextVi: 'Chúng tôi',
+            headerText: 'About Us',
+            headerLink: `/${i18n.language}/about-us`,
+        },
+        {
+            headerTextVi: 'Dịch vụ',
+            headerText: 'Services',
+            headerLink: `/${i18n.language}/our-services`,
+        },
+        { headerTextVi: 'Bài viết', headerText: 'Blog', headerLink: `/${i18n.language}/blog` },
     ];
 
     function handleWindowSizeChange() {
@@ -89,11 +97,17 @@ function NewHeader() {
         const currentPath = location.pathname; // get the current location path
         // check, if the current Path is the same as header.header Link
         const currentHeader = headerData.find((header) => header.headerLink === currentPath);
-        setActiveHeader(currentHeader ? currentHeader.headerText : '');
-    }, [location.pathname]);
+        setActiveHeader(
+            currentHeader
+                ? i18n.language === 'en'
+                    ? currentHeader.headerText
+                    : currentHeader.headerTextVi
+                : '',
+        );
+    }, [location.pathname, i18n.language]);
 
     const handleHeaderClick = (header) => {
-        setActiveHeader(header.headerText);
+        setActiveHeader(i18n.language === 'en' ? header.headerText : header.headerTextVi);
         navigate(header.headerLink);
         backTop();
     };
@@ -597,13 +611,19 @@ function NewHeader() {
                             sx={{
                                 fontSize: '16px',
                                 color:
-                                    activeHeader === header.headerText
+                                    activeHeader === header.headerText ||
+                                    activeHeader === header.headerTextVi
                                         ? theme.palette.text.secondary
                                         : 'white',
                                 margin: '0 32px',
-                                fontWeight: activeHeader === header.headerText ? 'bold' : 'normal',
+                                fontWeight:
+                                    activeHeader === header.headerText ||
+                                    activeHeader === header.headerTextVi
+                                        ? 'bold'
+                                        : 'normal',
                                 borderBottom:
-                                    activeHeader === header.headerText
+                                    activeHeader === header.headerText ||
+                                    activeHeader === header.headerTextVi
                                         ? `1px solid ${theme.palette.text.secondary}`
                                         : '1px solid transparent',
                                 transition:

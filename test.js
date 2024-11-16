@@ -1,363 +1,49 @@
-import React, { useState } from 'react';
-import {
-    Avatar,
-    Box,
-    Button,
-    TextField,
-    Typography,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-    Checkbox,
-    ListItemText,
-    Tooltip,
-    IconButton,
-} from '@mui/material';
-import { useLocation } from 'react-router-dom';
-import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
-import { productAPI } from '../../api/productAPI';
-import useBrand from '../../api/useBrand';
-import useCategory from '../../api/useCategory';
-import BackspaceIcon from '@mui/icons-material/Backspace';
-import { converToVND } from '../convertToVND/convertToVND';
-
-const AdminEditProduct = () => {
-    const location = useLocation();
-    const { productData, selectedSize, productTest } = location.state;
-    console.log('productData.variants[0]?._id: ', productData.variants[0]?._id);
-    console.log('productTest: ', productTest);
-    console.log(
-        'productTest.category.nameEn: ',
-        productTest?.variants.map((size) => size.size),
-    );
-
-    // Set up local state for editable product information
-    const [image, setImage] = useState(productData.image);
-    const [productName, setProductName] = useState(productData.productName);
-    const [price, setPrice] = useState(productData.price);
-
-    const [brand, setBrand] = useState(productData.brand);
-    const [category, setCategory] = useState(productTest.category._id);
-    const [brand2, setBrand2] = useState(productTest.brand._id);
-    const [priceSale, setPriceSale] = useState(productData.variants[0]?.priceSale);
-    const [selectedSizes, setSelectedSizes] = useState(
-        productTest?.variants.map((variant) => ({
-            _id: variant._id,
-            size: variant.size,
-            price: +variant.price,
-            priceSale: +variant.priceSale,
-            stock: +variant.stock,
-        })) || [],
-    );
-
-    console.log('selectedSizes: ', selectedSizes);
-
-    const [ratings, setRatings] = useState(productData.ratings);
-
-    const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
-    const { data: brands } = useBrand();
-    const brandOptions = brands?.data || [];
-
-    const { data: categories } = useCategory();
-    const categoryOptions = categories?.data || [];
-
-    // Handle file input for image update
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImage(reader.result); // Update the image with base64 string
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    // Handle form submission (you can connect this to your API to save the updated data)
-    const handleSave = async () => {
-        setShowNotification(true);
-        setShowAnimation('animate__bounceInRight');
-
-        const productId = productData.productId;
-
-        const newPrice = Number(price) || 0; // Convert price to Number with default
-        console.log('type of discountPercent: ', typeof discountPercent);
-
-        console.log('price:', price);
-
-        const data = {
-            variants: [
-                {
-                    _id: size._id,
-                    priceSale: +priceSale, // Ensure discountPercent is a number
-                    size: '27ml',
-                    price: +newPrice, // Ensure price is a number
-                },
-            ],
-            nameEn: productName,
-            // brand: brand,
-        };
-
-        console.log('product id:', productId);
-        console.log('data:', data);
-
-        const updateResponse = await productAPI.editProduct(productId, data);
-        console.log('Updated Product:', updateResponse);
-    };
-
-    // handle Close notification
-    const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
-    };
-
-    const handleSizeFieldChange = (index, field) => (e) => {
-        const newValue = e.target.value;
-        console.log('new value: ', newValue);
-
-        // Kiểm tra nếu giá trị là một số hợp lệ
-        if (isNaN(newValue) || !isFinite(newValue)) {
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
-            setMessageType('warning');
-            setMessageTitle('Invalid Input');
-            setMessageContent('Please enter a valid number!');
-            return;
-        }
-
-        setSelectedSizes((prevSizes) => {
-            const updatedSizes = [...prevSizes];
-            updatedSizes[index] = { ...updatedSizes[index], [field]: newValue };
-
-            return updatedSizes;
-        });
-    };
-
-    const handleMenuItemClick = (size) => {
-        const alreadySelected = selectedSizes.some((s) => s.size === size);
-
-        if (alreadySelected) {
-            // remove the size was selected from the list
-            setSelectedSizes(selectedSizes.filter((s) => s.size !== size));
-        } else {
-            // add size to list if it was not chose
-            setSelectedSizes([
-                ...selectedSizes,
-                { size: size, price: '', priceSale: '', stock: '' },
-            ]);
-        }
-    };
-
-    const handlePriceSaleBlur = (index) => {
-        setSelectedSizes((prevSizes) => {
-            const updatedSizes = [...prevSizes];
-            const { price, priceSale } = updatedSizes[index];
-
-            // Kiểm tra điều kiện priceSale > price
-            if (priceSale > price) {
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
-                setMessageType('error');
-                setMessageTitle('Price Error');
-                setMessageContent('Sale price cannot be greater than the original price!');
-            }
-
-            return updatedSizes;
-        });
-    };
-
-    const handleRemoveSizeSelected = (sizeToRemove) => {
-        const updatedSizes = selectedSizes.filter((size) => size.size !== sizeToRemove);
-        setSelectedSizes(updatedSizes);
-    };
-
-    return (
-        <Box
-            sx={{
-                p: 3,
-                mx: 4,
-                borderRadius: 2,
-            }}
-        >
-            <AdminButtonBackPage title={'List Products'} />
-            <Typography variant="h4" sx={{ mb: 3 }}>
-                Edit Product: {productData.productName}
-            </Typography>
-
-            <Avatar
-                alt={productName}
-                src={image}
-                sx={{ width: 256, height: 256, marginBottom: 2, borderRadius: 0 }}
-            />
-
-            {/* Input for updating image */}
-            <Button variant="outlined" component="label" sx={{ marginBottom: 2 }}>
-                Update Image
-                <input type="file" accept="image/*" hidden onChange={handleImageChange} />
-            </Button>
-
-            <Box sx={{ display: 'flex', gap: 4 }}>
-                <TextField
-                    label="Product Name"
-                    fullWidth
-                    value={productName}
-                    onChange={(e) => setProductName(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="size-select-label">Size</InputLabel>
-                    <Select
-                        labelId="size-select-label"
-                        multiple
-                        value={selectedSizes.map((size) => size.size)}
-                        label="Size"
-                        renderValue={(selected) => selected.join(', ')}
-                    >
-                        {sizeOptions.map((size) => (
-                            <MenuItem
-                                key={size}
-                                value={size}
-                                onClick={() => handleMenuItemClick(size)}
-                            >
-                                <Checkbox checked={selectedSizes.some((s) => s.size === size)} />
-                                <ListItemText primary={size} />
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-            </Box>
-
-            {selectedSizes.map((size, index) => (
-                <Box key={size.size} sx={{ mb: 3 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                        <Typography
-                            key={size.size}
-                            variant="body1"
-                            sx={{
-                                fontSize: '16px',
-                            }}
-                        >
-                            <strong>Size</strong>: {size.size}
-                        </Typography>
-                        <Tooltip
-                            title={
-                                <Typography
-                                    sx={{
-                                        fontSize: '13px',
-                                        mb: 0,
-                                    }}
-                                >
-                                    Remove Size
-                                </Typography>
-                            }
-                        >
-                            <IconButton onClick={() => handleRemoveSizeSelected(size.size)}>
-                                <BackspaceIcon sx={{ fontSize: '20px', color: '#000' }} />
-                            </IconButton>
-                        </Tooltip>
-                    </Box>
-                    <Box sx={{ display: 'flex', gap: 4 }}>
-                        <TextField
-                            label="Price"
-                            fullWidth
-                            type="number"
-                            value={size.price}
-                            onChange={handleSizeFieldChange(index, 'price')}
-                            sx={{ mb: 2 }}
-                        />
-                        <TextField
-                            label="Price Sale"
-                            fullWidth
-                            type="number"
-                            value={size.priceSale}
-                            onChange={handleSizeFieldChange(index, 'priceSale')}
-                            onBlur={() => handlePriceSaleBlur(index)}
-                            sx={{ mb: 2 }}
-                        />
-                        <TextField
-                            label="Stock"
-                            fullWidth
-                            type="number"
-                            value={size.stock}
-                            onChange={handleSizeFieldChange(index, 'stock')}
-                            sx={{ mb: 2 }}
-                        />
-                    </Box>
-                </Box>
-            ))}
-
-            <Box sx={{ display: 'flex', gap: 4 }}>
-                <TextField
-                    label="Brand"
-                    fullWidth
-                    value={brand}
-                    onChange={(e) => setBrand(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-                <TextField
-                    label="Category"
-                    fullWidth
-                    value={brand}
-                    onChange={(e) => setBrand(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-
-                {/* admin can't change this value */}
-                <TextField
-                    label="Rating"
-                    disabled={true}
-                    fullWidth
-                    value={ratings}
-                    // onChange={(e) => setRatings(e.target.value)}
-                    sx={{ mb: 2 }}
-                />
-
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="brand-select-label">Brand</InputLabel>
-                    <Select
-                        labelId="brand-select-label"
-                        value={brand2}
-                        label="Brand"
-                        onChange={(e) => setBrand2(e.target.value)}
-                    >
-                        {brandOptions.map((brand) => (
-                            <MenuItem key={brand._id} value={brand._id}>
-                                {brand.nameEn}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="category-select-label">Category</InputLabel>
-                    <Select
-                        labelId="category-select-label"
-                        value={category}
-                        label="Category"
-                        onChange={(e) => setCategory(e.target.value)}
-                    >
-                        {categoryOptions.map((category) => (
-                            <MenuItem key={category._id} value={category._id}>
-                                {category.nameEn}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-            </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
-                <Button variant="contained" color="primary" onClick={handleSave}>
-                    Save Changes
-                </Button>
-                <Button variant="outlined" color="secondary">
-                    Cancel
-                </Button>
-            </Box>
-        </Box>
-    );
+const test = {
+    ourService: 'Our Services',
+    ourServiceText:
+        'At Tomtoc, we are dedicated to providing you with a delightful and immersive perfume shopping experience. Our services are tailored to ensure that you find the perfect fragrance that complements your unique personality and style. We take pride in offering a range of services that go beyond just selling perfumes, aiming to make your journey with us truly special.',
+    listServices: {
+        service1: {
+            title: 'Personal Fragrance Consultations',
+            content:
+                "Choosing the right fragrance can be a deeply personal experience. Our team of knowledgeable fragrance experts is here to guide you through this process. Whether you're looking for a signature scent, a gift for a loved one, or need assistance in exploring new fragrance families, our consultants will take the time to understand your preferences and suggest the perfect matches",
+        },
+        service2: {
+            title: 'Custom Fragrance Creation',
+            content:
+                "Experience the art of bespoke perfumery with our custom fragrance creation service. Work closely with our skilled perfumers to craft a scent that is uniquely yours. From selecting individual notes to blending them into a harmonious symphony, we'll help you bring your fragrance vision to life. Whether it's a special occasion, a gift for someone dear, or simply a way to indulge in luxury, a custom-created perfume is an unforgettable experience.",
+        },
+        service3: {
+            title: 'Fragrance Events and Workshops',
+            content:
+                'Join us for fragrance-centric events and workshops that celebrate the art of perfumery. Immerse yourself in the captivating world of scents, learn from experts, and discover the nuances of different fragrance families. These events are perfect for fragrance enthusiasts and novices alike, providing a unique opportunity to expand your olfactory knowledge.',
+        },
+        service4: {
+            title: 'Online Shopping Convenience',
+            content:
+                'Explore our carefully curated collection of perfumes from the comfort of your home. Our user-friendly website offers a seamless online shopping experience, complete with detailed product descriptions and customer reviews. You can also reach out to our customer support team for any assistance during your shopping journey.',
+        },
+    },
+    ser1: 'Our mission is to empower individuals with knowledge and facilitate meaningful connections through our platform.',
+    ser2: "We understand the importance of reliable and up-to-date information in today's fast-paced world.",
+    listBenefits: {
+        bene1: {
+            title: 'Fast delivery',
+            content:
+                'The specific delivery time will vary depending on the shipping address and the selected delivery option. Customers can track their order online to see the estimated delivery date.',
+        },
+        bene1: {
+            title: 'Fast delivery',
+            content:
+                'The specific delivery time will vary depending on the shipping address and the selected delivery option. Customers can track their order online to see the estimated delivery date.',
+        },
+        bene1: {
+            title: '24/7 support',
+            content:
+                'CMS Service support is available 24 hours a day, 7 days a week. You can reach them by phone, email, or chat. Here are the contact information for CMS Service support.',
+        },
+    },
+    ser3: 'CMS Service support is available 24 hours a day, 7 days a week. You can reach them by phone, email, or chat. Here are the contact information for CMS Service support.',
+    ser4: "If you have any questions or need assistance, please do not hesitate to reach out to our friendly team. We're here to make your fragrance exploration a truly memorable one.",
+    ser5: 'Tomtoc Team.',
 };
-
-export default AdminEditProduct;

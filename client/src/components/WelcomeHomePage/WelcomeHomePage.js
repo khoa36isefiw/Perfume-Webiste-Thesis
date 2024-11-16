@@ -1,13 +1,17 @@
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import bg from '../../assets/images/about_us-bg2.png';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import { useTranslation } from 'react-i18next';
-// import { scrollAppearingAnimation } from '../AnimationEffects/AnimationEffects';
 
 function WelcomeHomePage() {
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
+    const language = window.localStorage.getItem('language') || 'en';
+    useEffect(() => {
+        // prevent change to default language
+        i18n.changeLanguage(language); // Set the language for i18n
+    }, []);
 
     return (
         <Box

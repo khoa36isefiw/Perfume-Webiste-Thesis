@@ -3,8 +3,10 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { listServices } from './listServicesData';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { useTranslation } from 'react-i18next';
 
 function ListServices() {
+    const { t } = useTranslation('translate');
     return (
         <Container
             sx={{
@@ -65,16 +67,21 @@ function ListServices() {
                                         0{service.service_id}.
                                     </CustomizeTypography>
                                     <CustomizeTypography
-                                        sx={{ fontSize: '32px', fontWeight: 'bold', mb: 6 }}
+                                        sx={{ fontSize: '32px', fontWeight: 'bold', mb: 4 }}
                                     >
-                                        {service.serviceTitle}
+                                        {t(
+                                            `common.servicesPage.listServices.${service.serviceKey}.title`,
+                                        )}
                                     </CustomizeTypography>
                                     <CustomizeTypography
                                         sx={{
                                             textAlign: 'justify',
+                                            fontSize: '16px',
                                         }}
                                     >
-                                        {service.serviceContent}
+                                        {t(
+                                            `common.servicesPage.listServices.${service.serviceKey}.content`,
+                                        )}
                                     </CustomizeTypography>
                                 </Box>
                             </Grid>
