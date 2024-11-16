@@ -47,7 +47,7 @@ function SortProducts({ listData }) {
     useEffect(() => {
         const currentSorting = JSON.parse(localStorage.getItem('sortBy'));
         setSortingSelected(currentSorting);
-    }, [JSON.parse(localStorage.getItem('sortBy'))]);
+    }, []);
 
     const handleSortMenuClick = (event) => {
         setGetFilterPrice(event.currentTarget);
@@ -129,7 +129,7 @@ function SortProducts({ listData }) {
                 onClose={handleSortMenuClose}
                 sx={{
                     '.MuiList-root': { p: 0 },
-                    '.MuiPaper-rounded': { borderRadius: '12px' },
+                    '.MuiPaper-rounded': { borderTopLeftRadius: '0' },
                     '.MuiPaper-root': {
                         // boxShadow: '2px 4px 4px #b3b3b3',
                         boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.75)',

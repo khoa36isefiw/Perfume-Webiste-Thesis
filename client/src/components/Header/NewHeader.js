@@ -292,7 +292,8 @@ function NewHeader() {
                                         width: '100%',
                                     },
                                 }}
-                                value={searchQuery}
+                                // value={searchQuery}
+                                value={searchQuery == null ? '' : searchQuery}
                                 onChange={handleSearchChange}
                                 onClick={() => setShowSuggestions(!!searchQuery)}
                             />
