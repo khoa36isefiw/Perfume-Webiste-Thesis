@@ -6,7 +6,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import AbcIcon from '@mui/icons-material/Abc';
 const filterPriceLists = [
     {
         priceText: 'Low to High',
@@ -18,12 +18,23 @@ const filterPriceLists = [
         priceSubtitle: 'See all products, with price from high to low',
         priceIcon: <AttachMoneyIcon sx={{ fontSize: '24px', color: '#333' }} />,
     },
+    {
+        priceText: 'Name: A -> Z',
+        priceSubtitle: 'See all products, with name from A to Z',
+        priceIcon: <AbcIcon sx={{ fontSize: '28px', color: '#333' }} />,
+    },
+    {
+        priceText: 'Name: Z -> A',
+        priceSubtitle: 'See all products, with name from Z to A',
+        priceIcon: <AbcIcon sx={{ fontSize: '28px', color: '#333' }} />,
+    },
 ];
 
 // function SortProducts({ listData, sortingSelected, setSortingSelected }) {
 function SortProducts({ listData }) {
     const location = useLocation();
     const navigate = useNavigate();
+    const savedLanguage = localStorage.getItem('language');
 
     const [getFilterPrice, setGetFilterPrice] = useState(null);
     // Default to the first item
@@ -62,13 +73,14 @@ function SortProducts({ listData }) {
             const data = {
                 sortBy: 'name',
                 sortText: item,
+                sortType: item === 'Name: Z -> A' ? 'desc' : 'asc',
             };
             setSortingSelected(data);
             window.localStorage.setItem('sortBy', JSON.stringify(data));
             currentQueryParams.set('sortBy', 'name');
         }
 
-        navigate(`/shop?${currentQueryParams.toString()}`);
+        navigate(`/${savedLanguage}/shop?${currentQueryParams.toString()}`);
     };
 
     return (
