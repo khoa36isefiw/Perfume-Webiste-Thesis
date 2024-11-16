@@ -5,7 +5,7 @@ import { blogContent } from '../components/BlogsList/blogContent';
 
 function BlogDetail() {
     const location = useLocation();
-    const { blog } = location.state || {}; // get blog's data from the state
+    // const { blog } = location.state || {}; // get blog's data from the state
     const blogDataSaved = JSON.parse(window.localStorage.getItem('blog_detail_data'));
     console.log('blogDataSaved: ', blogDataSaved);
 

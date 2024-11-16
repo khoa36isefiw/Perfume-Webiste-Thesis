@@ -7,6 +7,7 @@ import { theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AbcIcon from '@mui/icons-material/Abc';
+import { blue } from '@mui/material/colors';
 const filterPriceLists = [
     {
         priceText: 'Low to High',
@@ -42,7 +43,6 @@ function SortProducts({ listData }) {
     // console.log('list data in sort: ', listData);
 
     const openSortMenu = Boolean(getFilterPrice);
-    console.log('selectedOptionFilter: ', sortingSelected);
 
     useEffect(() => {
         const currentSorting = JSON.parse(localStorage.getItem('sortBy'));
@@ -97,7 +97,13 @@ function SortProducts({ listData }) {
             }}
         >
             <CustomizeTypography
-                sx={{ color: theme.palette.normalText, fontWeight: 'bold', mb: 0 }}
+                sx={{
+                    color: theme.palette.normalText,
+                    fontWeight: 'bold',
+                    mb: 0,
+                    fontSize: '18px',
+                    color: blue[400],
+                }}
             >
                 Sort by
             </CustomizeTypography>
