@@ -16,9 +16,9 @@ function CategoryFilter() {
                     fontSize: '14px',
                     fontWeight: 'bold',
                     textTransform: 'initial',
-                    color: theme.palette.background.thirth,
+                    color: blue[50],
                     '&:hover': {
-                        bgcolor: blue[50],
+                        bgcolor: theme.palette.background.thirth,
                     },
                     [tabletScreen]: {
                         fontSize: '13px',

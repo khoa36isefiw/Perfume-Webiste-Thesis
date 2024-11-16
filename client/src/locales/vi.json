@@ -45,6 +45,30 @@
                 "title": "Chúng tôi phát cuồng vì những mùi hương hạt",
                 "content": "Hoa hồng, thường được gọi là 'Nữ hoàng của các loài hoa,' đã giữ một vị trí đặc biệt trong văn hóa và lịch sử con người qua nhiều thế kỷ. Ngoài vẻ đẹp quyến rũ, loài hoa mang tính biểu tượng này còn truyền cảm hứng cho các nhà chế tạo nước hoa để tạo ra một số mùi hương vượt thời gian và tinh tế nhất trên thế giới."
             }
+        },
+        "aboutPage": {
+            "aboutUs": "Giới thiệu về chúng tôi",
+            "aboutText": "Tại Tomtoc Perfumes, chúng tôi tin rằng nước hoa không chỉ là mùi hương; chúng là sự thể hiện cá tính và phong cách của một người. Niềm đam mê của chúng tôi đối với những loại nước hoa tinh tế đã thúc đẩy chúng tôi tạo ra một bộ sưu tập nắm bắt được bản chất của nhiều tính cách khác nhau, mang đến cho bạn trải nghiệm khứu giác vô song.",
+            "aboutStory": "Câu chuyện của chúng tôi",
+            "aboutStoryText": "Tomtoc Perfumes được thành lập bởi một nhóm những người đam mê nước hoa với tầm nhìn chung là tạo ra một thiên đường cho những người yêu thích nước hoa đang tìm kiếm những loại nước hoa đích thực, lấy cảm hứng từ địa phương. Lấy cảm hứng từ sự đa dạng và phong phú của các nền văn hóa trên khắp thế giới, chúng tôi bắt đầu hành trình tạo ra một bộ sưu tập nước hoa nắm bắt được bản chất của từng vùng. Mục tiêu của chúng tôi là đưa bạn đến gần hơn với trái tim và tâm hồn của các nền văn hóa khác nhau thông qua nghệ thuật nước hoa.",
+            "aboutUnique": "Điều gì làm nên sự độc đáo của chúng tôi",
+            "aboutUniqueList": {
+                "unique1": {
+                    "title": "Lấy cảm hứng từ địa phương",
+                    "content": "Nước hoa của chúng tôi được chế tác tỉ mỉ để phản ánh di sản văn hóa, truyền thống và cảnh quan của nhiều vùng miền khác nhau. Từ những con phố sôi động của Marrakech đến những khu vườn hoa anh đào thanh bình của Kyoto, mỗi loại nước hoa đều kể một câu chuyện độc đáo gắn liền với nguồn gốc của nó"
+                },
+                "unique2": {
+                    "title": "Thành phần chất lượng cao",
+                    "content": "Chúng tôi tin rằng chìa khóa cho một mùi hương đặc biệt nằm ở chất lượng của các thành phần. Đó là lý do tại sao chúng tôi hợp tác với các chuyên gia nước hoa, những người tìm nguồn nguyên liệu tốt nhất và có nguồn gốc đạo đức từ khắp nơi trên thế giới. Chúng tôi không bao giờ thỏa hiệp về chất lượng sản phẩm của mình, đảm bảo trải nghiệm lâu dài và sang trọng."
+                },
+                "unique3": {
+                    "title": "Dịch vụ cá nhân hóa",
+                    "content": "Chúng tôi hiểu rằng việc lựa chọn mùi hương hoàn hảo là một trải nghiệm vô cùng riêng tư. Đội ngũ chuyên gia về nước hoa của chúng tôi luôn sẵn sàng hỗ trợ bạn tìm ra loại nước hoa phù hợp với tính cách và phong cách của bạn. Cho dù bạn đang khám phá những mùi hương mới hay muốn tìm lại mùi hương yêu thích cũ, chúng tôi luôn ở đây để hướng dẫn bạn từng bước trên chặng đường này."
+                },
+                "thanks1": "Hãy tham gia cùng chúng tôi trong chuyến phiêu lưu khứu giác này khi chúng ta tôn vinh sự kết hợp đa dạng của các mùi hương từ khắp nơi trên thế giới. Khám phá những mùi hương quyến rũ chứa đựng bản chất của các nền văn hóa địa phương và kết nối với vẻ đẹp của nhân loại chung của chúng ta.",
+                "thanks2": "Cảm ơn bạn đã là một phần trong hành trình của chúng tôi.",
+                "thanks3": "Với tình yêu thương và lòng biết ơn, Đội ngũ nước hoa Tomtoc."
+            }
         }
     }
 }
