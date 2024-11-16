@@ -82,9 +82,11 @@ function OurValues() {
                     <CustomizeTypography
                         sx={{ fontSize: '18px', textIndent: '48px', textAlign: 'justify' }}
                     >
-                        Embracing sustainability and continuous learning, Local Face strives to be
+                        {/* Embracing sustainability and continuous learning, Local Face strives to be
                         more than just a shopping destination; we are a community that inspires and
-                        empowers individuals on their fragrance journey.
+                        empowers individuals on their fragrance journey. */}
+
+                        {t('common.homeValuesText2')}
                     </CustomizeTypography>
                 </Grid>
             </Grid>
