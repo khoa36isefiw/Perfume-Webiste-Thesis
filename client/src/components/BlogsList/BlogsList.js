@@ -90,7 +90,8 @@ const BlogItem = ({ listData }) => {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
     const handleNavigationProductDetail = (blog) => {
-        navigate(`/${i18n.language}/blog-detail/${blog.blogId}`, { state: { blog } });
+        // navigate(`/${i18n.language}/blog-detail/${blog.blogId}`, { state: { blog } });
+        navigate(`/${i18n.language}/blog-detail/${blog.blogTitle}`, { state: { blog } });
     };
     return (
         <>
