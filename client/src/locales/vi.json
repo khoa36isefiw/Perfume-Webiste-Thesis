@@ -110,6 +110,45 @@
             "ser3": "Tại Tomtoc, niềm đam mê đối với nước hoa thúc đẩy chúng tôi nỗ lực hết mình để phục vụ bạn tốt hơn. Chúng tôi mời bạn trải nghiệm các dịch vụ đặc biệt của chúng tôi và đắm mình trong thế giới của những mùi hương sang trọng. Hãy để chúng tôi trở thành điểm đến hương thơm đáng tin cậy của bạn, nơi những giấc mơ khứu giác của bạn trở thành hiện thực.",
             "ser4": "Nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ, vui lòng liên hệ với nhóm thân thiện của chúng tôi. Chúng tôi ở đây để biến hành trình khám phá hương thơm của bạn trở thành một hành trình thực sự đáng nhớ.",
             "ser5": "Nhóm Tomtoc."
+        },
+        "blogsPage": {
+            "blogKey1": {
+                "title": "Tại sao nước hoa của tôi không lưu hương đủ lâu?",
+                "content": ""
+            },
+            "blogKey2": {
+                "title": "Cách chọn bảng màu nước hoa cho mùa thay đổi",
+                "content": ""
+            },
+            "blogKey3": {
+                "title": "Cách pha chế nước hoa theo yêu cầu",
+                "content": ""
+            },
+            "blogKey4": {
+                "title": "Cách chọn nước hoa cho người khác",
+                "content": ""
+            },
+            "blogKey5": {
+                "title": "Hiểu về họ nước hoa của bạn và tìm ra loại nước hoa phù hợp nhất",
+                "content": ""
+            },
+            "blogKey6": {
+                "title": "Những cuốn sách về nước hoa hay nhất mà chúng tôi muốn học hỏi từ các nhà pha chế nước hoa",
+                "content": ""
+            },
+            "blogKey7": {
+                "title": "Những mùi hương tuyệt vời nhất cho mùa xuân",
+
+                "content": ""
+            },
+            "blogKey8": {
+                "title": "Ba loại nước hoa đặc trưng hàng đầu của chúng tôi cho mùa hè",
+                "content": ""
+            },
+            "blogKey9": {
+                "title": "Chúng tôi phát cuồng vì mùi hương hạt",
+                "content": ""
+            }
         }
     }
 }
