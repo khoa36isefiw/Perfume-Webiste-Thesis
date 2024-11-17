@@ -1,5 +1,6 @@
 const ProductBuyer = require('../models/ProductBuyer.model');
 const User = require('../models/User.model');
+const Product = require('../models/Product.model');
 
 const UserService = {
     getUserByEmail: async (email) => {
@@ -41,7 +42,7 @@ const UserService = {
             throw new Error('Product not found');
         }
         const isProductBought = await ProductBuyer.findOne({ user: user._id, product: productId });
-        return isProductBought;
+        return !!isProductBought;
     },
 };
 

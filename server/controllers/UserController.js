@@ -1,8 +1,11 @@
 const bcrypt = require('bcrypt');
-const User = require('../models/User.model');
-const nodemailer = require('nodemailer');
-require('dotenv').config();
 const generator = require('generate-password');
+require('dotenv').config();
+const User = require('../models/User.model');
+const Product = require('../models/Product.model');
+const nodemailer = require('nodemailer');
+const ProductReview = require('../models/ProductReview.model');
+const { checkProductBoughtByUser } = require('../services/UserService');
 
 const UserController = {
     getAll: async (req, res) => {
@@ -334,6 +337,40 @@ const UserController = {
             return res.status(200).json({ message: 'Cart cleared.' });
         } catch (error) {
             return res.status(500).json({ message: error.message });
+        }
+    },
+
+    review: async (req, res) => {
+        const { id, productId } = req.params;
+        const { rating, comment } = req.body;
+        try {
+            const product = await Product.findOne({ _id: productId });
+            if (!product) {
+                return res.status(404).json({ message: 'Product not found' });
+            }
+            // check condition if user has been bought product
+            const isProductBought = await checkProductBoughtByUser(id, productId);
+            console.log('isProductBought', isProductBought);
+            if (!isProductBought) {
+                return res.status(400).json({ message: 'You have not bought this product' });
+            }
+            const newReview = new ProductReview();
+            newReview.rating = rating;
+            newReview.comment = comment;
+            newReview.product = productId;
+            newReview.user = id;
+            const savedReview = await newReview.save();
+
+            product.numReviews += 1;
+            product.rating = (
+                (product.rating * product.numReviews + rating) /
+                (product.numReviews + 1)
+            ).toFixed(1);
+            await product.save();
+
+            res.status(200).json(savedReview);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
         }
     },
 };
