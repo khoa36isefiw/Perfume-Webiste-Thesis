@@ -210,6 +210,10 @@ function NewHeader() {
         }
     };
 
+    const handleNavigateShoppingCart = () => {
+        navigate(`/${i18n.language}/shopping-cart`);
+    };
+
     return (
         <Box
             sx={{
@@ -574,7 +578,8 @@ function NewHeader() {
                                 color="green"
                             >
                                 <IconButton
-                                    onClick={() => navigate('/shopping-cart')}
+                                    // onClick={() => navigate('/shopping-cart')}
+                                    onClick={handleNavigateShoppingCart}
                                     sx={{
                                         ml: 2,
                                         // mr: 1,
