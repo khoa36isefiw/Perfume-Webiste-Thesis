@@ -11,7 +11,7 @@ const PromotionController = {
             const promotions = await Promotion.find({ status: status });
             res.status(200).json(promotions);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -24,7 +24,7 @@ const PromotionController = {
             }
             res.status(200).json(promotion);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -37,22 +37,25 @@ const PromotionController = {
             const promotion = await Promotion.create(req.body);
             res.status(201).json(promotion);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
     update: async (req, res) => {
         const { id } = req.params;
-        const updateData = req.body;
+        const { discount, ...rest } = req.body;
         try {
             const promotion = await Promotion.findOne({ _id: id });
             if (!promotion) {
                 return res.status(404).json({ message: 'Promotion not found' });
             }
-            await Promotion.updateOne({ _id: id }, updateData);
+            if (discount < 0 || discount > 100) {
+                return res.status(400).json({ message: 'Discount must be between 0 and 100' });
+            }
+            await Promotion.updateOne({ _id: id }, { discount, ...rest });
             res.status(200).json({ message: 'Promotion updated successfully' });
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 
@@ -66,7 +69,7 @@ const PromotionController = {
             await Promotion.updateOne({ _id: id }, { status: 'inactive' });
             res.status(200).json({ message: 'Promotion deleted successfully' });
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
 };

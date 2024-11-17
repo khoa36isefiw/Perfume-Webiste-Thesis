@@ -94,12 +94,12 @@ const PaymentController = {
             }
 
             if (promotionCode) {
-                const promotion = await Promotion.findOne({ _id: promotionCode });
+                const promotion = await Promotion.findOne({ code: promotionCode });
                 if (!promotion) {
                     return res.status(400).json({ message: 'Promotion code not found' });
                 }
                 if (promotion.quantity > 0) {
-                    promotion.quantity -= 1;
+                    promotion.quantity = promotion.quantity - 1;
                     await promotion.save();
                 } else {
                     return res.status(400).json({ message: 'Promotion out of stock' });
