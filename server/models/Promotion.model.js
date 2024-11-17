@@ -11,6 +11,7 @@ const promotionSchema = new Schema(
         },
         code: {
             type: String,
+            unique: true,
             required: true,
         },
         description: String,
