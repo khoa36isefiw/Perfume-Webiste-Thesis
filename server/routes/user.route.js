@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const authToken = require('../middlewares/authToken');
 const userController = require('../controllers/UserController');
-const OrderController = require('../controllers/OrderController');
+// const OrderController = require('../controllers/OrderController');
 
-// router.get('/:id/orders', OrderController.getOrderByUserId);
+router.post('/:id/review/:productId', userController.review);
 router.post('/recover-password', userController.sendRecoverPassEmail);
 router.post('/check-email-availability', userController.checkEmailAvailability);
 router.put('/:id/delete', authToken.verifyTokenAdmin, userController.delete);
