@@ -110,6 +110,57 @@
             "ser3": "Tại Tomtoc, niềm đam mê đối với nước hoa thúc đẩy chúng tôi nỗ lực hết mình để phục vụ bạn tốt hơn. Chúng tôi mời bạn trải nghiệm các dịch vụ đặc biệt của chúng tôi và đắm mình trong thế giới của những mùi hương sang trọng. Hãy để chúng tôi trở thành điểm đến hương thơm đáng tin cậy của bạn, nơi những giấc mơ khứu giác của bạn trở thành hiện thực.",
             "ser4": "Nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ, vui lòng liên hệ với nhóm thân thiện của chúng tôi. Chúng tôi ở đây để biến hành trình khám phá hương thơm của bạn trở thành một hành trình thực sự đáng nhớ.",
             "ser5": "Nhóm Tomtoc."
+        },
+        "blogsPage": {
+            "blogKey1": {
+                "title": "Tại sao nước hoa của tôi không lưu hương đủ lâu?"
+            },
+            "blogKey2": {
+                "title": "Cách chọn bảng màu nước hoa cho mùa thay đổi",
+                "content": ""
+            },
+            "blogKey3": {
+                "title": "Cách pha chế nước hoa theo yêu cầu",
+                "content": ""
+            },
+            "blogKey4": {
+                "title": "Cách chọn nước hoa cho người khác",
+                "content": ""
+            },
+            "blogKey5": {
+                "title": "Hiểu về họ nước hoa của bạn và tìm ra loại nước hoa phù hợp nhất",
+                "content": ""
+            },
+            "blogKey6": {
+                "title": "Những cuốn sách về nước hoa hay nhất mà chúng tôi muốn học hỏi từ các nhà pha chế nước hoa",
+                "content": ""
+            },
+            "blogKey7": {
+                "title": "Những mùi hương tuyệt vời nhất cho mùa xuân",
+
+                "content": ""
+            },
+            "blogKey8": {
+                "title": "Ba loại nước hoa đặc trưng hàng đầu của chúng tôi cho mùa hè",
+                "content": ""
+            },
+            "blogKey9": {
+                "title": "Chúng tôi phát cuồng vì mùi hương hạt",
+                "content": {
+                    "title1": "Chúng tôi phát cuồng vì mùi hương hạt dẻ",
+                    "qoute": "Khi nói về hương vị ngon trong nước hoa, chúng ta thường nghĩ đến caramel và vani nhưng còn hương ngọt ngào không quá ngọt thì sao. Với tông gỗ và cay nồng, chúng tôi xin giới thiệu đến bạn một số mùi hương hạt dẻ tuyệt vời.",
+                    "title2": "Ba hương vị hạt dẻ sẽ khiến bạn phát thèm:",
+                    "content1": "Đậu Tonka là một thành phần phổ biến trong nước hoa ngon và được biết đến với mùi hương ấm áp và cay nồng. Nước hoa đậu Tonka thường chứa hương vani, caramel và hạnh nhân. Chúng mang đến một mùi hương độc đáo và phức tạp, hoàn hảo cho những ai thích hương vị ngon tinh tế.",
+                    "content2": "Hạt dẻ cười đang là thời điểm dành cho những ai yêu thích loại hạt nhỏ màu xanh lá cây này. Nước hoa kem hạt dẻ cười thường chứa hương vani béo ngậy, hạnh nhân và tất nhiên là hạt dẻ cười.",
+                    "content3": "Hạt phỉ là một loại hạt phổ biến khác trong giới sành ăn. Hạt phỉ rang lửa, vani và caramel mang đến hương thơm ấm áp và ngọt ngào, thường hoàn hảo cho những tháng mùa thu hoặc mùa đông.",
+                    "title3": "Thành phần nổi bật: Sesame Absolute",
+                    "content4": "Tonka Sesame có thể là mùi hương hạt dẻ mà bạn chưa từng biết mình thích. Mè là một thành phần phổ biến trong ẩm thực châu Á và mang đến mùi hương độc đáo và kỳ lạ. Các loại nước hoa có thành phần từ mè thường có hương mè rang và mật ong.",
+                    "content5": "Tonka Sesame chứa một thành phần tuyệt vời – Sesame Absolute của LMR, có mùi giống như hạt mè mà bạn biết. Chỉ cần một chút trong công thức cũng có tác động mạnh mẽ.",
+                    "content6": "Tonka Sesame của chúng tôi là sự pha trộn độc đáo giữa đậu tonka, mè và hạt phỉ, tạo nên mùi hương ấm áp và hạt dẻ vừa dễ chịu vừa tinh tế. Tonka Sesame là một phần của bộ sưu tập Essential, cho phép bạn pha trộn nhiều loại nước hoa khác nhau để tạo ra một mùi hương hoàn toàn mới độc đáo.",
+                    "content7": "Tonka Extraordinaire ra đời từ sự kết hợp của hai loại Essential, Tonka Sesame với Amber Iris, tạo nên hương vị sâu hơn, ấm hơn, được rang trên lửa. Đây là sự kết hợp hoàn hảo khi kết hợp các khía cạnh hạt nguyên bản của nó với hương hổ phách ấm áp và thuốc lá khô.",
+                    "content8": "Tonka Extraordinaire đã được đưa vào danh sách rút gọn cho Hạng mục Extraordinaire của UK Fragrance Foundation, một hạng mục công nhận các loại nước hoa độc lập vì những sáng tạo về khứu giác phi thường của họ."
+                }
+            }
         }
     }
 }

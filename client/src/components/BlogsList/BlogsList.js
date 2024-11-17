@@ -4,6 +4,7 @@ import { Avatar, Box, Container, Grid } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
 import { theme } from '../../Theme/Theme';
+import { useTranslation } from 'react-i18next';
 
 const blogsData = [
     {
@@ -11,54 +12,63 @@ const blogsData = [
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/12/Untitled-design-39.png',
         blogTitle: 'Why doesn’t my perfume last long enough?',
+        blogKey: 'blogKey1',
     },
     {
         blogId: 2,
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/drink-3025022_1920.jpg',
         blogTitle: 'How to Choose your Perfume Palettes for the Changing Seasons',
+        blogKey: 'blogKey2',
     },
     {
         blogId: 3,
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/1Y7A1148.jpg',
         blogTitle: 'How to Make Your Bespoke Perfume',
+        blogKey: 'blogKey3',
     },
     {
         blogId: 4,
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2020/11/braydon-anderson-wOHH-NUTvVc-unsplash-web-res.jpg',
         blogTitle: 'How To Choose A Perfume For Someone Else',
+        blogKey: 'blogKey4',
     },
     {
         blogId: 5,
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2020/11/EPC-Still-Life-3_V1-1.jpg',
         blogTitle: 'Understand Your Fragrance Family And Find Your Perfect Match',
+        blogKey: 'blogKey5',
     },
     {
         blogId: 6,
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/10/olia-gozha-J4kK8b9Fgj8-unsplash-scaled.jpg',
         blogTitle: 'Our Best Perfume Books to Learn from Perfumers',
+        blogKey: 'blogKey6',
     },
     {
         blogId: 7,
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/03/Instagram-post-portrait-1.png',
         blogTitle: 'The best scents for spring',
+        blogKey: 'blogKey7',
     },
     {
         blogId: 8,
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2021/06/nathan-hurst-BgBTv96kEW0-unsplash-scaled.jpg',
         blogTitle: 'Our Top Three Signature Blends for Summer',
+        blogKey: 'blogKey8',
     },
     {
         blogId: 9,
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/05/maddi-bazzocco-UhrHTmVBzzE-unsplash-scaled.jpg',
         blogTitle: 'We are nuts about nutty scents',
+        blogKey: 'blogKey9',
     },
 ];
 
@@ -78,9 +88,10 @@ export default BlogsList;
 
 const BlogItem = ({ listData }) => {
     const navigate = useNavigate();
-
+    const { t, i18n } = useTranslation('translate');
     const handleNavigationProductDetail = (blog) => {
-        navigate(`/blog-detail/${blog.blogId}`, { state: { blog } });
+        // navigate(`/${i18n.language}/blog-detail/${blog.blogId}`, { state: { blog } });
+        navigate(`/${i18n.language}/blog-detail/${blog.blogTitle}`, { state: { blog } });
     };
     return (
         <>
@@ -172,7 +183,8 @@ const BlogItem = ({ listData }) => {
                             textAlign: 'center',
                         }}
                     >
-                        {blog.blogTitle}
+                        {/* {blog.blogTitle} */}
+                        {t(`common.blogsPage.${blog.blogKey}.title`)}
                     </CustomizeTypography>
                 </Grid>
             ))}
