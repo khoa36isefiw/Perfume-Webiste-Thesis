@@ -9,13 +9,14 @@ import { SummaryRowInCart } from './SummaryRowInCart';
 import { converToVND } from '../convertToVND/convertToVND';
 import { useDispatch } from 'react-redux';
 import { saveSelectedProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
+import { useTranslation } from 'react-i18next';
 
 function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, priceChange, mutate }) {
     // console.log('productsList: ', productsList);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [totalSubtotal, setTotalSubtotal] = useState(0);
-
+    const { t, i18n } = useTranslation('translate');
     useEffect(() => {
         setTotalSubtotal(JSON.parse(window.localStorage.getItem('current_price')) || 0);
         setPriceChange(false);
@@ -72,7 +73,7 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
 
     const handleCheckout = () => {
         if (selectedProducts.length > 0)
-            navigate('/checkout', { state: { items: selectedProducts } });
+            navigate(`/${i18n.language}/checkout`, { state: { items: selectedProducts } });
         else navigate('');
     };
 
@@ -114,7 +115,7 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
             </Box>
             <CustomizeButtonInCart
                 textAction="Continue Shopping"
-                onHandleClick={() => navigate('/shop')}
+                onHandleClick={() => navigate(`/${i18n.language}/shop`)}
             />
         </Box>
     );

@@ -3,8 +3,10 @@ import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { paymentAPI } from '../../api/paymentAPI';
 import { useNavigate } from 'react-router-dom';
 import { PAYMENT_METHOD } from '../../utils/constants';
+import { useTranslation } from 'react-i18next';
 function PayPalButtonsComponents({ user, items }) {
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation('translate');
 
     const createOrder = async () => {
         try {
@@ -22,20 +24,20 @@ function PayPalButtonsComponents({ user, items }) {
             const response = await paymentAPI.capturePayPalPayment(paymentId);
 
             if (response.data.message === 'Payment successful') {
-                navigate(`/success?Ref=${paymentId}`);
+                navigate(`/${i18n.language}/success?Ref=${paymentId}`);
             } else {
-                navigate(`/cancel?Ref=${paymentId}`);
+                navigate(`/${i18n.language}/cancel?Ref=${paymentId}`);
             }
         } catch (error) {
             console.error('Error capturing PayPal order:', error);
-            navigate(`/cancel?Ref=${paymentId}`);
+            navigate(`/${i18n.language}/cancel?Ref=${paymentId}`);
         }
     };
 
     const onCancel = (data) => {
         const paymentId = data.orderID;
         console.log({ paymentId });
-        navigate(`/cancel?Ref=${paymentId}`);
+        navigate(`/${i18n.language}/cancel?Ref=${paymentId}`);
     };
     return (
         <PayPalScriptProvider

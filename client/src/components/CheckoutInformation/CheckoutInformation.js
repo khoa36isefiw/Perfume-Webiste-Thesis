@@ -39,11 +39,13 @@ import PayPalButtonsComponents from '../PayPalButtonComponents/PayPalButtonCompo
 import { ordersAPI } from '../../api/ordersAPI';
 import { paymentAPI } from '../../api/paymentAPI';
 import { PAYMENT_METHOD } from '../../utils/constants';
+import { useTranslation } from 'react-i18next';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
     const location = useLocation();
     const { items } = location.state || { items: [] };
+    const { t, i18n } = useTranslation('translate');
 
     const dispatch = useDispatch();
     const [informationSaved, setInformationSaved] = useState({});
@@ -263,7 +265,7 @@ function CheckoutInformation() {
             window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
             setShowNotification(true);
             setShowAnimation('animate__bounceInRight');
-            navigate(`/success?Ref=${response.data.order._id}`);
+            navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);
         }
     };
 
