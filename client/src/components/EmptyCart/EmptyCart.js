@@ -5,6 +5,7 @@ import emptyImage4 from '../../assets/images/empty-cart-svg.svg';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function EmptyCart({
     imgCart = emptyImage4,
@@ -17,6 +18,7 @@ function EmptyCart({
     imageSpacing,
     emptyCartHeight,
 }) {
+    const { t, i18n } = useTranslation('translate');
     const navigate = useNavigate();
     return (
         <Box
@@ -64,7 +66,7 @@ function EmptyCart({
             </CustomizeTypography>
             {isShowButton && (
                 <CustomizeButton
-                    onHandleClick={() => navigate('/shop')}
+                    onHandleClick={() => navigate(`/${i18n.language}/shop`)}
                     textAction={'Continue Shopping'}
                 />
             )}

@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import { authAPI } from '../../api/authAPI';
 import { theme } from '../../Theme/Theme';
+import { useTranslation } from 'react-i18next';
 
 export default function AuthenticatedUser() {
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function AuthenticatedUser() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const userData = JSON.parse(localStorage.getItem('user_data')) || null;
+    const { t, i18n } = useTranslation('translate');
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -38,18 +40,18 @@ export default function AuthenticatedUser() {
 
     const handleNavigateProfile = () => {
         setAnchorEl(null);
-        navigate('/profile-settings');
+        navigate(`/${i18n.language}/profile-settings`);
         backTop();
     };
 
     const handleNavigatePurchase = () => {
         setAnchorEl(null);
-        navigate('/my-purchase');
+        navigate(`/${i18n.language}/my-purchase`);
         backTop();
     };
     const handleNavigateChangePassword = () => {
         setAnchorEl(null);
-        navigate('/change-password');
+        navigate(`/${i18n.language}/change-password`);
         backTop();
     };
 
@@ -62,7 +64,8 @@ export default function AuthenticatedUser() {
             if (logout) {
                 window.localStorage.removeItem('user_data');
                 console.log('Logged out successfully');
-                navigate('/');
+                // navigate('/');
+                navigate(`/${i18n.language}/`);
             } else {
                 console.error('Logout failed');
             }

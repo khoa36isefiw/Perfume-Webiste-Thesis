@@ -12,6 +12,7 @@ import EmptyOrders from '../EmptyOrders/EmptyOrders';
 import Check from '@mui/icons-material/Check';
 import useUserById from '../../api/useUserById';
 import { ProductInCart } from './ProductInCart';
+import { useTranslation } from 'react-i18next';
 
 function Cart() {
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ function Cart() {
     const [priceChange, setPriceChange] = useState(false);
     const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId;
     const { data, mutate, isLoading, error } = useUserById(userId);
+    const { t, i18n } = useTranslation('translate');
 
     const [selectedProducts, setSelectedProducts] = useState([]);
 
@@ -34,7 +36,7 @@ function Cart() {
                     <Grid container spacing={2}>
                         <Grid item xs={12} lg={12}>
                             <Button
-                                onClick={() => navigate('/shop')}
+                                onClick={() => navigate(`/${i18n.language}/shop`)}
                                 startIcon={
                                     <ArrowBackIcon
                                         sx={{
