@@ -13,7 +13,7 @@ import {
     blogDetailData8,
 } from './blogDetailsData';
 
-export const blogContent = {
+export const blogContent = (t) => ({
     1: (
         <Box>
             <Box
@@ -56,7 +56,8 @@ export const blogContent = {
                             },
                         }}
                     >
-                        Why doesn’t my perfume last long enough?
+                        {/* Why doesn’t my perfume last long enough? */}
+                        {t('common.ets')}
                     </Typography>
                 </Box>
             </Box>
@@ -1966,4 +1967,4 @@ export const blogContent = {
             </Container>
         </Box>
     ),
-};
+});
