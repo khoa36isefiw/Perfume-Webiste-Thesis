@@ -19,13 +19,15 @@ import { backTop } from '../goBackTop/goBackTop';
 import { useRef } from 'react';
 import generatePDF from 'react-to-pdf';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const OrderLists = ({ ordersListData, orderHistory }) => {
     const navigate = useNavigate();
     const targetRef = useRef();
+    const { t, i18n } = useTranslation('translate');
 
     const handleInvoicePage = (order) => {
-        navigate(`/order-invoice?id=${order._id}`, { state: { order } });
+        navigate(`/${i18n.language}/order-invoice?id=${order._id}`, { state: { order } });
         backTop();
     };
 

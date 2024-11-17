@@ -426,7 +426,7 @@ function NewHeader() {
                             >
                                 <CustomizeButton
                                     textAction={'Sign In'}
-                                    onHandleClick={() => navigate('/sign-in')}
+                                    onHandleClick={() => navigate(`/${i18n.language}/sign-in`)}
                                 />
                             </Box>
                             <Box
@@ -439,7 +439,9 @@ function NewHeader() {
                             >
                                 <CustomizeButtonOutlined
                                     textAction={'Register'}
-                                    onHandleClick={() => navigate('/create-account')}
+                                    onHandleClick={() =>
+                                        navigate(`/${i18n.language}/create-account`)
+                                    }
                                 />
                             </Box>
                             <CustomizeButtonOutlined

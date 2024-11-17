@@ -10,8 +10,10 @@ import { loginAccount } from '../../redux/feature/AccountManagement/AccountManag
 import { authAPI } from '../../api/authAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { useTranslation } from 'react-i18next';
 
 function SignIn() {
+    const { t, i18n } = useTranslation('translate');
     const dispatch = useDispatch();
     const {
         showNotification,
@@ -57,7 +59,7 @@ function SignIn() {
                     );
                     showMessage('success', 'Login', 'Login successfully!');
                     setTimeout(() => {
-                        navigate('/');
+                        navigate(`/${i18n.language}/`);
                     }, 1500);
                     window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
                 } else {
@@ -218,7 +220,7 @@ function SignIn() {
                                         borderBottom: `1px solid ${theme.palette.text.secondary}`,
                                     },
                                 }}
-                                onClick={() => navigate('/recover-password')}
+                                onClick={() => navigate(`/${i18n.language}/recover-password`)}
                             >
                                 Forgot Password?
                             </CustomizeTypography>
@@ -252,7 +254,7 @@ function SignIn() {
                             </CustomizeTypography>
                             <ButtonComponent
                                 textAction={'Register'}
-                                onHandleClick={() => navigate('/create-account')}
+                                onHandleClick={() => navigate(`/${i18n.language}/create-account`)}
                             />
                         </Grid>
                     </Grid>
