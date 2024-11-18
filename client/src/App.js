@@ -12,6 +12,7 @@ function App() {
             window.location.replace('/en');
         }
     }, []);
+
     return (
         <Box sx={{ bgcolor: '#000000' }}>
             <Router>

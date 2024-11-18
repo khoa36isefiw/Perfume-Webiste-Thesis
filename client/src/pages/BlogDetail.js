@@ -10,8 +10,11 @@ function BlogDetail() {
     const blogDataSaved = JSON.parse(window.localStorage.getItem('blog_detail_data'));
     console.log('blogDataSaved: ', blogDataSaved);
     const { t } = useTranslation('translate');
+    // const blogContent = blogContent(t);
+    const getBlogContent = blogContent(t);
 
-    return <Box>{blogContent[blogDataSaved.blogId](t)}</Box>;
+    // return <Box>{blogContent[blogDataSaved.blogId](t)}</Box>;
+    return <Box>{getBlogContent[blogDataSaved.blogId]}</Box>;
 }
 
 export default BlogDetail;

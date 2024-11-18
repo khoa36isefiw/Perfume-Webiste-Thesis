@@ -57,7 +57,8 @@ export const blogContent = (t) => ({
                         }}
                     >
                         {/* Why doesn’t my perfume last long enough? */}
-                        {t('common.ets')}
+                        {/* {t('common.ets')} */}
+                        ahiahiahi
                     </Typography>
                 </Box>
             </Box>

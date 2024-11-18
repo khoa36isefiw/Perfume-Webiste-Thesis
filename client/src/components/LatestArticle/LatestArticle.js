@@ -1,16 +1,21 @@
 import { Avatar, Box, Button, Container } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { latestArticlesData } from './latestArticlesData';
 import { theme } from '../../Theme/Theme';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 function LatestArticle() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { t } = useTranslation('translate');
     const savedLanguage = window.localStorage.getItem('language');
+    console.log(
+        '!location.pathname.includes(/blog-detail): ',
+        location.pathname.includes('/blog-detail'),
+    );
 
     const handleNavigationProductDetail = (blog) => {
         // navigate(`/${savedLanguage}/blog-detail/${blog.blogId}`, { state: { blog } });
