@@ -314,10 +314,14 @@ export const blogDetailData7 = [
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2022/11/EPC-Tonka-Sesame-50ml-sq.jpg',
 
         blogContent: [
-            'Tonka Sesame might be the nutty scent you never knew you liked. Sesame is a popular ingredient in Asian cuisine, and offers a unique and exotic scent. Sesame-based fragrances typically feature notes of roasted sesame and honey. ',
-            'Tonka Sesame contains a wonderful ingredient – Sesame Absolute by LMR, which just smells like the sesame seeds you know. Only a trace in the formula has a powerful impact.',
-            'Our Tonka Sesame is a unique blend of tonka bean, sesame and hazelnut, resulting in a warm and nutty scent that is both comforting and sophisticated. Tonka Sesame is part of the Essential collection, which allows you to blend different fragrances to create a completely new unique scent. ',
+            // 'Tonka Sesame might be the nutty scent you never knew you liked. Sesame is a popular ingredient in Asian cuisine, and offers a unique and exotic scent. Sesame-based fragrances typically feature notes of roasted sesame and honey. ',
+            // 'Tonka Sesame contains a wonderful ingredient – Sesame Absolute by LMR, which just smells like the sesame seeds you know. Only a trace in the formula has a powerful impact.',
+            // 'Our Tonka Sesame is a unique blend of tonka bean, sesame and hazelnut, resulting in a warm and nutty scent that is both comforting and sophisticated. Tonka Sesame is part of the Essential collection, which allows you to blend different fragrances to create a completely new unique scent. ',
+            'content4',
+            'content5',
+            'content6',
         ],
+        blogKey: 'title3',
     },
     {
         blogTitle: '',
@@ -325,9 +329,12 @@ export const blogDetailData7 = [
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2022/11/Tonka-Extraordinaire-50ml-sqLR.jpg',
 
         blogContent: [
-            'Tonka Extraordinaire is born from pairing two Essentials, Tonka Sesame with Amber Iris, creating a deeper, warmer,  fire-roasted quality. It’s a perfect pairing bringing together its original nutty facets with a warm ambery and tobacco drydown. ',
-            'Tonka Extraordinaire has been shortlisted for UK Fragrance Foundation’s Extraordinaire Category, a category that recognises independent perfumes for their extraordinary olfactive creations. ',
+            // 'Tonka Extraordinaire is born from pairing two Essentials, Tonka Sesame with Amber Iris, creating a deeper, warmer,  fire-roasted quality. It’s a perfect pairing bringing together its original nutty facets with a warm ambery and tobacco drydown. ',
+            // 'Tonka Extraordinaire has been shortlisted for UK Fragrance Foundation’s Extraordinaire Category, a category that recognises independent perfumes for their extraordinary olfactive creations. ',
+            'content7',
+            'content8',
         ],
+        blogKey: 'title4',
     },
 ];
 

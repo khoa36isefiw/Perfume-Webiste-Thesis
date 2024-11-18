@@ -56,9 +56,7 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        {/* Why doesn’t my perfume last long enough? */}
                         {/* {t('common.ets')} */}
-                        ahiahiahi
                     </Typography>
                 </Box>
             </Box>
@@ -1469,7 +1467,8 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        We are nuts about nutty scents
+                        {/* We are nuts about nutty scents */}
+                        {t(`common.blogsPage.blogKey9.title`)}
                     </Typography>
                 </Box>
             </Box>
@@ -1505,10 +1504,7 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        When we talk gourmand notes in perfumery, we often think about caramel and
-                        vanilla but what about sweet notes that are not so excessively sweet. With
-                        woody and spicy undertones, let us introduce you to some delightful nutty
-                        scents.
+                        {t(`common.blogsPage.blogKey9.content.qoute`)}
                     </Typography>
                 </Box>
                 <Box
@@ -1539,24 +1535,16 @@ export const blogContent = (t) => ({
                                     fontWeight: 'bold',
                                 }}
                             >
-                                Three nutty notes that will give you salivating reactions:
+                                {t(`common.blogsPage.blogKey9.content.title2`)}
                             </CustomizeTypographyBlog>
                             <CustomizeTypographyBlog>
-                                Tonka bean is a popular ingredient in gourmand fragrances and is
-                                known for its warm and spicy scent. Tonka bean fragrances typically
-                                contain notes of vanilla, caramel and almond. They offer a unique
-                                and complex scent that is perfect for those who enjoy a
-                                sophisticated gourmand.
+                                {t(`common.blogsPage.blogKey9.content.content1`)}
                             </CustomizeTypographyBlog>
                             <CustomizeTypographyBlog>
-                                Pistachio is having its moment for those who love the small green
-                                nut. Pistachio cream fragrances typically contain notes of creamy
-                                vanilla, almond and of course, pistachio.
+                                {t(`common.blogsPage.blogKey9.content.content2`)}
                             </CustomizeTypographyBlog>
                             <CustomizeTypographyBlog>
-                                Hazelnuts are another popular nut in gourmands. Fire-roasted
-                                hazelnuts, vanilla and caramel offer a warm and sweet scent,
-                                typically perfect for the fall or winter months.
+                                {t(`common.blogsPage.blogKey9.content.content3`)}
                             </CustomizeTypographyBlog>
                         </Grid>
                     </Grid>
@@ -1581,7 +1569,7 @@ export const blogContent = (t) => ({
                                             mb: 2,
                                         }}
                                     >
-                                        {blog.blogTitle}
+                                        {t(`common.blogsPage.blogKey9.content.${blog.blogKey}`)}
                                     </CustomizeTypographyBlog>
                                     {blog.blogContent?.map((text, index) => (
                                         <CustomizeTypographyBlog
@@ -1591,7 +1579,7 @@ export const blogContent = (t) => ({
                                                 mb: 2,
                                             }}
                                         >
-                                            {text}
+                                            {t(`common.blogsPage.blogKey9.content.${text}`)}
                                         </CustomizeTypographyBlog>
                                     ))}
                                 </Box>
