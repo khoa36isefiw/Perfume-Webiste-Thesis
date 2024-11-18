@@ -10,6 +10,8 @@ export const blogData = [
             'For those of you who love that herbal Nordic scent with a twist of tang, we have Cèdre Blond. The leathery cèdre is beautifully countered with tangy citrus, herbs and spices. Together, they fuse, producing a soft woody fragrance with smoky blonde tobacco notes and warming absinth.',
             'Bergamot Noir is also a perfect contrast of freshness and warmth. Pairing two opposites in a blend full of both light and dark. The zing of zesty bergamot, paired with punchy pink peppercorn, brings a bright burst to this fragrance. A warming and sensual sandalwood mellows the scent to a skin-soft finish.',
         ],
+        contentKey: ['p11', 'p12', 'p13', 'p14'],
+        titleKey: 'h2',
     },
     {
         blogDataID: 2,
@@ -21,6 +23,8 @@ export const blogData = [
             'This year we’re introducing our new Autumn / Winter Edition Blend, Soleil D’Hiver. Blended with three EPC Essential Eau de Parfum, Cardamom Moss, Rose Rhubarb and Sandalwood Musk. Spicy, warm and mineral, this fragrance is a story of a rose under the snow.',
             'The top notes of Cardamom and Pink Peppercorn are a delight; this blend unveils Moroccan Rose, caressed by Oolong Tea. Resting beneath the cold scent of snow, the base notes of Sandalwood, Leather, and Tobacco invigorate the senses while enticing the wearer for more.',
         ],
+        contentKey: ['p21', 'p22', 'p23'],
+        titleKey: 'h3',
     },
     {
         blogDataID: 3,
@@ -32,6 +36,8 @@ export const blogData = [
             'Black Nagarmotha is a scent that’s delicious enough to cut into slices. If you love those heavy, leathery notes that remind you of your hidden reading nook – this is for you. Accompanying those deep, sensual notes are the heart and top notes of sweet resins, spicy saffron, cinnamon and cardamom. Together, they blend into a fragrance you’ll want to curl up with.',
             'After something just as deep but a little less sweet? Why not try Bois d’Absinthe. This winter wonderland scent combines Herbaceous woods, iris root, and cedarwood with light notes like petitgrain, basil and fig. Or experiment with the fragrance that was our starting point for a winter collection, Cedarwood Absinth. This fragrance leans on an herbal heart and top notes, combining woody and leathery notes with Cypriol root, balsamic undertones and patchouli.',
         ],
+        contentKey: ['p31', 'p32', 'p33'],
+        titleKey: 'h4',
     },
 ];
 
@@ -39,191 +45,133 @@ export const blogDetailData = [
     {
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/Untitled-design-20.png',
-        blogTitle: 'THE BASICS: Layering',
-        blogContent: [
-            'Layering a scent with another is a quick route to give you a personalised perfume. Layering has gained popularity over the last decade with perfume lovers and it is one of the most popular ways to use perfumes in the Middle East.',
-            'The key thing to be aware of when you are trying out scents to layer, is the complexity of the perfume. There are some immensely intricate fragrances out there, and although these may be beautiful alone, they may be trickier to layer. A Chanel No 5 might be heavenly alone, but when layered with Guerlain’s Mitsouko creates a complicated fragrance cocktail.',
-            'You want to look for minimalistic fragrances with uncomplicated scent and ingredient formulae that aren’t too long. You can also look for scents with overlapping ingredients, two fragrances that use jasmine as a main note, for example. Try not to go for anything too complex, you could start by finding a nice soliflore, or a single-note fragrance, and layer it with another scent that has that ingredient in common.',
-            'Our favourite way to layer is to find fragrances on opposite ends of the fragrance wheel – just as with colours – these will often pair beautifully. Mixing a light citrus scent with the right woody fragrance might result in something utterly irresistible. Our Essentials collection – minimalist fragrances that celebrate the simple complexity of ingredients – were designed to be blended together and make for perfect layering pairs when combining an Essential from the TOP category (fresh scent) with another Essential with a BASE category (deep scent).',
-            'Layering can be done at any point of application, whether you begin with a scented body lotion that’ll compliment your perfume, spray one on top of the other (always begin with the heavier scent when doing this), or spray one on your neck, one on your hair and notice them mingle through the day. Whichever way you prefer, will lead you to your personalised fragrance.',
-        ],
+        blogTitle: 'h1',
+        blogContent: ['p1', 'p12', 'p13', 'p14', 'p15'],
     },
     {
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/Untitled-design-21.png',
-        blogTitle: 'INGREDIENT LOVERS: Amp Your Own Scent',
-        blogContent: [
-            'Amping up your scent with another single perfume ingredient can also be a lovely way to personalise your fragrance, and really make it unique to you.',
-            'You could find a fragrance with a key ingredient you love, then overdose it with the oil of the ingredient. Say you’re a fan of our Rose/Rhubarb scent, why not amp it up with some rose oil from one of our ingredient kits to really bolster and emphasise the rose.',
-            'You can also layer with an oil directly on the skin, or mix in an atomizer, for a truly personalised perfume.',
-        ],
+        blogTitle: 'h2',
+        blogContent: ['p21', 'p22', 'p23'],
     },
     {
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/Untitled-design-22.png',
-        blogTitle: 'BESPOKE EXPERIENCE: Find Your Signature Blend',
-        blogContent: [
-            'Our fragrances have been especially designed to blend together to create endless possible scents.',
-            'Our Creation Sets were designed specifically with blending in mind and contains a choice of three fragrances that can be blended together with guaranteed success. The set is accompanied by a pipette, an empty blending bottle and a 70-page formula book that acts as a guide to blending: the height of blendable, customisable fragrances.',
-            'If you prefer to be accompanied in your blending journey, you may prefer to opt for the Creation Sets & online blending consultation.',
-            'If you’d like to meet our team of perfumers in person, you can also visit our London Lab – boutique where you’ll be taken on a blending consultation. Just come in with your nose, ready for a unique and fun blending experience.',
-        ],
+        blogTitle: 'h3',
+        blogContent: ['p31', 'p32', 'p33', 'p34'],
     },
     {
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/Untitled-design-23.png',
-        blogTitle: 'MADE TO MEASURE: Blending Your Own Scent from Scratch',
-        blogContent: [
-            'One option for those looking for a fully bespoke fragrance, is to make your own scent from scratch, where you’ll be using perfume ingredients, dabbing into the “real” formulation.',
-            'There are varying ways of doing this, from blending at home yourself, to creating a bespoke scent with a trained perfumer.',
-            'Delve into the world of perfumery yourself with our ingredient kits or the Perfumer’s Atelier – a kit containing 50 ingredients, and a perfumer’s handbook, that will help you along in your quest for personalised perfume. After sniffing your way through you’ll be versed in various ingredients, and, combined with a Lab Pack for blending, you’ll have immeasurable combinations to play with.',
-        ],
+        blogTitle: 'h4',
+        blogContent: ['p41', 'p42', 'p43'],
     },
 ];
 
 export const blogDetailData4 = [
     {
-        blogTitle: '1. FIND OUT WHAT THEY WEAR',
+        blogTitle: 'h1',
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/1Y7A0997-1600x1066.jpg',
 
-        blogContent: [
-            'Either hunt through their perfume collection or just simply ask (if you’re feeling like they won’t guess what you’re up to)… but look out for the fragrance family that their favourite perfume falls into. It might be citrus, woody, floral for example and chances are that the person you want to gift has a preferred type of fragrance.',
-            'Just knowing two or three of their favourites is enough to get an idea of their scent profile. You can then put these into Google or perfume referencing websites such as Fragrantica or WikiParfum to find out if there are common structures or ingredients, and what perfumes might suit.',
-            'Discovery Sets are a perfect way to try several family style of fragrances in a single box without having to commit to one in particular.',
-        ],
+        blogContent: ['p11', 'p12', 'p13'],
     },
     {
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2020/11/tuberose-4-5-597.jpg',
-        blogTitle: '2. MATCH THEIR PERSONALITY',
-        blogContent: [
-            'Be logical when matching a scent with someone’s personality. That may be an obvious one, but don’t give an overpowering “look at me” scent to someone who usually doesn’t wear much perfume or has a discreet personality.',
-            'Big personalities can rock orientals, heavy white flowers, spicy notes and woody gourmand fragrances. Otherwise, go for lighter florals, soft orientals, musky and fresh citrus fragrances.',
-        ],
+        blogTitle: 'h2',
+        blogContent: ['p21', 'p22'],
     },
     {
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/Untitled-design-27.png',
-        blogTitle: '3. CHOOSE WITH YOUR NOSE, NOT THE BRAND',
-        blogContent: [
-            'While the big brand names may be a sure sign of a great fragrance, what your partner is the most interested in is how they smell when they wear it. So trust your nose! Explain your journey in finding it, why you chose it and why you liked it – it might be that it reminded you of a place you visited together or there’s a special ingredient in there that is dear to you – the personal touch and storytelling is also as important.',
-            'Adding a personal touch to your selection process might be the perfect way to win their approval! Why not try our Scent Designer and design a fragrance you think they’ll love!',
-            'Another option is get them an array of choice and let them decide which scent will win their heart for themselves with our Creation Sets.',
-        ],
+        blogTitle: 'h3',
+        blogContent: ['p31', 'p32', 'p33'],
     },
     {
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/12/Untitled-design-24.png',
-        blogTitle: '4. LOOK BEYOND PERFUME',
-        blogContent: [
-            'If you’re worried about getting the wrong perfume, then look outside the traditional spray format and into other scented gifts. Candles are a good example, soaps, room sprays (you can spray your bed linen), or there’s even scented jewellery such as bracelets.',
-            'Don’t forget you also have a wide variety of choice when it comes to hand creams, shower gels and bath oils that will beat your normal Nivea products hands down.',
-        ],
+        blogTitle: 'h4',
+        blogContent: ['p41', 'p42'],
     },
     {
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2023/11/Untitled-design-26.png',
-        blogTitle: '5. GIFT A PERFUME EXPERIENCE',
-        blogContent: [
-            'Last but not least, here at the Experimental Perfume Club we give you the unique opportunity to gift a bespoke fragrance for that special someone to learn what type of fragrances they love by themselves!',
-            'Choose from a full experience at one of our perfume making workshops or our Blending Consultation at our London perfume laboratory where you’ll learn and create your own fragrance, or prefer a visit to our Blending Lab in Selfridges to get a 1-2-1 consultation and get a bespoke fragrance of your choice blended for you.',
-            'Explore our Perfumer’s Atelier and play perfumer at home!',
-            'So many options, but any one you choose, we guarantee you’ll smell wonderful and you’ll gain a better sense of what you like and don’t like while wearing a fragrance no one else will wear!',
-        ],
+        blogTitle: 'h5',
+        blogContent: ['p51', 'p52', 'p53', 'p54'],
     },
 ];
 
 export const blogDetailData5 = [
     {
-        blogTitle: '1. CITRUS',
+        blogTitle: 'h1',
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/10/monika-grabkowska-VSYjkfzj3nw-unsplash-web-res.jpg',
 
-        blogContent: [
-            '"A family of top note ingredients from citrus fruits such as orange, mandarin and bergamot. They are one of the freshest families on the scent spectrum whose scents are very sharp and fleeting, giving any fragrance an immediate sparkle. The essential oils of these ingredients are mostly extracted from the zest of the fruit. These smells are for that very reason zesty, tangy, juicy and fresh as well as being considered as energising and summery!"',
-        ],
+        blogContent: ['p3'],
     },
     {
-        blogTitle: '2. GREEN',
+        blogTitle: 'h2',
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/10/ochir-erdene-oyunmedeg-LmyPLbbUWhA-unsplash-scaled.jpg',
 
-        blogContent: [
-            'Can you smell the freshly cut grass and leaves from the garden? That’s the smell of the green family. Another group of top note ingredients that create a fresh and sharp aroma, with crispy and vegetal notes. It’s very popular for summery fragrances to feature green notes in their composition as they give a natural, lively and crisp feeling from the first sniff.',
-        ],
+        blogContent: ['p4'],
     },
     {
-        blogTitle: '3. FLORAL',
+        blogTitle: 'h3',
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/10/tuberose-4-5-597.jpg',
 
-        blogContent: [
-            'Easily recognisable and the largest family of them all, floral contains the widest variety of ingredients most of which are flowers. It has a smell that is the most familiar to us, with rose and jasmine being star names. In fact, most floral perfumes will have one (soliflore), or many of these (bouquet) at the heart of their fragrance formula. Flowers are great at being the stand out signature ingredient but also sitting gently in the middle to bring balance to a fragrance. Other flowers popular in the floral family are orange blossom, peony and gardenia.',
-        ],
+        blogContent: ['p5'],
     },
     {
-        blogTitle: '4. FRUITY',
+        blogTitle: 'h4',
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2020/11/the-matter-of-food-lqwVe3qO6l4-unsplash-scaled.jpg',
 
-        blogContent: [
-            'Exactly as the name suggests, this family comprises of fruity ingredients. Think juicy, sweet and edible aromas such as peach, apple and rhubarb. It’s a collection of mid-note ingredients that are more modern in terms of its addition to the scent spectrum, as new technologies have allowed for new ways to create the smell of fruits. Fruity notes bring sparkle and youth to fragrances. A very common family to be used in fragrances!',
-        ],
+        blogContent: ['p6'],
     },
     {
-        blogTitle: '5. AQUEOUS',
+        blogTitle: 'h5',
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/10/cia-gould-5-WsIPUwhlI-unsplash-scaled.jpg',
 
-        blogContent: [
-            'The smell of water and air, in a way, almost the smell of nothing. A great group of ingredients, mostly synthetic molecules, that help add lightness and space to a fragrance. One of the most famous aqueous ingredients is called Calone and it is commonly used in all aquatic, sea, rain, watery notes. If you really want to be creative this family can help create the smell of fog and rain!',
-        ],
+        blogContent: ['p7'],
     },
     {
-        blogTitle: '6. FOUGERE',
+        blogTitle: 'h6',
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/10/matthew-t-rader-zTnSP9blcws-unsplash-scaled.jpg',
 
-        blogContent: [
-            'Can also be known as the aromatic family, Fougere means fern in French. Fougere is aromatic with a smell of lavender and other herbs married together with tonka bean (coumarin). Hugely popular in men’s fragrances particularly during the 1950s when it was considered ‘the barbershop smell’, but so much so it became overused and took a hiatus in the perfume world until recently. We’re now seeing a new found love for this classic aroma by every gender which is great, especially as the first fragrance that was created using Fougere in 1882 was designed for women!',
-        ],
+        blogContent: ['p8'],
     },
     {
-        blogTitle: '7. SPICY',
+        blogTitle: 'h7',
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/10/marion-botella-uaHShoIDGeo-unsplash-web-res.jpg',
 
-        blogContent: [
-            'It does what it says on the tin (or bottle). A family of exotic spices including pepper, clove and cinnamon, that when come together can be reminiscent of Christmas or cooking spices. Warm and comforting middle note ingredients that add, well, spiciness to any scent.',
-        ],
+        blogContent: ['p9'],
     },
     {
-        blogTitle: '8. ORIENTAL',
+        blogTitle: 'h8',
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/10/krystal-ng-OFoeCueYHyA-unsplash-scaled.jpg',
 
-        blogContent: [
-            'Vanilla, resigns such as myrrh, frankincense, warm and powdery notes make up the comforting oriental family … This base note family is sweet, powdery and warm. It’s almost gourmand like and the most sensual note of them all, but it should not be confused with the edible family which borrows much more from the smell of cake and sugar. With a heavily eastern influence, it’s composition hasn’t shifted much since the days of its first creation. Oriental fragrances tend to be worn as evening fragrances due to their long-lasting, dark and seductive qualities.',
-        ],
+        blogContent: ['p10'],
     },
     {
-        blogTitle: '9. WOODY',
+        blogTitle: 'h9',
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/10/jean-wimmerlin-dcasj22jmCk-unsplash-1-scaled.jpg',
 
-        blogContent: [
-            'Dominated by woody scents such as sandalwood and cedarwood as well as patchouli and vetiver, this is a family that is most commonly adored by men. Think sawdust and pencil shavings, it has a dry and soft aroma that brings warmth and power to a fragrance. Comprising only of base note ingredients it also adds a long-lasting quality.',
-        ],
+        blogContent: ['p111'],
     },
     {
-        blogTitle: '10. CHYPRE',
+        blogTitle: 'h10',
         blogImage:
             'https://cdn.experimentalperfumeclub.com/wp-content/uploads/2019/10/nate-bell-M1gaxG1UN1E-unsplash-1-scaled.jpg',
 
-        blogContent: [
-            'Mossy and slightly animalic, this family has a history dating back to perfumes from the Roman times. It was named after the island Cyprus, as a lot of the florals included in this family are found on the island. It was bought into the modern day in 1917 and at this time was predominately worn by women as a highly sophisticated scent. It contains an array of ingredients but mostly it’s oakmoss, patchouli and leathery notes.',
-        ],
+        blogContent: ['p112'],
     },
 ];
 

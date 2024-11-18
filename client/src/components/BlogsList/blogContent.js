@@ -56,7 +56,7 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        {/* {t('common.ets')} */}
+                        {t(`common.blogsPage.blogKey1.title`)}
                     </Typography>
                 </Box>
             </Box>
@@ -90,11 +90,10 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        It is one of – if not the – most asked questions in perfumery. But, like all
-                        great questions, the answer is complicated.
+                        {t(`common.blogsPage.blogKey1.content.q1`)}
                         <br />
                         <br />
-                        Here are five reasons you may not smell a fragrance for as long as you wish.
+                        {t(`common.blogsPage.blogKey1.content.q2`)}
                     </Typography>
                 </Box>
                 <Box
@@ -139,35 +138,20 @@ export const blogContent = (t) => ({
                             fontFamily: 'Courier, sans-serif',
                         }}
                     >
-                        1. Olfactory fatigue: Your brain is getting “blind” to your own scent.
+                        {t(`common.blogsPage.blogKey1.content.h1`)}
                     </Typography>
                     <Box sx={{ maxWidth: 750, mt: 1 }}>
-                        <CustomizeTypographyBlog>
-                            Our nervous system – your body’s control centre, has evolved to become
-                            less sensitive to recurring stimuli. Back in the day, this gave us a
-                            fighting chance to deal with all the dangers we encountered. It’s why a
-                            new scent, sight, texture or taste heightens our interest. Our body is
-                            saying, hang on a minute, that’s new. What is it?
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p11`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            When it comes to scents, it means we always lose perspective. If you
-                            wear the same fragrance daily, you’re bound to think the potency has
-                            dwindled over the years, or even throughout the day. It’s why you can’t
-                            smell the scent of your home, while other people will pick up on it
-                            immediately.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p12`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            The same goes for the perfume you are wearing on your neck. Your nose
-                            and brain will naturally get used to it. You may even lose the scent
-                            completely. But it’s there, just as you remember it, and other people
-                            will smell it more than you since they have not adapted to it!
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p13`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            If you can’t smell your perfume anymore, try to spray your fragrance on
-                            your wrists or another part of your body. The trick is distancing the
-                            location from your nose. This small modification can alter the chemistry
-                            and reignite your detection. At the very least, the change will catch
-                            you by surprise when you move around and get a fresh waft.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p14`)}
                         </CustomizeTypographyBlog>
                     </Box>
                 </Box>
@@ -203,53 +187,29 @@ export const blogContent = (t) => ({
                             fontFamily: 'Courier, sans-serif',
                         }}
                     >
-                        2. Your perfume preferences: The style of perfume you enjoy wearing will
-                        dictate its longevity
+                        {t(`common.blogsPage.blogKey1.content.h2`)}
                     </Typography>
                     <Box sx={{ maxWidth: 750, mt: 1 }}>
-                        <CustomizeTypographyBlog>
-                            Perfumers always talk about the olfactory pyramid, and for good reason.
-                            It provides the building blocks of any good perfume. But why? I hear you
-                            ask. The pyramid represents the stages in which fragrances evolve. Most
-                            perfume ingredients are volatile, meaning they have a shelf life.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p21`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            Perfumes must be constructed with volatile compounds (better known as
-                            VOC or volatile organic compounds) to be smelled and enjoyed in the
-                            first place. If they are volatile, this means your fragrance is bound to
-                            evaporate over time. Some ingredients (or molecules) evaporate quicker
-                            than others!
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p22`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            The most volatile are those fresh-smelling citruses, aromatic and green
-                            notes. Each ingredient has an individual lifespan – generally speaking,
-                            top notes stay on the skin for up to 30 minutes.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p23`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            Heart notes – the ingredients that provide the core of any good perfume
-                            last around one to two hours. Mellow florals, spices and some gourmand
-                            notes dominate this time frame.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p24`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            Lastly, we have the base notes. These include rich scents such as woody
-                            (sandalwood, cedarwood), ambery (vanilla, labdanum, frankincense) and
-                            leather.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p25`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            If you love these deeper scents, your perfume probably lasts longer than
-                            the average. Stronger scents will have a robust sillage for others to
-                            enjoy (or hate!). It is common for these notes to last all day, at the
-                            very least, a few hours.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p26`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            On the contrary, if you favour fresh, citrusy and floral notes, you’ll
-                            find your fragrance lasts less, and you will need to re-spray throughout
-                            the day to continue enjoying your fragrance. Each of these categories of
-                            notes comes with its olfactory characteristics, which is very much down
-                            to personal preferences. Your skin chemistry also plays a significant
-                            part in how each ingredient behaves and how long it lasts. Very dry or
-                            oily skin can dampen the longevity of any fragrance, no matter the
-                            notes.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p27`)}
                         </CustomizeTypographyBlog>
                     </Box>
                 </Box>
@@ -285,37 +245,29 @@ export const blogContent = (t) => ({
                             fontFamily: 'Courier, sans-serif',
                         }}
                     >
-                        3. Extract vs Eau de parfum vs Eau de toilette: Choose concentration
+                        {t(`common.blogsPage.blogKey1.content.h3`)}
                     </Typography>
                     <Box sx={{ maxWidth: 750, mt: 1 }}>
-                        <CustomizeTypographyBlog>
-                            Buying a stronger concentration is an easy way to make your perfume last
-                            longer.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p31`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            Confusing an Extract with an Eau de toilette will leave you bitterly
-                            disappointed. But what’s the difference again?
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p32`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            Your perfume is predominantly a mixture of two things – fragrance
-                            concentrate + alcohol.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p33`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            Eau de toilette is the least concentrated = typically around 10-12%
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p34`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            Eau de parfum is more concentrated and usually one of the best choice =
-                            typically 20-25%
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p35`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            Extract is the most concentrated = typically, over 25%
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p36`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            While the choice of one of the above formats will have an impact on
-                            longevity, it also has an impact on the price you pay. Concentration is
-                            the main expense. Sometimes, the price tag can be eye-watering. By
-                            contrast, an EdT is the least pricey. EdPs fall in the middle, hence why
-                            most people (and perfumers) prefer Eau de Parfums.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p37`)}
                         </CustomizeTypographyBlog>
                     </Box>
                 </Box>
@@ -351,44 +303,27 @@ export const blogContent = (t) => ({
                             fontFamily: 'Courier, sans-serif',
                         }}
                     >
-                        4. Partial Anosmia: Know your sensitivity to one or a group of ingredients
+                        {t(`common.blogsPage.blogKey1.content.h4`)}
                     </Typography>
                     <Box sx={{ maxWidth: 750, mt: 1 }}>
-                        <CustomizeTypographyBlog>
-                            *Anosmic/anosmia – commonly known as smell blindness.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p41`)}
+                        </CustomizeTypographyBlog>
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p42`)}
+                        </CustomizeTypographyBlog>
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p43`)}
+                        </CustomizeTypographyBlog>
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p44`)}
                         </CustomizeTypographyBlog>
 
-                        <CustomizeTypographyBlog>
-                            Only a few people experience anosmia permanently. For the anosmic, scent
-                            is just a concept. They are unable to detect any smell. But many of us
-                            know what it is like, especially after the last few years. One of the
-                            common symptoms of COVID-19 was a temporary lack of smell (temporary
-                            anosmia).
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p45`)}
                         </CustomizeTypographyBlog>
-
-                        <CustomizeTypographyBlog>
-                            Some people experience partial anosmia, meaning you may not be sensitive
-                            to a scent or perfume others can smell strongly. This boils down to
-                            nasal characteristics and a lot of science. People can be anosmic to
-                            base ingredients – molecules in the musky, woody or ambery category are
-                            common.
-                        </CustomizeTypographyBlog>
-
-                        <CustomizeTypographyBlog>
-                            This is why perfumers will often mix several different musks
-                            (galaxolide, muscenone, habanolide etc…) in their formula in the hope
-                            that the user will be more sensitive to one or another.
-                        </CustomizeTypographyBlog>
-
-                        <CustomizeTypographyBlog>
-                            Other ingredients in the amber-wood category, such as Ambroxan and Iso E
-                            Super, can be hard to detect for some people, while others will smell
-                            them very strongly.
-                        </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            Being anosmic to some ingredients is neither here nor there. However, it
-                            is good to be aware of your limitations. You don’t want to be the one
-                            who overdoes it because you’re none the wiser.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p46`)}
                         </CustomizeTypographyBlog>
                     </Box>
                 </Box>
@@ -424,62 +359,36 @@ export const blogContent = (t) => ({
                             fontFamily: 'Courier, sans-serif',
                         }}
                     >
-                        5. Your skin: Your chemical makeup will make your fragrance change
+                        {t(`common.blogsPage.blogKey1.content.h5`)}
                     </Typography>
+
                     <Box sx={{ maxWidth: 750, mt: 1 }}>
-                        <CustomizeTypographyBlog>
-                            Our skin is our biggest organ and one of our most complicated. It has to
-                            be with all we put it through. When it comes to perfume – and how long
-                            it lasts – we should give it a thought. Whether your skin is ‘normal’,
-                            dry, or oily, it all makes a difference. Even our environment wreaks
-                            havoc on our skin and the perfume we wear. Everything from pH levels,
-                            hormones, diet, humanity and the weather has an effect.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p51`)}
                         </CustomizeTypographyBlog>
-
-                        <CustomizeTypographyBlog>
-                            Oily skin tends to hold the top notes (those volatile ingredients)
-                            longer. This is because of the extra moisture on the skin.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p52`)}
                         </CustomizeTypographyBlog>
-
-                        <CustomizeTypographyBlog>
-                            Drier skin has the opposite effect. However, dry skin, in general, is
-                            bad news for perfume longevity. If you have dry skin, try adding some
-                            extra (unscented) moisturiser to the spots you’re going to spritz. This
-                            will help your skin hold the scent for longer.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p53`)}
                         </CustomizeTypographyBlog>
-
-                        <CustomizeTypographyBlog>
-                            pH levels are one of the biggest players on your skin. Most skin lies
-                            around 4.5 to 6.2 on the scale (0 being extremely acidic and 14 being
-                            extremely alkaline). If your skin is acidic, your perfume will dry and
-                            fade faster. But whether you have acidic or alkaline skin, the pH level
-                            will have an effect.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p54`)}
                         </CustomizeTypographyBlog>
-
-                        <CustomizeTypographyBlog>
-                            We recommend keeping tabs on what perfumes work well/last longest on
-                            your skin. Remember, you’re only as good as your nose. And more often
-                            than not, our noses are lousy. Second opinions are always a good idea.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p55`)}
                         </CustomizeTypographyBlog>
-
-                        <CustomizeTypographyBlog>
-                            Here’s a handy checklist for your next perfume-shopping trip:
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p56`)}
                         </CustomizeTypographyBlog>
-
-                        <CustomizeTypographyBlog>
-                            Know your skin type: Dry skin makes fragrances smell less intense and
-                            fade faster.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p57`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            Test before you buy: Always test a fragrance on your skin before
-                            purchasing. What smells amazing on a paper blotter or someone else might
-                            not work the same for you.
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p58`)}
                         </CustomizeTypographyBlog>
-                        <CustomizeTypographyBlog>
-                            Consider natural perfumes: Natural perfumes often have a different, more
-                            complex interaction with skin compared to synthetic ones. Natural
-                            ingredients contain many molecules, and their scent will evolve (just
-                            like the perfume itself).
+                        <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                            {t(`common.blogsPage.blogKey1.content.p59`)}
                         </CustomizeTypographyBlog>
                     </Box>
                 </Box>
@@ -523,7 +432,7 @@ export const blogContent = (t) => ({
                             fontFamily: 'Orator, Courier, sans-serif',
                         }}
                     >
-                        How to Choose your Perfume Palettes for the Changing Seasons
+                        {t(`common.blogsPage.blogKey2.title`)}
                     </Typography>
                 </Box>
             </Box>
@@ -597,9 +506,7 @@ export const blogContent = (t) => ({
                                 },
                             }}
                         >
-                            Winter is here with her arms wide open. With the cooler weather, we’re
-                            all changing a lot. Our linen jacket is making way for our leather one
-                            and it’s time to rethink our daily scent.
+                            {t(`common.blogsPage.blogKey2.content.q1`)}
                         </Typography>
                         <Box
                             sx={{
@@ -629,36 +536,20 @@ export const blogContent = (t) => ({
                     >
                         <Grid item lg={6}>
                             <CustomizeTypographyBlog sx={{ mb: 2 }}>
-                                Picking a new perfume can be overwhelming. Of course, we should pay
-                                attention to trends. But more than anything, we should prioritise
-                                our personal needs. Nothing’s worse than picking a perfume you’re
-                                not confident wearing or something that doesn’t suit your needs.
+                                {t(`common.blogsPage.blogKey2.content.p11`)}
+                            </CustomizeTypographyBlog>
+                            <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                                {t(`common.blogsPage.blogKey2.content.p12`)}
+                            </CustomizeTypographyBlog>
+                            <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                                {t(`common.blogsPage.blogKey2.content.p13`)}
+                            </CustomizeTypographyBlog>
+                            <CustomizeTypographyBlog sx={{ mb: 2 }}>
+                                {t(`common.blogsPage.blogKey2.content.p14`)}
                             </CustomizeTypographyBlog>
 
                             <CustomizeTypographyBlog sx={{ mb: 2 }}>
-                                First, look ahead and ask yourself, what am I doing this season?
-                            </CustomizeTypographyBlog>
-
-                            <CustomizeTypographyBlog sx={{ mb: 2 }}>
-                                Are you planning to wine and dine your way through a new city, chase
-                                the sun across the world or embrace the first flakes of snow in the
-                                mountains? Whatever you need, there’s a scent for you. Whether you
-                                need top tips or perfume recommendations, we’re here to help you be
-                                experimental.
-                            </CustomizeTypographyBlog>
-
-                            <CustomizeTypographyBlog sx={{ mb: 2 }}>
-                                When moving from autumn to winter, we should consider a balanced
-                                fragrance that blends the best of both worlds into one. There’s no
-                                point hanging on to your summer all-citrus and floral sensation. It
-                                might get lost in a heavy-scented crowd. Equally, it’s a fraction
-                                early to re-order that rich winter favourite.
-                            </CustomizeTypographyBlog>
-
-                            <CustomizeTypographyBlog sx={{ mb: 2 }}>
-                                In the spirit of EPC and experimentation in general, here are some
-                                ingredients perfect for blending and some perfume options for cosy
-                                winter.
+                                {t(`common.blogsPage.blogKey2.content.p15`)}
                             </CustomizeTypographyBlog>
                         </Grid>
                         <Grid
@@ -705,9 +596,9 @@ export const blogContent = (t) => ({
                                             mb: 2,
                                         }}
                                     >
-                                        {blog.blogDetailContentTitle}
+                                        {t(`common.blogsPage.blogKey2.content.${blog.titleKey}`)}
                                     </CustomizeTypographyBlog>
-                                    {blog.blogDetailContentText?.map((text, indexText) => (
+                                    {blog.contentKey?.map((text, indexText) => (
                                         <CustomizeTypographyBlog
                                             key={indexText}
                                             sx={{
@@ -715,7 +606,7 @@ export const blogContent = (t) => ({
                                                 mb: 2,
                                             }}
                                         >
-                                            {text}
+                                            {t(`common.blogsPage.blogKey2.content.${text}`)}
                                         </CustomizeTypographyBlog>
                                     ))}
                                 </Box>
@@ -773,7 +664,7 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        How to Make Your Bespoke Perfume
+                        {t(`common.blogsPage.blogKey3.title`)}
                     </Typography>
                 </Box>
             </Box>
@@ -809,14 +700,13 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        At EPC, we know a thing or two about personalised fragrances as we empower
-                        people to explore, experience and experiment with fragrances.
+                        {t(`common.blogsPage.blogKey3.content.q1`)}
                         <br />
                         <br />
-                        We believe everyone can be the designer of their own personalised perfume.
+                        {t(`common.blogsPage.blogKey3.content.q2`)}
                         <br />
                         <br />
-                        Here are 4 ways you can create a fragrance truly unique to you!
+                        {t(`common.blogsPage.blogKey3.content.q3`)}
                     </Typography>
                 </Box>
                 <Box
@@ -867,11 +757,13 @@ export const blogContent = (t) => ({
                                     mt: 2,
                                 }}
                             >
-                                {blog.blogTitle}
+                                {t(`common.blogsPage.blogKey3.content.${blog.blogTitle}`)}
                             </Typography>
                             {blog.blogContent.map((text, index) => (
                                 <Box sx={{ maxWidth: 750, mt: 1 }} key={index}>
-                                    <CustomizeTypographyBlog>{text}</CustomizeTypographyBlog>
+                                    <CustomizeTypographyBlog>
+                                        {t(`common.blogsPage.blogKey3.content.${text}`)}
+                                    </CustomizeTypographyBlog>
                                 </Box>
                             ))}
                         </Box>
@@ -919,7 +811,7 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        How To Choose A Perfume For Someone Else
+                        {t(`common.blogsPage.blogKey4.title`)}
                     </Typography>
                 </Box>
             </Box>
@@ -955,11 +847,10 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        With so many fragrances to choose from, how do you know which one to pick?
-                        Choosing a perfume for someone else can be tricky, but it’s not impossible.
+                        {t(`common.blogsPage.blogKey4.content.q1`)}
                         <br />
                         <br />
-                        Here are our 5 top tips to help you on your way.
+                        {t(`common.blogsPage.blogKey4.content.q2`)}
                     </Typography>
                 </Box>
                 <Box
@@ -994,11 +885,13 @@ export const blogContent = (t) => ({
                                     mt: 2,
                                 }}
                             >
-                                {blog.blogTitle}
+                                {t(`common.blogsPage.blogKey4.content.${blog.blogTitle}`)}
                             </Typography>
                             {blog.blogContent.map((text, index) => (
                                 <Box sx={{ maxWidth: 750, mt: 1 }} key={index}>
-                                    <CustomizeTypographyBlog>{text}</CustomizeTypographyBlog>
+                                    <CustomizeTypographyBlog>
+                                        {t(`common.blogsPage.blogKey4.content.${text}`)}
+                                    </CustomizeTypographyBlog>
                                 </Box>
                             ))}
                             <Box
@@ -1062,7 +955,7 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        Understand Your Fragrance Family And Find Your Perfect Match
+                        {t(`common.blogsPage.blogKey5.title`)}
                     </Typography>
                 </Box>
             </Box>
@@ -1099,9 +992,7 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        Just like in our world of people, the world of scent uses ‘families’ to
-                        group and classify our ingredients and perfumes, but what are they and what
-                        do they mean?
+                        {t(`common.blogsPage.blogKey5.content.q1`)}
                     </Typography>
                 </Box>
                 <Box
@@ -1116,16 +1007,10 @@ export const blogContent = (t) => ({
                 </Box>
 
                 <CustomizeTypographyBlog sx={{ mb: 2 }}>
-                    We’re all used to categorising what we like. Be it from films such as Rom-Coms,
-                    Horror, Action to music such as Pop, RnB, Classical. The fragrance world isn’t
-                    much different.
+                    {t(`common.blogsPage.blogKey5.content.p11`)}
                 </CustomizeTypographyBlog>
                 <CustomizeTypographyBlog sx={{ mb: 2 }}>
-                    If you’re like us you might find yourself wearing perfumes all with a similar
-                    smell. That’s because without knowing it, we’re naturally drawn to fragrances
-                    that have a signature scent from one or more fragrance families. Sometimes this
-                    can vary depending on the time of year but on the whole we’re creatures of
-                    familiarity.
+                    {t(`common.blogsPage.blogKey5.content.p12`)}
                 </CustomizeTypographyBlog>
                 <Typography
                     sx={{
@@ -1137,17 +1022,13 @@ export const blogContent = (t) => ({
                         mt: 2,
                     }}
                 >
-                    SCENT SPECTRUM OR FRAGRANCE WHEEL
+                    {t(`common.blogsPage.blogKey5.content.h2`)}
                 </Typography>
                 <CustomizeTypographyBlog sx={{ mb: 2 }}>
-                    Traditionally there are six to seven fragrance families such as citrus, floral,
-                    woody, oriental and so on. Then within each family, there are sub-families that
-                    define the second most important olfactory note.
+                    {t(`common.blogsPage.blogKey5.content.p21`)}
                     <br />
-                    <br />A Scent Spectrum or Fragrance Wheel can help you understand how families
-                    are organised and by extension, to understand how the world of perfumery works.
-                    Viewing the whole spectrum allows you to see what scents complement and clash
-                    with each other. Contrasts can be colourful but harmony is key.
+                    <br />
+                    {t(`common.blogsPage.blogKey5.content.p22`)}
                 </CustomizeTypographyBlog>
                 <Box
                     component="img"
@@ -1204,7 +1085,7 @@ export const blogContent = (t) => ({
                                 },
                             }}
                         >
-                            Let’s take a closer look at some of the most famous Fragrance Families
+                            {t(`common.blogsPage.blogKey5.content.q2`)}
                         </Typography>
                     </Box>
                     <Box
@@ -1247,11 +1128,13 @@ export const blogContent = (t) => ({
                                     mt: 2,
                                 }}
                             >
-                                {blog.blogTitle}
+                                {t(`common.blogsPage.blogKey5.content.${blog.blogTitle}`)}
                             </Typography>
                             {blog.blogContent.map((text, index) => (
                                 <Box sx={{ maxWidth: 750, mt: 1 }} key={index}>
-                                    <CustomizeTypographyBlog>{text}</CustomizeTypographyBlog>
+                                    <CustomizeTypographyBlog>
+                                    {t(`common.blogsPage.blogKey5.content.${text}`)}
+                                    </CustomizeTypographyBlog>
                                 </Box>
                             ))}
                             <Box
