@@ -89,9 +89,21 @@ export default BlogsList;
 const BlogItem = ({ listData }) => {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
+    // const handleNavigationProductDetail = (blog) => {
+    //     // navigate(`/${i18n.language}/blog-detail/${blog.blogId}`, { state: { blog } });
+    //     navigate(`/${i18n.language}/blog-detail/${blog.blogTitle}`, { state: { blog } });
+    // };
+
     const handleNavigationProductDetail = (blog) => {
-        // navigate(`/${i18n.language}/blog-detail/${blog.blogId}`, { state: { blog } });
+        // navigate(`/${savedLanguage}/blog-detail/${blog.blogId}`, { state: { blog } });
         navigate(`/${i18n.language}/blog-detail/${blog.blogTitle}`, { state: { blog } });
+        window.localStorage.setItem('blog_detail_data', JSON.stringify(blog));
+        // back to top when navigate to another page
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+        });
     };
     return (
         <>

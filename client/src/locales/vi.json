@@ -43,7 +43,7 @@
             },
             "article3": {
                 "title": "Chúng tôi phát cuồng vì những mùi hương hạt",
-                "content": "Hoa hồng, thường được gọi là 'Nữ hoàng của các loài hoa,' đã giữ một vị trí đặc biệt trong văn hóa và lịch sử con người qua nhiều thế kỷ. Ngoài vẻ đẹp quyến rũ, loài hoa mang tính biểu tượng này còn truyền cảm hứng cho các nhà chế tạo nước hoa để tạo ra một số mùi hương vượt thời gian và tinh tế nhất trên thế giới."
+                "content": "Hoa hồng, thường được gọi là Nữ hoàng của các loài hoa, đã giữ một vị trí đặc biệt trong văn hóa và lịch sử con người qua nhiều thế kỷ. Ngoài vẻ đẹp quyến rũ, loài hoa mang tính biểu tượng này còn truyền cảm hứng cho các nhà chế tạo nước hoa để tạo ra một số mùi hương vượt thời gian và tinh tế nhất trên thế giới."
             }
         },
         "aboutPage": {
@@ -113,36 +113,243 @@
         },
         "blogsPage": {
             "blogKey1": {
-                "title": "Tại sao nước hoa của tôi không lưu hương đủ lâu?"
+                "title": "Tại sao nước hoa của tôi không lưu hương đủ lâu?",
+                "content": {
+                    "q1": "Đây là một trong những câu hỏi được hỏi nhiều nhất trong ngành nước hoa. Nhưng giống như mọi câu hỏi tuyệt vời khác, câu trả lời rất phức tạp.",
+                    "q2": "Sau đây là năm lý do khiến bạn không thể ngửi thấy mùi hương trong thời gian dài như mong muốn.",
+                    "h1": "1. Mệt mỏi về khứu giác: Não của bạn đang trở nên \"mù quáng\" với mùi hương của chính mình.",
+                    "p11": "Hệ thần kinh của chúng ta - trung tâm điều khiển của cơ thể bạn, đã tiến hóa để trở nên ít nhạy cảm hơn với các kích thích lặp lại. Quay trở lại ngày xưa, điều này đã cho chúng ta cơ hội chiến đấu để đối phó với tất cả các mối nguy hiểm mà chúng ta gặp phải. Đó là lý do tại sao một mùi hương, hình ảnh, kết cấu hoặc hương vị mới làm tăng sự thích thú của chúng ta. Cơ thể chúng ta đang nói rằng, hãy đợi một chút, đó là điều mới mẻ. Đó là gì?,",
+                    "p12": "Khi nói đến mùi hương, điều đó có nghĩa là chúng ta luôn mất đi góc nhìn. Nếu bạn sử dụng cùng một loại nước hoa hàng ngày, bạn chắc chắn sẽ nghĩ rằng hiệu lực của nó đã giảm dần theo năm tháng, hoặc thậm chí là trong suốt cả ngày. Đó là lý do tại sao bạn không thể ngửi thấy mùi hương của ngôi nhà mình, trong khi những người khác sẽ ngửi thấy ngay lập tức.",
+                    "p13": "Điều tương tự cũng xảy ra với loại nước hoa bạn đang xịt trên cổ. Mũi và não của bạn sẽ tự nhiên quen với nó. Bạn thậm chí có thể mất hoàn toàn mùi hương. Nhưng nó vẫn ở đó, ngay khi bạn nhớ ra, và những người khác sẽ ngửi thấy nó nhiều hơn bạn vì họ chưa thích nghi với nó!,",
+                    "p14": "Nếu bạn không thể ngửi thấy mùi nước hoa của mình nữa, hãy thử xịt nước hoa lên cổ tay hoặc một bộ phận khác trên cơ thể. Bí quyết là hãy để vị trí đó cách xa mũi của bạn. Sự thay đổi nhỏ này có thể thay đổi phản ứng hóa học và khơi dậy lại khả năng phát hiện của bạn. Ít nhất, sự thay đổi này sẽ khiến bạn bất ngờ khi bạn di chuyển xung quanh và ngửi thấy một luồng hương thơm mới.",
+                    "h2": "2. Sở thích về nước hoa của bạn: Kiểu nước hoa bạn thích dùng sẽ quyết định độ bền của nó,",
+                    "p21": "Những người làm nước hoa luôn nói về kim tự tháp khứu giác và có lý do chính đáng. Nó cung cấp các khối xây dựng của bất kỳ loại nước hoa tốt nào. Nhưng tại sao? Tôi nghe bạn hỏi. Kim tự tháp biểu thị các giai đoạn mà hương thơm phát triển. Hầu hết các thành phần nước hoa đều dễ bay hơi, nghĩa là chúng có thời hạn sử dụng.",
+                    "p22": "Nước hoa phải được tạo thành từ các hợp chất dễ bay hơi (hay còn gọi là VOC hoặc hợp chất hữu cơ dễ bay hơi) để có thể ngửi và thưởng thức ngay từ đầu. Nếu chúng dễ bay hơi, điều này có nghĩa là hương thơm của bạn chắc chắn sẽ bay hơi theo thời gian. Một số thành phần (hoặc phân tử) bay hơi nhanh hơn những thành phần khác!,",
+                    "p23": "Những thành phần dễ bay hơi nhất là những hương cam quýt, thơm và xanh tươi. Mỗi thành phần có thời gian tồn tại riêng - nói chung, hương đầu lưu lại trên da tới 30 phút.",
+                    "p24": "Hương giữa - các thành phần tạo nên cốt lõi của bất kỳ loại nước hoa nào cũng kéo dài khoảng một đến hai giờ. Hương hoa dịu nhẹ, gia vị và một số hương vị ngon chiếm ưu thế trong khung thời gian này.",
+                    "p25": "Cuối cùng, chúng ta có hương cuối. Bao gồm các mùi hương nồng nàn như gỗ (gỗ đàn hương, gỗ tuyết tùng), hổ phách (vani, labdanum, trầm hương) và da thuộc.",
+                    "p26": "Nếu bạn thích những mùi hương sâu lắng này, nước hoa của bạn có thể lưu hương lâu hơn mức trung bình. Những mùi hương nồng hơn sẽ có độ tỏa hương mạnh mẽ để người khác thưởng thức (hoặc ghét!). Những nốt hương này thường lưu hương cả ngày, ít nhất là vài giờ.",
+                    "p27": "Ngược lại, nếu bạn thích các nốt hương tươi mát, cam quýt và hoa, bạn sẽ thấy mùi hương của mình lưu hương ít hơn và bạn sẽ cần phải xịt lại trong ngày để tiếp tục tận hưởng mùi hương của mình. Mỗi loại nốt hương này đều có đặc điểm khứu giác riêng, phụ thuộc rất nhiều vào sở thích cá nhân. Thành phần hóa học trên da của bạn cũng đóng vai trò quan trọng trong cách mỗi thành phần hoạt động và thời gian lưu hương. Da quá khô hoặc quá nhờn có thể làm giảm độ lưu hương của bất kỳ loại nước hoa nào, bất kể nốt hương nào.",
+                    "h3": "3. Chiết xuất so với Eau de parfum so với Eau de toilette: Chọn nồng độ",
+                    "p31": " Mua loại có nồng độ mạnh hơn là cách dễ dàng để nước hoa của bạn lưu hương lâu hơn.",
+                    "p32": " Nhầm lẫn giữa Extract với Eau de toilette sẽ khiến bạn vô cùng thất vọng. Nhưng sự khác biệt ở đây là gì?",
+                    "p33": " Nước hoa của bạn chủ yếu là hỗn hợp của hai thứ – hương thơm cô đặc + cồn.",
+                    "p34": " Eau de toilette có nồng độ thấp nhất = thường vào khoảng 10-12%",
+                    "p35": " Eau de parfum có nồng độ cao hơn và thường là lựa chọn tốt nhất = thường vào khoảng 20-25%",
+                    "p36": " Extract có nồng độ cao nhất = thường là trên 25%",
+                    "p37": " Mặc dù việc lựa chọn một trong những định dạng trên sẽ ảnh hưởng đến độ bền, nhưng nó cũng ảnh hưởng đến giá bạn phải trả. Nồng độ là khoản chi phí chính. Đôi khi, mức giá có thể khiến bạn phải giật mình. Ngược lại, EdT có giá rẻ nhất. EdP nằm ở giữa, do đó hầu hết mọi người (và người làm nước hoa) thích Eau de Parfums.",
+                    "h4": " 4. Mất khứu giác một phần: Biết độ nhạy cảm của bạn với một hoặc một nhóm thành phần",
+                    "p41": " *Mất khứu giác/mất khứu giác – thường được gọi là mù khứu giác",
+                    "p42": " Chỉ một số ít người bị mất khứu giác vĩnh viễn. Đối với những người mất khứu giác, mùi hương chỉ là một khái niệm. Họ không thể phát hiện ra bất kỳ mùi nào. Nhưng nhiều người trong chúng ta biết nó như thế nào, đặc biệt là sau vài năm trở lại đây. Một trong những triệu chứng phổ biến của COVID-19 là mất khứu giác tạm thời (mất khứu giác tạm thời)",
+                    "p43": " Một số người bị mất khứu giác một phần, nghĩa là bạn có thể không nhạy cảm với mùi hương hoặc nước hoa mà những người khác có thể ngửi thấy mạnh. Điều này phụ thuộc vào đặc điểm của mũi và rất nhiều khoa học. Mọi người có thể bị dị ứng với các thành phần cơ bản – các phân tử trong nhóm xạ hương, gỗ hoặc hổ phách rất phổ biến",
+                    "p44": " Đây là lý do tại sao các nhà chế tạo nước hoa thường trộn nhiều loại xạ hương khác nhau (galaxolide, muscenone, habanolide, v.v.) trong công thức của họ với hy vọng rằng người dùng sẽ nhạy cảm hơn với một trong số chúng",
+                    "p45": " Các thành phần khác trong nhóm gỗ hổ phách, chẳng hạn như Ambroxan và Iso E Super, có thể khó phát hiện đối với một số người, trong khi những người khác sẽ ngửi thấy chúng rất nồng",
+                    "p46": " Việc bị dị ứng với một số thành phần không phải là vấn đề. Tuy nhiên, bạn nên nhận thức được những hạn chế của mình. Bạn không muốn trở thành người lạm dụng nó vì bạn không biết gì cả",
+                    "h5": " 5. Làn da của bạn: Thành phần hóa học của bạn sẽ làm thay đổi mùi hương của bạn",
+                    "p51": " Làn da của chúng ta là cơ quan lớn nhất và phức tạp nhất của cơ thể. Nó phải như vậy sau tất cả những gì chúng ta đã trải qua. Khi nói đến nước hoa – và thời gian lưu hương – chúng ta nên cân nhắc. Cho dù da bạn là “bình thường”, khô hay nhờn, tất cả đều tạo nên sự khác biệt. Ngay cả môi trường của chúng ta cũng tàn phá làn da và nước hoa mà chúng ta sử dụng. Mọi thứ từ độ pH, hormone, chế độ ăn uống, con người và thời tiết đều có tác động.",
+                    "p52": " Da dầu có xu hướng giữ hương đầu (các thành phần dễ bay hơi) lâu hơn. Điều này là do độ ẩm dư thừa trên da.",
+                    "p53": " Da khô hơn có tác dụng ngược lại. Tuy nhiên, da khô nói chung là tin không tốt cho độ lưu hương của nước hoa. Nếu bạn có làn da khô, hãy thử thêm một ít kem dưỡng ẩm (không mùi) vào những vùng bạn sẽ xịt. Điều này sẽ giúp da bạn giữ mùi hương lâu hơn.",
+                    "p54": " Độ pH là một trong những yếu tố quan trọng nhất trên da của bạn. Hầu hết da nằm trong khoảng 4,5 đến 6,2 trên thang đo (0 là cực kỳ axit và 14 là cực kỳ kiềm). Nếu da bạn có tính axit, nước hoa của bạn sẽ khô và phai nhanh hơn. Nhưng dù bạn có làn da axit hay kiềm, độ pH sẽ có tác động.",
+                    "p55": " Chúng tôi khuyên bạn nên theo dõi loại nước hoa nào có tác dụng tốt/lưu hương lâu nhất trên da của bạn. Hãy nhớ rằng, bạn chỉ tốt bằng mũi của mình. Và thường thì, mũi của chúng ta rất tệ. Ý kiến ​​thứ hai luôn là một ý kiến ​​hay.",
+                    "p56": " Sau đây là danh sách kiểm tra hữu ích cho chuyến đi mua nước hoa tiếp theo của bạn:",
+                    "p57": " Hiểu rõ loại da của bạn: Da khô khiến nước hoa có mùi kém nồng và phai nhanh hơn.",
+                    "p58": " Thử trước khi mua: Luôn thử nước hoa trên da trước khi mua. Mùi hương tuyệt vời trên giấy thấm hoặc của người khác có thể không phù hợp với bạn.",
+                    "p59": " Hãy cân nhắc đến nước hoa tự nhiên: Nước hoa tự nhiên thường có tương tác phức tạp hơn với da so với nước hoa tổng hợp. Các thành phần tự nhiên chứa nhiều phân tử và mùi hương của chúng sẽ thay đổi (giống như chính loại nước hoa)."
+                }
             },
             "blogKey2": {
                 "title": "Cách chọn bảng màu nước hoa cho mùa thay đổi",
-                "content": ""
+                "content": {
+                    "q1": "Mùa đông đang đến với vòng tay rộng mở. Với thời tiết mát mẻ hơn, tất cả chúng ta đều thay đổi rất nhiều. Chiếc áo khoác vải lanh của chúng ta đang nhường chỗ cho chiếc áo da và đã đến lúc chúng ta phải suy nghĩ lại về mùi hương hàng ngày của mình.",
+                    "p11": "Việc chọn một loại nước hoa mới có thể rất khó khăn. Tất nhiên, chúng ta nên chú ý đến xu hướng. Nhưng hơn hết, chúng ta nên ưu tiên nhu cầu cá nhân của mình. Không gì tệ hơn việc chọn một loại nước hoa mà bạn không tự tin khi dùng hoặc thứ gì đó không phù hợp với nhu cầu của bạn.",
+                    "p12": "Đầu tiên, hãy nhìn về phía trước và tự hỏi, mình đang làm gì trong mùa này?",
+                    "p13": "Bạn có định thưởng thức rượu vang và ăn tối ở một thành phố mới, đuổi theo mặt trời trên khắp thế giới hay đón những bông tuyết đầu tiên trên núi không? Bất cứ thứ gì bạn cần, đều có một mùi hương dành cho bạn. Cho dù bạn cần mẹo hay đề xuất về nước hoa, chúng tôi đều ở đây để giúp bạn thử nghiệm.",
+                    "p14": "Khi chuyển từ mùa thu sang mùa đông, chúng ta nên cân nhắc một loại nước hoa cân bằng kết hợp những gì tốt nhất của cả hai thế giới thành một. Không có lý do gì để giữ lại cảm giác toàn cam chanh và hoa của mùa hè. Nó có thể bị lạc lõng giữa đám đông có mùi hương nồng nàn. Tương tự như vậy, hãy đặt hàng lại loại nước hoa mùa đông yêu thích của bạn sớm hơn một chút.",
+                    "p15": "Theo tinh thần EPC và thử nghiệm nói chung, đây là một số thành phần hoàn hảo để pha trộn và một số lựa chọn nước hoa cho mùa đông ấm cúng.",
+                    "h2": "Kho báu chua cay",
+                    "p21": "Sử dụng hương chua cay sẽ mang lại sự ấm áp mà ánh nắng mặt trời không còn có thể làm được. Và những loại cam chanh mạnh mẽ này cung cấp một bước nhẹ nhàng hướng tới những hương phương Đông mạnh mẽ hơn, cay nồng hơn mà tất cả chúng ta đều yêu thích khi thời tiết lạnh nhất. Hương cam chanh cũng giúp làm giảm lo lắng và mất ngủ do tác dụng của chúng đối với hệ thần kinh. Thật tuyệt vời cho những người trong chúng ta đang phải vật lộn với những ngày ngắn hơn.",
+                    "p22": "Thật may mắn cho bạn khi chúng tôi đã bận rộn thử nghiệm. Pha trộn một Essential từ nhóm hương tươi mát hàng đầu (màu vàng) với một Essential từ nhóm hương ấm áp cơ bản (màu xanh) sẽ mang đến cho bạn sự kết hợp hoàn hảo giữa sự tươi mát ấm áp.",
+                    "p23": "Đối với những ai yêu thích mùi hương thảo mộc Bắc Âu với chút chua, chúng tôi có Cèdre Blond. Cèdre da thuộc được kết hợp tuyệt đẹp với hương cam quýt, thảo mộc và gia vị chua. Chúng hòa quyện với nhau, tạo nên hương gỗ mềm mại với hương thuốc lá vàng khói và hương ngải tây ấm áp.",
+                    "p24": "Bergamot Noir cũng là sự tương phản hoàn hảo giữa sự tươi mát và ấm áp. Kết hợp hai hương đối lập trong một sự pha trộn đầy đủ cả sáng và tối. Hương cam bergamot nồng nàn, kết hợp với hạt tiêu hồng mạnh mẽ, mang đến một luồng gió tươi sáng cho loại nước hoa này. Hương gỗ đàn hương ấm áp và gợi cảm làm dịu mùi hương thành lớp hương cuối mềm mại như da.",
+                    "h3": "Sự ấm áp của rừng",
+                    "p31": "Khi thời tiết lạnh giá bắt đầu buốt giá, đã đến lúc đáp trả bằng một số hương thơm sâu lắng hơn của thiên nhiên. Hãy thử nước hoa có hương gỗ như tuyết tùng, gỗ đàn hương và xạ hương. Kết hợp những hương này với một hương gì đó nhẹ nhàng và tinh tế, như hoa oải hương hoặc hoa hồng, để tạo ra một mùi hương gợi cảm. Nếu bạn vẫn đang tìm kiếm cảm hứng, chúng tôi có thể giúp bạn.",
+                    "p32": "Năm nay, chúng tôi giới thiệu Phiên bản pha trộn Thu/Đông mới của mình, Soleil D’Hiver. Được pha trộn với ba loại nước hoa EPC Essential Eau de Parfum, Rêu bạch đậu khấu, Đại hoàng hoa hồng và Xạ hương gỗ đàn hương. Cay, ấm và khoáng, loại nước hoa này là câu chuyện về một bông hồng dưới tuyết.",
+                    "p33": "Hương đầu của Bạch đậu khấu và Hạt tiêu hồng thật tuyệt vời; sự pha trộn này hé lộ Hoa hồng Ma-rốc, được vuốt ve bởi Trà ô long. Nằm dưới hương tuyết lạnh, hương cuối của Gỗ đàn hương, Da thuộc và Thuốc lá tiếp thêm sinh lực cho các giác quan đồng thời quyến rũ người dùng muốn nhiều hơn nữa.",
+                    "h4": "Hạt lễ hội",
+                    "p41": "Thêm chút hương vị sành điệu cho làn da của bạn. Việc chuyển sang hương vị sành điệu thường được thưởng thức vào mùa đông khi chúng ta cần thứ gì đó dịu nhẹ để quấn mình. Nhưng việc tìm kiếm những hương vị ngon lành đó vào mùa đông là hoàn toàn chấp nhận được. Và nếu bạn đang chuẩn bị lên dốc, thì việc tập trung hương thơm mùa đông-thu của bạn vào đó có thể là ý tưởng hoàn hảo.",
+                    "p42": "Black Nagarmotha là một mùi hương đủ ngon để cắt thành từng lát. Nếu bạn thích những hương da thuộc nồng nàn gợi nhớ đến góc đọc sách bí mật của mình - thì đây là dành cho bạn. Đi kèm với những hương thơm sâu lắng, gợi cảm đó là hương giữa và hương đầu của nhựa ngọt, nghệ tây cay, quế và bạch đậu khấu. Cùng nhau, chúng hòa quyện thành một mùi hương mà bạn sẽ muốn cuộn tròn trong đó.",
+                    "p43": "Bạn muốn thứ gì đó sâu lắng nhưng ít ngọt hơn một chút? Tại sao không thử Bois d’Absinthe. Mùi hương xứ sở thần tiên mùa đông này kết hợp gỗ thảo mộc, rễ cây diên vĩ và gỗ tuyết tùng với những hương nhẹ nhàng như petitgrain, húng quế và vả. Hoặc thử nghiệm với hương thơm là điểm khởi đầu của chúng tôi cho bộ sưu tập mùa đông, Cedarwood Absinth. Hương thơm này dựa trên hương giữa thảo mộc và hương đầu, kết hợp hương gỗ và da thuộc với rễ cây Cypriol, hương nền balsamic và hoắc hương."
+                }
             },
             "blogKey3": {
                 "title": "Cách pha chế nước hoa theo yêu cầu",
-                "content": ""
+                "content": {
+                    "q1": "Tại EPC, chúng tôi biết đôi điều về nước hoa cá nhân hóa khi chúng tôi trao quyền cho mọi người khám phá, trải nghiệm và thử nghiệm với nước hoa.",
+                    "q2": "Chúng tôi tin rằng mọi người đều có thể là nhà thiết kế nước hoa cá nhân hóa của riêng mình.",
+                    "q3": "Sau đây là 4 cách để bạn có thể tạo ra một loại nước hoa thực sự độc đáo dành riêng cho mình!",
+                    "h1": "CƠ BẢN: Pha trộn",
+                    "p11": "Phối trộn một mùi hương với một mùi hương khác là cách nhanh chóng để tạo ra một loại nước hoa cá nhân hóa. Pha trộn đã trở nên phổ biến trong thập kỷ qua với những người yêu thích nước hoa và đây là một trong những cách phổ biến nhất để sử dụng nước hoa ở Trung Đông. ",
+                    "p12": "Điều quan trọng cần lưu ý khi bạn thử nghiệm các mùi hương để pha trộn là độ phức tạp của nước hoa. Có một số loại nước hoa vô cùng phức tạp ngoài kia và mặc dù chúng có thể đẹp khi dùng riêng, nhưng việc pha trộn có thể khó khăn hơn. Một chai Chanel No 5 có thể rất tuyệt khi dùng riêng, nhưng khi pha trộn với Mitsouko của Guerlain sẽ tạo ra một hỗn hợp hương thơm phức tạp. ",
+                    "p13": "Bạn muốn tìm những loại nước hoa tối giản với công thức hương thơm và thành phần không phức tạp và không quá dài. Bạn cũng có thể tìm những loại nước hoa có thành phần chồng chéo, ví dụ như hai loại nước hoa sử dụng hoa nhài làm hương chính. Cố gắng không chọn bất kỳ loại nào quá phức tạp, bạn có thể bắt đầu bằng cách tìm một loại nước hoa đơn hương hay một loại nước hoa đơn hương, và kết hợp nó với một loại nước hoa khác có thành phần chung đó. ",
+                    "p14": "Cách kết hợp yêu thích của chúng tôi là tìm những loại nước hoa ở hai đầu đối diện của vòng tròn nước hoa – giống như với màu sắc – những loại nước hoa này thường kết hợp rất đẹp. Việc kết hợp một mùi hương cam quýt nhẹ với một mùi hương gỗ phù hợp có thể tạo ra một thứ gì đó hoàn toàn không thể cưỡng lại. Bộ sưu tập Essentials của chúng tôi – những loại nước hoa tối giản tôn vinh sự phức tạp đơn giản của các thành phần – được thiết kế để pha trộn với nhau và tạo thành những cặp lớp hoàn hảo khi kết hợp một Essential từ danh mục TOP (mùi hương tươi mát) với một Essential khác có danh mục BASE (mùi hương sâu).",
+                    "p15": "Có thể pha trộn nhiều lớp tại bất kỳ thời điểm nào khi sử dụng, cho dù bạn bắt đầu bằng một loại kem dưỡng thể có mùi thơm sẽ tôn lên nước hoa của bạn, xịt một lớp lên trên lớp kia (luôn bắt đầu bằng mùi hương nồng hơn khi thực hiện cách này) hoặc xịt một lớp lên cổ, một lớp lên tóc và để ý chúng hòa quyện trong suốt cả ngày. Bất kể bạn thích cách nào, bạn sẽ có được mùi hương cá nhân của riêng mình.",
+                    "h2": "NHỮNG NGƯỜI YÊU THÍCH THÀNH PHẦN: Khuếch đại mùi hương của riêng bạn",
+                    "p21": "Việc khuếch đại mùi hương của bạn bằng một thành phần nước hoa đơn lẻ khác cũng có thể là một cách tuyệt vời để cá nhân hóa mùi hương của bạn và thực sự làm cho nó trở nên độc đáo đối với bạn.",
+                    "p22": "Bạn có thể tìm một loại nước hoa có thành phần chính mà bạn yêu thích, sau đó sử dụng quá liều với tinh dầu của thành phần đó. Giả sử bạn là người hâm mộ mùi hương hoa hồng/đại hoàng của chúng tôi, tại sao không khuếch đại nó bằng một ít tinh dầu hoa hồng từ một trong những bộ thành phần của chúng tôi để thực sự làm nổi bật và nhấn mạnh hương hoa hồng.",
+                    "p23": "Bạn cũng có thể thoa nhiều lớp tinh dầu trực tiếp lên da hoặc trộn trong bình xịt để có một loại nước hoa thực sự mang dấu ấn cá nhân.",
+                    "h3": "TRẢI NGHIỆM THEO YÊU CẦU: Tìm ra sự pha trộn đặc trưng của bạn",
+                    "p31": "Các loại nước hoa của chúng tôi được thiết kế đặc biệt để pha trộn với nhau nhằm tạo ra vô số mùi hương có thể có.",
+                    "p32": "Bộ sản phẩm Creation của chúng tôi được thiết kế đặc biệt để pha trộn và bao gồm ba loại nước hoa có thể pha trộn với nhau với thành công chắc chắn. Bộ sản phẩm đi kèm với một ống nhỏ giọt, một chai pha trộn rỗng và một cuốn sách công thức 70 trang đóng vai trò như một hướng dẫn pha trộn: đỉnh cao của các loại nước hoa có thể pha trộn và tùy chỉnh.",
+                    "p33": "Nếu bạn muốn được đồng hành trong hành trình pha trộn của mình, bạn có thể chọn Bộ sản phẩm Creation & tư vấn pha trộn trực tuyến.",
+                    "p34": "Nếu bạn muốn gặp trực tiếp nhóm chuyên gia pha chế nước hoa của chúng tôi, bạn cũng có thể đến London Lab – cửa hàng của chúng tôi, nơi bạn sẽ được tư vấn pha trộn. Chỉ cần đến với mũi của bạn, sẵn sàng cho một trải nghiệm pha trộn độc đáo và thú vị.",
+                    "h4": "ĐƯỢC LÀM THEO ĐO: Pha trộn mùi hương của riêng bạn từ đầu",
+                    "p41": "Một lựa chọn cho những ai đang tìm kiếm một loại nước hoa hoàn toàn riêng biệt, là tự tạo ra mùi hương của riêng bạn từ đầu, trong đó bạn sẽ sử dụng các thành phần nước hoa, chấm vào công thức \"thực sự\"",
+                    "p42": "Có nhiều cách khác nhau để thực hiện việc này, từ tự pha trộn tại nhà đến tạo ra một mùi hương riêng biệt với một chuyên gia nước hoa được đào tạo.",
+                    "p43": "Tự mình khám phá thế giới nước hoa với bộ dụng cụ pha chế thành phần của chúng tôi hoặc Perfumer's Atelier - một bộ dụng cụ chứa 50 thành phần và một cuốn sổ tay hướng dẫn pha chế nước hoa, sẽ giúp bạn trong hành trình tìm kiếm loại nước hoa mang dấu ấn cá nhân của mình. Sau khi ngửi theo cách của mình, bạn sẽ thành thạo nhiều thành phần khác nhau và kết hợp với Gói pha chế trong phòng thí nghiệm, bạn sẽ có vô số sự kết hợp để thử nghiệm."
+                }
             },
             "blogKey4": {
                 "title": "Cách chọn nước hoa cho người khác",
-                "content": ""
+                "content": {
+                    "q1": "Với quá nhiều loại nước hoa để lựa chọn, làm sao bạn biết nên chọn loại nào? Việc chọn nước hoa cho người khác có thể rất khó khăn, nhưng không phải là không thể.",
+                    "q2": "Sau đây là 5 mẹo hàng đầu của chúng tôi để giúp bạn trên con đường của mình.",
+                    "h1": "1. TÌM HIỂU HỌ SỬ DỤNG GÌ",
+                    "p11": "Hoặc là tìm kiếm trong bộ sưu tập nước hoa của họ hoặc chỉ cần hỏi (nếu bạn cảm thấy họ sẽ không đoán được bạn đang làm gì)… nhưng hãy chú ý đến nhóm nước hoa mà loại nước hoa yêu thích của họ thuộc về. Ví dụ, đó có thể là hương cam quýt, hương gỗ, hương hoa và rất có thể người bạn muốn tặng quà có loại nước hoa ưa thích.",
+                    "p12": "Chỉ cần biết hai hoặc ba loại nước hoa yêu thích của họ là đủ để biết được hương thơm của họ. Sau đó, bạn có thể nhập những thông tin này vào Google hoặc các trang web tham khảo nước hoa như Fragrantica hoặc WikiParfum để tìm hiểu xem có cấu trúc hoặc thành phần chung nào không và loại nước hoa nào có thể phù hợp.",
+                    "p13": "Bộ khám phá là cách hoàn hảo để thử nhiều loại nước hoa theo phong cách gia đình trong một hộp mà không cần phải cam kết chọn một loại cụ thể.",
+                    "h2": "2. PHÙ HỢP VỚI TÍNH CÁCH CỦA HỌ",
+                    "p21": "Hãy hợp lý khi kết hợp một mùi hương với tính cách của ai đó. Điều này có thể là hiển nhiên, nhưng đừng tặng một mùi hương \"hãy nhìn tôi này\" quá nồng cho một người thường không dùng nhiều nước hoa hoặc có tính cách kín đáo.",
+                    "p22": "Những người có tính cách mạnh mẽ có thể sử dụng hương phương Đông, hương hoa trắng nồng nàn, hương cay nồng và hương gỗ sành ăn. Nếu không, hãy chọn hương hoa nhẹ hơn, hương phương Đông dịu nhẹ, hương xạ hương và hương cam quýt tươi mát.",
+
+                    "h3": "3. CHỌN BẰNG MŨI, KHÔNG PHẢI THƯƠNG HIỆU",
+                    "p31": "Mặc dù các thương hiệu lớn có thể là dấu hiệu chắc chắn của một loại nước hoa tuyệt vời, nhưng điều mà đối tác của bạn quan tâm nhất là mùi hương của chúng khi họ sử dụng. Vì vậy, hãy tin tưởng vào mũi của bạn! Hãy giải thích hành trình tìm kiếm của bạn, lý do bạn chọn nó và lý do bạn thích nó - có thể là nó gợi cho bạn nhớ đến một địa điểm mà bạn đã cùng nhau đến thăm hoặc có một thành phần đặc biệt trong đó mà bạn yêu thích - nét cá nhân và cách kể chuyện cũng quan trọng không kém.",
+                    "p32": "Thêm nét cá nhân vào quy trình lựa chọn của bạn có thể là cách hoàn hảo để giành được sự chấp thuận của họ! Tại sao không thử Nhà thiết kế mùi hương của chúng tôi và thiết kế một loại nước hoa mà bạn nghĩ rằng họ sẽ thích!",
+                    "p33": "Một lựa chọn khác là cung cấp cho họ một loạt các lựa chọn và để họ quyết định mùi hương nào sẽ chiếm được trái tim họ với Bộ sản phẩm sáng tạo của chúng tôi.",
+
+                    "h4": "4. NHÌN XA HƠN NƯỚC HOA",
+                    "p41": "Nếu bạn lo lắng về việc mua nhầm loại nước hoa, hãy tìm hiểu ngoài dạng xịt truyền thống và các món quà có mùi thơm khác. Nến là một ví dụ điển hình, xà phòng, bình xịt phòng (bạn có thể xịt vào ga trải giường), hoặc thậm chí là đồ trang sức có mùi thơm như vòng tay.",
+                    "p42": "Đừng quên bạn cũng có nhiều lựa chọn khi nói đến kem dưỡng da tay, sữa tắm và dầu tắm sẽ đánh bại các sản phẩm Nivea thông thường của bạn một cách dễ dàng.",
+
+                    "h5": "5. TẶNG MỘT TRẢI NGHIỆM NƯỚC HOA",
+                    "p51": "Cuối cùng nhưng không kém phần quan trọng, tại Câu lạc bộ nước hoa thử nghiệm, chúng tôi mang đến cho bạn cơ hội độc đáo để tặng một loại nước hoa riêng cho người đặc biệt đó để tìm hiểu loại nước hoa mà họ yêu thích!",
+                    "p52": "Lựa chọn trải nghiệm trọn vẹn tại một trong những hội thảo làm nước hoa của chúng tôi hoặc Tư vấn pha chế tại phòng thí nghiệm nước hoa London của chúng tôi, nơi bạn sẽ học và tạo ra loại nước hoa của riêng mình, hoặc thích đến Phòng thí nghiệm pha chế của chúng tôi tại Selfridges để được tư vấn 1-2-1 và pha chế một loại nước hoa riêng theo sở thích của bạn.",
+                    "p53": "Khám phá Xưởng pha chế nước hoa của chúng tôi và chơi trò pha chế nước hoa tại nhà!",
+                    "p54": "Rất nhiều lựa chọn, nhưng bất kỳ lựa chọn nào bạn chọn, chúng tôi đảm bảo bạn sẽ có mùi hương tuyệt vời và bạn sẽ hiểu rõ hơn về những gì bạn thích và không thích khi sử dụng một loại nước hoa mà không ai khác sẽ dùng!"
+                }
             },
             "blogKey5": {
                 "title": "Hiểu về họ nước hoa của bạn và tìm ra loại nước hoa phù hợp nhất",
-                "content": ""
+                "content": {
+                    "q1": "Giống như thế giới con người, thế giới mùi hương sử dụng 'gia đình' để nhóm và phân loại các thành phần và nước hoa của chúng ta, nhưng chúng là gì và chúng có ý nghĩa gì?",
+                    "q2": "Chúng ta hãy cùng xem xét kỹ hơn một số Gia đình nước hoa nổi tiếng nhất",
+                    "p11": "Chúng ta đều quen với việc phân loại những gì mình thích. Có thể là từ những bộ phim như Rom-Coms, Horror, Action cho đến âm nhạc như Pop, RnB, Classical. Thế giới nước hoa không khác nhiều.",
+                    "p12": "Nếu bạn giống chúng tôi, bạn có thể thấy mình đang sử dụng tất cả các loại nước hoa có mùi tương tự nhau. Đó là bởi vì chúng ta thường bị thu hút bởi những loại nước hoa có mùi hương đặc trưng từ một hoặc nhiều gia đình nước hoa mà không hề hay biết. Đôi khi điều này có thể thay đổi tùy theo thời điểm trong năm nhưng nhìn chung chúng ta là những sinh vật của sự quen thuộc.",
+                    "h2": "PHỔ MÙI HƯƠNG HOẶC BÁNH XE HƯƠNG THƠM",
+                    "p21": "Theo truyền thống, có sáu đến bảy nhóm hương thơm như cam quýt, hoa, gỗ, phương Đông, v.v. Sau đó, trong mỗi nhóm, có các nhóm phụ xác định nốt hương quan trọng thứ hai.",
+                    "p22": "Phổ mùi hương hoặc Bánh xe hương thơm có thể giúp bạn hiểu cách các nhóm hương được tổ chức và mở rộng ra, hiểu cách thế giới nước hoa hoạt động. Việc xem toàn bộ phổ mùi hương cho phép bạn thấy những mùi hương nào bổ sung và xung đột với nhau. Sự tương phản có thể đầy màu sắc nhưng sự hài hòa là chìa khóa.",
+                    "h3": "1. CAM QUẢ",
+                    "p3": "\"Một họ hương đầu gồm các thành phần từ trái cây họ cam quýt như cam, quýt và cam bergamot. Chúng là một trong những họ hương tươi mát nhất trong phổ mùi hương có mùi rất nồng và thoáng qua, mang đến cho bất kỳ loại nước hoa nào sự lấp lánh ngay lập tức. Tinh dầu của các thành phần này chủ yếu được chiết xuất từ ​​vỏ trái cây. Chính vì lý do đó mà những mùi hương này có hương vị nồng nàn, chua chua, ngon ngọt và tươi mát cũng như được coi là tràn đầy năng lượng và mang hơi hướng mùa hè!\"",
+                    "h4": "2. XANH LÁ",
+                    "p4": "Bạn có ngửi thấy mùi cỏ và lá mới cắt từ khu vườn không? Đó là mùi của họ hương xanh. Một nhóm thành phần hương đầu khác tạo nên hương thơm tươi mát và nồng nàn, với hương giòn và hương thực vật. Các loại nước hoa mùa hè thường có hương xanh trong thành phần của chúng vì chúng mang lại cảm giác tự nhiên, sống động và tươi mát ngay từ lần ngửi đầu tiên.",
+                    "h5": "3. HOA",
+                    "p5": "Dễ nhận biết và là họ lớn nhất trong số tất cả, hoa chứa nhiều thành phần đa dạng nhất, hầu hết là hoa. Nó có mùi hương quen thuộc nhất với chúng ta, với hoa hồng và hoa nhài là những cái tên nổi bật. Trên thực tế, hầu hết các loại nước hoa hoa sẽ có một (soliflore) hoặc nhiều loại trong số này (bouquet) ở trung tâm công thức nước hoa của chúng. Hoa rất tuyệt khi là thành phần đặc trưng nổi bật nhưng cũng nhẹ nhàng nằm ở giữa để mang lại sự cân bằng cho hương thơm. Các loại hoa khác phổ biến trong họ hoa là hoa cam, hoa mẫu đơn và hoa dành dành.",
+                    "h6": "4. FRUITY",
+                    "p6": "Đúng như tên gọi, họ này bao gồm các thành phần trái cây. Hãy nghĩ đến các hương thơm ngọt ngào, ngon ngọt và có thể ăn được như đào, táo và đại hoàng. Đây là một tập hợp các thành phần hương giữa hiện đại hơn về mặt bổ sung vào quang phổ mùi hương, vì các công nghệ mới đã cho phép tạo ra những cách mới để tạo ra mùi trái cây. Hương trái cây mang lại sự lấp lánh và tươi trẻ cho nước hoa. Một họ rất phổ biến được sử dụng trong nước hoa!",
+                    "h7": "5. AQUEOUS",
+                    "p7": "Mùi của nước và không khí, theo một cách nào đó, gần như là mùi của hư không. Một nhóm thành phần tuyệt vời, chủ yếu là các phân tử tổng hợp, giúp tăng thêm sự nhẹ nhàng và không gian cho một loại nước hoa. Một trong những thành phần nước nổi tiếng nhất được gọi là Calone và thường được sử dụng trong tất cả các nốt hương nước, biển, mưa, nước. Nếu bạn thực sự muốn sáng tạo, họ này có thể giúp tạo ra mùi sương mù và mưa!",
+                    "h8": "6. FOUGERE",
+                    "p8": "Cũng có thể được gọi là họ thơm, Fougere có nghĩa là dương xỉ trong tiếng Pháp. Fougere thơm với mùi hoa oải hương và các loại thảo mộc khác kết hợp với đậu tonka (coumarin). Rất phổ biến trong nước hoa nam giới, đặc biệt là trong những năm 1950 khi nó được coi là 'mùi của tiệm cắt tóc', nhưng nó đã bị lạm dụng quá mức và tạm dừng trong thế giới nước hoa cho đến gần đây. Chúng ta hiện đang thấy một tình yêu mới dành cho hương thơm cổ điển này từ mọi giới tính, điều này thật tuyệt, đặc biệt là khi loại nước hoa đầu tiên được tạo ra bằng Fougere vào năm 1882 được thiết kế dành cho phụ nữ!",
+                    "h9": "7. CAY",
+                    "p9": "Nó làm đúng như những gì ghi trên hộp (hoặc chai). Một nhóm các loại gia vị kỳ lạ bao gồm hạt tiêu, đinh hương và quế, khi kết hợp với nhau có thể gợi nhớ đến Giáng sinh hoặc gia vị nấu ăn. Các thành phần hương giữa ấm áp và dễ chịu, thêm vào, ừm, vị cay cho bất kỳ mùi hương nào.",
+                    "h10": "8. ORIENTAL",
+                    "p10": "Vanilla, các hương như myrrh, frankincense, hương ấm áp và phấn tạo nên nhóm hương phương Đông dễ chịu… Nhóm hương cuối này ngọt ngào, phấn và ấm áp. Nó gần giống như hương vị của người sành ăn và là hương gợi cảm nhất trong số tất cả, nhưng không nên nhầm lẫn với nhóm hương ăn được, nhóm này vay mượn nhiều hơn từ mùi bánh và đường. Với ảnh hưởng mạnh mẽ của phương Đông, thành phần của nó không thay đổi nhiều kể từ những ngày đầu tiên được tạo ra. Nước hoa phương Đông có xu hướng được sử dụng như nước hoa buổi tối do đặc tính lưu hương lâu, tối và quyến rũ của chúng.",
+
+                    "h11": "9. WOODY",
+                    "p111": "Với hương gỗ chủ đạo như gỗ đàn hương và gỗ tuyết tùng cũng như hoắc hương và cỏ hương bài, đây là nhóm hương được nam giới yêu thích nhất. Hãy nghĩ đến mùn cưa và vụn bút chì, nó có hương thơm khô và mềm mại mang lại sự ấm áp và sức mạnh cho một loại nước hoa. Chỉ bao gồm hương cuối thành phần cũng tạo nên chất lượng lâu dài.",
+
+                    "h12": "10. CHYPRE",
+                    "p112": "Mùi rêu và hơi động vật, họ này có lịch sử bắt nguồn từ nước hoa từ thời La Mã. Nó được đặt tên theo đảo Síp, vì rất nhiều loại hoa có trong họ này được tìm thấy trên đảo. Nó được đưa vào thời hiện đại vào năm 1917 và vào thời điểm đó chủ yếu được phụ nữ sử dụng như một loại nước hoa cực kỳ tinh tế. Nó chứa một loạt các thành phần nhưng chủ yếu là rêu sồi, hoắc hương và hương da thuộc."
+                }
             },
             "blogKey6": {
                 "title": "Những cuốn sách về nước hoa hay nhất mà chúng tôi muốn học hỏi từ các nhà pha chế nước hoa",
-                "content": ""
+
+                "content": {
+                    "q1": "Chúng tôi thường được hỏi về những cuốn sách yêu thích của mình về nước hoa, và có rất nhiều cuốn sách để bạn đọc, nhưng đây là những cuốn sách yêu thích của chúng tôi. Thay vì văn xuôi thơ mộng, đây là những cuốn sách toàn diện nhất do các nhà chế tạo nước hoa và chuyên gia trong ngành nước hoa viết, đề cập đến nghệ thuật chế tạo nước hoa, nhà chế tạo nước hoa, ngành công nghiệp và tất nhiên là cả thành phần – cung cấp những hiểu biết sâu sắc về thế giới nước hoa và nghề của một nhà chế tạo nước hoa, thay vì những từ ngữ kỳ quặc về nước hoa đẹp. Hãy thưởng thức và chúng tôi hy vọng chúng sẽ khơi dậy sở thích của bạn về nước hoa hơn nữa.",
+                    "c1": "A LOOK INTO THE LIFE OF A PERFUMER",
+                    "h1": "1 – Jean-Claude Ellena – nhiều tựa sách khác nhau",
+                    "p11": "Nhà chế tạo nước hoa đáng kính Jean-Claude Ellena có rất nhiều cuốn sách để bạn đọc, Perfume: The Alchemy of Scent (2011) The Diary of a Nose: A Year in the Life of a Parfumeur (2012) và đang chờ Atlas of Perfumed Botany, dự kiến ​​xuất bản vào năm 2022.",
+                    "p12": "Là một người đàn ông có sự nghiệp khá đồ sộ, Ellena đã làm việc cho rất nhiều hãng nước hoa danh tiếng từ Van Cleef & Arpels đến L’Artisan Parfumeur, ông đã làm việc tại Hèrmes trong nhiều năm và gần đây đã làm việc với Frederic Malle.",
+                    "p13": "Perfume: The Alchemy of Scent cung cấp góc nhìn về những người làm nước hoa trong ngành cũng như những hiểu biết vô giá về cuộc sống làm việc của ông. Là bậc thầy về sự tinh tế giản dị trong các sáng tác của mình, chi tiết hấp dẫn mà Ellena chỉ sử dụng bảng màu gồm 200 thành phần chỉ là một trong những đặc điểm ấn tượng của ông. Đề cập đến sự khởi đầu của ngành nước hoa hiện đại, quá trình thu hoạch các thành phần cho đến khi hoàn thành một sáng tạo thơm ngát với các quy định về nhãn hiệu, sản xuất, tiếp thị và an toàn, Perfume: The Alchemy of Scent là một hướng dẫn toàn diện mà không bao giờ có cảm giác quá phức tạp đối với người đọc. Một cuốn sổ tay thực sự về những phức tạp của ngành công nghiệp nước hoa và những thử thách mà một người làm nước hoa phải đối mặt trong ngành này.",
+                    "p14": "Nhật ký của một chiếc mũi: Một năm trong cuộc đời của một nhà chế tạo nước hoa là câu chuyện thân mật hơn về cuộc sống, công việc và những chuyến đi của Ellena trong một năm bắt đầu từ tháng 10 năm 2009. Nếu \"Perfume\" kể câu chuyện về một nghệ nhân trong ngành, thì \"Nhật ký của một chiếc mũi\" là câu chuyện về một nghệ sĩ. Chi tiết về quá trình sáng tạo và cảm hứng, và kết thúc bằng \"Tóm tắt mùi hương\" - một phần vô cùng thú vị dành cho bất kỳ nhà chế tạo nước hoa mới vào nghề nào - Ellena liệt kê các ví dụ trong sách giáo khoa về mùi hương hàng ngày và cách tạo ra chúng.",
+                    "p15": "Để 'làm' sô cô la nguyên chất, tôi khuyên bạn nên thêm hoắc hương; đối với ganache, một chút hương cầy hương; đối với 'orangette', vỏ cam; đối với After Eight, bạc hà; và đối với mùi bột ca cao, mùi cụ thể của hoa diên vĩ.",
+                    "p16": "Một cuốn sách đáng đọc cho bất kỳ ai muốn tìm hiểu về một trong những nhà chế tạo nước hoa nổi tiếng nhất thế giới.",
+                    "p17": "Cũng hãy chú ý đến Atlas of Perfumed Botany, hứa hẹn sẽ dẫn dắt độc giả vào hành trình khám phá nước hoa đầy chất thơ, địa lý và thực vật. Cung cấp một bản đồ nước hoa hấp dẫn, ghi lại thực vật học, địa lý và lịch sử thành phần nước hoa kèm theo hình ảnh minh họa thực vật. Chúng tôi chắc chắn rằng chúng tôi sẽ thèm muốn ngay khi nó được phát hành.",
+                    "h2": "2 – Dominique Ropion – Những câu cách ngôn của một nhà chế tạo nước hoa",
+                    "p21": "Những câu cách ngôn của một nhà chế tạo nước hoa của Dominique Ropion xuất phát từ cuộc gặp gỡ với nhà báo Marie-Bénédicte Gaulthier, người đã đồng sáng tác cuốn sách. Được hình thành từ những ghi chú và suy ngẫm trong suốt sự nghiệp của ông, cuốn sách định nghĩa Ropion là một nhà soạn nhạc, một nhà số học về nước hoa.",
+                    "p22": "Ropion – một bậc thầy chế tạo nước hoa làm việc tại IFF từ 2000 – đã làm việc với nhiều loại nước hoa nổi tiếng. Từ Mugler đến Lancome, Paco Rabanne đến Yves Saint Laurent, cho đến việc tạo ra một trong những mùi hương được Frederic Malle trân trọng nhất, Portrait of a Lady, danh sách khách hàng của ông ít nhất cũng phải nói là ấn tượng.",
+                    "p23": "Trong Aphorisms of a Perfumer, bạn sẽ được nghe về hành trình hấp dẫn của ông với tư cách là một nhà chế tạo nước hoa, những mùi hương đã quyến rũ Ropion khi còn nhỏ, những mùi hương làm ông say đắm trong cuộc sống thường ngày và cách tiếp cận chu đáo của ông đối với ngành nước hoa. Thường được mô tả là 'bậc thầy của các loài hoa', ở đây, Ropion đưa chúng ta đi qua một bó hoa gồm các thành phần, cung cấp những hiểu biết về khứu giác trong suốt chặng đường.",
+                    "c2": "CỬA SỔ VÀO NGÀNH CÔNG NGHIỆP",
+                    "h3": "3 – Nez Éditions – The Big Book of Perfume",
+                    "p31": "Được viết bởi hơn 15 chuyên gia trong ngành, những người tại Nez, với biên tập viên Jeanne Doré, đã tạo ra một tuyển tập khứu giác – The Big Book of Perfume – cho mọi thời đại. Được xuất bản theo phong cách thẩm mỹ hấp dẫn của Nez, nó tràn ngập những hình ảnh minh họa tuyệt đẹp và bố cục gọn gàng.",
+                    "p32": "Các phần bao gồm mọi thứ bạn cần biết sâu sắc về ngành công nghiệp nước hoa, từ quá trình phát triển, phân phối, tiếp thị đến sản xuất nước hoa, cũng như có một bảng chú giải và danh mục cực kỳ thông thạo ở mặt sau.",
+                    "p33": "Chúng tôi cũng muốn giới thiệu bộ sách The Naturals Notebooks của Nez & LMR. Bao gồm một loạt các thành phần được chiết xuất bởi LMR – một nhà cung cấp thành phần tự nhiên nổi tiếng có trụ sở tại miền nam nước Pháp – bạn sẽ tìm thấy những bài văn xuôi về hoa nhài sambac, diên vĩ, hoắc hương, cỏ vetiver, v.v. Chúng trình bày chi tiết về khứu giác và hiểu biết sâu sắc về nước hoa theo cách đẹp đẽ và dễ hiểu.",
+                    "c3": "TÌM HIỂU VỀ THÀNH PHẦN NƯỚC HOA VÀ CÁCH SỬ DỤNG CHÚNG",
+                    "h4": "4 – Câu lạc bộ nước hoa thử nghiệm – Sổ tay của nhà chế tạo nước hoa",
+                    "p41": "Sổ tay của nhà chế tạo nước hoa của chúng tôi phải được đưa vào danh sách. Có bán riêng lẻ hoặc trong Xưởng chế tạo nước hoa của chúng tôi; hộp đựng đồ xa xỉ chứa 50 thành phần để khám phá và Sổ tay đi kèm cung cấp thông tin chi tiết về tất cả các thành phần có trong đó.",
+                    "p42": "Cuốn sách do Emmanuelle Moeglin và một số ít chuyên gia nước hoa và nước hoa đồng nghiệp viết, chứa đựng những hiểu biết độc đáo về cách sử dụng các thành phần nước hoa trong nước hoa và công thức.",
+                    "p43": "Cuốn sách đề cập đến các thành phần được biết đến và sử dụng nhiều nhất trong nước hoa, từ các thành phần tự nhiên như tinh dầu hoa hồng và tinh dầu cỏ vetiver, đến các hóa chất tạo hương thơm được ưa chuộng trong ngành, Iso E Super và Calone và các thành phần nổi tiếng như Cassis Base.",
+                    "p44": "Sổ tay cũng có một phần rất tiện dụng về từ vựng về mùi hương, một chương về phân loại thành phần và nước hoa, nguồn gốc và xuất xứ của các thành phần, tất cả đều có hình ảnh minh họa thú vị và được trình bày theo định dạng dễ hiểu.",
+                    "p45": "Chúng tôi đã tạo ra nó để bạn không chỉ có thể tìm hiểu sâu về nguồn gốc, công dụng và phân loại các thành phần nói trên mà còn có thể khám phá chúng bằng mũi của mình, đảm bảo hiểu biết toàn diện về chúng khi bạn thực hiện. Sự bổ sung hoàn hảo để khởi động ngành nước hoa của bạn.",
+                    "c4": "LỊCH SỬ NƯỚC HOA A-Z",
+                    "h5": "5 – Elisabeth de Feydeau – Les Parfums: Histoire, Anthologie, Dictionnaire",
+
+                    "p51": "Sẽ là thiếu sót nếu chúng tôi không nhắc đến Elisabeth de Feydeau trong danh sách của mình. Là một nhà sử học, nhà văn và chuyên gia về nước hoa người Pháp, Feydeau đã bị mê hoặc bởi mọi thứ liên quan đến khứu giác ngay từ khi còn nhỏ. Làm cố vấn văn hóa cho Chanel và Guerlain, bà đã viết ba cuốn sách về nước hoa và thường xuyên giảng dạy tại Trường đào tạo nước hoa Versailles.",
+                    "p52": "Cuốn sách Les Parfums: Histoire, Anthologie, Dictionnaire (2011) của bà, mặc dù chỉ có bản tiếng Pháp, được Emmanuelle, Nhà sáng lập EPC, coi là một trong những cuốn sách toàn diện nhất về nước hoa, trên thực tế, nó giống một cuốn bách khoa toàn thư hơn là một cuốn sách.",
+                    "p53": "Cuốn sách theo chân hành trình của nước hoa từ khi mới ra đời cho đến trạng thái hiện tại; đồ gốm thời đồ đá mới cho đến bình phun du lịch, Công thức nấu ăn của người Ai Cập được ghi lại trên giấy cói cho đến bằng sáng chế công nghiệp. Nước hoa từ lâu đã là một phần không thể thiếu của lịch sử và Feydeau khám phá mối liên hệ của nó với các huyền thoại và nghi lễ cổ xưa, cũng như vệ sinh cá nhân và công nghiệp hóa. Một cuốn sách phải đọc đối với bất kỳ nhà sản xuất nước hoa nói tiếng Pháp nào.",
+
+                    "c5": "HÓA HỌC CỦA CÁC THÀNH PHẦN MÙI",
+
+                    "h6": "6 – Harold McGee – Nose Dive: Cẩm nang thực địa về Mùi hương của từ ngữ",
+                    "p61": "Một cuốn sách dài gần 700 trang, Nose Dive kết hợp thông tin và cấu trúc kỹ thuật với những giai thoại được viết một cách thú vị về thực phẩm, gia vị và hoa, và là cuốn sách phải đọc đối với bất kỳ ai muốn hiểu lý do tại sao mọi thứ lại có mùi như vậy. Nose Dive được chia thành năm phần – Mùi nguyên thủy, mùi động vật, mùi thực vật, mùi đất và mùi nước trong một phần, và cuối cùng là mùi hương và thực phẩm. Một chuyến lặn sâu thực sự vào mọi dạng mùi hương, không chỉ là hướng dẫn về mùi hương mà chúng ta có thể trải nghiệm ngay bây giờ, mà còn là hướng dẫn về một cảnh quan mùi hương của một thời đại khác, từ những mùi hương đầu tiên cho đến mùi hương của không gian.",
+                    "p62": "Đi sâu vào hóa học và khoa học về mùi hương – có phần giới thiệu ngắn về hóa học dành cho bất kỳ ai không phải chuyên gia – cuốn sách cũng được kết hợp với những câu chuyện giúp đưa thông tin kỹ thuật vào cuộc sống.",
+                    "p63": "Với toàn bộ các chương về các họ thực vật dễ bay hơi, rêu, cây cối, cỏ, cỏ dại và hoa, trình bày chi tiết về các phân tử tạo mùi, chúng có mùi gì và tìm thấy chúng ở đâu trong các thành phần tự nhiên – chúng tôi cho rằng cuốn sách này dành cho những ai muốn có một nền giáo dục thực sự về khoa học mùi hương. Một cuốn sách tuyệt vời dành cho bất kỳ ai muốn phát triển khứu giác và bộ não khứu giác của mình."
+                }
             },
             "blogKey7": {
                 "title": "Những mùi hương tuyệt vời nhất cho mùa xuân",
 
-                "content": ""
+                "content": {
+                    "q1": "Mùa xuân là mùa thay đổi. Đây là thời điểm giữa những bãi biển đầy nắng và những ngôi nhà gỗ ấm cúng. Và với suy nghĩ đó, nước hoa của chúng ta cũng nên là một sự giao thoa.",
+                    "q2": "Đây là thời điểm trong năm mà các mùi hương pha trộn và tùy chỉnh trở nên đặc biệt vì nếu không có chúng, tất cả chúng ta sẽ phải săn lùng một số loại nước hoa để thay đổi giữa những ngày mưa và nắng. Nhưng không cần phải mở tất cả các tab trên máy tính xách tay của bạn. Tất cả những gì bạn cần là tạo ra mùi hương của riêng mình bằng EPC. Hãy để chúng tôi chỉ cho bạn cách…",
+                    "h1": "Mùi hương mùa xuân 101",
+                    "p11": "Khi pha trộn hoặc tạo ra nước hoa tùy chỉnh, chúng ta nên ghi nhớ một vài quy tắc của mùa. Trước hết, hãy thừa nhận rằng, bây giờ vẫn chưa phải là mùa hè. Vì vậy, dù bạn thích mùi hương nào, hãy đảm bảo rằng bạn giữ lại một lớp nền có hương mùa đông nồng hơn. Lớp nền phong phú này sẽ đảm bảo sự gợi cảm và tạo nên sự tương phản với bất kỳ nốt hương nhẹ nào mà bạn thích.",
+                    "p12": "Khi nói đến nốt hương giữa và nốt hương đầu, thực sự là vấn đề sở thích. Một số người trong chúng ta thích sự lấp lánh của cam quýt, và không gì ngoài cam bergamot có thể làm được. Mặt khác, có rất nhiều người yêu hoa đã chờ đợi cả mùa đông để mùa xuân nở rộ.",
+
+                    "h2": "Jasmine Sour",
+                    "p21": "Phiên bản giới hạn mùa hè 2021 mới của chúng tôi hoàn hảo để dùng kèm với các loại cocktail chua yêu thích của bạn! Ngọt ngào nhưng chua chát, hấp dẫn nhưng sảng khoái. Lấy cảm hứng từ mùi hương của làn da rám nắng, kem dưỡng da rám nắng và những ly cocktail trên bãi biển, Signature Blend mới này sẽ đưa bạn đến dưới những cây cọ.",
+                    "p22": "Jasmine Sour pha trộn Essential Jasmine Osmanthus của chúng tôi với Bergamot Incense trong loại cocktail thơm mát và tinh tế này của những bông hoa trắng kem - hoa nhài, hoa mộc lan và hoa sứ với một chút dừa - kết hợp với vị chua của cam quýt và gia vị - chanh, cam bergamot và quả bách xù.",
+                    "p23": "Hãy nâng ly vì một mùa hè đầy nắng, giao lưu và hương thơm!",
+
+                    "p3": "Electric Fig",
+                    "p31": "Hãy tưởng tượng một khu vườn nở hoa. Có một thảm cỏ xanh tươi và những bụi hoa hồng màu hồng rải rác khắp nơi. Không khí trong lành và tươi sáng, và tất cả các màu sắc và âm thanh đều trở nên hấp dẫn và lôi cuốn.",
+                    "p32": "Electric Fig là khu vườn trong chai, kết hợp giữa Essential Fig Neroli và Rose Rhubarb, mang lại màu xanh thực vật của lá sung và lá húng quế được đặt cạnh nhau với đại hoàng sủi bọt; hương petitgrain sắc nét được làm dịu đi bởi neroli và hoa hồng.",
+                    "p33": "Đây là sự pha trộn của những gì tinh túy nhất của thiên nhiên, và là chất cải thiện tâm trạng hoàn toàn cho những ngày hè của bạn.",
+
+                    "h4": "Bergamot Blush",
+                    "p41": "Hãy nghĩ đến những ngày nhàn nhã, lười biếng trên bãi biển, nằm trên bãi cát mềm mại với ánh nắng nhẹ nhàng sưởi ấm làn da của bạn…",
+                    "p42": "Bergamot Blush là một loại nước hoa toàn diện, cân bằng và dễ dùng cho mùa hè. Kết hợp ba hương tinh túy: Hương Bergamot, Hoa nhài Osmanthus và Amber Iris, hương thơm này hòa quyện hương hoa nhài và hoa mộc ngọt ngào, béo ngậy với hương thơm nhẹ nhàng của nhũ hương và sự tươi mát sảng khoái của cam Bergamot. Hương thơm này sẽ đưa bạn đến một hòn đảo nhiệt đới, một nơi nào đó thanh bình và xa xôi."
+                }
             },
             "blogKey8": {
                 "title": "Ba loại nước hoa đặc trưng hàng đầu của chúng tôi cho mùa hè",
-                "content": ""
+                "content": {
+                    "q1": "Những ngày ấm áp hơn, những đêm dài hơn. Mùa hè thực sự đã đến, và mang theo vô vàn mùi hương tuyệt đẹp. Trong bài đăng này, chúng tôi sẽ giới thiệu cho bạn những lựa chọn hàng đầu của chúng tôi cho mùa hè từ bộ sưu tập Signature Blends.",
+                    "h1": "Mùi hương của mùa hè",
+                    "p11": "Mùa hè có điều gì đó rất đặc biệt và phấn chấn: chúng ta tạo ra những kỷ niệm mới, nhớ lại những mùa hè đã qua và tận hưởng tất cả những điều tuyệt vời mà thiên nhiên ban tặng.",
+                    "p12": "Những hỗn hợp đặc trưng của chúng tôi cho mùa hè năm 2021 được cung cấp năng lượng từ thế giới tự nhiên, với tất cả sự linh hoạt tuyệt vời của nó. Từ hương hoa mềm mại và ngọt ngào, đến hương thơm xanh tươi và hương thơm chua, lấp lánh, chúng tôi đã chuẩn bị cho bạn mọi dịp mùa hè.",
+                    "p13": "Đối với những người luôn mang theo một chai xịt trong túi, dù là kỳ nghỉ tại khu vườn xinh đẹp đang nở hoa hay ngay trên bãi biển, chúng tôi đã chọn lọc cho bạn ba loại nước hoa mùa hè nhất từ ​​bộ sưu tập Signature Pha trộn."
+                }
             },
             "blogKey9": {
                 "title": "Chúng tôi phát cuồng vì mùi hương hạt",
