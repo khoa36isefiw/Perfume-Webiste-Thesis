@@ -31,7 +31,7 @@ function PerfumeBrands({ listData }) {
             window.localStorage.removeItem('filter'); // delete key from the local storage
             const currentQueryParams = new URLSearchParams(location.search);
             currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
-            navigate(`/shop?${currentQueryParams.toString()}`);
+            navigate(`/${i18n.language}/shop?${currentQueryParams.toString()}`);
         } else {
             setBrandSelected(brand.nameEn);
             window.localStorage.setItem('filter', JSON.stringify(brand.nameEn));
@@ -42,7 +42,7 @@ function PerfumeBrands({ listData }) {
             console.log('currentQueryParams.toString(): ', currentQueryParams.toString());
 
             // update url
-            navigate(`/shop?${currentQueryParams.toString()}`);
+            navigate(`/${i18n.language}/shop?${currentQueryParams.toString()}`);
         }
     };
 
