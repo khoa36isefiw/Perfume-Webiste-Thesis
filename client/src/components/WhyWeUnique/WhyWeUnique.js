@@ -102,7 +102,6 @@ function WhyWeUnique() {
                         sx={{ mb: 2, fontSize: '16px', textAlign: 'justify' }}
                     >
                         {t(`common.aboutPage.aboutUniqueList.${thank}`)}
-                        {thank}
                     </CustomizeTypography>
                 ))}
             </Box>

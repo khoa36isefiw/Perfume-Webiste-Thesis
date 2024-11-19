@@ -1,12 +1,12 @@
-import { Box, Button, Container, Grid } from '@mui/material';
-import React, { useState } from 'react';
+import { Box, Container, Grid } from '@mui/material';
+import React from 'react';
 
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import Rating from '@mui/material/Rating';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
-import BoltIcon from '@mui/icons-material/Bolt';
+
 import { converToVND } from '../convertToVND/convertToVND';
 import SortProducts from '../SortProducts/SortProducts';
 import PerfumeBrands from '../PerfumeBrands/PerfumeBrands';
@@ -72,11 +72,7 @@ function PerfumesCard() {
                         },
                     }}
                 >
-                    <PerfumeBrands
-                        listData={products?.data}
-                        // setBrandSelected={setBrandSelected}
-                        // brandSelected={brandSelected}
-                    />
+                    <PerfumeBrands />
                     <Box
                         sx={{
                             p: '12px',

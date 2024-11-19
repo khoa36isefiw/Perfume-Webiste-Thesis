@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useState } from 'react';
 
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
@@ -9,18 +9,19 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // function PerfumeBrands({ listData, brandSelected, setBrandSelected }) {
-function PerfumeBrands({ listData }) {
+function PerfumeBrands() {
     const [brandSelected, setBrandSelected] = useState('');
-    const { t, i18n } = useTranslation();
+    const { i18n } = useTranslation();
     console.log('current language: ', i18n.language); // get the current language
 
-    const { data: brands, mutate, isLoading, error } = useBrand();
+    const { data: brands, mutate } = useBrand();
     const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
         const currentBrand = JSON.parse(localStorage.getItem('filter'));
         setBrandSelected(currentBrand);
+        mutate();
     }, [JSON.parse(localStorage.getItem('filter'))]);
 
     console.log('current filter: ', brandSelected);
@@ -46,21 +47,7 @@ function PerfumeBrands({ listData }) {
         }
     };
 
-    // useEffect(() => {
-    //     const params = new URLSearchParams(location.search); // get current query string params
-    //     console.log('params: ', params.toString());
-
-    //     if (!params.toString().includes('brand=')) {
-    //         // remove filter key on local storage when brand filter is not present in the URL
-    //         window.localStorage.removeItem('filter');
-    //         setBrandSelected('');
-    //         navigate(`/${i18n.language}/shop?${params.toString()}`);
-    //         mutate();
-    //     }
-    // }, [new URLSearchParams(location.search)]);
-
     return (
-        // <Container
         <Box
             sx={{
                 mt: 16,
