@@ -280,15 +280,82 @@
             },
             "blogKey6": {
                 "title": "Our Best Perfume Books to Learn from Perfumers",
-                "content": ""
+                "content": {
+                    "q1": "We are often asked about our favourite books about perfumery, and there are plenty out there to stick your nose into, but these are our favourite. Instead of poetic perfumed prose these are the most comprehensive books written by perfumers and professionals of the perfume industry covering the art of perfumery, the perfumer, the industry, and of course, ingredients – giving proper insights into the world of fragrance, and the profession of a perfumer, rather than whimsical words on pretty perfumes. Enjoy, and we hope they pique your interests in perfume even further.",
+                    "c1": "A LOOK INTO THE LIFE OF A PERFUMER",
+                    "h1": "1 – Jean-Claude Ellena – various titles",
+                    "p11": "Revered perfumer Jean-Claude Ellena has a host of books for you to get your nose into, Perfume: The Alchemy of Scent (2011) The Diary of a Nose: A Year in the Life of a Parfumeur (2012), and the eagerly awaited Atlas of Perfumed Botany, due to be published in 2022.",
+                    "p12": "A man with quite the career, Ellena has worked for a plethora of respected perfume houses from Van Cleef & Arpels to L’Artisan Parfumeur, he was in-house at Hèrmes for many years and more recently worked with Frederic Malle.",
+                    "p13": "Perfume: The Alchemy of Scent offers a view of perfumers within the industry as well as invaluable insights into his working life. A master of understated sophistication in his compositions, the fascinating detail that Ellena only uses a palette of 200 ingredients is just one of his impressive attributes. Touching on the beginnings of modern perfumery, the harvesting of ingredients to the end of a fragrant creation with trademarking, production, marketing and safety regulations, Perfume: The Alchemy of Scent is a comprehensive guide that never feels too complex for the reader. A veritable handbook on the intricacies of the perfume industry and the trials one faces as a perfumer within it.",
+                    "p14": "The Diary of a Nose: A Year in the Life of a Parfumeur is a more intimate telling of Ellena’s life, work and travels for a year beginning in October 2009. If ‘Perfume’ told the story of a craftsman within the industry, ‘Diary of a Nose’ is that of an artist. Detailing creation and inspiration, and concluding with a ‘Summary of Smells’ – an immensely interesting section for any budding perfumers – Ellena lists text-book examples of everyday smells and how they can be composed.",
+                    "p15": "“To ‘make’ plain chocolate, I recommend adding patchouli; for a ganache, a trace of civet; for ‘orangette’, orange zest; for an After Eight, spearmint; and for the smell of cocoa powder, concrete of iris.”",
+                    "p16": "A worthwhile read for anyone looking to get into the mind of one of the world’s most celebrated perfumers.",
+                    "p17": "Also look out for the Atlas of Perfumed Botany which promises to lead readers on a poetic, geographic and botanical journey of perfume discovery. Offering a captivating cartography of fragrance that charts the botany, geography and history of perfume composition accompanied by botanical illustrations. One we’re sure we will be coveting as soon as it’s released.",
+                    "h2": "2 – Dominique Ropion – Aphorisms of a Perfumer",
+                    "p21": "Dominique Ropion’s Aphorisms of a Perfumer comes from an encounter with journalist Marie-Bénédicte Gaulthier, who he co-wrote the book with. Formed from notes and reflections from the length of his career, it defines Ropion as a composer, an arithmetician of fragrance.",
+                    "p22": "Ropion – a master perfumer working at IFF since 2000 – has worked across an array of renowned perfumes. From Mugler to Lancome, Paco Rabanne to Yves Saint Laurent, to creating one of Frederic Malle’s most treasured scents, Portrait of a Lady, his client list is impressive to say the least.",
+                    "p23": "In Aphorisms of a Perfumer you hear about his fascinating journey as a perfumer, the smells that captivated Ropion as a child, ones that enchant him in his everyday life and his thoughtful approach to perfumery. Often described as ‘the master of flowers’, here, Ropion takes us through a floral bouquet of ingredients, offering olfactory insights along the way.",
+                    "c2": "A WINDOW INTO THE INDUSTRY",
+                    "h3": "3 – Nez Éditions – The Big Book of Perfume",
+                    "p31": "Written by a host of over 15 industry experts, the people at Nez, with Jeanne Doré editing, have created an olfactory anthology – The Big Book of Perfume – for the ages. Published in Nez’s aesthetically pleasing manner, it is awash with gorgeous illustrations and clean layouts.",
+                    "p32": "Sections cover in depth everything you need to know about the industry of perfume, from the development, distribution, marketing to manufacturing of a perfume, as well as having an incredibly well-versed glossary and directory at the back.",
+                    "p33": "We’d also highly recommend Nez & LMR’s series The Naturals Notebooks. Covering a range of ingredients extracted by LMR – a prominent natural ingredient supplier based in the south of France – you’ll find proses on jasmine sambac, orris, patchouli, vetiver, and more. They detail olfactory and perfumery insights in a beautiful and easily digestible way.",
+                    "c3": "A DIVE INTO PERFUME INGREDIENTS & HOW THEY ARE USED",
+                    "h4": "4 – The Experimental Perfume Club – The Perfumer’s Handbook",
+                    "p41": "Our very own Perfumer’s Handbook had to make it on to the list. Available individually or within our Perfumer’s Atelier; a luxury collector’s box containing 50 ingredients to explore, and an accompanying Handbook which details information of all ingredients included.",
+                    "p42": "The book, written by Emmanuelle Moeglin and a handful of fellow perfumers and perfume experts, contains unique insights on how perfume ingredients are used in fragrances and formulae.",
+                    "p43": "The book traverses the most well-known and used ingredients in perfumery, from naturals like rose absolute and vetiver oil, to the cherished aroma-chemicals of the industry, Iso E Super and Calone and famous compositions such as Cassis Base.",
+                    "p44": "The Handbook also has a very handy section on the vocabulary of scent, a chapter on the classification of ingredients and fragrances, the origins and provenance of ingredients, all accompanied by delightful illustrations and set out in a comprehensible format.",
+                    "p45": "We’ve created it so you can not only deep dive on the origins, uses, and classification of said ingredients, but also explore them with your nose, ensuring a full-circle understanding of them as you go. The perfect addition to kickstart your perfumery.",
+                    "c4": "THE HISTORY OF PERFUME A-Z",
+
+                    "h5": "5 – Elisabeth de Feydeau – Les Parfums: Histoire, Anthologie, Dictionnaire",
+
+                    "p51": "We would be remiss to not mention Elisabeth de Feydeau in our list. A French historian, writer and expert in fragrance, Feydeau has been enchanted by all things olfactory from an early age. Working as a cultural advisor to Chanel and Guerlain, she has written three books on perfumery and often teaches at the Versailles School of Perfumers.",
+                    "p52": "Her book Les Parfums: Histoire, Anthologie, Dictionnaire (2011), although only available in French, is regarded by the EPC’s Founder, Emmanuelle, as one of the most comprehensive books on perfumery, it is in fact more an encyclopedia than a book.",
+                    "p53": "It follows perfume on its journey from its very beginning to its current state; neolithic pottery to travel atomisers, ancient Egyptian recipes recorded on papyrus to industrial patents. Perfume has long been an integral part of history and Feydeau explores its links with myths and ancient rituals, as well as personal hygiene and industrialization. A must-read for any French-speaking perfumers.",
+
+                    "c5": "THE CHEMISTRY OF ODORANT INGREDIENTS",
+
+                    "h6": "6 – Harold McGee – Nose Dive: A Field Guide to the Word’s Smells",
+                    "p61": "A long read at almost 700 pages, Nose Dive fuses technical information and structures with delightfully written anecdotes on food, spices, and flowers, and is a must-read for anyone wanting to understand the reason things smell the way they do. Nose Dive is divided into five parts – Primordial smells, animal smells, plant, land and water smells in one section, and finally fragrances and food. A true deep dive into all forms of scent, not just a guide to smells we can experience now, it is also a guide to a smellscape of a different time, from the very first smells to the scent of space.",
+                    "p62": "Delving into chemistry and the science of scents – it has a short introduction on chemistry for any non-specialists – the book is also fused with stories that help bring the technical information to life.",
+                    "p63": "With entire chapters on plant volatile families, mosses, trees, grasses, weeds and flowers, detailing odorant molecules, what they smell of and where one finds them within natural ingredients – we’d say this one is for those wishing to have a true schooling in the science of scent. A sensational book for anyone looking to develop their nose, and their olfactory brain."
+                }
             },
             "blogKey7": {
                 "title": "The best scents for spring",
-                "content": ""
+                "content": {
+                    "q1": "Spring is a season of change. It’s a time between sunny beaches and cosy cottages. And with that in mind, our fragrances should be a tweener too.",
+                    "q2": "It’s this time of year that blended and bespoke scents come into their own because, without them, we would all be hunting for a handful of perfumes to change between the rainy and sunny days. But there is no need to open all those tabs on your laptop. All you need is creating your own scent with EPC. Let us show you how…",
+                    "h1": "Spring Scent 101",
+                    "p11": "When blending or creating bespoke perfumes, we should keep a few rules of the season in mind. Firstly, let’s face it, it’s not summer yet. So however you like your scent, ensure you keep a base of heavier, wintery notes. This rich foundation will ensure sensuality and provide a contrast to whatever lighter notes you prefer.",
+                    "p12": "When it comes to the heart and top notes, it’s really a matter of preference. Some of us love the sparkle of citrus, and nothing but bergamot will do. On the other hand, there are a lot of floral lovers out there who have waited all winter for spring to blossom.",
+
+                    "h2": "Jasmine Sour",
+                    "p21": "Our new limited-edition summer blend 2021 is perfect to accompany your favourite sour cocktails! Sweet yet tart, intriguing yet refreshing. Inspired by the smell of sun-kissed skin, sun tanned lotion and cocktails on the beach, this new Signature Blend will transport you under the palm trees.",
+                    "p22": "Jasmine Sour blends our Essential Jasmine Osmanthus with Bergamot Incense in this zingy and delicate cocktail of creamy white flowers – jasmine, osmanthus and frangipani with a touch of coconut – coming together with the sharpness of citrus and spices – lemon, bergamot and juniper berries.",
+                    "p23": "Raise your glass to a summer full of sun, socialising and scent!",
+
+                    "h3": "Electric Fig",
+                    "p31": "Picture a garden in bloom. There is a carpet of vibrant, green grass and pink rose bushes dotted about the scene. The air is fresh and bright, and all the colours and sounds feel heightened and enticing.",
+                    "p32": "Electric Fig is this garden in a bottle, blending our Essential Fig Neroli and Rose Rhubarb, bringing together the vegetal greenness of fig and basil leaves is juxtaposed with effervescent rhubarb; the sharp petitgrain is softened by the neroli and rose.",
+                    "p33": "It is a medley of nature’s finest offerings, and a total mood-enhancer for your summer days.",
+
+                    "h4": "Bergamot Blush",
+                    "p41": "Think of those easy-going, lazy days spent on a beach, lying on soft sand with the sun gently warming your skin…",
+                    "p42": "Bergamot Blush is a well-rounded, balanced and easy-to-wear fragrance for the summertime. Blending together three Essential: Bergamot Incense, Jasmine Osmanthus and Amber Iris, it harmonises the exotically-sweet, creamy jasmine and osmanthus with the light spice of frankincense and invigorating freshness of bergamot. It will transport you to a tropical island, somewhere serene and far away."
+                }
             },
             "blogKey8": {
                 "title": "Our Top Three Signature Blends for Summer",
-                "content": ""
+                "content": {
+                    "q1": "The days are warmer, the nights are longer. Summertime is well and truly here, and it brings with it an abundance of gorgeous scents. In this post, we talk you through our top-picks for summer from our Signature Blends collection.",
+                    "h1": "The Scents Of Summertime",
+                    "p11": "There is something so special and uplifting about the summertime: we make new memories, remember summers gone by, and enjoy all the wonderful things nature has to offer.",
+                    "p12": "Our Signature Blends for Summer 2021 are powered by the natural world, in all its wonderful versatility. From soft and sweet florals, to vibrant green scents and tart, sparkling fragrances, we’ve got you covered for every summer occasion.",
+                    "p13": "For those always travelling with a spray in their pocket, whether on staycation in your beautiful garden in bloom or right on the beach, we have shortlisted for you three of the most summery fragrances from our collection of Signature Blends."
+                }
             },
             "blogKey9": {
                 "title": "We are nuts about nutty scents",

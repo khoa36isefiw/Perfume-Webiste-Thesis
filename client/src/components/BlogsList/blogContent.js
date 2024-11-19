@@ -1133,7 +1133,7 @@ export const blogContent = (t) => ({
                             {blog.blogContent.map((text, index) => (
                                 <Box sx={{ maxWidth: 750, mt: 1 }} key={index}>
                                     <CustomizeTypographyBlog>
-                                    {t(`common.blogsPage.blogKey5.content.${text}`)}
+                                        {t(`common.blogsPage.blogKey5.content.${text}`)}
                                     </CustomizeTypographyBlog>
                                 </Box>
                             ))}
@@ -1198,7 +1198,8 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        Our Best Perfume Books to Learn from Perfumers
+                        {/* Our Best Perfume Books to Learn from Perfumers */}
+                        {t(`common.blogsPage.blogKey6.title`)}
                     </Typography>
                 </Box>
             </Box>
@@ -1235,14 +1236,7 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        We are often asked about our favourite books about perfumery, and there are
-                        plenty out there to stick your nose into, but these are our favourite.
-                        Instead of poetic perfumed prose these are the most comprehensive books
-                        written by perfumers and professionals of the perfume industry covering the
-                        art of perfumery, the perfumer, the industry, and of course, ingredients –
-                        giving proper insights into the world of fragrance, and the profession of a
-                        perfumer, rather than whimsical words on pretty perfumes. Enjoy, and we hope
-                        they pique your interests in perfume even further.
+                        {t(`common.blogsPage.blogKey6.content.q1`)}
                     </Typography>
                 </Box>
 
@@ -1268,7 +1262,7 @@ export const blogContent = (t) => ({
                                     textAlign: 'center',
                                 }}
                             >
-                                {blog.bigTitle}
+                                {t(`common.blogsPage.blogKey6.content.${blog.bigTitle}`)}
                             </Typography>
                             <Typography
                                 sx={{
@@ -1280,11 +1274,13 @@ export const blogContent = (t) => ({
                                     mt: 2,
                                 }}
                             >
-                                {blog.blogTitle}
+                                {t(`common.blogsPage.blogKey6.content.${blog.blogTitle}`)}
                             </Typography>
                             {blog.blogContent.map((text, index) => (
                                 <Box sx={{ maxWidth: 750, mt: 1 }} key={index}>
-                                    <CustomizeTypographyBlog>{text}</CustomizeTypographyBlog>
+                                    <CustomizeTypographyBlog>
+                                        {t(`common.blogsPage.blogKey6.content.${text}`)}
+                                    </CustomizeTypographyBlog>
                                 </Box>
                             ))}
                             {blog.blogImage !== '' && (
@@ -1520,7 +1516,7 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        The best scents for spring
+                        {t(`common.blogsPage.blogKey7.title`)}
                     </Typography>
                 </Box>
             </Box>
@@ -1557,15 +1553,10 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        Spring is a season of change. It’s a time between sunny beaches and cosy
-                        cottages. And with that in mind, our fragrances should be a tweener too.
+                        {t(`common.blogsPage.blogKey7.content.q1`)}
                         <br />
                         <br />
-                        It’s this time of year that blended and bespoke scents come into their own
-                        because, without them, we would all be hunting for a handful of perfumes to
-                        change between the rainy and sunny days. But there is no need to open all
-                        those tabs on your laptop. All you need is creating your own scent with EPC.
-                        Let us show you how…
+                        {t(`common.blogsPage.blogKey7.content.q2`)}
                     </Typography>
                 </Box>
                 <Box
@@ -1596,20 +1587,13 @@ export const blogContent = (t) => ({
                                     fontWeight: 'bold',
                                 }}
                             >
-                                Spring Scent 101
+                                {t(`common.blogsPage.blogKey7.content.h1`)}
                             </CustomizeTypographyBlog>
                             <CustomizeTypographyBlog>
-                                When blending or creating bespoke perfumes, we should keep a few
-                                rules of the season in mind. Firstly, let’s face it, it’s not summer
-                                yet. So however you like your scent, ensure you keep a base of
-                                heavier, wintery notes. This rich foundation will ensure sensuality
-                                and provide a contrast to whatever lighter notes you prefer.
+                                {t(`common.blogsPage.blogKey7.content.p11`)}
                                 <br />
                                 <br />
-                                When it comes to the heart and top notes, it’s really a matter of
-                                preference. Some of us love the sparkle of citrus, and nothing but
-                                bergamot will do. On the other hand, there are a lot of floral
-                                lovers out there who have waited all winter for spring to blossom.
+                                {t(`common.blogsPage.blogKey7.content.p12`)}
                             </CustomizeTypographyBlog>
                         </Grid>
                     </Grid>
@@ -1627,7 +1611,7 @@ export const blogContent = (t) => ({
                                         mb: 2,
                                     }}
                                 >
-                                    {blog.blogTitle}
+                                    {t(`common.blogsPage.blogKey7.content.${blog.blogTitle}`)}
                                 </CustomizeTypographyBlog>
                                 {blog.blogContent?.map((text, index) => (
                                     <CustomizeTypographyBlog
@@ -1637,7 +1621,7 @@ export const blogContent = (t) => ({
                                             mb: 2,
                                         }}
                                     >
-                                        {text}
+                                        {t(`common.blogsPage.blogKey7.content.${text}`)}
                                     </CustomizeTypographyBlog>
                                 ))}
                             </Box>
@@ -1686,7 +1670,7 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        Our Top Three Signature Blends for Summer{' '}
+                        {t(`common.blogsPage.blogKey8.title`)}
                     </Typography>
                 </Box>
             </Box>
@@ -1722,10 +1706,7 @@ export const blogContent = (t) => ({
                             },
                         }}
                     >
-                        The days are warmer, the nights are longer. Summertime is well and truly
-                        here, and it brings with it an abundance of gorgeous scents. In this post,
-                        we talk you through our top-picks for summer from our Signature Blends
-                        collection.
+                        {t(`common.blogsPage.blogKey8.content.q1`)}
                     </Typography>
                 </Box>
                 <Box
@@ -1756,24 +1737,16 @@ export const blogContent = (t) => ({
                                     fontWeight: 'bold',
                                 }}
                             >
-                                The Scents Of Summertime
+                                {t(`common.blogsPage.blogKey8.content.h1`)}
                             </CustomizeTypographyBlog>
                             <CustomizeTypographyBlog>
-                                There is something so special and uplifting about the summertime: we
-                                make new memories, remember summers gone by, and enjoy all the
-                                wonderful things nature has to offer.
+                                {t(`common.blogsPage.blogKey8.content.p11`)}
                                 <br />
                                 <br />
-                                Our Signature Blends for Summer 2021 are powered by the natural
-                                world, in all its wonderful versatility. From soft and sweet
-                                florals, to vibrant green scents and tart, sparkling fragrances,
-                                we’ve got you covered for every summer occasion.
+                                {t(`common.blogsPage.blogKey8.content.p12`)}
                                 <br />
                                 <br />
-                                For those always travelling with a spray in their pocket, whether on
-                                staycation in your beautiful garden in bloom or right on the beach,
-                                we have shortlisted for you three of the most summery fragrances
-                                from our collection of Signature Blends.
+                                {t(`common.blogsPage.blogKey8.content.p13`)}
                             </CustomizeTypographyBlog>
                         </Grid>
                     </Grid>
@@ -1802,7 +1775,7 @@ export const blogContent = (t) => ({
                                         color: theme.palette.text.secondary,
                                     }}
                                 >
-                                    {blog.blogTitle}
+                                    {t(`common.blogsPage.blogKey7.content.${blog.blogTitle}`)}
                                 </CustomizeTypographyBlog>
                             </Grid>
                             <Grid item xs={12} sm={6} md={4} lg={12}>
@@ -1814,7 +1787,7 @@ export const blogContent = (t) => ({
                                         }}
                                         key={index}
                                     >
-                                        {text}
+                                        {t(`common.blogsPage.blogKey7.content.${text}`)}
                                     </CustomizeTypographyBlog>
                                 ))}
                             </Grid>
