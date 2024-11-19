@@ -46,18 +46,18 @@ function PerfumeBrands({ listData }) {
         }
     };
 
-    useEffect(() => {
-        const params = new URLSearchParams(location.search); // get current query string params
-        console.log('params: ', params.toString());
+    // useEffect(() => {
+    //     const params = new URLSearchParams(location.search); // get current query string params
+    //     console.log('params: ', params.toString());
 
-        if (!params.toString().includes('brand=')) {
-            // remove filter key on local storage when brand filter is not present in the URL
-            window.localStorage.removeItem('filter');
-            setBrandSelected('');
-            navigate(`/${i18n.language}/shop?${params.toString()}`);
-            mutate();
-        }
-    }, [new URLSearchParams(location.search)]);
+    //     if (!params.toString().includes('brand=')) {
+    //         // remove filter key on local storage when brand filter is not present in the URL
+    //         window.localStorage.removeItem('filter');
+    //         setBrandSelected('');
+    //         navigate(`/${i18n.language}/shop?${params.toString()}`);
+    //         mutate();
+    //     }
+    // }, [new URLSearchParams(location.search)]);
 
     return (
         // <Container

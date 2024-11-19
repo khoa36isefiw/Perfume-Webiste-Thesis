@@ -212,6 +212,18 @@ function NewHeader() {
         navigate(`/${i18n.language}/shopping-cart`);
     };
 
+    // useEffect(() => {
+    //     const params = new URLSearchParams(location.search); // get current query string params
+    //     console.log('params: ', params.toString());
+
+    //     if (!params.toString().includes('keyword=')) {
+    //         // remove filter key on local storage when brand filter is not present in the URL
+    //         window.localStorage.removeItem('search_query');
+    //         // setSearchQuery('');
+    //         navigate(`/${i18n.language}/shop?${params.toString()}`);
+    //         mutate();
+    //     }
+    // }, [new URLSearchParams(location.search)]);
     return (
         <Box
             sx={{
