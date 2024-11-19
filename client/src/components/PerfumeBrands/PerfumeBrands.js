@@ -14,15 +14,15 @@ function PerfumeBrands({ listData }) {
     const { t, i18n } = useTranslation();
     console.log('current language: ', i18n.language); // get the current language
 
-    const { data: brands, isLoading, error } = useBrand();
+    const { data: brands, mutate, isLoading, error } = useBrand();
     const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
         const currentBrand = JSON.parse(localStorage.getItem('filter'));
-
         setBrandSelected(currentBrand);
     }, [JSON.parse(localStorage.getItem('filter'))]);
+
     console.log('current filter: ', brandSelected);
 
     const handleSelectBrand = (brand) => {
@@ -45,6 +45,19 @@ function PerfumeBrands({ listData }) {
             navigate(`/${i18n.language}/shop?${currentQueryParams.toString()}`);
         }
     };
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search); // get current query string params
+        console.log('params: ', params.toString());
+
+        if (!params.toString().includes('brand=')) {
+            // remove filter key on local storage when brand filter is not present in the URL
+            window.localStorage.removeItem('filter');
+            setBrandSelected('');
+            navigate(`/${i18n.language}/shop?${params.toString()}`);
+            mutate();
+        }
+    }, [new URLSearchParams(location.search)]);
 
     return (
         // <Container

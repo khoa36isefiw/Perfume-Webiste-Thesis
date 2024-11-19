@@ -173,8 +173,6 @@ function NewHeader() {
             const currentQueryParams = new URLSearchParams(location.search);
             currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
             currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
-
-            // navigate(`/shop?${currentQueryParams.toString()}`);
             showMessage('warning', 'Search', 'Please fill product name!');
         }
     };
