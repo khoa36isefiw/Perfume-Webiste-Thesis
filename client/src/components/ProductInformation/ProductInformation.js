@@ -1,16 +1,17 @@
-import { Avatar, Box, Container, Divider, Grid } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import React from 'react';
 import {
-    CustomizeListText,
     CustomizeProductDescriptionText,
     CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
-import { policyData } from './productInformationData';
+
 import { theme } from '../../Theme/Theme';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function ProductInformation() {
     const location = useLocation();
+    const { t } = useTranslation('translate');
     // get the perfume data passed from navigation
     const { perfume } = location.state || {};
     console.log('perfume: ', perfume);
@@ -27,36 +28,32 @@ function ProductInformation() {
                                 color: theme.palette.text.primary,
                             }}
                         >
-                            Chi tiết về sản phẩm
+                            {/* Chi tiết về sản phẩm */}
+                            {t('common.productDetails.productDetails')}
                         </CustomizeTypography>
 
                         <CustomizeProductDescriptionText
-                            title={'Thương hiệu'}
-                            // get value through key
-                            text={perfume.brand.nameEn}
-                        />
-                        <CustomizeProductDescriptionText
-                            title={'Xuất xứ'}
+                            title={t('common.productDetails.Origin')}
                             // get value through key
                             text={perfume.content.origin}
                         />
                         <CustomizeProductDescriptionText
-                            title={'Năm sản xuất'}
+                            title={t('common.productDetails.year')}
                             // get value through key
                             text={perfume.content.yearOfRelease}
                         />
                         <CustomizeProductDescriptionText
-                            title={'Nồng độ'}
+                            title={t('common.productDetails.Concentration')}
                             // get value through key
                             text={perfume.content.concentration}
                         />
                         <CustomizeProductDescriptionText
-                            title={'Nhóm hương'}
+                            title={t(`common.productDetails.${'Fragrance group'}`)}
                             // get value through key
                             text={perfume.content.fragranceGroup}
                         />
                         <CustomizeProductDescriptionText
-                            title={'Nhà chế tác'}
+                            title={t(`common.productDetails.${'Manufacturer'}`)}
                             // get value through key
                             text={perfume.content.manufacturer}
                         />
@@ -69,50 +66,54 @@ function ProductInformation() {
                                 color: theme.palette.text.primary,
                             }}
                         >
-                            Mô tả sản phẩm
+                            {t(`common.productDetails.${'pDes'}`)}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            {perfume?.content.shortContent}
-                        </CustomizeTypography>
-
-                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            <span style={{ color: theme.palette.text.primary }}>
-                                <strong>Top note: </strong>
-                            </span>
-                            {perfume.content?.topNotes}
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            <span style={{ color: theme.palette.text.primary }}>
-                                <strong>Heart note: </strong>
-                            </span>
-                            {perfume.content?.heartNotes}
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            <span style={{ color: theme.palette.text.primary }}>
-                                <strong>Bases note: </strong>
-                            </span>
-                            {perfume.content?.baseNotes}
-                        </CustomizeTypography>
-
-                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            {perfume?.content.mainContent}
+                            {t('common.productDetails.content.c1')}
                         </CustomizeTypography>
 
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             <span style={{ color: theme.palette.text.primary }}>
-                                <strong>Độ lưu hương: </strong>
+                                <strong>{t(`common.productDetails.topNote`)}: </strong>
+                            </span>
+                            {t(`common.productDetails.n1`)}
+                        </CustomizeTypography>
+                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
+                            <span style={{ color: theme.palette.text.primary }}>
+                                <strong>{t('common.productDetails.heartNote')}: </strong>
+                            </span>
+                            {t(`common.productDetails.n2`)}
+                        </CustomizeTypography>
+                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
+                            <span style={{ color: theme.palette.text.primary }}>
+                                <strong>{t(`common.productDetails.basesNote`)}: </strong>
+                            </span>
+                            {t(`common.productDetails.n3`)}
+                        </CustomizeTypography>
+
+                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
+                            {t('common.productDetails.content.c2')}
+                        </CustomizeTypography>
+
+                        <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
+                            <span style={{ color: theme.palette.text.primary }}>
+                                <strong>
+                                    {t(`common.productDetails.${`Fragrance lasting`}`)}:{' '}
+                                </strong>
                             </span>
                             {perfume.content?.likability}/5
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             <span style={{ color: theme.palette.text.primary }}>
-                                <strong>Toả hương: </strong>
+                                <strong>
+                                    {t(`common.productDetails.${`Fragrance diffusion`}`)}:{' '}
+                                </strong>
                             </span>
                             {perfume.content?.longevity}/5
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             <span style={{ color: theme.palette.text.primary }}>
-                                <strong>Nịnh mũi: </strong>
+                                <strong>{t(`common.productDetails.${`Nose pleasing`}`)}: </strong>
                             </span>
                             {perfume.content?.likability}/5
                         </CustomizeTypography>

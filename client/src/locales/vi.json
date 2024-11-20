@@ -54,6 +54,39 @@
                 "t3": "Đến với Tomtoc Perfumes, bạn có thể thoải mái tìm kiếm và trải nghiệm nhiều thương hiệu nổi tiếng, từ cao cấp đến bình dân. Chất lượng đảm bảo, hàng chính hãng, giá tốt nhất cùng nhiều ưu đãi dành cho khách hàng. Cam kết bảo hành đến giọt cuối cùng."
             }
         },
+
+        "productDetails": {
+            "brand": "Thương hiệu",
+            "status": "Tình trạng hàng",
+            "inStock": "Còn hàng",
+            "outStock": "Hết hàng",
+            "rate": "Đánh giá",
+            "sold": "Đã bán",
+            "sale": "Giảm giá",
+            "addToCart": "Thêm vào giỏ hàng",
+            "buyNow": "Mua ngay",
+            "productDetails": "Chi tiết sản phẩm",
+            "Origin": "Xuất xứ",
+            "year": "Năm sản xuất",
+            "Concentration": "Nồng độ",
+            "Fragrance group": "Nhóm hương",
+            "Manufacturer": "Nhà chế tác",
+            "pDes": "Mô tả sản phẩm",
+            "topNote": "Top Note",
+            "heartNote": "Heart Note",
+            "basesNote": "Bases Note",
+            "n1": "Nghệ tây, Hạnh nhân đắng",
+            "n2": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "n3": "Hương gỗ, Hổ phách, Xạ hương",
+            "content": {
+                "c1": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+                "c2": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ. Baccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý. Thuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác."
+            },
+            "Fragrance lasting": "Fragrance lasting",
+            "Fragrance diffusion": "Fragrance diffusion",
+            "Nose pleasing": "Nose pleasing",
+            "reviews": "Product Reviews & FAQs"
+        },
         "latestArticles": {
             "homeArticle": "Bài viết mới nhất",
             "readMore": "Đọc thêm",

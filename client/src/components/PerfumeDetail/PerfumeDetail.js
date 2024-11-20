@@ -17,11 +17,13 @@ import CheckIcon from '@mui/icons-material/Check';
 
 import { userAPI } from '../../api/userAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import { useTranslation } from 'react-i18next';
 
 function PerfumeDetail() {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
+    const { t } = useTranslation('translate');
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
     const {
         showNotification,
@@ -81,87 +83,6 @@ function PerfumeDetail() {
 
     // khi add to cart --> thì sẽ chạy .create order,
     // with status: inshoppingcart
-
-    // const handleAddProduct = (productInfor) => {
-    //     const existingItem = cartItems.find(
-    //         (item) =>
-    //             item.perfumeID === productInfor.perfumeID &&
-    //             item.perfumeSize === productInfor.perfumeSize,
-    //     );
-    //     const productToDispatch = {
-    //         perfumeID: productInfor.perfumeID,
-    //         perfumeName: productInfor.perfumeName,
-    //         // perfumePrice: productInfor.perfumePriceVND,
-    //         perfumeSize: selectedSize.perfumeSize,
-    //         perfumePrice: selectedSize.perfumePrice,
-    //         perfumePriceDiscount: productInfor.perfumePriceDiscount,
-    //         perfumeImage: productInfor.perfumeImage,
-    //         perfumeBrand: productInfor.perfumeBrand,
-    //         perfumeQuantity: 1,
-    //     };
-
-    //     // check, is product existed in cart items?
-    //     if (cartItems !== null) {
-    //         // exists in cart items
-    //         if (existingItem) {
-    //             console.log('chạy vô đây không');
-    //             dispatch(increaseQuantity(productInfor.perfumeID, productInfor.perfumeSize));
-    //         } else {
-    //             console.log('chạy vô đây');
-
-    //             dispatch(addToCart({ ...productToDispatch }));
-    //         }
-    //         setShowNotification(true);
-    //         setShowAnimation('animate__bounceInRight');
-    //     }
-    // };
-
-    // create order with status and api
-    // const handleAddProduct = async (productInfor) => {
-    //     const existingItem = cartItems.find(
-    //         (item) =>
-    //             item.perfumeID === productInfor.perfumeID &&
-    //             item.perfumeSize === productInfor.perfumeSize,
-    //     );
-    //     const productToDispatch = {
-    //         perfumeID: productInfor.perfumeID,
-    //         perfumeName: productInfor.perfumeName,
-    //         // perfumePrice: productInfor.perfumePriceVND,
-    //         perfumeSize: selectedSize.perfumeSize,
-    //         perfumePrice: selectedSize.perfumePrice,
-    //         perfumePriceDiscount: productInfor.perfumePriceDiscount,
-    //         perfumeImage: productInfor.perfumeImage,
-    //         perfumeBrand: productInfor.perfumeBrand,
-    //         perfumeQuantity: 1,
-    //     };
-
-    //     //         const orderInformation = {
-    //     // userId:userData._id,
-    //     // items:, //
-    //     // totalPrice:,
-
-    //     // status:'InShoppingCart',
-
-    //     //         }
-
-    //     const createOrder = await ordersAPI.createOrder();
-
-    //     // check, is product existed in cart items?
-    //     if (cartItems !== null) {
-    //         // exists in cart items
-    //         if (existingItem) {
-    //             console.log('chạy vô đây không');
-    //             dispatch(increaseQuantity(productInfor.perfumeID, productInfor.perfumeSize));
-    //         } else {
-    //             console.log('chạy vô đây');
-
-    //             dispatch(addToCart({ ...productToDispatch }));
-    //         }
-    //         setShowNotification(true);
-    //         setShowAnimation('animate__bounceInRight');
-    //     }
-    // };
-
     const handleAddProduct = async () => {
         // add to cart, when users moving to cart --> get user byID get all information
         if (userData) {
@@ -367,12 +288,12 @@ function PerfumeDetail() {
                             {perfume.nameEn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 1 }}>
-                            <strong>Thương hiệu: </strong>
+                            <strong>{t('common.productDetails.brand')}: </strong>
                             <span>{perfume.brand.nameEn}</span>
                             {/* <span>Maison Francis Kurkdjian Paris</span> */}
                         </CustomizeTypography>
                         <CustomizeTypography>
-                            <strong>Tình trạng: </strong>
+                            <strong>{t('common.productDetails.status')}: </strong>
                             <span
                                 style={{
                                     color:
@@ -382,7 +303,9 @@ function PerfumeDetail() {
                                     fontWeight: 'bold',
                                 }}
                             >
-                                {selectedSize.numberStock <= 0 ? 'Hết Hàng' : 'Còn hàng'}
+                                {selectedSize.numberStock <= 0
+                                    ? t('common.productDetails.outStock')
+                                    : t('common.productDetails.inStock')}
                             </span>
                         </CustomizeTypography>
 
@@ -432,7 +355,8 @@ function PerfumeDetail() {
                                 // handle for showing comments and reviews
                                 // onClick={}
                             >
-                                ({commentsList.length > 0 ? commentsList.length : 0} đánh giá)
+                                ({commentsList.length > 0 ? commentsList.length : 0}{' '}
+                                {t('common.productDetails.rate')})
                             </CustomizeTypography>
                             <Box
                                 sx={{
@@ -444,7 +368,7 @@ function PerfumeDetail() {
                                 }}
                             />
                             <CustomizeTypography sx={{ ml: 1 }}>
-                                đã bán {soldQuantity}
+                                {t('common.productDetails.sold')} {soldQuantity}
                             </CustomizeTypography>
                         </Box>
 
@@ -506,7 +430,8 @@ function PerfumeDetail() {
                                     p: '4px',
                                 }}
                             >
-                                Sale
+                                {/* Sale */}
+                                {t('common.productDetails.sale')}
                             </CustomizeTypography>
 
                             <Box
@@ -617,14 +542,14 @@ function PerfumeDetail() {
 
                         <Box sx={{ display: 'flex', alignItems: 'center', my: 2 }}>
                             <CustomizeButtonOutlined
-                                textAction={'Add to cart'}
+                                textAction={t('common.productDetails.addToCart')}
                                 onHandleClick={() => handleAddProduct()}
                                 disabled={selectedSize.numberStock <= 0}
                             />
 
                             {/* <CustomizeButton textAction={'Add to cart'} /> */}
                             <Box sx={{ ml: 2 }}>
-                                <CustomizeButton textAction={'Buy Now'} />
+                                <CustomizeButton textAction={t('common.productDetails.buyNow')} />
                             </Box>
                         </Box>
                         <Divider sx={{ bgcolor: '#fff', my: 4 }} />
