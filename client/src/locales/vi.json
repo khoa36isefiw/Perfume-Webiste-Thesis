@@ -85,7 +85,11 @@
             "Fragrance lasting": "Độ lưu hương",
             "Fragrance diffusion": "Toả hương",
             "Nose pleasing": "Nịnh mũi",
-            "reviews": "Product Reviews & FAQs"
+            "reviews": "Product Reviews & FAQs",
+            "ratingFor": "đánh giá cho",
+            "averageRating": "Đánh giá trung bình",
+            "ratingNow": "Đánh giá ngay",
+            "writeComment": "Viết bài đánh giá của bạn tại đây..."
         },
         "latestArticles": {
             "homeArticle": "Bài viết mới nhất",

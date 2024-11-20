@@ -103,7 +103,11 @@
             "Fragrance lasting": "Fragrance lasting",
             "Fragrance diffusion": "Fragrance diffusion",
             "Nose pleasing": "Nose pleasing",
-            "reviews": "Product Reviews & FAQs"
+            "reviews": "Product Reviews & FAQs",
+            "ratingFor": "rating for",
+            "averageRating": "Average rating",
+            "ratingNow": "Rating Now",
+            "writeComment": "Write your review at here..."
         },
         "aboutPage": {
             "aboutUs": "About Us",
