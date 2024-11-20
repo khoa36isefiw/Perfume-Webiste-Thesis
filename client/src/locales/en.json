@@ -30,6 +30,32 @@
         "Survey & feedback": "Survey & feedback",
         "Abous Us": "Abous Us",
         "Promotions Code": "Promotions Code",
+        "Sortby": "Sort by",
+        "Categories": "Categories",
+        "Price": "Price",
+        "Sorting": "Sorting",
+        "Low to High": "Low to High",
+        "High to Low": "High to Low",
+        "Name: A -> Z": "Name: A -> Z",
+        "Name: Z -> A": "Name: Z -> A",
+        "plth": "See all products, with price from low to high",
+        "phtl": "See all products, with price from high to low",
+        "nA-Z": "See all products, with name from A to Z",
+        "nZ-A": "See all products, with name from Z to A",
+
+        "categoriesType": {
+            "women": {
+                "women": "Women"
+            },
+            "men": {},
+            "unisex": {
+                "unisex": "Unisex",
+                "title": "Unisex Perfume - Fragrance Without Boundaries",
+                "t1": "Unisex perfume enhances the charm of each individual. Do not equate anyone with two words of gender, do not force men to have this scent and women to have that scent. Evoke both the strong, masculine features of men. Hidden in her skin, femininity, and sexiness are hard to resist.",
+                "t2": "This is also a perfume line widely used by LGBT people. Because the scent is not too masculine, not too feminine. The scent is extremely attractive, and you are more confident and happier every time you use it.",
+                "t3": "Coming to Tomtoc Perfumes, you can freely search and experience many famous brands, from high-end to popular. Guaranteed quality, genuine goods, and best prices with many incentives for customers. Warranty commitment to the last drop."
+            }
+        },
         "latestArticles": {
             "homeArticle": "Latest Articles",
             "readMore": "Read More",
@@ -45,6 +71,18 @@
                 "title": "We are nuts about nutty scents",
                 "content": "Rose, often referred to as the 'Queen of Flowers,' has held a special place in human culture and history for centuries. Beyond its captivating beauty, this iconic bloom has also inspired perfumers to create some of the most timeless and exquisite fragrances in the world."
             }
+        },
+
+        "productDetails": {
+            "brand": "Brand",
+            "stock": "In stock",
+            "rate": "Rating",
+            "sold": "Sold",
+            "sale": "Sale",
+            "addToCart": "Add to Cart",
+            "buyNow": "Buy Now",
+            "productDetails": "Product Details"
+            
         },
         "aboutPage": {
             "aboutUs": "About Us",

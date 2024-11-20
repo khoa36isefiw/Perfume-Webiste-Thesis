@@ -30,6 +30,30 @@
         "Survey & feedback": "Khảo sát & phản hồi",
         "Abous Us": "Giới thiệu về chúng tôi",
         "Promotions Code": "Mã khuyến mại",
+        "Sortby": "Sắp xếp theo",
+        "Categories": "Danh mục",
+        "plth": "Xem tất cả sản phẩm, với giá từ thấp đến cao",
+        "phtl": "Xem tất cả sản phẩm, với giá từ cao đến thấp",
+        "nA-Z": "Xem tất cả sản phẩm, với tên từ A đến Z",
+        "nZ-A": "Xem tất cả sản phẩm, với tên từ Z đến A",
+        "Sorting": "Sắp Xếp",
+        "Low to High": "Thấp đến Cao",
+        "High to Low": "Cao đến Thấp",
+        "Name: A -> Z": "Tên: A -> Z",
+        "Name: Z -> A": "Tên: Z -> A",
+        "categoriesType": {
+            "women": {
+                "women": "Nữ giới"
+            },
+            "men": {},
+            "unisex": {
+                "unisex": "Unisex",
+                "title": "Nước hoa Unisex - Hương thơm cho cả nam lẫn nữ",
+                "t1": "Nước hoa Unisex tôn lên nét quyến rũ của từng cá nhân. Đừng đánh đồng bất kỳ ai với hai chữ giới tính, đừng ép buộc đàn ông phải có mùi hương này và phụ nữ phải có mùi hương kia. Khơi gợi cả nét mạnh mẽ, nam tính của đàn ông. Ẩn chứa trong làn da ấy là sự nữ tính, quyến rũ khó cưỡng.",
+                "t2": "Đây cũng là dòng nước hoa được cộng đồng LGBT sử dụng rộng rãi. Bởi mùi hương không quá nam tính, không quá nữ tính. Mùi hương cực kỳ quyến rũ, và bạn tự tin, vui vẻ hơn mỗi khi sử dụng.",
+                "t3": "Đến với Tomtoc Perfumes, bạn có thể thoải mái tìm kiếm và trải nghiệm nhiều thương hiệu nổi tiếng, từ cao cấp đến bình dân. Chất lượng đảm bảo, hàng chính hãng, giá tốt nhất cùng nhiều ưu đãi dành cho khách hàng. Cam kết bảo hành đến giọt cuối cùng."
+            }
+        },
         "latestArticles": {
             "homeArticle": "Bài viết mới nhất",
             "readMore": "Đọc thêm",
