@@ -25,6 +25,8 @@ function PerfumeDetail() {
     const dispatch = useDispatch();
     const { t } = useTranslation('translate');
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
+    const productInformation = JSON.parse(window.localStorage.getItem('productInfor')) || null;
+    console.log('productInformation: ', productInformation);
     const {
         showNotification,
         showAnimation,

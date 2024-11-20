@@ -21,12 +21,12 @@ const filterPriceLists = [
         priceIcon: <AttachMoneyIcon sx={{ fontSize: '24px', color: '#333' }} />,
     },
     {
-        priceText: 'Name: A -> Z',
+        priceText: 'Name A -> Z',
         priceSubtitle: 'nA-Z',
         priceIcon: <AbcIcon sx={{ fontSize: '28px', color: '#333' }} />,
     },
     {
-        priceText: 'Name: Z -> A',
+        priceText: 'Name Z -> A',
         priceSubtitle: 'nZ-A',
         priceIcon: <AbcIcon sx={{ fontSize: '28px', color: '#333' }} />,
     },
