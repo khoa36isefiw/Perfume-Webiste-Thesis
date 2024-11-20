@@ -8,17 +8,15 @@ import { useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 function ProductDetail() {
-    const location = useLocation();
     // get the perfume data passed from navigation
-    const { perfume } = location.state || {};
-    console.log('perfume data at parent: ', perfume);
+    const productInformation = JSON.parse(localStorage.getItem('productInfor'));
     return (
         <Box sx={{ mt: 20 }}>
             <PerfumeDetail />
             <CustomizeDivider />
             <ProductInformation />
-            <RatingProduct perfumeDetailData={perfume} />
-            <Comments perfumeDetailData={perfume} />
+            <RatingProduct perfumeDetailData={productInformation} />
+            <Comments perfumeDetailData={productInformation} />
         </Box>
     );
 }
