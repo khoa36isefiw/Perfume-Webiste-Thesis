@@ -8,9 +8,10 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import { useSelector } from 'react-redux';
 
 function Comments({ perfumeDetailData }) {
-    const commentsList = useSelector(
-        (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
-    );
+    // const commentsList =
+    //     useSelector((state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId);
+    const commentsList = [];
+
     return (
         <Container
             sx={{

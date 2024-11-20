@@ -16,6 +16,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useTranslation } from 'react-i18next';
 
 function RatingProduct({ perfumeDetailData }) {
+    console.log('perfumeDetailData: ', perfumeDetailData);
     const dispatch = useDispatch();
     const { t } = useTranslation('translate');
     const reviewInputRef = useRef(null);
@@ -26,9 +27,10 @@ function RatingProduct({ perfumeDetailData }) {
     const [ratingValue, setRatingValue] = useState(0);
     // const []
 
-    const commentsList = useSelector(
-        (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
-    );
+    // const commentsList = useSelector(
+    //     (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
+    // );
+    const commentsList = [];
 
     console.log('commentsList: ', commentsList);
 
@@ -48,7 +50,8 @@ function RatingProduct({ perfumeDetailData }) {
         // check if the user bought this product?
         const purchaseCount = orderHistory.reduce((count, item) => {
             const isBought = item.purchaseInfo.products.some(
-                (product) => product.productId === perfumeDetailData.perfumeID,
+                // (product) => product.productId === perfumeDetailData.perfumeID,
+                1,
             );
             console.log('isBought: ', isBought);
             console.log('item: ', item);
@@ -57,7 +60,7 @@ function RatingProduct({ perfumeDetailData }) {
 
         // console.log('isBought: ', isBought);
         setCommentRights(purchaseCount > 0);
-    }, [orderHistory, perfumeDetailData.perfumeID]);
+    }, [orderHistory]);
 
     const handleFocusReview = () => {
         if (reviewInputRef.current) {
@@ -153,7 +156,7 @@ function RatingProduct({ perfumeDetailData }) {
             </CustomizeTypography>
             {/* number of ratings */}
             <CustomizeTypography>
-                2 {t(`common.productDetails.ratingFor`)} {perfumeDetailData.nameEn}
+                2 {t(`common.productDetails.ratingFor`)} {perfumeDetailData?.nameEn}
             </CustomizeTypography>
             <Grid container>
                 <Grid

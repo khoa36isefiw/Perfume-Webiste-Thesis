@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 function ProductInformation() {
     const location = useLocation();
     const { t } = useTranslation('translate');
+    const productInformation = JSON.parse(window.localStorage.getItem('productInfor')) || null;
     // get the perfume data passed from navigation
     const { perfume } = location.state || {};
     console.log('perfume: ', perfume);
@@ -35,27 +36,27 @@ function ProductInformation() {
                         <CustomizeProductDescriptionText
                             title={t('common.productDetails.Origin')}
                             // get value through key
-                            text={perfume.content.origin}
+                            text={productInformation.content.origin}
                         />
                         <CustomizeProductDescriptionText
                             title={t('common.productDetails.year')}
                             // get value through key
-                            text={perfume.content.yearOfRelease}
+                            text={productInformation.content.yearOfRelease}
                         />
                         <CustomizeProductDescriptionText
                             title={t('common.productDetails.Concentration')}
                             // get value through key
-                            text={perfume.content.concentration}
+                            text={productInformation.content.concentration}
                         />
                         <CustomizeProductDescriptionText
                             title={t(`common.productDetails.${'Fragrance group'}`)}
                             // get value through key
-                            text={perfume.content.fragranceGroup}
+                            text={productInformation.content.fragranceGroup}
                         />
                         <CustomizeProductDescriptionText
                             title={t(`common.productDetails.${'Manufacturer'}`)}
                             // get value through key
-                            text={perfume.content.manufacturer}
+                            text={productInformation.content.manufacturer}
                         />
 
                         <CustomizeTypography
@@ -101,7 +102,7 @@ function ProductInformation() {
                                     {t(`common.productDetails.${`Fragrance lasting`}`)}:{' '}
                                 </strong>
                             </span>
-                            {perfume.content?.likability}/5
+                            {productInformation.content?.likability}/5
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             <span style={{ color: theme.palette.text.primary }}>
@@ -109,13 +110,13 @@ function ProductInformation() {
                                     {t(`common.productDetails.${`Fragrance diffusion`}`)}:{' '}
                                 </strong>
                             </span>
-                            {perfume.content?.longevity}/5
+                            {productInformation.content?.longevity}/5
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             <span style={{ color: theme.palette.text.primary }}>
                                 <strong>{t(`common.productDetails.${`Nose pleasing`}`)}: </strong>
                             </span>
-                            {perfume.content?.likability}/5
+                            {productInformation.content?.likability}/5
                         </CustomizeTypography>
                     </Box>
                 </Grid>

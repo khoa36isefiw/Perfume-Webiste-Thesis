@@ -40,12 +40,12 @@ function PerfumeDetail() {
     const { perfume } = location.state || {};
     // const [selectedSize, setSelectedSize] = useState(perfume.variants[0].size);
     const [selectedSize, setSelectedSize] = useState({
-        size: perfume?.variants[0].size,
-        price: perfume?.variants[0].price,
-        priceSale: perfume?.variants[0].priceSale,
-        variantIDSelected: perfume?.variants[0]?._id,
-        discount: perfume?.variants[0]?.discountPercent,
-        numberStock: perfume?.variants[0]?.stock, // get the number of product in stock
+        size: productInformation?.variants[0].size,
+        price: productInformation?.variants[0].price,
+        priceSale: productInformation?.variants[0].priceSale,
+        variantIDSelected: productInformation?.variants[0]?._id,
+        discount: productInformation?.variants[0]?.discountPercent,
+        numberStock: productInformation?.variants[0]?.stock, // get the number of product in stock
     });
 
     // get list product added to cart
@@ -56,20 +56,20 @@ function PerfumeDetail() {
         const productInfo = state.checkoutManagement.listOrdersBasedOnProduct[productId];
         return productInfo ? productInfo.quantitySold : 0;
     };
-    console.log('perfume', perfume);
+    console.log('productInformation', productInformation);
     // Sử dụng trong component
-    const productId = perfume?._id;
+    const productId = productInformation?._id;
     const soldQuantity = useSelector((state) => selectSoldQuantityByProductId(state, productId));
 
     const [selectedImage, setSelectedImage] = React.useState(0);
     // get length of comment list for each product
     const commentsList = useSelector(
-        (state) => state.commentsManagement.listComments[perfume.perfumeID] || [], // get data follow their productId
+        (state) => state.commentsManagement.listComments[productInformation._id] || [], // get data follow their productId
     );
 
     const handleNext = () => {
         // Check if current image is the last one
-        if (selectedImage < perfume.imagePath.length - 1) {
+        if (selectedImage < productInformation.imagePath.length - 1) {
             setSelectedImage((prevIndex) => prevIndex + 1); // Move to the next image
         }
     };
@@ -81,7 +81,7 @@ function PerfumeDetail() {
         }
     };
 
-    useEffect(() => {}, [perfume]);
+    useEffect(() => {}, [productInformation]);
 
     // khi add to cart --> thì sẽ chạy .create order,
     // with status: inshoppingcart
@@ -90,7 +90,7 @@ function PerfumeDetail() {
         if (userData) {
             const userId = userData.userId; // id user here
             const mockData = {
-                product: perfume?._id, // id product here
+                product: productInformation?._id, // id product here
                 variant: selectedSize.variantIDSelected, // id variant here
                 quantity: 1,
             };
@@ -114,12 +114,12 @@ function PerfumeDetail() {
     const handleSizeSelected = (index) => {
         // setSelectedSize(size);
         setSelectedSize({
-            size: perfume?.variants[index].size,
-            price: perfume?.variants[index].price,
-            priceSale: perfume?.variants[index].priceSale,
-            variantIDSelected: perfume?.variants[index]?._id,
-            discount: perfume?.variants[index]?.discountPercent,
-            numberStock: perfume?.variants[index]?.stock,
+            size: productInformation?.variants[index].size,
+            price: productInformation?.variants[index].price,
+            priceSale: productInformation?.variants[index].priceSale,
+            variantIDSelected: productInformation?.variants[index]?._id,
+            discount: productInformation?.variants[index]?.discountPercent,
+            numberStock: productInformation?.variants[index]?.stock,
         });
     };
 
@@ -216,7 +216,7 @@ function PerfumeDetail() {
                                 <Box
                                     component={'img'}
                                     // src={perfume.perfumeImage}
-                                    src={perfume.imagePath[selectedImage]}
+                                    src={productInformation.imagePath[selectedImage]}
                                     sx={{
                                         height: '100%',
                                         objectFit: 'cover',
@@ -255,7 +255,7 @@ function PerfumeDetail() {
                             </Box>
 
                             <Box sx={{ display: 'flex', overflowX: 'hidden' }}>
-                                {perfume.imagePath.map((image, index) => (
+                                {productInformation.imagePath.map((image, index) => (
                                     <Box
                                         key={index}
                                         alt="Quick View Image"
@@ -287,11 +287,11 @@ function PerfumeDetail() {
                         {/* product name */}
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
                             {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
-                            {perfume.nameEn}
+                            {productInformation.nameEn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 1 }}>
                             <strong>{t('common.productDetails.brand')}: </strong>
-                            <span>{perfume.brand.nameEn}</span>
+                            <span>{productInformation.brand.nameEn}</span>
                             {/* <span>Maison Francis Kurkdjian Paris</span> */}
                         </CustomizeTypography>
                         <CustomizeTypography>
@@ -314,7 +314,7 @@ function PerfumeDetail() {
                         <CustomizeTypography>
                             {/* Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và
                             tiệc tối đẳng cấp. */}
-                            {perfume.shortDescription}
+                            {productInformation.shortDescription}
                         </CustomizeTypography>
                         <Box
                             sx={{
@@ -469,7 +469,7 @@ function PerfumeDetail() {
                                                 : '#d5d5d5',
                                     }}
                                 >
-                                    {/* {converToVND(perfume.perfumePriceVND)} */}
+                                    {/* {converToVND(productInformation.productInformationPriceVND)} */}
                                     {converToVND(selectedSize.price)}
                                 </CustomizeTypography>
 
@@ -501,7 +501,7 @@ function PerfumeDetail() {
 
                         {/* Product Size */}
                         <Box sx={{ display: 'flex' }}>
-                            {perfume?.variants.map((size, index) => (
+                            {productInformation?.variants.map((size, index) => (
                                 <Button
                                     key={index}
                                     sx={{
