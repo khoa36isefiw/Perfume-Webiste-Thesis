@@ -91,7 +91,7 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
                     mb: 2,
                 }}
             >
-                Total price of the products in Cart
+                {t('common.shoppingCart.totalDes')}
             </CustomizeTypography>
 
             <CustomizeDividerV2 />
@@ -99,7 +99,11 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
             {/* Total Row */}
             <Box sx={{ mt: 2, mb: 4 }}>
                 {/* <SummaryRowInCart label="Total" value={converToVND(totalSubtotal)} isTotal /> */}
-                <SummaryRowInCart label="Total" value={converToVND(totalSubtotal)} isTotal />
+                <SummaryRowInCart
+                    label={t('common.shoppingCart.total')}
+                    value={converToVND(totalSubtotal)}
+                    isTotal
+                />
             </Box>
 
             <Box sx={{ mb: 1 }}>
@@ -107,14 +111,14 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
                     variant="outlined"
                     textAction={
                         selectedProducts.length === 0
-                            ? 'Please select product '
-                            : 'Proceed to checkout'
+                            ? t('common.shoppingCart.selecteProduct')
+                            : t('common.shoppingCart.proceedCheckout')
                     }
                     onHandleClick={handleCheckout}
                 />
             </Box>
             <CustomizeButtonInCart
-                textAction="Continue Shopping"
+                textAction={t('common.shoppingCart.continue')}
                 onHandleClick={() => navigate(`/${i18n.language}/shop`)}
             />
         </Box>

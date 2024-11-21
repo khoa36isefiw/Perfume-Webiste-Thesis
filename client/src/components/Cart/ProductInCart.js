@@ -19,6 +19,7 @@ import Loading from '../Loading/Loading';
 import { useLocation } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import { useTranslation } from 'react-i18next';
 
 export const ProductInCart = ({
     productsList,
@@ -29,6 +30,7 @@ export const ProductInCart = ({
 }) => {
     // get userId from local storage
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+    const { t } = useTranslation('translate');
     const location = useLocation();
     const {
         showNotification,
@@ -220,7 +222,9 @@ export const ProductInCart = ({
                     checked={isAllSelected}
                     onChange={(e) => handleSelectAll(e.target.checked)}
                 />
-                <CustomizeTypography sx={{ mb: 0 }}>Select All</CustomizeTypography>
+                <CustomizeTypography sx={{ mb: 0 }}>
+                    {t('common.shoppingCart.selectAll')}
+                </CustomizeTypography>
             </Box>
             <Box
                 sx={{
@@ -380,8 +384,8 @@ export const ProductInCart = ({
                                         >
                                             {/* In Stock */}
                                             {item?.variant?.stock === 0
-                                                ? 'Out of Stock'
-                                                : 'In Stock'}
+                                                ? t('common.shoppingCart.outStock')
+                                                : t('common.shoppingCart.inStock')}
                                         </span>
                                         <CustomizeTypography
                                             sx={{
@@ -572,7 +576,7 @@ export const ProductInCart = ({
                                                 },
                                             }}
                                         >
-                                            Delete
+                                            {t('common.shoppingCart.delete')}
                                         </Button>
                                     </Box>
                                 </Box>

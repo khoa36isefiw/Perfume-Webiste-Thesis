@@ -110,6 +110,22 @@
             "writeComment": "Write your review at here...",
             "bought": "Purchased at Tomtoc Perfumes"
         },
+        "shoppingCart": {
+            "continue": "Continue Shopping",
+            "yourCart": "Your Cart",
+            "selectAll": "Select All",
+            "inStock": "In stock",
+            "outStock": "Out of stock",
+            "delete": "Delete",
+            "totalDes": "Total price of the products in Cart",
+            "total": "Total",
+            "selecteProduct": "Please select product",
+            "proceedCheckout": "Proceed to Checkout",
+            "emptyCart": {
+                "title": "Your cart is empty",
+                "content": "Looks like you have not added anything to your cart."
+            }
+        },
         "aboutPage": {
             "aboutUs": "About Us",
             "aboutText": "At Tomtoc Perfumes, we believe that perfumes are more than just scents; they are expressions of one's individuality and style. Our passion for exquisite fragrances led us to curate a collection that captures the essence of diverse personalities, bringing you an unparalleled olfactory experience.",

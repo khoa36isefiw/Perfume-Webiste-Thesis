@@ -93,6 +93,22 @@
             "writeComment": "Viết bài đánh giá của bạn tại đây...",
             "bought": "Đã mua hàng tại Tomtoc Perfumes"
         },
+        "shoppingCart": {
+            "continue": "Tiếp tục mua sắm",
+            "yourCart": "Giỏ hàng của bạn",
+            "selectAll": "Chọn tất cả",
+            "inStock": "Còn hàng",
+            "outStock": "Hết hàng",
+            "delete": "Xóa",
+            "totalDes": "Tổng giá của các sản phẩm trong Giỏ hàng",
+            "total": "Tổng",
+            "selecteProduct": "Vui lòng chọn sản phẩm",
+            "progressCheckout": "Tiến hành thanh toán",
+            "emptyCart": {
+                "title": "Giỏ hàng của bạn trống",
+                "content": "Có vẻ như bạn chưa thêm bất kỳ sản phẩm nào vào giỏ hàng."
+            }
+        },
         "latestArticles": {
             "homeArticle": "Bài viết mới nhất",
             "readMore": "Đọc thêm",

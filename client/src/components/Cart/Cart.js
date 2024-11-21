@@ -32,7 +32,7 @@ function Cart() {
     return (
         <React.Fragment>
             {data?.data?.cart.length > 0 ? (
-                <Container sx={{ my: 16 }}>
+                <Container sx={{ my: 20 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} lg={12}>
                             <Button
@@ -66,12 +66,12 @@ function Cart() {
                                     },
                                 }}
                             >
-                                Continue Shopping
+                                {t(`common.shoppingCart.continue`)}
                             </Button>
                         </Grid>
                         <Grid item xs={12} lg={12}>
                             <CustomizeTypography sx={{ fontSize: '48px', fontWeight: 'bold' }}>
-                                Your Cart
+                                {t(`common.shoppingCart.yourCart`)}
                             </CustomizeTypography>
                         </Grid>
 
@@ -116,7 +116,10 @@ function Cart() {
                 </Container>
             ) : (
                 <>
-                    <EmptyCart />
+                    <EmptyCart
+                        title={t('common.shoppingCart.emptyCart.title')}
+                        subTitle={t('common.shoppingCart.emptyCart.content')}
+                    />
                 </>
             )}
         </React.Fragment>
