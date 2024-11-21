@@ -175,6 +175,10 @@
             "logout": "Đăng xuất",
             "profile": "Chỉnh sửa thông tin"
         },
+        "promotions": {
+            "title": "Mã khuyến mãi Tomtoc 🎉",
+            "valid": "Hiệu lực đến"
+        },
         "signIn": {
             "registered": "Đã đăng ký?",
             "signIn": "Đăng nhập",

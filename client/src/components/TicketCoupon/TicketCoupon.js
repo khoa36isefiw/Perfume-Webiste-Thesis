@@ -5,9 +5,11 @@ import { theme } from '../../Theme/Theme';
 import useCoupons from '../../api/useCoupons';
 import { formatDateDD } from '../FormatDate/formatDate';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function TicketCoupon() {
     const { data: couponsData } = useCoupons();
+    const { t } = useTranslation('translate');
     console.log('couponsData: ', couponsData?.data);
     const [claimedCoupon, setClaimedCoupon] = useState([]);
 
@@ -37,7 +39,8 @@ function TicketCoupon() {
                     mb: 2,
                 }}
             >
-                Tomtoc Promotions Code 🎉
+                {/* Tomtoc Promotions Code 🎉 */}
+                {t('common.promotions.title')}
             </CustomizeTypography>
             <Box>
                 {couponsData?.data.map(
@@ -163,10 +166,10 @@ function TicketCoupon() {
                                             fontFamily: 'Libre Barcode',
                                         }}
                                     >
-                                        Valid until:
-                                        {/* 30/11/2024 */}
+                                        {/* Valid until: */}
+                                        {t('common.promotions.valid')}: {/* 30/11/2024 */}
                                         {/* //DD/MM/YYYY */}
-                                        {formatDateDD(coupon.startDate)}
+                                        <strong>{formatDateDD(coupon.startDate)}</strong>
                                     </CustomizeTypography>
                                     <Button
                                         variant="contained"
