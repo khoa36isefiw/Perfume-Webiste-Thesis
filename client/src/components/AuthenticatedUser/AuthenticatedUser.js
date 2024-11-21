@@ -219,7 +219,7 @@ export default function AuthenticatedUser() {
                         </ListItemIcon>
 
                         <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                            Change Password
+                            {t('common.accountSettings.changePass.title')}
                         </CustomizeTypography>
                     </Box>
                 </MenuItem>

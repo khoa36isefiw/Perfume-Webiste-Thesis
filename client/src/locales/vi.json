@@ -152,7 +152,18 @@
                 "save": "Lưu",
                 "upload": "Tải ảnh lên"
             },
-            "changePass": "Đổi mật khẩu",
+            "changePass": {
+                "title": "Đổi mật khẩu",
+                "t1": "Bạn có thể thay đổi mật khẩu vì lý do bảo mật hoặc đặt lại mật khẩu nếu bạn quên.",
+                "currentPass": "Mật khẩu hiện tại",
+                "currentText": "Nhập mật khẩu hiện tại của bạn tại đây",
+                "nStep": "Bước tiếp theo",
+                "nPass": "Mật khẩu mới",
+                "nPass1": "Nhập mật khẩu mới của bạn tại đây",
+                "cNPass": "Xác nhận mật khẩu",
+                "cNPass1": "Xác nhận mật khẩu mới của bạn tại đây",
+                "change": "Đổi mật khẩu"
+            },
             "purchase": "Mua hàng của tôi",
             "logout": "Đăng xuất"
         },

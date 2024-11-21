@@ -13,12 +13,14 @@ import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { userAPI } from '../../api/userAPI';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // current password --> cho tự nhập --> check với password login
 // nếu oke --> cho nhảy sang step đổi mật khẩu
 function ChangePassword() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { t } = useTranslation('translate');
     const currentPasswordRef = useRef();
     const newPasswordRef = useRef();
     const confirmPasswordRef = useRef();
@@ -134,12 +136,12 @@ function ChangePassword() {
                         fontWeight: 'bold',
                     }}
                 >
-                    Change Password
+                    {t('common.accountSettings.changePass.title')}
                 </CustomizeAccountText>
             </Grid>
             <Grid xs={12} lg={12}>
                 <CustomizeAccountText variant="h6" sx={{ mb: 2 }}>
-                    You can change your password for security reasons or reset it if you forget it.
+                    {t('common.accountSettings.changePass.t1')}
                 </CustomizeAccountText>
             </Grid>
             <CustomizeDividerVertical8 />
@@ -150,12 +152,12 @@ function ChangePassword() {
                             <CustomizeAccountText
                                 sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                             >
-                                Current Password
+                                {t('common.accountSettings.changePass.currentPass')}
                             </CustomizeAccountText>
                             <CustomizeAccountText
                                 sx={{ fontSize: '14px', color: theme.palette.text.subText }}
                             >
-                                Enter your current password here
+                                {t('common.accountSettings.changePass.currentText')}
                             </CustomizeAccountText>
                         </Grid>
                         <Grid item xs={12} md={8} lg={8}>
@@ -172,7 +174,7 @@ function ChangePassword() {
                     </Grid>
                     <Grid xs={12} lg={12}>
                         <CustomizeHoverButtonV2
-                            textAction={'Next Step'}
+                            textAction={t('common.accountSettings.changePass.nStep')}
                             onHandleClick={handleNextStep}
                         />
                     </Grid>
@@ -186,12 +188,12 @@ function ChangePassword() {
                             <CustomizeAccountText
                                 sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                             >
-                                New Password
+                                {t('common.accountSettings.changePass.nPass')}
                             </CustomizeAccountText>
                             <CustomizeAccountText
                                 sx={{ fontSize: '14px', color: theme.palette.text.subText }}
                             >
-                                Enter your new password here
+                                {t('common.accountSettings.changePass.nPass1')}
                             </CustomizeAccountText>
                         </Grid>
                         <Grid item xs={12} md={8} lg={8}>
@@ -210,12 +212,12 @@ function ChangePassword() {
                             <CustomizeAccountText
                                 sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                             >
-                                Confirm Password
+                                {t('common.accountSettings.changePass.cNPass')}
                             </CustomizeAccountText>
                             <CustomizeAccountText
                                 sx={{ fontSize: '14px', color: theme.palette.text.subText }}
                             >
-                                Confirm your new password here
+                                {t('common.accountSettings.changePass.cNPass1')}
                             </CustomizeAccountText>
                         </Grid>
                         <Grid item xs={12} md={8} lg={8}>
@@ -228,7 +230,7 @@ function ChangePassword() {
                         </Grid>
                     </Grid>
                     <CustomizeHoverButtonV2
-                        textAction={'Change Password'}
+                        textAction={t('common.accountSettings.changePass.change')}
                         onHandleClick={handleChangePassword}
                     />
                 </React.Fragment>
