@@ -58,7 +58,10 @@ function CheckoutInformation() {
 
     // component parent
     const [promoCode, setPromoCode] = useState('');
-    const [promoCodeApplied, setPromoCodeApplied] = useState(false);
+    const [promoCodeApplied, setPromoCodeApplied] = useState({
+        isApplied: false,
+        codeApplied: null,
+    });
     const [selectedProvince, setSelectedProvince] = useState(''); // return object contains {province_id, province_name}
     const [selectedDistrict, setSelectedDistrict] = useState(''); // return district_id
     const [selectedWardTown, setSelectedWardTown] = useState('');
@@ -231,16 +234,14 @@ function CheckoutInformation() {
         console.log('subtotal: ', subtotal);
 
         const calculateDiscount = (subtotal) => subtotal * 0.2; // 20%
-        const calculateTax = (subtotal) => subtotal * 0.1; // 10%
 
         const discount = calculateDiscount(subtotal);
-        const tax = calculateTax(subtotal);
 
         // final total: subtotal - discount + tax
-        let finalTotal = subtotal - discount + tax;
+        let finalTotal = subtotal - discount;
 
         // optional: apply promotion code --> discount 5%
-        if (promoCodeApplied && promoCode === 'UTE99') {
+        if (promoCodeApplied.isApplied === true && promoCodeApplied.codeApplied?.code === 'UTE99') {
             finalTotal *= 0.95; // Apply 5% discount
         }
 
