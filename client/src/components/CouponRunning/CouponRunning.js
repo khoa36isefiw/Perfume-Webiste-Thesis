@@ -16,10 +16,10 @@ const scrollAnimation = keyframes`
 `;
 
 function CouponRunning() {
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
     const navigate = useNavigate();
     const handleNavCoupon = () => {
-        navigate('/coupon');
+        navigate(`/${i18n.language}/coupon`);
         backTop();
     };
 
