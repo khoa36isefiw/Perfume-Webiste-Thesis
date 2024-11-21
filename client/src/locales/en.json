@@ -191,8 +191,16 @@
                 "cNPass": "Confirm Password",
                 "cNPass1": "Confirm your new password here"
             },
-            "purchase": "My Purchase",
-            "logout": "Logout"
+            "purchase": {
+                "title": "My Purchase",
+                "noOrder": {
+                    "title": "No order placed yet!",
+                    "content": "You have not placed an order yet. Please add items to your cart and checkout when you are ready.",
+                    "shopping": "Start Shopping"
+                }
+            },
+            "logout": "Logout",
+            "profile": "Profile Settings"
         },
 
         "aboutPage": {

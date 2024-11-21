@@ -242,7 +242,7 @@ export default function AuthenticatedUser() {
                                 fontSize: '14px',
                             }}
                         >
-                            My Purchase
+                            {t('common.accountSettings.purchase.title')}
                         </CustomizeTypography>
                     </Box>
                 </MenuItem>

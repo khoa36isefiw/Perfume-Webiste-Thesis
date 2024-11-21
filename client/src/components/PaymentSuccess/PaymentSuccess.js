@@ -33,7 +33,7 @@ function PaymentSuccess() {
         <Box
             sx={{
                 margin: 'auto',
-                mt: 16,
+                mt: 20,
                 minHeight: '400px',
                 width: '380px',
                 bgcolor: '#000',

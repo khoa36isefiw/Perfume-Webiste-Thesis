@@ -153,7 +153,7 @@ const Layout = ({ children }) => {
                                 fontWeight: 'bold',
                             }}
                         >
-                            Profile Settings
+                            {t('common.accountSettings.profile')}
                         </CustomizeTypography>
 
                         <List component="nav" sx={{ width: '100%' }}>
@@ -190,7 +190,7 @@ const Layout = ({ children }) => {
                                                         : null,
                                             }}
                                         >
-                                            Account Info
+                                            {t('common.accountSettings.accInfor.myAcc')}
                                         </CustomizeTypography>
                                     }
                                 />
@@ -228,7 +228,7 @@ const Layout = ({ children }) => {
                                                         : null,
                                             }}
                                         >
-                                            Change Password
+                                            {t('common.accountSettings.changePass.title')}
                                         </CustomizeTypography>
                                     }
                                 />
@@ -263,7 +263,7 @@ const Layout = ({ children }) => {
                                                         : null,
                                             }}
                                         >
-                                            My Purchase
+                                            {t('common.accountSettings.purchase.title')}
                                         </CustomizeTypography>
                                     }
                                 />
@@ -275,7 +275,7 @@ const Layout = ({ children }) => {
                                 <ListItemText
                                     primary={
                                         <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
-                                            Logout
+                                            {t('common.accountSettings.logout')}
                                         </CustomizeTypography>
                                     }
                                 />

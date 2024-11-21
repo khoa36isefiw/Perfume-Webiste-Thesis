@@ -32,6 +32,7 @@ export const ProductInCart = ({
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
     const { t } = useTranslation('translate');
     const location = useLocation();
+    console.log('productsList: ', productsList);
     const {
         showNotification,
         showAnimation,
@@ -122,7 +123,7 @@ export const ProductInCart = ({
         }
     };
     console.log('list selected product: ', selectedProducts);
-    const getListProductIsStock = productsList.filter((product) => product.variant.stock > 0);
+    const getListProductIsStock = productsList.filter((product) => product.variant?.stock > 0);
     const handleSelectAll = (isChecked) => {
         // filter list products by stock > 0.
         // const getListProductIsStock = productsList.filter((product) => product.variant.stock > 0);

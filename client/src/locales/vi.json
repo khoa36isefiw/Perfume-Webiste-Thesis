@@ -164,8 +164,16 @@
                 "cNPass1": "Xác nhận mật khẩu mới của bạn tại đây",
                 "change": "Đổi mật khẩu"
             },
-            "purchase": "Mua hàng của tôi",
-            "logout": "Đăng xuất"
+            "purchase": {
+                "title": "Đơn mua",
+                "noOrder": {
+                    "title": "Chưa có đơn hàng nào được đặt!",
+                    "content": "Bạn chưa đặt hàng. Vui lòng thêm sản phẩm vào giỏ hàng và thanh toán khi bạn đã sẵn sàng.",
+                    "shopping": "Bắt ​​đầu mua sắm"
+                }
+            },
+            "logout": "Đăng xuất",
+            "profile": "Chỉnh sửa thông tin"
         },
         "signIn": {
             "registered": "Đã đăng ký?",
