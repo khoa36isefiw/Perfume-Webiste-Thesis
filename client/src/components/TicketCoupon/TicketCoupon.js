@@ -1,7 +1,7 @@
 import { Box, Button } from '@mui/material';
-import React, { useRef } from 'react';
+import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import useCoupons from '../../api/useCoupons';
 import { formatDateDD } from '../FormatDate/formatDate';
 import { useState } from 'react';
@@ -32,6 +32,11 @@ function TicketCoupon() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                justifyContent: 'center',
+                [mobileScreen]: {
+                    alignItems: 'stretch',
+                    px: 2,
+                },
                 mt: 24,
             }}
         >
@@ -44,6 +49,10 @@ function TicketCoupon() {
                     textAlign: 'start',
                     zIndex: 2,
                     mb: 2,
+                    [mobileScreen]: {
+                        fontSize: '28px',
+                        textAlign: 'center',
+                    },
                 }}
             >
                 {t('common.promotions.title')}
@@ -52,7 +61,18 @@ function TicketCoupon() {
                 {couponsData?.data.map(
                     (coupon) =>
                         coupon.status === 'active' && (
-                            <Box sx={{ height: '200px', display: 'flex', mb: 4 }} key={coupon._id}>
+                            <Box
+                                sx={{
+                                    height: '200px',
+                                    width: '100%',
+                                    display: 'flex',
+                                    mb: 4,
+                                    [mobileScreen]: {
+                                        width: '100%',
+                                    },
+                                }}
+                                key={coupon._id}
+                            >
                                 {/* Coupon Box */}
                                 <Box
                                     sx={{
@@ -66,6 +86,9 @@ function TicketCoupon() {
                                         borderRadius: 2,
                                         position: 'relative',
                                         borderRight: '3px dashed #ccc',
+                                        [mobileScreen]: {
+                                            width: '30%',
+                                        },
                                     }}
                                 >
                                     <CustomizeTypography
@@ -97,6 +120,7 @@ function TicketCoupon() {
                                 <Box
                                     sx={{
                                         display: 'flex',
+
                                         flexDirection: 'column',
                                         alignItems: 'center',
                                         justifyContent: 'center',
@@ -106,6 +130,9 @@ function TicketCoupon() {
                                         borderRadius: 2,
                                         position: 'relative',
                                         borderLeft: '3px dashed #ccc',
+                                        [mobileScreen]: {
+                                            width: '100%',
+                                        },
                                     }}
                                 >
                                     {/* Description */}
@@ -131,6 +158,9 @@ function TicketCoupon() {
                                             fontFamily: 'Libre Barcode',
                                             bgcolor: '#000',
                                             fontWeight: 'bold',
+                                            [mobileScreen]:{
+                                                fontSize:'24px'
+                                            }
                                         }}
                                     >
                                         {coupon.code}
