@@ -150,6 +150,27 @@
                 "thanks3": "With love and gratitude, The Tomtoc Perfumes Team."
             }
         },
+        "checkout": {
+            "backCart": "Back to Cart",
+            "address": "Billing and shipping address",
+            "qty": "Qty",
+            "checkout": "Checkout",
+            "title": "All transactions are secure and encrypted",
+            "paymentNoti": "Choose payment method",
+            "cod": "Cash on delivery (COD)",
+            "card": "Pay by credit card",
+            "paypal": "Pay Paypal",
+            "order": "Order",
+            "discount": {
+                "discountNoti": "If you have a Promo Code you will get 5% off",
+                "apply": "Apply"
+            },
+            "totalDes": {
+                "subtotal": "Subtotal",
+                "discount": "Discount",
+                "total": "Total"
+            }
+        },
         "servicesPage": {
             "ourService": "Our Services",
             "ourServiceText": "At Tomtoc, we are dedicated to providing you with a delightful and immersive perfume shopping experience. Our services are tailored to ensure that you find the perfect fragrance that complements your unique personality and style. We take pride in offering a range of services that go beyond just selling perfumes, aiming to make your journey with us truly special.",

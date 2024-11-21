@@ -1,18 +1,23 @@
 const test = {
-    shoppingCart: {
-        continue: 'Continue Shopping',
-        yourCart: 'Your Cart',
-        selectAll: 'Select All',
-        inStock: 'In stock',
-        outStock: 'Out of stock',
-        delete: 'Delete',
-        totalDes: 'Total price of the products in Cart',
-        total: 'Total',
-        selecteProduct: 'Please select product',
-        proceedCheckout: 'Proceed to Checkout',
-        emptyCart: {
-            title: 'Your cart is empty',
-            content: 'Looks like you have not added anything to your cart.',
+    checkout: {
+        backCart: 'Back to Cart',
+        address: 'Billing and shipping address',
+        qty: 'Qty',
+        checkout: 'Checkout',
+        title: 'All transactions are secure and encrypted',
+        paymentNoti: 'Choose payment method',
+        cod: 'Cash on delivery (COD)',
+        card: 'Pay by credit card',
+        paypal: 'Pay Paypal',
+        order: 'Order',
+        discount: {
+            discountNoti: 'If you have a Promo Code you will get 5% off',
+            apply: 'Apply',
+        },
+        totalDes: {
+            subtotal: 'Subtotal',
+            discount: 'Discount',
+            total: 'Total',
         },
     },
 };

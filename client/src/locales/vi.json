@@ -109,6 +109,29 @@
                 "content": "Có vẻ như bạn chưa thêm bất kỳ sản phẩm nào vào giỏ hàng."
             }
         },
+
+        "checkout": {
+            "backCart": "Quay lại Giỏ hàng",
+            "address": "Địa chỉ thanh toán và giao hàng",
+            "qty": "SL",
+            "checkout": "Thanh toán",
+            "title": "Tất cả các giao dịch đều an toàn và được mã hóa",
+            "paymentNoti": "Chọn phương thức thanh toán",
+            "cod": "Thanh toán khi nhận hàng (COD)",
+            "card": "Thanh toán bằng thẻ tín dụng",
+            "paypal": "Thanh toán Paypal",
+            "order": "Đặt hàng",
+            "discount": {
+                "discountNoti": "Nếu bạn có Mã khuyến mại, bạn sẽ được giảm giá 5%",
+                "apply": "Áp dụng"
+            },
+            "totalDes": {
+                "subtotal": "Tổng cộng",
+                "discount": "Giảm giá",
+                "total": "Tổng"
+            }
+        },
+
         "latestArticles": {
             "homeArticle": "Bài viết mới nhất",
             "readMore": "Đọc thêm",
