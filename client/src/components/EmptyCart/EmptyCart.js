@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next';
 
 function EmptyCart({
     imgCart = emptyImage4,
-    title = 'Your cart is empty',
-    subTitle = 'Looks like you have not added anything to your cart.',
+    title,
+    subTitle,
     isShowButton = true,
     width,
     height,
@@ -67,7 +67,7 @@ function EmptyCart({
             {isShowButton && (
                 <CustomizeButton
                     onHandleClick={() => navigate(`/${i18n.language}/shop`)}
-                    textAction={'Continue Shopping'}
+                    textAction={t('common.shoppingCart.continue')}
                 />
             )}
         </Box>

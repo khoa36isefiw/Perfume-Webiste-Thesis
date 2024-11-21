@@ -435,7 +435,7 @@ function NewHeader() {
                                 }}
                             >
                                 <CustomizeButton
-                                    textAction={'Sign In'}
+                                    textAction={t('common.SignIn')}
                                     onHandleClick={() => navigate(`/${i18n.language}/sign-in`)}
                                 />
                             </Box>
@@ -448,7 +448,7 @@ function NewHeader() {
                                 }}
                             >
                                 <CustomizeButtonOutlined
-                                    textAction={'Register'}
+                                    textAction={t('common.Register')}
                                     onHandleClick={() =>
                                         navigate(`/${i18n.language}/create-account`)
                                     }

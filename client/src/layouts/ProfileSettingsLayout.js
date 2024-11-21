@@ -22,6 +22,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import EmptyOrders from '../components/EmptyOrders/EmptyOrders';
 import useOrderByUser from '../api/useOrderByUser';
 import { authAPI } from '../api/authAPI';
+import { useTranslation } from 'react-i18next';
 
 const darkTheme = createTheme({
     palette: {
@@ -43,12 +44,12 @@ const darkTheme = createTheme({
 function ProfileSettingsLayout({ children }) {
     const location = useLocation();
     const navigate = useNavigate();
-
+    const { t, i18n } = useTranslation('translate');
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
 
     useEffect(() => {
         if (userData === null) {
-            navigate('/');
+            navigate(`/${i18n.language}`);
         }
     }, [userData, navigate]);
 
@@ -60,7 +61,7 @@ function ProfileSettingsLayout({ children }) {
             {/* pre-defined layout */}
             <NewHeader />
             {/* any components call this layout */}
-            {location.pathname === '/my-purchase' && orders?.data?.length === 0 ? (
+            {location.pathname === `/${i18n.language}/my-purchase` && orders?.data?.length === 0 ? (
                 <EmptyOrders />
             ) : (
                 <ThemeProvider theme={darkTheme}>
@@ -80,6 +81,7 @@ export default ProfileSettingsLayout;
 const Layout = ({ children }) => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { t, i18n } = useTranslation('translate');
     const userData = JSON.parse(localStorage.getItem('user_data')) || null;
     console.log('current location: ', location.pathname);
     const [activeButton, setActiveButton] = useState(null);
@@ -101,7 +103,7 @@ const Layout = ({ children }) => {
 
                 // dispatch(logoutAccount());
 
-                navigate('/sign-in');
+                navigate(`/${i18n.language}/sign-in`);
             } else {
                 console.error('Logout failed');
             }
@@ -151,16 +153,20 @@ const Layout = ({ children }) => {
                                 fontWeight: 'bold',
                             }}
                         >
-                            Profile Settings
+                            {t('common.accountSettings.profile')}
                         </CustomizeTypography>
 
                         <List component="nav" sx={{ width: '100%' }}>
-                            <ListItem button onClick={() => navigate('/profile-settings')}>
+                            <ListItem
+                                button
+                                onClick={() => navigate(`/${i18n.language}/profile-settings`)}
+                            >
                                 <ListItemIcon sx={{ color: 'text.primary' }}>
                                     <AccountCircle
                                         sx={{
                                             color:
-                                                activeButton === '/profile-settings'
+                                                activeButton ===
+                                                `/${i18n.language}/profile-settings`
                                                     ? theme.palette.text.secondary
                                                     : '#fff',
                                         }}
@@ -173,27 +179,32 @@ const Layout = ({ children }) => {
                                                 fontSize: '14px',
                                                 mb: 0,
                                                 color:
-                                                    activeButton === '/profile-settings'
+                                                    activeButton ===
+                                                    `/${i18n.language}/profile-settings`
                                                         ? theme.palette.text.secondary
                                                         : '#fff',
                                                 fontWeight:
-                                                    activeButton === '/profile-settings'
+                                                    activeButton ===
+                                                    `/${i18n.language}/profile-settings`
                                                         ? 'bold'
                                                         : null,
                                             }}
                                         >
-                                            Account Info
+                                            {t('common.accountSettings.accInfor.myAcc')}
                                         </CustomizeTypography>
                                     }
                                 />
                             </ListItem>
 
-                            <ListItem button onClick={() => navigate('/change-password')}>
+                            <ListItem
+                                button
+                                onClick={() => navigate(`/${i18n.language}/change-password`)}
+                            >
                                 <ListItemIcon sx={{ color: 'text.primary' }}>
                                     <VpnKey
                                         sx={{
                                             color:
-                                                activeButton === '/change-password'
+                                                activeButton === `/${i18n.language}/change-password`
                                                     ? theme.palette.text.secondary
                                                     : '#fff',
                                         }}
@@ -206,26 +217,31 @@ const Layout = ({ children }) => {
                                                 fontSize: '14px',
                                                 mb: 0,
                                                 color:
-                                                    activeButton === '/change-password'
+                                                    activeButton ===
+                                                    `/${i18n.language}/change-password`
                                                         ? theme.palette.text.secondary
                                                         : '#fff',
                                                 fontWeight:
-                                                    activeButton === '/change-password'
+                                                    activeButton ===
+                                                    `/${i18n.language}/change-password`
                                                         ? 'bold'
                                                         : null,
                                             }}
                                         >
-                                            Change Password
+                                            {t('common.accountSettings.changePass.title')}
                                         </CustomizeTypography>
                                     }
                                 />
                             </ListItem>
-                            <ListItem button onClick={() => navigate('/my-purchase')}>
+                            <ListItem
+                                button
+                                onClick={() => navigate(`/${i18n.language}/my-purchase`)}
+                            >
                                 <ListItemIcon sx={{ color: 'text.primary' }}>
                                     <AccountCircle
                                         sx={{
                                             color:
-                                                activeButton === '/my-purchase'
+                                                activeButton === `/${i18n.language}/my-purchase`
                                                     ? theme.palette.text.secondary
                                                     : '#fff',
                                         }}
@@ -238,14 +254,16 @@ const Layout = ({ children }) => {
                                                 fontSize: '14px',
                                                 mb: 0,
                                                 color:
-                                                    activeButton === '/my-purchase'
+                                                    activeButton === `/${i18n.language}/my-purchase`
                                                         ? theme.palette.text.secondary
                                                         : '#fff',
                                                 fontWeight:
-                                                    activeButton === '/my-purchase' ? 'bold' : null,
+                                                    activeButton === `/${i18n.language}/my-purchase`
+                                                        ? 'bold'
+                                                        : null,
                                             }}
                                         >
-                                            My Purchase
+                                            {t('common.accountSettings.purchase.title')}
                                         </CustomizeTypography>
                                     }
                                 />
@@ -257,7 +275,7 @@ const Layout = ({ children }) => {
                                 <ListItemText
                                     primary={
                                         <CustomizeTypography sx={{ fontSize: '14px', mb: 0 }}>
-                                            Logout
+                                            {t('common.accountSettings.logout')}
                                         </CustomizeTypography>
                                     }
                                 />

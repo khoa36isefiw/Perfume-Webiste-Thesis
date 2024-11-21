@@ -15,6 +15,7 @@ import useValidationWithRef from '../../hooks/useValidationWithRef';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { RequirementV2 } from '../Requirement/RequirementV2';
+import { useTranslation } from 'react-i18next';
 
 function AccountInfo() {
     const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function AccountInfo() {
         showMessage,
         handleCloseNotification,
     } = useShowNotificationMessage();
+    const { t } = useTranslation('translate');
 
     const userData = JSON.parse(localStorage.getItem('user_data'));
     const [editAccount, setEditAccount] = useState(true);
@@ -130,12 +132,13 @@ function AccountInfo() {
                         fontWeight: 'bold',
                     }}
                 >
-                    Account Information
+                    {/* Account Information */}
+                    {t('common.accountSettings.accInfor.accInfor')}
                 </CustomizeAccountText>
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
                 <CustomizeAccountText variant="h6" sx={{ mb: 2 }}>
-                    Your profile is a record of your information that defines who you are.
+                    {t('common.accountSettings.accInfor.t1')}
                 </CustomizeAccountText>
             </Grid>
             <CustomizeDividerVertical8 />
@@ -143,7 +146,7 @@ function AccountInfo() {
             <Grid container item xs={12} spacing={2} sx={{ mb: 4 }}>
                 <Grid item xs={12} md={12} lg={12}>
                     <CustomizeAccountText variant="h6" sx={{ mb: 2 }}>
-                        Show your styles to everyone
+                        {t('common.accountSettings.accInfor.t2')}
                     </CustomizeAccountText>
                 </Grid>
                 <Grid item xs={12} md={12} lg={4}>
@@ -174,7 +177,7 @@ function AccountInfo() {
                                 <Tooltip
                                     title={
                                         <CustomizeTypography sx={{ fontSize: '13px', mb: 0 }}>
-                                            Upload Photo
+                                            {t('common.accountSettings.accInfor.upload')}
                                         </CustomizeTypography>
                                     }
                                     placement="top"
@@ -204,7 +207,7 @@ function AccountInfo() {
                                         }
                                         onClick={handleButtonClick}
                                     >
-                                        Upload Photo
+                                        {t('common.accountSettings.accInfor.upload')}
                                     </Button>
                                 </Tooltip>
                             </label>
@@ -228,7 +231,7 @@ function AccountInfo() {
                     <CustomizeAccountText
                         sx={{ fontSize: '14px', color: theme.palette.text.subText }}
                     >
-                        Enter your email address
+                        {t('common.accountSettings.accInfor.e1')}
                     </CustomizeAccountText>
                 </Grid>
                 <Grid item xs={12} md={12} lg={8}>
@@ -246,12 +249,12 @@ function AccountInfo() {
                     <CustomizeAccountText
                         sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                     >
-                        First Name
+                        {t('common.accountSettings.accInfor.fName')}
                     </CustomizeAccountText>
                     <CustomizeAccountText
                         sx={{ fontSize: '14px', color: theme.palette.text.subText }}
                     >
-                        Enter the first part of your name
+                        {t('common.accountSettings.accInfor.fName1')}
                     </CustomizeAccountText>
                 </Grid>
                 <Grid item xs={12} md={12} lg={8}>
@@ -270,12 +273,12 @@ function AccountInfo() {
                     <CustomizeAccountText
                         sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                     >
-                        Last Name
+                        {t('common.accountSettings.accInfor.lName')}
                     </CustomizeAccountText>
                     <CustomizeAccountText
                         sx={{ fontSize: '14px', color: theme.palette.text.subText }}
                     >
-                        Enter the last part of your name
+                        {t('common.accountSettings.accInfor.lName1')}
                     </CustomizeAccountText>
                 </Grid>
                 <Grid item xs={12} md={12} lg={8}>
@@ -295,12 +298,12 @@ function AccountInfo() {
                     <CustomizeAccountText
                         sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                     >
-                        Phone Number
+                        {t('common.accountSettings.accInfor.phone')}
                     </CustomizeAccountText>
                     <CustomizeAccountText
                         sx={{ fontSize: '14px', color: theme.palette.text.subText }}
                     >
-                        Enter your phone number
+                        {t('common.accountSettings.accInfor.phone1')}
                     </CustomizeAccountText>
                 </Grid>
                 <Grid item xs={12} md={12} lg={8}>
@@ -319,12 +322,12 @@ function AccountInfo() {
                     <CustomizeAccountText
                         sx={{ fontWeight: 'bold', color: theme.palette.text.secondary }}
                     >
-                        Address
+                        {t('common.accountSettings.accInfor.address')}
                     </CustomizeAccountText>
                     <CustomizeAccountText
                         sx={{ fontSize: '14px', color: theme.palette.text.subText }}
                     >
-                        Enter your address
+                        {t('common.accountSettings.accInfor.address1')}
                     </CustomizeAccountText>
                 </Grid>
                 <Grid item xs={12} md={12} lg={8}>
@@ -339,9 +342,15 @@ function AccountInfo() {
                 </Grid>
             </Grid>
             {editAccount ? (
-                <CustomizeHoverButtonV2 textAction={'Edit'} onHandleClick={handleClickEdit} />
+                <CustomizeHoverButtonV2
+                    textAction={t('common.accountSettings.accInfor.edit')}
+                    onHandleClick={handleClickEdit}
+                />
             ) : (
-                <CustomizeHoverButton textAction={'Save'} onHandleClick={handleSaveInformation} />
+                <CustomizeHoverButton
+                    textAction={t('common.accountSettings.accInfor.save')}
+                    onHandleClick={handleSaveInformation}
+                />
             )}
             {showNotification && (
                 <Box

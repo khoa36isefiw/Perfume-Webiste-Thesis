@@ -58,7 +58,10 @@ function CheckoutInformation() {
 
     // component parent
     const [promoCode, setPromoCode] = useState('');
-    const [promoCodeApplied, setPromoCodeApplied] = useState(false);
+    const [promoCodeApplied, setPromoCodeApplied] = useState({
+        isApplied: false,
+        codeApplied: null,
+    });
     const [selectedProvince, setSelectedProvince] = useState(''); // return object contains {province_id, province_name}
     const [selectedDistrict, setSelectedDistrict] = useState(''); // return district_id
     const [selectedWardTown, setSelectedWardTown] = useState('');
@@ -231,16 +234,14 @@ function CheckoutInformation() {
         console.log('subtotal: ', subtotal);
 
         const calculateDiscount = (subtotal) => subtotal * 0.2; // 20%
-        const calculateTax = (subtotal) => subtotal * 0.1; // 10%
 
         const discount = calculateDiscount(subtotal);
-        const tax = calculateTax(subtotal);
 
         // final total: subtotal - discount + tax
-        let finalTotal = subtotal - discount + tax;
+        let finalTotal = subtotal - discount;
 
         // optional: apply promotion code --> discount 5%
-        if (promoCodeApplied && promoCode === 'UTE99') {
+        if (promoCodeApplied.isApplied === true && promoCodeApplied.codeApplied?.code === 'UTE99') {
             finalTotal *= 0.95; // Apply 5% discount
         }
 
@@ -251,9 +252,14 @@ function CheckoutInformation() {
     };
 
     const finalTotalPrice = calculateTotalPrice(getListProductSelected);
-
+    console.log('promoCode:', promoCode);
     const handleCheckout = async () => {
-        const response = await paymentAPI.createOrder(userId, items, PAYMENT_METHOD.COD);
+        const response = await paymentAPI.createOrder(
+            userId,
+            items,
+
+            PAYMENT_METHOD.COD,
+        );
 
         if (response.data?.order) {
             console.log('response: ', response);
@@ -324,7 +330,7 @@ function CheckoutInformation() {
                             },
                         }}
                     >
-                        Back to Cart
+                        {t('common.checkout.backCart')}
                     </Button>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
@@ -338,7 +344,7 @@ function CheckoutInformation() {
                         }}
                     >
                         <CustomizeTypography sx={{ color: 'white' }}>
-                            Địa chỉ thanh toán và vận chuyển
+                            {t('common.checkout.address')}
                         </CustomizeTypography>
                         <CustomizeCheckoutInput
                             placeholder="Nhập số điện thoại"
@@ -382,14 +388,14 @@ function CheckoutInformation() {
                         }}
                     >
                         <CustomizeTypography sx={{ fontSize: '32px' }}>
-                            Thanh toán
+                            {t('common.checkout.checkout')}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ fontSize: '16px' }}>
-                            Tất cả các giao dịch đều được bảo mật và mã hóa
+                            {t('common.checkout.title')}
                         </CustomizeTypography>
                         <FormControl component="fieldset" sx={{ mt: 2 }}>
                             <CustomizeTypography sx={{ fontSize: '16px' }}>
-                                Chọn phương thức thanh toán
+                                {t('common.checkout.paymentNoti')}
                             </CustomizeTypography>
 
                             <RadioGroup
@@ -415,7 +421,7 @@ function CheckoutInformation() {
                                     }
                                     label={
                                         <span style={{ color: 'white', fontSize: '16px' }}>
-                                            Thanh toán khi nhận hàng (COD)
+                                            {t('common.checkout.cod')}
                                         </span>
                                     }
                                 />
@@ -436,7 +442,7 @@ function CheckoutInformation() {
                                     }
                                     label={
                                         <span style={{ color: 'white', fontSize: '16px' }}>
-                                            Thanh toán bằng thẻ tín dụng
+                                            {t('common.checkout.card')}
                                         </span>
                                     }
                                 />
@@ -457,7 +463,7 @@ function CheckoutInformation() {
                                     }
                                     label={
                                         <span style={{ color: 'white', fontSize: '16px' }}>
-                                            Thanh toán Paypal
+                                            {t('common.checkout.paypal')}
                                         </span>
                                     }
                                 />
@@ -600,7 +606,8 @@ function CheckoutInformation() {
                                                 },
                                             }}
                                         >
-                                            <strong>Qty:</strong> {product.quantity}
+                                            <strong>{t('common.checkout.qty')}:</strong>{' '}
+                                            {product.quantity}
                                         </CustomizeTypography>
                                     </Box>
                                 </Box>

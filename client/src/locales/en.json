@@ -6,6 +6,8 @@
         "Services": "Services",
         "Blog": "Blog",
         "Pages": "Pages",
+        "SignIn": "Sign In",
+        "Register": "Register",
         "tomtocCoupon": "Tomtoc promotions code",
         "couponInfor": "Get more discount from here",
         "couponLink": "Click me to know more promotions information",
@@ -110,6 +112,101 @@
             "writeComment": "Write your review at here...",
             "bought": "Purchased at Tomtoc Perfumes"
         },
+        "shoppingCart": {
+            "continue": "Continue Shopping",
+            "yourCart": "Your Cart",
+            "selectAll": "Select All",
+            "inStock": "In stock",
+            "outStock": "Out of stock",
+            "delete": "Delete",
+            "totalDes": "Total price of the products in Cart",
+            "total": "Total",
+            "selecteProduct": "Please select product",
+            "proceedCheckout": "Proceed to Checkout",
+            "emptyCart": {
+                "title": "Your cart is empty",
+                "content": "Looks like you have not added anything to your cart."
+            }
+        },
+        "signIn": {
+            "registered": "Already Registered?",
+            "signIn": "Sign In",
+            "new": "I am a returning customer",
+            "password": "Password",
+            "forgot": "Forgot Password?",
+            "login": "Login",
+            "donHave": "If you don't have account",
+            "register": "Register"
+        },
+        "register": {
+            "create": "Create account",
+            "des": "Your Personal Details",
+            "fName": "First Name",
+            "lName": "Last Name",
+            "phone": "Phone Number",
+            "password": "Password",
+            "register": "Register Account",
+            "haveAccount": "Already have an account?",
+            "back": "Back to Sign In",
+            "name": "Name",
+            "nameNoti": "Should not contain numbers or special characters.",
+            "phoneNoti": " Should contain only numbers.",
+            "emailNoti": "Must be a valid email."
+        },
+        "recover": {
+            "reset": "Reset your password",
+            "title": "We will send you an email to reset your password",
+            "submit": "Submit",
+            "cancel": "Cancel"
+        },
+
+        "accountSettings": {
+            "accInfor": {
+                "myAcc": "My Account",
+                "accInfor": "Account Information",
+                "t1": "Your profile is a record of your information that defines who you are.",
+                "t2": "Show your styles to everyone",
+                "e1": "Enter your email address",
+                "fName": "First Name",
+                "fName1": "Enter the first part of your name",
+                "lName": "Last Name",
+                "lName1": "Enter the last part of your name",
+                "phone": "Phone Number",
+                "phone1": "Enter your phone number",
+                "address": "Address",
+                "address1": "Enter your address",
+                "edit": "Edit",
+                "save": "Save",
+                "upload": "Upload Photo"
+            },
+            "changePass": {
+                "title": "Change Password",
+                "t1": "You can change your password for security reasons or reset it if you forget it.",
+                "currentPass": "Current Password",
+                "currentText": "Enter your current password here",
+                "nStep": "Next Step",
+                "change": "Change Password",
+                "nPass": "New Password",
+                "nPass1": "Enter your new password here",
+                "cNPass": "Confirm Password",
+                "cNPass1": "Confirm your new password here"
+            },
+            "purchase": {
+                "title": "My Purchase",
+                "noOrder": {
+                    "title": "No order placed yet!",
+                    "content": "You have not placed an order yet. Please add items to your cart and checkout when you are ready.",
+                    "shopping": "Start Shopping"
+                }
+            },
+            "logout": "Logout",
+            "profile": "Profile Settings"
+        },
+        "promotions": {
+            "title": "Tomtoc Promotions Code 🎉",
+            "valid": "Valid until"
+        },
+
         "aboutPage": {
             "aboutUs": "About Us",
             "aboutText": "At Tomtoc Perfumes, we believe that perfumes are more than just scents; they are expressions of one's individuality and style. Our passion for exquisite fragrances led us to curate a collection that captures the essence of diverse personalities, bringing you an unparalleled olfactory experience.",
@@ -132,6 +229,27 @@
                 "thanks1": "Join us on this olfactory adventure as we celebrate the diverse tapestry of scents from around the world. Discover the captivating aromas that embrace the essence of local cultures and connect with the beauty of our shared humanity.",
                 "thanks2": "Thank you for being a part of our journey.",
                 "thanks3": "With love and gratitude, The Tomtoc Perfumes Team."
+            }
+        },
+        "checkout": {
+            "backCart": "Back to Cart",
+            "address": "Billing and shipping address",
+            "qty": "Qty",
+            "checkout": "Checkout",
+            "title": "All transactions are secure and encrypted",
+            "paymentNoti": "Choose payment method",
+            "cod": "Cash on delivery (COD)",
+            "card": "Pay by credit card",
+            "paypal": "Pay Paypal",
+            "order": "Order",
+            "discount": {
+                "discountNoti": "If you have a Promo Code you will get 5% off",
+                "apply": "Apply"
+            },
+            "totalDes": {
+                "subtotal": "Subtotal",
+                "discount": "Discount",
+                "total": "Total"
             }
         },
         "servicesPage": {

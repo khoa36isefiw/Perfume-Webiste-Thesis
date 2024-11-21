@@ -1,27 +1,42 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import useCoupons from '../../api/useCoupons';
 import { formatDateDD } from '../FormatDate/formatDate';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function TicketCoupon() {
     const { data: couponsData } = useCoupons();
-    console.log('couponsData: ', couponsData?.data);
+    const { t } = useTranslation('translate');
     const [claimedCoupon, setClaimedCoupon] = useState([]);
 
-    const handleClaimCoupon = (id) => {
-        if (!claimedCoupon.includes(id)) {
-            setClaimedCoupon([...claimedCoupon, id]);
-        }
+    const handleCopy = (couponId, couponCode) => {
+        // Copy the coupon code to clipboard
+        navigator.clipboard
+            .writeText(couponCode)
+            .then(() => {
+                console.log('Coupon code copied to clipboard:', couponCode);
+                // Add the coupon to claimed list
+                setClaimedCoupon((prev) => [...prev, couponId]);
+            })
+            .catch((err) => {
+                console.error('Failed to copy coupon code:', err);
+            });
     };
+
     return (
         <Box
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                justifyContent: 'center',
+                [mobileScreen]: {
+                    alignItems: 'stretch',
+                    px: 2,
+                },
                 mt: 24,
             }}
         >
@@ -33,18 +48,32 @@ function TicketCoupon() {
                     fontFamily: 'Libre Barcode',
                     textAlign: 'start',
                     zIndex: 2,
-
                     mb: 2,
+                    [mobileScreen]: {
+                        fontSize: '28px',
+                        textAlign: 'center',
+                    },
                 }}
             >
-                Tomtoc Promotions Code 🎉
+                {t('common.promotions.title')}
             </CustomizeTypography>
             <Box>
                 {couponsData?.data.map(
                     (coupon) =>
                         coupon.status === 'active' && (
-                            <Box sx={{ height: '200px', display: 'flex', mb: 4 }} key={coupon?._id}>
-                                {/*  */}
+                            <Box
+                                sx={{
+                                    height: '200px',
+                                    width: '100%',
+                                    display: 'flex',
+                                    mb: 4,
+                                    [mobileScreen]: {
+                                        width: '100%',
+                                    },
+                                }}
+                                key={coupon._id}
+                            >
+                                {/* Coupon Box */}
                                 <Box
                                     sx={{
                                         height: '100%',
@@ -57,17 +86,8 @@ function TicketCoupon() {
                                         borderRadius: 2,
                                         position: 'relative',
                                         borderRight: '3px dashed #ccc',
-                                        '&::before': {
-                                            content: '""',
-                                            position: 'absolute',
-                                            height: 50,
-                                            width: 50,
-                                            top: '50%',
-                                            left: '0%',
-                                            transform: 'translate(0%, -50%)',
-                                            bgcolor: '#000',
-                                            backgroundImage:
-                                                'radial-gradient(circle at 0 50%,transparent 20px,gold 15px)',
+                                        [mobileScreen]: {
+                                            width: '30%',
                                         },
                                     }}
                                 >
@@ -79,7 +99,6 @@ function TicketCoupon() {
                                             fontFamily: 'Libre Barcode',
                                             textAlign: 'center',
                                             zIndex: 2,
-
                                             mb: 2,
                                         }}
                                     >
@@ -101,6 +120,7 @@ function TicketCoupon() {
                                 <Box
                                     sx={{
                                         display: 'flex',
+
                                         flexDirection: 'column',
                                         alignItems: 'center',
                                         justifyContent: 'center',
@@ -109,22 +129,13 @@ function TicketCoupon() {
                                         bgcolor: 'gold',
                                         borderRadius: 2,
                                         position: 'relative',
-                                        borderleft: '3px dashed #ccc',
-                                        '&::after': {
-                                            content: '""',
-                                            position: 'absolute',
-                                            height: 50,
-                                            width: 50,
-                                            top: '50%',
-                                            right: '0%',
-                                            transform: 'translate(0%, -50%)',
-                                            bgcolor: '#000',
-                                            backgroundImage:
-                                                'radial-gradient(circle at 100% 50%,transparent 20px,gold 15px)',
+                                        borderLeft: '3px dashed #ccc',
+                                        [mobileScreen]: {
+                                            width: '100%',
                                         },
                                     }}
                                 >
-                                    {/* Discription */}
+                                    {/* Description */}
                                     <CustomizeTypography
                                         sx={{
                                             fontSize: '20px',
@@ -134,11 +145,9 @@ function TicketCoupon() {
                                             fontFamily: 'Libre Barcode',
                                         }}
                                     >
-                                        {/* Summer discount 10% off. */}
                                         {coupon.description}
                                     </CustomizeTypography>
-                                    {/* Code */}
-
+                                    {/* Coupon Code */}
                                     <CustomizeTypography
                                         sx={{
                                             fontSize: '32px',
@@ -149,9 +158,11 @@ function TicketCoupon() {
                                             fontFamily: 'Libre Barcode',
                                             bgcolor: '#000',
                                             fontWeight: 'bold',
+                                            [mobileScreen]: {
+                                                fontSize: '24px',
+                                            },
                                         }}
                                     >
-                                        {/* Summer2020 */}
                                         {coupon.code}
                                     </CustomizeTypography>
                                     <CustomizeTypography
@@ -163,15 +174,13 @@ function TicketCoupon() {
                                             fontFamily: 'Libre Barcode',
                                         }}
                                     >
-                                        Valid until:
-                                        {/* 30/11/2024 */}
-                                        {/* //DD/MM/YYYY */}
-                                        {formatDateDD(coupon.startDate)}
+                                        {t('common.promotions.valid')}:{' '}
+                                        <strong>{formatDateDD(coupon.startDate)}</strong>
                                     </CustomizeTypography>
                                     <Button
                                         variant="contained"
                                         disabled={claimedCoupon.includes(coupon._id)}
-                                        onClick={() => handleClaimCoupon(coupon?._id)}
+                                        onClick={() => handleCopy(coupon._id, coupon.code)}
                                         sx={{
                                             p: '4px 24px',
                                             borderRadius: '24px',
@@ -180,7 +189,6 @@ function TicketCoupon() {
                                             fontSize: '14px',
                                             fontWeight: 'bold',
                                             textTransform: 'initial',
-
                                             borderColor: theme.palette.text.main,
                                             '&:hover': {
                                                 cursor: 'pointer',
@@ -194,7 +202,7 @@ function TicketCoupon() {
                                             },
                                         }}
                                     >
-                                        {!claimedCoupon.includes(coupon._id) ? 'Claim' : 'Claimed'}
+                                        {!claimedCoupon.includes(coupon._id) ? 'Copy' : 'Copied'}
                                     </Button>
                                 </Box>
                             </Box>

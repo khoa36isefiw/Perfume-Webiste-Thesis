@@ -131,7 +131,7 @@ function SignIn() {
                             },
                         }}
                     >
-                        Already Registered?
+                        {t('common.signIn.registered')}
                     </CustomizeTypography>
                 </Grid>
                 <Grid item lg={12}>
@@ -152,13 +152,13 @@ function SignIn() {
                             sx={{ borderBottom: '1px solid #555', p: 2 }}
                         >
                             <CustomizeTypography sx={{ fontSize: '18px', mb: 0 }}>
-                                Sign In
+                                {t('common.signIn.signIn')}
                             </CustomizeTypography>
                         </Grid>
                         <Grid container item spacing={2} sx={{ p: 2, mb: 1 }}>
                             <Grid item xs={12} lg={12}>
                                 <CustomizeTypography variant="body1">
-                                    I am a returning customer
+                                    {t('common.signIn.new')}
                                 </CustomizeTypography>
                             </Grid>
                             <Grid item xs={12} sm={6} lg={6}>
@@ -176,7 +176,8 @@ function SignIn() {
                                         color: theme.palette.text.secondary,
                                     }}
                                 >
-                                    Password<span style={{ color: '#d14949' }}>*</span> :
+                                    {t('common.signIn.password')}
+                                    <span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
                                 <TextFieldLogin
                                     placeholder="Password"
@@ -222,11 +223,11 @@ function SignIn() {
                                 }}
                                 onClick={() => navigate(`/${i18n.language}/recover-password`)}
                             >
-                                Forgot Password?
+                                {t('common.signIn.forgot')}
                             </CustomizeTypography>
 
                             <ButtonComponent
-                                textAction={'Login'}
+                                textAction={t('common.signIn.login')}
                                 onHandleClick={handleSignIn}
                                 onHandleKeyEvent={handleKeyEnterLogin}
                             />
@@ -250,10 +251,10 @@ function SignIn() {
                             }}
                         >
                             <CustomizeTypography sx={{ mb: 0, mr: 4 }}>
-                                If you don't have account
+                                {t('common.signIn.donHave')}
                             </CustomizeTypography>
                             <ButtonComponent
-                                textAction={'Register'}
+                                textAction={t('common.signIn.register')}
                                 onHandleClick={() => navigate(`/${i18n.language}/create-account`)}
                             />
                         </Grid>

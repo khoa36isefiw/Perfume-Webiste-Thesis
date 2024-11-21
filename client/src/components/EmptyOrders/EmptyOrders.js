@@ -5,9 +5,11 @@ import emptyOrder from '../../assets/images/box.png';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function EmptyOrders() {
     const navigate = useNavigate();
+    const { t } = useTranslation('translate');
     return (
         <Box
             sx={{
@@ -30,7 +32,8 @@ function EmptyOrders() {
             <CustomizeTypography
                 sx={{ color: theme.palette.text.secondary, fontSize: '32px', fontWeight: 'bold' }}
             >
-                No order placed yet!
+                {/* No order placed yet! */}
+                {t('common.accountSettings.purchase.title')}
             </CustomizeTypography>
             <CustomizeTypography
                 sx={{
@@ -44,12 +47,11 @@ function EmptyOrders() {
                     },
                 }}
             >
-                You have not placed an order yet. Please add items to your cart and checkout when
-                you are ready.
+                {t('common.accountSettings.purchase.noOrder.content')}
             </CustomizeTypography>
             <CustomizeButton
                 onHandleClick={() => navigate('/shop')}
-                textAction={'Start Shopping'}
+                textAction={t('common.accountSettings.purchase.noOrder.shopping')}
             />
         </Box>
     );

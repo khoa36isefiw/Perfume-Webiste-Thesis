@@ -4,10 +4,7 @@ import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
-function Promocode({ textAction, onHandleClick }) {
-    // console.log('onHandleClick: ', onHandleClick);
-    const [promoCode, setPromoCode] = useState('');
-
+function Promocode({ textAction, onHandleClick, promoCode, setPromoCode }) {
     return (
         <Box
             sx={{
