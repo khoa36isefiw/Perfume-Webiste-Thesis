@@ -5,8 +5,10 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { unisexInformation } from '../PerfumesCard/perfumeData';
 import { theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function ShopPageInformation() {
+    const { t, i18n } = useTranslation('translate');
     const handleBackToTop = () => {
         navigate('/');
         window.scrollTo({ top: 0, behavior: 'smooth' }); // return the top
@@ -24,39 +26,19 @@ function ShopPageInformation() {
                             mb: 2,
                         }}
                     >
-                        {information.title}
+                        {t(`common.categoriesType.unisex.${information.title}`)}
                     </CustomizeTypography>
-                    <Box>
-                        {information.contents.map((content, index) => {
-                            // split content into another array if it contains Tomtoc
-                            const parts = content.split(/(Tomtoc Perfumes)/g);
-                            console.log(parts);
-                            return (
-                                <CustomizeTypography
-                                    key={index}
-                                    sx={{ fontSize: '16px', mb: 1, textAlign: 'justify' }}
-                                >
-                                    {parts.map((part, index) =>
-                                        part === 'Tomtoc Perfumes' ? (
-                                            <span
-                                                key={index}
-                                                style={{
-                                                    fontWeight: 'bold',
-                                                    cursor: 'pointer',
-                                                    color: theme.palette.secondaryText,
-                                                }}
-                                                onClick={handleBackToTop}
-                                            >
-                                                {part}
-                                            </span>
-                                        ) : (
-                                            part
-                                        ),
-                                    )}
-                                </CustomizeTypography>
-                            );
-                        })}
-                    </Box>
+
+                    {information.contents.map((content, idx) => {
+                        return (
+                            <CustomizeTypography
+                                key={idx}
+                                sx={{ fontSize: '16px', mb: 1, textAlign: 'justify' }}
+                            >
+                                {t(`common.categoriesType.unisex.${content}`)}
+                            </CustomizeTypography>
+                        );
+                    })}
                 </Box>
             ))}
         </Container>

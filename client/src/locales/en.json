@@ -30,6 +30,32 @@
         "Survey & feedback": "Survey & feedback",
         "Abous Us": "Abous Us",
         "Promotions Code": "Promotions Code",
+        "Sortby": "Sort by",
+        "Categories": "Categories",
+        "Price": "Price",
+        "Sorting": "Sorting",
+        "Low to High": "Low to High",
+        "High to Low": "High to Low",
+        "Name A -> Z": "Name: A -> Z",
+        "Name Z -> A": "Name: Z -> A",
+        "plth": "See all products, with price from low to high",
+        "phtl": "See all products, with price from high to low",
+        "nA-Z": "See all products, with name from A to Z",
+        "nZ-A": "See all products, with name from Z to A",
+
+        "categoriesType": {
+            "women": {
+                "women": "Women"
+            },
+            "men": {},
+            "unisex": {
+                "unisex": "Unisex",
+                "title": "Unisex Perfume - Fragrance Without Boundaries",
+                "t1": "Unisex perfume enhances the charm of each individual. Do not equate anyone with two words of gender, do not force men to have this scent and women to have that scent. Evoke both the strong, masculine features of men. Hidden in her skin, femininity, and sexiness are hard to resist.",
+                "t2": "This is also a perfume line widely used by LGBT people. Because the scent is not too masculine, not too feminine. The scent is extremely attractive, and you are more confident and happier every time you use it.",
+                "t3": "Coming to Tomtoc Perfumes, you can freely search and experience many famous brands, from high-end to popular. Guaranteed quality, genuine goods, and best prices with many incentives for customers. Warranty commitment to the last drop."
+            }
+        },
         "latestArticles": {
             "homeArticle": "Latest Articles",
             "readMore": "Read More",
@@ -45,6 +71,44 @@
                 "title": "We are nuts about nutty scents",
                 "content": "Rose, often referred to as the 'Queen of Flowers,' has held a special place in human culture and history for centuries. Beyond its captivating beauty, this iconic bloom has also inspired perfumers to create some of the most timeless and exquisite fragrances in the world."
             }
+        },
+
+        "productDetails": {
+            "brand": "Brand",
+            "status": "Stock status",
+            "inStock": "In stock",
+            "outStock": "Out of Stock",
+            "rate": "Rating",
+            "sold": "Sold",
+            "sale": "Sale",
+            "addToCart": "Add to Cart",
+            "buyNow": "Buy Now",
+            "productDetails": "Product Details",
+            "Origin": "Origin",
+            "year": "Year of manufacture",
+            "Concentration": "Concentration",
+            "Fragrance group": "Fragrance group",
+            "Manufacturer": "Manufacturer",
+            "pDes": "Product Description",
+            "topNote": "Top Note",
+            "heartNote": "Heart Note",
+            "basesNote": "Bases Note",
+            "n1": "Saffron, Bitter Almond",
+            "n2": "Egyptian Jasmine, Cedarwood",
+            "n3": "Wood, Amber, Musk",
+            "content": {
+                "c1": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian is an Oriental Floral fragrance launched in 2017. This is a more concentrated and richer version of Baccarat Rouge 540, created by Francis Kurkdjian himself.",
+                "c2": "Baccarat Rouge 540 Extrait De Parfum opens with the charm of saffron and bitter almond, creating a warm and rich start. The middle notes are a delicate combination of Egyptian jasmine and cedarwood, bringing elegance and luxury. Finally, woody notes, amber and musk create a warm, deep and lasting base. Baccarat Rouge 540 Extrait De Parfum brings a sense of luxury, nobility and uniqueness. This fragrance is very suitable for use on special occasions, dinner parties or classy events. It exudes confidence and charm. attractive, making the user the center of attention. Belonging to the Oriental Floral fragrance group, Baccarat Rouge 540 Extrait De Parfum is suitable for people with sophisticated aesthetic taste, who love uniqueness and difference. They are often people with their own style, are not afraid to stand out and always seek perfection. This scent helps them clearly express their confidence and class. Using Baccarat Rouge 540 Extrait De Parfum will help you build the image of a noble, confident and attractive person. This is the scent for those who want to leave a strong and unforgettable impression in the eyes of others."
+            },
+            "Fragrance lasting": "Fragrance lasting",
+            "Fragrance diffusion": "Fragrance diffusion",
+            "Nose pleasing": "Nose pleasing",
+            "reviews": "Product Reviews & FAQs",
+            "ratingFor": "rating for",
+            "averageRating": "Average rating",
+            "ratingNow": "Rating Now",
+            "writeComment": "Write your review at here...",
+            "bought": "Purchased at Tomtoc Perfumes"
         },
         "aboutPage": {
             "aboutUs": "About Us",

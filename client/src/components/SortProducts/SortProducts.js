@@ -8,25 +8,26 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { useLocation, useNavigate } from 'react-router-dom';
 import AbcIcon from '@mui/icons-material/Abc';
 import { blue } from '@mui/material/colors';
+import { useTranslation } from 'react-i18next';
 const filterPriceLists = [
     {
         priceText: 'Low to High',
-        priceSubtitle: 'See all products, with price from low to high',
+        priceSubtitle: 'plth',
         priceIcon: <AttachMoneyIcon sx={{ fontSize: '24px', color: '#333' }} />,
     },
     {
         priceText: 'High to Low',
-        priceSubtitle: 'See all products, with price from high to low',
+        priceSubtitle: 'phtl',
         priceIcon: <AttachMoneyIcon sx={{ fontSize: '24px', color: '#333' }} />,
     },
     {
-        priceText: 'Name: A -> Z',
-        priceSubtitle: 'See all products, with name from A to Z',
+        priceText: 'Name A -> Z',
+        priceSubtitle: 'nA-Z',
         priceIcon: <AbcIcon sx={{ fontSize: '28px', color: '#333' }} />,
     },
     {
-        priceText: 'Name: Z -> A',
-        priceSubtitle: 'See all products, with name from Z to A',
+        priceText: 'Name Z -> A',
+        priceSubtitle: 'nZ-A',
         priceIcon: <AbcIcon sx={{ fontSize: '28px', color: '#333' }} />,
     },
 ];
@@ -35,6 +36,7 @@ const filterPriceLists = [
 function SortProducts({ listData }) {
     const location = useLocation();
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation('translate');
     const savedLanguage = localStorage.getItem('language');
 
     const [getFilterPrice, setGetFilterPrice] = useState(null);
@@ -98,14 +100,14 @@ function SortProducts({ listData }) {
         >
             <CustomizeTypography
                 sx={{
-                    color: theme.palette.normalText,
+                    // color: theme.palette.normalText,
                     fontWeight: 'bold',
                     mb: 0,
                     fontSize: '18px',
                     color: blue[400],
                 }}
             >
-                Sort by
+                {t('common.Sortby')}
             </CustomizeTypography>
             <Button
                 disableTouchRipple
@@ -121,7 +123,7 @@ function SortProducts({ listData }) {
                 }}
                 onClick={handleSortMenuClick}
             >
-                {sortingSelected !== null ? sortingSelected?.sortText : 'Price'}
+                {sortingSelected !== null ? sortingSelected?.sortText : t('common.Sorting')}
             </Button>
             <Menu
                 anchorEl={getFilterPrice}
@@ -156,7 +158,7 @@ function SortProducts({ listData }) {
                                     fontWeight: 'bold',
                                 }}
                             >
-                                {filterPrice.priceText}
+                                {t(`common.${filterPrice.priceText}`)}
                             </Typography>
                             <Typography
                                 sx={{
@@ -167,7 +169,7 @@ function SortProducts({ listData }) {
                                     whiteSpace: 'wrap',
                                 }}
                             >
-                                {filterPrice.priceSubtitle}
+                                {t(`common.${filterPrice.priceSubtitle}`)}
                             </Typography>
                         </ListItemText>
                         {/* </Box> */}

@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useState } from 'react';
 
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
@@ -9,20 +9,21 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // function PerfumeBrands({ listData, brandSelected, setBrandSelected }) {
-function PerfumeBrands({ listData }) {
+function PerfumeBrands() {
     const [brandSelected, setBrandSelected] = useState('');
-    const { t, i18n } = useTranslation();
+    const { i18n } = useTranslation();
     console.log('current language: ', i18n.language); // get the current language
 
-    const { data: brands, isLoading, error } = useBrand();
+    const { data: brands, mutate } = useBrand();
     const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
         const currentBrand = JSON.parse(localStorage.getItem('filter'));
-
         setBrandSelected(currentBrand);
+        mutate();
     }, [JSON.parse(localStorage.getItem('filter'))]);
+
     console.log('current filter: ', brandSelected);
 
     const handleSelectBrand = (brand) => {
@@ -31,7 +32,7 @@ function PerfumeBrands({ listData }) {
             window.localStorage.removeItem('filter'); // delete key from the local storage
             const currentQueryParams = new URLSearchParams(location.search);
             currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
-            navigate(`/shop?${currentQueryParams.toString()}`);
+            navigate(`/${i18n.language}/shop?${currentQueryParams.toString()}`);
         } else {
             setBrandSelected(brand.nameEn);
             window.localStorage.setItem('filter', JSON.stringify(brand.nameEn));
@@ -42,12 +43,11 @@ function PerfumeBrands({ listData }) {
             console.log('currentQueryParams.toString(): ', currentQueryParams.toString());
 
             // update url
-            navigate(`/shop?${currentQueryParams.toString()}`);
+            navigate(`/${i18n.language}/shop?${currentQueryParams.toString()}`);
         }
     };
 
     return (
-        // <Container
         <Box
             sx={{
                 mt: 16,

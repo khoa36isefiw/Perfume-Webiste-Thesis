@@ -469,12 +469,8 @@ export const perfumeData = [
 // both women and men
 export const unisexInformation = [
     {
-        title: 'Unisex Perfume - Fragrance Without Boundaries',
-        contents: [
-            'Unisex perfume enhances the charm of each individual. Do not equate anyone with two words of gender, do not force men to have this scent and women to have that scent. Evoke both the strong, masculine features of men. Hidden in her skin, femininity, and sexiness are hard to resist.',
-            'This is also a perfume line widely used by LGBT people. Because the scent is not too masculine, not too feminine. The scent is extremely attractive, and you are more confident and happier every time you use it.',
-            'Coming to Tomtoc Perfumes, you can freely search and experience many famous brands, from high-end to popular. Guaranteed quality, genuine goods, and best prices with many incentives for customers. Warranty commitment to the last drop.',
-        ],
+        title: 'title',
+        contents: ['t1', 't2', 't3'],
     },
 ];
 

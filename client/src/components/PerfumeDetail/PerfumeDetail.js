@@ -17,12 +17,16 @@ import CheckIcon from '@mui/icons-material/Check';
 
 import { userAPI } from '../../api/userAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import { useTranslation } from 'react-i18next';
 
 function PerfumeDetail() {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
+    const { t } = useTranslation('translate');
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
+    const productInformation = JSON.parse(window.localStorage.getItem('productInfor')) || null;
+    console.log('productInformation: ', productInformation);
     const {
         showNotification,
         showAnimation,
@@ -36,12 +40,12 @@ function PerfumeDetail() {
     const { perfume } = location.state || {};
     // const [selectedSize, setSelectedSize] = useState(perfume.variants[0].size);
     const [selectedSize, setSelectedSize] = useState({
-        size: perfume?.variants[0].size,
-        price: perfume?.variants[0].price,
-        priceSale: perfume?.variants[0].priceSale,
-        variantIDSelected: perfume?.variants[0]?._id,
-        discount: perfume?.variants[0]?.discountPercent,
-        numberStock: perfume?.variants[0]?.stock, // get the number of product in stock
+        size: productInformation?.variants[0].size,
+        price: productInformation?.variants[0].price,
+        priceSale: productInformation?.variants[0].priceSale,
+        variantIDSelected: productInformation?.variants[0]?._id,
+        discount: productInformation?.variants[0]?.discountPercent,
+        numberStock: productInformation?.variants[0]?.stock, // get the number of product in stock
     });
 
     // get list product added to cart
@@ -52,20 +56,20 @@ function PerfumeDetail() {
         const productInfo = state.checkoutManagement.listOrdersBasedOnProduct[productId];
         return productInfo ? productInfo.quantitySold : 0;
     };
-    console.log('perfume', perfume);
+    console.log('productInformation', productInformation);
     // Sử dụng trong component
-    const productId = perfume?._id;
+    const productId = productInformation?._id;
     const soldQuantity = useSelector((state) => selectSoldQuantityByProductId(state, productId));
 
     const [selectedImage, setSelectedImage] = React.useState(0);
     // get length of comment list for each product
     const commentsList = useSelector(
-        (state) => state.commentsManagement.listComments[perfume.perfumeID] || [], // get data follow their productId
+        (state) => state.commentsManagement.listComments[productInformation._id] || [], // get data follow their productId
     );
 
     const handleNext = () => {
         // Check if current image is the last one
-        if (selectedImage < perfume.imagePath.length - 1) {
+        if (selectedImage < productInformation.imagePath.length - 1) {
             setSelectedImage((prevIndex) => prevIndex + 1); // Move to the next image
         }
     };
@@ -77,97 +81,16 @@ function PerfumeDetail() {
         }
     };
 
-    useEffect(() => {}, [perfume]);
+    useEffect(() => {}, [productInformation]);
 
     // khi add to cart --> thì sẽ chạy .create order,
     // with status: inshoppingcart
-
-    // const handleAddProduct = (productInfor) => {
-    //     const existingItem = cartItems.find(
-    //         (item) =>
-    //             item.perfumeID === productInfor.perfumeID &&
-    //             item.perfumeSize === productInfor.perfumeSize,
-    //     );
-    //     const productToDispatch = {
-    //         perfumeID: productInfor.perfumeID,
-    //         perfumeName: productInfor.perfumeName,
-    //         // perfumePrice: productInfor.perfumePriceVND,
-    //         perfumeSize: selectedSize.perfumeSize,
-    //         perfumePrice: selectedSize.perfumePrice,
-    //         perfumePriceDiscount: productInfor.perfumePriceDiscount,
-    //         perfumeImage: productInfor.perfumeImage,
-    //         perfumeBrand: productInfor.perfumeBrand,
-    //         perfumeQuantity: 1,
-    //     };
-
-    //     // check, is product existed in cart items?
-    //     if (cartItems !== null) {
-    //         // exists in cart items
-    //         if (existingItem) {
-    //             console.log('chạy vô đây không');
-    //             dispatch(increaseQuantity(productInfor.perfumeID, productInfor.perfumeSize));
-    //         } else {
-    //             console.log('chạy vô đây');
-
-    //             dispatch(addToCart({ ...productToDispatch }));
-    //         }
-    //         setShowNotification(true);
-    //         setShowAnimation('animate__bounceInRight');
-    //     }
-    // };
-
-    // create order with status and api
-    // const handleAddProduct = async (productInfor) => {
-    //     const existingItem = cartItems.find(
-    //         (item) =>
-    //             item.perfumeID === productInfor.perfumeID &&
-    //             item.perfumeSize === productInfor.perfumeSize,
-    //     );
-    //     const productToDispatch = {
-    //         perfumeID: productInfor.perfumeID,
-    //         perfumeName: productInfor.perfumeName,
-    //         // perfumePrice: productInfor.perfumePriceVND,
-    //         perfumeSize: selectedSize.perfumeSize,
-    //         perfumePrice: selectedSize.perfumePrice,
-    //         perfumePriceDiscount: productInfor.perfumePriceDiscount,
-    //         perfumeImage: productInfor.perfumeImage,
-    //         perfumeBrand: productInfor.perfumeBrand,
-    //         perfumeQuantity: 1,
-    //     };
-
-    //     //         const orderInformation = {
-    //     // userId:userData._id,
-    //     // items:, //
-    //     // totalPrice:,
-
-    //     // status:'InShoppingCart',
-
-    //     //         }
-
-    //     const createOrder = await ordersAPI.createOrder();
-
-    //     // check, is product existed in cart items?
-    //     if (cartItems !== null) {
-    //         // exists in cart items
-    //         if (existingItem) {
-    //             console.log('chạy vô đây không');
-    //             dispatch(increaseQuantity(productInfor.perfumeID, productInfor.perfumeSize));
-    //         } else {
-    //             console.log('chạy vô đây');
-
-    //             dispatch(addToCart({ ...productToDispatch }));
-    //         }
-    //         setShowNotification(true);
-    //         setShowAnimation('animate__bounceInRight');
-    //     }
-    // };
-
     const handleAddProduct = async () => {
         // add to cart, when users moving to cart --> get user byID get all information
         if (userData) {
             const userId = userData.userId; // id user here
             const mockData = {
-                product: perfume?._id, // id product here
+                product: productInformation?._id, // id product here
                 variant: selectedSize.variantIDSelected, // id variant here
                 quantity: 1,
             };
@@ -191,12 +114,12 @@ function PerfumeDetail() {
     const handleSizeSelected = (index) => {
         // setSelectedSize(size);
         setSelectedSize({
-            size: perfume?.variants[index].size,
-            price: perfume?.variants[index].price,
-            priceSale: perfume?.variants[index].priceSale,
-            variantIDSelected: perfume?.variants[index]?._id,
-            discount: perfume?.variants[index]?.discountPercent,
-            numberStock: perfume?.variants[index]?.stock,
+            size: productInformation?.variants[index].size,
+            price: productInformation?.variants[index].price,
+            priceSale: productInformation?.variants[index].priceSale,
+            variantIDSelected: productInformation?.variants[index]?._id,
+            discount: productInformation?.variants[index]?.discountPercent,
+            numberStock: productInformation?.variants[index]?.stock,
         });
     };
 
@@ -293,7 +216,7 @@ function PerfumeDetail() {
                                 <Box
                                     component={'img'}
                                     // src={perfume.perfumeImage}
-                                    src={perfume.imagePath[selectedImage]}
+                                    src={productInformation.imagePath[selectedImage]}
                                     sx={{
                                         height: '100%',
                                         objectFit: 'cover',
@@ -332,7 +255,7 @@ function PerfumeDetail() {
                             </Box>
 
                             <Box sx={{ display: 'flex', overflowX: 'hidden' }}>
-                                {perfume.imagePath.map((image, index) => (
+                                {productInformation.imagePath.map((image, index) => (
                                     <Box
                                         key={index}
                                         alt="Quick View Image"
@@ -364,15 +287,15 @@ function PerfumeDetail() {
                         {/* product name */}
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
                             {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
-                            {perfume.nameEn}
+                            {productInformation.nameEn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 1 }}>
-                            <strong>Thương hiệu: </strong>
-                            <span>{perfume.brand.nameEn}</span>
+                            <strong>{t('common.productDetails.brand')}: </strong>
+                            <span>{productInformation.brand.nameEn}</span>
                             {/* <span>Maison Francis Kurkdjian Paris</span> */}
                         </CustomizeTypography>
                         <CustomizeTypography>
-                            <strong>Tình trạng: </strong>
+                            <strong>{t('common.productDetails.status')}: </strong>
                             <span
                                 style={{
                                     color:
@@ -382,14 +305,16 @@ function PerfumeDetail() {
                                     fontWeight: 'bold',
                                 }}
                             >
-                                {selectedSize.numberStock <= 0 ? 'Hết Hàng' : 'Còn hàng'}
+                                {selectedSize.numberStock <= 0
+                                    ? t('common.productDetails.outStock')
+                                    : t('common.productDetails.inStock')}
                             </span>
                         </CustomizeTypography>
 
                         <CustomizeTypography>
                             {/* Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và
                             tiệc tối đẳng cấp. */}
-                            {perfume.shortDescription}
+                            {productInformation.shortDescription}
                         </CustomizeTypography>
                         <Box
                             sx={{
@@ -432,7 +357,8 @@ function PerfumeDetail() {
                                 // handle for showing comments and reviews
                                 // onClick={}
                             >
-                                ({commentsList.length > 0 ? commentsList.length : 0} đánh giá)
+                                ({commentsList.length > 0 ? commentsList.length : 0}{' '}
+                                {t('common.productDetails.rate')})
                             </CustomizeTypography>
                             <Box
                                 sx={{
@@ -444,7 +370,7 @@ function PerfumeDetail() {
                                 }}
                             />
                             <CustomizeTypography sx={{ ml: 1 }}>
-                                đã bán {soldQuantity}
+                                {t('common.productDetails.sold')} {soldQuantity}
                             </CustomizeTypography>
                         </Box>
 
@@ -506,7 +432,8 @@ function PerfumeDetail() {
                                     p: '4px',
                                 }}
                             >
-                                Sale
+                                {/* Sale */}
+                                {t('common.productDetails.sale')}
                             </CustomizeTypography>
 
                             <Box
@@ -542,7 +469,7 @@ function PerfumeDetail() {
                                                 : '#d5d5d5',
                                     }}
                                 >
-                                    {/* {converToVND(perfume.perfumePriceVND)} */}
+                                    {/* {converToVND(productInformation.productInformationPriceVND)} */}
                                     {converToVND(selectedSize.price)}
                                 </CustomizeTypography>
 
@@ -574,7 +501,7 @@ function PerfumeDetail() {
 
                         {/* Product Size */}
                         <Box sx={{ display: 'flex' }}>
-                            {perfume?.variants.map((size, index) => (
+                            {productInformation?.variants.map((size, index) => (
                                 <Button
                                     key={index}
                                     sx={{
@@ -617,14 +544,14 @@ function PerfumeDetail() {
 
                         <Box sx={{ display: 'flex', alignItems: 'center', my: 2 }}>
                             <CustomizeButtonOutlined
-                                textAction={'Add to cart'}
+                                textAction={t('common.productDetails.addToCart')}
                                 onHandleClick={() => handleAddProduct()}
                                 disabled={selectedSize.numberStock <= 0}
                             />
 
                             {/* <CustomizeButton textAction={'Add to cart'} /> */}
                             <Box sx={{ ml: 2 }}>
-                                <CustomizeButton textAction={'Buy Now'} />
+                                <CustomizeButton textAction={t('common.productDetails.buyNow')} />
                             </Box>
                         </Box>
                         <Divider sx={{ bgcolor: '#fff', my: 4 }} />

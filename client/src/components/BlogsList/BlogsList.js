@@ -89,10 +89,6 @@ export default BlogsList;
 const BlogItem = ({ listData }) => {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
-    // const handleNavigationProductDetail = (blog) => {
-    //     // navigate(`/${i18n.language}/blog-detail/${blog.blogId}`, { state: { blog } });
-    //     navigate(`/${i18n.language}/blog-detail/${blog.blogTitle}`, { state: { blog } });
-    // };
 
     const handleNavigationProductDetail = (blog) => {
         // navigate(`/${savedLanguage}/blog-detail/${blog.blogId}`, { state: { blog } });

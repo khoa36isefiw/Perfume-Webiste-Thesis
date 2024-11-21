@@ -30,6 +30,69 @@
         "Survey & feedback": "Khảo sát & phản hồi",
         "Abous Us": "Giới thiệu về chúng tôi",
         "Promotions Code": "Mã khuyến mại",
+        "Sortby": "Sắp xếp theo",
+        "Categories": "Danh mục",
+        "plth": "Xem tất cả sản phẩm, với giá từ thấp đến cao",
+        "phtl": "Xem tất cả sản phẩm, với giá từ cao đến thấp",
+        "nA-Z": "Xem tất cả sản phẩm, với tên từ A đến Z",
+        "nZ-A": "Xem tất cả sản phẩm, với tên từ Z đến A",
+        "Sorting": "Sắp Xếp",
+        "Low to High": "Thấp đến Cao",
+        "High to Low": "Cao đến Thấp",
+        "Name A -> Z": "Tên: A -> Z",
+        "Name Z -> A": "Tên: Z -> A",
+
+        "categoriesType": {
+            "women": {
+                "women": "Nữ giới"
+            },
+            "men": {},
+            "unisex": {
+                "unisex": "Unisex",
+                "title": "Nước hoa Unisex - Hương thơm cho cả nam lẫn nữ",
+                "t1": "Nước hoa Unisex tôn lên nét quyến rũ của từng cá nhân. Đừng đánh đồng bất kỳ ai với hai chữ giới tính, đừng ép buộc đàn ông phải có mùi hương này và phụ nữ phải có mùi hương kia. Khơi gợi cả nét mạnh mẽ, nam tính của đàn ông. Ẩn chứa trong làn da ấy là sự nữ tính, quyến rũ khó cưỡng.",
+                "t2": "Đây cũng là dòng nước hoa được cộng đồng LGBT sử dụng rộng rãi. Bởi mùi hương không quá nam tính, không quá nữ tính. Mùi hương cực kỳ quyến rũ, và bạn tự tin, vui vẻ hơn mỗi khi sử dụng.",
+                "t3": "Đến với Tomtoc Perfumes, bạn có thể thoải mái tìm kiếm và trải nghiệm nhiều thương hiệu nổi tiếng, từ cao cấp đến bình dân. Chất lượng đảm bảo, hàng chính hãng, giá tốt nhất cùng nhiều ưu đãi dành cho khách hàng. Cam kết bảo hành đến giọt cuối cùng."
+            }
+        },
+
+        "productDetails": {
+            "brand": "Thương hiệu",
+            "status": "Tình trạng hàng",
+            "inStock": "Còn hàng",
+            "outStock": "Hết hàng",
+            "rate": "Đánh giá",
+            "sold": "Đã bán",
+            "sale": "Giảm giá",
+            "addToCart": "Thêm vào giỏ hàng",
+            "buyNow": "Mua ngay",
+            "productDetails": "Chi tiết sản phẩm",
+            "Origin": "Xuất xứ",
+            "year": "Năm sản xuất",
+            "Concentration": "Nồng độ",
+            "Fragrance group": "Nhóm hương",
+            "Manufacturer": "Nhà chế tác",
+            "pDes": "Mô tả sản phẩm",
+            "topNote": "Top Note",
+            "heartNote": "Heart Note",
+            "basesNote": "Bases Note",
+            "n1": "Nghệ tây, Hạnh nhân đắng",
+            "n2": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "n3": "Hương gỗ, Hổ phách, Xạ hương",
+            "content": {
+                "c1": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+                "c2": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ. Baccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý. Thuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác."
+            },
+            "Fragrance lasting": "Độ lưu hương",
+            "Fragrance diffusion": "Toả hương",
+            "Nose pleasing": "Nịnh mũi",
+            "reviews": "Product Reviews & FAQs",
+            "ratingFor": "đánh giá cho",
+            "averageRating": "Đánh giá trung bình",
+            "ratingNow": "Đánh giá ngay",
+            "writeComment": "Viết bài đánh giá của bạn tại đây...",
+            "bought": "Đã mua hàng tại Tomtoc Perfumes"
+        },
         "latestArticles": {
             "homeArticle": "Bài viết mới nhất",
             "readMore": "Đọc thêm",

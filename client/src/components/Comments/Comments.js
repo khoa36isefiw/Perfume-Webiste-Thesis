@@ -6,11 +6,14 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { commentsData } from './commentsData';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 function Comments({ perfumeDetailData }) {
-    const commentsList = useSelector(
-        (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
-    );
+    // const commentsList =
+    //     useSelector((state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId);
+    const commentsList = [];
+    const { t } = useTranslation('translate');
+
     return (
         <Container
             sx={{
@@ -65,7 +68,8 @@ function Comments({ perfumeDetailData }) {
                                         },
                                     }}
                                 >
-                                    Đã mua hàng tại Tomtoc Perfumes
+                                    {/* Đã mua hàng tại Tomtoc Perfumes */}
+                                    {t('comment.productDetails.bought')}
                                 </CustomizeTypography>
                             </Box>
                             {/* stars, rating */}
