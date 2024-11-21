@@ -1,8 +1,25 @@
 const test = {
-    recover: {
-        reset: 'Reset your password',
-        title: 'We will send you an email to reset your password',
-        submit: 'Submit',
-        cancel: 'Cancel',
+    accountSettings: {
+        accInfor: {
+            myAcc: 'My Account',
+            accInfor: 'Account Information',
+            t1: 'Your profile is a record of your information that defines who you are.',
+            t2: 'Show your styles to everyone',
+            e1: 'Enter your email address',
+            fName: 'First Name',
+            fName1: 'Enter the first part of your name',
+            lName: 'Last Name',
+            lName1: 'Enter the last part of your name',
+            phone: 'Phone Number',
+            phone1: 'Enter your phone number',
+            address: 'Address',
+            address1: 'Enter your address',
+            edit: 'Edit',
+            save: 'Save',
+            upload: 'Upload Photo',
+        },
+        changePass: 'Change Password',
+        purchase: 'My Purchase',
+        logout: 'Logout',
     },
 };

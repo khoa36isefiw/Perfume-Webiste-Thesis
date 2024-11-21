@@ -200,7 +200,7 @@ export default function AuthenticatedUser() {
                         </ListItemIcon>
 
                         <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                            My Account
+                            {t('common.accountSettings.accInfor.myAcc')}
                         </CustomizeTypography>
                     </Box>
                 </MenuItem>
@@ -261,7 +261,7 @@ export default function AuthenticatedUser() {
                             <Logout fontSize="large" sx={{ color: '#fff' }} />
                         </ListItemIcon>
                         <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                            Logout
+                            {t('common.accountSettings.logout')}
                         </CustomizeTypography>
                     </Box>
                 </MenuItem>

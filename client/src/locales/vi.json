@@ -133,6 +133,29 @@
                 "total": "Tổng"
             }
         },
+        "accountSettings": {
+            "accInfor": {
+                "myAcc": "Tài khoản của tôi",
+                "accInfor": "Thông tin tài khoản",
+                "t1": "Hồ sơ của bạn là bản ghi thông tin xác định bạn là ai.",
+                "t2": "Hiển thị phong cách của bạn cho mọi người",
+                "e1": "Nhập địa chỉ email của bạn",
+                "fName": "Tên",
+                "fName1": "Nhập phần đầu tiên của tên bạn",
+                "lName": "Họ",
+                "lName1": "Nhập phần cuối cùng của tên bạn",
+                "phone": "Số điện thoại",
+                "phone1": "Nhập số điện thoại của bạn",
+                "address": "Địa chỉ",
+                "address1": "Nhập địa chỉ của bạn",
+                "edit": "Chỉnh sửa",
+                "save": "Lưu",
+                "upload": "Tải ảnh lên"
+            },
+            "changePass": "Đổi mật khẩu",
+            "purchase": "Mua hàng của tôi",
+            "logout": "Đăng xuất"
+        },
         "signIn": {
             "registered": "Đã đăng ký?",
             "signIn": "Đăng nhập",
