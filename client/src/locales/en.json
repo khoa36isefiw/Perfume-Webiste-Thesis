@@ -151,6 +151,12 @@
             "phoneNoti": " Should contain only numbers.",
             "emailNoti": "Must be a valid email."
         },
+        "recover": {
+            "reset": "Reset your password",
+            "title": "We will send you an email to reset your password",
+            "submit": "Submit",
+            "cancel": "Cancel"
+        },
         "aboutPage": {
             "aboutUs": "About Us",
             "aboutText": "At Tomtoc Perfumes, we believe that perfumes are more than just scents; they are expressions of one's individuality and style. Our passion for exquisite fragrances led us to curate a collection that captures the essence of diverse personalities, bringing you an unparalleled olfactory experience.",

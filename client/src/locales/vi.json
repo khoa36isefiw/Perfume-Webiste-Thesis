@@ -156,6 +156,13 @@
             "phoneNoti": "Chỉ được chứa số.",
             "emailNoti": "Phải là email hợp lệ."
         },
+        "recover": {
+            "reset": "Đặt lại mật khẩu của bạn",
+            "title": "Chúng tôi sẽ gửi cho bạn một email để đặt lại mật khẩu của bạn",
+            "submit": "Gửi",
+            "cancel": "Hủy"
+        },
+
         "latestArticles": {
             "homeArticle": "Bài viết mới nhất",
             "readMore": "Đọc thêm",

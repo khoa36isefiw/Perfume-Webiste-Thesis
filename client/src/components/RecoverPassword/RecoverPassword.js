@@ -10,9 +10,11 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { userAPI } from '../../api/userAPI';
+import { useTranslation } from 'react-i18next';
 
 function RecoverPassword() {
     const navigate = useNavigate();
+    const { t } = useTranslation('translate');
     const emailRef = useRef(null);
     const {
         showNotification,
@@ -66,7 +68,7 @@ function RecoverPassword() {
         <Container
             sx={{
                 width: '50%',
-                mt: 15,
+                mt: 18,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -104,7 +106,7 @@ function RecoverPassword() {
                                 },
                             }}
                         >
-                            Reset your password
+                            {t('common.recover.reset')}
                         </CustomizeTypography>
                     </Grid>
                     <Grid item lg={12}>
@@ -118,7 +120,7 @@ function RecoverPassword() {
                         >
                             <Grid item xs={12} lg={12} sx={{ borderBottom: '1px solid #555' }}>
                                 <CustomizeTypography variant="body1" sx={{ p: 2 }}>
-                                    We will send you an email to reset your password
+                                    {t('common.recover.title')}
                                 </CustomizeTypography>
                             </Grid>
                             {/* <Grid item container xs={12} sm={12} md={12} lg={12} sx={{ p: 2 }}> */}
@@ -159,7 +161,7 @@ function RecoverPassword() {
                                     <Box sx={{ mr: 2 }}>
                                         <CustomizeButtonInCart
                                             variant="outlined"
-                                            textAction={'Submit'}
+                                            textAction={t('common.recover.submit')}
                                             fullWidth={false}
                                             width="120px"
                                             onHandleClick={handleSubmitResetPassword}
@@ -171,7 +173,7 @@ function RecoverPassword() {
                                     variant="outlined"
                                     sx={{ padding: '8px 32px', width: '120px' }}
                                 >
-                                    Cancel
+                                    {t('common.recover.cancel')}
                                 </CustomizeButtonV2>
                             </Grid>
                         </Grid>
