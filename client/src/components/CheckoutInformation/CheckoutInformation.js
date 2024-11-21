@@ -251,9 +251,14 @@ function CheckoutInformation() {
     };
 
     const finalTotalPrice = calculateTotalPrice(getListProductSelected);
-
+    console.log('promoCode:', promoCode);
     const handleCheckout = async () => {
-        const response = await paymentAPI.createOrder(userId, items, PAYMENT_METHOD.COD);
+        const response = await paymentAPI.createOrder(
+            userId,
+            items,
+
+            PAYMENT_METHOD.COD,
+        );
 
         if (response.data?.order) {
             console.log('response: ', response);

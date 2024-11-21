@@ -158,9 +158,9 @@ function TicketCoupon() {
                                             fontFamily: 'Libre Barcode',
                                             bgcolor: '#000',
                                             fontWeight: 'bold',
-                                            [mobileScreen]:{
-                                                fontSize:'24px'
-                                            }
+                                            [mobileScreen]: {
+                                                fontSize: '24px',
+                                            },
                                         }}
                                     >
                                         {coupon.code}

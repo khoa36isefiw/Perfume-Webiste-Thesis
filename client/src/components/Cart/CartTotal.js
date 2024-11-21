@@ -8,6 +8,7 @@ import { SummaryRowInCart } from './SummaryRowInCart';
 import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useTranslation } from 'react-i18next';
+import useCoupons from '../../api/useCoupons';
 
 function CartTotal({
     productsList,
@@ -17,6 +18,8 @@ function CartTotal({
     setPromoCodeApplied,
 }) {
     const { t } = useTranslation('translate');
+    const { data: listCodes } = useCoupons();
+    console.log('listCodes: ', listCodes?.data);
     // get from parent
     // const [promoCode, setPromoCode] = useState('');
     // const [promoCodeApplied, setPromoCodeApplied] = useState(false);
@@ -26,9 +29,11 @@ function CartTotal({
     const [messageContent, setMessageContent] = useState('');
     const [messageTitle, setMessageTitle] = useState('');
 
-    const handleApplyPromoCode = (code) => {
-        if (code === 'UTE99') {
-            setPromoCode('UTE99');
+    const handleApplyPromoCode = () => {
+        const isSameCode = listCodes?.data.some((code) => code.code === promoCode);
+        // console.log('isSameCode: ', isSameCode);
+        if (isSameCode) {
+            // setPromoCode(promoCode);
             setPromoCodeApplied(true);
             setShowNotification(true);
             setMessageType('success');
@@ -43,7 +48,6 @@ function CartTotal({
             setMessageType('warning');
             setMessageContent('Your promo code invalid.');
             setMessageTitle('Promo Code');
-            alert('Invalid promo code');
             setShowAnimation('animate__bounceInRight');
         }
     };
@@ -134,6 +138,8 @@ function CartTotal({
                     textAction={t('common.checkout.discount.apply')}
                     // waiting for clicking/ handling logic
                     onHandleClick={handleApplyPromoCode}
+                    promoCode={promoCode}
+                    setPromoCode={setPromoCode}
                 />
             </Box>
 
