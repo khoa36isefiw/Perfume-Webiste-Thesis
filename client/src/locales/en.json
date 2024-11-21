@@ -126,6 +126,31 @@
                 "content": "Looks like you have not added anything to your cart."
             }
         },
+        "signIn": {
+            "registered": "Already Registered?",
+            "signIn": "Sign In",
+            "new": "I am a returning customer",
+            "password": "Password",
+            "forgot": "Forgot Password?",
+            "login": "Login",
+            "donHave": "If you don't have account",
+            "register": "Register"
+        },
+        "register": {
+            "create": "Create account",
+            "des": "Your Personal Details",
+            "fName": "First Name",
+            "lName": "Last Name",
+            "phone": "Phone Number",
+            "password": "Password",
+            "register": "Register Account",
+            "haveAccount": "Already have an account?",
+            "back": "Back to Sign In",
+            "name": "Name",
+            "nameNoti": "Should not contain numbers or special characters.",
+            "phoneNoti": " Should contain only numbers.",
+            "emailNoti": "Must be a valid email."
+        },
         "aboutPage": {
             "aboutUs": "About Us",
             "aboutText": "At Tomtoc Perfumes, we believe that perfumes are more than just scents; they are expressions of one's individuality and style. Our passion for exquisite fragrances led us to curate a collection that captures the essence of diverse personalities, bringing you an unparalleled olfactory experience.",

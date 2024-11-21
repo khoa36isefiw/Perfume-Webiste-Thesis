@@ -14,10 +14,12 @@ import useValidationWithRef from '../../hooks/useValidationWithRef';
 
 import { RequirementV2 } from '../Requirement/RequirementV2';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import { useTranslation } from 'react-i18next';
 
 function RegisterAccount() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { t } = useTranslation('translate');
 
     const {
         showNotification,
@@ -139,7 +141,7 @@ function RegisterAccount() {
         <Container
             sx={{
                 width: '50%',
-                mt: 15,
+                mt: 18,
                 [ipadProScreen]: {
                     width: '70%',
                     mt: 15,
@@ -168,7 +170,7 @@ function RegisterAccount() {
                             },
                         }}
                     >
-                        Create account
+                        {t('common.register.create')}
                     </CustomizeTypography>
                 </Grid>
                 <Grid item xs={12} lg={12}>
@@ -182,10 +184,7 @@ function RegisterAccount() {
                     >
                         <Grid item xs={12} lg={12} sx={{ borderBottom: '1px solid #555', p: 2 }}>
                             <CustomizeTypography sx={{ fontSize: '18px', mb: 0 }}>
-                                Your{' '}
-                                <strong style={{ color: theme.palette.text.secondary }}>
-                                    Personal Details
-                                </strong>
+                                {t('common.register.des')}
                             </CustomizeTypography>
                         </Grid>
                         {/* MuiGrid-root  */}
@@ -239,7 +238,8 @@ function RegisterAccount() {
                                 }}
                             >
                                 <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
-                                    First Name<span style={{ color: '#d14949' }}>*</span> :
+                                    {t('common.register.fName')}
+                                    <span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
                                 <TextFieldLogin
                                     placeholder="First Name"
@@ -259,7 +259,8 @@ function RegisterAccount() {
                                 }}
                             >
                                 <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
-                                    Last Name<span style={{ color: '#d14949' }}>*</span> :
+                                    {t('common.register.lName')}
+                                    <span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
                                 <TextFieldLogin
                                     placeholder="Last Name"
@@ -279,7 +280,8 @@ function RegisterAccount() {
                                 }}
                             >
                                 <CustomizeTypography sx={{ color: theme.palette.text.secondary }}>
-                                    Phone Number<span style={{ color: '#d14949' }}>*</span> :
+                                    {t('common.register.phone')}
+                                    <span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
                                 <TextFieldLogin
                                     placeholder="Phone Number"
@@ -335,7 +337,8 @@ function RegisterAccount() {
                                     <CustomizeTypography
                                         sx={{ color: theme.palette.text.secondary }}
                                     >
-                                        Password<span style={{ color: '#d14949' }}>*</span> :
+                                        {t('common.register.password')}
+                                        <span style={{ color: '#d14949' }}>*</span> :
                                     </CustomizeTypography>
                                     <TextFieldLogin
                                         placeholder="Password"
@@ -359,7 +362,7 @@ function RegisterAccount() {
                             }}
                         >
                             <ButtonComponent
-                                textAction={'Register Account'}
+                                textAction={t('common.register.register')}
                                 onHandleClick={handleRegisterAccount}
                             />
                         </Grid>
@@ -380,10 +383,10 @@ function RegisterAccount() {
                             }}
                         >
                             <CustomizeTypography sx={{ mb: 0, mr: 4 }}>
-                                Already have an account?
+                                {t('common.register.haveAccount')}
                             </CustomizeTypography>
                             <ButtonComponent
-                                textAction={'Back to Sign In'}
+                                textAction={t('common.register.back')}
                                 onHandleClick={handleNavigateSignIn}
                             />
                         </Grid>

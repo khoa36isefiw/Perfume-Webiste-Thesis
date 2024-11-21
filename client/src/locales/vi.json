@@ -131,7 +131,31 @@
                 "total": "Tổng"
             }
         },
-
+        "signIn": {
+            "registered": "Đã đăng ký?",
+            "signIn": "Đăng nhập",
+            "new": "Tôi là khách hàng quay lại",
+            "password": "Mật khẩu",
+            "forgot": "Quên mật khẩu?",
+            "login": "Đăng nhập",
+            "donHave": "Nếu bạn chưa có tài khoản",
+            "register": "Đăng ký"
+        },
+        "register": {
+            "create": "Tạo tài khoản",
+            "des": "Thông tin cá nhân của bạn",
+            "fName": "Tên",
+            "lName": "Họ",
+            "phone": "Số điện thoại",
+            "password": "Mật khẩu",
+            "register": "Đăng ký tài khoản",
+            "haveAccount": "Đã có tài khoản?",
+            "back": "Quay lại Đăng nhập",
+            "name": "Tên",
+            "nameNoti": "Không được chứa số hoặc ký tự đặc biệt.",
+            "phoneNoti": "Chỉ được chứa số.",
+            "emailNoti": "Phải là email hợp lệ."
+        },
         "latestArticles": {
             "homeArticle": "Bài viết mới nhất",
             "readMore": "Đọc thêm",

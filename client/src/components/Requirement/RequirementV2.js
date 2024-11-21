@@ -2,8 +2,10 @@ import React from 'react';
 import { Box, Paper, Typography, IconButton, Fade } from '@mui/material';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import CloseIcon from '@mui/icons-material/Close';
+import { useTranslation } from 'react-i18next';
 
 export function RequirementV2({ onHandleOpen, onHandleClose, open }) {
+    const { t } = useTranslation('translate');
     const handleClick = () => {
         onHandleOpen();
 
@@ -43,14 +45,15 @@ export function RequirementV2({ onHandleOpen, onHandleClose, open }) {
                     >
                         <Box sx={{ padding: 2, position: 'relative' }}>
                             <Typography sx={{ fontSize: '13px' }}>
-                                <strong>Name:</strong> Should not contain numbers or special
-                                characters.
+                                <strong>{t('common.register.name')}: </strong>
+                                {t('common.register.nameNoti')}
                             </Typography>
                             <Typography sx={{ fontSize: '13px' }}>
-                                <strong>Phone Number:</strong> Should contain only numbers.
+                                <strong>{t('common.register.phone')}: </strong>{' '}
+                                {t('common.register.phoneNoti')}
                             </Typography>
                             <Typography sx={{ fontSize: '13px' }}>
-                                <strong>Email:</strong> Must be a valid email.
+                                <strong>Email: </strong> {t('common.register.emailNoti')}
                             </Typography>
                             <IconButton
                                 onClick={onHandleClose}
