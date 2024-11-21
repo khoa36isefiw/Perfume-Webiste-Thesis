@@ -28,22 +28,31 @@ function CartTotal({
     const [messageType, setMessageType] = useState('');
     const [messageContent, setMessageContent] = useState('');
     const [messageTitle, setMessageTitle] = useState('');
-
+    console.log('promoCodeApplied: ', promoCodeApplied);
     const handleApplyPromoCode = () => {
-        const isSameCode = listCodes?.data.some((code) => code.code === promoCode);
-        // console.log('isSameCode: ', isSameCode);
-        if (isSameCode) {
+        const codeApplied = listCodes?.data.find((code) => code.code === promoCode);
+        console.log('codeApplied: ', codeApplied);
+
+        if (codeApplied) {
             // setPromoCode(promoCode);
-            setPromoCodeApplied(true);
+            setPromoCodeApplied({
+                isApplied: true,
+                codeApplied: codeApplied,
+            });
             setShowNotification(true);
             setMessageType('success');
-            setMessageContent('You will get 5% off the total price.');
+            setMessageContent(
+                `You will get ${promoCodeApplied.codeApplied?.discount}% off the total price.`,
+            );
             setMessageTitle('Promo Code');
             setShowAnimation('animate__bounceInRight');
         } else {
             // invalid promo code
             setPromoCode('');
-            setPromoCodeApplied(false);
+            setPromoCodeApplied({
+                isApplied: false,
+                codeApplied: null,
+            });
             setShowNotification(true);
             setMessageType('warning');
             setMessageContent('Your promo code invalid.');
@@ -75,10 +84,10 @@ function CartTotal({
 
     // Calculate total discount
     const calculateDiscountTotal = () => {
-        let discountTotal = 0;
         const price = calculateSubtotal();
-        discountTotal += calculateDiscount(price);
-        return discountTotal;
+        const getDiscount =
+            promoCodeApplied?.isApplied === true ? promoCodeApplied.codeApplied?.discount : 0;
+        return price * (getDiscount / 100);
     };
 
     // Calculate the total price including discount, tax, and promo code
@@ -100,10 +109,13 @@ function CartTotal({
         });
 
         let total = totalSubtotal - totalDiscount;
+        console.log('promoCodeApplied.isApplied: ', promoCodeApplied.isApplied);
 
         // Apply 5% promo code discount if promo code "UTE99" is applied
-        if (promoCodeApplied && promoCode === 'UTE99') {
-            total = total * 0.95; // Apply 5% discount
+        // if (promoCodeApplied.isApplied === true && promoCode === promoCodeApplied.codeApplied) {
+        if (promoCodeApplied.isApplied) {
+            console.log('chay vo day');
+            total = total * (promoCodeApplied.codeApplied.discount / 100); // Apply 5% discount
         }
 
         return total;
@@ -153,7 +165,9 @@ function CartTotal({
             {/* Discount 20% */}
             <SummaryRowInCart
                 label={t('common.checkout.totalDes.discount')}
-                discount={'20%'}
+                discount={
+                    promoCodeApplied.isApplied ? promoCodeApplied.codeApplied.discount + '%' : '0%'
+                }
                 value={converToVND(calculateDiscountTotal())}
             />
 
