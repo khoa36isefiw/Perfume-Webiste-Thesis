@@ -604,6 +604,9 @@ function NewHeader() {
                                             products?.data?.cart && getListProductInStock.length > 0
                                                 ? theme.palette.background.thirth
                                                 : 'black',
+                                        [mobileScreen]: {
+                                            display: 'none',
+                                        },
                                     },
                                 }}
                                 color="green"
