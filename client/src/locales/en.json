@@ -206,6 +206,32 @@
             "title": "Tomtoc Promotions Code 🎉",
             "valid": "Valid until"
         },
+        "orderHistory": {
+            "title": "Your Orders",
+            "type": {
+                "k1": "Total Order",
+                "k2": "Pending Payment",
+                "k3": "Paid",
+                "k4": "Cancelled"
+            },
+            "filter": {
+                "All Orders": "All Orders",
+                "Pending": "Pending",
+                "Paid": "Paid",
+                "Cancelled": "Cancelled"
+            },
+            "orderInfor": {
+                "orderNum": "Order Num",
+                "orderDate": "Order Date",
+                "orderAddress": "Ship To",
+                "rate": "Rate Now",
+                "total": "Total Amount",
+                "preview": "Preview",
+                "preview2": "View your invoice",
+                "download": "Download",
+                "download2": "Download your invoice"
+            }
+        },
 
         "aboutPage": {
             "aboutUs": "About Us",

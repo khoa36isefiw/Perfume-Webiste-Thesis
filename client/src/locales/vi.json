@@ -179,6 +179,32 @@
             "title": "Mã khuyến mãi Tomtoc 🎉",
             "valid": "Hiệu lực đến"
         },
+        "orderHistory": {
+            "title": "Đơn hàng của bạn",
+            "type": {
+                "k1": "Tổng đơn hàng",
+                "k2": "Chờ thanh toán",
+                "k3": "Đã thanh toán",
+                "k4": "Đã hủy"
+            },
+            "filter": {
+                "All Orders": "Tất cả đơn hàng",
+                "Pending": "Chờ thanh toán",
+                "Paid": "Đã thanh toán",
+                "Cancelled": "Đã hủy"
+            },
+            "orderInfor": {
+                "orderNum": "Số đơn hàng",
+                "orderDate": "Ngày đặt hàng",
+                "orderAddress": "Giao hàng đến",
+                "rate": "Đánh giá ngay",
+                "total": "Tổng số tiền",
+                "preview": "Xem trước",
+                "preview2": "Xem hóa đơn của bạn",
+                "download": "Tải xuống",
+                "download2": "Tải xuống hóa đơn của bạn"
+            }
+        },
         "signIn": {
             "registered": "Đã đăng ký?",
             "signIn": "Đăng nhập",

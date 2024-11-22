@@ -7,7 +7,7 @@ import {
     DialogActions,
     Avatar,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import VNFlag from '../../assets/images/VN-circle.png';
 import UKFlag from '../../assets/images/UK-circle.png';
 import CloseIcon from '@mui/icons-material/Close';
@@ -34,6 +34,12 @@ function MobileHeader({ setOpenMenu, openMenu }) {
         },
         { headerTextVi: 'Bài viết', headerText: 'Blog', headerLink: `/${i18n.language}/blog` },
     ];
+    // Initialize the app's language based on localStorage
+    useEffect(() => {
+        const savedLanguage = window.localStorage.getItem('language') || 'en';
+        i18n.changeLanguage(savedLanguage); // Set the language for i18n
+        setEnLanguage(savedLanguage === 'en'); // Update local state
+    }, []);
 
     const handleChangeLanguage = (lng) => {
         const currentPath = window.location.pathname;

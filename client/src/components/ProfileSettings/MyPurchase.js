@@ -10,8 +10,10 @@ import useOrderByUser from '../../api/useOrderByUser';
 
 import { OrderSummary } from '../PurchaseComponents/OrderSummary';
 import { OrderLists } from '../PurchaseComponents/OrderLists';
+import { useTranslation } from 'react-i18next';
 
 function MyPurchase() {
+    const { t } = useTranslation('translate');
     const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId || null;
     const { data: orders } = useOrderByUser(userId);
 
@@ -49,7 +51,7 @@ function MyPurchase() {
                         color: theme.palette.text.secondary,
                     }}
                 >
-                    Your Orders
+                    {t('common.orderHistory.title')}
                 </CustomizeTypography>
             </Grid>
             <Grid item container spacing={2}>
@@ -58,7 +60,7 @@ function MyPurchase() {
                         iconBgColor={theme.palette.orderHistory.total.bg}
                         iconColor={theme.palette.orderHistory.total.icon}
                         orderCount={orders?.data.length}
-                        orderLabel="Total Order"
+                        orderLabel={t('common.orderHistory.type.k1')}
                     />
                 </Grid>
                 <Grid item xs={6} sm={6} lg={3}>
@@ -66,7 +68,7 @@ function MyPurchase() {
                         iconBgColor={theme.palette.orderHistory.deliveried.bg}
                         iconColor={theme.palette.orderHistory.deliveried.icon}
                         orderCount={pending}
-                        orderLabel="Pending Payment"
+                        orderLabel={t('common.orderHistory.type.k2')}
                     />
                 </Grid>
                 <Grid item xs={6} sm={6} lg={3}>
@@ -74,7 +76,7 @@ function MyPurchase() {
                         iconBgColor={theme.palette.orderHistory.pending.bg}
                         iconColor={theme.palette.orderHistory.pending.icon}
                         orderCount={paid}
-                        orderLabel="Paid"
+                        orderLabel={t('common.orderHistory.type.k3')}
                     />
                 </Grid>
                 <Grid item xs={6} sm={6} lg={3}>
@@ -82,7 +84,7 @@ function MyPurchase() {
                         iconBgColor={theme.palette.orderHistory.cancel.bg}
                         iconColor={theme.palette.orderHistory.cancel.icon}
                         orderCount={cancelled}
-                        orderLabel="Cancelled"
+                        orderLabel={t('common.orderHistory.type.k4')}
                     />
                 </Grid>
             </Grid>
@@ -132,7 +134,8 @@ function MyPurchase() {
                             },
                         }}
                     >
-                        {filter.filter}
+                        {/* {filter.filter} */}
+                        {t(`common.orderHistory.filter.${filter.filter}`)}
                     </Button>
                 ))}
             </Grid>

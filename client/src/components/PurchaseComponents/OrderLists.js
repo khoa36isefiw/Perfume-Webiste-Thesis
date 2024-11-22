@@ -150,7 +150,10 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                 >
                     <Grid container spacing={2}>
                         <Grid item xs={3} sm={3} lg={3}>
-                            <OrderInfo label="Order Num" value={`#${order.orderNumber}`} />
+                            <OrderInfo
+                                label={t('common.orderHistory.orderInfor.orderNum')}
+                                value={`#${order.orderNumber}`}
+                            />
                         </Grid>
                         <Grid item xs={1} sm={1} lg={1}>
                             <VerticalDivider />
@@ -217,19 +220,28 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                 >
                     <Grid container spacing={2}>
                         <Grid item xs={3} sm={3} lg={3}>
-                            <OrderInfo label="Order Num" value={`#${order._id}`} />
+                            <OrderInfo
+                                label={t('common.orderHistory.orderInfor.orderNum')}
+                                value={`#${order._id}`}
+                            />
                         </Grid>
                         <Grid item xs={1} sm={1} lg={1}>
                             <VerticalDivider />
                         </Grid>
                         <Grid item xs={3} sm={3} lg={3}>
-                            <OrderInfo label="Order Date" value={formatDate(order.createdAt)} />
+                            <OrderInfo
+                                label={t('common.orderHistory.orderInfor.orderDate')}
+                                value={formatDate(order.createdAt)}
+                            />
                         </Grid>
                         <Grid item xs={1} sm={1}>
                             <VerticalDivider />
                         </Grid>
                         <Grid item xs={4} sm={4} lg={4}>
-                            <OrderInfo label="Ship To" value={'ahiahihi'} />
+                            <OrderInfo
+                                label={t('common.orderHistory.orderInfor.orderAddress')}
+                                value={'ahiahihi'}
+                            />
                         </Grid>
                     </Grid>
 
@@ -256,7 +268,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                     color: '#d9d9d9',
                                 }}
                             >
-                                Total Amount:
+                                {t('common.orderHistory.orderInfor.total')}:
                             </span>{' '}
                             <strong>{converToVND(order.totalPrice)}</strong>
                         </CustomizeTypography>
@@ -269,7 +281,8 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                             mb: 0,
                                         }}
                                     >
-                                        View your invoice
+                                        {/* View your invoice */}
+                                        {t('common.orderHistory.orderInfor.preview2')}
                                     </Typography>
                                 }
                             >
@@ -291,7 +304,8 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                         },
                                     }}
                                 >
-                                    Preview
+                                    {/* Preview */}
+                                    {t('common.orderHistory.orderInfor.preview')}
                                 </Button>
                             </Tooltip>
                             <Tooltip
@@ -302,7 +316,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                             mb: 0,
                                         }}
                                     >
-                                        Download your invoice
+                                        {t('common.orderHistory.orderInfor.download2')}
                                     </Typography>
                                 }
                             >
@@ -326,7 +340,8 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                         },
                                     }}
                                 >
-                                    Download
+                                    {/* Download */}
+                                    {t('common.orderHistory.orderInfor.download')}
                                 </Button>
                             </Tooltip>
                         </Box>
