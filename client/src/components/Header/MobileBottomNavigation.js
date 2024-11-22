@@ -11,11 +11,13 @@ import { theme } from '../../Theme/Theme';
 import { backTop } from '../goBackTop/goBackTop';
 import { Typography } from '@mui/material';
 import Face5Icon from '@mui/icons-material/Face5';
+import { useTranslation } from 'react-i18next';
 
 export default function MobileBottomNavigation() {
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0); // Track selected icon
     const userData = JSON.parse(window.localStorage.getItem('user_data')); // get data of user who logged into the system
+    const { t, i18n } = useTranslation('translate');
 
     const currentValue = JSON.parse(localStorage.getItem('bottom_nav_number'));
 
@@ -23,28 +25,28 @@ export default function MobileBottomNavigation() {
         setValue(value);
         window.localStorage.setItem('bottom_nav_number', JSON.stringify(value));
         backTop();
-        navigate('/');
+        navigate(`/${i18n.language}/`);
     };
 
     const handleNavigateSignIn = (value) => {
         window.localStorage.setItem('bottom_nav_number', JSON.stringify(value));
         setValue(value);
         backTop();
-        navigate('/sign-in');
+        navigate(`/${i18n.language}/sign-in`);
     };
 
     const handleNavigateSearch = (value) => {
         window.localStorage.setItem('bottom_nav_number', JSON.stringify(value));
         setValue(value);
         backTop();
-        navigate('/search');
+        navigate(`/${i18n.language}/search`);
     };
 
     const handleNavigateProfile = (value) => {
         window.localStorage.setItem('bottom_nav_number', JSON.stringify(value));
         setValue(value);
         backTop();
-        navigate('/profile-settings');
+        navigate(`/${i18n.language}/profile-settings`);
     };
 
     return (
