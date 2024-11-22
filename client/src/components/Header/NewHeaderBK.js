@@ -33,7 +33,6 @@ import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useTranslation } from 'react-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
-import MobileHeader from './MobileHeader';
 
 function NewHeader() {
     const navigate = useNavigate();
@@ -54,7 +53,6 @@ function NewHeader() {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
     const [activeHeader, setActiveHeader] = useState('');
-    const [openMenu, setOpenMenu] = useState(false);
     const listSuggestions = suggestions.slice(0, 4); // just show 4 product items to UI
 
     // get product in cart
@@ -485,11 +483,6 @@ function NewHeader() {
                                 </IconButton>
                             </Tooltip>
                         )}
-
-                        <IconButton onClick={() => setOpenMenu(true)}>
-                            <MenuIcon sx={{ fontSize: '24px', color: '#fff' }} />
-                        </IconButton>
-                        <MobileHeader openMenu={openMenu} setOpenMenu={setOpenMenu} />
 
                         {/* multiple languages */}
                         {!enLanguage ? (
