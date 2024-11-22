@@ -8,14 +8,10 @@ import {
     Avatar,
 } from '@mui/material';
 import React, { useState } from 'react';
-
 import VNFlag from '../../assets/images/VN-circle.png';
 import UKFlag from '../../assets/images/UK-circle.png';
-
 import CloseIcon from '@mui/icons-material/Close';
-
 import { blue } from '@mui/material/colors';
-
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 

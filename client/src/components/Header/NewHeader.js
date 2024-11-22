@@ -90,6 +90,7 @@ function NewHeader() {
 
     useEffect(() => {
         window.addEventListener('resize', handleWindowSizeChange);
+        // clean up function
         return () => {
             window.removeEventListener('resize', handleWindowSizeChange);
         };
@@ -486,9 +487,13 @@ function NewHeader() {
                             </Tooltip>
                         )}
 
-                        <IconButton onClick={() => setOpenMenu(true)}>
-                            <MenuIcon sx={{ fontSize: '24px', color: '#fff' }} />
-                        </IconButton>
+                        {/* for mobile devices --> only show on mobile */}
+                        {isMobile && (
+                            <IconButton onClick={() => setOpenMenu(true)}>
+                                <MenuIcon sx={{ fontSize: '32px', color: '#fff' }} />
+                            </IconButton>
+                        )}
+
                         <MobileHeader openMenu={openMenu} setOpenMenu={setOpenMenu} />
 
                         {/* multiple languages */}
