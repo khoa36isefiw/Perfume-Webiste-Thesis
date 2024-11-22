@@ -93,7 +93,6 @@ function CartTotal({
     // Calculate the total price including discount, tax, and promo code
     const calculateFinalTotal = () => {
         let totalSubtotal = 0;
-        let totalDiscount = 0;
 
         // Loop through each product to calculate subtotal, discount, and tax
         productsList.forEach((product) => {
@@ -102,23 +101,20 @@ function CartTotal({
                 (product.variant.discountPercent !== 0
                     ? product.variant.priceSale
                     : product.variant.price);
-            const discount = calculateDiscount(price);
 
             totalSubtotal += price;
-            totalDiscount += discount;
         });
 
-        let total = totalSubtotal - totalDiscount;
         console.log('promoCodeApplied.isApplied: ', promoCodeApplied.isApplied);
 
         // Apply 5% promo code discount if promo code "UTE99" is applied
         // if (promoCodeApplied.isApplied === true && promoCode === promoCodeApplied.codeApplied) {
         if (promoCodeApplied.isApplied) {
             console.log('chay vo day');
-            total = total * (promoCodeApplied.codeApplied.discount / 100); // Apply 5% discount
+            totalSubtotal =totalSubtotal - totalSubtotal * (promoCodeApplied.codeApplied.discount / 100); // Apply 5% discount
         }
 
-        return total;
+        return totalSubtotal;
     };
 
     return (
