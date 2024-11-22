@@ -111,7 +111,8 @@ function CartTotal({
         // if (promoCodeApplied.isApplied === true && promoCode === promoCodeApplied.codeApplied) {
         if (promoCodeApplied.isApplied) {
             console.log('chay vo day');
-            totalSubtotal =totalSubtotal - totalSubtotal * (promoCodeApplied.codeApplied.discount / 100); // Apply 5% discount
+            totalSubtotal =
+                totalSubtotal - totalSubtotal * (promoCodeApplied.codeApplied.discount / 100); // Apply 5% discount
         }
 
         return totalSubtotal;

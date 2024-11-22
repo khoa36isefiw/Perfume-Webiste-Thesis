@@ -254,10 +254,13 @@ function CheckoutInformation() {
     const finalTotalPrice = calculateTotalPrice(getListProductSelected);
     console.log('promoCode:', promoCode);
     const handleCheckout = async () => {
+        const promotionCodeApplied = promoCodeApplied?.codeApplied?.code || '';
+        console.log('promotionCodeApplied: ', promotionCodeApplied);
+
         const response = await paymentAPI.createOrder(
             userId,
             items,
-
+            promotionCodeApplied,
             PAYMENT_METHOD.COD,
         );
 
