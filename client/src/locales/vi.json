@@ -203,6 +203,35 @@
                 "preview2": "Xem hóa đơn của bạn",
                 "download": "Tải xuống",
                 "download2": "Tải xuống hóa đơn của bạn"
+            },
+            "pdfDownload": {
+                "back": "Danh sách mua hàng",
+                "preview": "Xem trước",
+                "download": "Tải xuống",
+                "dPDF": "Tải xuống đơn hàng dưới dạng PDF",
+                "hi": "Xin chào",
+                "shopInfo": {
+                    "t1": "Thông tin đơn hàng của bạn vừa được gửi đi. Hãy tiếp tục, vui lòng kiểm tra.",
+                    "s1": "Trường Đại học Sư phạm Kỹ thuật TP.HCM",
+                    "s2": "Thành phố Thủ Đức",
+                    "s3": "Số 1 Võ Văn Ngân",
+                    "s4": "Được tạo"
+                },
+                "cusInfo": {
+                    "invoice": "Số hóa đơn",
+                    "issue": "Ngày phát hành",
+                    "billed": "Đã thanh toán cho"
+                },
+                "items": {
+                    "details": "Chi tiết mặt hàng",
+                    "t1": "Chi tiết mặt hàng có thêm thông tin",
+                    "h1": "Mô tả",
+                    "h2": "Số lượng",
+                    "qty": "SL",
+                    "sTotal": "Tổng phụ",
+                    "discount": "Giảm giá",
+                    "amount": "Số tiền phải trả"
+                }
             }
         },
         "signIn": {

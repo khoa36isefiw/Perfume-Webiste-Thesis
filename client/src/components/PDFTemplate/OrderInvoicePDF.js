@@ -10,8 +10,10 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 
 import { backTop } from '../goBackTop/goBackTop';
+import { useTranslation } from 'react-i18next';
 
 export const OrderInvoicePDF = () => {
+    const { t } = useTranslation('translate');
     // get order data from state
     const date = new Date();
     const getDay = date.getDay();
@@ -152,7 +154,7 @@ export const OrderInvoicePDF = () => {
                         },
                     }}
                 >
-                    List Purchases
+                    {t('common.orderHistory.pdfDownload.back')}
                 </Button>
                 <CustomizeTypography
                     sx={{
@@ -164,7 +166,7 @@ export const OrderInvoicePDF = () => {
                         },
                     }}
                 >
-                    Preview
+                    {t('common.orderHistory.pdfDownload.preview')}
                 </CustomizeTypography>
                 <Tooltip
                     title={
@@ -174,7 +176,7 @@ export const OrderInvoicePDF = () => {
                                 mb: 0,
                             }}
                         >
-                            Download Invoice Order
+                            {t('common.orderHistory.pdfDownload.dPDF')}
                         </Typography>
                     }
                 >
@@ -199,7 +201,7 @@ export const OrderInvoicePDF = () => {
                             generatePDF(targetRef, { filename: `Invoice Order-${order?._id}` })
                         }
                     >
-                        Download
+                        {t('common.orderHistory.pdfDownload.download')}
                     </Button>
                 </Tooltip>
             </Box>
@@ -263,10 +265,11 @@ export const OrderInvoicePDF = () => {
                         <CustomizeTypography
                             sx={{ color: '#000', fontWeight: 'bold', fontSize: 32 }}
                         >
-                            Hi {userData.firstName} {userData.lastName},
+                            {t('common.orderHistory.pdfDownload.hi')} {userData.firstName}{' '}
+                            {userData.lastName},
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ color: '#000', mb: 2 }}>
-                            Your order information was just dropped off. Go on, check it out
+                            {t('common.orderHistory.pdfDownload.shopInfo.t1')}
                         </CustomizeTypography>
                     </Box>
                     <Box
@@ -318,7 +321,7 @@ export const OrderInvoicePDF = () => {
                                     },
                                 }}
                             >
-                                HCMC University of Technology and Education
+                                {t('common.orderHistory.pdfDownload.shopInfo.s1')}
                             </CustomizeTypography>
                             <CustomizeTypography
                                 sx={{
@@ -329,7 +332,7 @@ export const OrderInvoicePDF = () => {
                                     },
                                 }}
                             >
-                                Thu Duc City
+                                {t('common.orderHistory.pdfDownload.shopInfo.s2')}
                             </CustomizeTypography>
                             <CustomizeTypography
                                 sx={{
@@ -351,7 +354,8 @@ export const OrderInvoicePDF = () => {
                                     },
                                 }}
                             >
-                                Created: {convertDayToText(getDay)}, {getDateTime}
+                                {t('common.orderHistory.pdfDownload.shopInfo.s4')}:
+                                {convertDayToText(getDay)}, {getDateTime}
                             </CustomizeTypography>
                         </Box>
                     </Box>
@@ -377,14 +381,15 @@ export const OrderInvoicePDF = () => {
                     >
                         <Box>
                             <CustomizeTypography sx={{ color: '#000', fontWeight: 'bold' }}>
-                                Invoice Number
+                                {t('common.orderHistory.pdfDownload.cusInfo.invoice')}
                             </CustomizeTypography>
 
                             <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
                                 {order?._id}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                                Issued date: {formatDate(order?.updatedAt)}
+                                {t('common.orderHistory.pdfDownload.cusInfo.issue')}:
+                                {formatDate(order?.updatedAt)}
                             </CustomizeTypography>
                         </Box>
                         <Box
@@ -395,7 +400,7 @@ export const OrderInvoicePDF = () => {
                             }}
                         >
                             <CustomizeTypography sx={{ color: '#000', fontWeight: 'bold' }}>
-                                Billed to
+                                {t('common.orderHistory.pdfDownload.cusInfo.billed')}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
                                 Luna Kei
@@ -410,10 +415,11 @@ export const OrderInvoicePDF = () => {
                     <Box>
                         <Box>
                             <CustomizeTypography sx={{ color: '#000', fontWeight: 'bold', mb: 0 }}>
-                                Item details
+                                {/* Item details */}
+                                {t('common.orderHistory.pdfDownload.items.details')}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ color: '#000', mb: 0 }}>
-                                Details item with more information
+                                {t('common.orderHistory.pdfDownload.items.t1')}
                             </CustomizeTypography>
                         </Box>
                         <Box
@@ -431,12 +437,12 @@ export const OrderInvoicePDF = () => {
                             <CustomizeTypography
                                 sx={{ color: '#000', mb: 0, fontSize: 13, fontWeight: 'bold' }}
                             >
-                                Description
+                                {t('common.orderHistory.pdfDownload.items.h1')}
                             </CustomizeTypography>
                             <CustomizeTypography
                                 sx={{ color: '#000', mb: 0, fontSize: 13, fontWeight: 'bold' }}
                             >
-                                Amount
+                                {t('common.orderHistory.pdfDownload.items.h2')}
                             </CustomizeTypography>
                         </Box>
                         <Box
@@ -452,7 +458,8 @@ export const OrderInvoicePDF = () => {
                                             {item.productName}
                                         </CustomizeTypography>
                                         <CustomizeTypography sx={{ color: '#595959', mb: 0 }}>
-                                            Qty: {item.quantity}
+                                            {t('common.orderHistory.pdfDownload.items.qty')}:{' '}
+                                            {item.quantity}
                                         </CustomizeTypography>
                                     </Box>
                                     <CustomizeTypography sx={{ color: '#595959', mb: 0 }}>
@@ -468,7 +475,7 @@ export const OrderInvoicePDF = () => {
                             <CustomizeTypography
                                 sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
                             >
-                                Subtotal
+                                {t('common.orderHistory.pdfDownload.items.sTotal')}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
                                 {converToVND(finalSubtotal)}
@@ -478,37 +485,18 @@ export const OrderInvoicePDF = () => {
                             <CustomizeTypography
                                 sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
                             >
-                                Discount - 20%
+                                {t('common.orderHistory.pdfDownload.items.discount')} - 20%
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
                                 {converToVND(finalDiscount)}
                             </CustomizeTypography>
                         </Box>
+
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
                             <CustomizeTypography
                                 sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
                             >
-                                Shipping Fee
-                            </CustomizeTypography>
-                            <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
-                                Free
-                            </CustomizeTypography>
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <CustomizeTypography
-                                sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
-                            >
-                                Tax + 10%
-                            </CustomizeTypography>
-                            <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
-                                {converToVND(finalTax)}
-                            </CustomizeTypography>
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <CustomizeTypography
-                                sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
-                            >
-                                Amount due
+                                {t('common.orderHistory.pdfDownload.items.amount')}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
                                 {converToVND(finalTotalPrice)}
