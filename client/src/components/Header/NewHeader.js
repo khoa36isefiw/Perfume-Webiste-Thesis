@@ -521,6 +521,9 @@ function NewHeader() {
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         cursor: 'pointer',
+                                        [mobileScreen]: {
+                                            display: 'none',
+                                        },
                                     }}
                                     onClick={() => handleChangeLanguage('en')}
                                 >
@@ -556,6 +559,9 @@ function NewHeader() {
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         cursor: 'pointer',
+                                        [mobileScreen]: {
+                                            display: 'none',
+                                        },
                                     }}
                                     onClick={() => handleChangeLanguage('vi')}
                                 >
