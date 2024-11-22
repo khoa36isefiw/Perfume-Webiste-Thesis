@@ -621,6 +621,9 @@ function NewHeader() {
                                         [tabletScreen]: {
                                             mt: 2,
                                         },
+                                        [mobileScreen]: {
+                                            display: 'none',
+                                        },
                                     }}
                                 >
                                     <ShoppingCartIcon sx={{ fontSize: '24px', color: 'white' }} />
@@ -636,9 +639,9 @@ function NewHeader() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        // [mobileScreen]: {
-                        //     overflowX: 'scroll',
-                        // },
+                        [mobileScreen]: {
+                            display: 'none',
+                        },
                     }}
                 >
                     {headerData.map((header, index) => (
