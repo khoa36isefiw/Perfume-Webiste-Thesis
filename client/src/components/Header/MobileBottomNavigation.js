@@ -12,6 +12,7 @@ import { backTop } from '../goBackTop/goBackTop';
 import { Typography } from '@mui/material';
 import Face5Icon from '@mui/icons-material/Face5';
 import { useTranslation } from 'react-i18next';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export default function MobileBottomNavigation() {
     const navigate = useNavigate();
@@ -40,6 +41,13 @@ export default function MobileBottomNavigation() {
         setValue(value);
         backTop();
         navigate(`/${i18n.language}/search`);
+    };
+
+    const handleNavigateCart = (value) => {
+        window.localStorage.setItem('bottom_nav_number', JSON.stringify(value));
+        setValue(value);
+        backTop();
+        navigate(`/${i18n.language}/shopping-cart`);
     };
 
     const handleNavigateProfile = (value) => {
@@ -131,7 +139,18 @@ export default function MobileBottomNavigation() {
 
                 {/* Nearby */}
                 <BottomNavigationAction
-                    label="Nearby"
+                    onClick={() => handleNavigateCart(2)}
+                    label={
+                        <Typography
+                            sx={{
+                                color: currentValue === 2 ? theme.palette.text.secondary : '#fff',
+                                fontSize: '13px',
+                                fontWeight: currentValue === 2 ? 'bold' : 'normal', // Bold when selected
+                            }}
+                        >
+                            Cart
+                        </Typography>
+                    }
                     sx={{
                         color: '#fff',
                         // change color for text
@@ -142,7 +161,7 @@ export default function MobileBottomNavigation() {
                         fontWeight: currentValue === 2 ? 'bold' : 'normal',
                     }}
                     icon={
-                        <LocationOnIcon
+                        <ShoppingCartIcon
                             sx={{
                                 color: currentValue === 2 ? theme.palette.text.secondary : '#fff',
                                 fontSize: '24px',
