@@ -60,7 +60,8 @@ function TicketCoupon() {
             <Box>
                 {couponsData?.data.map(
                     (coupon) =>
-                        coupon.status === 'active' && (
+                        coupon.status === 'active' &&
+                        coupon.quantity !== 0 && (
                             <Box
                                 sx={{
                                     height: '200px',

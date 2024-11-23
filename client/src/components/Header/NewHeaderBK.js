@@ -33,7 +33,6 @@ import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useTranslation } from 'react-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
-import MobileHeader from './MobileHeader';
 
 function NewHeader() {
     const navigate = useNavigate();
@@ -54,7 +53,6 @@ function NewHeader() {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
     const [activeHeader, setActiveHeader] = useState('');
-    const [openMenu, setOpenMenu] = useState(false);
     const listSuggestions = suggestions.slice(0, 4); // just show 4 product items to UI
 
     // get product in cart
@@ -90,7 +88,6 @@ function NewHeader() {
 
     useEffect(() => {
         window.addEventListener('resize', handleWindowSizeChange);
-        // clean up function
         return () => {
             window.removeEventListener('resize', handleWindowSizeChange);
         };
@@ -487,15 +484,6 @@ function NewHeader() {
                             </Tooltip>
                         )}
 
-                        {/* for mobile devices --> only show on mobile */}
-                        {isMobile && (
-                            <IconButton onClick={() => setOpenMenu(true)}>
-                                <MenuIcon sx={{ fontSize: '32px', color: '#fff' }} />
-                            </IconButton>
-                        )}
-
-                        <MobileHeader openMenu={openMenu} setOpenMenu={setOpenMenu} />
-
                         {/* multiple languages */}
                         {!enLanguage ? (
                             <Tooltip
@@ -521,9 +509,6 @@ function NewHeader() {
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         cursor: 'pointer',
-                                        [mobileScreen]: {
-                                            display: 'none',
-                                        },
                                     }}
                                     onClick={() => handleChangeLanguage('en')}
                                 >
@@ -559,9 +544,6 @@ function NewHeader() {
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         cursor: 'pointer',
-                                        [mobileScreen]: {
-                                            display: 'none',
-                                        },
                                     }}
                                     onClick={() => handleChangeLanguage('vi')}
                                 >
@@ -604,9 +586,6 @@ function NewHeader() {
                                             products?.data?.cart && getListProductInStock.length > 0
                                                 ? theme.palette.background.thirth
                                                 : 'black',
-                                        [mobileScreen]: {
-                                            display: 'none',
-                                        },
                                     },
                                 }}
                                 color="green"
@@ -624,9 +603,6 @@ function NewHeader() {
                                         [tabletScreen]: {
                                             mt: 2,
                                         },
-                                        [mobileScreen]: {
-                                            display: 'none',
-                                        },
                                     }}
                                 >
                                     <ShoppingCartIcon sx={{ fontSize: '24px', color: 'white' }} />
@@ -642,9 +618,9 @@ function NewHeader() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        [mobileScreen]: {
-                            display: 'none',
-                        },
+                        // [mobileScreen]: {
+                        //     overflowX: 'scroll',
+                        // },
                     }}
                 >
                     {headerData.map((header, index) => (

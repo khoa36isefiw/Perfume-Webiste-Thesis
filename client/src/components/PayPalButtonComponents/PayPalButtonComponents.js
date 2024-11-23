@@ -4,17 +4,44 @@ import { paymentAPI } from '../../api/paymentAPI';
 import { useNavigate } from 'react-router-dom';
 import { PAYMENT_METHOD } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
-function PayPalButtonsComponents({ user, items }) {
+function PayPalButtonsComponents({ user, items, promotionCode }) {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
+    console.log('promotionCode: ', promotionCode);
+    const promotionCode2 =
+        promotionCode?.isApplied === true ? promotionCode.codeApplied.code : null;
 
+    console.log('promotionCode2: ', promotionCode2);
     const createOrder = async () => {
+        let payload = {
+            user,
+            items,
+            method: PAYMENT_METHOD.PAYPAL,
+        };
+
+        // if (promotionCode2 !== null) {
+        //     payload.promotionCode = promotionCode2;
+        // }
+        console.log('Final Payload:', payload);
         try {
-            const response = await paymentAPI.createOrder(user, items, PAYMENT_METHOD.PAYPAL);
+            const response = await paymentAPI.createOrder(
+                user,
+                items,
+                promotionCode2,
+                PAYMENT_METHOD.PAYPAL,
+            );
+
             return response.data.payRef;
+            // } catch (error) {
+            //     console.error('Error creating PayPal order:', error);
+            //     throw new Error('Order creation failed');
+            // }
         } catch (error) {
-            console.error('Error creating PayPal order:', error);
-            throw new Error('Order creation failed');
+            if (error.response) {
+                console.error('API Error:', error.response.data);
+            } else {
+                console.error('Unknown Error:', error.message);
+            }
         }
     };
 

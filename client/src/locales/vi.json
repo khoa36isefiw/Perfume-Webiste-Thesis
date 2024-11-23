@@ -179,6 +179,61 @@
             "title": "Mã khuyến mãi Tomtoc 🎉",
             "valid": "Hiệu lực đến"
         },
+        "orderHistory": {
+            "title": "Đơn hàng của bạn",
+            "type": {
+                "k1": "Tổng đơn hàng",
+                "k2": "Chờ thanh toán",
+                "k3": "Đã thanh toán",
+                "k4": "Đã hủy"
+            },
+            "filter": {
+                "All Orders": "Tất cả đơn hàng",
+                "Pending": "Chờ thanh toán",
+                "Paid": "Đã thanh toán",
+                "Cancelled": "Đã hủy"
+            },
+            "orderInfor": {
+                "orderNum": "Số đơn hàng",
+                "orderDate": "Ngày đặt hàng",
+                "orderAddress": "Giao hàng đến",
+                "rate": "Đánh giá ngay",
+                "total": "Tổng số tiền",
+                "preview": "Xem trước",
+                "preview2": "Xem hóa đơn của bạn",
+                "download": "Tải xuống",
+                "download2": "Tải xuống hóa đơn của bạn"
+            },
+            "pdfDownload": {
+                "back": "Danh sách mua hàng",
+                "preview": "Xem trước",
+                "download": "Tải xuống",
+                "dPDF": "Tải xuống đơn hàng dưới dạng PDF",
+                "hi": "Xin chào",
+                "shopInfo": {
+                    "t1": "Thông tin đơn hàng của bạn vừa được gửi đi. Hãy tiếp tục, vui lòng kiểm tra.",
+                    "s1": "Trường Đại học Sư phạm Kỹ thuật TP.HCM",
+                    "s2": "Thành phố Thủ Đức",
+                    "s3": "Số 1 Võ Văn Ngân",
+                    "s4": "Được tạo"
+                },
+                "cusInfo": {
+                    "invoice": "Số hóa đơn",
+                    "issue": "Ngày phát hành",
+                    "billed": "Đã thanh toán cho"
+                },
+                "items": {
+                    "details": "Chi tiết mặt hàng",
+                    "t1": "Chi tiết mặt hàng có thêm thông tin",
+                    "h1": "Mô tả",
+                    "h2": "Số lượng",
+                    "qty": "SL",
+                    "sTotal": "Tổng phụ",
+                    "discount": "Giảm giá",
+                    "amount": "Số tiền phải trả"
+                }
+            }
+        },
         "signIn": {
             "registered": "Đã đăng ký?",
             "signIn": "Đăng nhập",

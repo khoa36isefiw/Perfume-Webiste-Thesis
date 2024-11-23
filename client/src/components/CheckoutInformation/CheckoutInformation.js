@@ -254,10 +254,13 @@ function CheckoutInformation() {
     const finalTotalPrice = calculateTotalPrice(getListProductSelected);
     console.log('promoCode:', promoCode);
     const handleCheckout = async () => {
+        const promotionCodeApplied = promoCodeApplied?.codeApplied?.code || '';
+        console.log('promotionCodeApplied: ', promotionCodeApplied);
+
         const response = await paymentAPI.createOrder(
             userId,
             items,
-
+            promotionCodeApplied,
             PAYMENT_METHOD.COD,
         );
 
@@ -479,7 +482,11 @@ function CheckoutInformation() {
                         {paymentMethod === 'paypal' ? (
                             // {paymentMethod === 'cod' && (
                             <Box sx={{ mt: 3 }}>
-                                <PayPalButtonsComponents user={userId} items={items} />
+                                <PayPalButtonsComponents
+                                    user={userId}
+                                    items={items}
+                                    promotionCode={promoCodeApplied}
+                                />
                             </Box>
                         ) : (
                             //button check out COD
