@@ -4,8 +4,8 @@ import ProductInformation from '../components/ProductInformation/ProductInformat
 import CustomizeDivider from '../components/CustomizeDivider/CustomizeDivider';
 import RatingProduct from '../components/RatingProduct/RatingProduct';
 import Comments from '../components/Comments/Comments';
-import { useLocation } from 'react-router-dom';
-import { Box, Grid } from '@mui/material';
+
+import { Box } from '@mui/material';
 
 function ProductDetail() {
     // get the perfume data passed from navigation
