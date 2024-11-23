@@ -1,7 +1,7 @@
 import axiosClient from './axiosClient';
 
 export const paymentAPI = {
-    createOrder: (user, items, promotionCode = null, method) => {
+    createOrder: (user, items, promotionCode, method) => {
         const url = '/payments/create-order';
         return axiosClient.post(url, { user, items, promotionCode, method });
     },

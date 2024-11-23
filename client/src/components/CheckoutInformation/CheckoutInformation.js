@@ -482,7 +482,11 @@ function CheckoutInformation() {
                         {paymentMethod === 'paypal' ? (
                             // {paymentMethod === 'cod' && (
                             <Box sx={{ mt: 3 }}>
-                                <PayPalButtonsComponents user={userId} items={items} />
+                                <PayPalButtonsComponents
+                                    user={userId}
+                                    items={items}
+                                    promotionCode={promoCodeApplied}
+                                />
                             </Box>
                         ) : (
                             //button check out COD
