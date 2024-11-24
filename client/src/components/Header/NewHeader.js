@@ -82,6 +82,11 @@ function NewHeader() {
             headerLink: `/${i18n.language}/our-services`,
         },
         { headerTextVi: 'Bài viết', headerText: 'Blog', headerLink: `/${i18n.language}/blog` },
+        {
+            headerTextVi: 'Mã giảm giá',
+            headerText: 'Coupon',
+            headerLink: `/${i18n.language}/coupon`,
+        },
     ];
 
     function handleWindowSizeChange() {
