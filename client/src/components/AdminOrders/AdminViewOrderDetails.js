@@ -137,7 +137,7 @@ function AdminViewOrderDetails() {
                             <Divider sx={{ my: 2 }} />
 
                             {/* Content Rows */}
-                            {orderData?.order?.items?.map((order, index) => (
+                            {orderData?.items?.map((order, index) => (
                                 <Box key={index}>
                                     <Box
                                         sx={{

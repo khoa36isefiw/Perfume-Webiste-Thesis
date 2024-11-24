@@ -67,12 +67,8 @@ export default function AdminOrdersTable() {
 
     // return userIds list from ordersData
     const userIds = ordersData?.data?.map((order) => order?.user) || [];
-
-    console.log('userIds: ', userIds);
     // Sử dụng useUsersByIds để lấy thông tin người dùng cho từng userId
     const { usersData, isLoading: usersLoading, isError: usersError } = useUsersByIds(userIds);
-    console.log('usersData22: ', usersData);
-
     useEffect(() => {
         if (ordersData?.data && usersData) {
             const ordersWithUserData = ordersData?.data?.map((order) => {
@@ -108,7 +104,6 @@ export default function AdminOrdersTable() {
         setPage(0); // Reset page to 0 when search term changes
     };
 
-    console.log('rows: ', rows);
     // Filter rows based on search term
     const filteredRows = rows.filter(
         (row) =>
