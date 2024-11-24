@@ -49,6 +49,24 @@ function CategoryFilter() {
             >
                 Women
             </Button>
+            <Button
+                sx={{
+                    py: 1,
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    textTransform: 'initial',
+                    color: 'white',
+                    '&:hover': {
+                        bgcolor: theme.palette.background.thirth,
+                    },
+                    [tabletScreen]: {
+                        fontSize: '13px',
+                    },
+                }}
+            >
+                Recent Added
+            </Button>
         </Box>
     );
 }

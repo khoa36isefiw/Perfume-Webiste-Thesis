@@ -71,10 +71,7 @@ function Introduce() {
             >
                 <CustomizeTitle heading={t('common.aboutPage.aboutUs')} />
                 <CustomizeTypography sx={{ fontSize: '18px', color: '#FFFFFF' }}>
-                    At Tomtoc Perfumes, we believe that perfumes are more than just scents; they are
-                    expressions of one's individuality and style. Our passion for exquisite
-                    fragrances led us to curate a collection that captures the essence of diverse
-                    personalities, bringing you an unparalleled olfactory experience.
+                    {t('common.aboutPage.aboutText')}
                 </CustomizeTypography>
             </Box>
         </Box>

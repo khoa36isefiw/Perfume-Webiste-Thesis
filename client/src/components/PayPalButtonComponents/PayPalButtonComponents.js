@@ -7,11 +7,7 @@ import { useTranslation } from 'react-i18next';
 function PayPalButtonsComponents({ user, items, promotionCode }) {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
-    console.log('promotionCode: ', promotionCode);
-    const promotionCode2 =
-        promotionCode?.isApplied === true ? promotionCode.codeApplied.code : null;
 
-    console.log('promotionCode2: ', promotionCode2);
     const createOrder = async () => {
         let payload = {
             user,
@@ -22,12 +18,16 @@ function PayPalButtonsComponents({ user, items, promotionCode }) {
         // if (promotionCode2 !== null) {
         //     payload.promotionCode = promotionCode2;
         // }
+        const promotionCode2 =
+            promotionCode?.isApplied === true ? promotionCode.codeApplied.code : null;
+
+        console.log('promotionCode2: ', promotionCode2);
         console.log('Final Payload:', payload);
         try {
             const response = await paymentAPI.createOrder(
                 user,
                 items,
-                promotionCode2,
+                'UTE2024',
                 PAYMENT_METHOD.PAYPAL,
             );
 

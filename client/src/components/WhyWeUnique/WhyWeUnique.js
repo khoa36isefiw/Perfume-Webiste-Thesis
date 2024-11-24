@@ -32,7 +32,7 @@ function WhyWeUnique() {
     const { t } = useTranslation('translate');
     return (
         <Container sx={{ my: 4 }}>
-            <CustomizeTitle heading={'What Makes Us Unique'} />
+            <CustomizeTitle heading={t('common.aboutPage.aboutUnique')} />
             <Grid container spacing={4} sx={{ mt: 4 }}>
                 {aboutUsUnique.map((item, index) => (
                     <Grid item xs={12} sm={4} md={4} lg={4} key={index}>

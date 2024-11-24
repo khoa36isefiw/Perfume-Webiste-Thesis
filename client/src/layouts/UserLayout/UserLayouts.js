@@ -10,11 +10,19 @@ import { useTranslation } from 'react-i18next';
 function UserLayouts({ children }) {
     const location = useLocation();
     const { i18n } = useTranslation();
+    
+    // remove some params in local storage
     useEffect(() => {
-        localStorage.removeItem('filter');
-        localStorage.removeItem('search_query');
-        localStorage.removeItem('sortBy');
-    }, [location.pathname !== `/${i18n.language}/shop`]);
+        if (
+            location.pathname !== `/${i18n.language}/shop` &&
+            location.pathname !== `/${i18n.language}/`
+        ) {
+            window.localStorage.removeItem('filter');
+            localStorage.removeItem('search_query');
+            localStorage.removeItem('sortBy');
+        }
+    }, [location.pathname, i18n.language]);
+
     return (
         <Box sx={{ minHeight: '100vh', width: '100vw', bgcolor: '#000' }}>
             {/* pre-defined layout */}

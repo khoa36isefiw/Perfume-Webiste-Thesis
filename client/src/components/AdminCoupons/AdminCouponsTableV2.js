@@ -256,9 +256,7 @@ const CouponsTable = () => {
                     <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
                         Quantity
                     </AdminTypography>
-                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
-                        Usage
-                    </AdminTypography>
+
                     <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
                         Start Date
                     </AdminTypography>
@@ -318,7 +316,7 @@ const CouponsTable = () => {
                                 <AdminTypography sx={{ flex: 1 }}>
                                     {coupon.quantity}
                                 </AdminTypography>
-                                <AdminTypography sx={{ flex: 1 }}>{coupon.used}</AdminTypography>
+
                                 <AdminTypography sx={{ flex: 1 }}>
                                     {formatDate(coupon.startDate)}
                                 </AdminTypography>

@@ -10,13 +10,20 @@ import { useTranslation } from 'react-i18next';
 
 // function PerfumeBrands({ listData, brandSelected, setBrandSelected }) {
 function PerfumeBrands() {
-    const [brandSelected, setBrandSelected] = useState('');
+    const [brandSelected, setBrandSelected] = useState(
+        JSON.parse(localStorage.getItem('filter')) || '',
+    );
+    // const [brandSelected, setBrandSelected] = useState('');
     const { i18n } = useTranslation();
     console.log('current language: ', i18n.language); // get the current language
 
     const { data: brands, mutate } = useBrand();
     const location = useLocation();
     const navigate = useNavigate();
+
+    // useEffect(() => {
+    //     localStorage.removeItem('filter');
+    // }, [location.pathname !== `/${i18n.language}/shop`]);
 
     useEffect(() => {
         const currentBrand = JSON.parse(localStorage.getItem('filter'));

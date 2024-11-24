@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { converToVND } from '../convertToVND/convertToVND';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
-import { CountdownTimer } from '../CountdownTimer/CountdownTimer';
+
 import CheckIcon from '@mui/icons-material/Check';
 
 import { userAPI } from '../../api/userAPI';

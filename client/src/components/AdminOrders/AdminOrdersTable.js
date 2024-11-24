@@ -64,38 +64,16 @@ export default function AdminOrdersTable() {
     const [rows, setRows] = useState([]); // Dynamic user data
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
     const { data: ordersData, isLoading } = useOrders();
-    const { data: paymentData } = usePayments();
-    console.log('paymentData: ', paymentData?.data);
 
-    // Lấy danh sách userIds từ ordersData
-    // const userIds = ordersData?.data?.map((order) => order.user) || [];
-    const userIds = paymentData?.data?.map((order) => order.order.user) || [];
-
+    // return userIds list from ordersData
+    const userIds = ordersData?.data?.map((order) => order?.user) || [];
     // Sử dụng useUsersByIds để lấy thông tin người dùng cho từng userId
     const { usersData, isLoading: usersLoading, isError: usersError } = useUsersByIds(userIds);
-
-    // useEffect(() => {
-    //     if (ordersData && usersData) {
-    //         const ordersWithUserData = ordersData?.data?.map((order) => {
-    //             const user = usersData?.find((userData) => userData._id === order.user);
-    //             return {
-    //                 ...order,
-    //                 userName: user ? `${user.firstName} ${user.lastName}` : 'Unknown',
-    //                 userImage: user?.imagePath,
-    //                 userEmail: user?.email,
-    //                 userAddress: user?.address,
-    //                 userPhone: user?.phoneNumber,
-    //             };
-    //         });
-    //         setRows(ordersWithUserData);
-    //     }
-    // }, [ordersData, usersData]);
-
     useEffect(() => {
-        if (paymentData?.data && usersData) {
-            const ordersWithUserData = paymentData?.data?.map((order) => {
-                // user information field to paymentData
-                const user = usersData?.find((userData) => userData._id === order.order.user);
+        if (ordersData?.data && usersData) {
+            const ordersWithUserData = ordersData?.data?.map((order) => {
+                // user information field to ordersData
+                const user = usersData?.find((userData) => userData._id === order.user);
                 return {
                     ...order,
                     userName: user ? `${user.firstName} ${user.lastName}` : 'Unknown',
@@ -107,7 +85,7 @@ export default function AdminOrdersTable() {
             });
             setRows(ordersWithUserData);
         }
-    }, [paymentData?.data, usersData]);
+    }, [ordersData?.data, usersData]);
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -126,7 +104,6 @@ export default function AdminOrdersTable() {
         setPage(0); // Reset page to 0 when search term changes
     };
 
-    console.log('rows: ', rows);
     // Filter rows based on search term
     const filteredRows = rows.filter(
         (row) =>
@@ -316,7 +293,7 @@ export default function AdminOrdersTable() {
                                                         </Typography>
                                                     ) : column.id === 'totalPrice' ? (
                                                         <Typography sx={{ fontSize: 12 }}>
-                                                            {converToVND(row.order?.totalPrice)}
+                                                            {converToVND(row?.totalPrice)}
                                                         </Typography>
                                                     ) : column.format &&
                                                       typeof value === 'object' ? (

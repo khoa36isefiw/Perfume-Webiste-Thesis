@@ -53,7 +53,7 @@ function SignIn() {
                             // Add any other data you want to store
                             firstName: loginData.data.firstName,
                             lastName: loginData.data.lastName,
-                            roles: loginData.data.roles,
+                            role: loginData.data.role,
                             address: loginData.data.address,
                         }),
                     );

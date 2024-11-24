@@ -5,7 +5,7 @@ import {
     CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
 
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 

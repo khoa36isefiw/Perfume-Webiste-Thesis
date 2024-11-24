@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 function EmptyOrders() {
     const navigate = useNavigate();
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
     return (
         <Box
             sx={{
@@ -50,7 +50,7 @@ function EmptyOrders() {
                 {t('common.accountSettings.purchase.noOrder.content')}
             </CustomizeTypography>
             <CustomizeButton
-                onHandleClick={() => navigate('/shop')}
+                onHandleClick={() => navigate(`/${i18n.language}/shop`)}
                 textAction={t('common.accountSettings.purchase.noOrder.shopping')}
             />
         </Box>

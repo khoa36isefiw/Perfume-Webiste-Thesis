@@ -1,10 +1,26 @@
 import React from 'react';
 import { Container, Divider } from '@mui/material';
+import { mobileScreen } from '../../Theme/Theme';
 
 function CustomizeDivider() {
     return (
-        <Container>
-            <Divider sx={{ bgcolor: '#fff', my: 8 }} />;
+        <Container
+            sx={{
+                [mobileScreen]: {
+                    mt: 70,
+                },
+            }}
+        >
+            <Divider
+                sx={{
+                    bgcolor: '#fff',
+                    my: 8,
+                    [mobileScreen]: {
+                        my: 0,
+                    },
+                }}
+            />
+            ;
         </Container>
     );
 }

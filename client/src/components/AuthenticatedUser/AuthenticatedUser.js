@@ -12,6 +12,7 @@ import Logout from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import PasswordIcon from '@mui/icons-material/Password';
+
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,6 +53,12 @@ export default function AuthenticatedUser() {
     const handleNavigateChangePassword = () => {
         setAnchorEl(null);
         navigate(`/${i18n.language}/change-password`);
+        backTop();
+    };
+
+    const handleNavigateDashboard = () => {
+        setAnchorEl(null);
+        navigate(`/admin/dashboard`);
         backTop();
     };
 
@@ -246,6 +253,29 @@ export default function AuthenticatedUser() {
                         </CustomizeTypography>
                     </Box>
                 </MenuItem>
+                {userData.role === 1 && (
+                    <MenuItem onClick={handleNavigateDashboard}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                '&:hover': {
+                                    color: theme.palette.text.primary,
+                                    transform: 'scale(1.10)',
+                                },
+                            }}
+                        >
+                            <ListItemIcon>
+                                <SpaceDashboardIcon fontSize="large" sx={{ color: '#fff' }} />
+                            </ListItemIcon>
+
+                            <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                                {t('common.accountSettings.dashboard')}
+                                {/* Dashboard */}
+                            </CustomizeTypography>
+                        </Box>
+                    </MenuItem>
+                )}
+
                 <Divider sx={{ bgcolor: '#fff' }} />
                 <MenuItem onClick={handleLogOut}>
                     <Box
