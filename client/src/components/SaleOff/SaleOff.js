@@ -32,7 +32,7 @@ function SaleOff() {
             <Box sx={{ mt: 4, p: 4 }}>
                 <CustomizeTypography
                     sx={{
-                        fontSize: '48px',
+                        fontSize: i18n.language === 'vi' ? '36px' : ' 48px',
                         fontWeight: 'bold',
                         width: '40%',
                         mb: 2,
@@ -62,7 +62,7 @@ function SaleOff() {
                         navigate(`/${i18n.language}/coupon`);
                         setTimeout(() => {
                             backTop();
-                        }, 0); 
+                        }, 0);
                     }}
                 />
             </Box>
