@@ -10,8 +10,10 @@ import { useNavigate } from 'react-router-dom';
 
 import useProduct from '../../api/useProduct';
 import { backTop } from '../goBackTop/goBackTop';
+import { useTranslation } from 'react-i18next';
 
 export const OrderItemV2 = ({ listData }) => {
+    const { i18n } = useTranslation('translate');
     const { data: products } = useProduct();
     const navigate = useNavigate();
     const handleRating = (item) => {
@@ -20,7 +22,8 @@ export const OrderItemV2 = ({ listData }) => {
                 product._id === item.product &&
                 product?.variants.find((variant) => variant._id === item.variant),
         );
-        navigate(`/product/${perfume._id}`, { state: { perfume } });
+        window.localStorage.setItem('productInfor', JSON.stringify(perfume));
+        navigate(`/${i18n.language}/product/${perfume._id}`, { state: { perfume } });
         setTimeout(() => {
             backTop(); // deplay 100ml waiting for navigating
         }, 100);

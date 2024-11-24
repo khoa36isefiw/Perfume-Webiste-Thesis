@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Box, Button, Tooltip, Typography, Avatar, Divider } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { formatDate } from '../FormatDate/formatDate';
 import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
 import { ArrowBackIos } from '@mui/icons-material';
 import generatePDF from 'react-to-pdf';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 
@@ -13,7 +13,9 @@ import { backTop } from '../goBackTop/goBackTop';
 import { useTranslation } from 'react-i18next';
 
 export const OrderInvoicePDF = () => {
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
+    const navigate = useNavigate();
+
     // get order data from state
     const date = new Date();
     const getDay = date.getDay();
@@ -44,12 +46,31 @@ export const OrderInvoicePDF = () => {
 
     const location = useLocation();
     const { order } = location.state || {};
+    const orderInfor = JSON.parse(window.localStorage.getItem('orderInvoice')) || [];
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || [];
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search); // get the current search query params
+        // console.log('searchParams: ', searchParams.toString());
+        searchParams.set('id', orderInfor._id); // if language change --> set id params
+        // split /: chia thành một mảng tách bởi /
+        // '/en/order-invoice' → ['', 'en', 'order-invoice'].
+        // slice(2): remove 2 first of elements in array -->  order-invoice
+        // ghép lại mảng thành một chuỗi, sử dụng / làm dấu phân cách.
+        const currentPath = location.pathname.split('/').slice(2).join('/');
+
+        console.log('location.pathname: ', location.pathname);
+
+        navigate(`/${i18n.language}/${currentPath}?${searchParams.toString()}`, {
+            replace: true,
+            state: { order }, // remain state
+        });
+    }, [i18n.language]);
+
     const targetRef = useRef();
     // Calculate subtotal
     const calculateSubtotal = () => {
         let subtotal = 0;
-        order?.items?.forEach((product) => {
+        orderInfor?.items?.forEach((product) => {
             subtotal +=
                 product.quantity *
                 (product.price - product.priceSale !== 0 ? product.priceSale : product.price);
@@ -80,7 +101,7 @@ export const OrderInvoicePDF = () => {
         let totalTax = 0;
 
         // Loop through each product to calculate subtotal, discount, and tax
-        order?.items?.forEach((product) => {
+        orderInfor?.items?.forEach((product) => {
             const price =
                 product.quantity *
                 (product.price - product.priceSale !== 0 ? product.priceSale : product.price);
@@ -198,7 +219,7 @@ export const OrderInvoicePDF = () => {
                             },
                         }}
                         onClick={() =>
-                            generatePDF(targetRef, { filename: `Invoice Order-${order?._id}` })
+                            generatePDF(targetRef, { filename: `Invoice Order-${orderInfor?._id}` })
                         }
                     >
                         {t('common.orderHistory.pdfDownload.download')}
@@ -385,11 +406,11 @@ export const OrderInvoicePDF = () => {
                             </CustomizeTypography>
 
                             <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                                {order?._id}
+                                {orderInfor?._id}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
                                 {t('common.orderHistory.pdfDownload.cusInfo.issue')}:
-                                {formatDate(order?.updatedAt)}
+                                {formatDate(orderInfor?.updatedAt)}
                             </CustomizeTypography>
                         </Box>
                         <Box
@@ -450,7 +471,7 @@ export const OrderInvoicePDF = () => {
                                 p: 1,
                             }}
                         >
-                            {order?.items?.map((item) => (
+                            {orderInfor?.items?.map((item) => (
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                     <Avatar src={item.image[0]} sx={{ height: 50, width: 50 }} />
                                     <Box sx={{ flex: 1 }}>
@@ -525,7 +546,7 @@ export const OrderInvoicePDF = () => {
                         },
                     }}
                     onClick={() =>
-                        generatePDF(targetRef, { filename: `Invoice Order-${order?._id}` })
+                        generatePDF(targetRef, { filename: `Invoice Order-${orderInfor?._id}` })
                     }
                 >
                     Download

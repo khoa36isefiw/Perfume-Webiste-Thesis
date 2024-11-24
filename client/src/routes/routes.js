@@ -67,6 +67,7 @@ const publicRoutes = [
     { path: '/:lang/my-purchase', component: PurchasePage, layout: ProfileSettingsLayout },
     { path: '/:lang/success', component: PaymentSuccess, layout: UserLayouts },
     { path: '/:lang/cancel', component: PaymentFailed, layout: UserLayouts },
+    // { path: '/:lang/order-invoice/:id', component: OrderInvoicePDF, layout: UserLayouts },
     { path: '/:lang/order-invoice', component: OrderInvoicePDF, layout: UserLayouts },
 ];
 

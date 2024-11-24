@@ -26,8 +26,10 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
     const targetRef = useRef();
     const { t, i18n } = useTranslation('translate');
 
-    const handleInvoicePage = (order) => {
+    const handleNavigateInvoicePage = (order) => {
+        window.localStorage.setItem('orderInvoice', JSON.stringify(order));
         navigate(`/${i18n.language}/order-invoice?id=${order._id}`, { state: { order } });
+        // navigate(`/${i18n.language}/order-invoice/${order._id}`, { state: { order } });
         backTop();
     };
 
@@ -287,7 +289,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                 }
                             >
                                 <Button
-                                    onClick={() => handleInvoicePage(order)}
+                                    onClick={() => handleNavigateInvoicePage(order)}
                                     startIcon={<PreviewIcon />}
                                     sx={{
                                         padding: '6px 0',
