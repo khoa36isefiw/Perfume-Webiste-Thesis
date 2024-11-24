@@ -17,6 +17,12 @@ const style = {
         boxShadow: 24,
         p: 4,
     },
+    modalStyleV2: {
+        height: '100%',
+
+        width: '100%',
+        bgcolor: 'rgba(0,0,0,0.25)',
+    },
 };
 
 export default function ModalDesgin({
@@ -66,7 +72,7 @@ export function ModalDesginV2({ open, onHandleClose, animateStyle, setAnimateSty
             onClose={handleCloseModal}
             className={`animate__animated ${animateStyle}`}
         >
-            <Box sx={style.modalStyle}>{children}</Box>
+            <Box sx={style.modalStyleV2}>{children}</Box>
         </Modal>
     );
 }
