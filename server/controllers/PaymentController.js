@@ -71,7 +71,6 @@ const PaymentController = {
                 status: 'PENDING_PAYMENT',
                 totalPrice: 0,
             });
-
             for (const item of items) {
                 const { product, variant } = item;
 
@@ -92,19 +91,28 @@ const PaymentController = {
                     item.quantity * (variant.priceSale ? variant.priceSale : variant.price);
                 newOrder.totalPrice += totalPrice;
             }
-
             if (promotionCode) {
                 const promotion = await Promotion.findOne({ code: promotionCode });
+
                 if (!promotion) {
                     return res.status(400).json({ message: 'Promotion code not found' });
                 }
+
                 if (promotion.quantity > 0) {
-                    promotion.quantity = promotion.quantity - 1;
+                    promotion.quantity -= 1; // Reduce available promotion quantity
                     await promotion.save();
                 } else {
                     return res.status(400).json({ message: 'Promotion out of stock' });
                 }
-                newOrder.totalPrice *= 1 - promotion?.discount / 100;
+
+                // Calculate discount
+                const discountRate = promotion.discount / 100; // Discount percentage
+                const discountAmount = Math.floor(newOrder.totalPrice * discountRate); // Discount amount
+
+                newOrder.originalTotalPrice = newOrder.totalPrice; // Save original total price
+                newOrder.adjustedTotalPrice = newOrder.totalPrice - discountAmount; // Adjusted price with discount
+                newOrder.totalPrice = newOrder.adjustedTotalPrice; // Update total price
+                newOrder.promotionCode = promotion._id;
             }
 
             const savedOrder = await newOrder.save();
@@ -145,7 +153,6 @@ const PaymentController = {
                 }
                 return res.status(200).json({ message: 'Order created', order: savedOrder });
             }
-
             const token = await getPayPalToken();
             const rate = await getConversionRate();
             const response = await axios({
@@ -171,11 +178,19 @@ const PaymentController = {
                             })),
                             amount: {
                                 currency_code: 'USD',
-                                value: (savedOrder.totalPrice * rate).toFixed(2),
+                                value: (savedOrder.adjustedTotalPrice * rate).toFixed(2), // Adjusted total price
                                 breakdown: {
                                     item_total: {
                                         currency_code: 'USD',
-                                        value: (savedOrder.totalPrice * rate).toFixed(2),
+                                        value: (savedOrder.originalTotalPrice * rate).toFixed(2), // Original total price
+                                    },
+                                    discount: {
+                                        currency_code: 'USD',
+                                        value: (
+                                            (savedOrder.originalTotalPrice -
+                                                savedOrder.adjustedTotalPrice) *
+                                            rate
+                                        ).toFixed(2), // Discount
                                     },
                                 },
                             },
@@ -194,6 +209,7 @@ const PaymentController = {
                     },
                 }),
             });
+
             savedOrder.paymentMethod = 'PAYPAL';
             await savedOrder.save();
             const newPayment = new Payment({

@@ -25,6 +25,9 @@ const orderItemSchema = new Schema(
         priceSale: {
             type: Number,
         },
+        discountedPrice: {
+            type: Number,
+        },
         quantity: {
             type: Number,
             required: true,
@@ -45,10 +48,10 @@ const orderSchema = new Schema(
             type: Number,
             required: true,
         },
-        originalPrice: {
+        originalTotalPrice: {
             type: Number,
         },
-        adjustedPrice: {
+        adjustedTotalPrice: {
             type: Number,
         },
         email: String,
