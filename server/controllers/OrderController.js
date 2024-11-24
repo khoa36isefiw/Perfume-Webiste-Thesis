@@ -5,7 +5,7 @@ const Variant = require('../models/Variant.model');
 const OrderController = {
     getAll: async (req, res) => {
         try {
-            const orders = await Order.find({});
+            const orders = await Order.find({}).populate('promotionCode');
             res.status(200).json(orders);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -15,7 +15,7 @@ const OrderController = {
     getByUserId: async (req, res) => {
         try {
             const { userId } = req.params;
-            const orders = await Order.find({ user: userId });
+            const orders = await Order.find({ user: userId }).populate('promotionCode');
             res.status(200).json(orders);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -25,7 +25,7 @@ const OrderController = {
     getById: async (req, res) => {
         try {
             const { id } = req.params;
-            const order = await Order.findOne({ _id: id });
+            const order = await Order.findOne({ _id: id }).populate('promotionCode');
             if (!order) {
                 return res.status(404).json({ message: 'Order not found' });
             }
