@@ -20,7 +20,7 @@ function OurCollections() {
     }, []);
     return (
         <Container>
-            <CustomizeTitle heading={'Our Collections'} />
+            <CustomizeTitle heading={'Top Brands'} />
             <Grid container spacing={4}>
                 {groupCollection1.map((collection, index) => (
                     <ImageGridItem
@@ -62,9 +62,16 @@ function OurCollections() {
 
 export default OurCollections;
 
-function ImageGridItem({ collection, gridSize }) {
+function ImageGridItem({ collection, gridSize, onHandleClick }) {
     return (
-        <Grid item sm={gridSize} md={gridSize} lg={gridSize} sx={{ width: '100%' }}>
+        <Grid
+            item
+            sm={gridSize}
+            md={gridSize}
+            lg={gridSize}
+            sx={{ width: '100%' }}
+            onClick={onHandleClick}
+        >
             <Box
                 sx={{
                     backgroundImage: `url(${collection.collectionImage})`,
@@ -74,6 +81,13 @@ function ImageGridItem({ collection, gridSize }) {
                     width: '100%',
                     display: 'flex',
                     alignItems: 'flex-end',
+                    '&:hover': {
+                        cursor: 'pointer',
+                        transform: 'translateY(-10px)',
+                        borderRadius: 2,
+                        filter: 'drop-shadow(0 0.4rem 1rem white)',
+                    },
+                    transition: '.5s ease',
                 }}
             >
                 <CustomizeTypography
