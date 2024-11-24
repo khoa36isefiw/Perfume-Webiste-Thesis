@@ -4,8 +4,13 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import saleOff from '../../assets/images/hp_sell_of.png';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { mobileScreen, theme } from '../../Theme/Theme';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { backTop } from '../goBackTop/goBackTop';
 
 function SaleOff() {
+    const { t, i18n } = useTranslation('translate');
+    const navigate = useNavigate();
     return (
         <Container
             sx={{
@@ -37,7 +42,7 @@ function SaleOff() {
                         },
                     }}
                 >
-                    Perfume Year-End Sale! Up to 50%
+                    {t('common.saleOff.title')}
                 </CustomizeTypography>
                 <CustomizeTypography
                     sx={{
@@ -49,10 +54,17 @@ function SaleOff() {
                         },
                     }}
                 >
-                    OFF Discover an exquisite collection of premium perfumes at unbelievable prices
-                    during our exclusive Perfume Sale!
+                    {t('common.saleOff.content')}
                 </CustomizeTypography>
-                <CustomizeButton textAction={'Know More'} />
+                <CustomizeButton
+                    textAction={t('common.saleOff.know')}
+                    onHandleClick={() => {
+                        navigate(`/${i18n.language}/coupon`);
+                        setTimeout(() => {
+                            backTop();
+                        }, 0); 
+                    }}
+                />
             </Box>
         </Container>
     );

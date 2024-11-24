@@ -44,6 +44,11 @@
         "High to Low": "Cao đến Thấp",
         "Name A -> Z": "Tên: A -> Z",
         "Name Z -> A": "Tên: Z -> A",
+        "saleOff": {
+            "title": "Khuyến mại cuối năm nước hoa! Giảm giá lên đến 50%",
+            "content": "GIẢM GIÁ Khám phá bộ sưu tập nước hoa cao cấp tinh tế với mức giá không thể tin được trong Chương trình khuyến mại nước hoa độc quyền của chúng tôi!",
+            "know": "Tìm hiểu thêm"
+        },
 
         "categoriesType": {
             "women": {

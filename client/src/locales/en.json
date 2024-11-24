@@ -45,6 +45,11 @@
         "phtl": "See all products, with price from high to low",
         "nA-Z": "See all products, with name from A to Z",
         "nZ-A": "See all products, with name from Z to A",
+        "saleOff": {
+            "title": "Perfume Year-End Sale! Up to 50%",
+            "content": "OFF Discover an exquisite collection of premium perfumes at unbelievable prices during our exclusive Perfume Sale!",
+            "know": "Know More"
+        },
 
         "categoriesType": {
             "women": {
