@@ -201,7 +201,8 @@
                 }
             },
             "logout": "Logout",
-            "profile": "Profile Settings"
+            "profile": "Profile Settings",
+            "dashboard": "Dashboard"
         },
         "promotions": {
             "title": "Tomtoc Promotions Code 🎉",

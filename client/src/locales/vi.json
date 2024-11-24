@@ -174,7 +174,8 @@
                 }
             },
             "logout": "Đăng xuất",
-            "profile": "Chỉnh sửa thông tin"
+            "profile": "Chỉnh sửa thông tin",
+            "dashboard": "Trang Admin"
         },
         "promotions": {
             "title": "Mã khuyến mãi Tomtoc 🎉",

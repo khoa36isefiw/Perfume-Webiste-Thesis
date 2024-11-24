@@ -269,8 +269,8 @@ export default function AuthenticatedUser() {
                             </ListItemIcon>
 
                             <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                                {/* {t('common.accountSettings.accInfor.myAcc')} */}
-                                Dashboard
+                                {t('common.accountSettings.dashboard')}
+                                {/* Dashboard */}
                             </CustomizeTypography>
                         </Box>
                     </MenuItem>
@@ -299,6 +299,3 @@ export default function AuthenticatedUser() {
         </React.Fragment>
     );
 }
-
-
-
