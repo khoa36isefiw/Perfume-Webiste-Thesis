@@ -257,7 +257,15 @@ function NewHeader() {
                 },
             }}
         >
-            <Container sx={{ mb: '4px', mt: '8px' }}>
+            <Container
+                sx={{
+                    mb: '4px',
+                    mt: '8px',
+                    [tabletScreen]: {
+                        mt: 0,
+                    },
+                }}
+            >
                 <Box
                     sx={{
                         display: 'flex',
@@ -660,6 +668,10 @@ function NewHeader() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        [tabletScreen]: {
+                            display: 'none',
+                            // mb: 2,
+                        },
                         [mobileScreen]: {
                             display: 'none',
                         },
