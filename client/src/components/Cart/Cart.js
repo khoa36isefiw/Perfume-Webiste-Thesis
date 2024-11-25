@@ -24,7 +24,7 @@ function Cart() {
 
     const [selectedProducts, setSelectedProducts] = useState([]);
 
-    console.log('selectedProducts: ', selectedProducts);
+    // console.log('selectedProducts: ', selectedProducts);
     useEffect(() => {
         window.localStorage.setItem('list_product_selected', JSON.stringify(selectedProducts));
     }, [selectedProducts]);

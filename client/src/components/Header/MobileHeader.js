@@ -50,7 +50,7 @@ function MobileHeader({ setOpenMenu, openMenu }) {
         const currentPath = window.location.pathname;
         const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
         window.localStorage.setItem('language', lng); // set language is selected to local storage
-        console.log('newPath: ', newPath);
+        // console.log('newPath: ', newPath);
         navigate(newPath);
         setEnLanguage(!enLanguage);
         i18n.changeLanguage(lng);
