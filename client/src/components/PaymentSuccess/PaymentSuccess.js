@@ -2,7 +2,7 @@ import { Box, Button, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useOrderByUser from '../../api/useOrderByUser';
 import { converToVND } from '../convertToVND/convertToVND';
 import usePaymentByOrderId from '../../api/usePaymentByOrderId';
@@ -10,14 +10,25 @@ import { useTranslation } from 'react-i18next';
 
 function PaymentSuccess() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { t, i18n } = useTranslation('translate');
     const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId || null;
     const currentPaymentData = JSON.parse(window.localStorage.getItem('payment_data')) || null;
     const orderId = JSON.parse(window.localStorage.getItem('order_id')) || null;
-    console.log('userid: ', userId);
+    const [refValue, setRefValue] = React.useState('');
+
+    useEffect(() => {
+        const currentQueryParams = new URLSearchParams(location.search);
+        console.log('location.search: ', location.search);
+
+        setRefValue(currentQueryParams.get('Ref')); // Get the value of 'Ref'
+        console.log('Ref Value: ', refValue); // Log the value of 'Ref'
+    }, [location.search]); // Add location.search as a dependency to re-run when the query string changes
+
+    console.log('current refValue: ', refValue);
     // get payment by id
-    const { data: paymentData } = usePaymentByOrderId(orderId);
-    console.log('paymentData response: ', paymentData);
+    const { data: paymentData } = usePaymentByOrderId(refValue);
+    console.log('paymentData response: ', paymentData?.data);
 
     const { data: orders } = useOrderByUser(userId);
 
