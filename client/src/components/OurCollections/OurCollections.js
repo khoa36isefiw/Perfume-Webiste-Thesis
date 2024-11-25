@@ -102,7 +102,7 @@ function ImageGridItem({ collection, gridSize, onHandleClick }) {
                     backgroundImage: `url(${collection.collectionImage})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    height: '350px',
+                    height: '400px',
                     width: '100%',
                     display: 'flex',
                     alignItems: 'flex-end',

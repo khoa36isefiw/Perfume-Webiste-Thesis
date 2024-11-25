@@ -1,24 +1,17 @@
 import { Box, Button, Grid } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import useOrderByUser from '../../api/useOrderByUser';
 import { converToVND } from '../convertToVND/convertToVND';
-import usePaymentByOrderId from '../../api/usePaymentByOrderId';
 
 function PaymentSuccess() {
     const navigate = useNavigate();
     const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId || null;
-    const currentPaymentData = JSON.parse(window.localStorage.getItem('payment_data')) || null;
-    const orderId = JSON.parse(window.localStorage.getItem('order_id')) || null;
     console.log('userid: ', userId);
-    // get payment by id
-    const { data: paymentData } = usePaymentByOrderId(orderId);
-    console.log('paymentData response: ', paymentData);
-
+    const currentPaymentData = JSON.parse(window.localStorage.getItem('payment_data')) || null;
     const { data: orders } = useOrderByUser(userId);
-
     console.log('orders: ', orders);
     const lastPaymentData = orders?.data[orders?.data?.length - 1]; // get the last orders
 
