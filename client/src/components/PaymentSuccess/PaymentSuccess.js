@@ -44,7 +44,7 @@ function PaymentSuccess() {
                 minHeight: '400px',
                 width: '380px',
                 bgcolor: '#000',
-                border: '1px solid #fff',
+
                 zIndex: 2,
                 position: 'relative',
                 borderTopLeftRadius: '24px',
@@ -56,30 +56,15 @@ function PaymentSuccess() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
+                    borderLeft: '1px solid #ccc',
+                    borderRight: '1px solid #ccc',
+                    borderTop: '1px solid #ccc',
                     borderBottom: '1px dashed #ccc',
-                    position: 'relative',
-                    '&::before': {
-                        content: '""',
-                        height: '20px',
-                        width: '20px',
-                        background: 'linear-gradient(90deg, #000 50%, #fff 50%)',
-                        borderRadius: '50%',
-                        zIndex: -1,
-                        position: 'absolute',
-                        bottom: '-10px',
-                        left: '-10px',
-                    },
-                    '&::after': {
-                        content: '""',
-                        height: '20px',
-                        width: '20px',
-                        background: 'linear-gradient(-90deg, #000 50%, #fff 50%)',
-                        borderRadius: '50%',
-                        zIndex: -1,
-                        position: 'absolute',
-                        bottom: '-10px',
-                        right: '-10px',
-                    },
+                    // borderBottom: '3px dashed #ccc',
+                    // borderBottomLeftRadius: '24px',
+                    // borderBottomRightRadius: '24px',
+                    borderRadius: 4,
+                    // border: '1px solid #fff',
                 }}
             >
                 <iframe
@@ -102,137 +87,138 @@ function PaymentSuccess() {
                     Your payment has been successfully done.
                 </CustomizeTypography>
             </Box>
-            <Grid container spacing={4} sx={{ p: 1 }}>
-                <Grid item lg={12}>
-                    <CustomizeTypography
-                        sx={{
-                            textAlign: 'center',
-                            fontWeight: 'bold',
-                            fontSize: '20px',
-                            color: theme.palette.text.secondary,
-                        }}
-                    >
-                        Total Payment
-                    </CustomizeTypography>
-                    {lastPaymentData?.totalPrice && (
-                        <CustomizeTypography sx={{ textAlign: 'center', mb: 0 }}>
-                            {converToVND(lastPaymentData?.totalPrice)}
+            <Box
+                sx={{
+                    borderRadius: 4,
+                    borderLeft: '1px solid #ccc',
+                    borderRight: '1px solid #ccc',
+                    borderTop: '1px dashed #ccc',
+                    borderBottom: '1px solid #ccc',
+                }}
+            >
+                <Grid
+                    container
+                    spacing={4}
+                    sx={{
+                        p: 1,
+                    }}
+                >
+                    <Grid item lg={12}>
+                        <CustomizeTypography
+                            sx={{
+                                textAlign: 'center',
+                                fontWeight: 'bold',
+                                fontSize: '20px',
+                                color: theme.palette.text.secondary,
+                            }}
+                        >
+                            Total Payment
                         </CustomizeTypography>
-                    )}
-                </Grid>
-                <Grid item lg={6}>
-                    <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
-                        <CustomizeTypography sx={{ fontSize: '15px' }}>
-                            Ref Number
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                            {currentPaymentData?.userPhoneNumber}
-                        </CustomizeTypography>
-                    </Box>
-                </Grid>
-                <Grid item lg={6}>
-                    <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
-                        <CustomizeTypography sx={{ fontSize: '15px' }}>
-                            Payment Time
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                            {date} - {time}
-                        </CustomizeTypography>
-                    </Box>
-                </Grid>
-                <Grid item lg={6}>
-                    <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
-                        <CustomizeTypography sx={{ fontSize: '15px' }}>
-                            Payment Method
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                            {currentPaymentData?.userPaymentType}
-                        </CustomizeTypography>
-                    </Box>
-                </Grid>
-                <Grid item lg={6}>
-                    <Box sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}>
-                        <CustomizeTypography sx={{ fontSize: '15px' }}>
-                            Sender Name
-                        </CustomizeTypography>
-                        <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                            Tomtoc Stores
-                        </CustomizeTypography>
-                    </Box>
-                </Grid>
-            </Grid>
+                        {lastPaymentData?.totalPrice && (
+                            <CustomizeTypography sx={{ textAlign: 'center', mb: 0 }}>
+                                {converToVND(lastPaymentData?.totalPrice)}
+                            </CustomizeTypography>
+                        )}
+                    </Grid>
+                    <Grid item lg={6}>
+                        <Box
+                            sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
+                        >
+                            <CustomizeTypography sx={{ fontSize: '15px' }}>
+                                Ref Number
+                            </CustomizeTypography>
+                            <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                                {currentPaymentData?.userPhoneNumber}
+                            </CustomizeTypography>
+                        </Box>
+                    </Grid>
+                    <Grid item lg={6}>
+                        <Box
+                            sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
+                        >
+                            <CustomizeTypography sx={{ fontSize: '15px' }}>
+                                Payment Time
+                            </CustomizeTypography>
+                            <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                                {date} - {time}
+                            </CustomizeTypography>
+                        </Box>
+                    </Grid>
+                    <Grid item lg={6}>
+                        <Box
+                            sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
+                        >
+                            <CustomizeTypography sx={{ fontSize: '15px' }}>
+                                Payment Method
+                            </CustomizeTypography>
+                            <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                                {currentPaymentData?.userPaymentType}
+                            </CustomizeTypography>
+                        </Box>
+                    </Grid>
+                    <Grid item lg={6}>
+                        <Box
+                            sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
+                        >
+                            <CustomizeTypography sx={{ fontSize: '15px' }}>
+                                Sender Name
+                            </CustomizeTypography>
+                            <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
+                                Tomtoc Stores
+                            </CustomizeTypography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12} md={12} lg={12}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-around',
+                            }}
+                        >
+                            <Button
+                                onClick={() => navigate('/shop')}
+                                variant="outlined"
+                                sx={{
+                                    py: 1,
+                                    borderRadius: '24px',
+                                    color: theme.palette.text.secondary,
+                                    borderColor: theme.palette.text.secondary,
 
+                                    fontSize: '14px',
+                                    fontWeight: 'bold',
+                                    textTransform: 'initial',
+                                    '&:hover': {
+                                        borderColor: theme.palette.text.secondary,
+                                        filter: 'drop-shadow(2em 0 0.75rem #000)',
+                                    },
+                                }}
+                            >
+                                View Order
+                            </Button>
+                            <Button
+                                onClick={() => navigate('/shop')}
+                                variant="contained"
+                                sx={{
+                                    py: 1,
+                                    borderRadius: '24px',
+                                    bgcolor: theme.palette.text.secondary,
+                                    fontSize: '14px',
+                                    fontWeight: 'bold',
+                                    textTransform: 'initial',
+                                    '&:hover': {
+                                        filter: 'drop-shadow(0 0 0.75rem #000)',
+                                        bgcolor: theme.palette.text.secondary,
+                                    },
+                                }}
+                            >
+                                Continue Shopping
+                            </Button>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Box>
             {/* Render circles dynamically across the bottom */}
-            <Box
-                sx={{
-                    position: 'absolute',
-                    bottom: '-1em',
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                }}
-            >
-                {[...Array(12)].map((_, index) => (
-                    <Box
-                        key={index}
-                        sx={{
-                            height: '20px',
-                            width: '20px',
-                            background: 'linear-gradient(0deg, #000 50%, #fff 50%)',
-                            borderRadius: '50%',
-                            zIndex: -1,
-                        }}
-                    />
-                ))}
-            </Box>
-            <Box
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-around',
-                    mt: 2,
-                    mb: 4,
-                }}
-            >
-                <Button
-                    onClick={() => navigate('/shop')}
-                    variant="outlined"
-                    sx={{
-                        py: 1,
-                        borderRadius: '24px',
-                        color: theme.palette.text.secondary,
-                        borderColor: theme.palette.text.secondary,
-
-                        fontSize: '14px',
-                        fontWeight: 'bold',
-                        textTransform: 'initial',
-                        '&:hover': {
-                            borderColor: theme.palette.text.secondary,
-                            filter: 'drop-shadow(2em 0 0.75rem #000)',
-                        },
-                    }}
-                >
-                    View Order
-                </Button>
-                <Button
-                    onClick={() => navigate('/shop')}
-                    variant="contained"
-                    sx={{
-                        py: 1,
-                        borderRadius: '24px',
-                        bgcolor: theme.palette.text.secondary,
-                        fontSize: '14px',
-                        fontWeight: 'bold',
-                        textTransform: 'initial',
-                        '&:hover': {
-                            filter: 'drop-shadow(0 0 0.75rem #000)',
-                            bgcolor: theme.palette.text.secondary,
-                        },
-                    }}
-                >
-                    Continue Shopping
-                </Button>
-            </Box>
         </Box>
     );
 }
