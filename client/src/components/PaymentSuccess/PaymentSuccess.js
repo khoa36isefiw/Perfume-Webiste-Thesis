@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import useOrderByUser from '../../api/useOrderByUser';
 import { converToVND } from '../convertToVND/convertToVND';
 import usePaymentByOrderId from '../../api/usePaymentByOrderId';
+import { useTranslation } from 'react-i18next';
 
 function PaymentSuccess() {
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation('translate');
     const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId || null;
     const currentPaymentData = JSON.parse(window.localStorage.getItem('payment_data')) || null;
     const orderId = JSON.parse(window.localStorage.getItem('order_id')) || null;
@@ -193,7 +195,7 @@ function PaymentSuccess() {
                                 View Order
                             </Button>
                             <Button
-                                onClick={() => navigate('/shop')}
+                                onClick={() => navigate(`/${i18n.language}/shop`)}
                                 variant="contained"
                                 sx={{
                                     py: 1,
