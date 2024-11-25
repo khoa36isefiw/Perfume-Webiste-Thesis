@@ -272,6 +272,7 @@ function CheckoutInformation() {
                 userPaymentType: 'COD',
             };
             window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
+            window.localStorage.setItem('order_id', JSON.stringify(response.data.order._id)); // store pay_ref Id to local storage
             setShowNotification(true);
             setShowAnimation('animate__bounceInRight');
             navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);

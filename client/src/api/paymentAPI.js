@@ -9,4 +9,14 @@ export const paymentAPI = {
         const url = `/payments/paypal/capture-order`;
         return axiosClient.post(url, { paymentId });
     },
+
+    getPaymentByPayRef: (payRef) => {
+        const url = `/payments/details/${payRef}`;
+        return axiosClient.get(url);
+    },
+
+    getPaymentById: (id) => {
+        const url = `/payments/${id}`;
+        return axiosClient.get(url);
+    },
 };

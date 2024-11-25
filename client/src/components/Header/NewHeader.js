@@ -257,7 +257,15 @@ function NewHeader() {
                 },
             }}
         >
-            <Container sx={{ mb: '4px' }}>
+            <Container
+                sx={{
+                    mb: '4px',
+                    mt: '8px',
+                    [tabletScreen]: {
+                        mt: 0,
+                    },
+                }}
+            >
                 <Box
                     sx={{
                         display: 'flex',
@@ -492,12 +500,21 @@ function NewHeader() {
                             </Tooltip>
                         )}
 
-                        {/* for mobile devices --> only show on mobile */}
-                        {isMobile && (
-                            <IconButton onClick={() => setOpenMenu(true)}>
-                                <MenuIcon sx={{ fontSize: '32px', color: '#fff' }} />
-                            </IconButton>
-                        )}
+                        {/* for mobile devices -->  show on mobile, mini tablet, tablet */}
+                        <IconButton
+                            onClick={() => setOpenMenu(true)}
+                            sx={{
+                                display: 'none',
+                                [tabletScreen]: {
+                                    display: 'block',
+                                },
+                                [mobileScreen]: {
+                                    display: 'block',
+                                },
+                            }}
+                        >
+                            <MenuIcon sx={{ fontSize: '32px', color: '#fff' }} />
+                        </IconButton>
 
                         <MobileHeader openMenu={openMenu} setOpenMenu={setOpenMenu} />
 
@@ -526,6 +543,9 @@ function NewHeader() {
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         cursor: 'pointer',
+                                        [tabletScreen]: {
+                                            display: 'none',
+                                        },
                                         [mobileScreen]: {
                                             display: 'none',
                                         },
@@ -564,6 +584,9 @@ function NewHeader() {
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         cursor: 'pointer',
+                                        [tabletScreen]: {
+                                            display: 'none',
+                                        },
                                         [mobileScreen]: {
                                             display: 'none',
                                         },
@@ -626,9 +649,7 @@ function NewHeader() {
                                             cursor: 'pointer',
                                             fontWeight: 'bold',
                                         },
-                                        [tabletScreen]: {
-                                            mt: 2,
-                                        },
+
                                         [mobileScreen]: {
                                             display: 'none',
                                         },
@@ -647,6 +668,10 @@ function NewHeader() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        [tabletScreen]: {
+                            display: 'none',
+                            // mb: 2,
+                        },
                         [mobileScreen]: {
                             display: 'none',
                         },

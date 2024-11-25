@@ -27,7 +27,7 @@ function PayPalButtonsComponents({ user, items, promotionCode }) {
             const response = await paymentAPI.createOrder(
                 user,
                 items,
-                'UTE2024',
+                promotionCode2,
                 PAYMENT_METHOD.PAYPAL,
             );
 

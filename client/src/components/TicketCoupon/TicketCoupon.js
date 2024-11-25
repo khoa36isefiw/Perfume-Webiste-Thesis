@@ -86,7 +86,7 @@ function TicketCoupon() {
                                         bgcolor: 'gold',
                                         borderRadius: 2,
                                         position: 'relative',
-                                        borderRight: '3px dashed #ccc',
+
                                         [mobileScreen]: {
                                             width: '30%',
                                         },
@@ -130,7 +130,7 @@ function TicketCoupon() {
                                         bgcolor: 'gold',
                                         borderRadius: 2,
                                         position: 'relative',
-                                        borderLeft: '3px dashed #ccc',
+
                                         [mobileScreen]: {
                                             width: '100%',
                                         },

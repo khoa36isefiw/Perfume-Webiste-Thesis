@@ -33,6 +33,11 @@ function MobileHeader({ setOpenMenu, openMenu }) {
             headerLink: `/${i18n.language}/our-services`,
         },
         { headerTextVi: 'Bài viết', headerText: 'Blog', headerLink: `/${i18n.language}/blog` },
+        {
+            headerTextVi: 'Mã giảm giá',
+            headerText: 'Coupon',
+            headerLink: `/${i18n.language}/coupon`,
+        },
     ];
     // Initialize the app's language based on localStorage
     useEffect(() => {
@@ -45,7 +50,7 @@ function MobileHeader({ setOpenMenu, openMenu }) {
         const currentPath = window.location.pathname;
         const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
         window.localStorage.setItem('language', lng); // set language is selected to local storage
-        console.log('newPath: ', newPath);
+        // console.log('newPath: ', newPath);
         navigate(newPath);
         setEnLanguage(!enLanguage);
         i18n.changeLanguage(lng);
