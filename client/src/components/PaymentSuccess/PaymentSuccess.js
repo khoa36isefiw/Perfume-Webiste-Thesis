@@ -60,11 +60,7 @@ function PaymentSuccess() {
                     borderRight: '1px solid #ccc',
                     borderTop: '1px solid #ccc',
                     borderBottom: '1px dashed #ccc',
-                    // borderBottom: '3px dashed #ccc',
-                    // borderBottomLeftRadius: '24px',
-                    // borderBottomRightRadius: '24px',
                     borderRadius: 4,
-                    // border: '1px solid #fff',
                 }}
             >
                 <iframe
@@ -103,7 +99,7 @@ function PaymentSuccess() {
                         p: 1,
                     }}
                 >
-                    <Grid item lg={12}>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
                         <CustomizeTypography
                             sx={{
                                 textAlign: 'center',
@@ -120,7 +116,7 @@ function PaymentSuccess() {
                             </CustomizeTypography>
                         )}
                     </Grid>
-                    <Grid item lg={6}>
+                    <Grid item xs={6} sm={6} md={6} lg={6}>
                         <Box
                             sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
                         >
@@ -132,7 +128,7 @@ function PaymentSuccess() {
                             </CustomizeTypography>
                         </Box>
                     </Grid>
-                    <Grid item lg={6}>
+                    <Grid item xs={6} sm={6} md={6} lg={6}>
                         <Box
                             sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
                         >
@@ -144,7 +140,7 @@ function PaymentSuccess() {
                             </CustomizeTypography>
                         </Box>
                     </Grid>
-                    <Grid item lg={6}>
+                    <Grid item xs={6} sm={6} md={6} lg={6}>
                         <Box
                             sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
                         >
@@ -156,7 +152,7 @@ function PaymentSuccess() {
                             </CustomizeTypography>
                         </Box>
                     </Grid>
-                    <Grid item lg={6}>
+                    <Grid item xs={6} sm={6} md={6} lg={6}>
                         <Box
                             sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
                         >
