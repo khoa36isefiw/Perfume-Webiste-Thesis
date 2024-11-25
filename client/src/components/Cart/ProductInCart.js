@@ -4,18 +4,11 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { mobileScreen, theme } from '../../Theme/Theme';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
-import {
-    decreaseQuantity,
-    increaseQuantity,
-    removeProduct,
-} from '../../redux/feature/CartManagement/CartManagementSlice';
 import { converToVND } from '../convertToVND/convertToVND';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import WarningIcon from '@mui/icons-material/Warning';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { userAPI } from '../../api/userAPI';
-
-import Loading from '../Loading/Loading';
 import { useLocation } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
@@ -459,27 +452,6 @@ export const ProductInCart = ({
                                                         : item.quantity
                                                 }
                                             </CustomizeTypography>
-
-                                            {/* <CustomizeTypography
-                                                sx={{
-                                                    fontSize: '16px',
-                                                    mb: 0,
-                                                    p: '4px',
-
-                                                    color: theme.palette.text.secondary,
-
-                                                    cursor: 'pointer',
-                                                }}
-                                                onClick={() =>
-                                                    handleUpdateQuantity(
-                                                        item?.product._id,
-                                                        item?.variant?._id,
-                                                        item?.quantity + 1,
-                                                    )
-                                                }
-                                            >
-                                                +
-                                            </CustomizeTypography> */}
                                             <Button
                                                 disabled={item?.variant?.stock === 0}
                                                 sx={{

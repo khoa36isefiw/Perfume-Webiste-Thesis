@@ -20,26 +20,7 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
     useEffect(() => {
         setTotalSubtotal(JSON.parse(window.localStorage.getItem('current_price')) || 0);
         setPriceChange(false);
-    }, [productsList, selectedProducts, priceChange]);
-
-    // calculate total price
-    // const calculateTotal = useCallback(() => {
-    //     return productsList.reduce((total, productItem) => {
-    //         console.log('productItem: ', productItem);
-    //         const product = selectedProducts.find(
-    //             (p) =>
-    //                 p.product._id === productItem.product._id &&
-    //                 p.variant._id === productItem.variant._id,
-    //         );
-
-    //         console.log('product: ', product);
-
-    //         if (product) {
-    //             return total + productItem.quantity * productItem.variant.price;
-    //         }
-    //         return total;
-    //     }, 0);
-    // }, [productsList, selectedProducts]);
+    }, [productsList, priceChange]);
 
     const calculateTotal = useCallback(() => {
         const selectedProductMap = new Map(
@@ -69,7 +50,7 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
     useEffect(() => {
         const initialTotal = calculateTotal();
         setTotalSubtotal(initialTotal);
-    }, [productsList]);
+    }, [productsList, totalSubtotal, calculateTotal]);
 
     const handleCheckout = () => {
         if (selectedProducts.length > 0)
