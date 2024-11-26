@@ -77,6 +77,7 @@ function AdminHeader() {
             >
                 <CustomizeTypography
                     sx={{
+                        mb: 0,
                         fontSize: '28px',
                         fontWeight: 'bold',
                         background: `linear-gradient(120deg, ${theme.palette.text.main}, ${theme.palette.text.secondary})`,
@@ -91,7 +92,8 @@ function AdminHeader() {
                             fontSize: '24px',
                         },
                         [mobileScreen]: {
-                            fontSize: '20px',
+                            fontSize: '18px',
+                            textAlign: 'center',
                         },
                     }}
                     onClick={() => navigate(`/${i18n.language}/`)}
@@ -105,7 +107,8 @@ function AdminHeader() {
                         fontSize: '28px',
                         fontWeight: 'bold',
                         [mobileScreen]: {
-                            fontSize: '20px',
+                            fontSize: '18px',
+                            textAlign: 'center',
                         },
                     }}
                 >
