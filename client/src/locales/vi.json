@@ -49,6 +49,10 @@
             "content": "GIẢM GIÁ Khám phá bộ sưu tập nước hoa cao cấp tinh tế với mức giá không thể tin được trong Chương trình khuyến mại nước hoa độc quyền của chúng tôi!",
             "know": "Tìm hiểu thêm"
         },
+        "searchNo": {
+            "title": "Rất tiếc, không tìm thấy kết quả nào",
+            "content": "Những gì bạn tìm kiếm không tìm thấy hoặc không tồn tại"
+        },
 
         "categoriesType": {
             "women": {
