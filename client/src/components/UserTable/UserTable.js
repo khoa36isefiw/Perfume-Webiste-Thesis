@@ -23,7 +23,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import WarningIcon from '@mui/icons-material/Warning';
@@ -182,12 +182,45 @@ export default function UserTable() {
                     <Loading />
                 </ModalDesginV2>
             ) : (
-                <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
+                <Box
+                    sx={{
+                        width: '100%',
+                        overflow: 'hidden',
+                        p: 2,
+                        [mobileScreen]: {
+                            p: 0,
+                        },
+                    }}
+                >
                     {/* Search Bar */}
-                    <AdminHeadingTypography sx={{ mb: 2 }}>List Users</AdminHeadingTypography>
-                    <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
-                        We can <strong>Search</strong> by Name or Email
-                    </AdminTypography>
+                    <Box
+                        sx={{
+                            [mobileScreen]: {
+                                p: 2,
+                            },
+                        }}
+                    >
+                        <AdminHeadingTypography sx={{ mb: 2 }}>List Users</AdminHeadingTypography>
+                        <Button
+                            onClick={exportToExcel}
+                            variant="text"
+                            color="primary"
+                            sx={{
+                                marginBottom: 2,
+                                padding: '10px 0',
+                                borderRadius: 3,
+                                textTransform: 'initial',
+                                fontSize: '14px',
+                            }}
+                            // onClick={}
+                            startIcon={<FileDownloadIcon />}
+                        >
+                            Export
+                        </Button>
+                        <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
+                            We can <strong>Search</strong> by Name or Email
+                        </AdminTypography>
+                    </Box>
                     <Box
                         sx={{
                             display: 'flex',
@@ -198,9 +231,10 @@ export default function UserTable() {
                         <TextField
                             placeholder="Search by Name or Email"
                             variant="outlined"
+                            fullWidth
                             sx={{
                                 marginBottom: 2,
-                                width: 750,
+
                                 '.MuiInputBase-root': {
                                     fontSize: '14px',
                                     height: '50px',
@@ -221,23 +255,6 @@ export default function UserTable() {
                                 ),
                             }}
                         />
-
-                        <Button
-                            onClick={exportToExcel}
-                            variant="contained"
-                            color="primary"
-                            sx={{
-                                marginBottom: 2,
-                                padding: '10px 18px',
-                                borderRadius: 3,
-                                textTransform: 'initial',
-                                fontSize: '14px',
-                            }}
-                            // onClick={}
-                            startIcon={<FileDownloadIcon />}
-                        >
-                            Export
-                        </Button>
                     </Box>
                     <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
                         <TableContainer sx={{ maxHeight: 440 }}>
