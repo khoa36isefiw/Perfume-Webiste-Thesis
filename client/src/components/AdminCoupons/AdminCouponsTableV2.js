@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
-import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import {
+    AdminHeadingTypography,
+    AdminTypography,
+    CustomizeTypography,
+} from '../CustomizeTypography/CustomizeTypography';
 import ActionsButton from '../Dashboard/ActionsButton';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { useNavigate } from 'react-router-dom';
 import { Search } from '@mui/icons-material';
@@ -155,22 +159,22 @@ const CouponsTable = () => {
 
     return (
         <Box sx={{ padding: 2 }}>
+            <AdminHeadingTypography>List Coupons</AdminHeadingTypography>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <TextField
-                    placeholder="Search by Name"
-                    variant="outlined"
-                    sx={{ marginBottom: 2, width: 750 }}
-                    onChange={handleSearch}
-                    value={searchTerm}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <Search />
-                            </InputAdornment>
-                        ),
+                <Button
+                    variant="text"
+                    color="primary"
+                    sx={{
+                        marginBottom: 2,
+                        padding: '10px 0',
+                        borderRadius: 3,
+                        textTransform: 'initial',
+                        fontSize: '14px',
                     }}
-                />
-
+                    startIcon={<FileDownloadIcon />}
+                >
+                    Export
+                </Button>
                 <Button
                     variant="contained"
                     color="primary"
@@ -190,20 +194,25 @@ const CouponsTable = () => {
                 >
                     Add Coupon
                 </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                        marginBottom: 2,
-                        padding: '10px 18px',
-                        borderRadius: 3,
-                        textTransform: 'initial',
-                        fontSize: '14px',
+            </Box>
+            <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
+                You can <strong>Search coupons</strong> by Code, Status, or Description.
+            </AdminTypography>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <TextField
+                    placeholder="Search by Name"
+                    variant="outlined"
+                    sx={{ marginBottom: 2, width: 750 }}
+                    onChange={handleSearch}
+                    value={searchTerm}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <Search />
+                            </InputAdornment>
+                        ),
                     }}
-                    startIcon={<FileDownloadIcon />}
-                >
-                    Export
-                </Button>
+                />
             </Box>
             <Box>
                 {filters?.map((filter, index) => (
@@ -229,15 +238,18 @@ const CouponsTable = () => {
             <Box
                 sx={{
                     margin: 'auto',
-
                     bgcolor: '#fff',
                     borderRadius: 2,
                     height: '520px',
+                    width: '100%',
                     p: 2,
+                    [mobileScreen]: { p: 0 },
+                    overflow: 'scroll',
                 }}
             >
                 <Box
                     sx={{
+                        width: '100%',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
