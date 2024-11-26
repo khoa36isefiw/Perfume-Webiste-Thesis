@@ -201,52 +201,61 @@ export default function ProductTable() {
                     }}
                 >
                     {/* Search Bar */}
-                    <AdminHeadingTypography>List Products</AdminHeadingTypography>
-                    <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
-                        We can <strong>Search product</strong> by Name or Brand
-                    </AdminTypography>
                     <Box
                         sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
+                            [mobileScreen]: {
+                                p: 2,
+                            },
                         }}
                     >
-                        <Button
-                            variant="text"
-                            color="primary"
-                            sx={{
-                                marginBottom: 2,
-                                padding: '10px 18px',
-                                borderRadius: 3,
-                                textTransform: 'initial',
-                                fontSize: '14px',
-                            }}
-                            startIcon={<FileDownloadIcon />}
-                        >
-                            Export
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            sx={{
-                                marginBottom: 2,
-                                padding: '10px 18px',
-                                borderRadius: 2,
-                                bgcolor: theme.palette.admin.bgColor,
-                                textTransform: 'initial',
-                                fontSize: '14px',
-                                '&:hover': {
-                                    bgcolor: theme.palette.admin.bgColor,
-                                },
-                            }}
-                            startIcon={<CategoryIcon />}
-                            onClick={() => navigate('/admin/manage-products/add-product')}
-                        >
-                            Add Product
-                        </Button>
-                    </Box>
+                        <AdminHeadingTypography>List Products</AdminHeadingTypography>
 
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                            }}
+                        >
+                            <Button
+                                variant="text"
+                                color="primary"
+                                sx={{
+                                    marginBottom: 2,
+                                    padding: '10px 0',
+
+                                    borderRadius: 3,
+                                    textTransform: 'initial',
+                                    fontSize: '14px',
+                                }}
+                                startIcon={<FileDownloadIcon />}
+                            >
+                                Export
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                sx={{
+                                    marginBottom: 2,
+                                    padding: '10px 18px',
+                                    borderRadius: 2,
+                                    bgcolor: theme.palette.admin.bgColor,
+                                    textTransform: 'initial',
+                                    fontSize: '14px',
+                                    '&:hover': {
+                                        bgcolor: theme.palette.admin.bgColor,
+                                    },
+                                }}
+                                startIcon={<CategoryIcon />}
+                                onClick={() => navigate('/admin/manage-products/add-product')}
+                            >
+                                Add Product
+                            </Button>
+                        </Box>
+                        <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
+                            We can <strong>Search product</strong> by Name or Brand
+                        </AdminTypography>
+                    </Box>
                     <Box
                         sx={{
                             display: 'flex',
@@ -257,7 +266,8 @@ export default function ProductTable() {
                         <TextField
                             placeholder="Search by Name"
                             variant="outlined"
-                            sx={{ marginBottom: 2, width: 750 }}
+                            fullWidth={true}
+                            sx={{ marginBottom: 2 }}
                             onChange={handleSearch}
                             value={searchTerm}
                             InputProps={{
@@ -269,6 +279,7 @@ export default function ProductTable() {
                             }}
                         />
                     </Box>
+
                     <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
                         <TableContainer sx={{ maxHeight: 440 }}>
                             <Table stickyHeader aria-label="sticky table">
