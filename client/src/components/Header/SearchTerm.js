@@ -9,6 +9,7 @@ import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 
 function SearchTerm() {
     const { t, i18n } = useTranslation('translate');
@@ -95,6 +96,20 @@ function SearchTerm() {
             >
                 <SearchIcon sx={{ fontSize: '24px', color: 'white' }} />
             </IconButton>
+            {showNotification && (
+                <Box
+                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
+                    className={`animate__animated ${showAnimation}`}
+                >
+                    <NotificationMessage
+                        msgType={messageType}
+                        msgTitle={messageTitle}
+                        msgContent={messageContent}
+                        autoHideDuration={3000} // Auto-hide after 5 seconds
+                        onClose={handleCloseNotification}
+                    />
+                </Box>
+            )}
         </Box>
     );
 }

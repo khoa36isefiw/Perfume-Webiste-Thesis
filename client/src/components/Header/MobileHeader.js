@@ -18,16 +18,7 @@ import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function MobileHeader({ setOpenMenu, openMenu }) {
     const { t, i18n } = useTranslation('translate');
-    const location = useLocation();
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+
     const navigate = useNavigate();
     const [enLanguage, setEnLanguage] = useState(false);
     const headerData = [
@@ -61,8 +52,6 @@ function MobileHeader({ setOpenMenu, openMenu }) {
         setEnLanguage(!enLanguage);
         i18n.changeLanguage(lng);
     };
-
-    
 
     return (
         <Dialog open={openMenu} onClose={() => setOpenMenu(false)} fullScreen>
