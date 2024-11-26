@@ -43,11 +43,6 @@ export default function AdminAuth() {
         backTop();
     };
 
-    const handleNavigatePurchase = () => {
-        setAnchorEl(null);
-        navigate('/my-purchase');
-        backTop();
-    };
     const handleNavigateChangePassword = () => {
         setAnchorEl(null);
         navigate('/change-password');

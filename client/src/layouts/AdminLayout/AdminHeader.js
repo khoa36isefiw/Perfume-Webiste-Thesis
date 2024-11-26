@@ -73,14 +73,10 @@ function AdminHeader() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    // [tabletScreen]: {
-                    //     flexDirection: 'column',
-                    // },
                 }}
             >
                 <CustomizeTypography
                     sx={{
-                        // width: '200px',
                         fontSize: '28px',
                         fontWeight: 'bold',
                         background: `linear-gradient(120deg, ${theme.palette.text.main}, ${theme.palette.text.secondary})`,
@@ -104,7 +100,15 @@ function AdminHeader() {
                 </CustomizeTypography>
                 {/* Menu for mobile */}
 
-                <AdminTypography sx={{ fontSize: '28px', fontWeight: 'bold' }}>
+                <AdminTypography
+                    sx={{
+                        fontSize: '28px',
+                        fontWeight: 'bold',
+                        [mobileScreen]: {
+                            fontSize: '20px',
+                        },
+                    }}
+                >
                     Admin Dashboard
                 </AdminTypography>
 
