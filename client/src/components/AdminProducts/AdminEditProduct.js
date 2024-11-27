@@ -18,7 +18,7 @@ import useBrand from '../../api/useBrand';
 import useCategory from '../../api/useCategory';
 import { categoriesAPI } from '../../api/categoriesAPI';
 import { brandApi } from '../../api/brandApi';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 
 const AdminEditProduct = () => {
     const location = useLocation();
@@ -223,6 +223,10 @@ const AdminEditProduct = () => {
                 p: 3,
                 mx: 4,
                 borderRadius: 2,
+                [mobileScreen]: {
+                    padding: 2,
+                    mx: 0,
+                },
             }}
         >
             <AdminButtonBackPage title={'List Products'} />
@@ -233,7 +237,18 @@ const AdminEditProduct = () => {
             <Avatar
                 alt={productName}
                 src={image}
-                sx={{ width: 256, height: 256, marginBottom: 2, borderRadius: 0 }}
+                sx={{
+                    width: 256,
+                    height: 256,
+                    marginBottom: 2,
+                    borderRadius: 0,
+                    bgcolor: '#fff',
+                    borderRadius: 2,
+                    [mobileScreen]: {
+                        width: 128,
+                        height: 128,
+                    },
+                }}
             />
 
             {/* Input for updating image */}
@@ -250,27 +265,6 @@ const AdminEditProduct = () => {
                     onChange={(e) => setProductName(e.target.value)}
                     sx={{ mb: 2 }}
                 />
-                {/* <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="size-select-label">Size</InputLabel>
-                    <Select
-                        labelId="size-select-label"
-                        multiple
-                        value={selectedSizes.map((size) => size.size)}
-                        label="Size"
-                        renderValue={(selected) => selected.join(', ')}
-                    >
-                        {sizeOptions.map((size) => (
-                            <MenuItem
-                                key={size}
-                                value={size}
-                                onClick={() => handleMenuItemClick(size)}
-                            >
-                                <Checkbox checked={selectedSizes.some((s) => s.size === size)} />
-                                <ListItemText primary={size} />
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl> */}
             </Box>
 
             {selectedSizes.map((size, index) => (
