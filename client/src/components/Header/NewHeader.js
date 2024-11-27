@@ -315,6 +315,8 @@ function NewHeader() {
                                 value={searchQuery == null ? '' : searchQuery}
                                 onChange={handleSearchChange}
                                 onClick={() => setShowSuggestions(!!searchQuery)}
+                                // enter key events
+                                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                             />
                             {/* Suggestions Dropdown */}
                             {showSuggestions && suggestions.length > 0 && (
