@@ -13,11 +13,14 @@ import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
+import useLatestProduct from '../../api/useLatestProduct';
 
 function BestSellingProducts() {
     const navigate = useNavigate();
     // cut the perfumeData list, just use 5 items in array
-    const newList = perfumeData.slice(0, 5);
+    const { data: products } = useLatestProduct();
+    const latestProducts = products?.data;
+    console.log('latestProducts: ', latestProducts);
     const handleNavigateProductDetails = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
         navigate(`/product/${perfume.perfumeID}`, { state: { perfume } });
@@ -75,79 +78,83 @@ function BestSellingProducts() {
                     },
                 }}
             >
-                Best Selling Products
+                New Arrivals Products
             </CustomizeTypography>
             <Box sx={{ mt: 4 }}>
                 <Slider {...settings}>
-                    {newList.map((perfume, index) => (
-                        <Box
-                            key={index}
-                            sx={{
-                                p: 2,
-                                width: '180px',
-                                transition: 'transform 0.3s ease',
-                                '&:hover': {
-                                    cursor: 'pointer',
-                                    transform: 'translateY(-5px)',
-                                },
-                            }}
-                            onClick={() => handleNavigateProductDetails(perfume)}
-                        >
-                            <Grid
-                                container
+                    {latestProducts.length &&
+                        latestProducts.map((perfume, index) => (
+                            <Box
+                                key={index}
                                 sx={{
-                                    // background: `linear-gradient(${theme.palette.bestSelling}, ${theme.palette.bestSelling2})`,
-                                    background: theme.palette.bestSelling,
-                                    borderRadius: 2,
-                                    height: '450px',
-
-                                    p: 1,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
+                                    p: 2,
+                                    width: '180px',
+                                    transition: 'transform 0.3s ease',
+                                    '&:hover': {
+                                        cursor: 'pointer',
+                                        transform: 'translateY(-5px)',
+                                    },
                                 }}
+                                onClick={() => handleNavigateProductDetails(perfume)}
                             >
-                                <Avatar
-                                    src={perfume.perfumeImage}
-                                    sx={{ borderRadius: 0, height: '300px', width: '200px' }}
-                                />
-                                <CustomizeTypography
-                                    textAlign={'center'}
+                                <Grid
+                                    container
                                     sx={{
-                                        textAlign: 'center',
-                                        // my: 2,
+                                        // background: `linear-gradient(${theme.palette.bestSelling}, ${theme.palette.bestSelling2})`,
+                                        background: theme.palette.bestSelling,
+                                        borderRadius: 2,
+                                        height: '450px',
 
-                                        overflow: 'hidden',
-                                        whiteSpace: 'nowrap',
-                                        textOverflow: 'ellipsis',
-                                        width: '100%',
-                                    }}
-                                >
-                                    {perfume.perfumeName}
-                                </CustomizeTypography>
-                                <Box
-                                    sx={{
+                                        p: 1,
                                         display: 'flex',
+                                        flexDirection: 'column',
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                     }}
                                 >
+                                    <Avatar
+                                        src={perfume.imagePath[0]}
+                                        sx={{ borderRadius: 0, height: '300px', width: '200px' }}
+                                    />
                                     <CustomizeTypography
+                                        textAlign={'center'}
                                         sx={{
-                                            color: theme.palette.secondaryText,
-                                            fontBold: 'weight',
+                                            textAlign: 'center',
+                                            // my: 2,
+
+                                            overflow: 'hidden',
+                                            whiteSpace: 'nowrap',
+                                            textOverflow: 'ellipsis',
+                                            width: '100%',
                                         }}
                                     >
-                                        {converToVND(perfume.perfumeGroupSize[0].perfumePrice)}
+                                        {perfume.nameEn}
                                     </CustomizeTypography>
-                                    <CustomizeTypography sx={{ marginLeft: 1 }}>
-                                        {perfume.perfumeGroupSize[0].perfumeSize} ml
-                                    </CustomizeTypography>
-                                </Box>
-                            </Grid>
-                        </Box>
-                    ))}
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        <CustomizeTypography
+                                            sx={{
+                                                color: theme.palette.secondaryText,
+                                                fontBold: 'weight',
+                                            }}
+                                        >
+                                            {converToVND(
+                                                perfume.variants[0].priceSale ||
+                                                    perfume.variants[0].price,
+                                            )}
+                                        </CustomizeTypography>
+                                        <CustomizeTypography sx={{ marginLeft: 1 }}>
+                                            {perfume.variants[0].size}
+                                        </CustomizeTypography>
+                                    </Box>
+                                </Grid>
+                            </Box>
+                        ))}
                 </Slider>
             </Box>
         </Container>

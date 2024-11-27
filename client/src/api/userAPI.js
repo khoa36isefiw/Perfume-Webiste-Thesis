@@ -68,4 +68,9 @@ export const userAPI = {
         const url = `/users/${userId}/remove-item`;
         return axiosClient.post(url, data);
     },
+
+    subscribe: (data) => {
+        const url = '/users/subscribe';
+        return axiosClient.post(url, data);
+    },
 };

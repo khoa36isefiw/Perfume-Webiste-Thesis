@@ -3,6 +3,7 @@ const generator = require('generate-password');
 require('dotenv').config();
 const User = require('../models/User.model');
 const Product = require('../models/Product.model');
+const Subscriber = require('../models/Subscriber.model');
 const nodemailer = require('nodemailer');
 const ProductReview = require('../models/ProductReview.model');
 const { checkProductBoughtByUser } = require('../services/UserService');
@@ -124,7 +125,7 @@ const UserController = {
                 });
 
                 const info = await transporter.sendMail({
-                    from: `"TOCTOM PERFURMS 👻" <${process.env.EMAIL_USER}>`, // sender address
+                    from: `"TOMTOC PERFURMS 👻" <${process.env.EMAIL_USER}>`, // sender address
                     to: email, // list of receivers
                     subject: 'Recover Password', // Subject line
                     text: 'Your password have been reset!', // plain text body
@@ -371,6 +372,20 @@ const UserController = {
             res.status(200).json(savedReview);
         } catch (error) {
             res.status(500).json({ message: error.message });
+        }
+    },
+
+    subscribe: async (req, res) => {
+        const { email } = req.body;
+
+        if (!email) return res.status(400).json({ message: 'Email is required' });
+
+        try {
+            const newSubscriber = new Subscriber({ email });
+            await newSubscriber.save();
+            return res.status(201).json({ message: 'Subscribed successfully' });
+        } catch (error) {
+            return res.status(500).json({ message: error });
         }
     },
 };
