@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     Box,
     Container,
@@ -56,6 +56,13 @@ function NewHeader() {
     const [activeHeader, setActiveHeader] = useState('');
     const [openMenu, setOpenMenu] = useState(false);
     const listSuggestions = suggestions.slice(0, 4); // just show 4 product items to UI
+
+    // save keyword is searched by user
+    const [searchHistory, setSearchHistory] = useState(
+        JSON.parse(localStorage.getItem('search_history')) || [],
+    );
+    const [showSearchHistory, setShowSearchHistory] = useState(false);
+    const timeoutRef = useRef(null);
 
     // get product in cart
     const productListInCart = useSelector((state) => state.cartManagement.productInfor);
@@ -123,7 +130,7 @@ function NewHeader() {
 
     // search
     const handleSearchChange = (e) => {
-        const value = e.target.value.trim();
+        const value = e.target.value;
         setSearchQuery(value);
 
         if (value) {
@@ -136,7 +143,10 @@ function NewHeader() {
         } else {
             setSuggestions([]);
             setShowSuggestions(false);
-            window.localStorage.removeItem('search_query');
+            if (showSearchHistory) {
+                window.localStorage.removeItem('search_query');
+            }
+
             // const params = new URLSearchParams(location.search);
             // params.delete('keyword'); // Xóa tham số `keyword` khỏi URL
             navigate(`${location.pathname}`);
@@ -152,12 +162,13 @@ function NewHeader() {
     };
 
     useEffect(() => {
-        if (searchQuery === '') {
+        if (searchQuery === '' && showSearchHistory) {
             window.localStorage.removeItem('search_query');
             const currentQueryParams = new URLSearchParams(location.search);
-            console.log('location.search: ', location.search);
+            // console.log('location.search: ', location.search);
             currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
             currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
+            currentQueryParams.delete('sortBy');
         }
     }, [searchQuery, location]);
 
@@ -172,8 +183,23 @@ function NewHeader() {
             // window.localStorage.setItem('filter', JSON.stringify('')); // reset filter
             localStorage.removeItem('filter');
             localStorage.removeItem('sortBy');
-            // navigate to update the URL with query params
-            // navigate(`/products?${params.toString()}`); // href to shop with query string params
+
+            // Lấy lịch sử tìm kiếm từ localStorage
+            let searchHistory = JSON.parse(localStorage.getItem('search_history')) || [];
+
+            // Thêm giá trị mới vào lịch sử (nếu chưa tồn tại)
+            if (!searchHistory.includes(searchQuery)) {
+                searchHistory.push(searchQuery);
+
+                // Giới hạn số lượng lịch sử tìm kiếm (tối đa 10 mục)
+                if (searchHistory.length > 10) {
+                    searchHistory = searchHistory.slice(-10); // Giữ 10 mục cuối cùng
+                }
+
+                // Lưu lịch sử cập nhật vào localStorage
+                localStorage.setItem('search_history', JSON.stringify(searchHistory));
+            }
+
             navigate(`/${i18n.language}/shop?${params.toString()}`, { replace: true });
             setShowSuggestions(false); // hide the show suggestions
         } else {
@@ -219,6 +245,27 @@ function NewHeader() {
 
     const handleNavigateShoppingCart = () => {
         navigate(`/${i18n.language}/shopping-cart`);
+    };
+
+    // handle for searching with search history
+    const handleSearchFocus = () => {
+        if (searchQuery === '') {
+            setShowSearchHistory(true);
+        }
+    };
+    const handleSearchBlur = () => {
+        // Handle blur with delay - hide history after losing focus
+        timeoutRef.current = setTimeout(() => {
+            setShowSearchHistory(false); // Hide search history
+        }, 200);
+    };
+
+    const handleSearchHistoryClicked = (search) => {
+        clearTimeout(timeoutRef.current);
+        setSearchQuery(search); // save search query on textfield
+        window.localStorage.setItem('search_query', search);
+        navigate(`/${i18n.language}/shop?keyword=${search}`);
+        setShowSearchHistory(false); // Optionally hide search history after selection
     };
 
     return (
@@ -293,33 +340,64 @@ function NewHeader() {
                         <Box
                             sx={{
                                 display: 'flex',
+                                flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
 
+                                position: 'relative',
                                 [tabletScreen]: {
                                     mt: 2,
                                 },
                             }}
                         >
-                            <TextFieldCustomizeV2
-                                // default
-                                placeholder={'Search here...'}
+                            <Box
                                 sx={{
-                                    width: '360px',
-                                    [tabletScreen]: { width: '260px' },
-                                    [mobileScreen]: {
-                                        width: '100%',
-                                    },
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
                                 }}
-                                // value={searchQuery}
-                                value={searchQuery == null ? '' : searchQuery}
-                                onChange={handleSearchChange}
-                                onClick={() => setShowSuggestions(!!searchQuery)}
-                                // enter key events
-                                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                            />
+                            >
+                                <TextFieldCustomizeV2
+                                    // default
+                                    placeholder={'Search here...'}
+                                    sx={{
+                                        width: '360px',
+                                        [tabletScreen]: { width: '260px' },
+                                        [mobileScreen]: {
+                                            width: '100%',
+                                        },
+                                    }}
+                                    // value={searchQuery}
+                                    value={searchQuery == null ? '' : searchQuery}
+                                    onChange={handleSearchChange}
+                                    onClick={() => setShowSuggestions(!!searchQuery)}
+                                    // enter key events
+                                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                                    onFocus={handleSearchFocus}
+                                    onBlur={handleSearchBlur}
+                                />
+                                <IconButton
+                                    sx={{
+                                        bgcolor: theme.palette.text.main,
+                                        borderTopLeftRadius: 1,
+                                        borderBottomLeftRadius: 1,
+                                        mr: 1,
+                                        '&:hover': {
+                                            bgcolor: theme.palette.text.main,
+                                            cursor: 'pointer',
+                                            fontWeight: 'bold',
+                                        },
+                                        [tabletScreen]: {
+                                            mr: 4,
+                                        },
+                                    }}
+                                    onClick={() => handleSearch(searchQuery)}
+                                >
+                                    <SearchIcon sx={{ fontSize: '24px', color: 'white' }} />
+                                </IconButton>
+                            </Box>
                             {/* Suggestions Dropdown */}
-                            {showSuggestions && suggestions.length > 0 && (
+                            {/* {showSuggestions && suggestions.length > 0 && (
                                 <Paper
                                     sx={{
                                         position: 'absolute',
@@ -405,27 +483,34 @@ function NewHeader() {
                                         </CustomizeTypography>
                                     )}
                                 </Paper>
+                            )} */}
+                            {searchHistory.length > 0 && showSearchHistory && (
+                                <Paper
+                                    elevation={3}
+                                    style={{
+                                        position: 'absolute',
+                                        top: '100%',
+                                        left: 0,
+                                        right: 0,
+                                        zIndex: 10,
+                                        maxHeight: '200px',
+                                        overflowY: 'auto',
+                                    }}
+                                >
+                                    <List>
+                                        {searchHistory.map((search, index) => (
+                                            <ListItem
+                                                key={index}
+                                                button
+                                                onClick={() => handleSearchHistoryClicked(search)}
+                                                style={{ cursor: 'pointer' }}
+                                            >
+                                                {search}
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                </Paper>
                             )}
-
-                            <IconButton
-                                sx={{
-                                    bgcolor: theme.palette.text.main,
-                                    borderTopLeftRadius: 1,
-                                    borderBottomLeftRadius: 1,
-                                    mr: 1,
-                                    '&:hover': {
-                                        bgcolor: theme.palette.text.main,
-                                        cursor: 'pointer',
-                                        fontWeight: 'bold',
-                                    },
-                                    [tabletScreen]: {
-                                        mr: 4,
-                                    },
-                                }}
-                                onClick={() => handleSearch(searchQuery)}
-                            >
-                                <SearchIcon sx={{ fontSize: '24px', color: 'white' }} />
-                            </IconButton>
                         </Box>
                     )}
 
