@@ -18,8 +18,10 @@ import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
 import { useEffect } from 'react';
 import CategoryFilter from '../CategoryFilter/CategoryFilter';
+import { useTranslation } from 'react-i18next';
 
 function PerfumesCard() {
+    const { t } = useTranslation('translate');
     const navigate = useNavigate();
     const language = window.localStorage.getItem('language');
     console.log('language222: ', language);
@@ -323,10 +325,8 @@ function PerfumesCard() {
                     ) : (
                         <EmptyCart
                             imgCart={notFound}
-                            title={'Sorry, no result found'}
-                            subTitle={
-                                'What you searched was unfortunately not found or does not exist'
-                            }
+                            title={t('common.searchNo.title')}
+                            subTitle={t('common.searchNo.content')}
                             isShowButton={false}
                         />
                     )}

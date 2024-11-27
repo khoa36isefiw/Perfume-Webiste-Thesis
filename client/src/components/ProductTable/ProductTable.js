@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { blue } from '@mui/material/colors';
+import Paper from '@mui/material/Paper';
 import WarningIcon from '@mui/icons-material/Warning';
 import {
     AdminHeadingTypography,
@@ -23,7 +24,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import CategoryIcon from '@mui/icons-material/Category';
 
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
@@ -189,12 +190,72 @@ export default function ProductTable() {
                     <Loading />
                 </ModalDesginV2>
             ) : (
-                <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
+                <Box
+                    sx={{
+                        width: '100%',
+                        overflow: 'hidden',
+                        p: 2,
+                        [mobileScreen]: {
+                            p: 0,
+                        },
+                    }}
+                >
                     {/* Search Bar */}
-                    <AdminHeadingTypography>List Products</AdminHeadingTypography>
-                    <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
-                        We can <strong>Search product</strong> by Name or Brand
-                    </AdminTypography>
+                    <Box
+                        sx={{
+                            [mobileScreen]: {
+                                p: 2,
+                            },
+                        }}
+                    >
+                        <AdminHeadingTypography>List Products</AdminHeadingTypography>
+
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                            }}
+                        >
+                            <Button
+                                variant="text"
+                                color="primary"
+                                sx={{
+                                    marginBottom: 2,
+                                    padding: '10px 0',
+
+                                    borderRadius: 3,
+                                    textTransform: 'initial',
+                                    fontSize: '14px',
+                                }}
+                                startIcon={<FileDownloadIcon />}
+                            >
+                                Export
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                sx={{
+                                    marginBottom: 2,
+                                    padding: '10px 18px',
+                                    borderRadius: 2,
+                                    bgcolor: theme.palette.admin.bgColor,
+                                    textTransform: 'initial',
+                                    fontSize: '14px',
+                                    '&:hover': {
+                                        bgcolor: theme.palette.admin.bgColor,
+                                    },
+                                }}
+                                startIcon={<CategoryIcon />}
+                                onClick={() => navigate('/admin/manage-products/add-product')}
+                            >
+                                Add Product
+                            </Button>
+                        </Box>
+                        <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
+                            We can <strong>Search product</strong> by Name or Brand
+                        </AdminTypography>
+                    </Box>
                     <Box
                         sx={{
                             display: 'flex',
@@ -205,7 +266,8 @@ export default function ProductTable() {
                         <TextField
                             placeholder="Search by Name"
                             variant="outlined"
-                            sx={{ marginBottom: 2, width: 750 }}
+                            fullWidth={true}
+                            sx={{ marginBottom: 2 }}
                             onChange={handleSearch}
                             value={searchTerm}
                             InputProps={{
@@ -216,41 +278,8 @@ export default function ProductTable() {
                                 ),
                             }}
                         />
-
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            sx={{
-                                marginBottom: 2,
-                                padding: '10px 18px',
-                                borderRadius: 3,
-                                bgcolor: theme.palette.admin.bgColor,
-                                textTransform: 'initial',
-                                fontSize: '14px',
-                                '&:hover': {
-                                    bgcolor: theme.palette.admin.bgColor,
-                                },
-                            }}
-                            startIcon={<CategoryIcon />}
-                            onClick={() => navigate('/admin/manage-products/add-product')}
-                        >
-                            Add Product
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            sx={{
-                                marginBottom: 2,
-                                padding: '10px 18px',
-                                borderRadius: 3,
-                                textTransform: 'initial',
-                                fontSize: '14px',
-                            }}
-                            startIcon={<FileDownloadIcon />}
-                        >
-                            Export
-                        </Button>
                     </Box>
+
                     <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
                         <TableContainer sx={{ maxHeight: 440 }}>
                             <Table stickyHeader aria-label="sticky table">

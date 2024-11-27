@@ -73,14 +73,11 @@ function AdminHeader() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    // [tabletScreen]: {
-                    //     flexDirection: 'column',
-                    // },
                 }}
             >
                 <CustomizeTypography
                     sx={{
-                        // width: '200px',
+                        mb: 0,
                         fontSize: '28px',
                         fontWeight: 'bold',
                         background: `linear-gradient(120deg, ${theme.palette.text.main}, ${theme.palette.text.secondary})`,
@@ -95,7 +92,8 @@ function AdminHeader() {
                             fontSize: '24px',
                         },
                         [mobileScreen]: {
-                            fontSize: '20px',
+                            fontSize: '18px',
+                            textAlign: 'center',
                         },
                     }}
                     onClick={() => navigate(`/${i18n.language}/`)}
@@ -104,7 +102,16 @@ function AdminHeader() {
                 </CustomizeTypography>
                 {/* Menu for mobile */}
 
-                <AdminTypography sx={{ fontSize: '28px', fontWeight: 'bold' }}>
+                <AdminTypography
+                    sx={{
+                        fontSize: '28px',
+                        fontWeight: 'bold',
+                        [mobileScreen]: {
+                            fontSize: '18px',
+                            textAlign: 'center',
+                        },
+                    }}
+                >
                     Admin Dashboard
                 </AdminTypography>
 
