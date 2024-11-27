@@ -10,7 +10,7 @@ router.put('/:id', productController.update);
 // router.delete('/:id', productController.destroy);
 router.get('/brand/:brandId', productController.getByBrandId);
 router.get('/category/:categoryId', productController.getByCategoryId);
-router.get('/lastest', productController.getLatest);
+router.get('/latest', productController.getLatest);
 router.get('/:id', productController.getById);
 router.post('/', productController.create);
 router.get('/', productController.getAll);
