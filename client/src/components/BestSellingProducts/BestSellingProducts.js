@@ -20,7 +20,6 @@ function BestSellingProducts() {
     // cut the perfumeData list, just use 5 items in array
     const { data: products } = useLatestProduct();
     const latestProducts = products?.data;
-    console.log('latestProducts: ', latestProducts);
     const handleNavigateProductDetails = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
         navigate(`/product/${perfume.perfumeID}`, { state: { perfume } });
@@ -83,7 +82,7 @@ function BestSellingProducts() {
             <Box sx={{ mt: 4 }}>
                 <Slider {...settings}>
                     {latestProducts?.length &&
-                        latestProducts?.map((perfume, index) => (
+                        latestProducts.map((perfume, index) => (
                             <Box
                                 key={index}
                                 sx={{
