@@ -11,7 +11,7 @@ import {
     useMediaQuery,
 } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
-import { mobileScreen, theme } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
 import { grey } from '@mui/material/colors';
 import { useDispatch } from 'react-redux';
@@ -135,6 +135,9 @@ const AdminCreateCoupon = () => {
             sx={{
                 p: 3,
                 mx: 4,
+                [tabletScreen]: {
+                    mx: 2,
+                },
                 [mobileScreen]: {
                     padding: 2,
                     mx: 0,
