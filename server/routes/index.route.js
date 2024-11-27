@@ -7,6 +7,7 @@ const orderRouter = require('./order.route');
 const paymentRouter = require('./payment.route');
 const promotionRouter = require('./promotion.route');
 const reviewRouter = require('./productReview.route');
+const adminRouter = require('./admin.route');
 
 function route(app) {
     app.use(`/products`, productRouter);
@@ -18,6 +19,7 @@ function route(app) {
     app.use('/payments', paymentRouter);
     app.use('/promotions', promotionRouter);
     app.use('/reviews', reviewRouter);
+    app.use('/admin', adminRouter);
 
     app.use('/', (req, res) => {
         res.send('Hello World!');

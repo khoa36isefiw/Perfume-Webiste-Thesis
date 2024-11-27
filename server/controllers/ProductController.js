@@ -1,6 +1,7 @@
 const Product = require('../models/Product.model');
 const Variant = require('../models/Variant.model');
 const emailEvent = require('../events/emailEvent');
+const { getDateRange } = require('../utils/date');
 
 const ProductController = {
     getAll: async (req, res) => {
@@ -103,6 +104,27 @@ const ProductController = {
                 .populate('brand');
             res.status(200).json(products);
         } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    statisticProduct: async (req, res) => {
+        try {
+            const { timeframe } = req.query;
+
+            if (!timeframe) {
+                return res.status(400).json({ error: 'Timeframe is required' });
+            }
+
+            const { startDate, endDate } = getDateRange(timeframe);
+
+            const products = await Product.find({
+                createdAt: { $gte: startDate, $lt: endDate },
+            });
+
+            res.status(200).json(products.length);
+        } catch (error) {
+            console.error(error);
             res.status(500).json({ message: error.message });
         }
     },
