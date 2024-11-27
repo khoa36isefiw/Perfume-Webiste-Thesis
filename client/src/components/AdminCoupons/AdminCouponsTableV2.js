@@ -178,46 +178,58 @@ const CouponsTable = () => {
     }
 
     return (
-        <Box sx={{ padding: 2 }}>
-            <AdminHeadingTypography>List Coupons</AdminHeadingTypography>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <Button
-                    variant="text"
-                    color="primary"
-                    sx={{
-                        marginBottom: 2,
-                        padding: '10px 0',
-                        borderRadius: 3,
-                        textTransform: 'initial',
-                        fontSize: '14px',
-                    }}
-                    startIcon={<FileDownloadIcon />}
+        <Box
+            sx={{
+                padding: 2,
+                [mobileScreen]: {
+                    padding: 0,
+                },
+            }}
+        >
+            <Box sx={{ padding: 2 }}>
+                <AdminHeadingTypography>List Coupons</AdminHeadingTypography>
+                <Box
+                    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                 >
-                    Export
-                </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                        marginBottom: 2,
-                        padding: '10px 18px',
-                        borderRadius: 3,
-                        bgcolor: theme.palette.admin.bgColor,
-                        textTransform: 'initial',
-                        fontSize: '14px',
-                        '&:hover': {
+                    <Button
+                        variant="text"
+                        color="primary"
+                        sx={{
+                            marginBottom: 2,
+                            padding: '10px 0',
+                            borderRadius: 3,
+                            textTransform: 'initial',
+                            fontSize: '14px',
+                        }}
+                        startIcon={<FileDownloadIcon />}
+                    >
+                        Export
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                            marginBottom: 2,
+                            padding: '10px 18px',
+                            borderRadius: 3,
                             bgcolor: theme.palette.admin.bgColor,
-                        },
-                    }}
-                    startIcon={<MoneyOffIcon />}
-                    onClick={() => navigate('/admin/manage-coupons/add')}
-                >
-                    Add Coupon
-                </Button>
+                            textTransform: 'initial',
+                            fontSize: '14px',
+                            '&:hover': {
+                                bgcolor: theme.palette.admin.bgColor,
+                            },
+                        }}
+                        startIcon={<MoneyOffIcon />}
+                        onClick={() => navigate('/admin/manage-coupons/add')}
+                    >
+                        Add Coupon
+                    </Button>
+                </Box>
+                <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
+                    You can <strong>Search coupons</strong> by Code, Status, or Description.
+                </AdminTypography>
             </Box>
-            <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
-                You can <strong>Search coupons</strong> by Code, Status, or Description.
-            </AdminTypography>
+
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <TextField
                     fullWidth
