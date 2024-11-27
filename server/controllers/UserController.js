@@ -7,6 +7,7 @@ const Subscriber = require('../models/Subscriber.model');
 const nodemailer = require('nodemailer');
 const ProductReview = require('../models/ProductReview.model');
 const { checkProductBoughtByUser } = require('../services/UserService');
+const { getDateRange } = require('../utils/date');
 
 const UserController = {
     getAll: async (req, res) => {
@@ -34,6 +35,27 @@ const UserController = {
 
             res.status(200).json(user);
         } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    statisticUser: async (req, res) => {
+        try {
+            const { timeframe } = req.query;
+
+            if (!timeframe) {
+                return res.status(400).json({ error: 'Timeframe is required' });
+            }
+
+            const { startDate, endDate } = getDateRange(timeframe);
+
+            const users = await User.find({
+                createdAt: { $gte: startDate, $lt: endDate },
+            });
+
+            res.status(200).json(users.length);
+        } catch (error) {
+            console.error(error);
             res.status(500).json({ message: error.message });
         }
     },
@@ -180,7 +202,7 @@ const UserController = {
                 });
             }
         } catch (err) {
-            return res.status(400).json({ message: err.message });
+            return res.status(500).json({ message: err.message });
         }
     },
 

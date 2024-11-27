@@ -1,6 +1,7 @@
 const Order = require('../models/Order.model');
 const Product = require('../models/Product.model');
 const Variant = require('../models/Variant.model');
+const { getDateRange } = require('../utils/date');
 
 const OrderController = {
     getAll: async (req, res) => {
@@ -8,6 +9,27 @@ const OrderController = {
             const orders = await Order.find({}).populate('promotionCode');
             res.status(200).json(orders);
         } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    statisticOrder: async (req, res) => {
+        try {
+            const { timeframe } = req.query;
+
+            if (!timeframe) {
+                return res.status(400).json({ error: 'Timeframe is required' });
+            }
+
+            const { startDate, endDate } = getDateRange(timeframe);
+
+            const orders = await Order.find({
+                createdAt: { $gte: startDate, $lt: endDate },
+            });
+
+            res.status(200).json(orders.length);
+        } catch (error) {
+            console.error(error);
             res.status(500).json({ message: error.message });
         }
     },
