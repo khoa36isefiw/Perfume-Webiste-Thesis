@@ -15,7 +15,7 @@ import PasswordIcon from '@mui/icons-material/Password';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -43,11 +43,6 @@ export default function AdminAuth() {
         backTop();
     };
 
-    const handleNavigatePurchase = () => {
-        setAnchorEl(null);
-        navigate('/my-purchase');
-        backTop();
-    };
     const handleNavigateChangePassword = () => {
         setAnchorEl(null);
         navigate('/change-password');
@@ -86,7 +81,14 @@ export default function AdminAuth() {
                             aria-expanded={open ? 'true' : undefined}
                         >
                             <Avatar
-                                sx={{ width: 48, height: 48 }}
+                                sx={{
+                                    width: 48,
+                                    height: 48,
+                                    [mobileScreen]: {
+                                        width: 36,
+                                        height: 36,
+                                    },
+                                }}
                                 src={loggedInAccount?.userImage}
                                 alt="User Image"
                             />
@@ -106,12 +108,23 @@ export default function AdminAuth() {
                             <Box>
                                 <AdminTypography
                                     sx={{
+                                        [mobileScreen]: {
+                                            fontSize: 13,
+                                        },
                                         fontWeight: 'bold',
                                     }}
                                 >
                                     Admin Tomtoc
                                 </AdminTypography>
-                                <AdminTypography sx={{ fontSize: 14 }}>
+                                <AdminTypography
+                                    sx={{
+                                        [mobileScreen]: {
+                                            fontSize: 13,
+                                        },
+
+                                        fontSize: 14,
+                                    }}
+                                >
                                     @admintomtoc
                                 </AdminTypography>
                             </Box>

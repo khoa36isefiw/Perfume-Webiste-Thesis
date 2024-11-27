@@ -15,6 +15,7 @@ import RecentTransactions from './RecentTransactions';
 import TopProductsSale from './TopProductsSale';
 import useUsers from '../../api/useUsers';
 import DashboardV2 from './DashboardV2';
+import { mobileScreen } from '../../Theme/Theme';
 
 const cardData = [
     {
@@ -104,10 +105,18 @@ function Dashboard() {
 
     if (!usersData) return <div>Loading...</div>;
     return (
-        <Box sx={{ p: 2, mt: 2 }}>
+        <Box
+            sx={{
+                p: 2,
+                mt: 2,
+                [mobileScreen]: {
+                    padding: 0,
+                },
+            }}
+        >
             <Grid container spacing={4}>
                 {cardData.map((card, index) => (
-                    <Grid item lg={6} key={index}>
+                    <Grid item xs={12} sm={6} md={6} lg={6} key={index}>
                         <Box
                             sx={{
                                 background: card.gradient,
@@ -222,21 +231,20 @@ function Dashboard() {
                         </Box>
                     </Grid>
                 ))}
-                <Grid item lg={12}>
+                <Grid item sm={12} md={12} lg={12}>
                     <DashboardV2 />
                 </Grid>
-                <Grid item lg={12}>
+                <Grid item sm={12} md={12} lg={12}>
                     <TopSales />
                 </Grid>
-                <Grid item lg={12}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
                     <AdminBestSellingProducts />
                 </Grid>
-
-                <Grid item container spacing={4} lg={12}>
-                    <Grid item lg={6}>
+                <Grid item container spacing={4} sm={12} md={12} lg={12}>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
                         <RecentTransactions />
                     </Grid>
-                    <Grid item lg={6}>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
                         <TopProductsSale />
                     </Grid>
                 </Grid>

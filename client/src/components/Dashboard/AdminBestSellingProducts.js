@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import Paper from '@mui/material/Paper';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
-import { Avatar, Box, IconButton } from '@mui/material';
+import { Box } from '@mui/material';
 import ActionsButton from './ActionsButton';
 import DashboardProducts from './DashboardProducts';
 import { theme } from '../../Theme/Theme';
@@ -114,7 +113,15 @@ const paginationModel = { page: 0, pageSize: 5 };
 
 export default function AdminBestSellingProducts() {
     return (
-        <Box sx={{ bgcolor: '#fff', borderRadius: 1, p: 1, height: 600, width: '100%' }}>
+        <Box
+            sx={{
+                bgcolor: '#fff',
+                borderRadius: 1,
+                p: 1,
+                height: 600,
+                width: '100%',
+            }}
+        >
             <AdminTypography
                 sx={{
                     fontSize: '32px',
@@ -130,6 +137,7 @@ export default function AdminBestSellingProducts() {
                 initialState={{ pagination: { paginationModel } }}
                 pageSizeOptions={[5, 10]}
                 sx={{
+                    width: '100%',
                     border: 0,
                     '.MuiDataGrid-columnHeaderTitleContainer': {
                         fontSize: '14px',

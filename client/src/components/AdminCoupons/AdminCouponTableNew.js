@@ -7,27 +7,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { useNavigate } from 'react-router-dom';
-import { Search } from '@mui/icons-material';
-import { formatDate } from '../FormatDate/formatDate';
-import { Box, Button, InputAdornment, TextField, Typography } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import { blue, grey } from '@mui/material/colors';
 import {
     AdminHeadingTypography,
     AdminTypography,
-    CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
-import ActionsButton from '../Dashboard/ActionsButton';
-import { mobileScreen, theme } from '../../Theme/Theme';
-import MoneyOffIcon from '@mui/icons-material/MoneyOff';
-import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
-import WarningIcon from '@mui/icons-material/Warning';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { useNavigate } from 'react-router-dom';
+import { Box, InputAdornment, Typography } from '@mui/material';
+import { Search } from '@mui/icons-material';
+import { theme } from '../../Theme/Theme';
+import { formatDate } from '../FormatDate/formatDate';
 import useCoupons from '../../api/useCoupons';
-import useDeleteItem from '../../hooks/useDeleteItem';
-import { couponAPI } from '../../api/couponAPI';
-
-const itemsPerPage = 5;
+import ActionsButton from '../Dashboard/ActionsButton';
 
 const columns = [
     { id: 'code', label: 'Coupon Code', minWidth: 20 },
@@ -50,47 +43,18 @@ const columns = [
     { id: 'actions', label: 'Actions', minWidth: 170, align: 'center' }, // New column for actions
 ];
 
-const CouponsTable = () => {
+// Component to render the table with dynamic data
+export default function AdminCouponTableNew() {
     const navigate = useNavigate();
     const { data: couponsData, mutate, isLoading } = useCoupons();
-    const responeCouponsData = couponsData?.data || [];
-    const [currentPage, setCurrentPage] = useState(1);
-    const [filterCoupons, setFilterCoupons] = useState('All Coupons');
-
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [rows, setRows] = useState(couponsData?.data || []); // Dynamic user data
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
+    console.log('rows: ', rows);
+    console.log('couponsData: ', couponsData?.data);
 
-    // const [showNotification, setShowNotification] = useState(false);
-    // const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    // const [couponToRemove, setCouponToRemove] = useState(null);
-    // const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
-    const {
-        showNotification,
-        messageType,
-        messageTitle,
-        messageContent,
-        openConfirmMessage,
-        showAnimation,
-        openDeleteConfirmation,
-        handleCloseNotification,
-        handleConfirmDisagree,
-        handleConfirmAgree,
-        handleDeleteItem,
-    } = useDeleteItem(couponAPI.deleteCoupon, mutate, 'promotions');
-    // const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
-    const [listCoupons, setListCoupons] = useState(responeCouponsData);
-    useEffect(() => {
-        setListCoupons(responeCouponsData);
-    }, [couponsData?.data]);
-    console.log('listCoupons: ', listCoupons);
-
-    const filters = ['All Coupons', 'active', 'inactive', 'expired'];
-    const filterListCoupons =
-        filterCoupons !== 'All Coupons'
-            ? listCoupons?.filter((list) => list.status === filterCoupons)
-            : listCoupons;
+    // Sử dụng useUsersByIds để lấy thông tin người dùng cho từng userId
 
     useEffect(() => {
         if (couponsData?.data && couponsData) {
@@ -116,114 +80,56 @@ const CouponsTable = () => {
     };
 
     // Filter rows based on search term
-    const filteredRows = filterListCoupons.filter(
+    const filteredRows = rows.filter(
         (row) =>
             row?.code?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
             row?.description?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
-            row?.discount === +searchTerm ||
-            row?.status?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()),
+            row?.discount === +searchTerm,
     );
 
-    const handleFilterCoupons = (filter) => {
-        setFilterCoupons(filter);
-        // setCurrentPage(1);
+    // Handle edit action (you can implement your own logic for editing)
+    const handleViewOrder = (id) => {
+        navigate(`view-order/${id}`, {
+            state: { orderData: rows.find((row) => row._id === id) },
+        });
     };
 
     const handleEdit = (couponId) => {
         console.log('couponId: ', couponId);
         navigate(`edit/${couponId}`, {
             state: {
-                couponData: listCoupons?.find((coupon) => coupon._id === couponId),
+                couponData: couponsData?.data?.find((coupon) => coupon._id === couponId),
             },
         });
     };
 
-    // delete coupon feature
-    // open the confirm dialog message and save the products are removed
-    // const handleDeleteCoupon = (couponId) => {
-    //     // for showing confirm message dialog
-    //     setOpenConfirmMessage(true); // open
-    //     setCouponToRemove({ codeId: couponId }); // store coupon information is removed
-    // };
-
-    // // disagree, not delete the coupón
-    // const     = () => {
-    //     // click disagree button actions
-    //     setOpenConfirmMessage(false); // don't want to remove, hide the delete confirm message
-    //     setCouponToRemove(null);
-    // };
-
-    // // agree, delete the coupon
-    // const handleConfirmAgree = () => {
-    //     // click agree button actions
-    //     if (couponToRemove) {
-    //         dispatch(deleteCoupon({ codeId: couponToRemove.codeId }));
-    //     }
-    //     setShowNotification(true);
-    //     setShowAnimation('animate__bounceInRight');
-    //     setOpenConfirmMessage(false);
-    //     setCouponToRemove(null);
-    // };
-
-    // // handle Close notification
-    // const handleCloseNotification = () => {
-    //     setShowAnimation('animate__fadeOut');
-    //     setTimeout(() => {
-    //         setShowNotification(false);
-    //     }, 1000);
-    // };
-
     if (isLoading) {
         return <Typography>Loading...</Typography>;
     }
-
     return (
-        <Box sx={{ padding: 2 }}>
-            <AdminHeadingTypography>List Coupons</AdminHeadingTypography>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <Button
-                    variant="text"
-                    color="primary"
-                    sx={{
-                        marginBottom: 2,
-                        padding: '10px 0',
-                        borderRadius: 3,
-                        textTransform: 'initial',
-                        fontSize: '14px',
-                    }}
-                    startIcon={<FileDownloadIcon />}
-                >
-                    Export
-                </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                        marginBottom: 2,
-                        padding: '10px 18px',
-                        borderRadius: 3,
-                        bgcolor: theme.palette.admin.bgColor,
-                        textTransform: 'initial',
-                        fontSize: '14px',
-                        '&:hover': {
-                            bgcolor: theme.palette.admin.bgColor,
-                        },
-                    }}
-                    startIcon={<MoneyOffIcon />}
-                    onClick={() => navigate('/admin/manage-coupons/add')}
-                >
-                    Add Coupon
-                </Button>
-            </Box>
+        <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
+            {/* Search Bar */}
+            <AdminHeadingTypography sx={{ mb: 2 }}>List Orders</AdminHeadingTypography>
             <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
-                You can <strong>Search coupons</strong> by Code, Status, or Description.
+                We can <strong>Search</strong> Name
             </AdminTypography>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <TextField
-                    fullWidth
-                    placeholder="Search coupon information"
+                    placeholder="Search by Name or Email"
                     variant="outlined"
-                    sx={{ marginBottom: 2 }}
+                    sx={{
+                        marginBottom: 2,
+                        width: 750,
+                        '.MuiInputBase-root': {
+                            fontSize: '14px',
+                            height: '50px',
+                        },
+                        '& .MuiOutlinedInput-root': {
+                            '&.Mui-focused fieldset': {
+                                borderColor: theme.palette.admin.bgColor,
+                            },
+                        },
+                    }}
                     onChange={handleSearch}
                     value={searchTerm}
                     InputProps={{
@@ -234,28 +140,21 @@ const CouponsTable = () => {
                         ),
                     }}
                 />
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        marginBottom: 2,
+                        padding: '10px 18px',
+                        borderRadius: 3,
+                        textTransform: 'initial',
+                        fontSize: '14px',
+                    }}
+                    startIcon={<FileDownloadIcon />}
+                >
+                    Export
+                </Button>
             </Box>
-            <Box>
-                {filters?.map((filter, index) => (
-                    <Button
-                        onClick={() => handleFilterCoupons(filter)}
-                        key={index}
-                        variant={filterCoupons === filter ? 'contained' : 'outlined'}
-                        sx={{
-                            margin: 0.5,
-                            fontSize: '14px',
-                            textTransform: 'initial',
-                            mb: 2,
-                            borderRadius: 5,
-                            textTransform: 'capitalize',
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        {filter}
-                    </Button>
-                ))}
-            </Box>
-
             <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
                 <TableContainer sx={{ maxHeight: 440 }}>
                     <Table stickyHeader aria-label="sticky table">
@@ -420,56 +319,6 @@ const CouponsTable = () => {
                     }}
                 />
             </Box>
-
-            {/* Open Confirm Message */}
-            <ConfirmMessage
-                openConfirmMessage={openConfirmMessage}
-                msgTitle={
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <WarningIcon
-                            sx={{
-                                color: theme.icon.color.primary,
-                                fontSize: theme.icon.size.desktop,
-                            }}
-                        />
-                        <CustomizeTypography
-                            sx={{
-                                color: theme.palette.text.main,
-                                fontSize: '18px',
-                                mb: 0,
-                                ml: 2,
-                                fontWeight: 'bold',
-                            }}
-                        >
-                            Delete Products
-                        </CustomizeTypography>
-                    </Box>
-                }
-                msgContent={
-                    <Typography sx={{ fontSize: '16px' }}>
-                        Are you sure you want to delete this product?
-                    </Typography>
-                }
-                onHandleClickClose={handleConfirmDisagree}
-                onHandleConfirmAgree={handleConfirmAgree}
-                onHandleConfirmDisagree={handleConfirmDisagree}
-            />
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Box>
     );
-};
-
-export default CouponsTable;
+}
