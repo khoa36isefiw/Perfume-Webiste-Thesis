@@ -134,7 +134,13 @@ export default function AdminOrdersTable() {
             }}
         >
             {/* Search Bar */}
-            <Box sx={{ padding: 2 }}>
+            <Box
+                sx={{
+                    [mobileScreen]: {
+                        padding: 2,
+                    },
+                }}
+            >
                 <AdminHeadingTypography sx={{ mb: 2 }}>List Orders</AdminHeadingTypography>
                 <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
                     We can <strong>Search</strong> Name

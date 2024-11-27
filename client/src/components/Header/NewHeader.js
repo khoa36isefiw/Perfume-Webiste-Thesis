@@ -123,18 +123,23 @@ function NewHeader() {
 
     // search
     const handleSearchChange = (e) => {
-        const value = e.target.value;
-
+        const value = e.target.value.trim();
         setSearchQuery(value);
 
         if (value) {
             const filteredSuggestions = perfumeData.filter((product) =>
                 product.perfumeName.toLowerCase().includes(value.toLowerCase()),
             );
-            setShowSuggestions(true);
+
             setSuggestions(filteredSuggestions);
+            setShowSuggestions(true);
         } else {
+            setSuggestions([]);
             setShowSuggestions(false);
+            window.localStorage.removeItem('search_query');
+            // const params = new URLSearchParams(location.search);
+            // params.delete('keyword'); // Xóa tham số `keyword` khỏi URL
+            navigate(`${location.pathname}`);
         }
     };
 
@@ -149,17 +154,12 @@ function NewHeader() {
     useEffect(() => {
         if (searchQuery === '') {
             window.localStorage.removeItem('search_query');
-            // navigate('/shop');
-            localStorage.removeItem('filter');
-            localStorage.removeItem('sortBy');
             const currentQueryParams = new URLSearchParams(location.search);
             console.log('location.search: ', location.search);
             currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
             currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
-
-            navigate(`/${i18n.language}/shop?${currentQueryParams.toString()}`);
         }
-    }, [searchQuery]);
+    }, [searchQuery, location]);
 
     // Parse URL parameters on mount to set initial searchQuery and filter values
     // Function to handle searching
@@ -221,18 +221,6 @@ function NewHeader() {
         navigate(`/${i18n.language}/shopping-cart`);
     };
 
-    // useEffect(() => {
-    //     const params = new URLSearchParams(location.search); // get current query string params
-    //     console.log('params: ', params.toString());
-
-    //     if (!params.toString().includes('keyword=')) {
-    //         // remove filter key on local storage when brand filter is not present in the URL
-    //         window.localStorage.removeItem('search_query');
-    //         // setSearchQuery('');
-    //         navigate(`/${i18n.language}/shop?${params.toString()}`);
-    //         mutate();
-    //     }
-    // }, [new URLSearchParams(location.search)]);
     return (
         <Box
             sx={{
