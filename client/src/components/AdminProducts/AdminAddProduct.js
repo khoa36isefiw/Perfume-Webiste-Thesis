@@ -70,10 +70,7 @@ const AdminAddProduct = () => {
 
         console.log('getCategoryById: ', getCategoryById);
         if (
-            image !== null &&
             productName !== '' &&
-            brand !== '' &&
-            category !== '' &&
             selectedSizes.length > 0 &&
             selectedSizes.every(
                 (size) =>
@@ -83,7 +80,10 @@ const AdminAddProduct = () => {
                     size.stock !== '',
             )
         ) {
-            if (selectedSizes.every((size) => size.priceSale - size.stock < 0)) {
+            for (let i = 0; i < selectedSizes.length; i++) {
+                console.log(+selectedSizes[i].priceSale);
+            }
+            if (selectedSizes.every((size) => +size.priceSale - +size.price > 0)) {
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
                 setMessageType('error');
@@ -205,7 +205,7 @@ const AdminAddProduct = () => {
             const { price, priceSale, stock } = updatedSizes[index];
 
             // Kiểm tra điều kiện priceSale > price
-            if (priceSale > price) {
+            if (+priceSale > +price) {
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
                 setMessageType('error');

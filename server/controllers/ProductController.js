@@ -1,5 +1,6 @@
 const Product = require('../models/Product.model');
 const Variant = require('../models/Variant.model');
+const emailEvent = require('../events/emailEvent');
 
 const ProductController = {
     getAll: async (req, res) => {
@@ -91,6 +92,21 @@ const ProductController = {
         }
     },
 
+    getLatest: async (req, res) => {
+        const limit = req.query.limit || 10;
+        try {
+            const products = await Product.find({ status: 'active' })
+                .sort({ createdAt: -1 })
+                .limit(limit)
+                .populate('variants')
+                .populate('category')
+                .populate('brand');
+            res.status(200).json(products);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
     getById: async (req, res) => {
         try {
             const { id } = req.params;
@@ -175,6 +191,12 @@ const ProductController = {
             savedProduct.variants = savedVariants.map((variant) => variant._id);
 
             const result = await savedProduct.save();
+
+            emailEvent.emit('sendEmail', {
+                subject: 'New Product Available!',
+                content: `Check out our new product: ${nameEn}. Visit our website for more details!`,
+            });
+
             res.status(201).json(result);
         } catch (error) {
             res.status(500).json({ message: error.message });

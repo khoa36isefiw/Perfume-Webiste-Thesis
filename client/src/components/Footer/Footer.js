@@ -14,8 +14,10 @@ import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import { useTranslation } from 'react-i18next';
+import { userAPI } from '../../api/userAPI';
 
 function Footer() {
+    const [email, setEmail] = React.useState('');
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
     const handleNavigate = (dest) => {
@@ -28,6 +30,13 @@ function Footer() {
         // prevent change to default language
         i18n.changeLanguage(language); // Set the language for i18n
     }, []);
+    const handleSubcribe = async () => {
+        const response = await userAPI.subscribe({ email });
+        if (response.status === 200) {
+            alert('Subscribe successfully');
+        }
+    };
+
     return (
         <Box
             sx={{
@@ -98,6 +107,8 @@ function Footer() {
                                         width: '100%',
                                     },
                                 }}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                             <Button
                                 variant="contained"
@@ -113,6 +124,7 @@ function Footer() {
                                         bgcolor: theme.palette.secondaryText,
                                     },
                                 }}
+                                onClick={handleSubcribe}
                             >
                                 Submit
                             </Button>

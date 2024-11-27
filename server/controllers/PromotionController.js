@@ -1,3 +1,4 @@
+const emailEvent = require('../events/emailEvent');
 const Promotion = require('../models/Promotion.model');
 
 const PromotionController = {
@@ -35,6 +36,12 @@ const PromotionController = {
                 return res.status(400).json({ message: 'Discount must be between 0 and 100' });
             }
             const promotion = await Promotion.create(req.body);
+
+            emailEvent.emit('sendEmail', {
+                subject: 'New Promotion Code!',
+                content: `We have a new promotion code: ${promotion.code} with a ${discount}% discount. Don't miss out!`,
+            });
+
             res.status(201).json(promotion);
         } catch (error) {
             res.status(500).json({ message: error.message });
