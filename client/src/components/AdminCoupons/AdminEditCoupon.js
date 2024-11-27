@@ -1,30 +1,18 @@
 import React, { useState } from 'react';
-import {
-    Avatar,
-    Box,
-    Button,
-    MenuItem,
-    Select,
-    TextField,
-    Typography,
-    FormControl,
-    Grid,
-} from '@mui/material';
+import { Box, MenuItem, Select, TextField, Typography, FormControl, Grid } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
-import { grey } from '@mui/material/colors';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-    createNewCoupon,
-    updateCoupon,
-} from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
+
+import { useDispatch } from 'react-redux';
+import { updateCoupon } from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { AdminButtonDesign } from './AdminCreateCoupon';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { couponAPI } from '../../api/couponAPI';
+import { grey } from '@mui/material/colors';
 
 function AdminEditCoupon() {
     const navigate = useNavigate();
@@ -179,7 +167,7 @@ function AdminEditCoupon() {
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                     {/* Brand Dropdown */}
                     <AdminTypography>Coupon Status</AdminTypography>
-                    <FormControl fullWidth sx={{ mb: 2, height: 40 }}>
+                    <FormControl fullWidth sx={{ mb: 2 }}>
                         <Select
                             labelId="brand-select-label"
                             value={status}
@@ -188,28 +176,28 @@ function AdminEditCoupon() {
                             {statusOptions.map((option) => (
                                 <MenuItem key={option} value={option}>
                                     <Box
-                                    // sx={{
-                                    //     bgcolor:
-                                    //         option === 'active'
-                                    //             ? '#bdf5d3'
-                                    //             : option === 'inactive'
-                                    //             ? '#ffdfe4'
-                                    //             : grey[300],
-                                    //     borderRadius: 1,
-                                    //     boxShadow: 1,
-                                    //     padding: '2px 0',
-                                    //     width: 80,
-                                    // }}
+                                        sx={{
+                                            bgcolor:
+                                                option === 'active'
+                                                    ? '#bdf5d3'
+                                                    : option === 'inactive'
+                                                    ? '#ffdfe4'
+                                                    : grey[300],
+                                            borderRadius: 1,
+                                            boxShadow: 1,
+                                            padding: '2px 0',
+                                            width: 80,
+                                        }}
                                     >
                                         <AdminTypography
                                             sx={{
                                                 fontSize: '14px',
-                                                // color:
-                                                //     option === 'active'
-                                                //         ? '#187d44'
-                                                //         : option === 'inactive'
-                                                //         ? '#f11133'
-                                                //         : grey[600],
+                                                color:
+                                                    option === 'active'
+                                                        ? '#187d44'
+                                                        : option === 'inactive'
+                                                        ? '#f11133'
+                                                        : grey[600],
                                                 fontWeight: 'bold',
                                                 textAlign: 'center',
                                             }}
