@@ -33,8 +33,8 @@ const AdminEditProduct = () => {
     // Set up local state for editable product information
     const [image, setImage] = useState(productData.image);
     const [productName, setProductName] = useState(productData.productName);
-    const [category, setCategory] = useState(productTest.category._id);
-    const [brand, setBrand] = useState(productTest.brand._id);
+    const [category, setCategory] = useState(productTest?.category?._id);
+    const [brand, setBrand] = useState(productTest?.brand?._id);
     const [disabledButton, setDisabledButton] = useState(false);
     const [selectedSizes, setSelectedSizes] = useState(
         productTest?.variants.map((variant) => ({
