@@ -82,8 +82,8 @@ function BestSellingProducts() {
             </CustomizeTypography>
             <Box sx={{ mt: 4 }}>
                 <Slider {...settings}>
-                    {latestProducts.length &&
-                        latestProducts.map((perfume, index) => (
+                    {latestProducts?.length &&
+                        latestProducts?.map((perfume, index) => (
                             <Box
                                 key={index}
                                 sx={{
