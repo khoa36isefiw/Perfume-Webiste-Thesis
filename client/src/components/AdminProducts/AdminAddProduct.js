@@ -12,11 +12,10 @@ import {
     Checkbox,
     Tooltip,
     IconButton,
-    FormControlLabel,
     ListItemText,
 } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import useBrand from '../../api/useBrand';
 import useCategory from '../../api/useCategory';
@@ -28,13 +27,9 @@ import BackspaceIcon from '@mui/icons-material/Backspace';
 const AdminAddProduct = () => {
     const [image, setImage] = useState(null);
     const [productName, setProductName] = useState('');
-    const [price, setPrice] = useState('');
-    const [stock, setStock] = useState('');
-    const [priceSale, setPriceSale] = useState('');
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');
     const [selectedSizes, setSelectedSizes] = useState([]);
-    const [checked, setChecked] = useState(true);
     const [disabledButton, setDisabledButton] = useState(false);
 
     // notifications
@@ -241,7 +236,17 @@ const AdminAddProduct = () => {
     };
 
     return (
-        <Box sx={{ p: 3, mx: 4, borderRadius: 2 }}>
+        <Box
+            sx={{
+                p: 3,
+                mx: 4,
+                borderRadius: 2,
+                [mobileScreen]: {
+                    p: 2,
+                    mx: 1,
+                },
+            }}
+        >
             <AdminButtonBackPage title={'List Products'} />
             <Typography variant="h4" sx={{ mb: 3 }}>
                 Add New Product
