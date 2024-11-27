@@ -20,7 +20,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import ordersData from '../../data/admin/orders.json';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import useOrders from '../../api/useOrders';
@@ -123,12 +123,37 @@ export default function AdminOrdersTable() {
         return <Typography>Loading...</Typography>;
     }
     return (
-        <Box sx={{ width: '100%', overflow: 'hidden', p: 2 }}>
+        <Box
+            sx={{
+                width: '100%',
+                overflow: 'hidden',
+                p: 2,
+                [mobileScreen]: {
+                    padding: 0,
+                },
+            }}
+        >
             {/* Search Bar */}
-            <AdminHeadingTypography sx={{ mb: 2 }}>List Orders</AdminHeadingTypography>
-            <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
-                We can <strong>Search</strong> Name
-            </AdminTypography>
+            <Box sx={{ padding: 2 }}>
+                <AdminHeadingTypography sx={{ mb: 2 }}>List Orders</AdminHeadingTypography>
+                <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
+                    We can <strong>Search</strong> Name
+                </AdminTypography>
+                <Button
+                    variant="text"
+                    color="primary"
+                    sx={{
+                        marginBottom: 2,
+                        padding: '10px 0',
+                        borderRadius: 3,
+                        textTransform: 'initial',
+                        fontSize: '14px',
+                    }}
+                    startIcon={<FileDownloadIcon />}
+                >
+                    Export
+                </Button>
+            </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <TextField
                     placeholder="Search by Name or Email"
@@ -156,20 +181,6 @@ export default function AdminOrdersTable() {
                         ),
                     }}
                 />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                        marginBottom: 2,
-                        padding: '10px 18px',
-                        borderRadius: 3,
-                        textTransform: 'initial',
-                        fontSize: '14px',
-                    }}
-                    startIcon={<FileDownloadIcon />}
-                >
-                    Export
-                </Button>
             </Box>
             <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
                 <TableContainer sx={{ maxHeight: 440 }}>
