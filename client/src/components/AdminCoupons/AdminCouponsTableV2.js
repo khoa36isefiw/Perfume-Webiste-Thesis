@@ -1,5 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { useNavigate } from 'react-router-dom';
+import { Search } from '@mui/icons-material';
+import { formatDate } from '../FormatDate/formatDate';
+import { Box, Button, InputAdornment, TextField, Typography } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import {
     AdminHeadingTypography,
@@ -8,33 +19,47 @@ import {
 } from '../CustomizeTypography/CustomizeTypography';
 import ActionsButton from '../Dashboard/ActionsButton';
 import { mobileScreen, theme } from '../../Theme/Theme';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { useNavigate } from 'react-router-dom';
-import { Search } from '@mui/icons-material';
 import MoneyOffIcon from '@mui/icons-material/MoneyOff';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import SellIcon from '@mui/icons-material/Sell';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteCoupon } from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import WarningIcon from '@mui/icons-material/Warning';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
-import EmptyCart from '../EmptyCart/EmptyCart';
 import useCoupons from '../../api/useCoupons';
-import { formatDate } from '../FormatDate/formatDate';
 import useDeleteItem from '../../hooks/useDeleteItem';
 import { couponAPI } from '../../api/couponAPI';
 
 const itemsPerPage = 5;
 
+const columns = [
+    { id: 'code', label: 'Coupon Code', minWidth: 20 },
+    { id: 'description', label: 'Coupon Description', minWidth: 20 },
+
+    { id: 'discount', label: 'Discount', minWidth: 50 },
+    {
+        id: 'quantity',
+        label: 'Quantity',
+        minWidth: 20,
+    },
+    { id: 'startDate', label: 'Start Date', minWidth: 40 },
+    { id: 'endDate', label: 'Valid Till', minWidth: 40 },
+    {
+        id: 'status',
+        label: 'Status',
+        minWidth: 70,
+        align: 'left',
+    },
+    { id: 'actions', label: 'Actions', minWidth: 170, align: 'center' }, // New column for actions
+];
+
 const CouponsTable = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const { data: couponsData, mutate, isLoading } = useCoupons();
     const responeCouponsData = couponsData?.data || [];
     const [currentPage, setCurrentPage] = useState(1);
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rows, setRows] = useState(couponsData?.data || []); // Dynamic user data
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
 
     // const [showNotification, setShowNotification] = useState(false);
@@ -67,46 +92,41 @@ const CouponsTable = () => {
             ? listCoupons?.filter((list) => list.status === filterCoupons)
             : listCoupons;
 
-    const filteredSearchCoupons = filterListCoupons?.filter(
-        (row) =>
-            row?.discount?.toString().toLowerCase().includes(searchTerm?.toLowerCase()) || // a number not a string
-            row?.status?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
-            row?.code?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
-            row?.description?.toLowerCase().includes(searchTerm?.toLowerCase()),
-    );
-
-    // Tính toán dữ liệu hiển thị cho trang hiện tại
-    const indexOfLastItem = currentPage * itemsPerPage; // 5
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage; // 0
-    const currentItems = filteredSearchCoupons?.slice(indexOfFirstItem, indexOfLastItem); // 0, 5 --> 5 items
-    // Tính tổng số trang based on list coupons are filtered
-    const totalPages = Math.ceil(filteredSearchCoupons?.length / itemsPerPage); // làm tròn lên
-
-    const handlePageClick = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
-    const handleNext = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
+    useEffect(() => {
+        if (couponsData?.data && couponsData) {
+            setRows(couponsData?.data);
         }
+    }, [couponsData]);
+
+    // Handle page change for pagination
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
     };
 
-    const handlePrevious = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-
-    const handleFilterCoupons = (filter) => {
-        setFilterCoupons(filter);
-        setCurrentPage(1);
+    // Handle rows per page change
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(event.target.value);
+        setPage(0);
     };
 
     // Handle search input change
     const handleSearch = (event) => {
-        setSearchTerm(event.target.value?.toLowerCase());
-        setCurrentPage(1);
+        setSearchTerm(event.target.value.toLowerCase());
+        setPage(0); // Reset page to 0 when search term changes
+    };
+
+    // Filter rows based on search term
+    const filteredRows = filterListCoupons.filter(
+        (row) =>
+            row?.code?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            row?.description?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            row?.discount === +searchTerm ||
+            row?.status?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()),
+    );
+
+    const handleFilterCoupons = (filter) => {
+        setFilterCoupons(filter);
+        // setCurrentPage(1);
     };
 
     const handleEdit = (couponId) => {
@@ -200,9 +220,10 @@ const CouponsTable = () => {
             </AdminTypography>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <TextField
-                    placeholder="Search by Name"
+                    fullWidth
+                    placeholder="Search coupon information"
                     variant="outlined"
-                    sx={{ marginBottom: 2, width: 750 }}
+                    sx={{ marginBottom: 2 }}
                     onChange={handleSearch}
                     value={searchTerm}
                     InputProps={{
@@ -235,225 +256,169 @@ const CouponsTable = () => {
                 ))}
             </Box>
 
-            <Box
-                sx={{
-                    margin: 'auto',
-                    bgcolor: '#fff',
-                    borderRadius: 2,
-                    height: '520px',
-                    width: '100%',
-                    p: 2,
-                    [mobileScreen]: { p: 0 },
-                    overflow: 'scroll',
-                }}
-            >
-                <Box
-                    sx={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        bgcolor: blue[200],
-                        // paddingBottom: 2,
-                        padding: 2,
-                        borderBottom: '2px solid #ddd',
-                    }}
-                >
-                    <AdminTypography sx={{ fontSize: '16px', flex: 2, fontWeight: 'bold' }}>
-                        Coupon Code
-                    </AdminTypography>
-                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
-                        Discount
-                    </AdminTypography>
-                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
-                        Quantity
-                    </AdminTypography>
-
-                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
-                        Start Date
-                    </AdminTypography>
-                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
-                        Valid Till
-                    </AdminTypography>
-                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
-                        Status
-                    </AdminTypography>
-                    <AdminTypography sx={{ fontSize: '16px', flex: 1, fontWeight: 'bold' }}>
-                        Actions
-                    </AdminTypography>
-                </Box>
-                {currentItems?.length > 0 ? (
-                    <React.Fragment>
-                        {currentItems?.map((coupon) => (
-                            <Box
-                                key={coupon._id}
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-
-                                    padding: 2,
-                                    borderBottom: '1px solid #ddd',
-                                }}
-                            >
-                                <Box sx={{ display: 'flex', alignItems: 'center', flex: 2 }}>
-                                    <Box
+            <Box sx={{ borderRadius: 1, bgcolor: '#fff', border: '1px solid #ccc' }}>
+                <TableContainer sx={{ maxHeight: 440 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                {columns.map((column) => (
+                                    <TableCell
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{ minWidth: column.minWidth }}
                                         sx={{
-                                            bgcolor: blue[700],
-                                            padding: '10px',
-                                            borderRadius: 1,
-                                            mr: 1,
+                                            bgcolor: blue[200],
+                                            fontSize: '14px',
+                                            textAlign: 'center',
                                         }}
                                     >
-                                        <SellIcon
-                                            sx={{
-                                                fontSize: '24px',
-                                                color: '#fff',
-                                                transform: 'rotate(90deg)',
-                                            }}
-                                        />
-                                    </Box>
-                                    <Box>
-                                        <AdminTypography sx={{ flex: 1 }}>
-                                            {coupon.description}
-                                        </AdminTypography>
-                                        <AdminTypography sx={{ flex: 1, mt: '4px' }}>
-                                            {coupon.code}
-                                        </AdminTypography>
-                                    </Box>
-                                </Box>
-                                <AdminTypography sx={{ flex: 1 }}>
-                                    {coupon.discount}
-                                </AdminTypography>
-                                <AdminTypography sx={{ flex: 1 }}>
-                                    {coupon.quantity}
-                                </AdminTypography>
+                                        {column.label}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {filteredRows
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row) => (
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.orderId}>
+                                        {columns.map((column) => {
+                                            const value = row[column.id];
+                                            return (
+                                                <TableCell
+                                                    key={column.id}
+                                                    align={column.align}
+                                                    sx={{ fontSize: '13px', textAlign: 'center' }}
+                                                >
+                                                    {/* Render avatar if the column is 'avatar', otherwise display text */}
+                                                    {column.id === 'actions' ? (
+                                                        // Render Edit and Delete buttons in the 'actions' column
+                                                        <>
+                                                            <ActionsButton
+                                                                onHandleClickEdit={() =>
+                                                                    handleEdit(row._id)
+                                                                }
+                                                                onHandleClickDelete={''}
+                                                            />
+                                                        </>
+                                                    ) : column.id === 'status' ? (
+                                                        row.status === 'active' ? (
+                                                            <Box
+                                                                sx={{
+                                                                    bgcolor: '#bdf5d3',
+                                                                    borderRadius: 1,
+                                                                    boxShadow: 1,
+                                                                    padding: '4px 0',
+                                                                    width: 80,
+                                                                }}
+                                                            >
+                                                                <AdminTypography
+                                                                    sx={{
+                                                                        fontSize: '14px',
+                                                                        color: '#187d44',
+                                                                        fontWeight: 'bold',
+                                                                        textAlign: 'center',
+                                                                    }}
+                                                                >
+                                                                    {row.status}
+                                                                </AdminTypography>
+                                                            </Box>
+                                                        ) : row.status === 'inactive' ? (
+                                                            <Box
+                                                                sx={{
+                                                                    bgcolor: '#ffdfe4',
+                                                                    borderRadius: 1,
+                                                                    boxShadow: 1,
+                                                                    padding: '4px 0',
+                                                                    width: 80,
+                                                                }}
+                                                            >
+                                                                <AdminTypography
+                                                                    sx={{
+                                                                        fontSize: '14px',
+                                                                        color: '#f11133',
+                                                                        fontWeight: 'bold',
+                                                                        textAlign: 'center',
+                                                                    }}
+                                                                >
+                                                                    {row.status}
+                                                                </AdminTypography>
+                                                            </Box>
+                                                        ) : (
+                                                            <Box
+                                                                sx={{
+                                                                    bgcolor: grey[200],
 
-                                <AdminTypography sx={{ flex: 1 }}>
-                                    {formatDate(coupon.startDate)}
-                                </AdminTypography>
-                                <AdminTypography sx={{ flex: 1 }}>
-                                    {formatDate(coupon.endDate)}
-                                </AdminTypography>
-                                <Box sx={{ flex: 1 }}>
-                                    {coupon.status === 'active' ? (
-                                        <Box
-                                            sx={{
-                                                bgcolor: '#bdf5d3',
+                                                                    borderRadius: 1,
+                                                                    boxShadow: 1,
+                                                                    padding: '4px 0',
+                                                                    width: 80,
+                                                                }}
+                                                            >
+                                                                <AdminTypography
+                                                                    sx={{
+                                                                        fontSize: '14px',
+                                                                        color: grey[600],
+                                                                        fontWeight: 'bold',
+                                                                        textAlign: 'center',
+                                                                    }}
+                                                                >
+                                                                    {row.status}
+                                                                </AdminTypography>
+                                                            </Box>
+                                                        )
+                                                    ) : column.id === 'startDate' ? (
+                                                        <>
+                                                            <Typography sx={{ fontSize: 12 }}>
+                                                                {formatDate(row.startDate)}
+                                                            </Typography>
+                                                        </>
+                                                    ) : column.id === 'endDate' ? (
+                                                        <Typography sx={{ fontSize: 12 }}>
+                                                            {formatDate(row.endDate)}
+                                                        </Typography>
+                                                    ) : (
+                                                        value
+                                                    )}
+                                                </TableCell>
+                                            );
+                                        })}
+                                    </TableRow>
+                                ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={filteredRows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    sx={{
+                        '.MuiTablePagination-selectLabel': {
+                            fontSize: '13px',
+                        },
+                        '.MuiTablePagination-select': {
+                            fontSize: '13px',
+                            mt: 1,
+                        },
+                        '.MuiTablePagination-displayedRows': {
+                            fontSize: '13px',
+                        },
 
-                                                borderRadius: 2,
-                                                boxShadow: 1,
-                                                padding: '4px 0',
-                                                width: 80,
-                                            }}
-                                        >
-                                            <AdminTypography
-                                                sx={{
-                                                    fontSize: '14px',
-                                                    color: '#187d44',
-                                                    fontWeight: 'bold',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                {coupon.status}
-                                            </AdminTypography>
-                                        </Box>
-                                    ) : coupon.status === 'inactive' ? (
-                                        <Box
-                                            sx={{
-                                                bgcolor: '#ffdfe4',
-                                                borderRadius: 2,
-                                                boxShadow: 1,
-                                                padding: '4px 0',
-                                                width: 80,
-                                            }}
-                                        >
-                                            <AdminTypography
-                                                sx={{
-                                                    fontSize: '14px',
-                                                    color: '#f11133',
-                                                    fontWeight: 'bold',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                {coupon.status}
-                                            </AdminTypography>
-                                        </Box>
-                                    ) : (
-                                        <Box
-                                            sx={{
-                                                bgcolor: grey[200],
+                        // '.MuiSvgIcon-root': { fontSize: '14px' },
+                        '.MuiSelect-icon': {
+                            fontSize: '24px',
+                        },
 
-                                                borderRadius: 2,
-                                                boxShadow: 1,
-                                                padding: '4px 0',
-                                                width: 80,
-                                            }}
-                                        >
-                                            <AdminTypography
-                                                sx={{
-                                                    fontSize: '14px',
-                                                    color: grey[600],
-                                                    fontWeight: 'bold',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                {coupon.status}
-                                            </AdminTypography>
-                                        </Box>
-                                    )}
-                                </Box>
-                                <ActionsButton
-                                    onHandleClickEdit={() => handleEdit(coupon._id)}
-                                    onHandleClickDelete={() => handleDeleteItem(coupon._id)}
-                                />
-                            </Box>
-                        ))}
-                    </React.Fragment>
-                ) : (
-                    <EmptyCart
-                        imgCart={
-                            'https://cdn.shopify.com/s/files/1/0774/6430/6008/t/1/assets/posterbase.com%20cart%20empty.png?v=1693066146'
-                        }
-                        title="Empty Table"
-                        subTitle="Looks like you have not added anything to your table."
-                        isShowButton={false}
-                        height={'256px'}
-                        width={'350px'}
-                        spacing={'0px'}
-                        imageSpacing={'40px'}
-                        emptyCartHeight={'420px'}
-                    />
-                )}
-            </Box>
-
-            <Box
-                sx={{
-                    display: currentItems?.length > 0 ? 'flex' : 'none',
-                    justifyContent: 'center',
-                    marginTop: 2,
-                }}
-            >
-                <IconButton onClick={handlePrevious} disabled={currentPage === 1}>
-                    <ArrowBackIosNewIcon />
-                </IconButton>
-                {Array.from({ length: totalPages }, (_, index) => (
-                    // _ is not used
-                    <Box>
-                        <Button
-                            key={index + 1}
-                            onClick={() => handlePageClick(index + 1)}
-                            variant={currentPage === index + 1 ? 'contained' : 'outlined'}
-                            sx={{ margin: 0.5 }}
-                        >
-                            {index + 1}
-                        </Button>
-                    </Box>
-                ))}
-                {/* disabled if the current index is the last page */}
-                <IconButton onClick={handleNext} disabled={currentPage === totalPages}>
-                    <ArrowForwardIosIcon />
-                </IconButton>
+                        // next and previous button
+                        '.MuiSvgIcon-root': {
+                            fontSize: '24px',
+                        },
+                    }}
+                />
             </Box>
 
             {/* Open Confirm Message */}

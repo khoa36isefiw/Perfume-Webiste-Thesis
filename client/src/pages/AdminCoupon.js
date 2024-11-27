@@ -7,7 +7,6 @@ function AdminCoupon() {
     return (
         <Box sx={{ height: '120vh' }}>
             <AdminCouponsList />
-            <AdminCouponTableNew />
         </Box>
     );
 }
