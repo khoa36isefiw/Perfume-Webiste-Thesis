@@ -6,7 +6,7 @@ const { getDateRange } = require('../utils/date');
 const OrderController = {
     getAll: async (req, res) => {
         try {
-            const orders = await Order.find({}).populate('promotionCode');
+            const orders = await Order.find({}).populate('promotionCode').populate('user');
             res.status(200).json(orders);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -25,7 +25,9 @@ const OrderController = {
 
             const orders = await Order.find({
                 createdAt: { $gte: startDate, $lt: endDate },
-            });
+            })
+                .populate('promotionCode')
+                .populate('user');
 
             res.status(200).json(orders.length);
         } catch (error) {
@@ -37,7 +39,9 @@ const OrderController = {
     getByUserId: async (req, res) => {
         try {
             const { userId } = req.params;
-            const orders = await Order.find({ user: userId }).populate('promotionCode');
+            const orders = await Order.find({ user: userId })
+                .populate('promotionCode')
+                .populate('user');
             res.status(200).json(orders);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -47,7 +51,9 @@ const OrderController = {
     getById: async (req, res) => {
         try {
             const { id } = req.params;
-            const order = await Order.findOne({ _id: id }).populate('promotionCode');
+            const order = await Order.findOne({ _id: id })
+                .populate('promotionCode')
+                .populate('user');
             if (!order) {
                 return res.status(404).json({ message: 'Order not found' });
             }
