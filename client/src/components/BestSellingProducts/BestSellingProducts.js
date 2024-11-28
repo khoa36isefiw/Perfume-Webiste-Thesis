@@ -14,15 +14,17 @@ import { converToVND } from '../convertToVND/convertToVND';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import useLatestProduct from '../../api/useLatestProduct';
+import { useTranslation } from 'react-i18next';
 
 function BestSellingProducts() {
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     // cut the perfumeData list, just use 5 items in array
     const { data: products } = useLatestProduct();
     const latestProducts = products?.data;
     const handleNavigateProductDetails = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
-        navigate(`/product/${perfume.perfumeID}`, { state: { perfume } });
+        navigate(`/${i18n.language}/product/${perfume._id}`, { state: { perfume } });
         backTop();
     };
     const settings = {
@@ -102,7 +104,7 @@ function BestSellingProducts() {
                                         // background: `linear-gradient(${theme.palette.bestSelling}, ${theme.palette.bestSelling2})`,
                                         background: theme.palette.bestSelling,
                                         borderRadius: 2,
-                                        height: '450px',
+                                        height: '350px',
 
                                         p: 1,
                                         display: 'flex',
@@ -113,7 +115,7 @@ function BestSellingProducts() {
                                 >
                                     <Avatar
                                         src={perfume.imagePath[0]}
-                                        sx={{ borderRadius: 0, height: '300px', width: '200px' }}
+                                        sx={{ borderRadius: 0, height: '250px', width: '200px' }}
                                     />
                                     <CustomizeTypography
                                         textAlign={'center'}
