@@ -61,31 +61,16 @@ export default function AdminOrdersTable() {
     const navigate = useNavigate();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [rows, setRows] = useState([]); // Dynamic user data
+
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
     const { data: ordersData, isLoading } = useOrders();
+    const [rows, setRows] = useState([]); // Dynamic user data
 
-    // return userIds list from ordersData
-    const userIds = ordersData?.data?.map((order) => order?.user) || [];
-    // Sử dụng useUsersByIds để lấy thông tin người dùng cho từng userId
-    const { usersData, isLoading: usersLoading, isError: usersError } = useUsersByIds(userIds);
     useEffect(() => {
-        if (ordersData?.data && usersData) {
-            const ordersWithUserData = ordersData?.data?.map((order) => {
-                // user information field to ordersData
-                const user = usersData?.find((userData) => userData._id === order.user);
-                return {
-                    ...order,
-                    userName: user ? `${user.firstName} ${user.lastName}` : 'Unknown',
-                    userImage: user?.imagePath,
-                    userEmail: user?.email,
-                    userAddress: user?.address,
-                    userPhone: user?.phoneNumber,
-                };
-            });
-            setRows(ordersWithUserData);
+        if (ordersData && ordersData?.data) {
+            setRows(ordersData?.data);
         }
-    }, [ordersData?.data, usersData]);
+    }, [ordersData?.data]);
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -107,10 +92,13 @@ export default function AdminOrdersTable() {
     // Filter rows based on search term
     const filteredRows = rows.filter(
         (row) =>
-            row?.userName?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
-            row?.orderPaid?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            row?.user.firstName?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            row?.user.lastName?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            row?.paymentMethod?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
             row?.orderDate?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()),
     );
+
+    console.log('filteredRows: ', filteredRows);
 
     // Handle edit action (you can implement your own logic for editing)
     const handleViewOrder = (id) => {
@@ -119,9 +107,10 @@ export default function AdminOrdersTable() {
         });
     };
 
-    if (isLoading || usersLoading) {
+    if (isLoading) {
         return <Typography>Loading...</Typography>;
     }
+
     return (
         <Box
             sx={{
@@ -211,119 +200,161 @@ export default function AdminOrdersTable() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {filteredRows
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.orderId}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <TableCell
-                                                    key={column.id}
-                                                    align={column.align}
-                                                    sx={{ fontSize: '13px', textAlign: 'center' }}
-                                                >
-                                                    {/* Render avatar if the column is 'avatar', otherwise display text */}
-                                                    {column.id === 'actions' ? (
-                                                        // Render Edit and Delete buttons in the 'actions' column
-                                                        <>
-                                                            <Tooltip
-                                                                title={
-                                                                    <CustomizeTypography
+                            {filteredRows.length > 0 &&
+                                filteredRows
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((row) => (
+                                        <TableRow
+                                            hover
+                                            role="checkbox"
+                                            tabIndex={-1}
+                                            key={row.orderId}
+                                        >
+                                            {columns.map((column) => {
+                                                const value = row[column.id];
+                                                return (
+                                                    <TableCell
+                                                        key={column.id}
+                                                        align={column.align}
+                                                        sx={{
+                                                            fontSize: '13px',
+                                                            textAlign: 'center',
+                                                        }}
+                                                    >
+                                                        {/* Render avatar if the column is 'avatar', otherwise display text */}
+                                                        {column.id === 'actions' ? (
+                                                            // Render Edit and Delete buttons in the 'actions' column
+                                                            <>
+                                                                <Tooltip
+                                                                    title={
+                                                                        <CustomizeTypography
+                                                                            sx={{
+                                                                                fontSize: '13px',
+                                                                                mb: 0,
+                                                                            }}
+                                                                        >
+                                                                            View Order Details
+                                                                        </CustomizeTypography>
+                                                                    }
+                                                                >
+                                                                    <IconButton
+                                                                        onClick={() =>
+                                                                            handleViewOrder(row._id)
+                                                                        }
                                                                         sx={{
-                                                                            fontSize: '13px',
-                                                                            mb: 0,
+                                                                            bgcolor: '#fbe5ff',
+                                                                            borderRadius: '10px',
+                                                                            boxShadow: 2,
+                                                                            '&:hover': {
+                                                                                bgcolor: '#fbe5ff',
+                                                                            },
+                                                                            mr: 1,
                                                                         }}
                                                                     >
-                                                                        View Order Details
-                                                                    </CustomizeTypography>
-                                                                }
+                                                                        <VisibilityIcon
+                                                                            sx={{
+                                                                                color: '#be0ee1',
+                                                                                fontSize: '16px',
+                                                                            }}
+                                                                        />
+                                                                    </IconButton>
+                                                                </Tooltip>
+                                                            </>
+                                                        ) : column.id === 'userName' ? (
+                                                            <Typography
+                                                                sx={{
+                                                                    fontSize: '14px',
+                                                                    color: '#187d44',
+                                                                    fontWeight: 'bold',
+                                                                    textAlign: 'center',
+                                                                }}
                                                             >
-                                                                <IconButton
-                                                                    onClick={() =>
-                                                                        handleViewOrder(row._id)
-                                                                    }
+                                                                {row.user.firstName +
+                                                                    ' ' +
+                                                                    row.user.lastName}
+                                                            </Typography>
+                                                        ) : column.id === 'orderPaid' ? (
+                                                            // if value === COD return it value is designed
+                                                            row.paymentMethod === 'COD' ? (
+                                                                <Box
                                                                     sx={{
-                                                                        bgcolor: '#fbe5ff',
-                                                                        borderRadius: '10px',
-                                                                        boxShadow: 2,
-                                                                        '&:hover': {
-                                                                            bgcolor: '#fbe5ff',
-                                                                        },
-                                                                        mr: 1,
+                                                                        bgcolor: '#bdf5d3',
+                                                                        borderRadius: 2,
+                                                                        boxShadow: 1,
+                                                                        padding: '4px 8px',
                                                                     }}
                                                                 >
-                                                                    <VisibilityIcon
+                                                                    <Typography
                                                                         sx={{
-                                                                            color: '#be0ee1',
-                                                                            fontSize: '16px',
+                                                                            fontSize: '14px',
+                                                                            color: '#187d44',
+                                                                            fontWeight: 'bold',
+                                                                            textAlign: 'center',
                                                                         }}
-                                                                    />
-                                                                </IconButton>
-                                                            </Tooltip>
-                                                        </>
-                                                    ) : column.id === 'orderPaid' ? (
-                                                        // if value === COD return it value is designed
-                                                        row.paymentMethod === 'COD' ? (
-                                                            <Box
-                                                                sx={{
-                                                                    bgcolor: '#bdf5d3',
-                                                                    borderRadius: 2,
-                                                                    boxShadow: 1,
-                                                                    padding: '4px 8px',
-                                                                }}
-                                                            >
-                                                                <Typography
+                                                                    >
+                                                                        {row.paymentMethod}
+                                                                    </Typography>
+                                                                </Box>
+                                                            ) : row.paymentMethod === 'PAYPAL' ? (
+                                                                <Box
                                                                     sx={{
-                                                                        fontSize: '14px',
-                                                                        color: '#187d44',
-                                                                        fontWeight: 'bold',
-                                                                        textAlign: 'center',
+                                                                        bgcolor: '#c1e1fc',
+                                                                        borderRadius: 2,
+                                                                        boxShadow: 1,
+                                                                        padding: '4px 8px',
                                                                     }}
                                                                 >
-                                                                    {row.paymentMethod}
-                                                                </Typography>
-                                                            </Box>
+                                                                    <Typography
+                                                                        sx={{
+                                                                            fontSize: '13px',
+                                                                            color: '#2262d3',
+                                                                            fontWeight: 'bold',
+                                                                            textAlign: 'center',
+                                                                        }}
+                                                                    >
+                                                                        {row.paymentMethod}
+                                                                    </Typography>
+                                                                </Box>
+                                                            ) : (
+                                                                <Box
+                                                                    sx={{
+                                                                        bgcolor: '#ffdfe4',
+                                                                        borderRadius: 2,
+                                                                        boxShadow: 1,
+                                                                        padding: '4px 8px',
+                                                                    }}
+                                                                >
+                                                                    <Typography
+                                                                        sx={{
+                                                                            fontSize: '13px',
+                                                                            color: '#f11133',
+                                                                            fontWeight: 'bold',
+                                                                            textAlign: 'center',
+                                                                        }}
+                                                                    >
+                                                                        Failed
+                                                                    </Typography>
+                                                                </Box>
+                                                            )
+                                                        ) : column.id === 'createdAt' ? (
+                                                            <Typography sx={{ fontSize: 12 }}>
+                                                                {formatDate(row.createdAt)}
+                                                            </Typography>
+                                                        ) : column.id === 'totalPrice' ? (
+                                                            <Typography sx={{ fontSize: 12 }}>
+                                                                {converToVND(row?.totalPrice)}
+                                                            </Typography>
+                                                        ) : column.format &&
+                                                          typeof value === 'object' ? (
+                                                            column.format(value)
                                                         ) : (
-                                                            <Box
-                                                                sx={{
-                                                                    bgcolor: '#c1e1fc',
-                                                                    borderRadius: 2,
-                                                                    boxShadow: 1,
-                                                                    padding: '4px 8px',
-                                                                }}
-                                                            >
-                                                                <Typography
-                                                                    sx={{
-                                                                        fontSize: '13px',
-                                                                        color: '#2262d3',
-                                                                        fontWeight: 'bold',
-                                                                        textAlign: 'center',
-                                                                    }}
-                                                                >
-                                                                    {row.paymentMethod}
-                                                                </Typography>
-                                                            </Box>
-                                                        )
-                                                    ) : column.id === 'createdAt' ? (
-                                                        <Typography sx={{ fontSize: 12 }}>
-                                                            {formatDate(row.createdAt)}
-                                                        </Typography>
-                                                    ) : column.id === 'totalPrice' ? (
-                                                        <Typography sx={{ fontSize: 12 }}>
-                                                            {converToVND(row?.totalPrice)}
-                                                        </Typography>
-                                                    ) : column.format &&
-                                                      typeof value === 'object' ? (
-                                                        column.format(value)
-                                                    ) : (
-                                                        value
-                                                    )}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                ))}
+                                                            value
+                                                        )}
+                                                    </TableCell>
+                                                );
+                                            })}
+                                        </TableRow>
+                                    ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
