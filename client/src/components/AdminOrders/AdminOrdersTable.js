@@ -164,9 +164,10 @@ export default function AdminOrdersTable() {
                 <TextField
                     placeholder="Search by Name or Email"
                     variant="outlined"
+                    fullWidth
                     sx={{
                         marginBottom: 2,
-                        width: 750,
+
                         '.MuiInputBase-root': {
                             fontSize: '14px',
                             height: '50px',
