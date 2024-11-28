@@ -60,6 +60,7 @@ function AdminSidebar() {
     const [activeButton, setActiveButton] = useState('Dashboard');
     const handleChooseSidebar = (buttonText) => {
         setActiveButton(buttonText.sidebarText);
+        window.localStorage.setItem('admin_titlle', buttonText.sidebarText);
         navigate(buttonText.sidebarAddress);
         backTop();
     };
