@@ -138,8 +138,8 @@ const CouponsTable = () => {
         });
     };
 
-    // delete coupon feature
-    // open the confirm dialog message and save the products are removed
+    // // delete coupon feature
+    // // open the confirm dialog message and save the products are removed
     // const handleDeleteCoupon = (couponId) => {
     //     // for showing confirm message dialog
     //     setOpenConfirmMessage(true); // open
@@ -147,7 +147,7 @@ const CouponsTable = () => {
     // };
 
     // // disagree, not delete the coupón
-    // const     = () => {
+    // const handlleDisagree = () => {
     //     // click disagree button actions
     //     setOpenConfirmMessage(false); // don't want to remove, hide the delete confirm message
     //     setCouponToRemove(null);
@@ -310,7 +310,9 @@ const CouponsTable = () => {
                                                                 onHandleClickEdit={() =>
                                                                     handleEdit(row._id)
                                                                 }
-                                                                onHandleClickDelete={''}
+                                                                onHandleClickDelete={() =>
+                                                                    handleDeleteItem(row._id)
+                                                                }
                                                             />
                                                         </>
                                                     ) : column.id === 'status' ? (
