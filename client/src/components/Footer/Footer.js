@@ -50,6 +50,7 @@ function Footer() {
             <Container
                 sx={{
                     p: 4,
+                    mb: 1,
                     [mobileScreen]: {
                         p: 1,
                     },

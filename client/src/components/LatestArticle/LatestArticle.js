@@ -37,6 +37,7 @@ function LatestArticle() {
                     flexWrap: 'wrap',
                     gap: 4,
                     justifyContent: 'center', // Center items on smaller screens
+                    alignItems: 'stretch', // Stretch items to have equal height
                 }}
             >
                 {latestArticlesData.map((article) => (
@@ -47,10 +48,9 @@ function LatestArticle() {
                             background: theme.palette.bestSelling,
                             borderRadius: 2,
                             minHeight: '50px',
-
-                            // display: 'flex',
-                            // flexDirection: 'column',
-
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between', //  spacing between content
                             mb: 3,
                             width: {
                                 xs: '100%',
@@ -62,7 +62,6 @@ function LatestArticle() {
                                 cursor: 'pointer',
                                 transform: 'translateY(-20px)',
                             },
-
                             transition: 'transform 0.3s ease',
                         }}
                     >
@@ -74,7 +73,6 @@ function LatestArticle() {
                                 borderTopRightRadius: '8px',
                                 borderBottomLeftRadius: 0,
                                 borderBottomRightRadius: 0,
-
                                 height: '300px',
                                 width: '100%',
                                 objectFit: 'cover',
@@ -83,6 +81,9 @@ function LatestArticle() {
                         <Box
                             sx={{
                                 p: 1,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                flexGrow: 1, // Ensure content grows to fill available space
                             }}
                         >
                             <CustomizeTypography
@@ -92,34 +93,34 @@ function LatestArticle() {
                                     fontWeight: 'bold',
                                 }}
                             >
-                                {/* {article.articleTitle} */}
                                 {t(`common.latestArticles.${article.articleKey}.title`)}
                             </CustomizeTypography>
                             <CustomizeTypography>
-                                {' '}
                                 {t(`common.latestArticles.${article.articleKey}.content`)}
                             </CustomizeTypography>
-                            <Button
-                                // onClick={onHandleClick}
-                                variant="contained"
-                                sx={{
-                                    my: 2,
-                                    py: 1,
-                                    borderRadius: '12px',
-                                    borderColor: '#fff',
-                                    color: theme.palette.secondaryText,
-                                    bgcolor: '#fff',
-                                    padding: '6px 24px',
-                                    fontSize: '13px',
-                                    fontWeight: 'bold',
-                                    textTransform: 'initial',
-                                    '&:hover': {
+                            <Box sx={{ mt: 'auto' }}>   
+                                {/*  button aligns at the bottom */}
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        my: 2,
+                                        py: 1,
+                                        borderRadius: '12px',
+                                        borderColor: '#fff',
+                                        color: theme.palette.secondaryText,
                                         bgcolor: '#fff',
-                                    },
-                                }}
-                            >
-                                {t('common.latestArticles.readMore')}
-                            </Button>
+                                        padding: '6px 24px',
+                                        fontSize: '13px',
+                                        fontWeight: 'bold',
+                                        textTransform: 'initial',
+                                        '&:hover': {
+                                            bgcolor: '#fff',
+                                        },
+                                    }}
+                                >
+                                    {t('common.latestArticles.readMore')}
+                                </Button>
+                            </Box>
                         </Box>
                     </Box>
                 ))}

@@ -493,7 +493,7 @@ function NewHeader() {
                                         left: 0,
                                         right: 0,
                                         zIndex: 10,
-                                        maxHeight: '200px',
+                                        minHeight: '200px',
                                         overflowY: 'auto',
                                     }}
                                 >
@@ -546,10 +546,10 @@ function NewHeader() {
                                     }
                                 />
                             </Box>
-                            <CustomizeButtonOutlined
+                            {/* <CustomizeButtonOutlined
                                 textAction={'Dashboard'}
                                 onHandleClick={() => navigate('/admin/dashboard')}
-                            />
+                            /> */}
                         </React.Fragment>
                     )}
 

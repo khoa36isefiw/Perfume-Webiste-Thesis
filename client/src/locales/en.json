@@ -310,7 +310,7 @@
             "paypal": "Pay Paypal",
             "order": "Order",
             "discount": {
-                "discountNoti": "If you have a Promo Code you will get 5% off",
+                "discountNoti": "If you have a Promo Code you will get sale off.",
                 "apply": "Apply"
             },
             "totalDes": {

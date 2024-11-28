@@ -358,7 +358,7 @@ function CheckoutInformation() {
                             placeholder="Nhập họ tên"
                             value={userData[0]?.firstName + ' ' + userData[0]?.lastName}
                         />
-                        <SelectAddress
+                        {/* <SelectAddress
                             type="province"
                             select={'Chọn Tỉnh/Thành phố'}
                             listData={listProvince}
@@ -376,7 +376,7 @@ function CheckoutInformation() {
                             listData={listWardTown}
                             selectedProvince={selectedWardTown}
                             setSelectedProvince={setSelectedWardTown}
-                        />
+                        /> */}
                         <CustomizeCheckoutInput
                             placeholder="Nhập địa chỉ nhà cụ thể. Số nhà, tên đường..."
                             value={loggedInAccount?.address}
@@ -385,7 +385,7 @@ function CheckoutInformation() {
                     {/* Thanh toán */}
                     <Box
                         sx={{
-                            mt: 4,
+                            mt: 2,
                             [mobileScreen]: {
                                 width: '100%',
                             },
