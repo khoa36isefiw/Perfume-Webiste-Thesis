@@ -318,7 +318,7 @@ export default function AdminOrdersTable() {
                                                             ) : (
                                                                 <Box
                                                                     sx={{
-                                                                        bgcolor: '#c1e1fc',
+                                                                        bgcolor: '#ffdfe4',
                                                                         borderRadius: 2,
                                                                         boxShadow: 1,
                                                                         padding: '4px 8px',
@@ -327,12 +327,12 @@ export default function AdminOrdersTable() {
                                                                     <Typography
                                                                         sx={{
                                                                             fontSize: '13px',
-                                                                            color: '#2262d3',
+                                                                            color: '#f11133',
                                                                             fontWeight: 'bold',
                                                                             textAlign: 'center',
                                                                         }}
                                                                     >
-                                                                        ahaihaihi
+                                                                        Failed
                                                                     </Typography>
                                                                 </Box>
                                                             )
