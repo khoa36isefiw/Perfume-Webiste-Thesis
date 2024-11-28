@@ -134,7 +134,7 @@
             "paypal": "Thanh toán Paypal",
             "order": "Đặt hàng",
             "discount": {
-                "discountNoti": "Nếu bạn có Mã khuyến mại, bạn sẽ được giảm giá 5%",
+                "discountNoti": "Nếu bạn có Mã khuyến mại, bạn sẽ được giảm giá.",
                 "apply": "Áp dụng"
             },
             "totalDes": {

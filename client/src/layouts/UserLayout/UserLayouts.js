@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 function UserLayouts({ children }) {
     const location = useLocation();
     const { i18n } = useTranslation();
-    
+
     // remove some params in local storage
     useEffect(() => {
         if (
@@ -30,7 +30,7 @@ function UserLayouts({ children }) {
 
             {/* any components call this layout */}
             <Box sx={{ mt: 10 }}>{children}</Box>
-            <Divider sx={{ p: '2px', bgcolor: theme.palette.text.secondary, my: 10 }} />
+            <Divider sx={{ p: '2px', bgcolor: theme.palette.text.secondary, mt: 8, mb: 1 }} />
             <BackToTop />
             <Footer />
         </Box>

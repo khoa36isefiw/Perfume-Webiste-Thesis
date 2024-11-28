@@ -8,9 +8,10 @@ import {
     Typography,
     FormControl,
     Grid,
+    useMediaQuery,
 } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
-import { theme } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
 import { grey } from '@mui/material/colors';
 import { useDispatch } from 'react-redux';
@@ -22,6 +23,8 @@ import { couponAPI } from '../../api/couponAPI';
 const AdminCreateCoupon = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
     // get the current date time follow yyyy-mm-dd format
     // let currentDate = new Date().toLocaleString('en-CA').slice(0, 10);
 
@@ -132,56 +135,55 @@ const AdminCreateCoupon = () => {
             sx={{
                 p: 3,
                 mx: 4,
+                [tabletScreen]: {
+                    mx: 2,
+                },
+                [mobileScreen]: {
+                    padding: 2,
+                    mx: 0,
+                },
             }}
         >
             <AdminButtonBackPage title={'List Coupons'} />
             <Typography variant="h4" sx={{ mb: 3 }}>
                 Create New Coupon
             </Typography>
-            <Grid container spacing={4}>
-                <Grid item lg={6}>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AdminTypography>Coupon Description</AdminTypography>
                     <TextField
                         fullWidth
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        sx={{ mb: 2 }}
                     />
                 </Grid>
-                <Grid item lg={6}>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AdminTypography>Coupon Code</AdminTypography>
-                    <TextField
-                        fullWidth
-                        value={code}
-                        onChange={(e) => setCode(e.target.value)}
-                        sx={{ mb: 2 }}
-                    />
+                    <TextField fullWidth value={code} onChange={(e) => setCode(e.target.value)} />
                 </Grid>
 
-                <Grid item lg={6}>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AdminTypography>Coupon Discount</AdminTypography>
                     <TextField
                         fullWidth
                         value={discount}
                         onChange={(e) => setDiscount(e.target.value)}
-                        sx={{ mb: 2 }}
                         type="number"
                         onBlur={handlePriceSaleBlur}
                     />
                 </Grid>
-                <Grid item lg={6}>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AdminTypography>Coupon Quantity</AdminTypography>
                     <TextField
                         fullWidth
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
-                        sx={{ mb: 2 }}
                         type="number"
                         onBlur={handlePriceSaleBlur}
                     />
                 </Grid>
 
-                <Grid item lg={6}>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
                     {/* Brand Dropdown */}
                     <AdminTypography>Coupon Status</AdminTypography>
                     <FormControl fullWidth sx={{ mb: 2, height: 40 }}>
@@ -230,7 +232,7 @@ const AdminCreateCoupon = () => {
                     </FormControl>
                 </Grid>
 
-                <Grid item lg={6}>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AdminTypography>Coupon Open</AdminTypography>
                     <TextField
                         id="date"
@@ -239,22 +241,20 @@ const AdminCreateCoupon = () => {
                         // onChange={(e) => setGetCurrentDate(e.target.value)}
                         defaultValue={getCurrentDate.slice(0, 10)} // Show only the date part
                         onChange={(e) => setGetCurrentDate(new Date(e.target.value).toISOString())} // Set to ISO format
-                        sx={{ width: 220 }}
+                        fullWidth
                         InputLabelProps={{
                             shrink: true,
                         }}
                     />
                 </Grid>
-                <Grid item lg={6}>
+                <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AdminTypography>Coupon End</AdminTypography>
                     <TextField
                         id="date"
                         type="date"
-                        // defaultValue={getEndDate}
-                        // onChange={(e) => setGetEndDate(e.target.value)}
+                        fullWidth
                         defaultValue={getEndDate.slice(0, 10)} // Show only the date part
                         onChange={(e) => setGetEndDate(new Date(e.target.value).toISOString())} // Set to ISO format
-                        sx={{ width: 220 }}
                         InputLabelProps={{
                             shrink: true,
                         }}

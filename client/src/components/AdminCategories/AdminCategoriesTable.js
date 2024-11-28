@@ -23,8 +23,8 @@ import { categoriesAPI } from '../../api/categoriesAPI';
 import useParentCategory from '../../api/useParentCategory';
 import WarningIcon from '@mui/icons-material/Warning';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
-import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { blue } from '@mui/material/colors';
@@ -49,6 +49,7 @@ function AdminCategoriesTable() {
     const [parentCategory, setParentCategory] = useState(responseParentCategories);
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const [categoryToRemove, setCategoryToRemove] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const navigate = useNavigate();
 
@@ -141,44 +142,63 @@ function AdminCategoriesTable() {
         XLSX.writeFile(workbook, 'Categories Table.xlsx');
     };
 
+    const filterCategories = categories?.filter(
+        (cate) =>
+            cate?.nameEn?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+            cate?.descriptionEn?.toLowerCase().includes(searchTerm?.toLowerCase()),
+    );
+
     return (
-        <Box sx={{ height: '100vh', mr: 8 }}>
+        <Box sx={{ height: '100vh', mr: 8, [mobileScreen]: { mr: 0 } }}>
             <Box
                 sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
                     marginBottom: '16px',
                 }}
             >
-                <Box>
-                    <Typography sx={{ fontSize: '3rem', fontWeight: 600 }}>Categories</Typography>
-                    <Stack spacing={1} direction="row">
-                        <Button sx={{ fontSize: '1.4rem', textTransform: 'none' }}>
-                            <UploadIcon sx={{ mr: 1 }} />
-                            Import
-                        </Button>
-                        <Button
-                            sx={{ fontSize: '1.4rem', textTransform: 'none' }}
-                            onClick={exportToExcel}
-                        >
-                            <DownloadIcon sx={{ mr: 1 }} />
-                            Export
-                        </Button>
-                    </Stack>
-                </Box>
-                <Button
-                    variant="contained"
-                    startIcon={<AddIcon />}
-                    sx={{ fontSize: '1.6rem', borderRadius: 2.5, textTransform: 'capitalize' }}
-                    component={Link}
-                    to="/admin/manage-categories/add"
+                <Box
+                    sx={{
+                        [mobileScreen]: {
+                            padding: 2,
+                        },
+                    }}
                 >
-                    Add
-                </Button>
-            </Box>
-            {/* Search */}
-            <Paper sx={{ mt: 4, mb: 4, padding: 1.5, borderRadius: 4 }}>
+                    <Typography sx={{ fontSize: '3rem', fontWeight: 600 }}>Categories</Typography>
+                    <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
+                        You can <strong>Search Brands</strong> by Name, Status.
+                    </AdminTypography>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            mb: 2,
+                        }}
+                    >
+                        <Stack spacing={1} direction="row">
+                            <Button
+                                sx={{ fontSize: '1.4rem', textTransform: 'none' }}
+                                onClick={exportToExcel}
+                            >
+                                <DownloadIcon sx={{ mr: 1 }} />
+                                Export
+                            </Button>
+                        </Stack>
+                        <Button
+                            variant="contained"
+                            startIcon={<AddIcon />}
+                            sx={{
+                                fontSize: '1.6rem',
+                                borderRadius: 2.5,
+                                textTransform: 'capitalize',
+                            }}
+                            component={Link}
+                            to="/admin/manage-categories/add"
+                        >
+                            Add
+                        </Button>
+                    </Box>
+                </Box>
+                {/* Search */}
                 <TextField
                     placeholder="Search Category"
                     fullWidth
@@ -190,8 +210,11 @@ function AdminCategoriesTable() {
                         ),
                         style: { fontSize: '1.4rem', color: '#000', borderRadius: 8 },
                     }}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
-            </Paper>
+            </Box>
+
             {/* Table */}
             {/* <ToastMessage message={message} type={typeMessage} /> */}
             <TableContainer component={Paper}>
@@ -209,16 +232,13 @@ function AdminCategoriesTable() {
                                 Description
                             </TableCell>
                             <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="center">
-                                Active
-                            </TableCell>
-                            <TableCell sx={{ bgcolor: blue[200], fontSize: '13px' }} align="center">
                                 Action
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {categories?.length > 0 &&
-                            categories.map((category, index) => {
+                        {filterCategories?.length > 0 &&
+                            filterCategories.map((category, index) => {
                                 // find the parent category by matching the parentId
                                 const parent = parentCategory.find(
                                     (pCategory) => pCategory._id === category.parent, // from category list
@@ -284,13 +304,6 @@ function AdminCategoriesTable() {
                                                 >
                                                     No Description
                                                 </Typography>
-                                            )}
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            {category.status === 'active' ? (
-                                                <CheckIcon color="success" fontSize="large" />
-                                            ) : (
-                                                <CloseIcon color="error" fontSize="large" />
                                             )}
                                         </TableCell>
                                         <TableCell align="center">

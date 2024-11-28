@@ -68,7 +68,7 @@ function RecoverPassword() {
         <Container
             sx={{
                 width: '50%',
-                mt: 18,
+                mt: 20,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',

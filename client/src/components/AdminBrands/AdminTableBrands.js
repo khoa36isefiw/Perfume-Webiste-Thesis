@@ -22,8 +22,8 @@ import { useEffect } from 'react';
 
 import WarningIcon from '@mui/icons-material/Warning';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
-import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { theme } from '../../Theme/Theme';
+import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import { mobileScreen, theme } from '../../Theme/Theme';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { blue } from '@mui/material/colors';
@@ -48,6 +48,7 @@ function AdminTableBrands() {
     const [brands, setBrands] = useState(responsebrands);
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const [brandToRemove, setBrandToRemove] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     console.log('responsebrands: ', responsebrands);
 
@@ -117,54 +118,77 @@ function AdminTableBrands() {
     //     XLSX.writeFile(workbook, 'brands Table.xlsx');
     // };
 
+    const filterBrands = brands.filter(
+        (brand) =>
+            brand?.nameEn?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+            brand?.status?.toLowerCase().includes(searchTerm?.toLowerCase()),
+    );
+
     return (
         <React.Fragment>
             {isLoading ? (
                 <Typography>Loading API....</Typography>
             ) : (
-                <Box sx={{ height: '100vh', mr: 8 }}>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginBottom: '16px',
-                        }}
-                    >
-                        <Box>
-                            <Typography sx={{ fontSize: '3rem', fontWeight: 600 }}>
-                                brands
-                            </Typography>
-                            <Stack spacing={1} direction="row">
-                                <Button sx={{ fontSize: '1.4rem', textTransform: 'none' }}>
-                                    <UploadIcon sx={{ mr: 1 }} />
-                                    Import
-                                </Button>
-                                <Button
-                                    sx={{ fontSize: '1.4rem', textTransform: 'none' }}
-                                    // onClick={exportToExcel}
-                                >
-                                    <DownloadIcon sx={{ mr: 1 }} />
-                                    Export
-                                </Button>
-                            </Stack>
-                        </Box>
-                        <Button
-                            variant="contained"
-                            startIcon={<AddIcon />}
+                <Box
+                    sx={{
+                        height: '100vh',
+                        mr: 8,
+                        [mobileScreen]: {
+                            mr: 0,
+                        },
+                    }}
+                >
+                    <Box sx={{ mb: 4 }}>
+                        <Box
                             sx={{
-                                fontSize: '1.6rem',
-                                borderRadius: 2.5,
-                                textTransform: 'capitalize',
+                                [mobileScreen]: {
+                                    padding: 2,
+                                },
                             }}
-                            component={Link}
-                            to="/admin/manage-brands/add"
                         >
-                            Add
-                        </Button>
-                    </Box>
-                    {/* Search */}
-                    <Paper sx={{ mt: 4, mb: 4, padding: 1.5, borderRadius: 4 }}>
+                            <Box>
+                                <Typography sx={{ fontSize: '3rem', fontWeight: 600 }}>
+                                    Brands
+                                </Typography>
+                                <AdminTypography sx={{ fontSize: '18px', mb: 2 }}>
+                                    You can <strong>Search Brands</strong> by Name, Status.
+                                </AdminTypography>
+                            </Box>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    marginBottom: '16px',
+                                }}
+                            >
+                                <Stack spacing={1} direction="row">
+                                    <Button
+                                        sx={{ fontSize: '1.4rem', textTransform: 'none' }}
+                                        // onClick={exportToExcel}
+                                    >
+                                        <DownloadIcon sx={{ mr: 1 }} />
+                                        Export
+                                    </Button>
+                                </Stack>
+                                <Button
+                                    variant="contained"
+                                    startIcon={<AddIcon />}
+                                    sx={{
+                                        fontSize: '1.6rem',
+                                        borderRadius: 2.5,
+                                        textTransform: 'capitalize',
+                                    }}
+                                    component={Link}
+                                    to="/admin/manage-brands/add"
+                                >
+                                    Add
+                                </Button>
+                            </Box>
+                        </Box>
+                        {/* Search */}
+
                         <TextField
                             placeholder="Search brand"
                             fullWidth
@@ -176,8 +200,10 @@ function AdminTableBrands() {
                                 ),
                                 style: { fontSize: '1.4rem', color: '#000', borderRadius: 8 },
                             }}
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                    </Paper>
+                    </Box>
                     {/* Table */}
                     {/* <ToastMessage message={message} type={typeMessage} /> */}
                     <TableContainer component={Paper}>
@@ -214,8 +240,8 @@ function AdminTableBrands() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {brands?.length > 0 &&
-                                    brands.map((brand, index) => {
+                                {filterBrands?.length > 0 &&
+                                    filterBrands.map((brand, index) => {
                                         // find the parent brand by matching the parentId
                                         // const parent = parentbrand.find(
                                         //     (pbrand) => pbrand._id === brand.parent, // from brand list

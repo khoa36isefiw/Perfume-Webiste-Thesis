@@ -8,6 +8,7 @@ import { CODPayment, PaypalPayment } from './PaymentDesign';
 import CallIcon from '@mui/icons-material/Call';
 import { converToVND } from '../convertToVND/convertToVND';
 import { formatDate } from '../FormatDate/formatDate';
+import { ipadProScreen, mobileScreen, tabletScreen } from '../../Theme/Theme';
 
 const orderTitle = ['Photo', 'Name', 'Quantity', 'Size', 'Price', 'Total'];
 
@@ -17,11 +18,19 @@ function AdminViewOrderDetails() {
     console.log('orderData', orderData);
 
     return (
-        <Box sx={{ height: '150vh', px: 4 }}>
+        <Box
+            sx={{
+                height: '150vh',
+                px: 4,
+                [mobileScreen]: {
+                    px: 2,
+                },
+            }}
+        >
             <AdminButtonBackPage title={'List Orders'} />
             <Box>
                 <Grid container spacing={4}>
-                    <Grid item lg={12}>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Box sx={{ bgcolor: '#fff', borderRadius: 3, p: 2 }}>
                             <Box
                                 sx={{
@@ -49,12 +58,44 @@ function AdminViewOrderDetails() {
                                     sx={{ height: 128, width: 128 }}
                                 />
                             </Box>
-                            <Box
+                            {/* <Box
                                 sx={{
                                     my: 4,
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'space-between',
+
+                                    [tabletScreen]: {
+                                        // flexDirection: 'column',
+                                        flexWrap: 'wrap',
+                                        alignItems: 'start',
+                                    },
+                                    [mobileScreen]: {
+                                        flexDirection: 'column',
+                                        alignItems: 'start',
+                                    },
+                                }}
+                            >
+                                <UserInfor
+                                    title={'Order Created at'}
+                                    content={formatDate(orderData.createdAt)}
+                                />
+                                <UserInfor title={'Name'} content={orderData.userName} />
+                                <UserInfor title={'Email'} content={orderData.userEmail} />
+                                <UserInfor title={'Contact No'} content={orderData.userPhone} />
+                            </Box> */}
+                            <Box
+                                sx={{
+                                    my: 4,
+                                    display: 'grid', // Use grid layout
+                                    gridTemplateColumns: 'repeat(4, 1fr)', // Default: 4 items per row
+                                    gap: 2, // Add spacing between grid items
+                                    [tabletScreen]: {
+                                        gridTemplateColumns: 'repeat(2, 1fr)', // 2 items per row on tablet
+                                    },
+                                    [mobileScreen]: {
+                                        gridTemplateColumns: '1fr', // 1 item per row on mobile
+                                    },
                                 }}
                             >
                                 <UserInfor
@@ -65,6 +106,7 @@ function AdminViewOrderDetails() {
                                 <UserInfor title={'Email'} content={orderData.userEmail} />
                                 <UserInfor title={'Contact No'} content={orderData.userPhone} />
                             </Box>
+
                             <Box sx={{ border: '1px solid #ccc', borderRadius: 3, p: 2 }}>
                                 <AdminTypography
                                     sx={{ fontWeight: 'bold', fontSize: '18px', mb: 2 }}

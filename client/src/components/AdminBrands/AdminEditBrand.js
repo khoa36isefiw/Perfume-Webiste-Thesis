@@ -105,7 +105,7 @@ function AdminAddBrand() {
             <Box sx={{ bgcolor: '#fff', mt: 4, px: 2, borderRadius: 2, minHeight: 200 }}>
                 <form onSubmit={handleUpdate}>
                     <Grid container spacing={4}>
-                        <Grid item lg={6}>
+                        <Grid item xs={12} sm={6} md={6} lg={6}>
                             <TextField
                                 label="Brand Name"
                                 required
@@ -118,7 +118,7 @@ function AdminAddBrand() {
                                 onChange={(e) => setName({ ...name, value: e.target.value })}
                             />
                         </Grid>
-                        <Grid item lg={6}>
+                        <Grid item xs={12} sm={6} md={6} lg={6}>
                             <TextField
                                 sx={{ width: '100%' }}
                                 label="Description"

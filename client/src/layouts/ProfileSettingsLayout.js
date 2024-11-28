@@ -117,7 +117,7 @@ const Layout = ({ children }) => {
                 display: 'flex',
                 minHeight: '100vh',
                 bgcolor: 'background.default',
-                mt: 20,
+                mt: 24,
                 [ipadProScreen]: {
                     width: '90%',
                     mt: 15,
