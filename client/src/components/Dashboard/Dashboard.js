@@ -231,9 +231,9 @@ function Dashboard() {
                         </Box>
                     </Grid>
                 ))}
-                <Grid item sm={12} md={12} lg={12}>
+                {/* <Grid item sm={12} md={12} lg={12}>
                     <DashboardV2 />
-                </Grid>
+                </Grid> */}
                 <Grid item sm={12} md={12} lg={12}>
                     <TopSales />
                 </Grid>
