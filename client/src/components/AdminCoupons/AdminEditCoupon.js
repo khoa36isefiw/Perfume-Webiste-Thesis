@@ -244,7 +244,7 @@ function AdminEditCoupon() {
             {/* Action Buttons */}
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <AdminButtonDesign
-                    title={'Save Information'}
+                    title={'Edit Coupon'}
                     bgcolor={theme.palette.admin.bgColor}
                     onHandleClick={handleUpdate}
                     type={'contained'}
