@@ -64,11 +64,13 @@ export default function AdminOrdersTable() {
 
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
     const { data: ordersData, isLoading } = useOrders();
-    // const [rows, setRows] = useState(ordersData?.data || []); // Dynamic user data
-    const ordersDataV2 = ordersData?.data || [];
-    console.log('ordersData: ', ordersData?.data);
+    const [rows, setRows] = useState([]); // Dynamic user data
 
-    // console.log('rows: ', rows);
+    useEffect(() => {
+        if (ordersData && ordersData?.data) {
+            setRows(ordersData?.data);
+        }
+    }, [ordersData?.data]);
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -88,10 +90,11 @@ export default function AdminOrdersTable() {
     };
 
     // Filter rows based on search term
-    const filteredRows = ordersDataV2.filter(
+    const filteredRows = rows.filter(
         (row) =>
-            row?.userName?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
-            row?.orderPaid?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            row?.user.firstName?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            row?.user.lastName?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            row?.paymentMethod?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
             row?.orderDate?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()),
     );
 
@@ -100,13 +103,14 @@ export default function AdminOrdersTable() {
     // Handle edit action (you can implement your own logic for editing)
     const handleViewOrder = (id) => {
         navigate(`view-order/${id}`, {
-            state: { orderData: ordersDataV2.find((row) => row._id === id) },
+            state: { orderData: rows.find((row) => row._id === id) },
         });
     };
 
     if (isLoading) {
         return <Typography>Loading...</Typography>;
     }
+
     return (
         <Box
             sx={{
@@ -196,8 +200,8 @@ export default function AdminOrdersTable() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {ordersDataV2.length > 0 &&
-                                ordersDataV2
+                            {filteredRows.length > 0 &&
+                                filteredRows
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => (
                                         <TableRow
@@ -256,6 +260,19 @@ export default function AdminOrdersTable() {
                                                                     </IconButton>
                                                                 </Tooltip>
                                                             </>
+                                                        ) : column.id === 'userName' ? (
+                                                            <Typography
+                                                                sx={{
+                                                                    fontSize: '14px',
+                                                                    color: '#187d44',
+                                                                    fontWeight: 'bold',
+                                                                    textAlign: 'center',
+                                                                }}
+                                                            >
+                                                                {row.user.firstName +
+                                                                    ' ' +
+                                                                    row.user.lastName}
+                                                            </Typography>
                                                         ) : column.id === 'orderPaid' ? (
                                                             // if value === COD return it value is designed
                                                             row.paymentMethod === 'COD' ? (
@@ -271,6 +288,26 @@ export default function AdminOrdersTable() {
                                                                         sx={{
                                                                             fontSize: '14px',
                                                                             color: '#187d44',
+                                                                            fontWeight: 'bold',
+                                                                            textAlign: 'center',
+                                                                        }}
+                                                                    >
+                                                                        {row.paymentMethod}
+                                                                    </Typography>
+                                                                </Box>
+                                                            ) : row.paymentMethod === 'PAYPAL' ? (
+                                                                <Box
+                                                                    sx={{
+                                                                        bgcolor: '#c1e1fc',
+                                                                        borderRadius: 2,
+                                                                        boxShadow: 1,
+                                                                        padding: '4px 8px',
+                                                                    }}
+                                                                >
+                                                                    <Typography
+                                                                        sx={{
+                                                                            fontSize: '13px',
+                                                                            color: '#2262d3',
                                                                             fontWeight: 'bold',
                                                                             textAlign: 'center',
                                                                         }}
@@ -295,7 +332,7 @@ export default function AdminOrdersTable() {
                                                                             textAlign: 'center',
                                                                         }}
                                                                     >
-                                                                        {row.paymentMethod}
+                                                                        ahaihaihi
                                                                     </Typography>
                                                                 </Box>
                                                             )
