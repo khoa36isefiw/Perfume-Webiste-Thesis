@@ -158,7 +158,7 @@ function PerfumeDetail() {
                             <Box
                                 sx={{
                                     height: '400px',
-                                    // width: '400px',
+                                    width: '100%',
                                     bgcolor: theme.palette.background.main,
                                     borderRadius: '8px',
                                     position: 'relative',
@@ -218,7 +218,9 @@ function PerfumeDetail() {
                                     // src={perfume.perfumeImage}
                                     src={productInformation.imagePath[selectedImage]}
                                     sx={{
+                                        // height: '400px',
                                         height: '100%',
+                                        width: '65%',
                                         objectFit: 'cover',
                                         '&:hover': {
                                             cursor: 'pointer',
@@ -227,7 +229,8 @@ function PerfumeDetail() {
                                             width: '75%',
                                         },
                                         [mobileScreen]: {
-                                            width: '100%',
+                                            height: '350px',
+                                            width: '75%',
                                         },
                                     }}
                                 />
