@@ -127,7 +127,7 @@ function Footer() {
                                 }}
                                 onClick={handleSubcribe}
                             >
-                                Submit
+                                Subscribe
                             </Button>
                         </Box>
                         {/* Load social  */}
