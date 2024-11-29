@@ -48,7 +48,7 @@ const PaymentController = {
     },
 
     createOrder: async (req, res) => {
-        const { user, items, promotionCode, method } = req.body;
+        const { user, items, address, email, phoneNumber, promotionCode, method } = req.body;
         try {
             if (items.length === 0) {
                 return res.status(400).json({ message: 'Cart is empty' });
@@ -70,6 +70,9 @@ const PaymentController = {
                 user,
                 status: 'PENDING_PAYMENT',
                 totalPrice: 0,
+                address,
+                email,
+                phoneNumber,
             });
             for (const item of items) {
                 const { product, variant } = item;
