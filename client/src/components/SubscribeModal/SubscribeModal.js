@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Box, Typography, Button, TextField } from '@mui/material';
+import { tabletScreen, theme } from '../../Theme/Theme';
+import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
 
 function SubscribeModal() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,31 +72,93 @@ function SubscribeModal() {
                     id="subscribe-modal-title"
                     variant="h6"
                     component="h2"
-                    sx={{ mb: 2, fontSize: '14px' }}
+                    sx={{ mb: 2, fontSize: '16px' }}
                 >
                     Subscribe to our Newsletter
                 </Typography>
                 <Typography
                     id="subscribe-modal-description"
-                    sx={{ mb: 2, fontSize: '14px', color: 'gray' }}
+                    sx={{ mb: 2, fontSize: '16px', color: 'gray' }}
                 >
                     Enter your email address to receive the latest updates and offers.
                 </Typography>
-                <TextField
+
+                <TextFieldCustomizeV2
                     fullWidth
-                    label="Email Address"
                     variant="outlined"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     error={!!error}
                     helperText={error}
-                    sx={{ mb: 2 }}
+                    sx={{
+                        mb: 2,
+                        '.MuiInputBase-root': {
+                            fontSize: '14px',
+                            height: '40px',
+                            color: '#000',
+                            borderRadius: 1,
+                        },
+                        '& .MuiFormHelperText-root': {
+                            fontSize: '12.5px',
+                            color: 'red',
+                            mx: 1,
+                        },
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': {
+                                // not focus
+                                borderColor: '#ccc',
+                            },
+                            '&:hover fieldset': {
+                                // is hovered
+                                borderColor: '#ccc',
+                            },
+                            '&.Mui-focused fieldset': {
+                                // is focused
+                                borderColor: '#ccc',
+                            },
+                        },
+                    }}
                 />
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Button variant="contained" color="primary" onClick={handleSubscribe}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            py: 1,
+                            borderRadius: '8px',
+                            bgcolor: theme.palette.secondaryText,
+                            fontSize: '14px',
+                            fontWeight: 'bold',
+                            textTransform: 'initial',
+                            '&:hover': {
+                                bgcolor: theme.palette.secondaryText,
+                            },
+                            [tabletScreen]: {
+                                fontSize: '13px',
+                            },
+                            mr: 2,
+                        }}
+                        onClick={handleSubscribe}
+                    >
                         Subscribe
                     </Button>
-                    <Button variant="outlined" color="secondary" onClick={handleClose}>
+                    <Button
+                        variant="outlined"
+                        sx={{
+                            py: 1,
+                            borderRadius: '8px',
+                            color: 'black',
+                            // bgcolor: theme.palette.secondaryText,
+                            fontSize: '14px',
+                            fontWeight: 'bold',
+                            textTransform: 'initial',
+                            borderColor: theme.palette.text.main,
+                            '&:hover': {
+                                cursor: 'pointer',
+                                borderColor: theme.palette.text.main,
+                            },
+                        }}
+                        onClick={handleClose}
+                    >
                         Close
                     </Button>
                 </Box>
