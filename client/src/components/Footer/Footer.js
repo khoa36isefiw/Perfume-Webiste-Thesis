@@ -167,7 +167,7 @@ function Footer() {
                     >
                         <Grid item xs={6} sm={4} md={4} lg={4}>
                             <CustomizeTypography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-                                Shopping
+                                {t(`common.Shopping`)}
                             </CustomizeTypography>
                             {shoppingFooterData.map((shopping, index) => (
                                 <CustomizeTypography key={index} sx={{ color: 'white' }}>
@@ -178,7 +178,7 @@ function Footer() {
 
                         <Grid item xs={6} sm={4} md={4} lg={4}>
                             <CustomizeTypography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-                                Customer care
+                                {t(`common.Customer care`)}
                             </CustomizeTypography>
                             {customersFooterData.map((customer, index) => (
                                 <CustomizeTypography key={index} sx={{ color: 'white' }}>
@@ -189,7 +189,7 @@ function Footer() {
                         </Grid>
                         <Grid item xs={6} sm={4} md={4} lg={4}>
                             <CustomizeTypography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-                                Pages
+                                {t(`common.Pages`)}
                             </CustomizeTypography>
                             {pagesFooterData.map((page, index) => (
                                 <CustomizeTypography
