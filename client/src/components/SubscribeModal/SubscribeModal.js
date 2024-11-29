@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Box, Typography, Button, TextField } from '@mui/material';
 import { tabletScreen, theme } from '../../Theme/Theme';
 import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
+import { useTranslation } from 'react-i18next';
 
 function SubscribeModal() {
+    const { t } = useTranslation('translate');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
@@ -74,16 +76,17 @@ function SubscribeModal() {
                     component="h2"
                     sx={{ mb: 2, fontSize: '16px' }}
                 >
-                    Subscribe to our Newsletter
+                    {t('common.subscribe.title')}
                 </Typography>
                 <Typography
                     id="subscribe-modal-description"
                     sx={{ mb: 2, fontSize: '16px', color: 'gray' }}
                 >
-                    Enter your email address to receive the latest updates and offers.
+                    {t('common.subscribe.content')}
                 </Typography>
 
                 <TextFieldCustomizeV2
+                    placeholder={t('common.subscribe.textField')}
                     fullWidth
                     variant="outlined"
                     value={email}
@@ -139,7 +142,7 @@ function SubscribeModal() {
                         }}
                         onClick={handleSubscribe}
                     >
-                        Subscribe
+                        {t('common.subscribe.btn')}
                     </Button>
                     <Button
                         variant="outlined"
@@ -159,7 +162,7 @@ function SubscribeModal() {
                         }}
                         onClick={handleClose}
                     >
-                        Close
+                        {t('common.subscribe.close')}
                     </Button>
                 </Box>
             </Box>

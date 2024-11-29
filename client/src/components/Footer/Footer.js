@@ -74,7 +74,7 @@ function Footer() {
                             Tomtoc Perfumes
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600' }}>
-                            {t('common.subscribe.title')}
+                            {t('common.subscribe.title')}:
                         </CustomizeTypography>
                         <Box
                             sx={{

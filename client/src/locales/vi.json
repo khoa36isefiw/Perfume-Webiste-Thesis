@@ -54,10 +54,11 @@
             "content": "Những gì bạn tìm kiếm không tìm thấy hoặc không tồn tại"
         },
         "subscribe": {
-            "title": "Đăng ký nhận Bản tin của chúng tôi:",
+            "title": "Đăng ký nhận Bản tin của chúng tôi",
             "content": "Nhận thông tin cập nhật về Hàng mới về và Khuyến mại đặc biệt!",
             "btn": "Đăng ký",
-            "textField": "Email của bạn tại đây"
+            "textField": "Email của bạn tại đây...",
+            "close": "Đóng"
         },
 
         "categoriesType": {
