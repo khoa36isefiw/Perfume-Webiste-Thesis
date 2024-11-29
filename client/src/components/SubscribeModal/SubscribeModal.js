@@ -30,7 +30,7 @@ function SubscribeModal() {
         const timeLimit = 1 * 60 * 60 * 1000; // the modal will appear after 1 hour of the last closed time
 
         if (!lastClosedTime || currentTime - lastClosedTime > timeLimit) {
-            setIsModalOpen(true); // Open the modal if the time limit has passed
+            setIsModalOpen(true); // open the modal if the time limit has passed
         }
     }, []);
 
