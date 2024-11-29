@@ -74,7 +74,7 @@ function Footer() {
                             Tomtoc Perfumes
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600' }}>
-                            Subscribe to Our Newsletter:
+                            {t('common.subscribe.title')}
                         </CustomizeTypography>
                         <Box
                             sx={{
@@ -88,7 +88,7 @@ function Footer() {
                             }}
                         >
                             <CustomizeTypography>
-                                Receive Updates on New Arrivals and Special Promotions!
+                                {t('common.subscribe.content')}
                             </CustomizeTypography>
                         </Box>
                         <Box
@@ -101,7 +101,7 @@ function Footer() {
                         >
                             <TextFieldCustomizeV2
                                 // default
-                                placeholder={'Your email here'}
+                                placeholder={t('common.subscribe.textField')}
                                 sx={{
                                     [tabletScreen]: { width: '360px' },
                                     [mobileScreen]: {
@@ -127,7 +127,7 @@ function Footer() {
                                 }}
                                 onClick={handleSubcribe}
                             >
-                                Subscribe
+                                {t('common.subscribe.btn')}
                             </Button>
                         </Box>
                         {/* Load social  */}
