@@ -1,5 +1,5 @@
 import AddUsers from '../components/AddUsers/AddUsers';
-import Dashboard from '../components/Dashboard/Dashboard';
+import Dashboard from '../components/AdminDashboard/AdminDashboard';
 import SearchTerm from '../components/Header/SearchTerm';
 import ChangePassword from '../components/ProfileSettings/ChangePassword';
 

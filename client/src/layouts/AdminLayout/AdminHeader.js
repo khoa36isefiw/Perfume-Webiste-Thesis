@@ -97,7 +97,7 @@ function AdminHeader() {
                             textAlign: 'center',
                         },
                     }}
-                    onClick={() => navigate(`/${i18n.language}/`)}
+                    onClick={() => navigate(`/${i18n.language}`)}
                 >
                     Tomtoc Perfumes
                 </CustomizeTypography>

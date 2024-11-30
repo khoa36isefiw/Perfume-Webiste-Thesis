@@ -124,7 +124,7 @@ function PerfumesCard() {
                                                     handleNavigationProductDetail(perfume)
                                                 }
                                             >
-                                                {perfume?.variants[0]?.discountPercent && (
+                                                {perfume?.variants[0]?.discountPercent !== 0 && (
                                                     <Box
                                                         sx={{
                                                             position: 'absolute',

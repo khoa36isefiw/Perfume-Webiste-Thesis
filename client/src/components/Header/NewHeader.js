@@ -49,7 +49,7 @@ function NewHeader() {
         handleCloseNotification,
     } = useShowNotificationMessage();
     const location = useLocation();
-    const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search_query') || null); // prevent lost data when reload the page
+    const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search_query') || ''); // prevent lost data when reload the page
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
@@ -99,6 +99,8 @@ function NewHeader() {
     function handleWindowSizeChange() {
         setIsMobile(window.innerWidth < 739);
     }
+
+    console.log('search-query', searchQuery);
 
     useEffect(() => {
         window.addEventListener('resize', handleWindowSizeChange);
@@ -155,24 +157,16 @@ function NewHeader() {
         }
     };
 
-    // handle selecting a suggestion
-    const handleSuggestionClick = (perfume) => {
-        // hide the suggestions after selection
-        setShowSuggestions(false);
-        // navigate to product details page
-        navigate(`/${i18n.language}/product/${perfume.perfumeID}`, { state: { perfume } });
-    };
-
-    useEffect(() => {
-        if (searchQuery === '' && showSearchHistory) {
-            window.localStorage.removeItem('search_query');
-            const currentQueryParams = new URLSearchParams(location.search);
-            // console.log('location.search: ', location.search);
-            currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
-            currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
-            currentQueryParams.delete('sortBy');
-        }
-    }, [searchQuery, location]);
+    // useEffect(() => {
+    //     if (searchQuery === '' && showSearchHistory) {
+    //         window.localStorage.removeItem('search_query');
+    //         const currentQueryParams = new URLSearchParams(location.search);
+    //         // console.log('location.search: ', location.search);
+    //         currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
+    //         currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
+    //         currentQueryParams.delete('sortBy');
+    //     }
+    // }, [searchQuery, location]);
 
     // Parse URL parameters on mount to set initial searchQuery and filter values
     // Function to handle searching
@@ -202,7 +196,7 @@ function NewHeader() {
                 // Lưu lịch sử cập nhật vào localStorage
                 localStorage.setItem('search_history', JSON.stringify(searchHistory));
             }
-
+            setSearchHistory(searchHistory);
             navigate(`/${i18n.language}/shop?${params.toString()}`, { replace: true });
             setShowSuggestions(false); // hide the show suggestions
         } else {
@@ -254,9 +248,10 @@ function NewHeader() {
 
     // handle for searching with search history
     const handleSearchFocus = () => {
-        if (searchQuery === '') {
-            setShowSearchHistory(true);
-        }
+        setShowSearchHistory(true);
+        // if (searchQuery === null) {
+        //     setShowSearchHistory(true);
+        // }
     };
     const handleSearchBlur = () => {
         // Handle blur with delay - hide history after losing focus
@@ -364,7 +359,7 @@ function NewHeader() {
                             >
                                 <TextFieldCustomizeV2
                                     // default
-                                    placeholder={'Search here...'}
+                                    placeholder={t('common.header.search')}
                                     sx={{
                                         width: '360px',
                                         [tabletScreen]: { width: '260px' },
@@ -498,17 +493,23 @@ function NewHeader() {
                                         left: 0,
                                         right: 0,
                                         zIndex: 10,
-                                        minHeight: '200px',
+                                        minHeight: '250px',
+                                        width: '360px',
                                         overflowY: 'auto',
+                                        borderRadius: 2,
                                     }}
                                 >
+                                    <Typography sx={{ padding: '2px 6px', fontSize: '13px' }}>
+                                        {/* You searched for... */}
+                                        {t('common.header.history')}
+                                    </Typography>
                                     <List>
                                         {searchHistory.map((search, index) => (
                                             <ListItem
                                                 key={index}
                                                 button
                                                 onClick={() => handleSearchHistoryClicked(search)}
-                                                style={{ cursor: 'pointer' }}
+                                                sx={{ cursor: 'pointer' }}
                                             >
                                                 {search}
                                             </ListItem>
@@ -690,7 +691,7 @@ function NewHeader() {
                                         mb: 0,
                                     }}
                                 >
-                                    Shopping Cart
+                                    {t('common.header.shoppingCart')}
                                 </Typography>
                             }
                         >
