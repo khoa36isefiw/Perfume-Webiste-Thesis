@@ -359,7 +359,7 @@ function NewHeader() {
                             >
                                 <TextFieldCustomizeV2
                                     // default
-                                    placeholder={'Search here...'}
+                                    placeholder={t('common.header.search')}
                                     sx={{
                                         width: '360px',
                                         [tabletScreen]: { width: '260px' },
@@ -500,7 +500,8 @@ function NewHeader() {
                                     }}
                                 >
                                     <Typography sx={{ padding: '2px 6px', fontSize: '13px' }}>
-                                        You searched for...
+                                        {/* You searched for... */}
+                                        {t('common.header.history')}
                                     </Typography>
                                     <List>
                                         {searchHistory.map((search, index) => (
@@ -690,7 +691,7 @@ function NewHeader() {
                                         mb: 0,
                                     }}
                                 >
-                                    Shopping Cart
+                                    {t('common.header.shoppingCart')}
                                 </Typography>
                             }
                         >
