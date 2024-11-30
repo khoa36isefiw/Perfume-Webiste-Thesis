@@ -53,8 +53,8 @@ function AdminViewOrderDetails() {
                             {/* user image */}
                             <Box sx={{ mt: 2 }}>
                                 <Avatar
-                                    src={orderData.userImage}
-                                    alt={orderData.userImage}
+                                    src={orderData.user.imagePath}
+                                    alt={orderData.user.imagePath}
                                     sx={{ height: 128, width: 128 }}
                                 />
                             </Box>
@@ -102,9 +102,17 @@ function AdminViewOrderDetails() {
                                     title={'Order Created at'}
                                     content={formatDate(orderData.createdAt)}
                                 />
-                                <UserInfor title={'Name'} content={orderData.userName} />
-                                <UserInfor title={'Email'} content={orderData.userEmail} />
-                                <UserInfor title={'Contact No'} content={orderData.userPhone} />
+                                <UserInfor
+                                    title={'Name'}
+                                    content={
+                                        orderData.user.firstName + ' ' + orderData.user.lastName
+                                    }
+                                />
+                                <UserInfor title={'Email'} content={orderData.user.email} />
+                                <UserInfor
+                                    title={'Contact No'}
+                                    content={orderData.user.phoneNumber}
+                                />
                             </Box>
 
                             <Box sx={{ border: '1px solid #ccc', borderRadius: 3, p: 2 }}>
@@ -114,15 +122,16 @@ function AdminViewOrderDetails() {
                                     Delivery Address
                                 </AdminTypography>
                                 <AdminTypography sx={{ fontSize: '16px', mb: 1 }}>
-                                    <strong>Name:</strong> {orderData.userName}
+                                    <strong>Name:</strong>{' '}
+                                    {orderData.user.firstName + ' ' + orderData.user.lastName}
                                 </AdminTypography>
                                 <AdminTypography sx={{ fontSize: '16px', mb: 1 }}>
-                                    {orderData.userAddress}
+                                    {orderData.user.address}
                                 </AdminTypography>
                                 <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                                     <CallIcon />
                                     <AdminTypography sx={{ fontSize: '16px', mb: 1 }}>
-                                        {orderData.userPhone}
+                                        {orderData.user.phoneNumber}
                                     </AdminTypography>
                                 </Box>
                             </Box>

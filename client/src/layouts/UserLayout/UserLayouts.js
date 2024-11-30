@@ -6,6 +6,7 @@ import BackToTop from '../../components/ScrollTop/ScrollTop';
 import NewHeader from '../../components/Header/NewHeader';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import SubscribeModal from '../../components/SubscribeModal/SubscribeModal';
 
 function UserLayouts({ children }) {
     const location = useLocation();
@@ -26,6 +27,7 @@ function UserLayouts({ children }) {
     return (
         <Box sx={{ minHeight: '100vh', width: '100vw', bgcolor: '#000' }}>
             {/* pre-defined layout */}
+            <SubscribeModal />
             <NewHeader />
 
             {/* any components call this layout */}

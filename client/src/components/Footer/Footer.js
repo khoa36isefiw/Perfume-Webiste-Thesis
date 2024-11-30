@@ -74,7 +74,7 @@ function Footer() {
                             Tomtoc Perfumes
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600' }}>
-                            Subscribe to Our Newsletter:
+                            {t('common.subscribe.title')}:
                         </CustomizeTypography>
                         <Box
                             sx={{
@@ -88,7 +88,7 @@ function Footer() {
                             }}
                         >
                             <CustomizeTypography>
-                                Receive Updates on New Arrivals and Special Promotions!
+                                {t('common.subscribe.content')}
                             </CustomizeTypography>
                         </Box>
                         <Box
@@ -101,7 +101,7 @@ function Footer() {
                         >
                             <TextFieldCustomizeV2
                                 // default
-                                placeholder={'Your email here'}
+                                placeholder={t('common.subscribe.textField')}
                                 sx={{
                                     [tabletScreen]: { width: '360px' },
                                     [mobileScreen]: {
@@ -127,7 +127,7 @@ function Footer() {
                                 }}
                                 onClick={handleSubcribe}
                             >
-                                Submit
+                                {t('common.subscribe.btn')}
                             </Button>
                         </Box>
                         {/* Load social  */}
@@ -167,7 +167,7 @@ function Footer() {
                     >
                         <Grid item xs={6} sm={4} md={4} lg={4}>
                             <CustomizeTypography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-                                Shopping
+                                {t(`common.Shopping`)}
                             </CustomizeTypography>
                             {shoppingFooterData.map((shopping, index) => (
                                 <CustomizeTypography key={index} sx={{ color: 'white' }}>
@@ -178,7 +178,7 @@ function Footer() {
 
                         <Grid item xs={6} sm={4} md={4} lg={4}>
                             <CustomizeTypography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-                                Customer care
+                                {t(`common.Customer care`)}
                             </CustomizeTypography>
                             {customersFooterData.map((customer, index) => (
                                 <CustomizeTypography key={index} sx={{ color: 'white' }}>
@@ -189,7 +189,7 @@ function Footer() {
                         </Grid>
                         <Grid item xs={6} sm={4} md={4} lg={4}>
                             <CustomizeTypography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-                                Pages
+                                {t(`common.Pages`)}
                             </CustomizeTypography>
                             {pagesFooterData.map((page, index) => (
                                 <CustomizeTypography

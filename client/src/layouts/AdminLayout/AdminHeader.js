@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 function AdminHeader() {
     const navigate = useNavigate();
     const { i18n } = useTranslation('translate');
+    const adminHeader = window.localStorage.getItem('admin_titlle') || 'Dashboard';
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
@@ -112,7 +113,7 @@ function AdminHeader() {
                         },
                     }}
                 >
-                    Admin Dashboard
+                    Admin {adminHeader}
                 </AdminTypography>
 
                 <AdminAuth />

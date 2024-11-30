@@ -134,7 +134,6 @@ function NewHeader() {
         setSearchQuery(value);
 
         if (value) {
-            // not empty
             const filteredSuggestions = perfumeData.filter((product) =>
                 product.perfumeName.toLowerCase().includes(value.toLowerCase()),
             );
@@ -142,16 +141,15 @@ function NewHeader() {
             setSuggestions(filteredSuggestions);
             setShowSuggestions(true);
         } else {
-            // null, empty
             setSuggestions([]);
             setShowSuggestions(false);
-            // if (showSearchHistory) {
-            //     window.localStorage.removeItem('search_query');
-            // }
+            if (showSearchHistory) {
+                window.localStorage.removeItem('search_query');
+            }
 
             // const params = new URLSearchParams(location.search);
             // params.delete('keyword'); // Xóa tham số `keyword` khỏi URL
-            // navigate(`${location.pathname}`);
+            navigate(`${location.pathname}`);
         }
     };
 
@@ -178,9 +176,8 @@ function NewHeader() {
     // Function to handle searching
     const handleSearch = async (search = searchQuery) => {
         console.log('search: ', search);
-
+        const params = new URLSearchParams(); // get current query string params
         if (search !== '') {
-            const params = new URLSearchParams(); // get current query string params
             params.set('keyword', search); // add to the current path with q=search value
             window.localStorage.setItem('search_query', search);
             // window.localStorage.setItem('filter', JSON.stringify('')); // reset filter
@@ -206,14 +203,12 @@ function NewHeader() {
             navigate(`/${i18n.language}/shop?${params.toString()}`, { replace: true });
             setShowSuggestions(false); // hide the show suggestions
         } else {
-            localStorage.removeItem('search_query');
             localStorage.removeItem('filter');
             localStorage.removeItem('sortBy');
             const currentQueryParams = new URLSearchParams(location.search);
             currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
             currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
-            // showMessage('warning', 'Search', 'Please fill product name!');
-            navigate(`/${i18n.language}/shop`);
+            showMessage('warning', 'Search', 'Please fill product name!');
         }
     };
 

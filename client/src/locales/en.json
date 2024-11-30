@@ -54,6 +54,13 @@
             "title": "Sorry, no result found",
             "content": "What you searched was unfortunately not found or does not exist"
         },
+        "subscribe": {
+            "title": "Subscribe to Our Newsletter",
+            "content": "Receive Updates on New Arrivals and Special Promotions!",
+            "btn": "Subscribe",
+            "textField": "Your email here...",
+            "close": "Close"
+        },
 
         "categoriesType": {
             "women": {
