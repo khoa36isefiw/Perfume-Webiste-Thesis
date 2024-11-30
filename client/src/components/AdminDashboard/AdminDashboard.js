@@ -1,24 +1,31 @@
 import { Box, Grid, IconButton } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import GradeIcon from '@mui/icons-material/Grade';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Tooltip from '@mui/material/Tooltip';
+import { mobileScreen, theme } from '../../Theme/Theme';
+import { backTop } from '../goBackTop/goBackTop';
+import RestoreIcon from '@mui/icons-material/Restore';
+import { adminAPI } from '../../api/adminAPI';
+
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
-import DashboardMenu from './DashboardMenu';
 import TopSales from './AdminLineChart';
 import AdminBestSellingProducts from './AdminBestSellingProducts';
 import RecentTransactions from './RecentTransactions';
 import TopProductsSale from './TopProductsSale';
-import useUsers from '../../api/useUsers';
-import DashboardV2 from './DashboardV2';
-import { mobileScreen } from '../../Theme/Theme';
 
 const cardData = [
     {
+        id: 1,
         title: 'Total Users',
         value: 277,
         gradient: 'linear-gradient(270deg,#4eda89,#1a9f53)',
@@ -30,6 +37,7 @@ const cardData = [
         gradientIconColor: 'linear-gradient(#27bf68, #1a9f53)',
     },
     {
+        id: 2,
         title: 'Total Orders',
         value: 277,
         gradient: 'linear-gradient(270deg, #ed68ff, #be0ee1)',
@@ -41,6 +49,7 @@ const cardData = [
         gradientIconColor: 'linear-gradient( #de2fff, #be0ee1)',
     },
     {
+        id: 3,
         title: 'Total Products',
         value: 277,
         gradient: 'linear-gradient(270deg, #64b3f6, #2b77e5)',
@@ -52,6 +61,7 @@ const cardData = [
         gradientIconColor: 'linear-gradient(#4094f1, #2b77e5)',
     },
     {
+        id: 4,
         title: 'Total Reviews',
         value: 277,
         gradient: 'linear-gradient(270deg, #f4d02b, #e1940e)',
@@ -64,46 +74,80 @@ const cardData = [
     },
 ];
 
+const filterDate = ['Last Day', 'Last Week', 'Last Month', 'Last Year'];
+
 function AdminDashboard() {
-    const { data: usersData, isLoading } = useUsers();
-    const [userCounts, setUserCounts] = useState({});
-    const [dailyChange, setDailyChange] = useState({ today: 0, yesterday: 0, percentageChange: 0 });
-    useEffect(() => {
-        if (usersData) {
-            const counts = usersData?.data?.reduce((acc, user) => {
-                const createdAtDate = new Date(user.createdAt).toISOString().split('T')[0]; // Extract date only
-                if (acc[createdAtDate]) {
-                    acc[createdAtDate]++;
-                } else {
-                    acc[createdAtDate] = 1;
-                }
-                return acc;
-            }, {});
-            setUserCounts(counts);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [listData, setListData] = useState(
+        JSON.parse(localStorage.getItem('dashboard_statistics')) || {},
+    );
+    console.log('listData: ', listData);
+    const [selectedCardId, setSelectedCardId] = useState(null); // ID của card được chọn
 
-            // Calculate today's and yesterday's counts
-            const todayDate = new Date().toISOString().split('T')[0];
-            const yesterdayDate = new Date(Date.now() - 86400000).toISOString().split('T')[0]; // 86400000ms = 1 day
+    const open = Boolean(anchorEl);
 
-            const todayCount = counts[todayDate] || 0;
-            const yesterdayCount = counts[yesterdayDate] || 0;
-            const percentageChange = yesterdayCount
-                ? ((todayCount - yesterdayCount) / yesterdayCount) * 100
-                : 0;
+    const handleClick = (event, cardId) => {
+        setAnchorEl(event.currentTarget); // Hiển thị menu (nếu có)
+        setSelectedCardId(cardId); // Lưu id của card đã click
+    };
 
-            // console.log('percentageChange: ', percentageChange);
-            setDailyChange({
-                today: todayCount,
-                yesterday: yesterdayCount,
-                percentageChange: percentageChange.toFixed(2),
-            });
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleSelectStatistics = async (date) => {
+        try {
+            const timeframeMap = {
+                'Last Month': 'month',
+                'Last Day': 'day',
+                'Last Week': 'week',
+            };
+            const which = {
+                1: 'Total Users',
+                2: 'Total Products',
+                3: 'Total Orders',
+                4: 'Total Reviews',
+            };
+            const timeFrame = timeframeMap[date] || 'day';
+            const getPath =
+                selectedCardId === 1
+                    ? 'user'
+                    : selectedCardId === 2
+                    ? 'product'
+                    : selectedCardId === 3
+                    ? 'order'
+                    : 'review';
+
+            const statisticsResponse = await adminAPI.getStatitics(getPath, timeFrame);
+
+            if (statisticsResponse.status === 200) {
+                console.log('Statistics Response:', statisticsResponse);
+
+                // create object to save to local storage
+                const updatedData = {
+                    ...listData,
+                    [selectedCardId]: {
+                        timeFrame,
+                        value: statisticsResponse.data,
+                        whichDashboard: which[selectedCardId],
+                    },
+                };
+
+                setListData(updatedData);
+
+                localStorage.setItem('dashboard_statistics', JSON.stringify(updatedData));
+
+                console.log('Updated Data:', updatedData);
+            } else {
+                console.error('Failed to fetch statistics');
+            }
+        } catch (error) {
+            console.error('Error fetching statistics:', error);
+        } finally {
+            setAnchorEl(null);
         }
-    }, [usersData?.data]);
+    };
 
-    console.log('userCounts: ', userCounts);
-    console.log('dailyChange: ', dailyChange);
-
-    if (!usersData) return <div>Loading...</div>;
     return (
         <Box
             sx={{
@@ -145,7 +189,7 @@ function AdminDashboard() {
                                     <AdminTypography
                                         sx={{ fontSize: 32, color: '#fff', fontWeight: 'bold' }}
                                     >
-                                        {card.value}
+                                        {listData[card.id]?.value}
                                     </AdminTypography>
                                     {card.percentage > 40 ? (
                                         <TrendingUpIcon
@@ -221,19 +265,109 @@ function AdminDashboard() {
                                         </AdminTypography>
                                     </Box>
                                     <AdminTypography
-                                        sx={{ ml: 1, fontWeight: 'bold', color: '#fff' }}
+                                        sx={{
+                                            ml: 1,
+                                            fontWeight: 'bold',
+                                            color: '#fff',
+                                            textTransform: 'capitalize',
+                                        }}
                                     >
-                                        Last Month
+                                        Last {listData[card.id]?.timeFrame || 'day'}
                                     </AdminTypography>
                                 </Box>
-                                <DashboardMenu color={card.moreIconColor} />
+                                <React.Fragment>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            textAlign: 'center',
+                                        }}
+                                    >
+                                        <Tooltip
+                                            title={
+                                                <AdminTypography sx={{ fontSize: '13px', mb: 0 }}>
+                                                    Filter By Day
+                                                </AdminTypography>
+                                            }
+                                        >
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    '&:hover': {
+                                                        cursor: 'pointer',
+                                                    },
+                                                }}
+                                                key={card.id}
+                                                onClick={(event) => handleClick(event, card.id)}
+                                            >
+                                                <MoreVertIcon
+                                                    size="small"
+                                                    sx={{
+                                                        fontSize: '24px',
+                                                        color: card.moreIconColor,
+                                                    }}
+                                                />
+                                            </Box>
+                                        </Tooltip>
+                                    </Box>
+                                    <Menu
+                                        anchorEl={anchorEl}
+                                        open={open}
+                                        onClose={handleClose}
+                                        aria-labelledby="filter-by-day-menu"
+                                        sx={{
+                                            '& .MuiPaper-root': {
+                                                bgcolor: 'white',
+                                                minWidth: '100px',
+                                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                                mt: 1.5,
+                                                '&::before': {
+                                                    content: '""',
+                                                    bgcolor: 'white',
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    right: 14,
+                                                    width: 10,
+                                                    height: 10,
+                                                    transform: 'translateY(-50%) rotate(45deg)',
+                                                    zIndex: 0,
+                                                },
+                                            },
+                                        }}
+                                    >
+                                        {filterDate.map((date, index) => (
+                                            <MenuItem
+                                                key={index}
+                                                onClick={() => handleSelectStatistics(date)}
+                                                sx={{
+                                                    mx: '2px',
+                                                    '&:hover': {
+                                                        color: 'text.primary',
+                                                        bgcolor: '#d9d9d9',
+                                                        borderRadius: 2,
+                                                    },
+                                                }}
+                                            >
+                                                <Box sx={{ display: 'flex' }}>
+                                                    <ListItemIcon>
+                                                        <RestoreIcon fontSize="large" />
+                                                    </ListItemIcon>
+                                                    <AdminTypography
+                                                        sx={{ mb: 0, fontSize: '14px' }}
+                                                    >
+                                                        {date}
+                                                    </AdminTypography>
+                                                </Box>
+                                            </MenuItem>
+                                        ))}
+                                    </Menu>
+                                </React.Fragment>
                             </Box>
                         </Box>
                     </Grid>
                 ))}
-                {/* <Grid item sm={12} md={12} lg={12}>
-                    <DashboardV2 />
-                </Grid> */}
+
                 <Grid item sm={12} md={12} lg={12}>
                     <TopSales />
                 </Grid>
