@@ -493,17 +493,22 @@ function NewHeader() {
                                         left: 0,
                                         right: 0,
                                         zIndex: 10,
-                                        minHeight: '200px',
+                                        minHeight: '250px',
+                                        width: '360px',
                                         overflowY: 'auto',
+                                        borderRadius: 2,
                                     }}
                                 >
+                                    <Typography sx={{ padding: '2px 6px', fontSize: '13px' }}>
+                                        You searched for...
+                                    </Typography>
                                     <List>
                                         {searchHistory.map((search, index) => (
                                             <ListItem
                                                 key={index}
                                                 button
                                                 onClick={() => handleSearchHistoryClicked(search)}
-                                                style={{ cursor: 'pointer' }}
+                                                sx={{ cursor: 'pointer' }}
                                             >
                                                 {search}
                                             </ListItem>
