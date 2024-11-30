@@ -17,7 +17,7 @@ import {
     AdminTypography,
     CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
-import ActionsButton from '../Dashboard/ActionsButton';
+import ActionsButton from '../AdminDashboard/ActionsButton';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';

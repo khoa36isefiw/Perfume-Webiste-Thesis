@@ -64,7 +64,7 @@ const cardData = [
     },
 ];
 
-function Dashboard() {
+function AdminDashboard() {
     const { data: usersData, isLoading } = useUsers();
     const [userCounts, setUserCounts] = useState({});
     const [dailyChange, setDailyChange] = useState({ today: 0, yesterday: 0, percentageChange: 0 });
@@ -252,4 +252,4 @@ function Dashboard() {
         </Box>
     );
 }
-export default Dashboard;
+export default AdminDashboard;

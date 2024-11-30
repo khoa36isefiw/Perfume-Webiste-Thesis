@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import ActionsButton from '../Dashboard/ActionsButton';
+import ActionsButton from '../AdminDashboard/ActionsButton';
 import { theme } from '../../Theme/Theme';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { useNavigate } from 'react-router-dom';
