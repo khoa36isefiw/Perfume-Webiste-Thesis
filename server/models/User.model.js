@@ -31,7 +31,7 @@ const userSchema = new Schema(
         },
         password: {
             type: String,
-            required: true,
+            // required: true,
         },
         firstName: String,
         lastName: String,
@@ -44,6 +44,10 @@ const userSchema = new Schema(
         phoneNumber: String,
         imagePath: String,
         cart: [cartItemSchema],
+        googleId: {
+            type: String,
+            unique: true,
+        },
         accessToken: {
             type: String,
             default: '',

@@ -1,6 +1,9 @@
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User.model');
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_KEY);
 
 const AuthController = {
     register: async (req, res) => {
@@ -124,6 +127,45 @@ const AuthController = {
         } catch (err) {
             return res.status(500).json({ message: err.message });
         }
+    },
+
+    verifyGoogleToken: async (token) => {
+        try {
+            // Verify the Google token (e.g., using Google's OAuth2 API)
+            const ticket = await client.verifyIdToken({
+                idToken: token,
+                audience: process.env.GOOGLE_CLIENT_KEY,
+            });
+
+            const payload = ticket.getPayload();
+            return payload;
+        } catch (error) {
+            console.error('Google login error:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    },
+    googleCallback: async (req, res) => {
+        console.log('req.user: ', req);
+        const { token } = req.body;
+        const payload = await AuthController.verifyGoogleToken(token);
+
+        const { email, profile } = payload;
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            const newUser = new User({
+                googleId: profile.id,
+                email: profile.emails[0].value,
+                firstName: profile.name.givenName,
+                lastName: profile.name.familyName,
+                imagePath: profile.photos[0].value,
+            });
+            newUser.accessToken = AuthController.generateAccessToken(newUser);
+            await newUser.save();
+            return res.status(200).json(newUser);
+        }
+        user.accessToken = AuthController.generateAccessToken(user);
+        await user.save();
+        return res.status(200).json(user);
     },
 };
 

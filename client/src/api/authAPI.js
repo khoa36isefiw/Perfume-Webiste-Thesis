@@ -1,11 +1,10 @@
-import axios from 'axios';
 import axiosClient from './axiosClient';
 
 export const authAPI = {
     registerAccount: (data) => {
         // register
         try {
-            const url = '/auths/register';
+            const url = '/auth/register';
             const response = axiosClient.post(url, data);
             return response;
         } catch (error) {
@@ -14,7 +13,7 @@ export const authAPI = {
     },
     login: (data) => {
         try {
-            const url = '/auths/login';
+            const url = '/auth/login';
             const response = axiosClient.post(url, {
                 email: data.email,
                 password: data.password,
@@ -26,7 +25,17 @@ export const authAPI = {
     },
 
     logout: (email) => {
-        const url = '/auths/logout';
+        const url = '/auth/logout';
         return axiosClient.post(url, { email });
+    },
+
+    googleLogin: (data) => {
+        try {
+            const url = '/auth/google/callback';
+            const response = axiosClient.post(url, data);
+            return response;
+        } catch (error) {
+            console.log('error', error);
+        }
     },
 };
