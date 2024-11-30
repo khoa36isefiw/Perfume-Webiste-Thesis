@@ -1,20 +1,25 @@
 import axiosClient from './axiosClient';
 
 export const adminAPI = {
-    statisticUser: (timeFrame) => {
-        const url = '/admin/user';
-        return axiosClient.get(url, timeFrame);
+    getStatitics: (what, timeframe) => {
+        const url = `/admin/${what}?timeframe=${timeframe}`;
+        return axiosClient.get(url);
     },
-    statisticOrder: (timeFrame) => {
-        const url = '/admin/order';
-        return axiosClient.get(url, timeFrame);
+
+    statisticUser: (timeframe) => {
+        const url = `/admin/user?timeframe=${timeframe}`;
+        return axiosClient.get(url);
     },
-    statisticProduct: (timeFrame) => {
-        const url = '/admin/product';
-        return axiosClient.get(url, timeFrame);
+    statisticOrder: (timeframe) => {
+        const url = `/admin/order?timeframe=${timeframe}`;
+        return axiosClient.get(url);
     },
-    statisticReview: (timeFrame) => {
-        const url = '/admin/review';
-        return axiosClient.get(url, timeFrame);
+    statisticProduct: (timeframe) => {
+        const url = `/admin/product?timeframe=${timeframe}`;
+        return axiosClient.get(url);
+    },
+    statisticReview: (timeframe) => {
+        const url = `/admin/review?timeframe=${timeframe}`;
+        return axiosClient.get(url);
     },
 };
