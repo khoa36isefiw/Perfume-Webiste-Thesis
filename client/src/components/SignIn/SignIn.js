@@ -11,7 +11,7 @@ import { authAPI } from '../../api/authAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useTranslation } from 'react-i18next';
-import GoogleLoginButton from '../GoogleLoginButton/GoogleLoginButton';
+import GoogleAuthButton from '../GoogleLoginButton/GoogleLoginButton';
 
 function SignIn() {
     const { t, i18n } = useTranslation('translate');
@@ -233,7 +233,7 @@ function SignIn() {
                                     onHandleClick={handleSignIn}
                                     onHandleKeyEvent={handleKeyEnterLogin}
                                 />
-                                <GoogleLoginButton showMessage={showMessage} />
+                                <GoogleAuthButton showMessage={showMessage} isLogin={true} />
                             </Box>
                         </Grid>
                         <Grid

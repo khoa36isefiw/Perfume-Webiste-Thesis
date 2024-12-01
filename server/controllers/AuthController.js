@@ -145,19 +145,20 @@ const AuthController = {
         }
     },
     googleCallback: async (req, res) => {
-        console.log('req.user: ', req);
+        console.log('req.user: ', req.body);
         const { token } = req.body;
         const payload = await AuthController.verifyGoogleToken(token);
-
-        const { email, profile } = payload;
+        console.log('payload: ', payload);
+        const { email, sub, picture, given_name, family_name } = payload;
         const user = await User.findOne({ email: email });
         if (!user) {
             const newUser = new User({
-                googleId: profile.id,
-                email: profile.emails[0].value,
-                firstName: profile.name.givenName,
-                lastName: profile.name.familyName,
-                imagePath: profile.photos[0].value,
+                googleId: sub,
+                email: email,
+                firstName: given_name,
+                lastName: family_name,
+                imagePath: picture,
+                password: '',
             });
             newUser.accessToken = AuthController.generateAccessToken(newUser);
             await newUser.save();
