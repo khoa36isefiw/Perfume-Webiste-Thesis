@@ -72,7 +72,7 @@ export default function AuthenticatedUser() {
                 window.localStorage.removeItem('user_data');
                 console.log('Logged out successfully');
                 // navigate('/');
-                navigate(`/${i18n.language}/`);
+                navigate(`/${i18n.language}`);
             } else {
                 console.error('Logout failed');
             }
