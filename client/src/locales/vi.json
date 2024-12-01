@@ -63,7 +63,9 @@
                 "dT": "Xóa sản phẩm",
                 "dC": "Bạn có chắc chắn muốn xóa sản phẩm này không?",
                 "dCC": "Không",
-                "dY": "Có"
+                "dY": "Có",
+                "uPT": "Cập nhật số lượng sản phẩm",
+                "uPC": "Ayyy cha, chúng tôi hết sản phẩm này rồi!"
             }
         },
         "header": {
