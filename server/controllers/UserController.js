@@ -403,6 +403,8 @@ const UserController = {
         if (!email) return res.status(400).json({ message: 'Email is required' });
 
         try {
+            const subscriber = await Subscriber.findOne({ email });
+            if (subscriber) return res.status(400).json({ message: 'Email already exists' });
             const newSubscriber = new Subscriber({ email });
             await newSubscriber.save();
             return res.status(201).json({ message: 'Subscribed successfully' });
