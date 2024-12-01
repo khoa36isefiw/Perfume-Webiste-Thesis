@@ -197,7 +197,7 @@ function SignIn() {
                                     <span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
                                 <TextFieldLogin
-                                    placeholder="Password"
+                                    placeholder={t('common.notifyMessage.login.pass')}
                                     fullWidth
                                     inputRef={passwordRef}
                                     onHandleKeyDown={handleKeyEnterLogin}

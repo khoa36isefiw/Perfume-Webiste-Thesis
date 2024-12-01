@@ -91,7 +91,19 @@
                 "loginT": "Đăng nhập",
                 "loginS": "Đăng nhập thành công!",
                 "loginNC": "Email hoặc mật khẩu của bạn không đúng!",
-                "loginNotFill": "Bạn nên điền thông tin trước khi đăng nhập"
+                "loginNotFill": "Bạn nên điền thông tin trước khi đăng nhập",
+                "pass": "Mật khẩu"
+            },
+            "register": {
+                "fName": "Tên",
+                "lName": "Họ",
+                "phone": "Số điện thoại",
+                "password": "Mật khẩu",
+                "regisT": "Đăng ký tài khoản",
+                "regisS": "Tạo tài khoản mới thành công!",
+                "regisEE": "Email đã tồn tại, vui lòng thử email khác!",
+                "regisFI": "Vui lòng điền thông tin của bạn một cách chính xác!",
+                "regisF": "Vui lòng điền thông tin của bạn"
             }
         },
         "header": {
