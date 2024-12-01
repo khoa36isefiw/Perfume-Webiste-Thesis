@@ -3,7 +3,7 @@ import { authAPI } from '../../api/authAPI';
 import { GoogleLogin } from '@react-oauth/google';
 import i18n from '../../i18n';
 
-function GoogleLoginButton({ showMessage }) {
+function GoogleAuthButton({ showMessage, isLogin }) {
     const navigate = useNavigate();
     const handleGoogleLogin = async (credentialResponse) => {
         console.log(credentialResponse);
@@ -28,8 +28,11 @@ function GoogleLoginButton({ showMessage }) {
                         address: response.data.address,
                     }),
                 );
+
                 showMessage('success', 'Login', 'Login successfully!');
-                navigate(`/${i18n.language}/`);
+                setTimeout(() => {
+                    navigate(`/${i18n.language}/`);
+                }, 1500);
                 window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
             } else {
                 showMessage('warning', 'Login', 'Your email or password is incorrect!');
@@ -41,12 +44,18 @@ function GoogleLoginButton({ showMessage }) {
 
     return (
         <GoogleLogin
+            text={isLogin ? 'signin_with' : 'signup_with'}
+            shape="pill"
             onSuccess={handleGoogleLogin}
             onError={() => {
-                console.log('Login Failed');
+                showMessage(
+                    'error',
+                    isLogin ? 'Login' : 'Sign Up',
+                    'Google authentication failed.',
+                );
             }}
         />
     );
 }
 
-export default GoogleLoginButton;
+export default GoogleAuthButton;

@@ -15,6 +15,7 @@ import useValidationWithRef from '../../hooks/useValidationWithRef';
 import { RequirementV2 } from '../Requirement/RequirementV2';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { useTranslation } from 'react-i18next';
+import GoogleAuthButton from '../GoogleLoginButton/GoogleLoginButton';
 
 function RegisterAccount() {
     const navigate = useNavigate();
@@ -359,12 +360,14 @@ function RegisterAccount() {
                                 justifyContent: 'flex-end',
                                 // p: 2,
                                 p: '4px',
+                                gap: 1,
                             }}
                         >
                             <ButtonComponent
                                 textAction={t('common.register.register')}
                                 onHandleClick={handleRegisterAccount}
                             />
+                            <GoogleAuthButton showMessage={showMessage} />
                         </Grid>
                         <Grid
                             item
