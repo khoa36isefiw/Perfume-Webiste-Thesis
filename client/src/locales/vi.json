@@ -104,6 +104,12 @@
                 "regisEE": "Email đã tồn tại, vui lòng thử email khác!",
                 "regisFI": "Vui lòng điền thông tin của bạn một cách chính xác!",
                 "regisF": "Vui lòng điền thông tin của bạn"
+            },
+            "recover": {
+                "rT": "Kiểm tra Email",
+                "rS": "Email của bạn đúng, mật khẩu mới sẽ được gửi đến hộp thư của bạn!",
+                "rWN": "Email của bạn không tồn tại, vui lòng kiểm tra lại!",
+                "rFL": "Vui lòng nhập địa chỉ email của bạn!"
             }
         },
         "header": {
