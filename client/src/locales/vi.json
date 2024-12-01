@@ -58,6 +58,12 @@
                 "title": "Thêm vào giỏ hàng",
                 "success": "Sản phẩm đã được thêm vào giỏ hàng thành công!",
                 "warning": "Bạn phải đăng nhập vào hệ thống!"
+            },
+            "inCart": {
+                "dT": "Xóa sản phẩm",
+                "dC": "Bạn có chắc chắn muốn xóa sản phẩm này không?",
+                "dCC": "Không",
+                "dY": "Có"
             }
         },
         "header": {

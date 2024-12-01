@@ -564,6 +564,7 @@ export const ProductInCart = ({
 
                 {/* Open Confirm Message */}
                 <ConfirmMessage
+                    t={t}
                     openConfirmMessage={openConfirmMessage}
                     msgTitle={
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -582,13 +583,13 @@ export const ProductInCart = ({
                                     fontWeight: 'bold',
                                 }}
                             >
-                                Delete Products
+                                {t('common.notifyMessage.inCart.dT')}
                             </CustomizeTypography>
                         </Box>
                     }
                     msgContent={
                         <Typography sx={{ fontSize: '16px' }}>
-                            Are you sure you want to delete this product?
+                            {t('common.notifyMessage.inCart.dC')}
                         </Typography>
                     }
                     onHandleClickClose={() => setOpenConfirmMessage(false)}
