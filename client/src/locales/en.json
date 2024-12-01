@@ -70,6 +70,12 @@
                 "uPC": "Ayyy cha, We run out of this product!",
                 "dPT": "Delete Products",
                 "dPC": "Products are removed successfully from cart!"
+            },
+            "accSetting": {
+                "aT": "Account Information",
+                "aC": "Please fill information before changing",
+                "aC1": "You have successfully updated your account information!",
+                "aC2": "Please fill information correctly!"
             }
         },
         "header": {

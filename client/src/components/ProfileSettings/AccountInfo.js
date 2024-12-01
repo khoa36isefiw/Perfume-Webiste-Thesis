@@ -74,13 +74,17 @@ function AccountInfo() {
                     setEditAccount(true);
                     showMessage(
                         'success',
-                        'Account Information',
-                        'You have successfully updated your account information!',
+                        `${t('common.notifyMessage.accSetting.aT')}`,
+                        `${t('common.notifyMessage.accSetting.aC1')}`,
                     );
                 }
                 console.log('updateUserInfor: ', updateUserInfor);
             } else {
-                showMessage('warning', 'Account Information', 'Please fill information correctly!');
+                showMessage(
+                    'warning',
+                    `${t('common.notifyMessage.accSetting.aT')}`,
+                    `${t('common.notifyMessage.accSetting.aC2')}`,
+                );
                 setOpen(true);
                 setTimeout(() => {
                     setOpen(false);
@@ -89,8 +93,8 @@ function AccountInfo() {
         } else {
             showMessage(
                 'warning',
-                'Account Information',
-                'Please fill information before changing',
+                `${t('common.notifyMessage.accSetting.aT')}`,
+                `${t('common.notifyMessage.accSetting.aC')}`,
             );
             setOpen(true);
             setTimeout(() => {

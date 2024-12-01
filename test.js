@@ -1,14 +1,9 @@
 const test = {
-    notifyMessage: {
-        inCart: {
-            dT: 'Delete Products',
-            dC: 'Are you sure you want to delete this product?',
-            dCC: 'Cancel',
-            dY: 'Yes',
-            uPT: 'Update Product Quantity',
-            uPC: 'Ayyy cha, We run out of this product',
-            dPT: 'Delete Products',
-            dPC: 'Products are removed successfully from cart!',
-        },
+    accSetting: {
+        aT: 'Account Information',
+        aC: 'Please fill information before changing',
+
+        aC1: 'You have successfully updated your account information!',
+        aC2: 'Please fill information correctly!',
     },
 };

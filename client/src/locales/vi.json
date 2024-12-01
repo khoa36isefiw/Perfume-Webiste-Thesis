@@ -68,6 +68,12 @@
                 "uPC": "Ayyy cha, chúng tôi hết sản phẩm này rồi!",
                 "dPT": "Xóa sản phẩm",
                 "dPC": "Đã xóa sản phẩm khỏi giỏ hàng thành công!"
+            },
+            "accSetting": {
+                "aT": "Thông tin tài khoản",
+                "aC": "Vui lòng điền thông tin trước khi thay đổi",
+                "aC1": "Bạn đã cập nhật thông tin tài khoản thành công!",
+                "aC2": "Vui lòng điền thông tin chính xác!"
             }
         },
         "header": {

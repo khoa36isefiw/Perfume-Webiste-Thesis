@@ -14,7 +14,7 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
     // console.log('productsList: ', productsList);
 
     const navigate = useNavigate();
-    const { showMessage, MessageShowed } = useShowNotificationMessage();
+
     const [totalSubtotal, setTotalSubtotal] = useState(0);
     const { t, i18n } = useTranslation('translate');
     useEffect(() => {
@@ -104,7 +104,6 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
                 textAction={t('common.shoppingCart.continue')}
                 onHandleClick={() => navigate(`/${i18n.language}/shop`)}
             />
-            <MessageShowed />
         </Box>
     );
 }
