@@ -10,7 +10,7 @@ const port = 3001;
 
 app.use(
     cors({
-        origin: 'http://localhost:3000', // Allow requests from your front-end
+        origin: ['http://localhost:3000', 'https://perfume-webiste-thesis.vercel.app/'],
         methods: ['GET', 'POST'],
         credentials: true, // Allow cookies and authorization headers
     }),
