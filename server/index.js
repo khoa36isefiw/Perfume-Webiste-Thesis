@@ -3,8 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const route = require('./routes/index.route');
 const morgan = require('morgan');
-const passport = require('passport');
-const session = require('express-session');
 const app = express();
 const port = 3001;
 
@@ -18,9 +16,6 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
 
 route(app);
 
