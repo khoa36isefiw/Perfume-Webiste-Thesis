@@ -34,11 +34,26 @@ function Footer() {
     }, []);
     const handleSubcribe = async () => {
         const response = await userAPI.subscribe({ email });
-        if (response.status === 200) {
-            alert('Subscribe successfully');
-            showMessage('success', 'Subscribe Newsletter', 'Subscribe Newsletter successfully!');
+        if (email === '') {
+            showMessage(
+                'warning',
+                `${t('common.notifyMessage.sub.title')}`,
+                `${t('common.notifyMessage.sub.require')}`,
+            );
         } else {
-            showMessage('warning', 'Subscribe Newsletter', response.data.message);
+            if (response.status === 200) {
+                showMessage(
+                    'warning',
+                    `${t('common.notifyMessage.sub.title')}`,
+                    `${t('common.notifyMessage.sub.success')}`,
+                );
+            } else {
+                showMessage(
+                    'warning',
+                    `${t('common.notifyMessage.sub.title')}`,
+                    `${t('common.notifyMessage.sub.existed')}`,
+                );
+            }
         }
     };
 

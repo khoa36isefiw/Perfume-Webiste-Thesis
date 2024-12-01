@@ -1,8 +1,10 @@
 const test = {
     notifyMessage: {
         sub: {
-            emailRequire: 'Email is required',
-            emailExist: 'Email already exists',
+            title: 'Subscribe Newsletter',
+            require: 'Email is required',
+            existed: 'Email already exists',
+            success: 'Subscribe Newsletter successfully!',
             notiSub: 'Subscribe Newsletter successfully',
         },
     },

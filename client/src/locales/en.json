@@ -46,6 +46,15 @@
         "phtl": "See all products, with price from high to low",
         "nA-Z": "See all products, with name from A to Z",
         "nZ-A": "See all products, with name from Z to A",
+        "notifyMessage": {
+            "sub": {
+                "title": "Subscribe Newsletter",
+                "require": "Email is required",
+                "existed": "Email already exists",
+                "success": "Subscribe Newsletter successfully!",
+                "notiSub": "Subscribe Newsletter successfully"
+            }
+        },
         "header": {
             "search": "Search here...",
             "history": "You searched for...",

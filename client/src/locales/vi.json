@@ -45,6 +45,15 @@
         "High to Low": "Cao đến Thấp",
         "Name A -> Z": "Tên: A -> Z",
         "Name Z -> A": "Tên: Z -> A",
+        "notifyMessage": {
+            "sub": {
+                "title": "Đăng ký nhận bản tin",
+                "require": "Yêu cầu phải có email",
+                "existed": "Email đã tồn tại",
+                "success": "Đăng ký nhận bản tin thành công!",
+                "notiSub": "Đăng ký nhận bản tin thành công"
+            }
+        },
         "header": {
             "search": "Tìm kiếm ở đây...",
             "history": "Bạn đã tìm kiếm...",
