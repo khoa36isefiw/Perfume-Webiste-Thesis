@@ -36,6 +36,52 @@ const OrderController = {
         }
     },
 
+    statisticRevenue: async (req, res) => {
+        try {
+            const { year } = req.query;
+
+            // Validate year input
+            if (!year || isNaN(year)) {
+                return res.status(400).json({ error: 'Valid year is required' });
+            }
+
+            // Query to get orders grouped by month
+            const revenueStats = await Order.aggregate([
+                {
+                    $match: {
+                        createdAt: {
+                            $gte: new Date(`${year}-01-01`),
+                            $lte: new Date(`${year}-12-31`),
+                        },
+                    },
+                },
+                {
+                    $group: {
+                        _id: { $month: '$createdAt' },
+                        totalRevenue: { $sum: '$originalTotalPrice' }, // Replace "totalValue" with the appropriate field
+                    },
+                },
+                {
+                    $sort: { _id: 1 }, // Sort by month
+                },
+            ]);
+
+            // Format result
+            const formattedResult = Array.from({ length: 12 }, (_, i) => {
+                const month = i + 1;
+                const stat = revenueStats.find((s) => s._id === month);
+                return {
+                    month,
+                    totalRevenue: stat ? stat.totalRevenue : 0,
+                };
+            });
+
+            return res.status(200).json({ year, revenueByMonth: formattedResult });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
     getByUserId: async (req, res) => {
         try {
             const { userId } = req.params;

@@ -9,5 +9,5 @@ router.get('/user', userController.statisticUser);
 router.get('/order', orderController.statisticOrder);
 router.get('/product', productController.statisticProduct);
 router.get('/review', reviewController.statisticReview);
-
+router.get('/revenue', orderController.statisticRevenue);
 module.exports = router;

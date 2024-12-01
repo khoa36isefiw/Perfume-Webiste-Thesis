@@ -94,6 +94,10 @@ const PaymentController = {
                     item.quantity * (variant.priceSale ? variant.priceSale : variant.price);
                 newOrder.totalPrice += totalPrice;
             }
+            // assign adjusted total price
+            newOrder.originalTotalPrice = newOrder.totalPrice;
+            newOrder.adjustedTotalPrice = newOrder.totalPrice;
+
             if (promotionCode) {
                 const promotion = await Promotion.findOne({ code: promotionCode });
 
@@ -112,7 +116,6 @@ const PaymentController = {
                 const discountRate = promotion.discount / 100; // Discount percentage
                 const discountAmount = Math.floor(newOrder.totalPrice * discountRate); // Discount amount
 
-                newOrder.originalTotalPrice = newOrder.totalPrice; // Save original total price
                 newOrder.adjustedTotalPrice = newOrder.totalPrice - discountAmount; // Adjusted price with discount
                 newOrder.totalPrice = newOrder.adjustedTotalPrice; // Update total price
                 newOrder.promotionCode = promotion._id;
