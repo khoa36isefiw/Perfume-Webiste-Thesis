@@ -7,6 +7,8 @@ const test = {
             dY: 'Yes',
             uPT: 'Update Product Quantity',
             uPC: 'Ayyy cha, We run out of this product',
+            dPT: 'Delete Products',
+            dPC: 'Products are removed successfully from cart!',
         },
     },
 };

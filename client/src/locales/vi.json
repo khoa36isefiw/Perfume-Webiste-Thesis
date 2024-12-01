@@ -65,7 +65,9 @@
                 "dCC": "Không",
                 "dY": "Có",
                 "uPT": "Cập nhật số lượng sản phẩm",
-                "uPC": "Ayyy cha, chúng tôi hết sản phẩm này rồi!"
+                "uPC": "Ayyy cha, chúng tôi hết sản phẩm này rồi!",
+                "dPT": "Xóa sản phẩm",
+                "dPC": "Đã xóa sản phẩm khỏi giỏ hàng thành công!"
             }
         },
         "header": {

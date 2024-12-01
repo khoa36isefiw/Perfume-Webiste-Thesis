@@ -105,7 +105,6 @@ function Cart() {
                                 <TotalPriceInCart
                                     productsList={data.data.cart}
                                     selectedProducts={selectedProducts}
-                                    setSelectedProducts={setSelectedProducts}
                                     setPriceChange={setPriceChange}
                                     priceChange={priceChange}
                                     mutate={mutate}

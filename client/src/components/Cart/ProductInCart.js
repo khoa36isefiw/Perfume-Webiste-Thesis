@@ -77,8 +77,8 @@ export const ProductInCart = ({
                 // window.location.reload();
                 showMessage(
                     'success',
-                    'Delete Products',
-                    'Products are removed successfully from cart!',
+                    `${t('common.notifyMessage.inCart.dPT')}`,
+                    `${t('common.notifyMessage.inCart.dPC')}`,
                 );
                 setOpenConfirmMessage(false);
                 setProductToRemove(null); // clear
@@ -116,13 +116,10 @@ export const ProductInCart = ({
         }
     };
     console.log('list selected product: ', selectedProducts);
+    // filter list products by stock > 0.
     const getListProductIsStock = productsList.filter((product) => product.variant?.stock > 0);
     const handleSelectAll = (isChecked) => {
-        // filter list products by stock > 0.
-        // const getListProductIsStock = productsList.filter((product) => product.variant.stock > 0);
-        //. console.log('getListProductIsStock: ', getListProductIsStock);
         if (isChecked) {
-            // setSelectedProducts(productsList);
             setSelectedProducts(getListProductIsStock);
         } else {
             // Clear selectedProducts when unchecked
@@ -190,7 +187,6 @@ export const ProductInCart = ({
     };
 
     // check if all items with stock > 0 are selected
-
     const isAllSelected =
         getListProductIsStock.length > 0 &&
         selectedProducts.length === getListProductIsStock.length;
