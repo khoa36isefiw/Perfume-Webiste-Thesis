@@ -86,6 +86,12 @@
                 "changeW2": "Vui lòng nhập mật khẩu mới!",
                 "changeNew": "Mật khẩu mới của bạn",
                 "changeCNew": "Xác nhận mật khẩu mới"
+            },
+            "login": {
+                "loginT": "Đăng nhập",
+                "loginS": "Đăng nhập thành công!",
+                "loginNC": "Email hoặc mật khẩu của bạn không đúng!",
+                "loginNotFill": "Bạn nên điền thông tin trước khi đăng nhập"
             }
         },
         "header": {
@@ -304,7 +310,7 @@
         "signIn": {
             "registered": "Đã đăng ký?",
             "signIn": "Đăng nhập",
-            "new": "Tôi là khách hàng quay lại",
+            "new": "Tôi là khách hàng cũ",
             "password": "Mật khẩu",
             "forgot": "Quên mật khẩu?",
             "login": "Đăng nhập",

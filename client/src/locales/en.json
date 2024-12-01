@@ -88,6 +88,12 @@
                 "changeW2": "Please enter new password!",
                 "changeNew": "Your new password",
                 "changeCNew": "Confirm new password"
+            },
+            "login": {
+                "loginT": "Login",
+                "loginS": "Login successfully!",
+                "loginNC": "Your email or password is incorrect!",
+                "loginNotFill": "You should fill your information before login"
             }
         },
         "header": {
