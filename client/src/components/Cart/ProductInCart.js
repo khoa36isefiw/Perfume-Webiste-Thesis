@@ -142,7 +142,7 @@ export const ProductInCart = ({
             (product) =>
                 product.product._id === pId &&
                 product.variant._id === vId &&
-                product.variant.stock - newQuantity >= 0, // check if the current quantity is greater than the number of products in stock
+                product.variant.stock - newQuantity > 0, // check if the current quantity is greater than the number of products in stock
         );
         console.log('product is updated information status: ', checkStockStatus);
         console.log('productToUpdate: ', productToUpdate);
@@ -179,8 +179,6 @@ export const ProductInCart = ({
                     }
                 });
                 window.localStorage.setItem('current_price', JSON.stringify(total));
-            } else {
-                throw new Error('Failed to update quantity');
             }
         } else {
             showMessage('error', 'Update Product Quantity', 'Ayyy cha, We run out of this product');
