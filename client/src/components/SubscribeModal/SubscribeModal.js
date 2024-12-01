@@ -55,6 +55,8 @@ function SubscribeModal() {
                     );
                     setError('');
                     closeAndStoreTime();
+                } else {
+                    showMessage('warning', 'Subscribe Newsletter', response.data.message);
                 }
             }
         } else {
