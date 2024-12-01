@@ -49,10 +49,11 @@
         "notifyMessage": {
             "sub": {
                 "title": "Subscribe Newsletter",
-                "require": "Email is required",
+                "require": "Please enter your email address",
                 "existed": "Email already exists",
                 "success": "Subscribe Newsletter successfully!",
-                "notiSub": "Subscribe Newsletter successfully"
+                "notiSub": "Subscribe Newsletter successfully",
+                "notMail": "Please enter a valid email address."
             }
         },
         "header": {

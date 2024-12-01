@@ -26,6 +26,11 @@ function Footer() {
         navigate(`/${i18n.language}${dest}`);
         backTop();
     };
+    const validateEmail = (email) => {
+        // check email type
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
 
     const language = window.localStorage.getItem('language') || 'en';
     useEffect(() => {
@@ -41,18 +46,26 @@ function Footer() {
                 `${t('common.notifyMessage.sub.require')}`,
             );
         } else {
-            if (response.status === 200) {
+            if (!validateEmail(email)) {
                 showMessage(
                     'warning',
                     `${t('common.notifyMessage.sub.title')}`,
-                    `${t('common.notifyMessage.sub.success')}`,
+                    `${t('common.notifyMessage.sub.notMail')}`,
                 );
             } else {
-                showMessage(
-                    'warning',
-                    `${t('common.notifyMessage.sub.title')}`,
-                    `${t('common.notifyMessage.sub.existed')}`,
-                );
+                if (response.status === 200) {
+                    showMessage(
+                        'warning',
+                        `${t('common.notifyMessage.sub.title')}`,
+                        `${t('common.notifyMessage.sub.success')}`,
+                    );
+                } else {
+                    showMessage(
+                        'warning',
+                        `${t('common.notifyMessage.sub.title')}`,
+                        `${t('common.notifyMessage.sub.existed')}`,
+                    );
+                }
             }
         }
     };

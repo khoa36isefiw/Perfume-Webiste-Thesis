@@ -48,10 +48,11 @@
         "notifyMessage": {
             "sub": {
                 "title": "Đăng ký nhận bản tin",
-                "require": "Yêu cầu phải có email",
+                "require": "Vui lòng nhập địa chỉ email của bạn",
                 "existed": "Email đã tồn tại",
                 "success": "Đăng ký nhận bản tin thành công!",
-                "notiSub": "Đăng ký nhận bản tin thành công"
+                "notiSub": "Đăng ký nhận bản tin thành công",
+                "notMail": "Vui lòng nhập địa chỉ email hợp lệ."
             }
         },
         "header": {
