@@ -64,23 +64,36 @@ function ChangePassword() {
         if (currentPassword) {
             try {
                 const loginData = await authAPI.login(data);
-                console.log('loginData: ', loginData);
-
                 if (loginData.status === 200) {
-                    console.log('Correct password');
                     setShowChangePassword(true);
-                    showMessage('success', 'Change Password', 'Starting create new your password');
+                    showMessage(
+                        'success',
+                        `${t('common.notifyMessage.changePassword.changeT')}`,
+                        `${t('common.notifyMessage.changePassword.currentS')}`,
+                    );
                 } else {
-                    showMessage('warning', 'Change Password', 'Your current password is incorrect');
+                    showMessage(
+                        'warning',
+                        `${t('common.notifyMessage.changePassword.changeT')}`,
+                        `${t('common.notifyMessage.changePassword.currentW')}`,
+                    );
                     setShowChangePassword(false);
                 }
             } catch (error) {
-                showMessage('warning', 'Change Password', 'Your current password is incorrect');
+                showMessage(
+                    'warning',
+                    `${t('common.notifyMessage.changePassword.changeT')}`,
+                    `${t('common.notifyMessage.changePassword.currentW')}`,
+                );
                 console.error('Error during login attempt:', error);
                 setShowChangePassword(false);
             }
         } else {
-            showMessage('warning', 'Change Password', 'Please enter your email!');
+            showMessage(
+                'warning',
+                `${t('common.notifyMessage.changePassword.changeT')}`,
+                `${t('common.notifyMessage.changePassword.currentW2')}`,
+            );
         }
     };
 
@@ -102,8 +115,8 @@ function ChangePassword() {
                     if (response) {
                         showMessage(
                             'success',
-                            'Change Password',
-                            'You have successfully changed your password!',
+                            `${t('common.notifyMessage.changePassword.changeT')}`,
+                            `${t('common.notifyMessage.changePassword.changeS')}`,
                         );
                         setTimeout(() => {
                             navigate('/');
@@ -112,15 +125,23 @@ function ChangePassword() {
                 } catch (error) {
                     showMessage(
                         'error',
-                        'Change Password',
+                        `${t('common.notifyMessage.changePassword.changeT')}`,
                         error.response?.data || 'Failed to change password',
                     );
                 }
             } else {
-                showMessage('warning', 'Change Password', 'Your passwords do not match');
+                showMessage(
+                    'warning',
+                    `${t('common.notifyMessage.changePassword.changeT')}`,
+                    `${t('common.notifyMessage.changePassword.changeW')}`,
+                );
             }
         } else {
-            showMessage('warning', 'Change Password', 'Please enter new password!');
+            showMessage(
+                'warning',
+                `${t('common.notifyMessage.changePassword.changeT')}`,
+                `${t('common.notifyMessage.changePassword.changeW2')}`,
+            );
         }
     };
 
@@ -165,7 +186,7 @@ function ChangePassword() {
 
                             <TextFieldPassword
                                 showPassword={showCurrentPassword}
-                                placeholder={'Your current password'}
+                                placeholder={t('common.notifyMessage.changePassword.currentHolder')}
                                 onHandleClick={handleClickShowCurrentPassword}
                                 defaultValue={loggedInAccount?.password}
                                 inputRef={currentPasswordRef}
@@ -199,7 +220,7 @@ function ChangePassword() {
                         <Grid item xs={12} md={8} lg={8}>
                             <TextFieldPassword
                                 showPassword={showNewPassword}
-                                placeholder={'Your new password'}
+                                placeholder={t('common.notifyMessage.changePassword.changeNew')}
                                 onHandleClick={handleClickShowNewPassword}
                                 inputRef={newPasswordRef}
                             />
@@ -223,7 +244,7 @@ function ChangePassword() {
                         <Grid item xs={12} md={8} lg={8}>
                             <TextFieldPassword
                                 showPassword={confrimNewPassword}
-                                placeholder={'Confirm new password'}
+                                placeholder={t('common.notifyMessage.changePassword.changeCNew')}
                                 onHandleClick={handleClickConfirmNewPassword}
                                 inputRef={confirmPasswordRef}
                             />

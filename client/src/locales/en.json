@@ -76,6 +76,18 @@
                 "aC": "Please fill information before changing",
                 "aC1": "You have successfully updated your account information!",
                 "aC2": "Please fill information correctly!"
+            },
+            "changePassword": {
+                "changeT": "Change Password",
+                "currentS": "Starting create new your password",
+                "currentW": "Your current password is incorrect",
+                "currentW2": "Please enter your current password!",
+                "currentHolder": "Your current password",
+                "changeS": "You have successfully changed your password!",
+                "changeW": "Your passwords do not match",
+                "changeW2": "Please enter new password!",
+                "changeNew": "Your new password",
+                "changeCNew": "Confirm new password"
             }
         },
         "header": {

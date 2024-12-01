@@ -74,6 +74,18 @@
                 "aC": "Vui lòng điền thông tin trước khi thay đổi",
                 "aC1": "Bạn đã cập nhật thông tin tài khoản thành công!",
                 "aC2": "Vui lòng điền thông tin chính xác!"
+            },
+            "changePassword": {
+                "changeT": "Đổi mật khẩu",
+                "currentS": "Bắt đầu tạo mật khẩu mới",
+                "currentW": "Mật khẩu hiện tại của bạn không đúng",
+                "currentW2": "Vui lòng nhập mật khẩu hiện tại của bạn!",
+                "currentHolder": "Mật khẩu hiện tại của bạn",
+                "changeS": "Bạn đã đổi mật khẩu thành công!",
+                "changeW": "Mật khẩu của bạn không khớp",
+                "changeW2": "Vui lòng nhập mật khẩu mới!",
+                "changeNew": "Mật khẩu mới của bạn",
+                "changeCNew": "Xác nhận mật khẩu mới"
             }
         },
         "header": {
