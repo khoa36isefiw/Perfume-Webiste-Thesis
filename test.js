@@ -1,36 +1,10 @@
 const test = {
     notifyMessage: {
-        sub: {
-            title: 'Subscribe Newsletter',
-            require: 'Email is required',
-            existed: 'Email already exists',
-            success: 'Subscribe Newsletter successfully!',
-            notiSub: 'Subscribe Newsletter successfully',
+        addToCart: {
+            title: 'Add to cart',
+
+            success: 'The product has been successfully added to cart!',
+            warning: 'You must log into the system!',
         },
     },
 };
-
-
-
-
-if (email === '') {
-    showMessage(
-        'warning',
-        `${t('common.notifyMessage.sub.title')}`,
-        `${t('common.notifyMessage.sub.require')}`,
-    );
-} else {
-    if (response.status === 200) {
-        showMessage(
-            'warning',
-            `${t('common.notifyMessage.sub.title')}`,
-            `${t('common.notifyMessage.sub.success')}`,
-        );
-    } else {
-        showMessage(
-            'warning',
-            `${t('common.notifyMessage.sub.title')}`,
-            `${t('common.notifyMessage.sub.existed')}`,
-        );
-    }
-}
