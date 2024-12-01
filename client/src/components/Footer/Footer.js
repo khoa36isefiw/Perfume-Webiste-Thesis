@@ -21,7 +21,7 @@ function Footer() {
     const [email, setEmail] = React.useState('');
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
-    const { showMessage } = useShowNotificationMessage();
+    const { showMessage, MessageShowed } = useShowNotificationMessage();
     const handleNavigate = (dest) => {
         navigate(`/${i18n.language}${dest}`);
         backTop();
@@ -214,6 +214,7 @@ function Footer() {
                             ))}
                         </Grid>
                     </Grid>
+                    <MessageShowed />
                 </Grid>
             </Container>
             <Copyrights />
