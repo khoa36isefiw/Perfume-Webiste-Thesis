@@ -12,9 +12,11 @@ import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useTranslation } from 'react-i18next';
 import GoogleAuthButton from '../GoogleLoginButton/GoogleLoginButton';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function SignIn() {
     const { t, i18n } = useTranslation('translate');
+    const { handleClickWithTitle } = useSnackbarMessage();
     const dispatch = useDispatch();
     const {
         showNotification,
@@ -59,7 +61,12 @@ function SignIn() {
                             phoneNumber: loginData.data.phoneNumber,
                         }),
                     );
-                    showMessage(
+                    // showMessage(
+                    //     'success',
+                    //     t('common.notifyMessage.login.loginT'),
+                    //     t('common.notifyMessage.login.loginS'),
+                    // );
+                    handleClickWithTitle(
                         'success',
                         t('common.notifyMessage.login.loginT'),
                         t('common.notifyMessage.login.loginS'),
@@ -83,7 +90,12 @@ function SignIn() {
                 );
             }
         } else {
-            showMessage(
+            // showMessage(
+            //     'warning',
+            //     t('common.notifyMessage.login.loginT'),
+            //     t('common.notifyMessage.login.loginNotFill'),
+            // );
+            handleClickWithTitle(
                 'warning',
                 t('common.notifyMessage.login.loginT'),
                 t('common.notifyMessage.login.loginNotFill'),
