@@ -67,6 +67,10 @@ const productSchema = new Schema(
             type: Number,
             default: 0,
         },
+        unitsSold: {
+            type: Number,
+            default: 0,
+        },
         status: {
             type: String,
             enum: ['active', 'inactive'],

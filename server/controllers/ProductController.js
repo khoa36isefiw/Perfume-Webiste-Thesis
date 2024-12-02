@@ -108,6 +108,20 @@ const ProductController = {
         }
     },
 
+    getTopProductSold: async (req, res) => {
+        try {
+            const products = await Product.find({ status: 'active' })
+                .sort({ unitsSold: -1 })
+                .limit(10)
+                .populate('variants')
+                .populate('category')
+                .populate('brand');
+            res.status(200).json(products);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
     statisticProduct: async (req, res) => {
         try {
             const { timeframe } = req.query;
