@@ -16,7 +16,7 @@ import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function SignIn() {
     const { t, i18n } = useTranslation('translate');
-    const { handleClickWithTitle } = useSnackbarMessage();
+    const { showNotificationMessage } = useSnackbarMessage();
     const dispatch = useDispatch();
     const {
         showNotification,
@@ -66,7 +66,7 @@ function SignIn() {
                     //     t('common.notifyMessage.login.loginT'),
                     //     t('common.notifyMessage.login.loginS'),
                     // );
-                    handleClickWithTitle(
+                    showNotificationMessage(
                         'success',
                         t('common.notifyMessage.login.loginT'),
                         t('common.notifyMessage.login.loginS'),
@@ -76,14 +76,14 @@ function SignIn() {
                     }, 1500);
                     window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
                 } else {
-                    showMessage(
+                    showNotificationMessage(
                         'warning',
                         t('common.notifyMessage.login.loginT'),
                         t('common.notifyMessage.login.loginNC'),
                     );
                 }
             } catch (error) {
-                showMessage(
+                showNotificationMessage(
                     'warning',
                     t('common.notifyMessage.login.loginT'),
                     t('common.notifyMessage.login.loginNC'),
@@ -95,7 +95,7 @@ function SignIn() {
             //     t('common.notifyMessage.login.loginT'),
             //     t('common.notifyMessage.login.loginNotFill'),
             // );
-            handleClickWithTitle(
+            showNotificationMessage(
                 'warning',
                 t('common.notifyMessage.login.loginT'),
                 t('common.notifyMessage.login.loginNotFill'),
