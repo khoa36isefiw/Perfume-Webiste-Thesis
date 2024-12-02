@@ -429,10 +429,10 @@ export const OrderInvoicePDF = () => {
                                 {orderInfor.user.firstName} {orderInfor.user.lastName}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                                {order.phoneNumber}
+                                {orderInfor?.phoneNumber}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                                {order.address}
+                                {orderInfor?.address}
                             </CustomizeTypography>
                         </Box>
                     </Box>
