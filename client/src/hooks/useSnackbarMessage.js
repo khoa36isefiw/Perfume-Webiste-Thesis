@@ -3,9 +3,8 @@ import Button from '@mui/material/Button';
 import { useSnackbar } from 'notistack';
 import { Box, Typography } from '@mui/material';
 
-export default function TestSnackbarWithTitle() {
+export const useSnackbarMessage = () => {
     const { enqueueSnackbar } = useSnackbar();
-
     const handleClickWithTitle = (variant, title, content) => () => {
         enqueueSnackbar({
             variant, // type of message: warning, success, infor, error
@@ -34,12 +33,5 @@ export default function TestSnackbarWithTitle() {
             ),
         });
     };
-
-    return (
-        <Box sx={{ height: '100px', width: '200px', bgcolor: '#ccc', p: 2 }}>
-            <Button onClick={handleClickWithTitle('success')} variant="contained">
-                Show success snackbar with title
-            </Button>
-        </Box>
-    );
-}
+    return {};
+};
