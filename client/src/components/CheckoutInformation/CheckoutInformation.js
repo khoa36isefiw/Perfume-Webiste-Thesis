@@ -51,7 +51,7 @@ function CheckoutInformation() {
     const [informationSaved, setInformationSaved] = useState({});
 
     const userData = useState(JSON.parse(window.localStorage.getItem('user_data')));
-    const [name, setName] = useState(userData[0].firstName + ' ' + userData[0].lastName || '');
+    const [email, setEmail] = useState(userData[0].email || '');
     const [phoneNumber, setphoneNumber] = useState(userData[0].phoneNumber || '');
     const [address, setAddress] = useState(userData[0].address || '');
 
@@ -112,6 +112,9 @@ function CheckoutInformation() {
         const response = await paymentAPI.createOrder(
             userId,
             items,
+            address,
+            email,
+            phoneNumber,
             promotionCodeApplied,
             PAYMENT_METHOD.COD,
         );
@@ -120,7 +123,8 @@ function CheckoutInformation() {
             console.log('response: ', response);
             const dataShowInvoice = {
                 userName: userData[0].firstName + ' ' + userData[0].lastName,
-                userPhoneNumber: userData[0].phoneNumber,
+                userPhoneNumber: phoneNumber,
+                userAddress: address,
                 userPaymentType: 'COD',
             };
             window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
@@ -205,8 +209,8 @@ function CheckoutInformation() {
                         <CustomizeCheckoutInput
                             // placeholder="Nhập họ tên"
                             placeholder={t('common.checkout.infor.name')}
-                            value={name}
-                            onHandleChange={(e) => setName(e.target.value)} // if value is changed
+                            value={email}
+                            onHandleChange={(e) => setEmail(e.target.value)} // if value is changed
                         />
                         <CustomizeCheckoutInput
                             // placeholder="Nhập số điện thoại"
