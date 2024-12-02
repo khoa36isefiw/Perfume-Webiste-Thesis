@@ -10,10 +10,13 @@ export default function TestSnackbarWithTitle() {
         enqueueSnackbar('This is a success message!', {
             variant, // type of message: warning, success, infor, error
             // position for message
+
             anchorOrigin: {
                 vertical: 'top',
                 horizontal: 'right',
             },
+            autoHideDuration: 3000,
+
             content: () => (
                 <Box
                     sx={{

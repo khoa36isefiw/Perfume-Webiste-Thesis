@@ -28,6 +28,7 @@ root.render(
                 <SnackbarProvider
                     maxSnack={8}
                     // position
+                    autoHideDuration={3000}
                     anchorOrigin={{
                         vertical: 'top',
                         horizontal: 'right',
