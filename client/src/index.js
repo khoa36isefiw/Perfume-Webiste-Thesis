@@ -25,7 +25,14 @@ root.render(
     <React.StrictMode>
         <CssBaseline>
             <I18nextProvider i18n={i18n} defaultNS={'translation'}>
-                <SnackbarProvider maxSnack={5}>
+                <SnackbarProvider
+                    maxSnack={8}
+                    // position
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                >
                     <Provider store={store}>
                         <ThemeProvider theme={mergeTheme}>
                             <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
