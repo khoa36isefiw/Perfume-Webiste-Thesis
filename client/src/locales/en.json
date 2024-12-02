@@ -112,6 +112,11 @@
                 "rS": "Your email is available, new password will be sent to your mail!",
                 "rWN": "Your email is not available, please check again!",
                 "rFL": "Please enter your email address!"
+            },
+            "checkout": {
+                "cT": "Checkout",
+                "cS": "Your order placed successfully",
+                "cW": "Please fill your information before checkout!"
             }
         },
         "header": {
