@@ -21,6 +21,23 @@ const PaymentController = {
         }
     },
 
+    getLatestPayments: async (req, res) => {
+        try {
+            const payments = await Payment.find({})
+                .sort({ createdAt: -1 })
+                .limit(10)
+                .populate({
+                    path: 'order',
+                    populate: {
+                        path: 'user',
+                    },
+                });
+            res.status(200).json(payments);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
     getById: async (req, res) => {
         try {
             const { id } = req.params;
@@ -93,6 +110,12 @@ const PaymentController = {
                 const totalPrice =
                     item.quantity * (variant.priceSale ? variant.priceSale : variant.price);
                 newOrder.totalPrice += totalPrice;
+
+                // update unit sold
+                console.log(product);
+                const updatedProduct = await Product.findOne({ _id: product._id });
+                updatedProduct.unitsSold += item.quantity;
+                await updatedProduct.save();
             }
             // assign adjusted total price
             newOrder.originalTotalPrice = newOrder.totalPrice;
@@ -133,6 +156,7 @@ const PaymentController = {
                             item.variant._id === cartItem.variant.toString(),
                     ),
             );
+
             await updatedUser.save();
             if (method === 'COD') {
                 savedOrder.paymentMethod = 'COD';
