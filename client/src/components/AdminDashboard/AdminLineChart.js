@@ -4,14 +4,40 @@ import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
 import { Box } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
 import { theme } from '../../Theme/Theme';
-
-const pData = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
-const xLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']; // Days of the week
+import useRevenue from '../../api/useRevenue';
+import useLoadingV2 from '../../hooks/useLoadingV2';
 
 export default function TopSales() {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // Check for mobile screen
-    const isTablet = useMediaQuery(theme.breakpoints.down('md')); // Check for mobile screen
-    const isIpadPro = useMediaQuery(theme.breakpoints.down('lg')); // Check for mobile screen
+    const { data: revenue, isLoading } = useRevenue(2024); // only call for 2024
+    const { LoadingAPI } = useLoadingV2();
+    console.log('revenue: ', revenue?.data);
+    // list data of each months
+    // array of month
+    const monthNames = [
+        'January', // 0
+        'February', // 1
+        'March', //2
+        'April', // 3
+        'May', //4
+        'June', //5
+        'July', //6
+        'August', //7
+        'September', //8
+        'October', // 9
+        'November', // 10
+        'December', // 11
+    ];
+    // map months to their names
+    const pTotalRevenueData = revenue?.data.revenueByMonth.map(
+        (item) => monthNames[item.month - 1],
+    );
+    // list of months in one year
+    const xLabels = revenue?.data.revenueByMonth.map((item) => item.totalRevenue); // an array
+
+    if (isLoading) {
+        return <LoadingAPI />;
+    }
 
     return (
         <Box>
@@ -33,16 +59,16 @@ export default function TopSales() {
                 }}
             >
                 <BarChart
-                    width={isMobile ? 380 : 1000} // Adjust width for mobile
+                    width={isMobile ? 380 : 900} // Adjust width for mobile
                     height={isMobile ? 300 : 500} // Adjust height for mobile
-                    series={[{ data: pData, label: 'Total Sales', id: 'pvId' }]}
-                    xAxis={[{ data: xLabels, scaleType: 'band' }]}
+                    series={[{ data: xLabels, label: 'Total Sales in 2024', id: 'pvId' }]}
+                    xAxis={[{ data: pTotalRevenueData, scaleType: 'band' }]}
                     sx={{
                         '.MuiBarElement-root': {
-                            fill: '#49bc87',
+                            fill: '#64b3f6',
                         },
                         '.MuiChartsLegend-mark': {
-                            fill: '#49bc87',
+                            fill: '#64b3f6',
                         },
                     }}
                 />

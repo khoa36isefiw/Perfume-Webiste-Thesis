@@ -1,9 +1,17 @@
 import axiosClient from './axiosClient';
 
 export const paymentAPI = {
-    createOrder: (user, items, promotionCode, method) => {
+    createOrder: (user, items, address, email, phoneNumber, promotionCode, method) => {
         const url = '/payments/create-order';
-        return axiosClient.post(url, { user, items, promotionCode, method });
+        return axiosClient.post(url, {
+            user,
+            items,
+            address,
+            email,
+            phoneNumber,
+            promotionCode,
+            method,
+        });
     },
     capturePayPalPayment: (paymentId) => {
         const url = `/payments/paypal/capture-order`;

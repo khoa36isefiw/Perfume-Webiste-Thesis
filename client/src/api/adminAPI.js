@@ -6,6 +6,13 @@ export const adminAPI = {
         return axiosClient.get(url);
     },
 
+    // total revenue on year
+    getStatisticRevenue: () => {
+        const url = `/admin/revenue?year=2024`;
+        return axiosClient.get(url);
+    },
+    //-----------
+
     statisticUser: (timeframe) => {
         const url = `/admin/user?timeframe=${timeframe}`;
         return axiosClient.get(url);

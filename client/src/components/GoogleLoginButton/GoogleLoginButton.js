@@ -12,7 +12,6 @@ function GoogleAuthButton({ showMessage, isLogin }) {
         const { credential } = credentialResponse;
         try {
             const response = await authAPI.googleLogin({ token: credential });
-
             // Handle success (maybe store user data or navigate to another page)
             console.log('Login successful', response);
             if (response.status === 200) {
@@ -33,7 +32,7 @@ function GoogleAuthButton({ showMessage, isLogin }) {
 
                 showMessage('success', 'Login', 'Login successfully!');
                 setTimeout(() => {
-                    navigate(`/${i18n.language}/`);
+                    navigate(`/${i18n.language}`);
                 }, 1500);
                 window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
             } else {

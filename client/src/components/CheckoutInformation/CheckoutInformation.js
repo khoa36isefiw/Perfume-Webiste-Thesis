@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     Box,
     Container,
@@ -12,48 +12,37 @@ import {
     Button,
 } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { addressApi } from '../../api/addressApi';
-import SelectAddress from '../SelectAddress/SelectAddress';
 import CreditCard from '../CreditCard/CreditCard';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import { PayPalButton } from 'react-paypal-button-v2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import CloseIcon from '@mui/icons-material/Close';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CartTotal from '../Cart/CartTotal';
-import { converToVND, converToVNDV2 } from '../convertToVND/convertToVND';
-import {
-    clearCart,
-    clearSelectedProducts,
-    removeProduct,
-    removeSelectedProduct,
-} from '../../redux/feature/CartManagement/CartManagementSlice';
+import { converToVND } from '../convertToVND/convertToVND';
 import { CustomizeDividerVertical } from '../CustomizeDivider/CustomizeDivider';
 import { CustomizeCheckoutInput } from './CustomizeCheckoutInput';
-import { saveOrders } from '../../redux/feature/CheckoutManagement/CheckoutManagementSlice';
-import { resetIsCommented } from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PayPalButtonsComponents from '../PayPalButtonComponents/PayPalButtonComponents';
-import { ordersAPI } from '../../api/ordersAPI';
 import { paymentAPI } from '../../api/paymentAPI';
 import { PAYMENT_METHOD } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
     const location = useLocation();
     const { items } = location.state || { items: [] };
     const { t, i18n } = useTranslation('translate');
+    const { showMessage, MessageShowed } = useShowNotificationMessage();
 
     const dispatch = useDispatch();
-    const [informationSaved, setInformationSaved] = useState({});
 
     const userData = useState(JSON.parse(window.localStorage.getItem('user_data')));
-    const [name, setName] = useState(userData[0].firstName + ' ' + userData[0].lastName || '');
-    const [phoneNumber, setphoneNumber] = useState(userData[0].phoneNumber || '');
-    const [address, setAddress] = useState(userData[0].address || '');
+    const [email, setEmail] = useState(userData[0]?.email || '');
+    const [phoneNumber, setphoneNumber] = useState(userData[0]?.phoneNumber || '');
+    const [address, setAddress] = useState(userData[0]?.address || '');
 
     // console.log('userData: ',userData);
     const getListProductSelected = JSON.parse(window.localStorage.getItem('list_product_selected'));
@@ -64,15 +53,8 @@ function CheckoutInformation() {
         codeApplied: null,
     });
     const [paymentMethod, setPaymentMethod] = useState('cod'); // Default payment method
-    const [showNotification, setShowNotification] = useState(false);
 
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-
-    // get product in cart
-    const listProductInCart = useSelector((state) => state.cartManagement.productInfor);
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
-    const productSelectedList = useSelector((state) => state.cartManagement.productSelected);
-    const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId;
     console.log('userId: ', userId);
 
     // function calculate total price of products in shopping cart
@@ -103,46 +85,45 @@ function CheckoutInformation() {
         return finalTotal;
     };
 
-    const finalTotalPrice = calculateTotalPrice(getListProductSelected);
     console.log('promoCode:', promoCode);
     const handleCheckout = async () => {
         const promotionCodeApplied = promoCodeApplied?.codeApplied?.code || '';
         console.log('promotionCodeApplied: ', promotionCodeApplied);
+        if (email !== '' && address !== '' && phoneNumber !== '') {
+            const response = await paymentAPI.createOrder(
+                userId,
+                items,
+                address,
+                email,
+                phoneNumber,
+                promotionCodeApplied,
+                PAYMENT_METHOD.COD,
+            );
 
-        const response = await paymentAPI.createOrder(
-            userId,
-            items,
-            promotionCodeApplied,
-            PAYMENT_METHOD.COD,
-        );
-
-        if (response.data?.order) {
-            console.log('response: ', response);
-            const dataShowInvoice = {
-                userName: userData[0].firstName + ' ' + userData[0].lastName,
-                userPhoneNumber: userData[0].phoneNumber,
-                userPaymentType: 'COD',
-            };
-            window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
-            window.localStorage.setItem('order_id', JSON.stringify(response.data.order._id)); // store pay_ref Id to local storage
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
-            navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);
+            if (response.data?.order) {
+                console.log('response: ', response);
+                const dataShowInvoice = {
+                    userName: userData[0].firstName + ' ' + userData[0].lastName,
+                    userPhoneNumber: phoneNumber,
+                    userAddress: address,
+                    userPaymentType: 'COD',
+                };
+                showMessage(
+                    'success',
+                    t('common.notifyMessage.checkout.ct'),
+                    t('common.notifyMessage.checkout.cS'),
+                );
+                window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
+                window.localStorage.setItem('order_id', JSON.stringify(response.data.order._id)); // store pay_ref Id to local storage
+                navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);
+            }
+        } else {
+            showMessage(
+                'warning',
+                t('common.notifyMessage.checkout.ct'),
+                t('common.notifyMessage.checkout.cW'),
+            );
         }
-    };
-
-    // handle Close notification
-    const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
-    };
-
-    // remove product
-    const handleRemoveProduct = (productId, productSize) => {
-        dispatch(removeProduct({ productId, productSize }));
-        dispatch(removeSelectedProduct({ productId, productSize }));
     };
 
     return (
@@ -205,8 +186,8 @@ function CheckoutInformation() {
                         <CustomizeCheckoutInput
                             // placeholder="Nhập họ tên"
                             placeholder={t('common.checkout.infor.name')}
-                            value={name}
-                            onHandleChange={(e) => setName(e.target.value)} // if value is changed
+                            value={email}
+                            onHandleChange={(e) => setEmail(e.target.value)} // if value is changed
                         />
                         <CustomizeCheckoutInput
                             // placeholder="Nhập số điện thoại"
@@ -327,6 +308,9 @@ function CheckoutInformation() {
                                     user={userId}
                                     items={items}
                                     promotionCode={promoCodeApplied}
+                                    address={address}
+                                    email={email}
+                                    phoneNumber={phoneNumber}
                                 />
                             </Box>
                         ) : (
@@ -433,16 +417,6 @@ function CheckoutInformation() {
                                             justifyContent: 'flex-end',
                                         }}
                                     >
-                                        <IconButton
-                                            onClick={() =>
-                                                handleRemoveProduct(
-                                                    product.perfumeID,
-                                                    product.perfumeSize,
-                                                )
-                                            }
-                                        >
-                                            <CloseIcon sx={{ fontSize: '24px', color: 'white' }} />
-                                        </IconButton>
                                         <CustomizeTypography
                                             sx={{
                                                 fontSize: '14px',
@@ -476,20 +450,7 @@ function CheckoutInformation() {
                     </Box>
                 </Grid>
             </Grid>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={'success'}
-                        msgTitle={'Buy products'}
-                        msgContent={'Checkout successfully!'}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
+            <MessageShowed />
         </Container>
     );
 }

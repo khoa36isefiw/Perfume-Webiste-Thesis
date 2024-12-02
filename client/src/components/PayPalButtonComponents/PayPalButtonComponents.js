@@ -4,7 +4,7 @@ import { paymentAPI } from '../../api/paymentAPI';
 import { useNavigate } from 'react-router-dom';
 import { PAYMENT_METHOD } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
-function PayPalButtonsComponents({ user, items, promotionCode }) {
+function PayPalButtonsComponents({ user, items, address, email, phoneNumber, promotionCode }) {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
 
@@ -12,6 +12,9 @@ function PayPalButtonsComponents({ user, items, promotionCode }) {
         let payload = {
             user,
             items,
+            address,
+            email,
+            phoneNumber,
             method: PAYMENT_METHOD.PAYPAL,
         };
 
@@ -27,6 +30,9 @@ function PayPalButtonsComponents({ user, items, promotionCode }) {
             const response = await paymentAPI.createOrder(
                 user,
                 items,
+                address,
+                email,
+                phoneNumber,
                 promotionCode2,
                 PAYMENT_METHOD.PAYPAL,
             );

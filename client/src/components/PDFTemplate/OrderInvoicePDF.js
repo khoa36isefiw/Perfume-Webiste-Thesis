@@ -84,14 +84,6 @@ export const OrderInvoicePDF = () => {
         return discountTotal;
     };
 
-    // Calculate total tax
-    const calculateTaxTotal = () => {
-        let taxTotal = 0;
-        const price = calculateSubtotal();
-        taxTotal += calculateTax(price);
-        return taxTotal;
-    };
-
     // Calculate the total price including discount, tax, and promo code
     const calculateFinalTotal = () => {
         let totalSubtotal = 0;
@@ -124,7 +116,6 @@ export const OrderInvoicePDF = () => {
 
     const finalSubtotal = calculateSubtotal();
     const finalDiscount = calculateDiscountTotal();
-    const finalTax = calculateTaxTotal();
     const finalTotalPrice = calculateFinalTotal();
 
     return (
@@ -429,10 +420,10 @@ export const OrderInvoicePDF = () => {
                                 {orderInfor.user.firstName} {orderInfor.user.lastName}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                                {orderInfor.user.phoneNumber}
+                                {orderInfor?.phoneNumber}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                                {orderInfor.user.address}
+                                {orderInfor?.address}
                             </CustomizeTypography>
                         </Box>
                     </Box>

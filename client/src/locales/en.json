@@ -112,6 +112,29 @@
                 "rS": "Your email is available, new password will be sent to your mail!",
                 "rWN": "Your email is not available, please check again!",
                 "rFL": "Please enter your email address!"
+            },
+            "checkout": {
+                "cT": "Checkout",
+                "cS": "Your order placed successfully",
+                "cW": "Please fill your information before checkout!"
+            }
+        },
+        "payment": {
+            "success": {
+                "title": "Payment success",
+                "content": "Your payment has been successfully done.",
+                "total": "Total Payment",
+                "number": "Ref Number",
+                "time": "Payment Time",
+                "method": "Payment Method",
+                "name": "Sender Name",
+                "btnView": "View Order",
+                "btnShopping": "Continue Shopping"
+            },
+            "failed": {
+                "title": "Payment Cancel",
+                "content": "Oops, what happened????",
+                "tryAgain": "Try Again"
             }
         },
         "header": {
@@ -382,7 +405,7 @@
         "checkout": {
             "backCart": "Back to Cart",
             "address": "Billing and shipping address",
-            "qty": "Qty",
+            "qty": "Quantity",
             "checkout": "Checkout",
             "title": "All transactions are secure and encrypted",
             "paymentNoti": "Choose payment method",

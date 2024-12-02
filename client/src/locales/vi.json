@@ -110,6 +110,29 @@
                 "rS": "Email của bạn đúng, mật khẩu mới sẽ được gửi đến hộp thư của bạn!",
                 "rWN": "Email của bạn không tồn tại, vui lòng kiểm tra lại!",
                 "rFL": "Vui lòng nhập địa chỉ email của bạn!"
+            },
+            "checkout": {
+                "cT": "Checkout",
+                "cS": "Đơn hàng của bạn đã được đặt thành công",
+                "cW": "Vui lòng điền thông tin của bạn trước khi thanh toán!"
+            }
+        },
+        "payment": {
+            "success": {
+                "title": "Thanh toán thành công",
+                "content": "Thanh toán của bạn đã được thực hiện thành công.",
+                "total": "Tổng thanh toán",
+                "number": "Số tham chiếu",
+                "time": "Thời gian thanh toán",
+                "method": "Thanh toán bằng",
+                "name": "Tên người gửi",
+                "btnView": "Xem đơn hàng",
+                "btnShopping": "Tiếp tục mua sắm"
+            },
+            "failed": {
+                "title": "Hủy thanh toán",
+                "content": "Ay chaa, chuyện gì đã xảy ra????",
+                "tryAgain": "Thử lại"
             }
         },
         "header": {
@@ -205,7 +228,7 @@
         "checkout": {
             "backCart": "Quay lại Giỏ hàng",
             "address": "Địa chỉ thanh toán và giao hàng",
-            "qty": "SL",
+            "qty": "Số lượng",
             "checkout": "Thanh toán",
             "title": "Tất cả các giao dịch đều an toàn và được mã hóa",
             "paymentNoti": "Chọn phương thức thanh toán",
