@@ -1,10 +1,11 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-export const CustomizeCheckoutInput = ({ placeholder, value }) => {
+export const CustomizeCheckoutInput = ({ placeholder, value, onHandleChange }) => {
     return (
         <TextField
             value={value}
             placeholder={placeholder}
+            onChange={onHandleChange}
             fullWidth
             sx={{
                 mb: 2,

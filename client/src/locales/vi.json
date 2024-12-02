@@ -45,6 +45,73 @@
         "High to Low": "Cao đến Thấp",
         "Name A -> Z": "Tên: A -> Z",
         "Name Z -> A": "Tên: Z -> A",
+        "notifyMessage": {
+            "sub": {
+                "title": "Đăng ký nhận bản tin",
+                "require": "Vui lòng nhập địa chỉ email của bạn",
+                "existed": "Email đã tồn tại",
+                "success": "Đăng ký nhận bản tin thành công!",
+                "notiSub": "Đăng ký nhận bản tin thành công",
+                "notMail": "Vui lòng nhập địa chỉ email hợp lệ."
+            },
+            "addToCart": {
+                "title": "Thêm vào giỏ hàng",
+                "success": "Sản phẩm đã được thêm vào giỏ hàng thành công!",
+                "warning": "Bạn phải đăng nhập vào hệ thống!"
+            },
+            "inCart": {
+                "dT": "Xóa sản phẩm",
+                "dC": "Bạn có chắc chắn muốn xóa sản phẩm này không?",
+                "dCC": "Không",
+                "dY": "Có",
+                "uPT": "Cập nhật số lượng sản phẩm",
+                "uPC": "Ayyy cha, chúng tôi hết sản phẩm này rồi!",
+                "dPT": "Xóa sản phẩm",
+                "dPC": "Đã xóa sản phẩm khỏi giỏ hàng thành công!"
+            },
+            "accSetting": {
+                "aT": "Thông tin tài khoản",
+                "aC": "Vui lòng điền thông tin trước khi thay đổi",
+                "aC1": "Bạn đã cập nhật thông tin tài khoản thành công!",
+                "aC2": "Vui lòng điền thông tin chính xác!"
+            },
+            "changePassword": {
+                "changeT": "Đổi mật khẩu",
+                "currentS": "Bắt đầu tạo mật khẩu mới",
+                "currentW": "Mật khẩu hiện tại của bạn không đúng",
+                "currentW2": "Vui lòng nhập mật khẩu hiện tại của bạn!",
+                "currentHolder": "Mật khẩu hiện tại của bạn",
+                "changeS": "Bạn đã đổi mật khẩu thành công!",
+                "changeW": "Mật khẩu của bạn không khớp",
+                "changeW2": "Vui lòng nhập mật khẩu mới!",
+                "changeNew": "Mật khẩu mới của bạn",
+                "changeCNew": "Xác nhận mật khẩu mới"
+            },
+            "login": {
+                "loginT": "Đăng nhập",
+                "loginS": "Đăng nhập thành công!",
+                "loginNC": "Email hoặc mật khẩu của bạn không đúng!",
+                "loginNotFill": "Bạn nên điền thông tin trước khi đăng nhập",
+                "pass": "Mật khẩu"
+            },
+            "register": {
+                "fName": "Tên",
+                "lName": "Họ",
+                "phone": "Số điện thoại",
+                "password": "Mật khẩu",
+                "regisT": "Đăng ký tài khoản",
+                "regisS": "Tạo tài khoản mới thành công!",
+                "regisEE": "Email đã tồn tại, vui lòng thử email khác!",
+                "regisFI": "Vui lòng điền thông tin của bạn một cách chính xác!",
+                "regisF": "Vui lòng điền thông tin của bạn"
+            },
+            "recover": {
+                "rT": "Kiểm tra Email",
+                "rS": "Email của bạn đúng, mật khẩu mới sẽ được gửi đến hộp thư của bạn!",
+                "rWN": "Email của bạn không tồn tại, vui lòng kiểm tra lại!",
+                "rFL": "Vui lòng nhập địa chỉ email của bạn!"
+            }
+        },
         "header": {
             "search": "Tìm kiếm ở đây...",
             "history": "Bạn đã tìm kiếm...",
@@ -154,6 +221,11 @@
                 "subtotal": "Tổng cộng",
                 "discount": "Giảm giá",
                 "total": "Tổng"
+            },
+            "infor": {
+                "phone": "Số điện thoại người nhận",
+                "name": "Tên người nhận",
+                "address": "Nhập địa chỉ nhà cụ thể. Số nhà, tên đường..."
             }
         },
         "accountSettings": {
@@ -261,7 +333,7 @@
         "signIn": {
             "registered": "Đã đăng ký?",
             "signIn": "Đăng nhập",
-            "new": "Tôi là khách hàng quay lại",
+            "new": "Tôi là khách hàng cũ",
             "password": "Mật khẩu",
             "forgot": "Quên mật khẩu?",
             "login": "Đăng nhập",

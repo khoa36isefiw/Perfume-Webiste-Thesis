@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
@@ -7,14 +7,14 @@ import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import { SummaryRowInCart } from './SummaryRowInCart';
 import { converToVND } from '../convertToVND/convertToVND';
-import { useDispatch } from 'react-redux';
-import { saveSelectedProduct } from '../../redux/feature/CartManagement/CartManagementSlice';
 import { useTranslation } from 'react-i18next';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
-function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, priceChange, mutate }) {
+function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, priceChange }) {
     // console.log('productsList: ', productsList);
-    const dispatch = useDispatch();
+
     const navigate = useNavigate();
+
     const [totalSubtotal, setTotalSubtotal] = useState(0);
     const { t, i18n } = useTranslation('translate');
     useEffect(() => {
@@ -55,7 +55,9 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
     const handleCheckout = () => {
         if (selectedProducts.length > 0)
             navigate(`/${i18n.language}/checkout`, { state: { items: selectedProducts } });
-        else navigate('');
+        else {
+            navigate('');
+        }
     };
 
     return (

@@ -15,6 +15,7 @@ export default function ConfirmMessage({
     onHandleClickClose,
     onHandleConfirmAgree,
     onHandleConfirmDisagree,
+    t,
 }) {
     return (
         <React.Fragment>
@@ -35,7 +36,7 @@ export default function ConfirmMessage({
                     <ConfirmMessageButton
                         onHandleAction={onHandleConfirmDisagree}
                         autoFocus
-                        textAction={'Cancel'}
+                        textAction={t('common.notifyMessage.inCart.dCC')}
                         bgColorHovered={'transparent'}
                         textColor={theme.palette.background.secondary}
                     />
@@ -44,7 +45,7 @@ export default function ConfirmMessage({
                         variant="contained"
                         onHandleAction={onHandleConfirmAgree}
                         autoFocus
-                        textAction={'Yes'}
+                        textAction={t('common.notifyMessage.inCart.dY')}
                         bgcolor={theme.palette.background.secondary}
                         bgColorHovered={theme.palette.background.secondary}
                     />

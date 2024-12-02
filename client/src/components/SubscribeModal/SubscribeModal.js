@@ -40,8 +40,8 @@ function SubscribeModal() {
             if (!validateEmail(email)) {
                 showMessage(
                     'warning',
-                    'Subscribe Newsletter',
-                    'Please enter a valid email address.',
+                    `${t('common.notifyMessage.sub.title')}`,
+                    `${t('common.notifyMessage.sub.notMail')}`,
                 );
                 return;
             } else {
@@ -49,18 +49,26 @@ function SubscribeModal() {
                 if (response.status === 200) {
                     alert('Subscribe successfully');
                     showMessage(
-                        'success',
-                        'Subscribe Newsletter',
-                        'Subscribe Newsletter successfully!',
+                        'warning',
+                        `${t('common.notifyMessage.sub.title')}`,
+                        `${t('common.notifyMessage.sub.success')}`,
                     );
                     setError('');
                     closeAndStoreTime();
                 } else {
-                    showMessage('warning', 'Subscribe Newsletter', response.data.message);
+                    showMessage(
+                        'warning',
+                        `${t('common.notifyMessage.sub.title')}`,
+                        `${t('common.notifyMessage.sub.existed')}`,
+                    );
                 }
             }
         } else {
-            showMessage('warning', 'Subscribe Newsletter', 'Please enter your email address.');
+            showMessage(
+                'warning',
+                `${t('common.notifyMessage.sub.title')}`,
+                `${t('common.notifyMessage.sub.require')}`,
+            );
         }
     };
 

@@ -23,7 +23,7 @@ function PerfumeDetail() {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
     const productInformation = JSON.parse(window.localStorage.getItem('productInfor')) || null;
     console.log('productInformation: ', productInformation);
@@ -99,14 +99,19 @@ function PerfumeDetail() {
             if (result) {
                 showMessage(
                     'success',
-                    'Add to cart',
-                    'The product has been successfully added to cart!',
+
+                    `${t('common.notifyMessage.addToCart.title')}`,
+                    `${t('common.notifyMessage.addToCart.success')}`,
                 );
             }
         } else {
-            showMessage('warning', 'Add to cart', 'Must log into the system!');
+            showMessage(
+                'warning',
+                `${t('common.notifyMessage.addToCart.title')}`,
+                `${t('common.notifyMessage.addToCart.warning')}`,
+            );
             setTimeout(() => {
-                navigate('/sign-in');
+                navigate(`/${i18n.language}/sign-in`);
             }, 2800);
         }
     };

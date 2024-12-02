@@ -20,7 +20,7 @@ import GoogleAuthButton from '../GoogleLoginButton/GoogleLoginButton';
 function RegisterAccount() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
 
     const {
         showNotification,
@@ -96,20 +96,20 @@ function RegisterAccount() {
                     if (response.status === 200) {
                         showMessage(
                             'success',
-                            'Register account',
-                            'Create new account successfully!',
+                            t('common.notifyMessage.register.regisT'),
+                            t('common.notifyMessage.register.regisS'),
                         );
                     } else {
                         showMessage(
                             'warning',
-                            'Register account',
-                            'Email exists, Please try another email!',
+                            t('common.notifyMessage.register.regisT'),
+                            t('common.notifyMessage.register.regisEE'),
                         );
                     }
                 } catch (error) {
                     showMessage(
                         'warning',
-                        'Register account',
+                        t('common.notifyMessage.register.regisT'),
                         'Email exists, Please try another email2!',
                     );
                 }
@@ -120,8 +120,8 @@ function RegisterAccount() {
                 }, 6000);
                 showMessage(
                     'warning',
-                    'Register account',
-                    'Please fill your information correctly!',
+                    t('common.notifyMessage.register.regisT'),
+                    t('common.notifyMessage.register.regisFI'),
                 );
             }
         } else {
@@ -129,12 +129,16 @@ function RegisterAccount() {
             setTimeout(() => {
                 setOpen(false);
             }, 6000);
-            showMessage('warning', 'Register account', 'Please fill your information');
+            showMessage(
+                'warning',
+                t('common.notifyMessage.register.regisT'),
+                t('common.notifyMessage.register.regisF'),
+            );
         }
     };
 
     const handleNavigateSignIn = () => {
-        navigate('/sign-in');
+        navigate(`/${i18n.language}/sign-in`);
         backTop();
     };
 
@@ -243,7 +247,7 @@ function RegisterAccount() {
                                     <span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
                                 <TextFieldLogin
-                                    placeholder="First Name"
+                                    placeholder={t('common.notifyMessage.register.fName')}
                                     fullWidth
                                     inputRef={firstNameRef}
                                 />
@@ -264,7 +268,7 @@ function RegisterAccount() {
                                     <span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
                                 <TextFieldLogin
-                                    placeholder="Last Name"
+                                    placeholder={t('common.notifyMessage.register.lName')}
                                     fullWidth
                                     inputRef={lastNameRef}
                                 />
@@ -285,7 +289,7 @@ function RegisterAccount() {
                                     <span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
                                 <TextFieldLogin
-                                    placeholder="Phone Number"
+                                    placeholder={t('common.notifyMessage.register.phone')}
                                     fullWidth
                                     inputRef={phoneRef}
                                 />
@@ -342,7 +346,7 @@ function RegisterAccount() {
                                         <span style={{ color: '#d14949' }}>*</span> :
                                     </CustomizeTypography>
                                     <TextFieldLogin
-                                        placeholder="Password"
+                                        placeholder={t('common.notifyMessage.register.password')}
                                         fullWidth
                                         inputRef={passwordRef}
                                     />

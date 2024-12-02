@@ -397,6 +397,21 @@ function AdminDashboard() {
                         </Box>
                     </Grid>
                 ))}
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <TopSales />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <AdminBestSellingProducts />
+                </Grid>
+
+                <Grid item container spacing={4} lg={12}>
+                    <Grid item xs={12} sm={6} md={6} lg={6}>
+                        <RecentTransactions />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={6}>
+                        <TopProductsSale />
+                    </Grid>
+                </Grid>
             </Grid>
         </Box>
     );

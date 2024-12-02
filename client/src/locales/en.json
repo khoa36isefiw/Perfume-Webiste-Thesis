@@ -46,6 +46,74 @@
         "phtl": "See all products, with price from high to low",
         "nA-Z": "See all products, with name from A to Z",
         "nZ-A": "See all products, with name from Z to A",
+        "notifyMessage": {
+            "sub": {
+                "title": "Subscribe Newsletter",
+                "require": "Please enter your email address",
+                "existed": "Email already exists",
+                "success": "Subscribe Newsletter successfully!",
+                "notiSub": "Subscribe Newsletter successfully",
+                "notMail": "Please enter a valid email address."
+            },
+            "addToCart": {
+                "title": "Add to cart",
+
+                "success": "The product has been successfully added to cart!",
+                "warning": "You must log into the system!"
+            },
+            "inCart": {
+                "dT": "Delete Products",
+                "dC": "Are you sure you want to delete this product?",
+                "dCC": "Cancel",
+                "dY": "Yes",
+                "uPT": "Update Product Quantity",
+                "uPC": "Ayyy cha, We run out of this product!",
+                "dPT": "Delete Products",
+                "dPC": "Products are removed successfully from cart!"
+            },
+            "accSetting": {
+                "aT": "Account Information",
+                "aC": "Please fill information before changing",
+                "aC1": "You have successfully updated your account information!",
+                "aC2": "Please fill information correctly!"
+            },
+            "changePassword": {
+                "changeT": "Change Password",
+                "currentS": "Starting create new your password",
+                "currentW": "Your current password is incorrect",
+                "currentW2": "Please enter your current password!",
+                "currentHolder": "Your current password",
+                "changeS": "You have successfully changed your password!",
+                "changeW": "Your passwords do not match",
+                "changeW2": "Please enter new password!",
+                "changeNew": "Your new password",
+                "changeCNew": "Confirm new password"
+            },
+            "login": {
+                "loginT": "Login",
+                "loginS": "Login successfully!",
+                "loginNC": "Your email or password is incorrect!",
+                "loginNotFill": "You should fill your information before login",
+                "pass": "Password"
+            },
+            "register": {
+                "fName": "First Name",
+                "lName": "Last Name",
+                "phone": "Phone Number",
+                "password": "Password",
+                "regisT": "Register account",
+                "regisS": "Create new account successfully!",
+                "regisEE": "Email exists, Please try another email!",
+                "regisFI": "Please fill your information correctly!",
+                "regisF": "Please fill your information"
+            },
+            "recover": {
+                "rT": "Check Email",
+                "rS": "Your email is available, new password will be sent to your mail!",
+                "rWN": "Your email is not available, please check again!",
+                "rFL": "Please enter your email address!"
+            }
+        },
         "header": {
             "search": "Search here...",
             "history": "You searched for...",
@@ -330,6 +398,11 @@
                 "subtotal": "Subtotal",
                 "discount": "Discount",
                 "total": "Total"
+            },
+            "infor": {
+                "phone": "Your phone number",
+                "name": "Receiver name",
+                "address": "Your address. House number, street name..."
             }
         },
         "servicesPage": {

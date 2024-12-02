@@ -38,7 +38,7 @@ function SignIn() {
             email,
             password,
         };
-        if (email && email) {
+        if (email && password) {
             try {
                 const loginData = await authAPI.login(data);
                 // console.log('request: ', loginData);
@@ -56,21 +56,38 @@ function SignIn() {
                             lastName: loginData.data.lastName,
                             role: loginData.data.role,
                             address: loginData.data.address,
+                            phoneNumber: loginData.data.phoneNumber,
                         }),
                     );
-                    showMessage('success', 'Login', 'Login successfully!');
+                    showMessage(
+                        'success',
+                        t('common.notifyMessage.login.loginT'),
+                        t('common.notifyMessage.login.loginS'),
+                    );
                     setTimeout(() => {
-                        navigate(`/${i18n.language}/`);
+                        navigate(`/${i18n.language}`);
                     }, 1500);
                     window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
                 } else {
-                    showMessage('warning', 'Login', 'Your email or password is incorrect!');
+                    showMessage(
+                        'warning',
+                        t('common.notifyMessage.login.loginT'),
+                        t('common.notifyMessage.login.loginNC'),
+                    );
                 }
             } catch (error) {
-                showMessage('warning', 'Login', 'Your email or password is incorrect!');
+                showMessage(
+                    'warning',
+                    t('common.notifyMessage.login.loginT'),
+                    t('common.notifyMessage.login.loginNC'),
+                );
             }
         } else {
-            showMessage('warning', 'Login', 'You should fill your information before login');
+            showMessage(
+                'warning',
+                t('common.notifyMessage.login.loginT'),
+                t('common.notifyMessage.login.loginNotFill'),
+            );
         }
 
         // if (user) {
@@ -181,7 +198,7 @@ function SignIn() {
                                     <span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
                                 <TextFieldLogin
-                                    placeholder="Password"
+                                    placeholder={t('common.notifyMessage.login.pass')}
                                     fullWidth
                                     inputRef={passwordRef}
                                     onHandleKeyDown={handleKeyEnterLogin}

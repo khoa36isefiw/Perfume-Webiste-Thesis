@@ -2,8 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../../api/authAPI';
 import { GoogleLogin } from '@react-oauth/google';
 import i18n from '../../i18n';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function GoogleAuthButton({ showMessage, isLogin }) {
+    const { MessageShowed } = useShowNotificationMessage();
     const navigate = useNavigate();
     const handleGoogleLogin = async (credentialResponse) => {
         console.log(credentialResponse);
@@ -43,18 +45,21 @@ function GoogleAuthButton({ showMessage, isLogin }) {
     };
 
     return (
-        <GoogleLogin
-            text={isLogin ? 'signin_with' : 'signup_with'}
-            shape="pill"
-            onSuccess={handleGoogleLogin}
-            onError={() => {
-                showMessage(
-                    'error',
-                    isLogin ? 'Login' : 'Sign Up',
-                    'Google authentication failed.',
-                );
-            }}
-        />
+        <>
+            <GoogleLogin
+                text={isLogin ? 'signin_with' : 'signup_with'}
+                shape="pill"
+                onSuccess={handleGoogleLogin}
+                onError={() => {
+                    showMessage(
+                        'error',
+                        isLogin ? 'Login' : 'Sign Up',
+                        'Google authentication failed.',
+                    );
+                }}
+            />
+            <MessageShowed />
+        </>
     );
 }
 

@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 
 function RecoverPassword() {
     const navigate = useNavigate();
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
     const emailRef = useRef(null);
     const {
         showNotification,
@@ -34,33 +34,40 @@ function RecoverPassword() {
             const sendNewPassword = await userAPI.sendNewPassword(email);
             try {
                 if (sendNewPassword.status === 200) {
+                    //     "rS": "Your email is available, new password will be sent to your mail!",
+                    // "rWN": "Your email is not available, please check again!",
+                    // "FL": "Please enter your email address!"
                     showMessage(
                         'success',
-                        'Check Email',
-                        'Your email is available, new password will be sent to your mail!',
+                        t('common.notifyMessage.recover.rT'),
+                        t('common.notifyMessage.recover.rS'),
                     );
                     // const sendMail = await userAPI
                     setTimeout(() => {
-                        navigate('/sign-in');
+                        navigate(`/${i18n.language}/sign-in`);
                     }, 2800);
                 } else {
                     // const sendMail = await userAPI
                     showMessage(
                         'warning',
-                        'Check Email',
-                        'Your email is not available, please check again222!',
+                        t('common.notifyMessage.recover.rT'),
+                        t('common.notifyMessage.recover.rWN'),
                     );
                 }
             } catch (error) {
                 console.log('error: ', error);
                 showMessage(
                     'warning',
-                    'Check Email',
+                    t('common.notifyMessage.recover.rT'),
                     'Your email is not available, please check again333!',
                 );
             }
         } else {
-            showMessage('warning', 'Check Email', 'Please enter your email address!');
+            showMessage(
+                'warning',
+                t('common.notifyMessage.recover.rT'),
+                t('common.notifyMessage.recover.rFL'),
+            );
         }
     };
 
