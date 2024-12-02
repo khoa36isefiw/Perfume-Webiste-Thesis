@@ -49,22 +49,20 @@ function CheckoutInformation() {
 
     const dispatch = useDispatch();
     const [informationSaved, setInformationSaved] = useState({});
-    const [listProvince, setListProvince] = useState([]);
-    const [listDistrict, setListDistrict] = useState([]);
-    const [listWardTown, setListWardTown] = useState([]);
+
     const userData = useState(JSON.parse(window.localStorage.getItem('user_data')));
+    const [name, setName] = useState(userData[0].firstName + ' ' + userData[0].lastName || '');
+    const [phoneNumber, setphoneNumber] = useState();
+    const [address, setAddress] = useState('');
+
     // console.log('userData: ',userData);
     const getListProductSelected = JSON.parse(window.localStorage.getItem('list_product_selected'));
-
     // component parent
     const [promoCode, setPromoCode] = useState('');
     const [promoCodeApplied, setPromoCodeApplied] = useState({
         isApplied: false,
         codeApplied: null,
     });
-    const [selectedProvince, setSelectedProvince] = useState(''); // return object contains {province_id, province_name}
-    const [selectedDistrict, setSelectedDistrict] = useState(''); // return district_id
-    const [selectedWardTown, setSelectedWardTown] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('cod'); // Default payment method
     const [showNotification, setShowNotification] = useState(false);
 
@@ -76,152 +74,6 @@ function CheckoutInformation() {
     const productSelectedList = useSelector((state) => state.cartManagement.productSelected);
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
     console.log('userId: ', userId);
-
-    // // get province
-    // useEffect(() => {
-    //     const fetchProvinces = async () => {
-    //         const provinceList = await addressApi.getProvinceApi();
-    //         setListProvince(provinceList.results);
-    //     };
-    //     fetchProvinces();
-    // }, []);
-
-    // // get district from province_id
-    // useEffect(() => {
-    //     if (selectedProvince) {
-    //         const fetchDistrict = async () => {
-    //             const getDistrictFromProvince = await addressApi.getDistrictApi(
-    //                 selectedProvince.id,
-    //             );
-    //             setListDistrict(getDistrictFromProvince.results);
-    //         };
-    //         fetchDistrict();
-    //     }
-    // }, [selectedProvince]);
-
-    // // get town, ward from district_id
-    // useEffect(() => {
-    //     if (selectedProvince && selectedDistrict) {
-    //         const fetchWardTown = async () => {
-    //             const getDistrictFromProvince = await addressApi.getWardTownApi(
-    //                 selectedDistrict.id,
-    //             );
-    //             setListWardTown(getDistrictFromProvince.results);
-    //         };
-    //         fetchWardTown();
-    //     }
-    // }, [selectedProvince, selectedDistrict]);
-
-    //....
-    // get value of object, must get data of object to render into UI
-    // const getListProductSelected = Object.values(productSelectedList);
-    // console.log('getListProductSelected v2: ', getListProductSelected);
-
-    // get list product id
-    // const listProductId =
-    //     getListProductSelected && getListProductSelected.map((product) => product.perfumeID);
-
-    // checkout and show notification
-    // const handleCheckout = () => {
-    //     setShowNotification(true);
-    //     setShowAnimation('animate__bounceInRight');
-
-    //     // calculate the subtotal (sum of all products in the cart)
-    //     const subtotal = getListProductSelected.reduce(
-    //         (accumulator, product) => accumulator + product.quantity * product.perfumePrice,
-    //         0,
-    //     );
-
-    //     console.log('subtotal: ', subtotal);
-
-    //     const calculateDiscount = (subtotal) => subtotal * 0.2; // 20%
-    //     const calculateTax = (subtotal) => subtotal * 0.1; // 10%
-
-    //     const discount = calculateDiscount(subtotal);
-    //     const tax = calculateTax(subtotal);
-
-    //     // final total: subtotal - discount + tax
-    //     let finalTotal = subtotal - discount + tax;
-
-    //     // optional: apply promotion code --> discount 5%
-    //     if (promoCodeApplied && promoCode === 'UTE99') {
-    //         finalTotal *= 0.95; // Apply 5% discount
-    //     }
-
-    //     // round final total to 2 decimal places
-    //     finalTotal = Math.round(finalTotal * 100) / 100;
-
-    //     console.log('final price: ' + finalTotal);
-
-    //     // Create the checkout object for the current purchase
-    //     // temporary checkout object
-    //     const currentCheckout = {
-    //         orderId: `${new Date().getTime()}`,
-    //         paymentMethod,
-    //         user: {
-    //             name: userData?.firstName + ' ' + userData?.lastName,
-    //             email: loggedInAccount?.email,
-    //             phone: loggedInAccount?.phoneNumber,
-    //             address: loggedInAccount?.address,
-    //             shipTo:
-    //                 selectedProvince.name +
-    //                 ', ' +
-    //                 selectedDistrict.name +
-    //                 ', ' +
-    //                 selectedWardTown.name,
-    //         },
-    //         products: getListProductSelected.map((product) => ({
-    //             productId: product.perfumeID,
-    //             name: product.perfumeName,
-    //             image: product.perfumeImage,
-    //             quantity: product.quantity,
-    //             size: product.perfumeSize,
-    //             price: product.quantity * product.perfumePrice,
-    //             brand: product.perfumeBrand,
-    //         })),
-    //         totalPrice: finalTotal,
-    //         // add timestamp for when the purchase was made
-    //         timestamp: new Date().toISOString(),
-    //         // test for commenting
-    //         isCommented: false,
-    //     };
-
-    //     // Step 2: retrieve the existing saved information from the state
-    //     const existingData = { ...informationSaved };
-
-    //     // step 3: update the saved information with the new order
-    //     if (existingData[loggedInAccount?.userId]) {
-    //         // exist
-    //         // if the user already has previous orders, add the new one
-    //         existingData[loggedInAccount?.userId].push(currentCheckout);
-    //     } else {
-    //         //not existed yet
-    //         // the user's first purchase, create a new array with the current order
-    //         existingData[loggedInAccount?.userId] = [currentCheckout];
-    //     }
-
-    //     // final step: save the updated information back into state
-    //     setInformationSaved(existingData);
-    //     dispatch(
-    //         saveOrders({
-    //             userId: loggedInAccount?.userId,
-    //             purchaseInfo: currentCheckout,
-    //             // productId:
-    //         }),
-    //     );
-
-    //     // reset comment if user continues buying this product just bought
-    //     dispatch(resetIsCommented({ productIds: listProductId, userId: loggedInAccount?.userId }));
-
-    //     dispatch(clearCart());
-    //     dispatch(clearSelectedProducts());
-
-    //     // setTimeout(() => {
-    //     //      navigate('/');
-    //     // }, 2000);
-
-    //     console.log('All saved information: ', existingData);
-    // };
 
     // function calculate total price of products in shopping cart
     const calculateTotalPrice = (getListProductSelected) => {
@@ -351,38 +203,23 @@ function CheckoutInformation() {
                             {t('common.checkout.address')}
                         </CustomizeTypography>
                         <CustomizeCheckoutInput
-                            // placeholder="Nhập số điện thoại"
-                            placeholder={t('common.checkout.infor.phone')}
-                            value={userData[0]?.phoneNumber}
-                        />
-                        <CustomizeCheckoutInput
                             // placeholder="Nhập họ tên"
                             placeholder={t('common.checkout.infor.name')}
-                            value={userData[0]?.firstName + ' ' + userData[0]?.lastName}
+                            value={name}
+                            onHandleChange={(e) => setName(e.target.value)} // if value is changed
                         />
-                        {/* <SelectAddress
-                            type="province"
-                            select={'Chọn Tỉnh/Thành phố'}
-                            listData={listProvince}
-                            setSelectedProvince={setSelectedProvince}
+                        <CustomizeCheckoutInput
+                            // placeholder="Nhập số điện thoại"
+                            placeholder={t('common.checkout.infor.phone')}
+                            value={phoneNumber}
+                            onHandleChange={(e) => setphoneNumber(e.target.value)} // if value is changed
                         />
-                        <SelectAddress
-                            type="district"
-                            select={'Chọn Quận/Huyện'}
-                            listData={listDistrict}
-                            setSelectedProvince={setSelectedDistrict}
-                        />
-                        <SelectAddress
-                            type="town"
-                            select={'Chọn Xã/Phường/Thị trấn'}
-                            listData={listWardTown}
-                            selectedProvince={selectedWardTown}
-                            setSelectedProvince={setSelectedWardTown}
-                        /> */}
+
                         <CustomizeCheckoutInput
                             // placeholder="Nhập địa chỉ nhà cụ thể. Số nhà, tên đường..."
                             placeholder={t('common.checkout.infor.address')}
-                            value={loggedInAccount?.address}
+                            value={address}
+                            onHandleChange={(e) => setAddress(e.target.value)} // if value is changed
                         />
                     </Box>
                     {/* Thanh toán */}
