@@ -32,7 +32,7 @@ function GoogleAuthButton({ showMessage, isLogin }) {
 
                 showMessage('success', 'Login', 'Login successfully!');
                 setTimeout(() => {
-                    navigate(`/${i18n.language}/`);
+                    navigate(`/${i18n.language}`);
                 }, 1500);
                 window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
             } else {
