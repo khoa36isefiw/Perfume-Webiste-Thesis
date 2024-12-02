@@ -130,12 +130,21 @@ function CheckoutInformation() {
                     userAddress: address,
                     userPaymentType: 'COD',
                 };
+                showMessage(
+                    'success',
+                    t('common.notifyMessage.checkout.ct'),
+                    t('common.notifyMessage.checkout.cS'),
+                );
                 window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
                 window.localStorage.setItem('order_id', JSON.stringify(response.data.order._id)); // store pay_ref Id to local storage
                 navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);
             }
         } else {
-            showMessage('warning', 'Checkout', 'Please fill your information before checkout.');
+            showMessage(
+                'warning',
+                t('common.notifyMessage.checkout.ct'),
+                t('common.notifyMessage.checkout.cW'),
+            );
         }
     };
 
