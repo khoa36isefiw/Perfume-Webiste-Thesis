@@ -274,6 +274,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                             </span>{' '}
                             <strong>{converToVND(order.totalPrice)}</strong>
                         </CustomizeTypography>
+                        {/* preview button */}
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
                             <Tooltip
                                 title={

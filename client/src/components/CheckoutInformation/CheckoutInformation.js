@@ -52,8 +52,8 @@ function CheckoutInformation() {
 
     const userData = useState(JSON.parse(window.localStorage.getItem('user_data')));
     const [name, setName] = useState(userData[0].firstName + ' ' + userData[0].lastName || '');
-    const [phoneNumber, setphoneNumber] = useState();
-    const [address, setAddress] = useState('');
+    const [phoneNumber, setphoneNumber] = useState(userData[0].phoneNumber || '');
+    const [address, setAddress] = useState(userData[0].address || '');
 
     // console.log('userData: ',userData);
     const getListProductSelected = JSON.parse(window.localStorage.getItem('list_product_selected'));

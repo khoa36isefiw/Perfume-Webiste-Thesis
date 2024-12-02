@@ -57,9 +57,7 @@ export const OrderInvoicePDF = () => {
         // slice(2): remove 2 first of elements in array -->  order-invoice
         // ghép lại mảng thành một chuỗi, sử dụng / làm dấu phân cách.
         const currentPath = location.pathname.split('/').slice(2).join('/');
-
         console.log('location.pathname: ', location.pathname);
-
         navigate(`/${i18n.language}/${currentPath}?${searchParams.toString()}`, {
             replace: true,
             state: { order }, // remain state
@@ -390,7 +388,7 @@ export const OrderInvoicePDF = () => {
                             bgcolor: '#BAB6B6FF',
                             p: 2,
                             display: 'flex',
-                            alignItems: 'center',
+                            alignItems: 'flex-start',
                             justifyContent: 'space-between',
                             mb: 4,
                             [mobileScreen]: {
@@ -400,6 +398,7 @@ export const OrderInvoicePDF = () => {
                             },
                         }}
                     >
+                        {/* Invoice Number */}
                         <Box>
                             <CustomizeTypography sx={{ color: '#000', fontWeight: 'bold' }}>
                                 {t('common.orderHistory.pdfDownload.cusInfo.invoice')}
@@ -413,8 +412,11 @@ export const OrderInvoicePDF = () => {
                                 {formatDate(orderInfor?.updatedAt)}
                             </CustomizeTypography>
                         </Box>
+
+                        {/* billed */}
                         <Box
                             sx={{
+                                textAlign: 'end',
                                 [mobileScreen]: {
                                     mt: 2,
                                 },
@@ -424,10 +426,13 @@ export const OrderInvoicePDF = () => {
                                 {t('common.orderHistory.pdfDownload.cusInfo.billed')}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                                Luna Kei
+                                {orderInfor.user.firstName} {orderInfor.user.lastName}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
-                                Số 1 Võ Văn Ngân
+                                {orderInfor.user.phoneNumber}
+                            </CustomizeTypography>
+                            <CustomizeTypography sx={{ mb: 0, color: '#000' }}>
+                                {orderInfor.user.address}
                             </CustomizeTypography>
                         </Box>
                     </Box>
