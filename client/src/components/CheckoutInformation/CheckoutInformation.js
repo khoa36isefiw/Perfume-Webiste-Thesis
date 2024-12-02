@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     Box,
     Container,
@@ -12,31 +12,19 @@ import {
     Button,
 } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { addressApi } from '../../api/addressApi';
-import SelectAddress from '../SelectAddress/SelectAddress';
 import CreditCard from '../CreditCard/CreditCard';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import { PayPalButton } from 'react-paypal-button-v2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 import CloseIcon from '@mui/icons-material/Close';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CartTotal from '../Cart/CartTotal';
-import { converToVND, converToVNDV2 } from '../convertToVND/convertToVND';
-import {
-    clearCart,
-    clearSelectedProducts,
-    removeProduct,
-    removeSelectedProduct,
-} from '../../redux/feature/CartManagement/CartManagementSlice';
+import { converToVND } from '../convertToVND/convertToVND';
 import { CustomizeDividerVertical } from '../CustomizeDivider/CustomizeDivider';
 import { CustomizeCheckoutInput } from './CustomizeCheckoutInput';
-import { saveOrders } from '../../redux/feature/CheckoutManagement/CheckoutManagementSlice';
-import { resetIsCommented } from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PayPalButtonsComponents from '../PayPalButtonComponents/PayPalButtonComponents';
-import { ordersAPI } from '../../api/ordersAPI';
 import { paymentAPI } from '../../api/paymentAPI';
 import { PAYMENT_METHOD } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
@@ -47,16 +35,7 @@ function CheckoutInformation() {
     const location = useLocation();
     const { items } = location.state || { items: [] };
     const { t, i18n } = useTranslation('translate');
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-        MessageShowed,
-    } = useShowNotificationMessage();
+    const { showMessage, MessageShowed } = useShowNotificationMessage();
 
     const dispatch = useDispatch();
 
@@ -106,7 +85,6 @@ function CheckoutInformation() {
         return finalTotal;
     };
 
-    const finalTotalPrice = calculateTotalPrice(getListProductSelected);
     console.log('promoCode:', promoCode);
     const handleCheckout = async () => {
         const promotionCodeApplied = promoCodeApplied?.codeApplied?.code || '';
@@ -146,12 +124,6 @@ function CheckoutInformation() {
                 t('common.notifyMessage.checkout.cW'),
             );
         }
-    };
-
-    // remove product
-    const handleRemoveProduct = (productId, productSize) => {
-        dispatch(removeProduct({ productId, productSize }));
-        dispatch(removeSelectedProduct({ productId, productSize }));
     };
 
     return (
@@ -445,16 +417,6 @@ function CheckoutInformation() {
                                             justifyContent: 'flex-end',
                                         }}
                                     >
-                                        <IconButton
-                                            onClick={() =>
-                                                handleRemoveProduct(
-                                                    product.perfumeID,
-                                                    product.perfumeSize,
-                                                )
-                                            }
-                                        >
-                                            <CloseIcon sx={{ fontSize: '24px', color: 'white' }} />
-                                        </IconButton>
                                         <CustomizeTypography
                                             sx={{
                                                 fontSize: '14px',

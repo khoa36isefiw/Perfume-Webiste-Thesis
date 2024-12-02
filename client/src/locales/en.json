@@ -405,7 +405,7 @@
         "checkout": {
             "backCart": "Back to Cart",
             "address": "Billing and shipping address",
-            "qty": "Qty",
+            "qty": "Quantity",
             "checkout": "Checkout",
             "title": "All transactions are secure and encrypted",
             "paymentNoti": "Choose payment method",

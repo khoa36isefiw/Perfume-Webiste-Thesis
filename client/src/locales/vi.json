@@ -228,7 +228,7 @@
         "checkout": {
             "backCart": "Quay lại Giỏ hàng",
             "address": "Địa chỉ thanh toán và giao hàng",
-            "qty": "SL",
+            "qty": "Số lượng",
             "checkout": "Thanh toán",
             "title": "Tất cả các giao dịch đều an toàn và được mã hóa",
             "paymentNoti": "Chọn phương thức thanh toán",
