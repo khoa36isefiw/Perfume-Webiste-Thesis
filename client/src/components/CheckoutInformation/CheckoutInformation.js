@@ -336,6 +336,9 @@ function CheckoutInformation() {
                                     user={userId}
                                     items={items}
                                     promotionCode={promoCodeApplied}
+                                    address={address}
+                                    email={email}
+                                    phoneNumber={phoneNumber}
                                 />
                             </Box>
                         ) : (
