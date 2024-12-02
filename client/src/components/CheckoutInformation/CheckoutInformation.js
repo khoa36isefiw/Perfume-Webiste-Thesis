@@ -40,20 +40,30 @@ import { ordersAPI } from '../../api/ordersAPI';
 import { paymentAPI } from '../../api/paymentAPI';
 import { PAYMENT_METHOD } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
+import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
     const location = useLocation();
     const { items } = location.state || { items: [] };
     const { t, i18n } = useTranslation('translate');
+    const {
+        showNotification,
+        showAnimation,
+        messageType,
+        messageTitle,
+        messageContent,
+        showMessage,
+        handleCloseNotification,
+        MessageShowed,
+    } = useShowNotificationMessage();
 
     const dispatch = useDispatch();
-    const [informationSaved, setInformationSaved] = useState({});
 
     const userData = useState(JSON.parse(window.localStorage.getItem('user_data')));
-    const [email, setEmail] = useState(userData[0].email || '');
-    const [phoneNumber, setphoneNumber] = useState(userData[0].phoneNumber || '');
-    const [address, setAddress] = useState(userData[0].address || '');
+    const [email, setEmail] = useState(userData[0]?.email || '');
+    const [phoneNumber, setphoneNumber] = useState(userData[0]?.phoneNumber || '');
+    const [address, setAddress] = useState(userData[0]?.address || '');
 
     // console.log('userData: ',userData);
     const getListProductSelected = JSON.parse(window.localStorage.getItem('list_product_selected'));
@@ -64,15 +74,8 @@ function CheckoutInformation() {
         codeApplied: null,
     });
     const [paymentMethod, setPaymentMethod] = useState('cod'); // Default payment method
-    const [showNotification, setShowNotification] = useState(false);
 
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-
-    // get product in cart
-    const listProductInCart = useSelector((state) => state.cartManagement.productInfor);
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
-    const productSelectedList = useSelector((state) => state.cartManagement.productSelected);
-    const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId;
     console.log('userId: ', userId);
 
     // function calculate total price of products in shopping cart
@@ -108,39 +111,32 @@ function CheckoutInformation() {
     const handleCheckout = async () => {
         const promotionCodeApplied = promoCodeApplied?.codeApplied?.code || '';
         console.log('promotionCodeApplied: ', promotionCodeApplied);
+        if (email !== '' && address !== '' && phoneNumber !== '') {
+            const response = await paymentAPI.createOrder(
+                userId,
+                items,
+                address,
+                email,
+                phoneNumber,
+                promotionCodeApplied,
+                PAYMENT_METHOD.COD,
+            );
 
-        const response = await paymentAPI.createOrder(
-            userId,
-            items,
-            address,
-            email,
-            phoneNumber,
-            promotionCodeApplied,
-            PAYMENT_METHOD.COD,
-        );
-
-        if (response.data?.order) {
-            console.log('response: ', response);
-            const dataShowInvoice = {
-                userName: userData[0].firstName + ' ' + userData[0].lastName,
-                userPhoneNumber: phoneNumber,
-                userAddress: address,
-                userPaymentType: 'COD',
-            };
-            window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
-            window.localStorage.setItem('order_id', JSON.stringify(response.data.order._id)); // store pay_ref Id to local storage
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
-            navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);
+            if (response.data?.order) {
+                console.log('response: ', response);
+                const dataShowInvoice = {
+                    userName: userData[0].firstName + ' ' + userData[0].lastName,
+                    userPhoneNumber: phoneNumber,
+                    userAddress: address,
+                    userPaymentType: 'COD',
+                };
+                window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
+                window.localStorage.setItem('order_id', JSON.stringify(response.data.order._id)); // store pay_ref Id to local storage
+                navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);
+            }
+        } else {
+            showMessage('warning', 'Checkout', 'Please fill your information before checkout.');
         }
-    };
-
-    // handle Close notification
-    const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
     };
 
     // remove product
@@ -480,20 +476,7 @@ function CheckoutInformation() {
                     </Box>
                 </Grid>
             </Grid>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={'success'}
-                        msgTitle={'Buy products'}
-                        msgContent={'Checkout successfully!'}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
+            <MessageShowed />
         </Container>
     );
 }
