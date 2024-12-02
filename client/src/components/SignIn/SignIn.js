@@ -56,6 +56,7 @@ function SignIn() {
                             lastName: loginData.data.lastName,
                             role: loginData.data.role,
                             address: loginData.data.address,
+                            phoneNumber: loginData.data.phoneNumber,
                         }),
                     );
                     showMessage(
