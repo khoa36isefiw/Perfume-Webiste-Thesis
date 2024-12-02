@@ -119,6 +119,24 @@
                 "cW": "Please fill your information before checkout!"
             }
         },
+        "payment": {
+            "success": {
+                "title": "Payment success",
+                "content": "Your payment has been successfully done.",
+                "total": "Total Payment",
+                "number": "Ref Number",
+                "time": "Payment Time",
+                "method": "Payment Method",
+                "name": "Sender Name",
+                "btnView": "View Order",
+                "btnShopping": "Continue Shopping"
+            },
+            "failed": {
+                "title": "Payment Cancel",
+                "content": "Oops, what happened????",
+                "tryAgain": "Try Again"
+            }
+        },
         "header": {
             "search": "Search here...",
             "history": "You searched for...",

@@ -14,6 +14,7 @@ function PaymentSuccess() {
     const { t, i18n } = useTranslation('translate');
 
     const currentPaymentData = JSON.parse(window.localStorage.getItem('payment_data')) || null;
+    const orderId = JSON.parse(window.localStorage.getItem('order_id')) || '';
 
     const [refValue, setRefValue] = React.useState('');
 
@@ -36,9 +37,25 @@ function PaymentSuccess() {
     const options = { timeZone: 'Asia/Ho_Chi_Minh', hour12: false };
     const date = dateObject.toLocaleDateString('en-GB', options); // Format: DD/MM/YYYY
     const time = dateObject.toLocaleTimeString('en-GB', options); // Format: HH:MM:SS
-
     console.log(`Date (Vietnam Time): ${date}`); // e.g., "05/11/2024"
     console.log(`Time (Vietnam Time): ${time}`); // e.g., "12:50:26"
+
+    useEffect(() => {
+        const data = paymentData?.data;
+        const searchParams = new URLSearchParams(location.search); // get the current search query params
+        // console.log('searchParams: ', searchParams.toString());
+        searchParams.set('Ref', orderId); // if language change --> set id params
+        // split /: chia thành một mảng tách bởi /
+        // '/en/order-invoice' → ['', 'en', 'order-invoice'].
+        // slice(2): remove 2 first of elements in array -->  order-invoice
+        // ghép lại mảng thành một chuỗi, sử dụng / làm dấu phân cách.
+        const currentPath = location.pathname.split('/').slice(2).join('/');
+        console.log('location.pathname: ', location.pathname);
+        navigate(`/${i18n.language}/${currentPath}?${searchParams.toString()}`, {
+            replace: true,
+            state: { data }, // remain state
+        });
+    }, [i18n.language, orderId]);
 
     return (
         <Box
@@ -81,10 +98,10 @@ function PaymentSuccess() {
                         color: '#08e508',
                     }}
                 >
-                    Payment Success
+                    {t('common.payment.success.title')}
                 </CustomizeTypography>
                 <CustomizeTypography sx={{ textAlign: 'center' }}>
-                    Your payment has been successfully done.
+                    {t('common.payment.success.content')}
                 </CustomizeTypography>
             </Box>
             <Box
@@ -112,7 +129,7 @@ function PaymentSuccess() {
                                 color: theme.palette.text.secondary,
                             }}
                         >
-                            Total Payment
+                            {t('common.payment.success.total')}
                         </CustomizeTypography>
                         {paymentData?.data.amount && (
                             <CustomizeTypography sx={{ textAlign: 'center', mb: 0 }}>
@@ -125,7 +142,7 @@ function PaymentSuccess() {
                             sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
                         >
                             <CustomizeTypography sx={{ fontSize: '15px' }}>
-                                Ref Number
+                                {t('common.payment.success.number')}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
                                 {currentPaymentData?.userPhoneNumber}
@@ -137,7 +154,7 @@ function PaymentSuccess() {
                             sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
                         >
                             <CustomizeTypography sx={{ fontSize: '15px' }}>
-                                Payment Time
+                                {t('common.payment.success.time')}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
                                 {date} - {time}
@@ -149,7 +166,7 @@ function PaymentSuccess() {
                             sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
                         >
                             <CustomizeTypography sx={{ fontSize: '15px' }}>
-                                Payment Method
+                                {t('common.payment.success.method')}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
                                 {paymentData?.data?.paymentMethod}
@@ -161,7 +178,7 @@ function PaymentSuccess() {
                             sx={{ border: '1px solid #ccc', borderRadius: 2, margin: 'auto', p: 1 }}
                         >
                             <CustomizeTypography sx={{ fontSize: '15px' }}>
-                                Sender Name
+                                {t('common.payment.success.name')}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
                                 Tomtoc Stores
@@ -181,7 +198,7 @@ function PaymentSuccess() {
                                 variant="outlined"
                                 sx={{
                                     py: 1,
-                                    borderRadius: '24px',
+                                    borderRadius: '8px',
                                     color: theme.palette.text.secondary,
                                     borderColor: theme.palette.text.secondary,
 
@@ -194,14 +211,14 @@ function PaymentSuccess() {
                                     },
                                 }}
                             >
-                                View Order
+                                {t('common.payment.success.btnView')}
                             </Button>
                             <Button
                                 onClick={() => navigate(`/${i18n.language}/shop`)}
                                 variant="contained"
                                 sx={{
                                     py: 1,
-                                    borderRadius: '24px',
+                                    borderRadius: '8px',
                                     bgcolor: theme.palette.text.secondary,
                                     fontSize: '14px',
                                     fontWeight: 'bold',
@@ -212,7 +229,7 @@ function PaymentSuccess() {
                                     },
                                 }}
                             >
-                                Continue Shopping
+                                {t('common.payment.success.btnShopping')}
                             </Button>
                         </Box>
                     </Grid>

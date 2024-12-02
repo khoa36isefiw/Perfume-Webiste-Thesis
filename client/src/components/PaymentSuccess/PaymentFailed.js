@@ -1,8 +1,10 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import { useTranslation } from 'react-i18next';
 
 function PaymentFailed() {
+    const { t } = useTranslation('translate');
     return (
         <Box
             sx={{
@@ -42,10 +44,10 @@ function PaymentFailed() {
                         color: 'red',
                     }}
                 >
-                    Payment Cancel
+                    {t('common.payment.failed.title')}
                 </CustomizeTypography>
                 <CustomizeTypography sx={{ textAlign: 'center' }}>
-                    Oops, what happened????
+                    {t('common.payment.failed.content')}
                 </CustomizeTypography>
                 <Button
                     // onClick={onHandleClick}
@@ -65,7 +67,7 @@ function PaymentFailed() {
                         },
                     }}
                 >
-                    Try Again
+                    {t('common.payment.failed.tryAgain')}
                 </Button>
             </Box>
         </Box>
