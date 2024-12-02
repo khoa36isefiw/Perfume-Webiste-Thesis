@@ -1,31 +1,52 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
+import React from 'react';
 import { useSnackbar } from 'notistack';
 import { Box, Typography } from '@mui/material';
 
 export const useSnackbarMessage = () => {
     const { enqueueSnackbar } = useSnackbar();
-    const handleClickWithTitle = (variant, title, content) => () => {
-        enqueueSnackbar({
-            variant, // type of message: warning, success, infor, error
-            // position for message
-            anchorOrigin: {
-                vertical: 'top',
-                horizontal: 'right',
-            },
-            autoHideDuration: 3000,
-            content: () => (
+
+    const handleClickWithTitle = (variant, title, content, options = {}) => {
+        enqueueSnackbar(content, {
+            variant, // 'success', 'error', 'info', 'warning'
+            anchorOrigin: { vertical: 'top', horizontal: 'right' }, // default position
+            autoHideDuration: 3000, // default duration
+            ...options, // allow overriding default options
+            content: (key) => (
                 <Box
+                    key={key}
                     sx={{
+                        zIndex: 999,
                         display: 'flex',
                         flexDirection: 'column',
                         bgcolor: '#fff',
-                        border: '1px solid #4caf50',
+                        border: `1px solid ${
+                            variant === 'success'
+                                ? '#4caf50'
+                                : variant === 'error'
+                                ? '#f44336'
+                                : variant === 'warning'
+                                ? '#ff9800'
+                                : '#2196f3'
+                        }`,
                         borderRadius: '4px',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                         p: 1,
                     }}
                 >
-                    <Typography variant="h6" sx={{ color: '#4caf50', fontWeight: 'bold' }}>
+                    <Typography
+                        variant="h6"
+                        sx={{
+                            fontWeight: 'bold',
+                            color:
+                                variant === 'success'
+                                    ? '#4caf50'
+                                    : variant === 'error'
+                                    ? '#f44336'
+                                    : variant === 'warning'
+                                    ? '#ff9800'
+                                    : '#2196f3',
+                        }}
+                    >
                         {title}
                     </Typography>
                     <Typography>{content}</Typography>
@@ -33,5 +54,8 @@ export const useSnackbarMessage = () => {
             ),
         });
     };
-    return {};
+
+    return {
+        handleClickWithTitle,
+    };
 };
