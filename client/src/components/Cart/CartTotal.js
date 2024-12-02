@@ -41,10 +41,8 @@ function CartTotal({
             });
             setShowNotification(true);
             setMessageType('success');
-            setMessageContent(
-                `You will get ${promoCodeApplied.codeApplied?.discount}% off the total price.`,
-            );
             setMessageTitle('Promo Code');
+            setMessageContent(`You will get ${codeApplied?.discount}% off the total price.`);
             setShowAnimation('animate__bounceInRight');
         } else {
             // invalid promo code
@@ -55,8 +53,8 @@ function CartTotal({
             });
             setShowNotification(true);
             setMessageType('warning');
-            setMessageContent('Your promo code invalid.');
             setMessageTitle('Promo Code');
+            setMessageContent('Your promo code invalid.');
             setShowAnimation('animate__bounceInRight');
         }
     };
