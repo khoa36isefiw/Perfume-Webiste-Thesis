@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Box, IconButton, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 import WarningIcon from '@mui/icons-material/Warning';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InfoIcon from '@mui/icons-material/Info';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { mobileScreen, theme } from '../../Theme/Theme';
 
-function NotificationMessageV2({ msgType, msgTitle, msgContent, autoHideDuration }) {
+function NotificationMessageV2({ msgType, msgTitle, msgContent }) {
     const getNotificationStyles = (type) => {
         // get from styles
         switch (type) {
@@ -51,8 +50,9 @@ function NotificationMessageV2({ msgType, msgTitle, msgContent, autoHideDuration
                 width: '400px',
                 padding: '4px',
                 bgcolor: bgColor,
-                border: `2px solid ${borderColor}`,
-                borderRadius: 2,
+                // border: `2px solid ${borderColor}`,
+                // borderRadius: 2,
+                borderRadius: 1,
                 display: 'flex',
                 alignItems: 'flex-start',
                 justifyContent: 'space-between',
