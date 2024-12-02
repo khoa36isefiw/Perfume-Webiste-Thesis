@@ -351,11 +351,13 @@ function CheckoutInformation() {
                             {t('common.checkout.address')}
                         </CustomizeTypography>
                         <CustomizeCheckoutInput
-                            placeholder="Nhập số điện thoại"
+                            // placeholder="Nhập số điện thoại"
+                            placeholder={t('common.checkout.infor.phone')}
                             value={userData[0]?.phoneNumber}
                         />
                         <CustomizeCheckoutInput
-                            placeholder="Nhập họ tên"
+                            // placeholder="Nhập họ tên"
+                            placeholder={t('common.checkout.infor.name')}
                             value={userData[0]?.firstName + ' ' + userData[0]?.lastName}
                         />
                         {/* <SelectAddress
@@ -378,7 +380,8 @@ function CheckoutInformation() {
                             setSelectedProvince={setSelectedWardTown}
                         /> */}
                         <CustomizeCheckoutInput
-                            placeholder="Nhập địa chỉ nhà cụ thể. Số nhà, tên đường..."
+                            // placeholder="Nhập địa chỉ nhà cụ thể. Số nhà, tên đường..."
+                            placeholder={t('common.checkout.infor.address')}
                             value={loggedInAccount?.address}
                         />
                     </Box>

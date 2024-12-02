@@ -398,6 +398,11 @@
                 "subtotal": "Subtotal",
                 "discount": "Discount",
                 "total": "Total"
+            },
+            "infor": {
+                "phone": "Your phone number",
+                "name": "Receiver name",
+                "address": "Your address. House number, street name..."
             }
         },
         "servicesPage": {

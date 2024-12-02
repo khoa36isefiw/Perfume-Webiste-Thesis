@@ -221,6 +221,11 @@
                 "subtotal": "Tổng cộng",
                 "discount": "Giảm giá",
                 "total": "Tổng"
+            },
+            "infor": {
+                "phone": "Số điện thoại người nhận",
+                "name": "Tên người nhận",
+                "address": "Nhập địa chỉ nhà cụ thể. Số nhà, tên đường..."
             }
         },
         "accountSettings": {
