@@ -14,7 +14,7 @@ function PaymentSuccess() {
     const { t, i18n } = useTranslation('translate');
 
     const currentPaymentData = JSON.parse(window.localStorage.getItem('payment_data')) || null;
-    const orderId = JSON.parse(window.localStorage.getItem('order_id')) || '';
+    const orderId = JSON.parse(window.localStorage.getItem('order_id')) || ''; // ref
 
     const [refValue, setRefValue] = React.useState('');
 
@@ -39,6 +39,7 @@ function PaymentSuccess() {
     const time = dateObject.toLocaleTimeString('en-GB', options); // Format: HH:MM:SS
     console.log(`Date (Vietnam Time): ${date}`); // e.g., "05/11/2024"
     console.log(`Time (Vietnam Time): ${time}`); // e.g., "12:50:26"
+    console.log('paymentData?.data: ', paymentData?.data);
 
     useEffect(() => {
         const data = paymentData?.data;
