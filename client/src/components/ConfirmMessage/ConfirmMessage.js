@@ -7,6 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Divider } from '@mui/material';
 import { theme } from '../../Theme/Theme';
+import { useTranslation } from 'react-i18next';
 
 export default function ConfirmMessage({
     msgTitle,
@@ -15,8 +16,8 @@ export default function ConfirmMessage({
     onHandleClickClose,
     onHandleConfirmAgree,
     onHandleConfirmDisagree,
-    t,
 }) {
+    const { t } = useTranslation('translate');
     return (
         <React.Fragment>
             <Dialog
