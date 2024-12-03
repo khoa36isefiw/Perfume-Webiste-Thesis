@@ -26,7 +26,7 @@ function PerfumeDetail() {
     const { t, i18n } = useTranslation('translate');
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
     const productInformation = JSON.parse(window.localStorage.getItem('productInfor')) || null;
-    console.log('productInformation: ', productInformation);
+    // console.log('productInformation: ', productInformation);
     const {
         showNotification,
         showAnimation,
@@ -56,7 +56,7 @@ function PerfumeDetail() {
         const productInfo = state.checkoutManagement.listOrdersBasedOnProduct[productId];
         return productInfo ? productInfo.quantitySold : 0;
     };
-    console.log('productInformation', productInformation);
+    // console.log('productInformation', productInformation);
     // Sử dụng trong component
     const productId = productInformation?._id;
     const soldQuantity = useSelector((state) => selectSoldQuantityByProductId(state, productId));
@@ -95,7 +95,7 @@ function PerfumeDetail() {
                 quantity: 1,
             };
             const result = await userAPI.addProductToCart(userId, mockData);
-            console.log('product information: ', result.data);
+            // console.log('product information: ', result.data);
             if (result) {
                 showMessage(
                     'success',
@@ -128,7 +128,7 @@ function PerfumeDetail() {
         });
     };
 
-    console.log('selectedSize: ', selectedSize);
+    // console.log('selectedSize: ', selectedSize);
 
     // calculating the average rating
     const calculateAverageRating = () => {
