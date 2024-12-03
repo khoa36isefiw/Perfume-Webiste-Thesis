@@ -55,7 +55,7 @@ function PayPalButtonsComponents({ user, items, address, email, phoneNumber, pro
         const paymentId = data.orderID;
         try {
             const response = await paymentAPI.capturePayPalPayment(paymentId);
-
+            window.localStorage.setItem('order_id', JSON.stringify(paymentId));
             if (response.data.message === 'Payment successful') {
                 navigate(`/${i18n.language}/success?Ref=${paymentId}`);
             } else {
