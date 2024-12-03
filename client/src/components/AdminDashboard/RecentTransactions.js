@@ -7,6 +7,7 @@ import {
 import useRecentTransation from '../../api/useRecentTransation';
 import { formatDate } from '../FormatDate/formatDate';
 import { converToVND } from '../convertToVND/convertToVND';
+import { mobileScreen } from '../../Theme/Theme';
 
 const dataTitleTable = ['Name', 'Date', 'Amount', 'Status'];
 
@@ -124,22 +125,52 @@ function RecentTransactions() {
                                     mb: 1,
                                 }}
                             >
-                                <AdminTypography sx={{ flex: 1, textAlign: 'center' }}>
+                                <AdminTypography
+                                    sx={{
+                                        flex: 1,
+                                        textAlign: 'center',
+                                        textTransform: 'capitalize',
+                                        [mobileScreen]: {
+                                            fontSize: '13px',
+                                        },
+                                    }}
+                                >
                                     {user.name}
-                                </AdminTypography>
-                                <AdminTypography sx={{ flex: 1, textAlign: 'center' }}>
-                                    {formatDate(user.date)}
-                                </AdminTypography>
-                                <AdminTypography sx={{ flex: 1, textAlign: 'center' }}>
-                                    {converToVND(user.amount)}
                                 </AdminTypography>
                                 <AdminTypography
                                     sx={{
                                         flex: 1,
                                         textAlign: 'center',
+                                        [mobileScreen]: {
+                                            fontSize: '13px',
+                                        },
+                                    }}
+                                >
+                                    {formatDate(user.date)}
+                                </AdminTypography>
+                                <AdminTypography
+                                    sx={{
+                                        flex: 1,
+                                        textAlign: 'center',
+                                        [mobileScreen]: {
+                                            fontSize: '13px',
+                                        },
+                                    }}
+                                >
+                                    {converToVND(user.amount)}
+                                </AdminTypography>
+                                <AdminTypography
+                                    sx={{
+                                        flex: 1,
+                                        width: 20,
+                                        textAlign: 'center',
                                         bgcolor: user.status === true ? '#ddfbe9' : '#f0ed1f87',
                                         borderRadius: 2,
                                         padding: '4px 0',
+                                        [mobileScreen]: {
+                                            fontSize: '13px',
+                                            padding: '2px 0',
+                                        },
                                     }}
                                 >
                                     {user.status === true ? 'Paid' : 'Pending'}
