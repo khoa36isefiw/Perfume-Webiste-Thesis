@@ -1,8 +1,8 @@
 import useSWR from 'swr';
 import axiosClient from './axiosClient';
 
-export default function useRecentTransation() {
-    const url = '/admin/recent-transaction';
+export default function useRecentProduct() {
+    const url = '/admin/recent-product';
     const fetcher = (url) => axiosClient.get(url);
     const { data, mutate, isLoading, error } = useSWR(url, fetcher);
 
