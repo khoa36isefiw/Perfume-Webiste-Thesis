@@ -12,9 +12,11 @@ import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useTranslation } from 'react-i18next';
 import GoogleAuthButton from '../GoogleLoginButton/GoogleLoginButton';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function SignIn() {
     const { t, i18n } = useTranslation('translate');
+    const { showNotificationMessage } = useSnackbarMessage();
     const dispatch = useDispatch();
     const {
         showNotification,
@@ -59,7 +61,12 @@ function SignIn() {
                             phoneNumber: loginData.data.phoneNumber,
                         }),
                     );
-                    showMessage(
+                    // showMessage(
+                    //     'success',
+                    //     t('common.notifyMessage.login.loginT'),
+                    //     t('common.notifyMessage.login.loginS'),
+                    // );
+                    showNotificationMessage(
                         'success',
                         t('common.notifyMessage.login.loginT'),
                         t('common.notifyMessage.login.loginS'),
@@ -69,21 +76,26 @@ function SignIn() {
                     }, 1500);
                     window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
                 } else {
-                    showMessage(
+                    showNotificationMessage(
                         'warning',
                         t('common.notifyMessage.login.loginT'),
                         t('common.notifyMessage.login.loginNC'),
                     );
                 }
             } catch (error) {
-                showMessage(
+                showNotificationMessage(
                     'warning',
                     t('common.notifyMessage.login.loginT'),
                     t('common.notifyMessage.login.loginNC'),
                 );
             }
         } else {
-            showMessage(
+            // showMessage(
+            //     'warning',
+            //     t('common.notifyMessage.login.loginT'),
+            //     t('common.notifyMessage.login.loginNotFill'),
+            // );
+            showNotificationMessage(
                 'warning',
                 t('common.notifyMessage.login.loginT'),
                 t('common.notifyMessage.login.loginNotFill'),
