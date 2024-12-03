@@ -19,7 +19,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
 import TopSales from './AdminLineChart';
-import AdminBestSellingProducts from './AdminBestSellingProducts';
+import AdminRecentAdded from './AdminRecentAdded';
 import RecentTransactions from './RecentTransactions';
 import TopProductsSale from './TopProductsSale';
 
@@ -401,7 +401,7 @@ function AdminDashboard() {
                     <TopSales />
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <AdminBestSellingProducts />
+                    <AdminRecentAdded />
                 </Grid>
 
                 <Grid item container spacing={4} lg={12}>

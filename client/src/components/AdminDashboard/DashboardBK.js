@@ -10,7 +10,7 @@ import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
 import DashboardMenu from './DashboardMenu';
 import TopSales from './AdminLineChart';
-import AdminBestSellingProducts from './AdminBestSellingProducts';
+import AdminBestSellingProducts from './AdminRecentAdded';
 import RecentTransactions from './RecentTransactions';
 import TopProductsSale from './TopProductsSale';
 import useUsers from '../../api/useUsers';
