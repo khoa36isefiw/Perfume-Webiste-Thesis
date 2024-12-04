@@ -73,4 +73,10 @@ export const userAPI = {
         const url = '/users/subscribe';
         return axiosClient.post(url, data);
     },
+
+    // review and rating product
+    reviewProduct: (userId, productId, data) => {
+        const url = `/users/${userId}/review/${productId}`;
+        return axiosClient.post(url, data);
+    },
 };
