@@ -371,7 +371,6 @@ function RegisterAccount() {
                                 textAction={t('common.register.register')}
                                 onHandleClick={handleRegisterAccount}
                             />
-                            <GoogleAuthButton showMessage={showMessage} />
                         </Grid>
                         <Grid
                             item
