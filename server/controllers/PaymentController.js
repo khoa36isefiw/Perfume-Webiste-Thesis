@@ -292,10 +292,12 @@ const PaymentController = {
                     updatedVariant.stock -= variant.quantity;
                     await updatedVariant.save();
                 }
-                await ProductBuyer.create({
-                    user: updatedOrder.user,
-                    product: updatedOrder.items[0].product,
-                });
+                for (const item of updatedOrder.items) {
+                    await ProductBuyer.create({
+                        user: updatedOrder.user,
+                        product: item.product,
+                    });
+                }
                 res.status(200).json({ message: 'Payment successful', order: updatedOrder });
             } else {
                 res.status(400).json({ message: 'Payment not completed' });
