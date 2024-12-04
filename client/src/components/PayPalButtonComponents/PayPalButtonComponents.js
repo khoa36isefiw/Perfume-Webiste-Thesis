@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 function PayPalButtonsComponents({ user, items, address, email, phoneNumber, promotionCode }) {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
-
     const createOrder = async () => {
         let payload = {
             user,

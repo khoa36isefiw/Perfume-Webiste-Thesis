@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 import ActionsButton from './ActionsButton';
 import DashboardProducts from './DashboardProducts';
 import { theme } from '../../Theme/Theme';
+import useRecentProduct from '../../api/useRecentProduct';
 
 const productList = [
     {
@@ -46,15 +47,6 @@ const columns = [
     { field: 'rating', headerName: 'Rating', width: 70, type: 'number' },
     { field: 'order', headerName: 'Order', width: 70, type: 'number' },
     { field: 'sales', headerName: 'Sales', width: 150, type: 'number' },
-    {
-        field: 'actions',
-        headerName: 'Actions',
-        width: 150,
-        sortable: false,
-        description: 'This column has a value getter and is not sortable.',
-        // render <Actions/> for each row
-        renderCell: () => <ActionsButton />,
-    },
 ];
 
 const rows = [
@@ -111,7 +103,26 @@ const rows = [
 
 const paginationModel = { page: 0, pageSize: 5 };
 
-export default function AdminBestSellingProducts() {
+export default function AdminRecentAdded() {
+    const { data: recentProduct, isLoading } = useRecentProduct();
+    console.log('recentProduct: ', recentProduct?.data);
+    const listRows = recentProduct?.data.map((product) => {
+        return {
+            category: product.category.nameEn,
+            brand: product.brand.nameEn,
+            price: product.variants[0].price,
+            stock: product.variants[0].stock,
+            rating: product.rating,
+            order: product.variants[0].unitsSold,
+            sales: product.variants[0].discountPercent,
+            id: product._id,
+            name: product.nameEn,
+            image: product.imagePath[0],
+        };
+    });
+
+    console.log('listRows: ', listRows);
+
     return (
         <Box
             sx={{
@@ -129,10 +140,10 @@ export default function AdminBestSellingProducts() {
                     color: theme.palette.admin.primaryColor,
                 }}
             >
-                Best Selling Products
+                Recent Products Added
             </AdminTypography>
             <DataGrid
-                rows={rows}
+                rows={listRows}
                 columns={columns}
                 initialState={{ pagination: { paginationModel } }}
                 pageSizeOptions={[5, 10]}

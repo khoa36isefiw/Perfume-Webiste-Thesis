@@ -19,9 +19,10 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
 import TopSales from './AdminLineChart';
-import AdminBestSellingProducts from './AdminBestSellingProducts';
+import AdminRecentAdded from './AdminRecentAdded';
 import RecentTransactions from './RecentTransactions';
 import TopProductsSale from './TopProductsSale';
+import AdminRecentAddedV2 from './AdminRecentAddedV2';
 
 const cardData = [
     {
@@ -86,37 +87,37 @@ function AdminDashboard() {
 
     console.log('defaultValue: ', defaultValue);
     const open = Boolean(anchorEl);
-    useEffect(() => {
-        const fetchData = async () => {
-            const userData = await adminAPI.statisticUser('day');
-            const productData = await adminAPI.statisticProduct('day');
-            const orderData = await adminAPI.statisticProduct('day');
-            const reviewData = await adminAPI.statisticReview('day');
-            setDefaultValue({
-                1: {
-                    timeFrame: 'day',
-                    value: userData.data,
-                    whichDashboard: 'Total Reviews',
-                },
-                2: {
-                    timeFrame: 'day',
-                    value: productData.data,
-                    whichDashboard: 'Total Reviews',
-                },
-                3: {
-                    timeFrame: 'day',
-                    value: orderData.data,
-                    whichDashboard: 'Total Reviews',
-                },
-                5: {
-                    timeFrame: 'day',
-                    value: reviewData.data,
-                    whichDashboard: 'Total Reviews',
-                },
-            });
-        };
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const userData = await adminAPI.statisticUser('day');
+    //         const productData = await adminAPI.statisticProduct('day');
+    //         const orderData = await adminAPI.statisticProduct('day');
+    //         const reviewData = await adminAPI.statisticReview('day');
+    //         setDefaultValue({
+    //             1: {
+    //                 timeFrame: 'day',
+    //                 value: userData.data,
+    //                 whichDashboard: 'Total Reviews',
+    //             },
+    //             2: {
+    //                 timeFrame: 'day',
+    //                 value: productData.data,
+    //                 whichDashboard: 'Total Reviews',
+    //             },
+    //             3: {
+    //                 timeFrame: 'day',
+    //                 value: orderData.data,
+    //                 whichDashboard: 'Total Reviews',
+    //             },
+    //             5: {
+    //                 timeFrame: 'day',
+    //                 value: reviewData.data,
+    //                 whichDashboard: 'Total Reviews',
+    //             },
+    //         });
+    //     };
+    //     fetchData();
+    // }, []);
 
     const handleClick = (event, cardId) => {
         setAnchorEl(event.currentTarget); // Hiển thị menu (nếu có)
@@ -400,8 +401,9 @@ function AdminDashboard() {
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                     <TopSales />
                 </Grid>
+
                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <AdminBestSellingProducts />
+                    <AdminRecentAddedV2 />
                 </Grid>
 
                 <Grid item container spacing={4} lg={12}>
