@@ -11,71 +11,11 @@ import { mobileScreen } from '../../Theme/Theme';
 
 const dataTitleTable = ['Name', 'Date', 'Amount', 'Status'];
 
-const listUser = [
-    {
-        id: 1,
-        name: 'Luna Kei',
-        date: '09/12/2024',
-        amount: '23',
-        status: 1, // Paid
-    },
-    {
-        id: 2,
-        name: 'Luna Kei',
-        date: '09/12/2024',
-        amount: '13',
-        status: 1, // Paid
-    },
-    {
-        id: 3,
-        name: 'Luna Kei',
-        date: '09/12/2024',
-        amount: '12',
-        status: 0, // Pending
-    },
-    {
-        id: 4,
-        name: 'Luna Kei',
-        date: '09/12/2024',
-        amount: '21',
-        status: 0,
-    },
-    {
-        id: 5,
-        name: 'Luna Kei',
-        date: '09/12/2024',
-        amount: '32',
-        status: 0, // Pending
-    },
-    {
-        id: 6,
-        name: 'Luna Kei',
-        date: '09/12/2024',
-        amount: '69',
-        status: 0, // Pending
-    },
-    {
-        id: 7,
-        name: 'Luna Kei',
-        date: '09/12/2024',
-        amount: '96',
-        status: 0,
-    },
-    {
-        id: 8,
-        name: 'Luna Kei',
-        date: '09/12/2024',
-        amount: '23',
-        status: 0, // Pending
-    },
-];
-
 function RecentTransactions() {
     const { data: recentTransactions, isLoading } = useRecentTransation();
-    console.log('recentTransactions: ', recentTransactions?.data);
+    // console.log('recentTransactions: ', recentTransactions?.data);
     const [transactions, setTransactions] = useState([]);
     //return an array object
-
     useEffect(() => {
         if (recentTransactions && recentTransactions?.data) {
             const listUsers = recentTransactions?.data?.map((transaction) => {
@@ -92,7 +32,7 @@ function RecentTransactions() {
         }
     }, [recentTransactions?.data]);
 
-    console.log('listUsers: ', transactions);
+    // console.log('listUsers: ', transactions);
     return (
         <Box sx={{ padding: 2, borderRadius: 1, bgcolor: '#fff', border: '1px solid #d5d5d5' }}>
             <AdminHeadingTypography sx={{ fontSize: '24px', mb: 2 }}>

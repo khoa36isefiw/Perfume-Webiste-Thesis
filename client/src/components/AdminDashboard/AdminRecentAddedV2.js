@@ -84,7 +84,7 @@ export default function AdminRecentAddedV2() {
             row?.brand?.toLowerCase().includes(searchTerm?.toLowerCase()),
     );
 
-    console.log('filteredRows: ', filteredRows);
+    // console.log('filteredRows: ', filteredRows);
 
     return (
         <React.Fragment>
