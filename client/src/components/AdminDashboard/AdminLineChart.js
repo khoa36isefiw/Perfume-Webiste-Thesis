@@ -11,7 +11,7 @@ export default function TopSales() {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // Check for mobile screen
     const { data: revenue, isLoading } = useRevenue(2024); // only call for 2024
     const { LoadingAPI } = useLoadingV2();
-    console.log('revenue: ', revenue?.data);
+    // console.log('revenue: ', revenue?.data);
     // list data of each months
     // array of month
     const monthNames = [

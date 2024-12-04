@@ -87,37 +87,39 @@ function AdminDashboard() {
 
     console.log('defaultValue: ', defaultValue);
     const open = Boolean(anchorEl);
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const userData = await adminAPI.statisticUser('day');
-    //         const productData = await adminAPI.statisticProduct('day');
-    //         const orderData = await adminAPI.statisticProduct('day');
-    //         const reviewData = await adminAPI.statisticReview('day');
-    //         setDefaultValue({
-    //             1: {
-    //                 timeFrame: 'day',
-    //                 value: userData.data,
-    //                 whichDashboard: 'Total Reviews',
-    //             },
-    //             2: {
-    //                 timeFrame: 'day',
-    //                 value: productData.data,
-    //                 whichDashboard: 'Total Reviews',
-    //             },
-    //             3: {
-    //                 timeFrame: 'day',
-    //                 value: orderData.data,
-    //                 whichDashboard: 'Total Reviews',
-    //             },
-    //             5: {
-    //                 timeFrame: 'day',
-    //                 value: reviewData.data,
-    //                 whichDashboard: 'Total Reviews',
-    //             },
-    //         });
-    //     };
-    //     fetchData();
-    // }, []);
+    console.log('listData: ', listData);
+    useEffect(() => {
+        console.log('at here, chạy vô đây');
+        const fetchData = async () => {
+            const userData = await adminAPI.getStatisticUser('day');
+            const productData = await adminAPI.getStatisticOrder('day');
+            const orderData = await adminAPI.getStatisticProduct('day');
+            const reviewData = await adminAPI.getStatisticReview('day');
+            setDefaultValue({
+                1: {
+                    timeFrame: 'day',
+                    value: userData.data,
+                    whichDashboard: 'Total Reviews',
+                },
+                2: {
+                    timeFrame: 'day',
+                    value: productData.data,
+                    whichDashboard: 'Total Reviews',
+                },
+                3: {
+                    timeFrame: 'day',
+                    value: orderData.data,
+                    whichDashboard: 'Total Reviews',
+                },
+                4: {
+                    timeFrame: 'day',
+                    value: reviewData.data,
+                    whichDashboard: 'Total Reviews',
+                },
+            });
+        };
+        fetchData();
+    }, []);
 
     const handleClick = (event, cardId) => {
         setAnchorEl(event.currentTarget); // Hiển thị menu (nếu có)
@@ -149,8 +151,9 @@ function AdminDashboard() {
                     ? 'product'
                     : selectedCardId === 3
                     ? 'order'
-                    : 'review';
-
+                    : selectedCardId === 4
+                    ? 'review'
+                    : null;
             const statisticsResponse = await adminAPI.getStatitics(getPath, timeFrame);
 
             if (statisticsResponse.status === 200) {

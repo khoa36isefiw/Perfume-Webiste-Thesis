@@ -12,9 +12,8 @@ const dataTitleTable = ['Name', 'Price', 'Units Sold'];
 
 function TopProductsSale() {
     const { data: productSold, isLoading } = useTopProductSold();
-    console.log('recentTransactions: ', productSold?.data);
+
     const [topProductSold, setTopProductSold] = useState([]);
-    //return an array object
 
     useEffect(() => {
         if (productSold && productSold?.data) {
@@ -30,7 +29,7 @@ function TopProductsSale() {
             setTopProductSold(listUsers);
         }
     }, [productSold?.data]);
-    console.log('topProductSold: ', topProductSold);
+    // console.log('topProductSold: ', topProductSold);
 
     return (
         <Box sx={{ padding: 2, borderRadius: 1, bgcolor: '#fff', border: '1px solid #d5d5d5' }}>
