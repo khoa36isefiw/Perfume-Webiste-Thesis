@@ -295,6 +295,7 @@
             },
             "changePass": {
                 "title": "Change Password",
+                "verify": "Verify Password",
                 "t1": "You can change your password for security reasons or reset it if you forget it.",
                 "currentPass": "Current Password",
                 "currentText": "Enter your current password here",

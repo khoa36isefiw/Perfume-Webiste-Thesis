@@ -272,6 +272,7 @@
             },
             "changePass": {
                 "title": "Đổi mật khẩu",
+                "verify": "Xác thực mật khẩu",
                 "t1": "Bạn có thể thay đổi mật khẩu vì lý do bảo mật hoặc đặt lại mật khẩu nếu bạn quên.",
                 "currentPass": "Mật khẩu hiện tại",
                 "currentText": "Nhập mật khẩu hiện tại của bạn tại đây",
