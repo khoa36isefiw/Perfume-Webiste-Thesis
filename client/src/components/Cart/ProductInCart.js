@@ -483,7 +483,14 @@ export const ProductInCart = ({
                                         </Box>
                                     </Box>
                                     {/* calculate total product */}
-                                    <Box>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'flex-end',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
                                         {item.variant?.discountPercent !== 0 ? ( // calculate with discount
                                             <CustomizeTypography
                                                 sx={{
