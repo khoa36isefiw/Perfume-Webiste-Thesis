@@ -18,6 +18,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { userAPI } from '../../api/userAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { useTranslation } from 'react-i18next';
+import useProductById from '../../api/useProductById';
 
 function PerfumeDetail() {
     const navigate = useNavigate();
@@ -26,6 +27,11 @@ function PerfumeDetail() {
     const { t, i18n } = useTranslation('translate');
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
     const productInformation = JSON.parse(window.localStorage.getItem('productInfor')) || null;
+    const currentQueryParams = new URLSearchParams(location.search);
+    const pId = currentQueryParams.get('pId'); // get data of param 'pId'
+    const { data: productData, isLoading } = useProductById(pId);
+
+    console.log('productData: ', productData?.data);
     // console.log('productInformation: ', productInformation);
     const {
         showNotification,
@@ -80,8 +86,6 @@ function PerfumeDetail() {
             setSelectedImage((prevIndex) => prevIndex - 1); // Move to the previous image
         }
     };
-
-    useEffect(() => {}, [productInformation]);
 
     // khi add to cart --> thì sẽ chạy .create order,
     // with status: inshoppingcart
