@@ -42,25 +42,25 @@ function RatingProduct({ perfumeDetailData }) {
         (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
     );
 
-    useEffect(() => {
-        console.log('orderHistory: ', orderHistory);
-    }, [findUser?.isCommented, orderHistory]);
+    // useEffect(() => {
+    //     console.log('orderHistory: ', orderHistory);
+    // }, [findUser?.isCommented, orderHistory]);
 
-    useEffect(() => {
-        // check if the user bought this product?
-        const purchaseCount = orderHistory.reduce((count, item) => {
-            const isBought = item.purchaseInfo.products.some(
-                // (product) => product.productId === perfumeDetailData.perfumeID,
-                1,
-            );
-            console.log('isBought: ', isBought);
-            console.log('item: ', item);
-            return isBought ? count + 1 : count;
-        }, 0);
+    // useEffect(() => {
+    //     // check if the user bought this product?
+    //     const purchaseCount = orderHistory.reduce((count, item) => {
+    //         const isBought = item.purchaseInfo.products.some(
+    //             // (product) => product.productId === perfumeDetailData.perfumeID,
+    //             1,
+    //         );
+    //         console.log('isBought: ', isBought);
+    //         console.log('item: ', item);
+    //         return isBought ? count + 1 : count;
+    //     }, 0);
 
-        // console.log('isBought: ', isBought);
-        setCommentRights(purchaseCount > 0);
-    }, [orderHistory]);
+    //     // console.log('isBought: ', isBought);
+    //     setCommentRights(purchaseCount > 0);
+    // }, [orderHistory]);
 
     const handleFocusReview = () => {
         if (reviewInputRef.current) {

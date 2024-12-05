@@ -146,7 +146,7 @@ const ProductController = {
     getById: async (req, res) => {
         try {
             const { id } = req.params;
-            const product = await Product.findOne({ _id: id, status: 'inactive' })
+            const product = await Product.findOne({ _id: id, status: 'active' })
                 .populate('variants')
                 .populate('category')
                 .populate('brand');
@@ -214,7 +214,7 @@ const ProductController = {
                 ...item,
                 product: savedProduct._id,
                 size: item.size,
-                priceSale: item.priceSale ? item.priceSale : item.price,
+                priceSale: !!item.priceSale ? item.priceSale : item.price,
                 price: item.price,
                 discountPercent: item.priceSale
                     ? Math.round(((item.price - item.priceSale) / item.price) * 100)
