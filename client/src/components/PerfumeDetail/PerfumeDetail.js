@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container, Divider, Grid, IconButton, Rating } from '@mui/material';
+import { Box, Button, Container, Divider, Grid, IconButton, Rating } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -8,31 +8,17 @@ import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { quickViewImage } from './perfumeDetailData';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-
 import { converToVND } from '../convertToVND/convertToVND';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
-
 import CheckIcon from '@mui/icons-material/Check';
-
 import { userAPI } from '../../api/userAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { useTranslation } from 'react-i18next';
 import useProductById from '../../api/useProductById';
+import useLoadingV2 from '../../hooks/useLoadingV2';
 
 function PerfumeDetail() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const dispatch = useDispatch();
-    const { t, i18n } = useTranslation('translate');
-    const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
-    const productInformation = JSON.parse(window.localStorage.getItem('productInfor')) || null;
-    const currentQueryParams = new URLSearchParams(location.search);
-    const pId = currentQueryParams.get('pId'); // get data of param 'pId'
-    const { data: productData, isLoading } = useProductById(pId);
-
-    console.log('productData: ', productData?.data);
-    // console.log('productInformation: ', productInformation);
+    const { LoadingAPI } = useLoadingV2();
     const {
         showNotification,
         showAnimation,
@@ -42,40 +28,41 @@ function PerfumeDetail() {
         showMessage,
         handleCloseNotification,
     } = useShowNotificationMessage();
-    // get the perfume data passed from navigation
-    const { perfume } = location.state || {};
-    // const [selectedSize, setSelectedSize] = useState(perfume.variants[0].size);
-    const [selectedSize, setSelectedSize] = useState({
-        size: productInformation?.variants[0].size,
-        price: productInformation?.variants[0].price,
-        priceSale: productInformation?.variants[0].priceSale,
-        variantIDSelected: productInformation?.variants[0]?._id,
-        discount: productInformation?.variants[0]?.discountPercent,
-        numberStock: productInformation?.variants[0]?.stock, // get the number of product in stock
-    });
-
-    // get list product added to cart
-    const cartItems = useSelector((state) => state.cartManagement.productInfor);
-
-    // Hàm selector để lấy số lượng sản phẩm đã bán theo productId
-    const selectSoldQuantityByProductId = (state, productId) => {
-        const productInfo = state.checkoutManagement.listOrdersBasedOnProduct[productId];
-        return productInfo ? productInfo.quantitySold : 0;
-    };
-    // console.log('productInformation', productInformation);
-    // Sử dụng trong component
-    const productId = productInformation?._id;
-    const soldQuantity = useSelector((state) => selectSoldQuantityByProductId(state, productId));
-
+    const navigate = useNavigate();
+    const location = useLocation();
     const [selectedImage, setSelectedImage] = React.useState(0);
-    // get length of comment list for each product
-    const commentsList = useSelector(
-        (state) => state.commentsManagement.listComments[productInformation._id] || [], // get data follow their productId
-    );
+    const { t, i18n } = useTranslation('translate');
+    const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
+    // const productInformation = JSON.parse(window.localStorage.getItem('productInfor')) || null;
+    const currentQueryParams = new URLSearchParams(location.search);
+    const pId = currentQueryParams.get('pId');
+
+    const { data: productData, isLoading, error } = useProductById(pId);
+
+    console.log('productData: ', productData?.data);
+
+    const [selectedSize, setSelectedSize] = useState(null);
+
+    // update selectedSize after product data is loaded
+    useEffect(() => {
+        if (productData?.data?.variants?.length > 0) {
+            const firstVariant = productData?.data.variants[0];
+            setSelectedSize({
+                size: firstVariant.size,
+                price: firstVariant.price,
+                priceSale: firstVariant.priceSale,
+                variantIDSelected: firstVariant._id,
+                discount: firstVariant.discountPercent,
+                numberStock: firstVariant.stock, // number of products in stock
+            });
+        }
+    }, [productData]);
+
+    console.log('selectedSize: ', selectedSize);
 
     const handleNext = () => {
         // Check if current image is the last one
-        if (selectedImage < productInformation.imagePath.length - 1) {
+        if (selectedImage < productData.data.imagePath.length - 1) {
             setSelectedImage((prevIndex) => prevIndex + 1); // Move to the next image
         }
     };
@@ -94,8 +81,8 @@ function PerfumeDetail() {
         if (userData) {
             const userId = userData.userId; // id user here
             const mockData = {
-                product: productInformation?._id, // id product here
-                variant: selectedSize.variantIDSelected, // id variant here
+                product: productData?.data?._id, // id product here
+                variant: selectedSize?.variantIDSelected, // id variant here
                 quantity: 1,
             };
             const result = await userAPI.addProductToCart(userId, mockData);
@@ -123,24 +110,20 @@ function PerfumeDetail() {
     const handleSizeSelected = (index) => {
         // setSelectedSize(size);
         setSelectedSize({
-            size: productInformation?.variants[index].size,
-            price: productInformation?.variants[index].price,
-            priceSale: productInformation?.variants[index].priceSale,
-            variantIDSelected: productInformation?.variants[index]?._id,
-            discount: productInformation?.variants[index]?.discountPercent,
-            numberStock: productInformation?.variants[index]?.stock,
+            size: productData?.data?.variants[index].size,
+            price: productData?.data?.variants[index].price,
+            priceSale: productData?.data?.variants[index].priceSale,
+            variantIDSelected: productData?.data?.variants[index]?._id,
+            discount: productData?.data?.variants[index]?.discountPercent,
+            numberStock: productData?.data?.variants[index]?.stock,
         });
     };
 
     // console.log('selectedSize: ', selectedSize);
 
-    // calculating the average rating
-    const calculateAverageRating = () => {
-        if (commentsList.length === 0) return 0; // doesn't have rating
-        // calculate total of rating value from comment list
-        const totalRating = commentsList.reduce((acc, comment) => acc + comment.ratingValue, 0);
-        return (totalRating / commentsList.length).toFixed(1);
-    };
+    if (isLoading) {
+        return <LoadingAPI />;
+    }
 
     return (
         <Container
@@ -225,7 +208,7 @@ function PerfumeDetail() {
                                 <Box
                                     component={'img'}
                                     // src={perfume.perfumeImage}
-                                    src={productInformation.imagePath[selectedImage]}
+                                    src={productData?.data.imagePath[selectedImage]}
                                     sx={{
                                         // height: '400px',
                                         height: '100%',
@@ -267,7 +250,7 @@ function PerfumeDetail() {
                             </Box>
 
                             <Box sx={{ display: 'flex', overflowX: 'hidden' }}>
-                                {productInformation.imagePath.map((image, index) => (
+                                {productData?.data.imagePath.map((image, index) => (
                                     <Box
                                         key={index}
                                         alt="Quick View Image"
@@ -299,11 +282,11 @@ function PerfumeDetail() {
                         {/* product name */}
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
                             {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
-                            {productInformation.nameEn}
+                            {productData?.data.nameEn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 1 }}>
                             <strong>{t('common.productDetails.brand')}: </strong>
-                            <span>{productInformation.brand.nameEn}</span>
+                            <span>{productData?.data?.brand.nameEn}</span>
                             {/* <span>Maison Francis Kurkdjian Paris</span> */}
                         </CustomizeTypography>
                         <CustomizeTypography>
@@ -311,13 +294,13 @@ function PerfumeDetail() {
                             <span
                                 style={{
                                     color:
-                                        selectedSize.numberStock <= 0
+                                        selectedSize?.numberStock <= 0
                                             ? theme.palette.orderHistory.cancel.icon
                                             : theme.palette.text.verified,
                                     fontWeight: 'bold',
                                 }}
                             >
-                                {selectedSize.numberStock <= 0
+                                {selectedSize?.numberStock <= 0
                                     ? t('common.productDetails.outStock')
                                     : t('common.productDetails.inStock')}
                             </span>
@@ -326,7 +309,7 @@ function PerfumeDetail() {
                         <CustomizeTypography>
                             {/* Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và
                             tiệc tối đẳng cấp. */}
-                            {productInformation.shortDescription}
+                            {productData.data.shortDescription}
                         </CustomizeTypography>
                         <Box
                             sx={{
@@ -335,15 +318,11 @@ function PerfumeDetail() {
                                 // justifyContent: 'space-between',
                             }}
                         >
-                            {calculateAverageRating() > 0 && (
-                                <CustomizeTypography>
-                                    {calculateAverageRating()}
-                                </CustomizeTypography>
-                            )}
+                            <CustomizeTypography>5.0</CustomizeTypography>
 
                             <Rating
                                 readOnly
-                                value={calculateAverageRating()}
+                                value={5}
                                 // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                 sx={{
                                     fontSize: '18px',
@@ -356,7 +335,7 @@ function PerfumeDetail() {
                                 }}
                                 precision={0.1}
                             />
-                            <CustomizeTypography
+                            {/* <CustomizeTypography
                                 sx={{
                                     ml: 1,
                                     textDecoration: 'underline',
@@ -371,7 +350,7 @@ function PerfumeDetail() {
                             >
                                 ({commentsList.length > 0 ? commentsList.length : 0}{' '}
                                 {t('common.productDetails.rate')})
-                            </CustomizeTypography>
+                            </CustomizeTypography> */}
                             <Box
                                 sx={{
                                     height: '20px',
@@ -382,7 +361,8 @@ function PerfumeDetail() {
                                 }}
                             />
                             <CustomizeTypography sx={{ ml: 1 }}>
-                                {t('common.productDetails.sold')} {soldQuantity}
+                                {t('common.productDetails.sold')}
+                                {/* {soldQuantity} */}
                             </CustomizeTypography>
                         </Box>
 
@@ -456,7 +436,7 @@ function PerfumeDetail() {
                                 }}
                             >
                                 {/* price sale off */}
-                                {selectedSize.discount && (
+                                {selectedSize?.discount && (
                                     <CustomizeTypography
                                         sx={{
                                             color: theme.palette.text.primary,
@@ -465,12 +445,12 @@ function PerfumeDetail() {
                                         }}
                                     >
                                         {/* 9.980.000 ₫ */}
-                                        {converToVND(selectedSize.priceSale)}
+                                        {converToVND(selectedSize?.priceSale)}
                                     </CustomizeTypography>
                                 )}
                                 <CustomizeTypography
                                     sx={{
-                                        textDecoration: selectedSize.discount
+                                        textDecoration: selectedSize?.discount
                                             ? 'line-through'
                                             : null,
                                         fontWeight: 'bold',
@@ -481,8 +461,10 @@ function PerfumeDetail() {
                                                 : '#d5d5d5',
                                     }}
                                 >
-                                    {/* {converToVND(productInformation.productInformationPriceVND)} */}
-                                    {converToVND(selectedSize.price)}
+                                    {/* undefine or null */}
+                                    {selectedSize?.price
+                                        ? converToVND(selectedSize.price)
+                                        : 'Loading...'}
                                 </CustomizeTypography>
 
                                 {/* percen discount */}
@@ -513,7 +495,7 @@ function PerfumeDetail() {
 
                         {/* Product Size */}
                         <Box sx={{ display: 'flex' }}>
-                            {productInformation?.variants.map((size, index) => (
+                            {productData?.data?.variants.map((size, index) => (
                                 <Button
                                     key={index}
                                     sx={{
@@ -547,7 +529,7 @@ function PerfumeDetail() {
                                             {converToVND(size.price)}
                                         </CustomizeTypography>
                                     </Box>
-                                    {selectedSize.size === size.size && (
+                                    {selectedSize?.size === size.size && (
                                         <CheckIcon sx={{ color: '#18920D', fontSize: '18px' }} />
                                     )}
                                 </Button>
@@ -558,7 +540,7 @@ function PerfumeDetail() {
                             <CustomizeButtonOutlined
                                 textAction={t('common.productDetails.addToCart')}
                                 onHandleClick={() => handleAddProduct()}
-                                disabled={selectedSize.numberStock <= 0}
+                                disabled={selectedSize?.numberStock <= 0}
                             />
 
                             {/* <CustomizeButton textAction={'Add to cart'} /> */}
@@ -568,25 +550,7 @@ function PerfumeDetail() {
                         </Box>
                         <Divider sx={{ bgcolor: '#fff', my: 4 }} />
                         {/* for membership */}
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            {/* ..... don't know what is it :) */}
-                            <Avatar
-                                sx={{ height: '15px', width: '15px', mr: 1, mb: 1 }}
-                                src={'https://orchard.vn/wp-content/uploads/2018/04/red-dot.gif'}
-                            />
-                            <CustomizeTypography>
-                                <strong
-                                    style={{
-                                        textTransform: 'uppercase',
-                                        textDecoration: 'underline',
-                                        color: theme.palette.text.main,
-                                    }}
-                                >
-                                    membership:
-                                </strong>
-                                <span> Giá đặc biệt dành cho khách hàng thân thiết</span>
-                            </CustomizeTypography>
-                        </Box>
+
                         <Box sx={{ my: 2 }}>
                             <TextFieldCustomize placeholder={'Enter phone number...'} />
                             <Button
