@@ -32,7 +32,11 @@ function PerfumesCard() {
 
     const handleNavigationProductDetail = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
-        navigate(`/${language}/product/${perfume._id}`, { state: { perfume } });
+        // navigate(`/${language}/product/${perfume._id}`, { state: { perfume } }); // old playground
+
+        // new playground
+        navigate(`/${language}/product/?pId=${perfume._id}`); // new playground
+
         window.localStorage.setItem('productInfor', JSON.stringify(perfume));
         backTop();
     };
