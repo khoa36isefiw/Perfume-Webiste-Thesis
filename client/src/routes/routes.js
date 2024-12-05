@@ -51,7 +51,11 @@ const publicRoutes = [
     { path: '/:lang/shop', component: Shop, layout: UserLayouts },
     { path: '/:lang/search', component: SearchTerm, layout: UserLayouts },
     // navigate to product has id...
-    { path: `/:lang/product/:id`, component: ProductDetail, layout: UserLayouts },
+    // product detail page
+    // { path: `/:lang/product/:id`, component: ProductDetail, layout: UserLayouts },
+    // product detail page
+    // path: /language/productName?pId=productId
+    { path: `/:lang/:productName`, component: ProductDetail, layout: UserLayouts },
     { path: '/:lang/shopping-cart', component: ShoppingCart, layout: UserLayouts },
     { path: '/:lang/checkout', component: Checkout, layout: UserLayouts },
     { path: '/:lang/sign-in', component: SignInPage, layout: UserLayouts },
