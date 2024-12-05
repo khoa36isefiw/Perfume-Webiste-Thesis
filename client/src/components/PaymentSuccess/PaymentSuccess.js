@@ -132,11 +132,9 @@ function PaymentSuccess() {
                         >
                             {t('common.payment.success.total')}
                         </CustomizeTypography>
-                        {paymentData?.data.amount && (
-                            <CustomizeTypography sx={{ textAlign: 'center', mb: 0 }}>
-                                {converToVND(paymentData?.data.amount)}
-                            </CustomizeTypography>
-                        )}
+                        <CustomizeTypography sx={{ textAlign: 'center', mb: 0 }}>
+                            {converToVND(paymentData?.data.amount)}
+                        </CustomizeTypography>
                     </Grid>
                     <Grid item xs={6} sm={6} md={6} lg={6}>
                         <Box

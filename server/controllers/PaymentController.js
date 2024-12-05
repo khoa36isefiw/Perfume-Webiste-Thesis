@@ -93,7 +93,6 @@ const PaymentController = {
             });
             for (const item of items) {
                 const { product, variant } = item;
-
                 newOrder.items.push({
                     product: product._id,
                     variant: variant._id,
@@ -106,13 +105,11 @@ const PaymentController = {
                     priceSale: variant.priceSale,
                     quantity: item.quantity,
                 });
-
                 const totalPrice =
-                    item.quantity * (variant.priceSale ? variant.priceSale : variant.price);
+                    item.quantity * (!isNaN(variant.priceSale) ? variant.priceSale : variant.price);
                 newOrder.totalPrice += totalPrice;
 
                 // update unit sold
-                console.log(product);
                 const updatedProduct = await Product.findOne({ _id: product._id });
                 updatedProduct.unitsSold += item.quantity;
                 await updatedProduct.save();
@@ -163,7 +160,7 @@ const PaymentController = {
                 await savedOrder.save();
                 const newPayment = new Payment({
                     order: savedOrder._id,
-                    amount: savedOrder.totalPrice,
+                    amount: savedOrder.adjustedTotalPrice ?? savedOrder.originalTotalPrice,
                     details: '',
                     payRef: savedOrder._id,
                     paid: false,
