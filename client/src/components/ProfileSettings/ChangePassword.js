@@ -157,7 +157,9 @@ function ChangePassword() {
                         fontWeight: 'bold',
                     }}
                 >
-                    {t('common.accountSettings.changePass.title')}
+                    {showChangePassword
+                        ? t('common.accountSettings.changePass.title')
+                        : t('common.accountSettings.changePass.verify')}
                 </CustomizeAccountText>
             </Grid>
             <Grid xs={12} lg={12}>

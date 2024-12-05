@@ -121,6 +121,7 @@ function AccountInfo() {
     return (
         <Container
             sx={{
+                // padding: 2,
                 [mobileScreen]: {
                     padding: 0,
                 },

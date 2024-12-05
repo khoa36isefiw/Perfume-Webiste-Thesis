@@ -94,7 +94,6 @@ export default function ProductTable() {
     };
 
     // Flatten rows based on product sizes
-
     const flattenedRows = rows?.flatMap((row) =>
         // row.variants.map((size) => ({
         row.variants.map((size) => ({
@@ -111,7 +110,6 @@ export default function ProductTable() {
     );
 
     // Filter flattened rows based on product name, and brand
-
     const filteredRows = flattenedRows.filter(
         (row) =>
             row?.productName?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
@@ -471,3 +469,7 @@ export default function ProductTable() {
         </React.Fragment>
     );
 }
+
+
+
+
