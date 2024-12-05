@@ -29,6 +29,7 @@ import { paymentAPI } from '../../api/paymentAPI';
 import { PAYMENT_METHOD } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import { useEffect } from 'react';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
@@ -45,7 +46,9 @@ function CheckoutInformation() {
     const [address, setAddress] = useState(userData[0]?.address || '');
 
     // console.log('userData: ',userData);
-    const getListProductSelected = JSON.parse(window.localStorage.getItem('list_product_selected'));
+    const getListProductSelected =
+        JSON.parse(window.localStorage.getItem('list_product_selected')) || [];
+
     // component parent
     const [promoCode, setPromoCode] = useState('');
     const [promoCodeApplied, setPromoCodeApplied] = useState({
@@ -56,34 +59,6 @@ function CheckoutInformation() {
 
     const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId;
     console.log('userId: ', userId);
-
-    // function calculate total price of products in shopping cart
-    const calculateTotalPrice = (getListProductSelected) => {
-        // calculate the subtotal (sum of all products in the cart)
-        const subtotal = getListProductSelected.reduce(
-            (accumulator, product) => accumulator + product.quantity * product.variant.price,
-            0,
-        );
-
-        console.log('subtotal: ', subtotal);
-
-        const calculateDiscount = (subtotal) => subtotal * 0.2; // 20%
-
-        const discount = calculateDiscount(subtotal);
-
-        // final total: subtotal - discount + tax
-        let finalTotal = subtotal - discount;
-
-        // optional: apply promotion code --> discount 5%
-        if (promoCodeApplied.isApplied === true && promoCodeApplied.codeApplied?.code === 'UTE99') {
-            finalTotal *= 0.95; // Apply 5% discount
-        }
-
-        // round final total to 2 decimal places
-        finalTotal = Math.round(finalTotal * 100) / 100;
-
-        return finalTotal;
-    };
 
     console.log('promoCode:', promoCode);
     const handleCheckout = async () => {
@@ -102,6 +77,8 @@ function CheckoutInformation() {
 
             if (response.data?.order) {
                 console.log('response: ', response);
+                // remove user cart in local storage
+                window.localStorage.removeItem('list_product_selected');
                 const dataShowInvoice = {
                     userName: userData[0].firstName + ' ' + userData[0].lastName,
                     userPhoneNumber: phoneNumber,
@@ -125,6 +102,12 @@ function CheckoutInformation() {
             );
         }
     };
+
+    useEffect(() => {
+        if (getListProductSelected.length === 0) {
+            navigate(`/${i18n.language}/shop`);
+        }
+    }, [getListProductSelected]);
 
     return (
         <Container
@@ -340,104 +323,105 @@ function CheckoutInformation() {
                             },
                         }}
                     >
-                        {getListProductSelected.map((product, index) => (
-                            <Box key={index}>
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        alignItems: 'flex-start',
-                                        justifyContent: 'space-between',
-                                    }}
-                                >
-                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                        <Avatar
-                                            src={product.product.imagePath[0]}
-                                            sx={{
-                                                width: '56px',
-                                                height: '56px',
-                                                borderRadius: 1,
-                                                bgcolor: '#fff',
-                                                mr: 1,
-                                            }}
-                                        />
-                                        <Box
-                                            sx={{
-                                                width: '80%',
-                                                flexWrap: 'wrap',
-                                                [mobileScreen]: {
-                                                    width: '100%',
-                                                },
-                                            }}
-                                        >
-                                            <CustomizeTypography
-                                                sx={{
-                                                    mb: 0,
-                                                    fontSize: '16px',
-                                                    fontWeight: 'bold',
-                                                    color: theme.palette.text.secondary,
-                                                    [mobileScreen]: {
-                                                        fontSize: '14px',
-                                                    },
-                                                }}
-                                            >
-                                                {/* Versace Eros EDT - 100 ml */}
-                                                {product.product.nameEn}
-                                            </CustomizeTypography>
-                                            <CustomizeTypography
-                                                sx={{
-                                                    fontSize: '13px',
-                                                    mb: 0,
-                                                    [mobileScreen]: {
-                                                        fontSize: '12.5px',
-                                                    },
-                                                }}
-                                            >
-                                                Size: {product.variant.size}
-                                            </CustomizeTypography>
-                                            <CustomizeTypography
-                                                sx={{
-                                                    fontSize: '13px',
-                                                    mb: 0,
-                                                    [mobileScreen]: {
-                                                        fontSize: '12.5px',
-                                                    },
-                                                }}
-                                            >
-                                                {product.variant.discountPercent !== 0
-                                                    ? converToVND(product.variant.priceSale)
-                                                    : converToVND(product.variant.price)}
-                                            </CustomizeTypography>
-                                        </Box>
-                                    </Box>
+                        {getListProductSelected.length > 0 &&
+                            getListProductSelected.map((product, index) => (
+                                <Box key={index}>
                                     <Box
                                         sx={{
                                             display: 'flex',
-                                            flexDirection: 'column',
-                                            alignItems: 'flex-end',
-                                            justifyContent: 'flex-end',
+                                            alignItems: 'flex-start',
+                                            justifyContent: 'space-between',
                                         }}
                                     >
-                                        <CustomizeTypography
+                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                            <Avatar
+                                                src={product.product.imagePath[0]}
+                                                sx={{
+                                                    width: '56px',
+                                                    height: '56px',
+                                                    borderRadius: 1,
+                                                    bgcolor: '#fff',
+                                                    mr: 1,
+                                                }}
+                                            />
+                                            <Box
+                                                sx={{
+                                                    width: '80%',
+                                                    flexWrap: 'wrap',
+                                                    [mobileScreen]: {
+                                                        width: '100%',
+                                                    },
+                                                }}
+                                            >
+                                                <CustomizeTypography
+                                                    sx={{
+                                                        mb: 0,
+                                                        fontSize: '16px',
+                                                        fontWeight: 'bold',
+                                                        color: theme.palette.text.secondary,
+                                                        [mobileScreen]: {
+                                                            fontSize: '14px',
+                                                        },
+                                                    }}
+                                                >
+                                                    {/* Versace Eros EDT - 100 ml */}
+                                                    {product.product.nameEn}
+                                                </CustomizeTypography>
+                                                <CustomizeTypography
+                                                    sx={{
+                                                        fontSize: '13px',
+                                                        mb: 0,
+                                                        [mobileScreen]: {
+                                                            fontSize: '12.5px',
+                                                        },
+                                                    }}
+                                                >
+                                                    Size: {product.variant.size}
+                                                </CustomizeTypography>
+                                                <CustomizeTypography
+                                                    sx={{
+                                                        fontSize: '13px',
+                                                        mb: 0,
+                                                        [mobileScreen]: {
+                                                            fontSize: '12.5px',
+                                                        },
+                                                    }}
+                                                >
+                                                    {product.variant.discountPercent !== 0
+                                                        ? converToVND(product.variant.priceSale)
+                                                        : converToVND(product.variant.price)}
+                                                </CustomizeTypography>
+                                            </Box>
+                                        </Box>
+                                        <Box
                                             sx={{
-                                                fontSize: '14px',
-                                                mb: 0,
-                                                mr: 1,
-                                                color: theme.palette.text.secondary,
-                                                [mobileScreen]: {
-                                                    fontSize: '12.5px',
-                                                },
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                alignItems: 'flex-end',
+                                                justifyContent: 'flex-end',
                                             }}
                                         >
-                                            <strong>{t('common.checkout.qty')}:</strong>{' '}
-                                            {product.quantity}
-                                        </CustomizeTypography>
+                                            <CustomizeTypography
+                                                sx={{
+                                                    fontSize: '14px',
+                                                    mb: 0,
+                                                    mr: 1,
+                                                    color: theme.palette.text.secondary,
+                                                    [mobileScreen]: {
+                                                        fontSize: '12.5px',
+                                                    },
+                                                }}
+                                            >
+                                                <strong>{t('common.checkout.qty')}:</strong>{' '}
+                                                {product.quantity}
+                                            </CustomizeTypography>
+                                        </Box>
                                     </Box>
+                                    {index !== getListProductSelected.length - 1 && (
+                                        <CustomizeDividerVertical />
+                                    )}
                                 </Box>
-                                {index !== getListProductSelected.length - 1 && (
-                                    <CustomizeDividerVertical />
-                                )}
-                            </Box>
-                        ))}
+                            ))}
                     </Box>
                     <Box sx={{ mt: 2 }}>
                         <CartTotal

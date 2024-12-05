@@ -118,6 +118,8 @@ const Layout = ({ children }) => {
                 minHeight: '100vh',
                 bgcolor: 'background.default',
                 mt: 24,
+                px: 4,
+                py: 2,
                 [ipadProScreen]: {
                     width: '90%',
                     mt: 15,
