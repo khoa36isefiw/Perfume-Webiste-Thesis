@@ -335,7 +335,7 @@ function PerfumeDetail() {
                                 }}
                                 precision={0.1}
                             />
-                            {/* <CustomizeTypography
+                            <CustomizeTypography
                                 sx={{
                                     ml: 1,
                                     textDecoration: 'underline',
@@ -348,9 +348,9 @@ function PerfumeDetail() {
                                 // handle for showing comments and reviews
                                 // onClick={}
                             >
-                                ({commentsList.length > 0 ? commentsList.length : 0}{' '}
-                                {t('common.productDetails.rate')})
-                            </CustomizeTypography> */}
+                                {/* ({commentsList.length > 0 ? commentsList.length : 0}{' '} */}
+                                {t('common.productDetails.rate')} 0
+                            </CustomizeTypography>
                             <Box
                                 sx={{
                                     height: '20px',
@@ -360,9 +360,9 @@ function PerfumeDetail() {
                                     mb: 1,
                                 }}
                             />
+                            {/* product sold quantity */}
                             <CustomizeTypography sx={{ ml: 1 }}>
-                                {t('common.productDetails.sold')}
-                                {/* {soldQuantity} */}
+                                {t('common.productDetails.sold')} {productData?.data.unitsSold}
                             </CustomizeTypography>
                         </Box>
 
