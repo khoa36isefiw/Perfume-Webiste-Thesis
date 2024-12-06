@@ -140,25 +140,26 @@ function Footer() {
                                 placeholder={t('common.subscribe.textField')}
                                 sx={{
                                     [tabletScreen]: { width: '360px' },
-                                    [mobileScreen]: {
-                                        width: '100%',
-                                    },
+                                    [mobileScreen]: { width: '85%' },
                                 }}
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                // fullWidth
                             />
                             <Button
                                 variant="contained"
                                 sx={{
-                                    py: 1,
                                     borderTopLeftRadius: 0,
                                     borderBottomLeftRadius: 0,
-
+                                    padding: '0px',
                                     bgcolor: theme.palette.secondaryText,
                                     fontSize: '14px',
                                     textTransform: 'initial',
                                     '&:hover': {
                                         bgcolor: theme.palette.secondaryText,
+                                    },
+                                    [mobileScreen]: {
+                                        fontSize: '13px',
                                     },
                                 }}
                                 onClick={handleSubcribe}
