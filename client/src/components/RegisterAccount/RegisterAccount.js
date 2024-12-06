@@ -4,33 +4,20 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import ButtonComponent from '../SignIn/ButtonComponent';
-import { useDispatch, useSelector } from 'react-redux';
-import { signUpAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import { authAPI } from '../../api/authAPI';
 import useValidationWithRef from '../../hooks/useValidationWithRef';
-
 import { RequirementV2 } from '../Requirement/RequirementV2';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { useTranslation } from 'react-i18next';
-import GoogleAuthButton from '../GoogleLoginButton/GoogleLoginButton';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function RegisterAccount() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const { t, i18n } = useTranslation('translate');
 
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+    const { t, i18n } = useTranslation('translate');
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
+
     const [open, setOpen] = useState(false);
 
     const firstNameRef = useRef(null);
@@ -94,20 +81,20 @@ function RegisterAccount() {
                 try {
                     const response = await authAPI.registerAccount(registrationData);
                     if (response.status === 200) {
-                        showMessage(
+                        showNotificationMessage(
                             'success',
                             t('common.notifyMessage.register.regisT'),
                             t('common.notifyMessage.register.regisS'),
                         );
                     } else {
-                        showMessage(
+                        showNotificationMessage(
                             'warning',
                             t('common.notifyMessage.register.regisT'),
                             t('common.notifyMessage.register.regisEE'),
                         );
                     }
                 } catch (error) {
-                    showMessage(
+                    showNotificationMessage(
                         'warning',
                         t('common.notifyMessage.register.regisT'),
                         'Email exists, Please try another email2!',
@@ -118,7 +105,7 @@ function RegisterAccount() {
                 setTimeout(() => {
                     setOpen(false);
                 }, 6000);
-                showMessage(
+                showNotificationMessage(
                     'warning',
                     t('common.notifyMessage.register.regisT'),
                     t('common.notifyMessage.register.regisFI'),
@@ -129,7 +116,7 @@ function RegisterAccount() {
             setTimeout(() => {
                 setOpen(false);
             }, 6000);
-            showMessage(
+            showNotificationMessage(
                 'warning',
                 t('common.notifyMessage.register.regisT'),
                 t('common.notifyMessage.register.regisF'),
@@ -399,20 +386,6 @@ function RegisterAccount() {
                     </Grid>
                 </Grid>
             </Grid>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Container>
     );
 }
