@@ -7,7 +7,7 @@ import {
     List,
     ListItem,
     Paper,
-    Avatar,
+    
     Tooltip,
     Typography,
 } from '@mui/material';
@@ -29,8 +29,7 @@ import useUserById from '../../api/useUserById';
 import CouponRunning from '../CouponRunning/CouponRunning';
 import VNFlag from '../../assets/images/VN-circle.png';
 import UKFlag from '../../assets/images/UK-circle.png';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
+
 import { useTranslation } from 'react-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
 import MobileHeader from './MobileHeader';
@@ -39,15 +38,6 @@ function NewHeader() {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
 
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
     const location = useLocation();
     const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search_query') || ''); // prevent lost data when reload the page
     const [suggestions, setSuggestions] = useState([]);
@@ -206,7 +196,7 @@ function NewHeader() {
             const currentQueryParams = new URLSearchParams(location.search);
             currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
             currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
-            // showMessage('warning', 'Search', 'Please fill product name!');
+
             navigate(`/${i18n.language}/shop`);
         }
     };
@@ -818,20 +808,6 @@ function NewHeader() {
                 )}
             </Container>
             <CouponRunning />
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Box>
     );
 }

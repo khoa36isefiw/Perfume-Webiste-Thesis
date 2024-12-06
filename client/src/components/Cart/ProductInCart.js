@@ -13,6 +13,7 @@ import { useLocation } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { useTranslation } from 'react-i18next';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 export const ProductInCart = ({
     productsList,
@@ -26,15 +27,7 @@ export const ProductInCart = ({
     const { t } = useTranslation('translate');
     const location = useLocation();
     console.log('productsList: ', productsList);
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
 
     const dispatch = useDispatch();
     const [productToRemove, setProductToRemove] = useState(null);
@@ -75,7 +68,7 @@ export const ProductInCart = ({
             if (removeProduct.status === 200) {
                 setIsLoadingAPI(false);
                 // window.location.reload();
-                showMessage(
+                showNotificationMessage(
                     'success',
                     `${t('common.notifyMessage.inCart.dPT')}`,
                     `${t('common.notifyMessage.inCart.dPC')}`,
@@ -178,7 +171,7 @@ export const ProductInCart = ({
                 window.localStorage.setItem('current_price', JSON.stringify(total));
             }
         } else {
-            showMessage(
+            showNotificationMessage(
                 'error',
                 `${t('common.notifyMessage.inCart.uPT')}`,
                 `${t('common.notifyMessage.inCart.uPC')}`,
@@ -604,20 +597,6 @@ export const ProductInCart = ({
                 />
 
                 {/* Show Message after removing products */}
-                {showNotification && (
-                    <Box
-                        sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                        className={`animate__animated ${showAnimation}`}
-                    >
-                        <NotificationMessage
-                            msgType={messageType}
-                            msgTitle={messageTitle}
-                            msgContent={messageContent}
-                            autoHideDuration={3000} // Auto-hide after 5 seconds
-                            onClose={handleCloseNotification}
-                        />
-                    </Box>
-                )}
             </Box>
         </Box>
     );

@@ -18,18 +18,12 @@ import useProductById from '../../api/useProductById';
 import useLoadingV2 from '../../hooks/useLoadingV2';
 import CustomizeDivider from '../CustomizeDivider/CustomizeDivider';
 import ProductInformation from '../ProductInformation/ProductInformation';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function PerfumeDetail() {
     const { LoadingAPI } = useLoadingV2();
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
+
     const navigate = useNavigate();
     const location = useLocation();
     const [selectedImage, setSelectedImage] = React.useState(0);
@@ -94,14 +88,14 @@ function PerfumeDetail() {
             const result = await userAPI.addProductToCart(userId, mockData);
             // console.log('product information: ', result.data);
             if (result) {
-                showMessage(
+                showNotificationMessage(
                     'success',
                     `${t('common.notifyMessage.addToCart.title')}`,
                     `${t('common.notifyMessage.addToCart.success')}`,
                 );
             }
         } else {
-            showMessage(
+            showNotificationMessage(
                 'warning',
                 `${t('common.notifyMessage.addToCart.title')}`,
                 `${t('common.notifyMessage.addToCart.warning')}`,
@@ -528,21 +522,6 @@ function PerfumeDetail() {
                         </Box>
                     </Grid>
                 </Grid>
-
-                {showNotification && (
-                    <Box
-                        sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                        className={`animate__animated ${showAnimation}`}
-                    >
-                        <NotificationMessage
-                            msgType={messageType}
-                            msgTitle={messageTitle}
-                            msgContent={messageContent}
-                            autoHideDuration={3000} // Auto-hide after 5 seconds
-                            onClose={handleCloseNotification}
-                        />
-                    </Box>
-                )}
             </Container>
             <CustomizeDivider />
             <ProductInformation productInformation={productData?.data} />

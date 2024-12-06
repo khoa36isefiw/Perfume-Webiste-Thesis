@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { blue } from '@mui/material/colors';
-import Paper from '@mui/material/Paper';
+
 import WarningIcon from '@mui/icons-material/Warning';
 import {
     AdminHeadingTypography,
@@ -34,8 +34,7 @@ import { ModalDesginV2 } from '../Modal/ModalDesgin';
 import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
 import { productAPI } from '../../api/productAPI';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 const columns = [
     { id: 'image', label: 'Image' },
@@ -52,15 +51,7 @@ const columns = [
 
 export default function ProductTable() {
     const navigate = useNavigate();
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const { data: products, isLoading, mutate } = useProduct();
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [page, setPage] = React.useState(0);
@@ -164,10 +155,14 @@ export default function ProductTable() {
                 const deleteResponse = await productAPI.deleteProduct(id);
                 if (deleteResponse.status === 200) {
                     mutate();
-                    showMessage('success', 'Delete Product', 'Delete product successfully!');
+                    showNotificationMessage(
+                        'success',
+                        'Delete Product',
+                        'Delete product successfully!',
+                    );
                 }
             } catch (error) {
-                showMessage('error', 'Delete Product', 'Something went wrong???');
+                showNotificationMessage('error', 'Delete Product', 'Something went wrong???');
                 console.error('Error deleting product:', error);
             } finally {
                 setOpenConfirmMessage(false);
@@ -450,26 +445,8 @@ export default function ProductTable() {
                         onHandleConfirmAgree={handleConfirmAgree}
                         onHandleConfirmDisagree={handleConfirmDisagree}
                     />
-                    {showNotification && (
-                        <Box
-                            sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                            className={`animate__animated ${showAnimation}`}
-                        >
-                            <NotificationMessage
-                                msgType={messageType}
-                                msgTitle={messageTitle}
-                                msgContent={messageContent}
-                                autoHideDuration={3000} // Auto-hide after 5 seconds
-                                onClose={handleCloseNotification}
-                            />
-                        </Box>
-                    )}
                 </Box>
             )}
         </React.Fragment>
     );
 }
-
-
-
-

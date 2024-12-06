@@ -1,19 +1,11 @@
 import { useState } from 'react';
 import useShowNotificationMessage from './useShowNotificationMessage';
+import { useSnackbarMessage } from './useSnackbarMessage';
 
 const useDeleteItem = (deleteFunction, mutate, itemType = 'item') => {
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null);
-    const {
-        showMessage,
-        showAnimation,
-        showNotification,
-        messageType,
-        messageTitle,
-        messageContent,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
-
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const openDeleteConfirmation = (itemId) => {
         setOpenConfirmMessage(true);
         setItemToDelete(itemId);
@@ -46,7 +38,11 @@ const useDeleteItem = (deleteFunction, mutate, itemType = 'item') => {
                 mutate();
 
                 if (deleteResponse.status === 200) {
-                    showMessage('success', `Delete ${itemType}`, `Xóa ${itemType} thành công`);
+                    showNotificationMessage(
+                        'success',
+                        `Delete ${itemType}`,
+                        `Xóa ${itemType} thành công`,
+                    );
                     // // re-update to list
                     // const updatedbrands = brands.filter((brand) => brand._id !== id);
                     // setBrands(updatedbrands);
@@ -56,20 +52,14 @@ const useDeleteItem = (deleteFunction, mutate, itemType = 'item') => {
 
                 console.log('deleteResponse: ', deleteResponse);
             } catch (error) {
-                showMessage('error', `Delete ${itemType}`, `Xóa ${itemType} thất bại`);
+                showNotificationMessage('error', `Delete ${itemType}`, `Xóa ${itemType} thất bại`);
                 console.error('Error deleting product:', error);
             }
         }
     };
     return {
-        showNotification,
-        messageType,
-        messageTitle,
-        messageContent,
         openConfirmMessage,
-        showAnimation,
         openDeleteConfirmation,
-        handleCloseNotification,
         handleConfirmDisagree,
         handleConfirmAgree,
         handleDeleteItem,

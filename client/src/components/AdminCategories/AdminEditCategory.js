@@ -18,20 +18,11 @@ import { theme } from '../../Theme/Theme';
 import useCategory from '../../api/useCategory';
 import { categoriesAPI } from '../../api/categoriesAPI';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
-import { backTop } from '../goBackTop/goBackTop';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function AdminEditCategory() {
     const location = useLocation();
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const { category } = location.state || [];
     const { data: categoriesData, isLoading } = useCategory();
     const responeCategoriesData = categoriesData?.data || [];
@@ -103,7 +94,7 @@ function AdminEditCategory() {
             };
             const editResponse = await categoriesAPI.updateCategory(category?._id, data);
             if (editResponse.status === 200) {
-                showMessage('success', 'Edit Category', 'Edit Category Successfully');
+                showNotificationMessage('success', 'Edit Category', 'Edit Category Successfully');
                 setTimeout(() => {
                     // window.history.back(); // return the previous page
                     navigate('/admin/manage-categories');
@@ -111,7 +102,7 @@ function AdminEditCategory() {
             }
             console.log('editResponse: ', editResponse);
         } else {
-            showMessage('error', 'Edit Category', 'Please fill all fields');
+            showNotificationMessage('error', 'Edit Category', 'Please fill all fields');
         }
     };
 
@@ -202,20 +193,6 @@ function AdminEditCategory() {
                             </Box>
                         </form>
                     </Box>
-                    {showNotification && (
-                        <Box
-                            sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                            className={`animate__animated ${showAnimation}`}
-                        >
-                            <NotificationMessage
-                                msgType={messageType}
-                                msgTitle={messageTitle}
-                                msgContent={messageContent}
-                                autoHideDuration={3000} // Auto-hide after 5 seconds
-                                onClose={handleCloseNotification}
-                            />
-                        </Box>
-                    )}
                 </Box>
             )}
         </React.Fragment>

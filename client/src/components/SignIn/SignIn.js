@@ -226,10 +226,7 @@ function SignIn() {
                                     onHandleClick={handleSignIn}
                                     onHandleKeyEvent={handleKeyEnterLogin}
                                 />
-                                <GoogleAuthButton
-                                    // showMessage={showMessage}
-                                    isLogin={true}
-                                />
+                                <GoogleAuthButton isLogin={true} />
                             </Box>
                         </Grid>
                         <Grid

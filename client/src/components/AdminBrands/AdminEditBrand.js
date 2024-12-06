@@ -7,19 +7,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { brandApi } from '../../api/brandApi';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
-function AdminAddBrand() {
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+function AdminEditBrand() {
     const location = useLocation();
     const { brand } = location.state || [];
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const [name, setName] = React.useState({
         value: brand?.nameEn || '',
         message: '',
@@ -77,15 +70,19 @@ function AdminAddBrand() {
             // call api to create new user
             if (updateBrandResponse.status === 200) {
                 console.log('updateBrandResponse: ', updateBrandResponse);
-                showMessage('success', 'Update Brand', 'Cập nhật brand mới thành công');
+                showNotificationMessage('success', 'Update Brand', 'Cập nhật brand mới thành công');
                 setTimeout(() => {
                     navigate('/admin/manage-brands');
                 }, 2800);
             } else {
-                showMessage('error', 'Update Brand', 'Cập nhật Brand thất bại');
+                showNotificationMessage('error', 'Update Brand', 'Cập nhật Brand thất bại');
             }
         } else {
-            showMessage('error', 'Update Brand', 'Vui lòng kiểm tra các trường đã nhập');
+            showNotificationMessage(
+                'error',
+                'Update Brand',
+                'Vui lòng kiểm tra các trường đã nhập',
+            );
         }
     };
     const handleBack = () => {
@@ -145,22 +142,8 @@ function AdminAddBrand() {
                     </Button>
                 </form>
             </Box>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Box>
     );
 }
 
-export default AdminAddBrand;
+export default AdminEditBrand;
