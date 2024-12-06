@@ -287,7 +287,7 @@ function PerfumeDetail() {
                         {/* product name */}
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
                             {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
-                            {productData?.data ? productData?.data.nameEn : 'Loading...'}
+                            {productData?.data.nameEn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 1 }}>
                             <strong>{t('common.productDetails.brand')}: </strong>
@@ -419,6 +419,7 @@ function PerfumeDetail() {
                                 )}
                                 <CustomizeTypography
                                     sx={{
+                                        fontSize: !selectedSize?.discount ? '20px' : '16px',
                                         textDecoration: selectedSize?.discount
                                             ? 'line-through'
                                             : null,
