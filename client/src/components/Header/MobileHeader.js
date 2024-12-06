@@ -112,7 +112,10 @@ function MobileHeader({ setOpenMenu, openMenu }) {
                             cursor: 'pointer',
                             mr: 1,
                         }}
-                        onClick={() => handleChangeLanguage('en')}
+                        onClick={() => {
+                            handleChangeLanguage('en');
+                            setOpenMenu(false);
+                        }}
                     >
                         <Box
                             sx={{ height: '50px', width: '50px', borderRadius: '50%' }}
@@ -135,7 +138,10 @@ function MobileHeader({ setOpenMenu, openMenu }) {
                             cursor: 'pointer',
                             mr: 1,
                         }}
-                        onClick={() => handleChangeLanguage('vi')}
+                        onClick={() => {
+                            handleChangeLanguage('vi');
+                            setOpenMenu(false);
+                        }}
                     >
                         <Box
                             sx={{ height: '50px', width: '50px', borderRadius: '50%' }}

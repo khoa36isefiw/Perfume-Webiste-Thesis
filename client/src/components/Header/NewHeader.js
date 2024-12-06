@@ -7,7 +7,6 @@ import {
     List,
     ListItem,
     Paper,
-    
     Tooltip,
     Typography,
 } from '@mui/material';
@@ -137,26 +136,8 @@ function NewHeader() {
             // null, empty
             setSuggestions([]);
             setShowSuggestions(false);
-            // if (showSearchHistory) {
-            //     window.localStorage.removeItem('search_query');
-            // }
-
-            // const params = new URLSearchParams(location.search);
-            // params.delete('keyword'); // Xóa tham số `keyword` khỏi URL
-            // navigate(`${location.pathname}`);
         }
     };
-
-    // useEffect(() => {
-    //     if (searchQuery === '' && showSearchHistory) {
-    //         window.localStorage.removeItem('search_query');
-    //         const currentQueryParams = new URLSearchParams(location.search);
-    //         // console.log('location.search: ', location.search);
-    //         currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
-    //         currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
-    //         currentQueryParams.delete('sortBy');
-    //     }
-    // }, [searchQuery, location]);
 
     // Parse URL parameters on mount to set initial searchQuery and filter values
     // Function to handle searching

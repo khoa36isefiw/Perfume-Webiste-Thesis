@@ -30,23 +30,39 @@ function SearchTerm() {
     const handleSearch = async () => {
         const searchValue = searchRef.current.value.trim();
         console.log('searchValue: ', searchValue);
-        const params = new URLSearchParams(); // get current query string params
         if (searchValue !== '') {
+            const params = new URLSearchParams(); // get current query string params
             params.set('keyword', searchValue); // add to the current path with q=search value
             window.localStorage.setItem('search_query', searchValue);
             // window.localStorage.setItem('filter', JSON.stringify('')); // reset filter
             localStorage.removeItem('filter');
             localStorage.removeItem('sortBy');
-            // navigate to update the URL with query params
-            // navigate(`/products?${params.toString()}`); // href to shop with query string params
+
+            // Lấy lịch sử tìm kiếm từ localStorage
+            let searchHistory = JSON.parse(localStorage.getItem('search_history')) || [];
+
+            // Thêm giá trị mới vào lịch sử (nếu chưa tồn tại)
+            if (!searchHistory.includes(searchValue)) {
+                searchHistory.push(searchValue);
+
+                // Giới hạn số lượng lịch sử tìm kiếm (tối đa 10 mục)
+                if (searchHistory.length > 10) {
+                    searchHistory = searchHistory.slice(-10); // Giữ 10 mục cuối cùng
+                }
+
+                // Lưu lịch sử cập nhật vào localStorage
+                localStorage.setItem('search_history', JSON.stringify(searchHistory));
+            }
             navigate(`/${i18n.language}/shop?${params.toString()}`, { replace: true });
         } else {
+            localStorage.removeItem('search_query');
             localStorage.removeItem('filter');
             localStorage.removeItem('sortBy');
             const currentQueryParams = new URLSearchParams(location.search);
             currentQueryParams.delete('keyword'); //// remove 'brand' filter from the URL
             currentQueryParams.delete('brand'); //// remove 'brand' filter from the URL
-            showMessage('warning', 'Search', 'Please fill product name!');
+
+            navigate(`/${i18n.language}/shop`);
         }
     };
     return (

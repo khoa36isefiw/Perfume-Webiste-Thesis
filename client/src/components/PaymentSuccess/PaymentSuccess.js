@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useOrderByUser from '../../api/useOrderByUser';
 import { converToVND } from '../convertToVND/convertToVND';
 import usePaymentByOrderId from '../../api/usePaymentByOrderId';
 import { useTranslation } from 'react-i18next';
@@ -57,6 +56,10 @@ function PaymentSuccess() {
             state: { data }, // remain state
         });
     }, [i18n.language, orderId]);
+    const amount = Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(
+        paymentData?.data?.amount,
+    );
+    console.log('amount: ', amount);
 
     return (
         <Box
@@ -133,7 +136,7 @@ function PaymentSuccess() {
                             {t('common.payment.success.total')}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ textAlign: 'center', mb: 0 }}>
-                            {converToVND(paymentData?.data.amount)}
+                            {converToVND(amount)}
                         </CustomizeTypography>
                     </Grid>
                     <Grid item xs={6} sm={6} md={6} lg={6}>
