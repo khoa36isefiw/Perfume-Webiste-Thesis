@@ -8,7 +8,6 @@ import {
     FormControlLabel,
     FormControl,
     Avatar,
-    IconButton,
     Button,
 } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -17,7 +16,7 @@ import { mobileScreen, theme } from '../../Theme/Theme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import { PayPalButton } from 'react-paypal-button-v2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
-import CloseIcon from '@mui/icons-material/Close';
+
 import { useDispatch } from 'react-redux';
 import CartTotal from '../Cart/CartTotal';
 import { converToVND } from '../convertToVND/convertToVND';
@@ -28,17 +27,17 @@ import PayPalButtonsComponents from '../PayPalButtonComponents/PayPalButtonCompo
 import { paymentAPI } from '../../api/paymentAPI';
 import { PAYMENT_METHOD } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+
 import { useEffect } from 'react';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
     const location = useLocation();
     const { items } = location.state || { items: [] };
     const { t, i18n } = useTranslation('translate');
-    const { showMessage, MessageShowed } = useShowNotificationMessage();
 
-    const dispatch = useDispatch();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
 
     const userData = useState(JSON.parse(window.localStorage.getItem('user_data')));
     const [email, setEmail] = useState(userData[0]?.email || '');
@@ -85,7 +84,7 @@ function CheckoutInformation() {
                     userAddress: address,
                     userPaymentType: 'COD',
                 };
-                showMessage(
+                showNotificationMessage(
                     'success',
                     t('common.notifyMessage.checkout.cT'),
                     t('common.notifyMessage.checkout.cS'),
@@ -95,7 +94,7 @@ function CheckoutInformation() {
                 navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);
             }
         } else {
-            showMessage(
+            showNotificationMessage(
                 'warning',
                 t('common.notifyMessage.checkout.cT'),
                 t('common.notifyMessage.checkout.cW'),
@@ -434,7 +433,6 @@ function CheckoutInformation() {
                     </Box>
                 </Grid>
             </Grid>
-            <MessageShowed />
         </Container>
     );
 }

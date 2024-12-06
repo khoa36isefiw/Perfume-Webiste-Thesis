@@ -12,13 +12,11 @@ import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAPI } from '../../api/userAPI';
 import useValidationWithRef from '../../hooks/useValidationWithRef';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { RequirementV2 } from '../Requirement/RequirementV2';
 import { useTranslation } from 'react-i18next';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function AccountInfo() {
-    const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
@@ -27,16 +25,8 @@ function AccountInfo() {
     const firstNameValidation = useValidationWithRef();
     const lastNameValidation = useValidationWithRef();
     const phoneValidation = useValidationWithRef();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
 
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
     const { t } = useTranslation('translate');
 
     const userData = JSON.parse(localStorage.getItem('user_data'));
@@ -72,7 +62,7 @@ function AccountInfo() {
                 if (updateUserInfor.status === 200) {
                     window.localStorage.setItem('user_data', JSON.stringify(data));
                     setEditAccount(true);
-                    showMessage(
+                    showNotificationMessage(
                         'success',
                         `${t('common.notifyMessage.accSetting.aT')}`,
                         `${t('common.notifyMessage.accSetting.aC1')}`,
@@ -80,7 +70,7 @@ function AccountInfo() {
                 }
                 console.log('updateUserInfor: ', updateUserInfor);
             } else {
-                showMessage(
+                showNotificationMessage(
                     'warning',
                     `${t('common.notifyMessage.accSetting.aT')}`,
                     `${t('common.notifyMessage.accSetting.aC2')}`,
@@ -91,7 +81,7 @@ function AccountInfo() {
                 }, 6000);
             }
         } else {
-            showMessage(
+            showNotificationMessage(
                 'warning',
                 `${t('common.notifyMessage.accSetting.aT')}`,
                 `${t('common.notifyMessage.accSetting.aC')}`,
@@ -356,20 +346,6 @@ function AccountInfo() {
                     textAction={t('common.accountSettings.accInfor.save')}
                     onHandleClick={handleSaveInformation}
                 />
-            )}
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
             )}
         </Container>
     );
