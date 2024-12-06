@@ -87,7 +87,7 @@ function CheckoutInformation() {
                 };
                 showMessage(
                     'success',
-                    t('common.notifyMessage.checkout.ct'),
+                    t('common.notifyMessage.checkout.cT'),
                     t('common.notifyMessage.checkout.cS'),
                 );
                 window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
@@ -97,7 +97,7 @@ function CheckoutInformation() {
         } else {
             showMessage(
                 'warning',
-                t('common.notifyMessage.checkout.ct'),
+                t('common.notifyMessage.checkout.cT'),
                 t('common.notifyMessage.checkout.cW'),
             );
         }
