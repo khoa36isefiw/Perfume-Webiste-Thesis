@@ -7,14 +7,14 @@ function CustomizeDivider() {
         <Container
             sx={{
                 [mobileScreen]: {
-                    mt: 70,
+                    mt: 40,
                 },
             }}
         >
             <Divider
                 sx={{
                     bgcolor: '#fff',
-                    my: 8,
+                    my: 2,
                     [mobileScreen]: {
                         my: 0,
                     },
