@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import NotificationMessageV2 from '../components/NotificationMessage/NotificationMessageV2';
 
 export const useSnackbarMessage = () => {
-    const { enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const showNotificationMessage = (variant, title, content, options = {}) => {
         enqueueSnackbar(content, {
@@ -18,6 +18,7 @@ export const useSnackbarMessage = () => {
                         msgType={variant}
                         msgTitle={title}
                         msgContent={content}
+                        onClose={() => closeSnackbar(key)}
                     />
                 </Box>
             ),
