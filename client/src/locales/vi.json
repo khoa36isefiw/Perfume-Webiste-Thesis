@@ -114,7 +114,9 @@
             "checkout": {
                 "cT": "Checkout",
                 "cS": "Đơn hàng của bạn đã được đặt thành công",
-                "cW": "Vui lòng điền thông tin của bạn trước khi thanh toán!"
+                "cW": "Vui lòng điền thông tin của bạn trước khi thanh toán!",
+                "promoTitle": "Mã khuyến mại",
+                "promoContent": "Mã khuyến mại của bạn không hợp lệ"
             }
         },
         "payment": {

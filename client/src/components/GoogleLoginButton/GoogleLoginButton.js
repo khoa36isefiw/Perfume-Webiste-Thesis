@@ -2,10 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../../api/authAPI';
 import { GoogleLogin } from '@react-oauth/google';
 import i18n from '../../i18n';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
-function GoogleAuthButton({ showMessage, isLogin }) {
-    const { MessageShowed } = useShowNotificationMessage();
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+
+function GoogleAuthButton({ isLogin }) {
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const navigate = useNavigate();
     const handleGoogleLogin = async (credentialResponse) => {
         console.log(credentialResponse);
@@ -30,13 +31,13 @@ function GoogleAuthButton({ showMessage, isLogin }) {
                     }),
                 );
 
-                showMessage('success', 'Login', 'Login successfully!');
+                showNotificationMessage('success', 'Login', 'Login successfully!');
                 setTimeout(() => {
                     navigate(`/${i18n.language}`);
                 }, 1500);
                 window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
             } else {
-                showMessage('warning', 'Login', 'Your email or password is incorrect!');
+                showNotificationMessage('warning', 'Login', 'Your email or password is incorrect!');
             }
         } catch (error) {
             console.error('Login failed', error);
@@ -50,14 +51,13 @@ function GoogleAuthButton({ showMessage, isLogin }) {
                 shape="pill"
                 onSuccess={handleGoogleLogin}
                 onError={() => {
-                    showMessage(
+                    showNotificationMessage(
                         'error',
                         isLogin ? 'Login' : 'Sign Up',
                         'Google authentication failed.',
                     );
                 }}
             />
-            <MessageShowed />
         </>
     );
 }

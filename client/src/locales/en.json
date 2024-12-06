@@ -116,7 +116,9 @@
             "checkout": {
                 "cT": "Checkout",
                 "cS": "Your order placed successfully",
-                "cW": "Please fill your information before checkout!"
+                "cW": "Please fill your information before checkout!",
+                "promoTitle": "Promo Code",
+                "promoContent": "Your promo code invalid"
             }
         },
         "payment": {

@@ -6,17 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { userAPI } from '../../api/userAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function SubscribeModal() {
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const { t } = useTranslation('translate');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [email, setEmail] = useState('');
@@ -38,7 +31,7 @@ function SubscribeModal() {
         // need api to check if the email is already subscribed
         if (email !== '') {
             if (!validateEmail(email)) {
-                showMessage(
+                showNotificationMessage(
                     'warning',
                     `${t('common.notifyMessage.sub.title')}`,
                     `${t('common.notifyMessage.sub.notMail')}`,
@@ -48,7 +41,7 @@ function SubscribeModal() {
                 const response = await userAPI.subscribe({ email });
                 if (response.status === 200) {
                     alert('Subscribe successfully');
-                    showMessage(
+                    showNotificationMessage(
                         'warning',
                         `${t('common.notifyMessage.sub.title')}`,
                         `${t('common.notifyMessage.sub.success')}`,
@@ -56,7 +49,7 @@ function SubscribeModal() {
                     setError('');
                     closeAndStoreTime();
                 } else {
-                    showMessage(
+                    showNotificationMessage(
                         'warning',
                         `${t('common.notifyMessage.sub.title')}`,
                         `${t('common.notifyMessage.sub.existed')}`,
@@ -64,7 +57,7 @@ function SubscribeModal() {
                 }
             }
         } else {
-            showMessage(
+            showNotificationMessage(
                 'warning',
                 `${t('common.notifyMessage.sub.title')}`,
                 `${t('common.notifyMessage.sub.require')}`,
@@ -207,20 +200,6 @@ function SubscribeModal() {
                     </Box>
                 </Box>
             </Modal>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </>
     );
 }

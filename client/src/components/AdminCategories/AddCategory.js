@@ -5,18 +5,10 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from 'react-router-dom';
 import { categoriesAPI } from '../../api/categoriesAPI';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function AddCategory() {
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const [name, setName] = React.useState({
         value: '',
         message: '',
@@ -85,15 +77,15 @@ function AddCategory() {
                 setName({ value: '', message: '' });
                 setDescription({ value: '', message: '' });
                 setSelectedCategoryId('');
-                showMessage('success', 'Create Category', 'Tạo category thành công');
+                showNotificationMessage('success', 'Create Category', 'Tạo category thành công');
                 setTimeout(() => {
                     navigate('/admin/manage-categories');
                 }, 2800);
             } else {
-                showMessage('error', 'Create Category', 'Tạo category thất bại');
+                showNotificationMessage('error', 'Create Category', 'Tạo category thất bại');
             }
         } else {
-            showMessage('error', 'Create Category', 'Vui lòng kiểm tra các trường đã nhập');
+            showNotificationMessage('error', 'Create Category', 'Vui lòng kiểm tra các trường đã nhập');
         }
     };
     const handleBack = () => {
@@ -184,20 +176,6 @@ function AddCategory() {
                     </Button>
                 </form>
             </Box>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Box>
     );
 }

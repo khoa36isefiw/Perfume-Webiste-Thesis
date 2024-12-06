@@ -24,25 +24,17 @@ import WarningIcon from '@mui/icons-material/Warning';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
+
 import { blue } from '@mui/material/colors';
 import * as XLSX from 'xlsx';
 
 import useBrand from '../../api/useBrand';
 import { brandApi } from '../../api/brandApi';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function AdminTableBrands() {
     const navigate = useNavigate();
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const { data: brandsData, isLoading, mutate } = useBrand();
     const responsebrands = brandsData?.data || [];
     const [brands, setBrands] = useState(responsebrands);
@@ -87,7 +79,7 @@ function AdminTableBrands() {
                 mutate();
 
                 if (deleteResponse.status === 200) {
-                    showMessage('success', 'Delete brand', 'Xóa brand thành công');
+                    showNotificationMessage('success', 'Delete brand', 'Xóa brand thành công');
                     // re-update to list
                     const updatedbrands = brands.filter((brand) => brand._id !== id);
                     setBrands(updatedbrands);
@@ -97,7 +89,7 @@ function AdminTableBrands() {
 
                 console.log('deleteResponse: ', deleteResponse);
             } catch (error) {
-                showMessage('error', 'Delete brand', 'Xóa brand thất bại');
+                showNotificationMessage('error', 'Delete brand', 'Xóa brand thất bại');
                 console.error('Error deleting product:', error);
             }
         }
@@ -381,20 +373,6 @@ function AdminTableBrands() {
                             onHandleConfirmAgree={handleConfirmAgree}
                             onHandleConfirmDisagree={handleConfirmDisagree}
                         />
-                        {showNotification && (
-                            <Box
-                                sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                                className={`animate__animated ${showAnimation}`}
-                            >
-                                <NotificationMessage
-                                    msgType={messageType}
-                                    msgTitle={messageTitle}
-                                    msgContent={messageContent}
-                                    autoHideDuration={3000} // Auto-hide after 5 seconds
-                                    onClose={handleCloseNotification}
-                                />
-                            </Box>
-                        )}
                     </TableContainer>
                 </Box>
             )}{' '}

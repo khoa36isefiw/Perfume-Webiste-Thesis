@@ -15,13 +15,15 @@ import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import { useTranslation } from 'react-i18next';
 import { userAPI } from '../../api/userAPI';
-import useShowNotificationMessageV2 from '../../hooks/useShowNotificationMessageV2';
+
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function Footer() {
     const [email, setEmail] = React.useState('');
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
-    const { showMessage, MessageShowed } = useShowNotificationMessageV2();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
+
     const handleNavigate = (dest) => {
         navigate(`/${i18n.language}${dest}`);
         backTop();
@@ -38,63 +40,30 @@ function Footer() {
         i18n.changeLanguage(language); // Set the language for i18n
     }, []);
 
-    // const handleSubcribe = async () => {
-    //     const response = await userAPI.subscribe({ email });
-    //     if (email === '') {
-    //         showMessage(
-    //             'warning',
-    //             `${t('common.notifyMessage.sub.title')}`,
-    //             `${t('common.notifyMessage.sub.require')}`,
-    //         );
-    //     } else {
-    //         if (!validateEmail(email)) {
-    //             showMessage(
-    //                 'warning',
-    //                 `${t('common.notifyMessage.sub.title')}`,
-    //                 `${t('common.notifyMessage.sub.notMail')}`,
-    //             );
-    //         } else {
-    //             if (response.status === 200) {
-    //                 showMessage(
-    //                     'warning',
-    //                     `${t('common.notifyMessage.sub.title')}`,
-    //                     `${t('common.notifyMessage.sub.success')}`,
-    //                 );
-    //             } else {
-    //                 showMessage(
-    //                     'warning',
-    //                     `${t('common.notifyMessage.sub.title')}`,
-    //                     `${t('common.notifyMessage.sub.existed')}`,
-    //                 );
-    //             }
-    //         }
-    //     }
-    // };
-
     const handleSubcribe = async () => {
         const response = await userAPI.subscribe({ email });
         if (email === '') {
-            showMessage(
+            showNotificationMessage(
                 'warning',
                 `${t('common.notifyMessage.sub.title')}`,
                 `${t('common.notifyMessage.sub.require')}`,
             );
         } else {
             if (!validateEmail(email)) {
-                showMessage(
+                showNotificationMessage(
                     'warning',
                     `${t('common.notifyMessage.sub.title')}`,
                     `${t('common.notifyMessage.sub.notMail')}`,
                 );
             } else {
                 if (response.status === 200) {
-                    showMessage(
+                    showNotificationMessage(
                         'warning',
                         `${t('common.notifyMessage.sub.title')}`,
                         `${t('common.notifyMessage.sub.success')}`,
                     );
                 } else {
-                    showMessage(
+                    showNotificationMessage(
                         'warning',
                         `${t('common.notifyMessage.sub.title')}`,
                         `${t('common.notifyMessage.sub.existed')}`,
@@ -276,7 +245,6 @@ function Footer() {
                             ))}
                         </Grid>
                     </Grid>
-                    <MessageShowed />
                 </Grid>
             </Container>
             <Copyrights />

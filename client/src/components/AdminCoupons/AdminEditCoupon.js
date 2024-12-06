@@ -13,20 +13,13 @@ import { AdminButtonDesign } from './AdminCreateCoupon';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { couponAPI } from '../../api/couponAPI';
 import { grey } from '@mui/material/colors';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function AdminEditCoupon() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
 
     const { couponData } = location.state || {};
     const [quantity, setQuantity] = useState(couponData.quantity);
@@ -63,7 +56,7 @@ function AdminEditCoupon() {
             getEndDate !== ''
         ) {
             if (getCurrentDate > getEndDate) {
-                showMessage(
+                showNotificationMessage(
                     'error',
                     'Date Validation Error',
                     'Start date must be less than end date.',
@@ -74,13 +67,17 @@ function AdminEditCoupon() {
             const updateCouponResponse = await couponAPI.updateCoupon(couponData._id, data);
             if (updateCouponResponse.status === 200) {
                 console.log('updateCouponResponse: ', updateCouponResponse);
-                showMessage('success', 'Update coupon', 'Update  coupon successfully');
+                showNotificationMessage('success', 'Update coupon', 'Update  coupon successfully');
                 setTimeout(() => {
                     navigate('/admin/manage-coupons/');
                 }, 2800);
             }
         } else {
-            showMessage('warning', 'Update coupon', 'Please fill information of coupon!');
+            showNotificationMessage(
+                'warning',
+                'Update coupon',
+                'Please fill information of coupon!',
+            );
         }
 
         dispatch(updateCoupon({ couponId: couponData._id, data: data }));
@@ -88,7 +85,7 @@ function AdminEditCoupon() {
 
     const handleNumberBlur = () => {
         if (quantity < 0 || discount < 0 || discount >= 100) {
-            showMessage(
+            showNotificationMessage(
                 'warning',
                 'Update Promotions',
                 discount > 100
@@ -104,7 +101,11 @@ function AdminEditCoupon() {
 
     const handleDateBlur = () => {
         if (getCurrentDate > getEndDate) {
-            showMessage('error', 'Date Validation Error', 'Start date must be less than end date.');
+            showNotificationMessage(
+                'error',
+                'Date Validation Error',
+                'Start date must be less than end date.',
+            );
             setDisabledButton(true);
             return;
         } else {
@@ -261,20 +262,6 @@ function AdminEditCoupon() {
                     borderColor={theme.palette.admin.bgColor}
                 />
             </Box>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Box>
     );
 }

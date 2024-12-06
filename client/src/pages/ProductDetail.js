@@ -13,13 +13,7 @@ function ProductDetail() {
     return (
         <Box sx={{ mt: 20 }}>
             <PerfumeDetail />
-
-            <CustomizeDivider />
-
-            <ProductInformation />
-
             <RatingProduct perfumeDetailData={productInformation} />
-
             <Comments perfumeDetailData={productInformation} />
         </Box>
     );

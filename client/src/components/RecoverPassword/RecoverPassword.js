@@ -1,30 +1,21 @@
 import { Box, Container, Grid } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeButtonV2 } from '../CustomizeButton/CustomizeButton';
 import { useNavigate } from 'react-router-dom';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
-
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { userAPI } from '../../api/userAPI';
 import { useTranslation } from 'react-i18next';
+
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function RecoverPassword() {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const emailRef = useRef(null);
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageContent,
-        messageTitle,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
 
     const handleSubmitResetPassword = async () => {
         const email = emailRef.current.value.trim(); // get value from input
@@ -34,10 +25,7 @@ function RecoverPassword() {
             const sendNewPassword = await userAPI.sendNewPassword(email);
             try {
                 if (sendNewPassword.status === 200) {
-                    //     "rS": "Your email is available, new password will be sent to your mail!",
-                    // "rWN": "Your email is not available, please check again!",
-                    // "FL": "Please enter your email address!"
-                    showMessage(
+                    showNotificationMessage(
                         'success',
                         t('common.notifyMessage.recover.rT'),
                         t('common.notifyMessage.recover.rS'),
@@ -48,7 +36,7 @@ function RecoverPassword() {
                     }, 2800);
                 } else {
                     // const sendMail = await userAPI
-                    showMessage(
+                    showNotificationMessage(
                         'warning',
                         t('common.notifyMessage.recover.rT'),
                         t('common.notifyMessage.recover.rWN'),
@@ -56,14 +44,14 @@ function RecoverPassword() {
                 }
             } catch (error) {
                 console.log('error: ', error);
-                showMessage(
+                showNotificationMessage(
                     'warning',
                     t('common.notifyMessage.recover.rT'),
                     'Your email is not available, please check again333!',
                 );
             }
         } else {
-            showMessage(
+            showNotificationMessage(
                 'warning',
                 t('common.notifyMessage.recover.rT'),
                 t('common.notifyMessage.recover.rFL'),
@@ -187,20 +175,6 @@ function RecoverPassword() {
                     </Grid>
                 </Grid>
             </Box>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Container>
     );
 }

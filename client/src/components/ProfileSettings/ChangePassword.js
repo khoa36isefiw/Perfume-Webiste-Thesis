@@ -4,23 +4,21 @@ import { CustomizeAccountText } from '../CustomizeTypography/CustomizeTypography
 import { TextFieldPassword } from '../TextFieldCustomize/TextFieldCustomize';
 import { theme } from '../../Theme/Theme';
 import { CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
-
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { authAPI } from '../../api/authAPI';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { userAPI } from '../../api/userAPI';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 // current password --> cho tự nhập --> check với password login
 // nếu oke --> cho nhảy sang step đổi mật khẩu
 function ChangePassword() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+
     const { t } = useTranslation('translate');
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const currentPasswordRef = useRef();
     const newPasswordRef = useRef();
     const confirmPasswordRef = useRef();
@@ -29,16 +27,6 @@ function ChangePassword() {
     const [confrimNewPassword, setConfrimNewPassword] = useState(false);
     const [showChangePassword, setShowChangePassword] = useState(false);
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
-    // hooks for showing notifications
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
 
     const userData = JSON.parse(localStorage.getItem('user_data'));
 
@@ -66,13 +54,13 @@ function ChangePassword() {
                 const loginData = await authAPI.login(data);
                 if (loginData.status === 200) {
                     setShowChangePassword(true);
-                    showMessage(
+                    showNotificationMessage(
                         'success',
                         `${t('common.notifyMessage.changePassword.changeT')}`,
                         `${t('common.notifyMessage.changePassword.currentS')}`,
                     );
                 } else {
-                    showMessage(
+                    showNotificationMessage(
                         'warning',
                         `${t('common.notifyMessage.changePassword.changeT')}`,
                         `${t('common.notifyMessage.changePassword.currentW')}`,
@@ -80,7 +68,7 @@ function ChangePassword() {
                     setShowChangePassword(false);
                 }
             } catch (error) {
-                showMessage(
+                showNotificationMessage(
                     'warning',
                     `${t('common.notifyMessage.changePassword.changeT')}`,
                     `${t('common.notifyMessage.changePassword.currentW')}`,
@@ -89,7 +77,7 @@ function ChangePassword() {
                 setShowChangePassword(false);
             }
         } else {
-            showMessage(
+            showNotificationMessage(
                 'warning',
                 `${t('common.notifyMessage.changePassword.changeT')}`,
                 `${t('common.notifyMessage.changePassword.currentW2')}`,
@@ -113,7 +101,7 @@ function ChangePassword() {
                 try {
                     const response = await userAPI.changePassword(userData.userId, data);
                     if (response) {
-                        showMessage(
+                        showNotificationMessage(
                             'success',
                             `${t('common.notifyMessage.changePassword.changeT')}`,
                             `${t('common.notifyMessage.changePassword.changeS')}`,
@@ -123,21 +111,21 @@ function ChangePassword() {
                         }, 2500);
                     }
                 } catch (error) {
-                    showMessage(
+                    showNotificationMessage(
                         'error',
                         `${t('common.notifyMessage.changePassword.changeT')}`,
                         error.response?.data || 'Failed to change password',
                     );
                 }
             } else {
-                showMessage(
+                showNotificationMessage(
                     'warning',
                     `${t('common.notifyMessage.changePassword.changeT')}`,
                     `${t('common.notifyMessage.changePassword.changeW')}`,
                 );
             }
         } else {
-            showMessage(
+            showNotificationMessage(
                 'warning',
                 `${t('common.notifyMessage.changePassword.changeT')}`,
                 `${t('common.notifyMessage.changePassword.changeW2')}`,
@@ -257,20 +245,6 @@ function ChangePassword() {
                         onHandleClick={handleChangePassword}
                     />
                 </React.Fragment>
-            )}
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
             )}
         </Container>
     );

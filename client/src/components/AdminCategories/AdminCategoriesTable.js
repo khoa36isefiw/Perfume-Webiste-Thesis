@@ -25,22 +25,15 @@ import WarningIcon from '@mui/icons-material/Warning';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { blue } from '@mui/material/colors';
 import * as XLSX from 'xlsx';
-import { ConstructionOutlined } from '@mui/icons-material';
+
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function AdminCategoriesTable() {
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageTitle,
-        messageContent,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const { data: categoriesData, mutate } = useCategory();
     const responseCategories = categoriesData?.data || [];
     const { data: parentCategoriesData } = useParentCategory();
@@ -92,7 +85,11 @@ function AdminCategoriesTable() {
                 mutate();
 
                 if (deleteResponse.status === 200) {
-                    showMessage('success', 'Delete Category', 'Xóa category thành công');
+                    showNotificationMessage(
+                        'success',
+                        'Delete Category',
+                        'Xóa category thành công',
+                    );
                     // re-update to list
                     const updatedCategories = categories.filter((category) => category._id !== id);
                     setCategories(updatedCategories);
@@ -102,7 +99,7 @@ function AdminCategoriesTable() {
 
                 console.log('deleteResponse: ', deleteResponse);
             } catch (error) {
-                showMessage('error', 'Delete Category', 'Xóa category thất bại');
+                showNotificationMessage('error', 'Delete Category', 'Xóa category thất bại');
                 console.error('Error deleting product:', error);
             }
         }
@@ -355,20 +352,6 @@ function AdminCategoriesTable() {
                     onHandleConfirmAgree={handleConfirmAgree}
                     onHandleConfirmDisagree={handleConfirmDisagree}
                 />
-                {showNotification && (
-                    <Box
-                        sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                        className={`animate__animated ${showAnimation}`}
-                    >
-                        <NotificationMessage
-                            msgType={messageType}
-                            msgTitle={messageTitle}
-                            msgContent={messageContent}
-                            autoHideDuration={3000} // Auto-hide after 5 seconds
-                            onClose={handleCloseNotification}
-                        />
-                    </Box>
-                )}
             </TableContainer>
         </Box>
     );
