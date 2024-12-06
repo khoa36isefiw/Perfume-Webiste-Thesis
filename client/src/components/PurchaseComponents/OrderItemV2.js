@@ -23,7 +23,7 @@ export const OrderItemV2 = ({ listData }) => {
                 product?.variants.find((variant) => variant._id === item.variant),
         );
         window.localStorage.setItem('productInfor', JSON.stringify(perfume));
-        navigate(`/${i18n.language}/product/${perfume._id}`, { state: { perfume } });
+        navigate(`/${i18n.language}/${perfume.name}?pId=${perfume._id}`);
         setTimeout(() => {
             backTop(); // deplay 100ml waiting for navigating
         }, 100);

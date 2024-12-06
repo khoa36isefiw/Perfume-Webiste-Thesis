@@ -35,7 +35,7 @@ function PerfumesCard() {
         // navigate(`/${language}/product/${perfume._id}`, { state: { perfume } }); // old playground
 
         // new playground
-        navigate(`/${language}/${perfume.nameEn}?pId=${perfume._id}`); // new playground
+        navigate(`/${language}/${perfume.nameEn}/${perfume._id}`); // new playground
 
         window.localStorage.setItem('productInfor', JSON.stringify(perfume));
         backTop();
