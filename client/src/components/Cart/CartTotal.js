@@ -5,10 +5,11 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
 import Promocode from './Promocode';
 import { SummaryRowInCart } from './SummaryRowInCart';
-import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
+import { converToVND } from '../convertToVND/convertToVND';
+
 import { useTranslation } from 'react-i18next';
 import useCoupons from '../../api/useCoupons';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function CartTotal({
     productsList,
@@ -17,17 +18,14 @@ function CartTotal({
     promoCodeApplied,
     setPromoCodeApplied,
 }) {
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
     const { data: listCodes } = useCoupons();
     console.log('listCodes: ', listCodes?.data);
     // get from parent
     // const [promoCode, setPromoCode] = useState('');
     // const [promoCodeApplied, setPromoCodeApplied] = useState(false);
-    const [showNotification, setShowNotification] = useState(false);
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    const [messageType, setMessageType] = useState('');
-    const [messageContent, setMessageContent] = useState('');
-    const [messageTitle, setMessageTitle] = useState('');
+
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     console.log('promoCodeApplied: ', promoCodeApplied);
     const handleApplyPromoCode = () => {
         const codeApplied = listCodes?.data.find((code) => code.code === promoCode);
@@ -39,11 +37,20 @@ function CartTotal({
                 isApplied: true,
                 codeApplied: codeApplied,
             });
-            setShowNotification(true);
-            setMessageType('success');
-            setMessageTitle('Promo Code');
-            setMessageContent(`You will get ${codeApplied?.discount}% off the total price.`);
-            setShowAnimation('animate__bounceInRight');
+
+            if (i18n.language === 'vi') {
+                showNotificationMessage(
+                    'success',
+                    'Mã khuyến mại',
+                    `Bạn sẽ được giảm giá ${codeApplied?.discount}% trên tổng giá.`,
+                );
+            } else {
+                showNotificationMessage(
+                    'success',
+                    'Promo Code',
+                    `You will get ${codeApplied?.discount}% off the total price.`,
+                );
+            }
         } else {
             // invalid promo code
             setPromoCode('');
@@ -51,20 +58,13 @@ function CartTotal({
                 isApplied: false,
                 codeApplied: null,
             });
-            setShowNotification(true);
-            setMessageType('warning');
-            setMessageTitle('Promo Code');
-            setMessageContent('Your promo code invalid.');
-            setShowAnimation('animate__bounceInRight');
-        }
-    };
 
-    // handle Close notification
-    const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
+            showNotificationMessage(
+                'warning',
+                t('common.notifyMessage.checkout.promoTitle'),
+                t('common.notifyMessage.checkout.promoContent'),
+            );
+        }
     };
 
     // Calculate subtotal
@@ -174,21 +174,6 @@ function CartTotal({
                 value={converToVND(calculateFinalTotal())}
                 isTotal
             />
-
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Box>
     );
 }
