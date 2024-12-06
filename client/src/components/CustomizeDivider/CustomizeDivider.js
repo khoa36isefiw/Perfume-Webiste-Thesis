@@ -7,7 +7,7 @@ function CustomizeDivider() {
         <Container
             sx={{
                 [mobileScreen]: {
-                    mt: 40,
+                    mt: 45,
                 },
             }}
         >

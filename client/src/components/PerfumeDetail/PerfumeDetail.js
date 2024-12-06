@@ -148,7 +148,10 @@ function PerfumeDetail() {
                     sm={12}
                     md={12}
                     lg={12}
-                    sx={{ height: '550px', p: 1 }}
+                    sx={{
+                        height: '550px',
+                        p: 1,
+                    }}
                 >
                     <Grid item xs={12} sm={6} md={6} lg={6}>
                         <Box>
@@ -254,7 +257,7 @@ function PerfumeDetail() {
                                 </IconButton>
                             </Box>
 
-                            <Box sx={{ display: 'flex', overflowX: 'hidden' }}>
+                            <Box sx={{ display: 'flex', overflowX: 'scroll' }}>
                                 {productData?.data.imagePath.map((image, index) => (
                                     <Box
                                         key={index}
@@ -283,7 +286,7 @@ function PerfumeDetail() {
                             </Box>
                         </Box>
                     </Grid>
-                    <Grid item sm={6} md={6} lg={6}>
+                    <Grid item xs={12} sm={6} md={6} lg={6}>
                         {/* product name */}
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
                             {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
@@ -382,6 +385,9 @@ function PerfumeDetail() {
                                 width: '100%',
                                 background: `linear-gradient(to right, #101820FF, #F2AA4CFF)`,
                                 mb: 2,
+                                [mobileScreen]: {
+                                    width: '100%',
+                                },
                             }}
                         >
                             {/* original price */}

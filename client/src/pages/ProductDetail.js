@@ -14,7 +14,6 @@ function ProductDetail() {
         <Box sx={{ mt: 20 }}>
             <PerfumeDetail />
             <RatingProduct perfumeDetailData={productInformation} />
-
             <Comments perfumeDetailData={productInformation} />
         </Box>
     );
