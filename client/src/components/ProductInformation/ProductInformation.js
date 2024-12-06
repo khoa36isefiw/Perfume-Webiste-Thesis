@@ -9,13 +9,10 @@ import { mobileScreen, theme } from '../../Theme/Theme';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-function ProductInformation() {
-    const location = useLocation();
+function ProductInformation({ productInformation }) {
     const { t } = useTranslation('translate');
-    const productInformation = JSON.parse(window.localStorage.getItem('productInfor')) || null;
     // get the perfume data passed from navigation
-    const { perfume } = location.state || {};
-    console.log('perfume: ', perfume);
+    if (productInformation === null) return 'Loading...';
 
     return (
         <Container>
