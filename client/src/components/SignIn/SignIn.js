@@ -6,8 +6,7 @@ import ButtonComponent from './ButtonComponent';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../../api/authAPI';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
+
 import { useTranslation } from 'react-i18next';
 import GoogleAuthButton from '../GoogleLoginButton/GoogleLoginButton';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
@@ -16,15 +15,6 @@ function SignIn() {
     const { t, i18n } = useTranslation('translate');
     const { showNotificationMessage } = useSnackbarMessage();
 
-    const {
-        showNotification,
-        showAnimation,
-        messageType,
-        messageContent,
-        messageTitle,
-        showMessage,
-        handleCloseNotification,
-    } = useShowNotificationMessage();
     const navigate = useNavigate();
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
@@ -236,7 +226,10 @@ function SignIn() {
                                     onHandleClick={handleSignIn}
                                     onHandleKeyEvent={handleKeyEnterLogin}
                                 />
-                                <GoogleAuthButton showMessage={showMessage} isLogin={true} />
+                                <GoogleAuthButton
+                                    // showMessage={showMessage}
+                                    isLogin={true}
+                                />
                             </Box>
                         </Grid>
                         <Grid
@@ -268,20 +261,6 @@ function SignIn() {
                     </Grid>
                 </Grid>
             </Grid>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Container>
     );
 }
