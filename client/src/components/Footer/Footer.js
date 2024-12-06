@@ -151,7 +151,7 @@ function Footer() {
                                 sx={{
                                     borderTopLeftRadius: 0,
                                     borderBottomLeftRadius: 0,
-                                    padding: '0px',
+                                    py: 1,
                                     bgcolor: theme.palette.secondaryText,
                                     fontSize: '14px',
                                     textTransform: 'initial',
@@ -160,6 +160,8 @@ function Footer() {
                                     },
                                     [mobileScreen]: {
                                         fontSize: '13px',
+                                        py: 0,
+                                        padding: '0px',
                                     },
                                 }}
                                 onClick={handleSubcribe}
