@@ -243,7 +243,9 @@ function PerfumeDetail() {
                                             right: '-4%',
                                         },
                                     }}
-                                    disabled={selectedImage === quickViewImage.length - 1}
+                                    disabled={
+                                        selectedImage === productData?.data.imagePath.length - 1
+                                    }
                                 >
                                     <ArrowForwardIosIcon
                                         sx={{
