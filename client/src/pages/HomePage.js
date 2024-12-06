@@ -12,7 +12,6 @@ function HomePage() {
     return (
         <div style={{ overflow: 'hidden' }}>
             <NewArrivals />
-            <TestSnackbar />
             <WelcomeHomePage />
             <OurValues />
             <BestSellingProducts />
