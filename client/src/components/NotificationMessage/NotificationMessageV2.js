@@ -4,9 +4,10 @@ import WarningIcon from '@mui/icons-material/Warning';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InfoIcon from '@mui/icons-material/Info';
 import CancelIcon from '@mui/icons-material/Cancel';
+import CloseIcon from '@mui/icons-material/Close';
 import { mobileScreen, theme } from '../../Theme/Theme';
 
-function NotificationMessageV2({ msgType, msgTitle, msgContent }) {
+function NotificationMessageV2({ msgType, msgTitle, msgContent, onClose }) {
     const getNotificationStyles = (type) => {
         // get from styles
         switch (type) {
@@ -47,7 +48,7 @@ function NotificationMessageV2({ msgType, msgTitle, msgContent }) {
         <Box
             sx={{
                 minHeight: '60px',
-                width: '400px',
+                width: '350px',
                 padding: '4px',
                 bgcolor: bgColor,
                 // border: `2px solid ${borderColor}`,
@@ -56,9 +57,9 @@ function NotificationMessageV2({ msgType, msgTitle, msgContent }) {
                 display: 'flex',
                 alignItems: 'flex-start',
                 justifyContent: 'space-between',
-                [mobileScreen]: {
-                    width: '270px',
-                },
+                // [mobileScreen]: {
+                //     width: '300px',
+                // },
             }}
         >
             <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
@@ -82,6 +83,9 @@ function NotificationMessageV2({ msgType, msgTitle, msgContent }) {
                     <Typography sx={{ fontSize: '14px' }}>{msgContent}</Typography>
                 </Box>
             </Box>
+            <IconButton sx={{ padding: 0 }} onClick={onClose}>
+                <CloseIcon sx={{ fontSize: '20px' }} />
+            </IconButton>
         </Box>
     );
 }
