@@ -37,7 +37,10 @@ export default function TestSnackbarWithTitle() {
 
     return (
         <Box sx={{ height: '100px', width: '200px', bgcolor: '#ccc', p: 2 }}>
-            <Button onClick={handleClickWithTitle('success')} variant="contained">
+            <Button
+                onClick={handleClickWithTitle('success', 'Tess', 'Homemmem')}
+                variant="contained"
+            >
                 Show success snackbar with title
             </Button>
         </Box>

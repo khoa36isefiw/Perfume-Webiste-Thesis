@@ -5,8 +5,6 @@ import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
 import ButtonComponent from './ButtonComponent';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 import { authAPI } from '../../api/authAPI';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
@@ -17,7 +15,7 @@ import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 function SignIn() {
     const { t, i18n } = useTranslation('translate');
     const { showNotificationMessage } = useSnackbarMessage();
-    const dispatch = useDispatch();
+
     const {
         showNotification,
         showAnimation,
@@ -30,8 +28,7 @@ function SignIn() {
     const navigate = useNavigate();
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
-    const listAccounts = useSelector((state) => state.accountManagement.listAccounts);
-    console.log('current list accounts: ', listAccounts && listAccounts);
+
     const handleSignIn = async () => {
         const email = emailRef.current.value.trim();
         const password = passwordRef.current.value.trim();
@@ -61,11 +58,7 @@ function SignIn() {
                             phoneNumber: loginData.data.phoneNumber,
                         }),
                     );
-                    // showMessage(
-                    //     'success',
-                    //     t('common.notifyMessage.login.loginT'),
-                    //     t('common.notifyMessage.login.loginS'),
-                    // );
+
                     showNotificationMessage(
                         'success',
                         t('common.notifyMessage.login.loginT'),
@@ -90,31 +83,12 @@ function SignIn() {
                 );
             }
         } else {
-            // showMessage(
-            //     'warning',
-            //     t('common.notifyMessage.login.loginT'),
-            //     t('common.notifyMessage.login.loginNotFill'),
-            // );
             showNotificationMessage(
                 'warning',
                 t('common.notifyMessage.login.loginT'),
                 t('common.notifyMessage.login.loginNotFill'),
             );
         }
-
-        // if (user) {
-        //     console.log('Login successfully');
-        //     dispatch(
-        //         loginAccount({
-        //             email: user.email,
-        //             password: user.password,
-        //         }),
-        //     );
-
-        //     navigate('/');
-        // } else {
-        //     console.log('Login failed: invalid email or password');
-        // }
     };
 
     const handleKeyEnterLogin = (e) => {
