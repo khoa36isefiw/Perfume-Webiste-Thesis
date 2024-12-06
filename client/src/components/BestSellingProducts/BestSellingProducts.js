@@ -24,7 +24,7 @@ function BestSellingProducts() {
     const latestProducts = products?.data;
     const handleNavigateProductDetails = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
-        navigate(`/${i18n.language}/${perfume.name}?pId=${perfume._id}`);
+        navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}`);
         backTop();
     };
     const settings = {

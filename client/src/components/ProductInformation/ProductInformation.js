@@ -4,16 +4,13 @@ import {
     CustomizeProductDescriptionText,
     CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
-
-import { mobileScreen, theme } from '../../Theme/Theme';
-import { useLocation } from 'react-router-dom';
+import { theme } from '../../Theme/Theme';
 import { useTranslation } from 'react-i18next';
 
 function ProductInformation({ productInformation }) {
     const { t } = useTranslation('translate');
     // get the perfume data passed from navigation
     if (productInformation === null) return 'Loading...';
-
     return (
         <Container>
             <Grid container>
