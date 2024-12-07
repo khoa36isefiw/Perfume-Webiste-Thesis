@@ -19,9 +19,6 @@ function PayPalButtonsComponents({ user, items, address, email, phoneNumber, pro
             method: PAYMENT_METHOD.PAYPAL,
         };
 
-        // if (promotionCode2 !== null) {
-        //     payload.promotionCode = promotionCode2;
-        // }
         const promotionCode2 =
             promotionCode?.isApplied === true ? promotionCode.codeApplied.code : null;
 
@@ -42,10 +39,6 @@ function PayPalButtonsComponents({ user, items, address, email, phoneNumber, pro
             } else {
                 showNotificationMessage('warning', 'Paypal', 'Please fill in all required fields');
             }
-            // } catch (error) {
-            //     console.error('Error creating PayPal order:', error);
-            //     throw new Error('Order creation failed');
-            // }
         } catch (error) {
             if (error.response) {
                 console.error('API Error:', error.response.data);
