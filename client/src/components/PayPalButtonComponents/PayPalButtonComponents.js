@@ -9,6 +9,17 @@ function PayPalButtonsComponents({ user, items, address, email, phoneNumber, pro
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
+    console.log('items: ', items);
+    const calculateItemsPrice = items.reduce((total, item) => {
+        const variant = item?.variant || {};
+        const price =
+            variant?.discountPercent > 0 && variant?.priceSale
+                ? variant?.priceSale
+                : variant?.price;
+
+        return total + price * (item?.quantity || 1);
+    }, 0);
+
     const createOrder = async () => {
         let payload = {
             user,
@@ -36,6 +47,12 @@ function PayPalButtonsComponents({ user, items, address, email, phoneNumber, pro
                     PAYMENT_METHOD.PAYPAL,
                 );
                 return response.data.payRef;
+                // if (calculateItemsPrice === 0) {
+                //     return response.data.payRef;
+                // }
+                // else {
+
+                // }
             } else {
                 showNotificationMessage('warning', 'Paypal', 'Please fill in all required fields');
             }
