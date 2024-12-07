@@ -4,9 +4,11 @@ import { paymentAPI } from '../../api/paymentAPI';
 import { useNavigate } from 'react-router-dom';
 import { PAYMENT_METHOD } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 function PayPalButtonsComponents({ user, items, address, email, phoneNumber, promotionCode }) {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const createOrder = async () => {
         let payload = {
             user,
@@ -26,17 +28,20 @@ function PayPalButtonsComponents({ user, items, address, email, phoneNumber, pro
         console.log('promotionCode2: ', promotionCode2);
         console.log('Final Payload:', payload);
         try {
-            const response = await paymentAPI.createOrder(
-                user,
-                items,
-                address,
-                email,
-                phoneNumber,
-                promotionCode2,
-                PAYMENT_METHOD.PAYPAL,
-            );
-
-            return response.data.payRef;
+            if (address !== '' && email !== '' && phoneNumber !== '') {
+                const response = await paymentAPI.createOrder(
+                    user,
+                    items,
+                    address,
+                    email,
+                    phoneNumber,
+                    promotionCode2,
+                    PAYMENT_METHOD.PAYPAL,
+                );
+                return response.data.payRef;
+            } else {
+                showNotificationMessage('warning', 'Paypal', 'Please fill in all required fields');
+            }
             // } catch (error) {
             //     console.error('Error creating PayPal order:', error);
             //     throw new Error('Order creation failed');
