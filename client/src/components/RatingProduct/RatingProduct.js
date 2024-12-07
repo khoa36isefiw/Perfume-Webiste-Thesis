@@ -15,11 +15,13 @@ import {
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useTranslation } from 'react-i18next';
 import { reviewsAPI } from '../../api/reviewsAPI';
+import { useLocation } from 'react-router-dom';
 
 function RatingProduct({ perfumeDetailData }) {
     // console.log('perfumeDetailData: ', perfumeDetailData);
     const dispatch = useDispatch();
-    const { t } = useTranslation('translate');
+    const location = useLocation();
+    const { t, i18n } = useTranslation('translate');
     const reviewInputRef = useRef(null);
     const [commentRights, setCommentRights] = useState(false);
     const userData = JSON.parse(window.localStorage.getItem('user_data'));
@@ -27,7 +29,20 @@ function RatingProduct({ perfumeDetailData }) {
     const [comments, setComments] = useState([]);
     const [ratingValue, setRatingValue] = useState(0);
     console.log('userData: ', userData);
-    // const []
+    useEffect(() => {
+        if (location?.state?.from === `/${i18n.language}/my-purchase` && reviewInputRef.current) {
+            setTimeout(() => {
+                if (reviewInputRef.current) {
+                    reviewInputRef.current.focus(); // focus on textfield
+
+                    reviewInputRef.current.scrollIntoView({
+                        behavior: 'smooth', // scroll behavior
+                        block: 'center', // scroll postion
+                    });
+                }
+            }, 1000);
+        }
+    }, [location]);
 
     // const commentsList = useSelector(
     //     (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
@@ -44,11 +59,11 @@ function RatingProduct({ perfumeDetailData }) {
         (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
     );
 
-    const handleFocusReview = () => {
-        if (reviewInputRef.current) {
-            reviewInputRef.current.focus();
-        }
-    };
+    // const handleFocusReview = () => {
+    //     if (reviewInputRef.current) {
+    //         reviewInputRef.current.focus();
+    //     }
+    // };
 
     const handleComment = async () => {
         const newComment = reviewInputRef.current.value; // value of textfield by ref
@@ -279,7 +294,7 @@ function RatingProduct({ perfumeDetailData }) {
                     >
                         <CustomizeButton
                             textAction={t(`common.productDetails.ratingNow`)}
-                            onHandleClick={handleFocusReview}
+                            onHandleClick={'handleFocusReview'}
                         />
                     </Grid>
                 </Grid>
