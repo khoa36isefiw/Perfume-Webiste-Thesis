@@ -23,7 +23,9 @@ export const OrderItemV2 = ({ listData }) => {
                 product?.variants.find((variant) => variant._id === item.variant),
         );
         window.localStorage.setItem('productInfor', JSON.stringify(perfume));
-        navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}`);
+        navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}`, {
+            state: { from: `/${i18n.language}/my-purchase` },
+        });
         setTimeout(() => {
             backTop(); // deplay 100ml waiting for navigating
         }, 100);

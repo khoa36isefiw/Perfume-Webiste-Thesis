@@ -22,6 +22,7 @@ function BestSellingProducts() {
     // cut the perfumeData list, just use 5 items in array
     const { data: products } = useLatestProduct();
     const latestProducts = products?.data;
+    console.log('latestProducts: ',latestProducts);
     const handleNavigateProductDetails = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
         navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}`);
@@ -114,7 +115,7 @@ function BestSellingProducts() {
                                     }}
                                 >
                                     <Avatar
-                                        src={perfume.imagePath[0]}
+                                        src={perfume?.imagePath[0]}
                                         sx={{ borderRadius: 0, height: '250px', width: '200px' }}
                                     />
                                     <CustomizeTypography

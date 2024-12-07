@@ -45,3 +45,23 @@ export const formatDDMM = (inputDate) => {
 
     return `${year}/${month}/${day}`; // Return in dd/mm/yyyy format
 };
+
+
+export function formatDateWithTime(isoDate) {
+    const date = new Date(isoDate);
+
+    // Lấy ngày, tháng, năm
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+
+    // Lấy giờ, phút
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    // Kết hợp lại theo định dạng yêu cầu
+    return `${day}/${month}/${year} - ${hours}:${minutes}`;
+}
+
+const isoDate = "2024-12-06T03:39:10.703Z";
+console.log(formatDate(isoDate)); // Output: "06/12/2024 - 3:39"
