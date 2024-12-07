@@ -20,6 +20,15 @@ import CustomizeDivider from '../CustomizeDivider/CustomizeDivider';
 import ProductInformation from '../ProductInformation/ProductInformation';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
+import { liteClient as algoliasearch } from 'algoliasearch/lite';
+import { InstantSearch, RelatedProducts } from 'react-instantsearch';
+
+const searchClient = algoliasearch('NNYU8G1G5A', '38a533367777775894696030fd1b489e');
+
+function Item({ item }) {
+    console.log('item: ', item);
+    return JSON.stringify(item);
+}
 function PerfumeDetail() {
     const { LoadingAPI } = useLoadingV2();
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
@@ -525,6 +534,17 @@ function PerfumeDetail() {
             </Container>
             <CustomizeDivider />
             <ProductInformation productInformation={productData?.data} />
+            <InstantSearch indexName={'products'} searchClient={searchClient}>
+                <RelatedProducts
+                
+                    // objectIDs={[productData?.data._id]}
+                    objectIDs={['12bc8d582a5965_dashboard_generated_id']}
+                    itemComponent={Item}
+                    limit={4}
+
+                    // layoutComponent={Carousel}
+                />
+            </InstantSearch>
         </Box>
     );
 }
