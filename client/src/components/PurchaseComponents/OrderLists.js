@@ -25,6 +25,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
     const navigate = useNavigate();
     const targetRef = useRef();
     const { t, i18n } = useTranslation('translate');
+    console.log('orderHistory: ', orderHistory);
 
     const handleNavigateInvoicePage = (order) => {
         window.localStorage.setItem('orderInvoice', JSON.stringify(order));
@@ -95,14 +96,6 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
         const price = calculateSubtotal(order);
         discountTotal += calculateDiscount(price);
         return discountTotal;
-    };
-
-    // Calculate total tax
-    const calculateTaxTotal = (order) => {
-        let taxTotal = 0;
-        const price = calculateSubtotal(order);
-        taxTotal += calculateTax(price);
-        return taxTotal;
     };
 
     // Calculate the total price including discount, tax, and promo code
@@ -242,7 +235,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                         <Grid item xs={4} sm={4} lg={4}>
                             <OrderInfo
                                 label={t('common.orderHistory.orderInfor.orderAddress')}
-                                value={'ahiahihi'}
+                                value={order.address}
                             />
                         </Grid>
                     </Grid>
