@@ -7,8 +7,8 @@ const app = express();
 const port = 3001;
 
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ limit: '25mb', extended: true }));
+app.use(express.json({ limit: '25mb' }));
 app.use(morgan('combined'));
 
 route(app);

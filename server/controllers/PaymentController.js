@@ -90,6 +90,7 @@ const PaymentController = {
                 address,
                 email,
                 phoneNumber,
+                paymentMethod: method,
             });
             for (const item of items) {
                 const { product, variant } = item;
@@ -153,11 +154,22 @@ const PaymentController = {
                             item.variant._id === cartItem.variant.toString(),
                     ),
             );
-
             await updatedUser.save();
+
+            // update quantity in stock
+            const variants = items.map((item) => ({
+                varaint: item.variant,
+                quantity: item.quantity,
+            }));
+            for (const variant of variants) {
+                const updatedVariant = await Variant.findOne({
+                    _id: variant.varaint._id,
+                });
+                updatedVariant.stock -= variant.quantity;
+                await updatedVariant.save();
+            }
+
             if (method === 'COD') {
-                savedOrder.paymentMethod = 'COD';
-                await savedOrder.save();
                 const newPayment = new Payment({
                     order: savedOrder._id,
                     amount: savedOrder.adjustedTotalPrice ?? savedOrder.originalTotalPrice,
@@ -167,19 +179,23 @@ const PaymentController = {
                     paymentMethod: method,
                 });
                 await newPayment.save();
-                const variants = items.map((item) => ({
-                    varaint: item.variant,
-                    quantity: item.quantity,
-                }));
-                for (const variant of variants) {
-                    const updatedVariant = await Variant.findOne({
-                        _id: variant.varaint._id,
-                    });
-                    updatedVariant.stock -= variant.quantity;
-                    await updatedVariant.save();
-                }
+
                 return res.status(200).json({ message: 'Order created', order: savedOrder });
             }
+
+            // When payment with paypal and totalPrice = 0;
+            // if (savedOrder.adjustedTotalPrice === 0 || savedOrder.originalTotalPrice === 0) {
+            //     const newPayment = new Payment({
+            //         order: savedOrder._id,
+            //         amount: savedOrder.adjustedTotalPrice ?? savedOrder.originalTotalPrice,
+            //         details: '',
+            //         payRef: savedOrder._id,
+            //         paid: true,
+            //         paymentMethod: method,
+            //     });
+            //     await newPayment.save();
+            //     res.status(200).json({ payRef: response.data.id });
+            // }
             const token = await getPayPalToken();
             const rate = await getConversionRate();
             const response = await axios({
@@ -237,8 +253,6 @@ const PaymentController = {
                 }),
             });
 
-            savedOrder.paymentMethod = 'PAYPAL';
-            await savedOrder.save();
             const newPayment = new Payment({
                 order: savedOrder._id,
                 amount: savedOrder.totalPrice,

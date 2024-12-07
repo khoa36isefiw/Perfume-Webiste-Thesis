@@ -186,31 +186,26 @@ const ProductController = {
     },
 
     create: async (req, res) => {
-        const {
-            nameVn,
-            nameEn,
-            descriptionVn,
-            descriptionEn,
-            variants,
-            content,
-            imagePath,
-            category,
-            brand,
-        } = req.body;
+        const { nameVn, nameEn, descriptionVn, descriptionEn, variants, content, category, brand } =
+            req.body;
+        const fileData = req.files;
+        const imagePaths = fileData?.length > 0 && fileData.map((item) => item.path);
         try {
+            const contentParsed = JSON.parse(content);
             const product = new Product({
                 nameVn,
                 nameEn,
                 descriptionVn,
                 descriptionEn,
-                imagePath,
-                content,
+                imagePath: imagePaths,
+                content: contentParsed,
                 category,
                 brand,
                 status: 'active',
             });
             const savedProduct = await product.save();
-            const newVariants = variants.map((item) => ({
+            const variantParse = JSON.parse(variants);
+            const newVariants = variantParse.map((item) => ({
                 ...item,
                 product: savedProduct._id,
                 size: item.size,
@@ -235,6 +230,11 @@ const ProductController = {
 
             res.status(201).json(result);
         } catch (error) {
+            if (fileData) {
+                for (const file of fileData) {
+                    cloudinary.uploader.destroy(file.filename);
+                }
+            }
             res.status(500).json({ message: error.message });
         }
     },
