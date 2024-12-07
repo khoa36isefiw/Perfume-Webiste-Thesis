@@ -19,7 +19,11 @@ const categorySchema = new Schema(
         descriptionEn: String,
         thumbnail: String,
         path: String,
-        status: String,
+        status: {
+            type: String,
+            enum: ['active', 'inactive'],
+            default: 'active',
+        },
     },
     {
         timestamps: true,

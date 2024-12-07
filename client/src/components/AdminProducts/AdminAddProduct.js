@@ -23,15 +23,17 @@ import { productAPI } from '../../api/productAPI';
 import { categoriesAPI } from '../../api/categoriesAPI';
 import { brandApi } from '../../api/brandApi';
 import BackspaceIcon from '@mui/icons-material/Backspace';
+import { contentTemplate } from '../../utils/constants';
 
 const AdminAddProduct = () => {
-    const [image, setImage] = useState(null);
+    const [images, setImages] = useState([]);
     const [productName, setProductName] = useState('');
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');
     const [selectedSizes, setSelectedSizes] = useState([]);
     const [disabledButton, setDisabledButton] = useState(false);
-
+    const [imgData, setImgData] = React.useState([]);
+    const [content, setContent] = useState(contentTemplate);
     // notifications
     const [showNotification, setShowNotification] = useState(false);
     const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
@@ -48,22 +50,15 @@ const AdminAddProduct = () => {
     const categoryOptions = categories?.data || [];
 
     const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImage(reader.result);
-            };
-            reader.readAsDataURL(file);
+        const files = Array.from(e.target.files);
+
+        if (files.length > 0) {
+            const imageUrls = files.map((file) => URL.createObjectURL(file));
+            setImages((prevImages) => [...prevImages, ...imageUrls]);
+            setImgData((prev) => [...prev, ...files]);
         }
     };
-
     const handleAddProduct = async () => {
-        console.log('category: ', category);
-        const getCategoryById = await categoriesAPI.getCategoryById(category);
-        const getBrandById = await brandApi.getBrandById(brand);
-
-        console.log('getCategoryById: ', getCategoryById);
         if (
             productName !== '' &&
             selectedSizes.length > 0 &&
@@ -85,49 +80,27 @@ const AdminAddProduct = () => {
                 setMessageTitle('Price Error');
                 setMessageContent('Sale price cannot be greater than the original price!');
             } else {
-                const newProductData = {
-                    nameVn: productName,
-                    nameEn: productName,
-                    variants: selectedSizes.map((size) => ({
-                        size: size.size,
-                        price: +size.price, // + operator converts string to number
-                        priceSale: +size.priceSale,
-                        stock: +size.stock,
-                    })),
-                    imagePath: [image],
-                    category: {
-                        _id: category, //category is an ID
-                        nameVn: getCategoryById.nameVn,
-                        nameEn: getCategoryById.nameEn,
-                        parentId: null,
-                    },
-                    brand: {
-                        _id: brand,
-                        nameVn: getBrandById.nameVn,
-                        nameEn: getBrandById.nameEn,
-                    },
-
-                    // default content
-                    content: {
-                        origin: 'France',
-                        yearOfRelease: '2017',
-                        concentration: 'Extrait de Parfum (EDP)',
-                        fragranceGroup: 'Oriental Floral',
-                        manufacturer: 'Francis Kurkdjian',
-                        shortContent:
-                            'Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.',
-                        topNotes: 'Nghệ tây, Hạnh nhân đắng',
-                        heartNotes: 'Hoa nhài Ai Cập, Gỗ tuyết tùng',
-                        baseNotes: "Hương gỗ, 'Hổ phách, Xạ hương",
-                        mainContent:
-                            'Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.',
-                        longevity: 5,
-                        sillage: 5,
-                        likability: 4,
-                    },
-                };
-                const addProductResponse = await productAPI.createProduct(newProductData);
-                console.log('New Product Data:', newProductData);
+                const formData = new FormData();
+                formData.append('nameVn', productName);
+                formData.append('nameEn', productName);
+                formData.append('category', category);
+                formData.append('brand', brand);
+                formData.append('content', JSON.stringify(content));
+                formData.append(
+                    'variants',
+                    JSON.stringify(
+                        selectedSizes.map((size) => ({
+                            size: size.size,
+                            price: +size.price,
+                            priceSale: +size.priceSale,
+                            stock: +size.stock,
+                        })),
+                    ),
+                );
+                imgData.forEach((file) => {
+                    formData.append('imagePath', file);
+                });
+                const addProductResponse = await productAPI.createProduct(formData);
                 console.log('addProductResponse: ', addProductResponse);
 
                 // successfully added
@@ -235,6 +208,12 @@ const AdminAddProduct = () => {
         setCategory(e.target.value);
     };
 
+    const handleRemoveImage = (index) => {
+        const updatedImages = images.filter((_, i) => i !== index);
+        setImages(updatedImages);
+        setImgData((prevData) => prevData.filter((_, i) => i !== index));
+    };
+    console.log({ images });
     return (
         <Box
             sx={{
@@ -251,12 +230,18 @@ const AdminAddProduct = () => {
             <Typography variant="h4" sx={{ mb: 3 }}>
                 Add New Product
             </Typography>
-
-            <Avatar
-                alt="Product Image"
-                src={image || 'https://via.placeholder.com/128'}
-                sx={{ width: 128, height: 128, marginBottom: 2, borderRadius: 0 }}
-            />
+            <Box display="flex" flexWrap="wrap" gap={2} my={2}>
+                {images.map((image, index) => (
+                    <Box key={index}>
+                        <Avatar
+                            alt={`Product Image ${index + 1}`}
+                            src={image}
+                            sx={{ width: 128, height: 128, marginBottom: 2, borderRadius: 0 }}
+                        />
+                        <Button onClick={() => handleRemoveImage(index)}>Remove</Button>
+                    </Box>
+                ))}
+            </Box>
             <Button
                 variant="outlined"
                 component="label"
@@ -268,7 +253,14 @@ const AdminAddProduct = () => {
                 }}
             >
                 Upload Image
-                <input type="file" accept="image/*" hidden onChange={handleImageChange} />
+                <input
+                    type="file"
+                    name="imagePath"
+                    accept="image/*"
+                    multiple
+                    hidden
+                    onChange={handleImageChange}
+                />
             </Button>
 
             {/* select size */}

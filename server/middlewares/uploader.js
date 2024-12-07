@@ -13,7 +13,7 @@ const storage = new CloudinaryStorage({
     cloudinary,
     allowedFormats: ['jpg', 'png', 'jpeg', 'wepb'],
     params: {
-        folder: '',
+        folder: 'tomtoc store',
     },
 });
 

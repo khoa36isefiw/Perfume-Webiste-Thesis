@@ -35,10 +35,9 @@ const productSchema = new Schema(
         shortDescriptionVn: String,
         shortDescriptionEn: String,
         imagePath: [
-            'https://res.cloudinary.com/dxulhqdp3/image/upload/v1724161759/perfumes/men/Homme_Intense_zw7zee.png',
-            'https://orchard.vn/wp-content/uploads/2015/04/dior-homme-intense_2.jpg',
-            'https://orchard.vn/wp-content/uploads/2015/04/dior-homme-intense_3.jpg',
-            'https://orchard.vn/wp-content/uploads/2015/04/dior-homme-intense_4.jpg',
+            {
+                type: String,
+            },
         ],
         category: {
             type: Schema.Types.ObjectId,

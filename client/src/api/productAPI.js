@@ -3,7 +3,11 @@ import axiosClient from './axiosClient';
 export const productAPI = {
     createProduct: (data) => {
         const url = `/products/`;
-        return axiosClient.post(url, data);
+        return axiosClient.post(url, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
     },
     editProduct: (id, data) => {
         const url = `/products/${id}`;

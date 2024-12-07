@@ -89,7 +89,7 @@ const privateRoutes = [
     // /admin/manage-products/edit?productId=${productId}&size=${size}
     // { path: '/admin/manage-products/:id', component: AdminEditProduct, layout: AdminLayout },
     {
-        path: '/admin/manage-products/edit',
+        path: '/admin/manage-products/edit/:id',
         component: AdminEditProduct,
         layout: AdminLayout,
     },
