@@ -115,7 +115,7 @@ export default function ProductTable() {
             (row) => row.productId === productId && row.size === size,
         );
         console.log('get price: ', getPrice.price);
-        navigate(`/admin/manage-products/edit?productId=${productId}&size=${size}`, {
+        navigate(`/admin/manage-products/edit/${productId}`, {
             state: {
                 productData: filteredRows.find(
                     (row) => row.productId === productId && row.size === size,
@@ -126,7 +126,7 @@ export default function ProductTable() {
                         product._id === productId &&
                         product?.variants.map((size) => size.size === size),
                 ),
-                selectedSize: getPrice.size, // Pass the selected size
+                selectedSize: getPrice.size,
             },
         });
     };

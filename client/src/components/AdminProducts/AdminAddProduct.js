@@ -228,7 +228,7 @@ const AdminAddProduct = () => {
         setImages(updatedImages);
         setImgData((prevData) => prevData.filter((_, i) => i !== index));
     };
-
+    console.log({ images });
     return (
         <Box
             sx={{

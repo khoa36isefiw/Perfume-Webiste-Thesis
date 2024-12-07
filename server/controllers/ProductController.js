@@ -242,13 +242,16 @@ const ProductController = {
     update: async (req, res) => {
         const { id } = req.params;
         const { variants, ...rest } = req.body;
+
+        const fileData = req.files;
+        const imagePaths = fileData?.length > 0 && fileData.map((item) => item.path);
         try {
             const product = await Product.findOne({ _id: id });
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
             await Product.updateOne({ _id: id }, { $set: rest });
-
+            product.imagePath = imagePaths;
             if (variants?.length) {
                 const updateVariants = [];
                 for (const variant of variants) {

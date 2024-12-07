@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Avatar,
     Box,
@@ -10,7 +10,7 @@ import {
     Select,
     MenuItem,
 } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { productAPI } from '../../api/productAPI';
@@ -19,34 +19,21 @@ import useCategory from '../../api/useCategory';
 import { categoriesAPI } from '../../api/categoriesAPI';
 import { brandApi } from '../../api/brandApi';
 import { mobileScreen, theme } from '../../Theme/Theme';
+import useProductById from '../../api/useProductById';
 
 const AdminEditProduct = () => {
-    const location = useLocation();
-    const { productData, productTest } = location.state;
-    console.log('productData.variants[0]?._id: ', productData.variants[0]?._id);
-    console.log('productTest: ', productTest);
-    console.log(
-        'productTest.category.nameEn: ',
-        productTest?.variants.map((size) => size.size),
-    );
+    const { id } = useParams();
+    const { data: productRes } = useProductById(id);
+    const productData = productRes?.data;
 
     // Set up local state for editable product information
-    const [image, setImage] = useState(productData.image);
-    const [productName, setProductName] = useState(productData.productName);
-    const [category, setCategory] = useState(productTest?.category?._id);
-    const [brand, setBrand] = useState(productTest?.brand?._id);
+    const [images, setImages] = useState([]);
+    const [imgData, setImgData] = React.useState([]);
+    const [productName, setProductName] = useState('');
+    const [category, setCategory] = useState('');
+    const [brand, setBrand] = useState('');
     const [disabledButton, setDisabledButton] = useState(false);
-    const [selectedSizes, setSelectedSizes] = useState(
-        productTest?.variants.map((variant) => ({
-            _id: variant._id,
-            size: variant.size,
-            price: +variant.price,
-            priceSale: +variant.priceSale,
-            stock: +variant.stock,
-        })) || [],
-    );
-
-    console.log('selectedSizes: ', selectedSizes);
+    const [selectedSizes, setSelectedSizes] = useState([]);
 
     // notifications
     const [showNotification, setShowNotification] = useState(false);
@@ -55,22 +42,40 @@ const AdminEditProduct = () => {
     const [messageContent, setMessageContent] = useState('');
     const [messageTitle, setMessageTitle] = useState('');
 
-    const sizeOptions = productTest?.variants.map((size) => size.size) || [];
     const { data: brands } = useBrand();
     const brandOptions = brands?.data || [];
 
     const { data: categories } = useCategory();
     const categoryOptions = categories?.data || [];
 
+    useEffect(() => {
+        if (productData) {
+            setProductName(productData.nameEn);
+            setCategory(productData.category._id);
+            setBrand(productData.brand._id);
+            setSelectedSizes(
+                productData.variants.map((variant) => ({
+                    _id: variant._id,
+                    size: variant.size,
+                    price: +variant.price,
+                    priceSale: +variant.priceSale,
+                    stock: +variant.stock,
+                })),
+            );
+            setImgData(productData.imagePath);
+            setImages(productData.imagePath);
+        }
+    }, [productData]);
+
     // Handle file input for image update
     const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImage(reader.result); // update the image with base64 string
-            };
-            reader.readAsDataURL(file);
+        const files = Array.from(e.target.files);
+        console.log({ files });
+        if (files.length > 0) {
+            const imageUrls = files?.map((file) => URL.createObjectURL(file));
+            console.log({ imageUrls });
+            setImages((prevImages) => [...prevImages, ...imageUrls]);
+            setImgData((prev) => [...prev, ...files]);
         }
     };
 
@@ -78,8 +83,8 @@ const AdminEditProduct = () => {
         const getCategoryById = await categoriesAPI.getCategoryById(category);
         const getBrandById = await brandApi.getBrandById(brand);
 
-        const productId = productData.productId;
-        const variants = selectedSizes.map((variant) => ({
+        const productId = productData?.productId;
+        const variants = selectedSizes?.map((variant) => ({
             _id: variant._id,
             size: variant.size,
             price: +variant.price, // + operator --> convert to number
@@ -112,14 +117,13 @@ const AdminEditProduct = () => {
 
         // check empty, null
         if (
-            image !== '' &&
+            images.length < 1 &&
             productName !== '' &&
             category !== '' &&
             brand !== '' &&
             selectedSizes.length > 0 &&
             checkEmpty
         ) {
-            console.log('checkPriceSale: ', checkPriceSale);
             if (!checkPriceSale) {
                 const updateResponse = await productAPI.editProduct(productId, data);
                 if (updateResponse.status === 200) {
@@ -216,6 +220,12 @@ const AdminEditProduct = () => {
             return updatedSizes;
         });
     };
+    console.log({ images });
+    const handleRemoveImage = (index) => {
+        const updatedImages = images.filter((_, i) => i !== index);
+        setImages(updatedImages);
+        setImgData((prevData) => prevData.filter((_, i) => i !== index));
+    };
 
     return (
         <Box
@@ -231,30 +241,32 @@ const AdminEditProduct = () => {
         >
             <AdminButtonBackPage title={'List Products'} />
             <Typography variant="h4" sx={{ mb: 3 }}>
-                Edit Product: {productData.productName}
+                Edit Product: {productData?.nameEn}
             </Typography>
-
-            <Avatar
-                alt={productName}
-                src={image}
-                sx={{
-                    width: 256,
-                    height: 256,
-                    marginBottom: 2,
-                    borderRadius: 0,
-                    bgcolor: '#fff',
-                    borderRadius: 2,
-                    [mobileScreen]: {
-                        width: 128,
-                        height: 128,
-                    },
-                }}
-            />
+            <Box display="flex" flexWrap="wrap" gap={2} my={2}>
+                {images?.map((image, index) => (
+                    <Box key={index}>
+                        <Avatar
+                            alt={`Product Image ${index + 1}`}
+                            src={image}
+                            sx={{ width: 128, height: 128, marginBottom: 2, borderRadius: 0 }}
+                        />
+                        <Button onClick={() => handleRemoveImage(index)}>Remove</Button>
+                    </Box>
+                ))}
+            </Box>
 
             {/* Input for updating image */}
             <Button variant="outlined" component="label" sx={{ marginBottom: 2 }}>
                 Update Image
-                <input type="file" accept="image/*" hidden onChange={handleImageChange} />
+                <input
+                    type="file"
+                    name="imagePath"
+                    accept="image/*"
+                    multiple
+                    hidden
+                    onChange={handleImageChange}
+                />
             </Button>
 
             <Box sx={{ display: 'flex', gap: 4 }}>
@@ -267,7 +279,7 @@ const AdminEditProduct = () => {
                 />
             </Box>
 
-            {selectedSizes.map((size, index) => (
+            {selectedSizes?.map((size, index) => (
                 <Box key={size.size} sx={{ mb: 3 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <Typography
@@ -319,7 +331,7 @@ const AdminEditProduct = () => {
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)} // get id of value
                     >
-                        {brandOptions.map((brand) => (
+                        {brandOptions?.map((brand) => (
                             <MenuItem key={brand._id} value={brand._id}>
                                 {brand.nameEn}
                             </MenuItem>
@@ -335,7 +347,7 @@ const AdminEditProduct = () => {
                         label="Category"
                         onChange={(e) => setCategory(e.target.value)}
                     >
-                        {categoryOptions.map((category) => (
+                        {categoryOptions?.map((category) => (
                             <MenuItem key={category._id} value={category._id}>
                                 {category.nameEn}
                             </MenuItem>
