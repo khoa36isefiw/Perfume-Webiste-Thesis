@@ -91,10 +91,10 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
     };
 
     // Calculate total discount
-    const calculateDiscountTotal = (order) => {
+    const calculateDiscountTotal = (order, discount) => {
         let discountTotal = 0;
         const price = calculateSubtotal(order);
-        discountTotal += calculateDiscount(price);
+        discountTotal += calculateDiscount(price, discount);
         return discountTotal;
     };
 
@@ -343,6 +343,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                     <Box
                         ref={targetRef}
                         sx={{
+                            bgcolor: '#f5f5f5',
                             margin: 'auto',
                             px: 9,
                             pt: 8,
@@ -538,7 +539,9 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                             </CustomizeTypography>
                                         </Box>
                                         <CustomizeTypography sx={{ color: '#595959', mb: 0 }}>
-                                            {converToVND(item.price)}
+                                            {converToVND(
+                                                item?.priceSale ? item.priceSale : item.price,
+                                            )}
                                         </CustomizeTypography>
                                     </Box>
                                 ))}
@@ -570,12 +573,21 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                         flex: 1,
                                     }}
                                 >
-                                    {t('common.orderHistory.pdfDownload.items.discount')} - 20%
+                                    {t('common.orderHistory.pdfDownload.items.discount')} -
+                                    {orderHistory?.promotionCode
+                                        ? orderHistory?.promotionCode?.discount
+                                        : '0'}
+                                    %
                                 </CustomizeTypography>
                                 <CustomizeTypography
                                     sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}
                                 >
-                                    {converToVND(calculateDiscountTotal(order))}
+                                    {converToVND(
+                                        calculateDiscountTotal(
+                                            order,
+                                            order?.promotionCode?.discount,
+                                        ),
+                                    )}
                                 </CustomizeTypography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -592,7 +604,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                 <CustomizeTypography
                                     sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}
                                 >
-                                    {converToVND(calculateFinalTotal(order))}
+                                    {converToVND(order?.adjustedTotalPrice)}
                                 </CustomizeTypography>
                             </Box>
                         </Box>
