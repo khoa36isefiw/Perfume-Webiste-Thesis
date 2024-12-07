@@ -130,7 +130,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
 
     return (
         <>
-            {/* sample */}
+            {/* sample data*/}
             {ordersListData?.map((order, index) => (
                 <Box
                     sx={{
@@ -201,6 +201,8 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                     </Box>
                 </Box>
             ))}
+
+            {/* real data */}
             {orderHistory?.map((order, index) => (
                 <Box
                     sx={{
@@ -317,11 +319,6 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                 }
                             >
                                 <Button
-                                    // onClick={() =>
-                                    //     generatePDF(targetRef, {
-                                    //         filename: `Invoice Order-${order?._id}`,
-                                    //     })
-                                    // }
                                     onClick={() => handleDownload(order)}
                                     startIcon={<PreviewIcon />}
                                     sx={{
