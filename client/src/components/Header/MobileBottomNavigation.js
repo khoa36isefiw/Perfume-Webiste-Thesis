@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import SearchIcon from '@mui/icons-material/Search';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import HouseIcon from '@mui/icons-material/House';
 import StoreIcon from '@mui/icons-material/Store';
 import PersonIcon from '@mui/icons-material/Person';
 import { useNavigate } from 'react-router-dom';
@@ -27,6 +27,13 @@ export default function MobileBottomNavigation() {
         window.localStorage.setItem('bottom_nav_number', JSON.stringify(value));
         backTop();
         navigate(`/${i18n.language}/`);
+    };
+
+    const handleNavigateShopPage = (value) => {
+        setValue(value);
+        window.localStorage.setItem('bottom_nav_number', JSON.stringify(value));
+        backTop();
+        navigate(`/${i18n.language}/shop`);
     };
 
     const handleNavigateSignIn = (value) => {
@@ -67,7 +74,7 @@ export default function MobileBottomNavigation() {
                 }}
                 sx={{ bgcolor: '#000' }}
             >
-                {/* Recents */}
+                {/* Home Page */}
                 <BottomNavigationAction
                     onClick={() => handleNavigateHomePage(0)}
                     // label="Home"
@@ -93,10 +100,46 @@ export default function MobileBottomNavigation() {
                         fontWeight: currentValue === 0 ? 'bold' : 'normal', // Bold when selected
                     }}
                     icon={
-                        <StoreIcon
+                        <HouseIcon
                             sx={{
                                 // change icon color
                                 color: currentValue === 0 ? theme.palette.text.secondary : '#fff',
+                                fontSize: '24px',
+                            }}
+                        />
+                    }
+                />
+
+                {/* Shop Page */}
+                <BottomNavigationAction
+                    onClick={() => handleNavigateShopPage(4)}
+                    // label="Home"
+                    label={
+                        <Typography
+                            sx={{
+                                color: currentValue === 4 ? theme.palette.text.secondary : '#fff',
+                                fontSize: '13px',
+                                fontWeight: currentValue === 4 ? 'bold' : 'normal', // Bold when selected
+                            }}
+                        >
+                            Shop
+                        </Typography>
+                    }
+                    sx={{
+                        color: '#fff',
+                        // change color for text
+                        '.Mui-selected': {
+                            color: theme.palette.text.secondary,
+                        },
+                        '.MuiBottomNavigationAction-label': { fontSize: '14px' },
+                        fontSize: '16px',
+                        fontWeight: currentValue === 4 ? 'bold' : 'normal', // Bold when selected
+                    }}
+                    icon={
+                        <StoreIcon
+                            sx={{
+                                // change icon color
+                                color: currentValue === 4 ? theme.palette.text.secondary : '#fff',
                                 fontSize: '24px',
                             }}
                         />
