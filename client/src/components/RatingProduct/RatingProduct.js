@@ -14,18 +14,35 @@ import {
 
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useTranslation } from 'react-i18next';
+import { reviewsAPI } from '../../api/reviewsAPI';
+import { useLocation } from 'react-router-dom';
 
 function RatingProduct({ perfumeDetailData }) {
     // console.log('perfumeDetailData: ', perfumeDetailData);
     const dispatch = useDispatch();
-    const { t } = useTranslation('translate');
+    const location = useLocation();
+    const { t, i18n } = useTranslation('translate');
     const reviewInputRef = useRef(null);
     const [commentRights, setCommentRights] = useState(false);
-
+    const userData = JSON.parse(window.localStorage.getItem('user_data'));
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const [comments, setComments] = useState([]);
     const [ratingValue, setRatingValue] = useState(0);
-    // const []
+    console.log('userData: ', userData);
+    useEffect(() => {
+        if (location?.state?.from === `/${i18n.language}/my-purchase` && reviewInputRef.current) {
+            setTimeout(() => {
+                if (reviewInputRef.current) {
+                    reviewInputRef.current.focus(); // focus on textfield
+
+                    reviewInputRef.current.scrollIntoView({
+                        behavior: 'smooth', // scroll behavior
+                        block: 'center', // scroll postion
+                    });
+                }
+            }, 1000);
+        }
+    }, [location]);
 
     // const commentsList = useSelector(
     //     (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
@@ -42,13 +59,13 @@ function RatingProduct({ perfumeDetailData }) {
         (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
     );
 
-    const handleFocusReview = () => {
-        if (reviewInputRef.current) {
-            reviewInputRef.current.focus();
-        }
-    };
+    // const handleFocusReview = () => {
+    //     if (reviewInputRef.current) {
+    //         reviewInputRef.current.focus();
+    //     }
+    // };
 
-    const handleComment = () => {
+    const handleComment = async () => {
         const newComment = reviewInputRef.current.value; // value of textfield by ref
 
         const timeComment = new Date();
@@ -63,45 +80,21 @@ function RatingProduct({ perfumeDetailData }) {
             hour12: true, // adds AM/PM to the time format
         };
 
+        const data = {
+            rating: ratingValue,
+            comment: newComment,
+        };
+
         let currentDate = new Date(timeComment).toLocaleString('en-CA', options);
-
-        if (newComment) {
-            const userCommentInformation = {
-                userId: loggedInAccount?.userId,
-                userFullName: loggedInAccount.firstName + ' ' + loggedInAccount.lastName,
-                userImage: loggedInAccount.userImage,
-                userMail: loggedInAccount.email,
-                userComment: newComment,
-                isBought: true,
-                // isCommented: true,
-                commentTime: currentDate,
-                ratingValue,
-            };
-
-            const productId = perfumeDetailData.perfumeID;
-            console.log('productId: ', productId);
-
-            // // save userCommentInformation by [productId]
-            setComments({
-                ...comments,
-                // [productId]: hold an array of userCommentInformation objects
-                // check the current state of comments, if comment exist in the product
-                //has id append the new comment to the existing array
-                [productId]: comments[productId] //
-                    ? [...comments[productId], userCommentInformation] // add new comment to existing array
-                    : [userCommentInformation], // create a new array with the first comment
-            });
-            dispatch(
-                saveComments({
-                    productId,
-                    data: userCommentInformation,
-                    userId: loggedInAccount?.userId,
-                }),
+        if (newComment && ratingValue) {
+            const reviewProduct = await reviewsAPI.createReview(
+                userData.userId,
+                perfumeDetailData?._id,
+                data,
             );
-            // productIds, userId
-            // dispatch(resetAllIsCommented({ productIds: [2], userId: loggedInAccount?.userId }));
-            reviewInputRef.current.value = ''; // remove text
-            setCommentRights(false); // reset permissions
+            if (reviewProduct.status === 200) {
+                console.log('reviewProduct: ', reviewProduct);
+            }
         }
     };
 
@@ -301,7 +294,7 @@ function RatingProduct({ perfumeDetailData }) {
                     >
                         <CustomizeButton
                             textAction={t(`common.productDetails.ratingNow`)}
-                            onHandleClick={handleFocusReview}
+                            onHandleClick={'handleFocusReview'}
                         />
                     </Grid>
                 </Grid>
@@ -313,9 +306,20 @@ function RatingProduct({ perfumeDetailData }) {
                         </CustomizeTypography>
                     </Grid>
                 )}
-                {/* rating */}
+
+                {/* comment region */}
+                {/*  check if the user has bought product, bought --> can comment
+                -> commented --> hide the comment box region: !findUser?.isCommented
+                 */}
                 {/* {!findUser?.isCommented && commentRights && ( */}
-                {!findUser?.isCommented && commentRights && (
+
+                <Grid item container lg={12}>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                        <CustomizeTypography>
+                            Give our your review about product {perfumeDetailData?.nameEn}
+                        </CustomizeTypography>
+                    </Grid>
+                    {/* rating region*/}
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Rating
                             name="size-medium"
@@ -334,57 +338,48 @@ function RatingProduct({ perfumeDetailData }) {
                             }}
                         />
                     </Grid>
-                )}
-
-                {/*  check if the user has bought product, bought --> can comment
-                -> commented --> hide the comment box region: !findUser?.isCommented
-                 */}
-                {/* {!findUser?.isCommented && commentRights && ( */}
-                {!findUser?.isCommented && commentRights && (
-                    <Grid item container lg={12}>
-                        <Grid item xs={12} lg={12}>
-                            <TextField
-                                fullWidth={true}
-                                multiline={true}
-                                maxRows={4}
-                                placeholder="Review our product..."
-                                inputRef={reviewInputRef}
-                                sx={{
-                                    mb: 1,
-                                    '.MuiInputBase-root': {
-                                        width: '400px',
-                                        fontSize: '14px',
-                                        height: '120px',
-                                        color: 'white',
-                                        borderRadius: '12px',
-                                        [mobileScreen]: {
-                                            width: '100%',
-                                        },
+                    <Grid item xs={12} lg={12}>
+                        <TextField
+                            fullWidth={true}
+                            multiline={true}
+                            maxRows={4}
+                            placeholder="Review our product..."
+                            inputRef={reviewInputRef}
+                            sx={{
+                                mb: 1,
+                                '.MuiInputBase-root': {
+                                    width: '400px',
+                                    fontSize: '14px',
+                                    height: '120px',
+                                    color: 'white',
+                                    borderRadius: '12px',
+                                    [mobileScreen]: {
+                                        width: '100%',
                                     },
-                                    '& .MuiFormHelperText-root': {
-                                        fontSize: '12.5px',
-                                        color: 'red',
-                                        mx: 1,
+                                },
+                                '& .MuiFormHelperText-root': {
+                                    fontSize: '12.5px',
+                                    color: 'red',
+                                    mx: 1,
+                                },
+                                '& .MuiOutlinedInput-root': {
+                                    '& fieldset': {
+                                        borderColor: '#333',
                                     },
-                                    '& .MuiOutlinedInput-root': {
-                                        '& fieldset': {
-                                            borderColor: '#333',
-                                        },
-                                        '&:hover fieldset': {
-                                            borderColor: '#333',
-                                        },
-                                        '&.Mui-focused fieldset': {
-                                            borderColor: '#333',
-                                        },
+                                    '&:hover fieldset': {
+                                        borderColor: '#333',
                                     },
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} lg={2}>
-                            <CustomizeButton textAction={'Publish'} onHandleClick={handleComment} />
-                        </Grid>
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: '#333',
+                                    },
+                                },
+                            }}
+                        />
                     </Grid>
-                )}
+                    <Grid item xs={12} lg={2}>
+                        <CustomizeButton textAction={'Publish'} onHandleClick={handleComment} />
+                    </Grid>
+                </Grid>
             </Grid>
         </Container>
     );

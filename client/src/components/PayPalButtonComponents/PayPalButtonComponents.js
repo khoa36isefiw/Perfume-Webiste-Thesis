@@ -4,9 +4,22 @@ import { paymentAPI } from '../../api/paymentAPI';
 import { useNavigate } from 'react-router-dom';
 import { PAYMENT_METHOD } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 function PayPalButtonsComponents({ user, items, address, email, phoneNumber, promotionCode }) {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
+    const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
+    console.log('items: ', items);
+    const calculateItemsPrice = items.reduce((total, item) => {
+        const variant = item?.variant || {};
+        const price =
+            variant?.discountPercent > 0 && variant?.priceSale
+                ? variant?.priceSale
+                : variant?.price;
+
+        return total + price * (item?.quantity || 1);
+    }, 0);
+
     const createOrder = async () => {
         let payload = {
             user,
@@ -17,30 +30,32 @@ function PayPalButtonsComponents({ user, items, address, email, phoneNumber, pro
             method: PAYMENT_METHOD.PAYPAL,
         };
 
-        // if (promotionCode2 !== null) {
-        //     payload.promotionCode = promotionCode2;
-        // }
         const promotionCode2 =
             promotionCode?.isApplied === true ? promotionCode.codeApplied.code : null;
 
         console.log('promotionCode2: ', promotionCode2);
         console.log('Final Payload:', payload);
         try {
-            const response = await paymentAPI.createOrder(
-                user,
-                items,
-                address,
-                email,
-                phoneNumber,
-                promotionCode2,
-                PAYMENT_METHOD.PAYPAL,
-            );
+            if (address !== '' && email !== '' && phoneNumber !== '') {
+                const response = await paymentAPI.createOrder(
+                    user,
+                    items,
+                    address,
+                    email,
+                    phoneNumber,
+                    promotionCode2,
+                    PAYMENT_METHOD.PAYPAL,
+                );
+                return response.data.payRef;
+                // if (calculateItemsPrice === 0) {
+                //     return response.data.payRef;
+                // }
+                // else {
 
-            return response.data.payRef;
-            // } catch (error) {
-            //     console.error('Error creating PayPal order:', error);
-            //     throw new Error('Order creation failed');
-            // }
+                // }
+            } else {
+                showNotificationMessage('warning', 'Paypal', 'Please fill in all required fields');
+            }
         } catch (error) {
             if (error.response) {
                 console.error('API Error:', error.response.data);

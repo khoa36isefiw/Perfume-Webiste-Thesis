@@ -221,12 +221,6 @@ function AdminTableBrands() {
                                         sx={{ bgcolor: blue[200], fontSize: '13px' }}
                                         align="center"
                                     >
-                                        Active
-                                    </TableCell>
-                                    <TableCell
-                                        sx={{ bgcolor: blue[200], fontSize: '13px' }}
-                                        align="center"
-                                    >
                                         Action
                                     </TableCell>
                                 </TableRow>
@@ -308,16 +302,7 @@ function AdminTableBrands() {
                                                         </Typography>
                                                     )}
                                                 </TableCell>
-                                                <TableCell align="center">
-                                                    {brand.status === 'active' ? (
-                                                        <CheckIcon
-                                                            color="success"
-                                                            fontSize="large"
-                                                        />
-                                                    ) : (
-                                                        <CloseIcon color="error" fontSize="large" />
-                                                    )}
-                                                </TableCell>
+
                                                 <TableCell align="center">
                                                     <IconButton
                                                         onClick={() => handleDeleteBrand(brand._id)}

@@ -25,6 +25,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
     const navigate = useNavigate();
     const targetRef = useRef();
     const { t, i18n } = useTranslation('translate');
+    console.log('orderHistory: ', orderHistory);
 
     const handleNavigateInvoicePage = (order) => {
         window.localStorage.setItem('orderInvoice', JSON.stringify(order));
@@ -90,19 +91,11 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
     };
 
     // Calculate total discount
-    const calculateDiscountTotal = (order) => {
+    const calculateDiscountTotal = (order, discount) => {
         let discountTotal = 0;
         const price = calculateSubtotal(order);
-        discountTotal += calculateDiscount(price);
+        discountTotal += calculateDiscount(price, discount);
         return discountTotal;
-    };
-
-    // Calculate total tax
-    const calculateTaxTotal = (order) => {
-        let taxTotal = 0;
-        const price = calculateSubtotal(order);
-        taxTotal += calculateTax(price);
-        return taxTotal;
     };
 
     // Calculate the total price including discount, tax, and promo code
@@ -137,7 +130,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
 
     return (
         <>
-            {/* sample */}
+            {/* sample data*/}
             {ordersListData?.map((order, index) => (
                 <Box
                     sx={{
@@ -208,6 +201,8 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                     </Box>
                 </Box>
             ))}
+
+            {/* real data */}
             {orderHistory?.map((order, index) => (
                 <Box
                     sx={{
@@ -242,7 +237,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                         <Grid item xs={4} sm={4} lg={4}>
                             <OrderInfo
                                 label={t('common.orderHistory.orderInfor.orderAddress')}
-                                value={'ahiahihi'}
+                                value={order.address}
                             />
                         </Grid>
                     </Grid>
@@ -324,11 +319,6 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                 }
                             >
                                 <Button
-                                    // onClick={() =>
-                                    //     generatePDF(targetRef, {
-                                    //         filename: `Invoice Order-${order?._id}`,
-                                    //     })
-                                    // }
                                     onClick={() => handleDownload(order)}
                                     startIcon={<PreviewIcon />}
                                     sx={{
@@ -353,6 +343,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                     <Box
                         ref={targetRef}
                         sx={{
+                            bgcolor: '#f5f5f5',
                             margin: 'auto',
                             px: 9,
                             pt: 8,
@@ -548,7 +539,9 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                             </CustomizeTypography>
                                         </Box>
                                         <CustomizeTypography sx={{ color: '#595959', mb: 0 }}>
-                                            {converToVND(item.price)}
+                                            {converToVND(
+                                                item?.priceSale ? item.priceSale : item.price,
+                                            )}
                                         </CustomizeTypography>
                                     </Box>
                                 ))}
@@ -580,12 +573,21 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                         flex: 1,
                                     }}
                                 >
-                                    {t('common.orderHistory.pdfDownload.items.discount')} - 20%
+                                    {t('common.orderHistory.pdfDownload.items.discount')} -
+                                    {orderHistory?.promotionCode
+                                        ? orderHistory?.promotionCode?.discount
+                                        : '0'}
+                                    %
                                 </CustomizeTypography>
                                 <CustomizeTypography
                                     sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}
                                 >
-                                    {converToVND(calculateDiscountTotal(order))}
+                                    {converToVND(
+                                        calculateDiscountTotal(
+                                            order,
+                                            order?.promotionCode?.discount,
+                                        ),
+                                    )}
                                 </CustomizeTypography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -602,7 +604,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                 <CustomizeTypography
                                     sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}
                                 >
-                                    {converToVND(calculateFinalTotal(order))}
+                                    {converToVND(order?.adjustedTotalPrice)}
                                 </CustomizeTypography>
                             </Box>
                         </Box>

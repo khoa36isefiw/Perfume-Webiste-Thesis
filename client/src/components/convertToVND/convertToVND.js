@@ -12,8 +12,8 @@ export const converToUSD = (price) => {
     });
 };
 
-export const calculateDiscount = (price) => {
-    return price * 0.2; // 20% discount
+export const calculateDiscount = (price, discount = null) => {
+    return discount === null ? 0 : price * (discount / 100);
 };
 
 export const calculateTax = (price) => {

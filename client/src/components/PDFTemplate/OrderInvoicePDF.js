@@ -47,6 +47,7 @@ export const OrderInvoicePDF = () => {
     const location = useLocation();
     const { order } = location.state || {};
     const orderInfor = JSON.parse(window.localStorage.getItem('orderInvoice')) || [];
+    console.log('orderInfor: ', orderInfor);
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || [];
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search); // get the current search query params
@@ -80,7 +81,7 @@ export const OrderInvoicePDF = () => {
     const calculateDiscountTotal = () => {
         let discountTotal = 0;
         const price = calculateSubtotal();
-        discountTotal += calculateDiscount(price);
+        discountTotal += calculateDiscount(price, orderInfor?.promotionCode?.discount);
         return discountTotal;
     };
 
@@ -502,7 +503,11 @@ export const OrderInvoicePDF = () => {
                             <CustomizeTypography
                                 sx={{ color: '#595959', mb: 0, fontWeight: 'bold', flex: 1 }}
                             >
-                                {t('common.orderHistory.pdfDownload.items.discount')} - 20%
+                                {t('common.orderHistory.pdfDownload.items.discount')} -{' '}
+                                {orderInfor?.promotionCode
+                                    ? orderInfor?.promotionCode?.discount
+                                    : '0'}
+                                %
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
                                 {converToVND(finalDiscount)}
@@ -516,7 +521,7 @@ export const OrderInvoicePDF = () => {
                                 {t('common.orderHistory.pdfDownload.items.amount')}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ color: '#595959', mb: 0, fontSize: 13.5 }}>
-                                {converToVND(finalTotalPrice)}
+                                {converToVND(orderInfor?.adjustedTotalPrice)}
                             </CustomizeTypography>
                         </Box>
                     </Box>

@@ -196,7 +196,7 @@ function PaymentSuccess() {
                             }}
                         >
                             <Button
-                                onClick={() => navigate('/shop')}
+                                onClick={() => navigate(`/${i18n.language}/my-purchase`)}
                                 variant="outlined"
                                 sx={{
                                     py: 1,
