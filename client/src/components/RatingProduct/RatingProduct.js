@@ -62,7 +62,6 @@ function RatingProduct({ perfumeDetailData }) {
             comment: newComment,
         };
 
-        let currentDate = new Date(timeComment).toLocaleString('en-CA', options);
         if (newComment && ratingValue) {
             const reviewProduct = await reviewsAPI.createReview(
                 userData.userId,

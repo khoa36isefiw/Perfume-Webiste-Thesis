@@ -294,12 +294,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                                         fontSize: '14px',
                                         fontWeight: 'bold',
                                         // color: theme.palette.text.secondary,
-                                        color: '#90caf9',
-                                        '&:hover': {
-                                            bgcolor: 'transparent',
-                                            // color: theme.palette.text.secondary,
-                                            color: '#90caf9',
-                                        },
+                                        color: theme.palette.text.secondary,
                                     }}
                                 >
                                     {/* Preview */}
