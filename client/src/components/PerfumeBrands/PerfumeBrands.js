@@ -72,6 +72,7 @@ function PerfumeBrands() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontSize: '18px',
+                        textAlign: 'center',
                         fontWeight: 'bold',
                         bgcolor: '#fff',
                         height: '60px',
