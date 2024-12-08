@@ -277,14 +277,16 @@ function AdminDashboard() {
                                         sx={{
                                             bgcolor: card.percentageBg,
                                             borderRadius: 1,
-                                            width: '50px',
+                                            minWidth: '50px',
+                                            p: 1,
+                                            boxShadow: '4px 4px 5px 2px rgba(0, 0, 255, .2)',
                                             height: '25px',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                         }}
                                     >
-                                        <AdminTypography
+                                        {/* <AdminTypography
                                             sx={{
                                                 fontWeight: 'bold',
                                                 color: '#fff',
@@ -292,9 +294,22 @@ function AdminDashboard() {
                                             }}
                                         >
                                             + {card.percentage}%
+                                        </AdminTypography> */}
+                                        <AdminTypography
+                                            sx={{
+                                                ml: 1,
+                                                fontWeight: 'bold',
+                                                color: '#fff',
+                                                textTransform: 'capitalize',
+                                            }}
+                                        >
+                                            Last{' '}
+                                            {listData && listData[card.id]?.timeFrame
+                                                ? listData[card.id]?.timeFrame
+                                                : defaultValue[card.id]?.timeFrame}
                                         </AdminTypography>
                                     </Box>
-                                    <AdminTypography
+                                    {/* <AdminTypography
                                         sx={{
                                             ml: 1,
                                             fontWeight: 'bold',
@@ -306,7 +321,7 @@ function AdminDashboard() {
                                         {listData && listData[card.id]?.timeFrame
                                             ? listData[card.id]?.timeFrame
                                             : defaultValue[card.id]?.timeFrame}
-                                    </AdminTypography>
+                                    </AdminTypography> */}
                                     {/* Use defaultValue here */}
                                 </Box>
                                 <React.Fragment>
@@ -354,7 +369,7 @@ function AdminDashboard() {
                                             '& .MuiPaper-root': {
                                                 bgcolor: 'white',
                                                 minWidth: '100px',
-                                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                                filter: 'drop-shadow(0px 1px 4px rgba(0,0,0,0.02))',
                                                 mt: 1.5,
                                                 '&::before': {
                                                     content: '""',
