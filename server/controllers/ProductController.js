@@ -1,4 +1,5 @@
 const Product = require('../models/Product.model');
+const ProductReview = require('../models/ProductReview.model');
 const Variant = require('../models/Variant.model');
 const emailEvent = require('../events/emailEvent');
 const { getDateRange } = require('../utils/date');
@@ -150,10 +151,23 @@ const ProductController = {
                 .populate('variants')
                 .populate('category')
                 .populate('brand');
+            let reviewData = {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0,
+            };
+            const reviews = await ProductReview.find({ product: id }).populate('user');
+            if (reviews.length > 0) {
+                reviews.forEach((review) => {
+                    reviewData[review.rating] += 1;
+                });
+            }
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
-            res.status(200).json(product);
+            res.status(200).json({ product, reviewData });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
