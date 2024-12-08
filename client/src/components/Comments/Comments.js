@@ -57,6 +57,7 @@ const ShopResponse = () => {
 };
 
 const SampleCommentData = ({ commentsData }) => {
+    const { t } = useTranslation('translate');
     return (
         <>
             {commentsData.map((comment, index) => (
@@ -103,7 +104,7 @@ const SampleCommentData = ({ commentsData }) => {
                                         },
                                     }}
                                 >
-                                    Đã mua hàng tại Tomtoc Perfumes
+                                    {t('common.review.bought')}
                                 </CustomizeTypography>
                             </Box>
                             {/* stars, rating */}
@@ -138,6 +139,7 @@ const SampleCommentData = ({ commentsData }) => {
 };
 
 const CommentOnProductData = ({ commentsData }) => {
+    const { t } = useTranslation('translate');
     return (
         <>
             {Array.isArray(commentsData) &&
@@ -186,7 +188,7 @@ const CommentOnProductData = ({ commentsData }) => {
                                             },
                                         }}
                                     >
-                                        Đã mua hàng tại Tomtoc Perfumes
+                                        {t('common.review.bought')}
                                     </CustomizeTypography>
                                 </Box>
                                 {/* stars, rating */}
