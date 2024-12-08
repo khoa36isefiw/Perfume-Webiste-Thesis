@@ -385,10 +385,10 @@ const UserController = {
             const savedReview = await newReview.save();
 
             product.numReviews += 1;
-            product.rating = (
-                (product.rating * product.numReviews + rating) /
-                (product.numReviews + 1)
-            ).toFixed(1);
+            const reviews = await ProductReview.find({ product: productId });
+
+            product.rating =
+                reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
             await product.save();
 
             res.status(200).json(savedReview);
