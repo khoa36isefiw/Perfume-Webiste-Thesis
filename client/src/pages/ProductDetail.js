@@ -6,10 +6,24 @@ import RatingProduct from '../components/RatingProduct/RatingProduct';
 import Comments from '../components/Comments/Comments';
 
 import { Box } from '@mui/material';
+import { useLocation } from 'react-router-dom';
+import useProductById from '../api/useProductById';
+import useLoadingV2 from '../hooks/useLoadingV2';
 
 function ProductDetail() {
+    const { LoadingAPI } = useLoadingV2();
+    const location = useLocation();
     // get the perfume data passed from navigation
     const productInformation = JSON.parse(localStorage.getItem('productInfor'));
+
+    const locationPath = location.pathname.split('/'); // split location.path into an array
+    const {
+        data: productData,
+        isLoading,
+        error,
+    } = useProductById(locationPath[locationPath.length - 1]);
+
+    console.log('productData: ', productData?.data.product);
 
     // reference to comments region
     const commentsRef = useRef();
@@ -23,11 +37,14 @@ function ProductDetail() {
         });
     };
 
+    if (isLoading) {
+        return <LoadingAPI />;
+    }
     return (
         <Box sx={{ mt: 20 }}>
-            <PerfumeDetail onHandleClick={scrollToDiv} />
-            <RatingProduct perfumeDetailData={productInformation} />
-            <Comments perfumeDetailData={productInformation} reference={commentsRef} />
+            <PerfumeDetail productData={productData?.data.product} onHandleClick={scrollToDiv} />
+            <RatingProduct perfumeDetailData={productData?.data} />
+            <Comments perfumeDetailData={productData?.data} reference={commentsRef} />
         </Box>
     );
 }

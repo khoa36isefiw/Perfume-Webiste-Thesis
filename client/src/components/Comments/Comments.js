@@ -16,7 +16,7 @@ function Comments({ perfumeDetailData, reference }) {
     const commentsList = [];
     const { t } = useTranslation('translate');
 
-    const { data: reviewData, isLoading } = useReviewOnProduct(perfumeDetailData?._id);
+    const { data: reviewData, isLoading } = useReviewOnProduct(perfumeDetailData?.product._id);
     console.log('reviewData: ', reviewData?.data);
 
     return (
