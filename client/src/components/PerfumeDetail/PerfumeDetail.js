@@ -20,7 +20,7 @@ import CustomizeDivider from '../CustomizeDivider/CustomizeDivider';
 import ProductInformation from '../ProductInformation/ProductInformation';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
-function PerfumeDetail() {
+function PerfumeDetail({ onHandleClick }) {
     const { LoadingAPI } = useLoadingV2();
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
 
@@ -119,6 +119,8 @@ function PerfumeDetail() {
     };
 
     // console.log('selectedSize: ', selectedSize);
+
+    const scrollToDiv = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
     if (isLoading) {
         return <LoadingAPI />;
@@ -315,7 +317,7 @@ function PerfumeDetail() {
                         <CustomizeTypography>
                             {/* Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và
                             tiệc tối đẳng cấp. */}
-                            {productData.data.shortDescription}
+                            {productData?.data.shortDescription}
                         </CustomizeTypography>
                         <Box
                             sx={{
@@ -324,11 +326,12 @@ function PerfumeDetail() {
                                 // justifyContent: 'space-between',
                             }}
                         >
-                            <CustomizeTypography>5.0</CustomizeTypography>
+                            {/* average rating */}
+                            <CustomizeTypography>{productData?.data.rating}</CustomizeTypography>
 
                             <Rating
                                 readOnly
-                                value={5}
+                                value={productData?.data.rating}
                                 // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                 sx={{
                                     fontSize: '18px',
@@ -352,10 +355,10 @@ function PerfumeDetail() {
                                     },
                                 }}
                                 // handle for showing comments and reviews
-                                // onClick={}
+                                onClick={onHandleClick}
                             >
                                 {/* ({commentsList.length > 0 ? commentsList.length : 0}{' '} */}
-                                {t('common.productDetails.rate')} 0
+                                {t('common.productDetails.rate')} {productData?.data.numReviews}
                             </CustomizeTypography>
                             <Box
                                 sx={{

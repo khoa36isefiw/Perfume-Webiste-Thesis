@@ -7,7 +7,7 @@ export const reviewsAPI = {
         return axiosClient.post(url, data);
     },
     getReviewOnProduct: (pId) => {
-        const url = `/reviews/${pId}`;
+        const url = `/reviews/product/${pId}`;
         return axiosClient.get(url);
     },
     getReviewByUserId: (uId) => {

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import useReviewOnProduct from '../../api/useReviewOnProduct';
 import { formatDate, formatDateWithTime } from '../FormatDate/formatDate';
 
-function Comments({ perfumeDetailData }) {
+function Comments({ perfumeDetailData, reference }) {
     // const commentsList =
     //     useSelector((state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId);
     const commentsList = [];
@@ -27,6 +27,7 @@ function Comments({ perfumeDetailData }) {
                     px: 1,
                 },
             }}
+            ref={reference}
         >
             <SampleCommentData commentsData={commentsData} />
             <CommentOnProductData commentsData={reviewData?.data} />
