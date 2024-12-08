@@ -4,8 +4,8 @@ const authToken = require('../middlewares/authToken');
 const userController = require('../controllers/UserController');
 // const OrderController = require('../controllers/OrderController');
 
+router.post('/review', userController.review);
 router.post('/subscribe', userController.subscribe);
-router.post('/:id/review/:productId', userController.review);
 router.post('/recover-password', userController.sendRecoverPassEmail);
 router.post('/check-email-availability', userController.checkEmailAvailability);
 router.put('/:id/delete', authToken.verifyTokenAdmin, userController.delete);

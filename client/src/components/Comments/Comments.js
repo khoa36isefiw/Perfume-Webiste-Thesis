@@ -28,7 +28,7 @@ function Comments({ perfumeDetailData }) {
                 },
             }}
         >
-            <SampleCommentData commentsData={commentsData} />
+            {/* <SampleCommentData commentsData={commentsData} /> */}
             <CommentOnProductData commentsData={reviewData?.data} />
         </Container>
     );

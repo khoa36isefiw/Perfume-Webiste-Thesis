@@ -41,14 +41,14 @@ function PerfumeDetail() {
         error,
     } = useProductById(locationPath[locationPath.length - 1]);
 
-    console.log('productData: ', productData?.data);
+    console.log('productData: ', productData?.data?.product);
 
     const [selectedSize, setSelectedSize] = useState(null);
 
     // update selectedSize after product data is loaded
     useEffect(() => {
-        if (productData?.data?.variants?.length > 0) {
-            const firstVariant = productData?.data.variants[0];
+        if (productData?.data?.product?.variants?.length > 0) {
+            const firstVariant = productData?.data?.product.variants[0];
             setSelectedSize({
                 size: firstVariant.size,
                 price: firstVariant.price,
@@ -81,7 +81,7 @@ function PerfumeDetail() {
         if (userData) {
             const userId = userData.userId; // id user here
             const mockData = {
-                product: productData?.data?._id, // id product here
+                product: productData?.data?.product?._id, // id product here
                 variant: selectedSize?.variantIDSelected, // id variant here
                 quantity: 1,
             };
@@ -109,12 +109,12 @@ function PerfumeDetail() {
     const handleSizeSelected = (index) => {
         // setSelectedSize(size);
         setSelectedSize({
-            size: productData?.data?.variants[index].size,
-            price: productData?.data?.variants[index].price,
-            priceSale: productData?.data?.variants[index].priceSale,
-            variantIDSelected: productData?.data?.variants[index]?._id,
-            discount: productData?.data?.variants[index]?.discountPercent,
-            numberStock: productData?.data?.variants[index]?.stock,
+            size: productData?.data?.product?.variants[index].size,
+            price: productData?.data?.product?.variants[index].price,
+            priceSale: productData?.data?.product?.variants[index].priceSale,
+            variantIDSelected: productData?.data?.product?.variants[index]?._id,
+            discount: productData?.data?.product?.variants[index]?.discountPercent,
+            numberStock: productData?.data?.product?.variants[index]?.stock,
         });
     };
 
@@ -210,7 +210,7 @@ function PerfumeDetail() {
                                 <Box
                                     component={'img'}
                                     // src={perfume.perfumeImage}
-                                    src={productData?.data?.imagePath[selectedImage]}
+                                    src={productData?.data?.product?.imagePath[selectedImage]}
                                     sx={{
                                         // height: '400px',
                                         height: '100%',
@@ -238,7 +238,8 @@ function PerfumeDetail() {
                                         },
                                     }}
                                     disabled={
-                                        selectedImage === productData?.data.imagePath.length - 1
+                                        selectedImage ===
+                                        productData?.data?.product.imagePath.length - 1
                                     }
                                 >
                                     <ArrowForwardIosIcon
@@ -254,7 +255,7 @@ function PerfumeDetail() {
                             </Box>
 
                             <Box sx={{ display: 'flex', overflowX: 'scroll' }}>
-                                {productData?.data.imagePath.map((image, index) => (
+                                {productData?.data?.product.imagePath.map((image, index) => (
                                     <Box
                                         key={index}
                                         alt="Quick View Image"
@@ -286,12 +287,14 @@ function PerfumeDetail() {
                         {/* product name */}
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
                             {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
-                            {productData?.data.nameEn}
+                            {productData?.data?.product.nameEn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 1 }}>
                             <strong>{t('common.productDetails.brand')}: </strong>
                             <span>
-                                {productData?.data ? productData?.data?.brand.nameEn : 'Loading...'}
+                                {productData?.data?.product
+                                    ? productData?.data?.product?.brand.nameEn
+                                    : 'Loading...'}
                             </span>
                             {/* <span>Maison Francis Kurkdjian Paris</span> */}
                         </CustomizeTypography>
@@ -368,7 +371,8 @@ function PerfumeDetail() {
                             />
                             {/* product sold quantity */}
                             <CustomizeTypography sx={{ ml: 1 }}>
-                                {t('common.productDetails.sold')} {productData?.data.unitsSold}
+                                {t('common.productDetails.sold')}{' '}
+                                {productData?.data?.product.unitsSold}
                             </CustomizeTypography>
                         </Box>
 
@@ -467,7 +471,7 @@ function PerfumeDetail() {
 
                         {/* Product Size */}
                         <Box sx={{ display: 'flex' }}>
-                            {productData?.data?.variants.map((size, index) => (
+                            {productData?.data?.product?.variants.map((size, index) => (
                                 <Button
                                     key={index}
                                     sx={{
@@ -524,7 +528,7 @@ function PerfumeDetail() {
                 </Grid>
             </Container>
             <CustomizeDivider />
-            <ProductInformation productInformation={productData?.data} />
+            <ProductInformation productInformation={productData?.data?.product} />
         </Box>
     );
 }

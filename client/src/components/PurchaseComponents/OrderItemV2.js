@@ -12,7 +12,7 @@ import useProduct from '../../api/useProduct';
 import { backTop } from '../goBackTop/goBackTop';
 import { useTranslation } from 'react-i18next';
 
-export const OrderItemV2 = ({ listData }) => {
+export const OrderItemV2 = ({ listData, orderId }) => {
     const { i18n } = useTranslation('translate');
     const { data: products } = useProduct();
     const navigate = useNavigate();
@@ -23,7 +23,7 @@ export const OrderItemV2 = ({ listData }) => {
                 product?.variants.find((variant) => variant._id === item.variant),
         );
         window.localStorage.setItem('productInfor', JSON.stringify(perfume));
-        navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}`, {
+        navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}?orderId=${orderId}`, {
             state: { from: `/${i18n.language}/my-purchase` },
         });
         setTimeout(() => {

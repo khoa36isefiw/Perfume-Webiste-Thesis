@@ -32,6 +32,10 @@ const orderItemSchema = new Schema(
             type: Number,
             required: true,
         },
+        isReviewed: {
+            type: Boolean,
+            default: false,
+        },
     },
     { _id: false },
 );

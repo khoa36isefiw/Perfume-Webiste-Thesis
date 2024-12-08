@@ -2,8 +2,8 @@ import axiosClient from './axiosClient';
 
 export const reviewsAPI = {
     // get all list users
-    createReview: (userId, productId, data) => {
-        const url = `/users/${userId}/review/${productId}`;
+    createReview: (data) => {
+        const url = `/users/review`;
         return axiosClient.post(url, data);
     },
     getReviewOnProduct: (pId) => {
