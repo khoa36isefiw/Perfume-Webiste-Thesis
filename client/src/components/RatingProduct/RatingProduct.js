@@ -11,6 +11,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useTranslation } from 'react-i18next';
 import { reviewsAPI } from '../../api/reviewsAPI';
 import { useLocation } from 'react-router-dom';
+import useUserReviewsProduct from '../../api/useUserReviewsProduct';
 
 function RatingProduct({ perfumeDetailData }) {
     // lâý data trên thông qua /product/id
@@ -20,7 +21,9 @@ function RatingProduct({ perfumeDetailData }) {
     const { t, i18n } = useTranslation('translate');
     const reviewInputRef = useRef(null);
     const [commentRights, setCommentRights] = useState(false);
-    const userData = JSON.parse(window.localStorage.getItem('user_data'));
+    const userData = JSON.parse(window.localStorage.getItem('user_data')) || '';
+    const { data: userReviews, isLoading } = useUserReviewsProduct(userData?.userId);
+    console.log('userReviews: ', userReviews?.data);
 
     const [ratingValue, setRatingValue] = useState(0);
     console.log('userData: ', userData);
