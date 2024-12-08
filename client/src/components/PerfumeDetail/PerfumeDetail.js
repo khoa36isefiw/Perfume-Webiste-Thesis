@@ -62,7 +62,7 @@ function PerfumeDetail() {
 
     const handleNext = () => {
         // Check if current image is the last one
-        if (selectedImage < productData.data.imagePath.length - 1) {
+        if (selectedImage < productData?.data?.product?.imagePath?.length - 1) {
             setSelectedImage((prevIndex) => prevIndex + 1); // Move to the next image
         }
     };
