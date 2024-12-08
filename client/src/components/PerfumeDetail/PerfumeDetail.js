@@ -307,11 +307,13 @@ function PerfumeDetail({ productData, onHandleClick }) {
                             }}
                         >
                             {/* average rating */}
-                            <CustomizeTypography>{productData.rating}</CustomizeTypography>
+                            <CustomizeTypography>
+                                {productData.rating.toFixed(1)}
+                            </CustomizeTypography>
 
                             <Rating
                                 readOnly
-                                value={productData.rating}
+                                value={productData.rating.toFixed(1)}
                                 // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                 sx={{
                                     fontSize: '18px',

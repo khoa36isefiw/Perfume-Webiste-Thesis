@@ -39,8 +39,6 @@ function RatingProduct({ perfumeDetailData }) {
         }
     }, [location]);
 
-    const commentsList = [];
-
     const handleComment = async () => {
         const newComment = reviewInputRef.current.value; // value of textfield by ref
 
@@ -74,23 +72,6 @@ function RatingProduct({ perfumeDetailData }) {
         }
     };
 
-    // console.log('current rights: ', commentRights);
-
-    // returns the length of the list of comments based on the rating number
-    // trả về độ dài của list comments dựa trên rating number
-    const getRatingCount = (ratingNumber) => {
-        // return the list of users based on ratingNumber
-        return commentsList.filter((comment) => comment.ratingValue === ratingNumber).length;
-    };
-
-    // calculating the average rating
-    const calculateAverageRating = () => {
-        if (commentsList.length === 0) return 0; // doesn't have rating
-        // calculate total of rating value from comment list
-        const totalRating = commentsList.reduce((acc, comment) => acc + comment.ratingValue, 0);
-        return (totalRating / commentsList.length).toFixed(1);
-    };
-
     return (
         <Container
             sx={{
@@ -105,7 +86,8 @@ function RatingProduct({ perfumeDetailData }) {
             </CustomizeTypography>
             {/* number of ratings */}
             <CustomizeTypography>
-                2 {t(`common.productDetails.ratingFor`)} {perfumeDetailData?.product.nameEn}
+                {perfumeDetailData?.product.numReviews} {t(`common.productDetails.ratingFor`)}{' '}
+                {perfumeDetailData?.product.nameEn}
             </CustomizeTypography>
             <Grid container>
                 <Grid
@@ -155,7 +137,7 @@ function RatingProduct({ perfumeDetailData }) {
                                     }}
                                 >
                                     {/* 5.0 */}
-                                    {perfumeDetailData.product.rating}
+                                    {perfumeDetailData.product.rating.toFixed(1)}
                                 </CustomizeTypography>
                                 <StarIcon
                                     sx={{
