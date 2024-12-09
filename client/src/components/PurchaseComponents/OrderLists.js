@@ -3,16 +3,11 @@ import { Box, Grid, Button, Tooltip, Typography, Avatar } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
-import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-import { PDFDownloadLink } from '@react-pdf/renderer';
-import { PDFTemplate } from '../PDFTemplate/PDFTemplate';
 import { VerticalDivider } from './VerticalDivider';
 import { OrderInfo } from './OrderInfo';
-import { OrderItem } from './OrderItem';
 import { formatDate } from '../FormatDate/formatDate';
-import { calculateDiscount, calculateTax, converToVND } from '../convertToVND/convertToVND';
+import { calculateDiscount, converToVND } from '../convertToVND/convertToVND';
 import { OrderItemV2 } from './OrderItemV2';
-
 import { useNavigate } from 'react-router-dom';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { backTop } from '../goBackTop/goBackTop';
@@ -98,110 +93,8 @@ export const OrderLists = ({ orderHistory }) => {
         return discountTotal;
     };
 
-    // Calculate the total price including discount, tax, and promo code
-    const calculateFinalTotal = (order) => {
-        let totalSubtotal = 0;
-        let totalDiscount = 0;
-        let totalTax = 0;
-
-        // Loop through each product to calculate subtotal, discount, and tax
-        order?.items?.forEach((product) => {
-            const price =
-                product.quantity *
-                (product.price - product.priceSale !== 0 ? product.priceSale : product.price);
-
-            const discount = calculateDiscount(price);
-            const tax = calculateTax(price);
-
-            totalSubtotal += price;
-            totalDiscount += discount;
-            totalTax += tax;
-        });
-
-        let total = totalSubtotal - totalDiscount + totalTax;
-
-        // Apply 5% promo code discount if promo code "UTE99" is applied
-        // if (promoCodeApplied && promoCode === 'UTE99') {
-        //     total = total * 0.95; // Apply 5% discount
-        // }
-
-        return total;
-    };
-
     return (
         <>
-            {/* sample data*/}
-            {/* {ordersListData?.map((order, index) => (
-                <Box
-                    sx={{
-                        bgcolor: '#555',
-                        minHeight: '20px',
-                        borderRadius: 1,
-                        p: 2,
-                        my: 4,
-                        width: '100%',
-                    }}
-                    key={index}
-                >
-                    <Grid container spacing={2}>
-                        <Grid item xs={3} sm={3} lg={3}>
-                            <OrderInfo
-                                label={t('common.orderHistory.orderInfor.orderNum')}
-                                value={`#${order.orderNumber}`}
-                            />
-                        </Grid>
-                        <Grid item xs={1} sm={1} lg={1}>
-                            <VerticalDivider />
-                        </Grid>
-                        <Grid item xs={3} sm={3} lg={3}>
-                            <OrderInfo label="Order Date" value={order.orderDate} />
-                        </Grid>
-                        <Grid item xs={1} sm={1}>
-                            <VerticalDivider />
-                        </Grid>
-                        <Grid item xs={4} sm={4} lg={4}>
-                            <OrderInfo label="Ship To" value={order.orderAddress} />
-                        </Grid>
-                    </Grid>
-
-                    <CustomizeDividerVertical8 />
-                    <OrderItem listData={order.orderData} />
-                    <CustomizeDividerVertical8 />
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <CustomizeTypography>
-                            <span style={{ color: '#d9d9d9' }}>Total Amount:</span>{' '}
-                            <strong>${order.orderTotal}</strong>
-                        </CustomizeTypography>
-
-                        <PDFDownloadLink
-                            document={<PDFTemplate order={order} />}
-                            fileName={`order_${order.orderNumber}.pdf`}
-                        >
-                            <Button
-                                startIcon={<SystemUpdateAltIcon />}
-                                sx={{
-                                    padding: '6px 0',
-                                    textTransform: 'initial',
-                                    fontSize: '14px',
-                                    fontWeight: 'bold',
-                                    '&:hover': {
-                                        bgcolor: 'transparent',
-                                    },
-                                }}
-                            >
-                                Download Invoice
-                            </Button>
-                        </PDFDownloadLink>
-                    </Box>
-                </Box>
-            ))} */}
-
             {/* real data */}
             {orderHistory?.map((order, index) => (
                 <Box
@@ -243,7 +136,10 @@ export const OrderLists = ({ orderHistory }) => {
                     </Grid>
 
                     <CustomizeDividerVertical8 />
+                    {/* show purchased product information, review button */}
                     <OrderItemV2 listData={order.items} orderId={order._id} />
+                    
+                    {/* total amount, preview button, download file as PDF file */}
                     <CustomizeDividerVertical8 />
                     <Box
                         sx={{
