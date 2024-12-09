@@ -196,11 +196,15 @@ function NewHeader() {
 
     // change language
     const handleChangeLanguage = (lng) => {
+        const params = new URLSearchParams(location.search); // get current query string params
         const currentPath = window.location.pathname;
+
         const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
         window.localStorage.setItem('language', lng); // set language is selected to local storage
         console.log('newPath: ', newPath);
-        navigate(newPath);
+// check if reference tới 
+        const newPathWithParams = params.toString() ? `${newPath}?${params.toString()}` : newPath;
+        navigate(newPathWithParams);
         setEnLanguage(!enLanguage);
         i18n.changeLanguage(lng);
     };
