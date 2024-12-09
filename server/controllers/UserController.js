@@ -78,9 +78,16 @@ const UserController = {
     updateProfile: async (req, res) => {
         try {
             const id = req.params.id;
+            const data = req.body;
+            const fileData = req.files;
+            console.log({ fileData });
+            let imagePath = '';
+            if (fileData) {
+                imagePath = fileData[0].path;
+            }
             const user = await User.findOne({ _id: id });
             if (user) {
-                await User.updateOne({ _id: id }, req.body);
+                await User.updateOne({ _id: id }, { $set: { ...data, imagePath } });
                 return res.status(200).json('Cập nhật profile thành công');
             } else {
                 return res.status(404).json({

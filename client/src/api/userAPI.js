@@ -35,7 +35,11 @@ export const userAPI = {
     },
     updateUserProfile: (id, data) => {
         const url = `/users/${id}/profile`;
-        return axiosClient.put(url, data);
+        return axiosClient.put(url, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
     },
     changePassword: (id, data) => {
         const url = `/users/${id}/change-password`;
