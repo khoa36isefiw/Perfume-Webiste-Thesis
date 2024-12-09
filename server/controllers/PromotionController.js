@@ -79,6 +79,28 @@ const PromotionController = {
             res.status(500).json({ message: error.message });
         }
     },
+
+    apply: async (req, res) => {
+        const { code } = req.body;
+        try {
+            const promotion = await Promotion.findOne({ code: code, status: 'active' });
+            if (!promotion) {
+                return res.status(404).json({ message: 'Promotion not found' });
+            }
+            if (promotion.quantity <= 0) {
+                return res.status(400).json({ message: 'Promotion is out of stock' });
+            }
+            if (promotion.endDate < new Date()) {
+                return res.status(400).json({ message: 'Promotion has expired' });
+            }
+            res.status(200).json({
+                message: 'Promotion applied successfully',
+                promotion: promotion,
+            });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
 };
 
 module.exports = PromotionController;
