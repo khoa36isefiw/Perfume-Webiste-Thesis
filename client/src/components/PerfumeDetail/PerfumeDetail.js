@@ -21,6 +21,7 @@ import ProductInformation from '../ProductInformation/ProductInformation';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function PerfumeDetail({ productData, onHandleClick }) {
+    console.log('productData: ', productData);
     const { LoadingAPI } = useLoadingV2();
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
 
@@ -35,7 +36,6 @@ function PerfumeDetail({ productData, onHandleClick }) {
 
     // update selectedSize after product data is loaded
     useEffect(() => {
-
         if (productData?.variants?.length > 0) {
             const firstVariant = productData.variants[0];
 
@@ -72,7 +72,6 @@ function PerfumeDetail({ productData, onHandleClick }) {
         if (userData) {
             const userId = userData.userId; // id user here
             const mockData = {
-
                 product: productData?._id, // id product here
 
                 variant: selectedSize?.variantIDSelected, // id variant here
@@ -102,14 +101,12 @@ function PerfumeDetail({ productData, onHandleClick }) {
     const handleSizeSelected = (index) => {
         // setSelectedSize(size);
         setSelectedSize({
-
             size: productData?.variants[index].size,
             price: productData?.variants[index].price,
             priceSale: productData?.variants[index].priceSale,
             variantIDSelected: productData?.variants[index]?._id,
             discount: productData?.variants[index]?.discountPercent,
             numberStock: productData?.variants[index]?.stock,
-
         });
     };
 
@@ -204,7 +201,6 @@ function PerfumeDetail({ productData, onHandleClick }) {
                                     component={'img'}
                                     // src={perfume.perfumeImage}s
                                     src={productData?.imagePath[selectedImage]}
-
                                     sx={{
                                         // height: '400px',
                                         height: '100%',
@@ -231,9 +227,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
                                             right: '-4%',
                                         },
                                     }}
-
                                     disabled={selectedImage === productData.imagePath.length - 1}
-
                                 >
                                     <ArrowForwardIosIcon
                                         sx={{
@@ -248,9 +242,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
                             </Box>
 
                             <Box sx={{ display: 'flex', overflowX: 'scroll' }}>
-
                                 {productData.imagePath.map((image, index) => (
-
                                     <Box
                                         key={index}
                                         alt="Quick View Image"
@@ -367,9 +359,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
                             />
                             {/* product sold quantity */}
                             <CustomizeTypography sx={{ ml: 1 }}>
-
                                 {t('common.productDetails.sold')} {productData.unitsSold}
-
                             </CustomizeTypography>
                         </Box>
 
@@ -468,9 +458,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
 
                         {/* Product Size */}
                         <Box sx={{ display: 'flex' }}>
-
                             {productData?.variants.map((size, index) => (
-
                                 <Button
                                     key={index}
                                     sx={{
@@ -529,7 +517,6 @@ function PerfumeDetail({ productData, onHandleClick }) {
             <CustomizeDivider />
 
             <ProductInformation productInformation={productData} />
-
         </Box>
     );
 }
