@@ -13,9 +13,8 @@ function ProductDetail() {
     const { LoadingAPI } = useLoadingV2();
 
     const { id } = useParams();
-    const { data: productData } = useProductById(id);
+    const { data: productData, isLoading } = useProductById(id);
     const productInformation = productData?.data?.product;
-
 
     console.log('productData: ', productData?.data.product);
 
