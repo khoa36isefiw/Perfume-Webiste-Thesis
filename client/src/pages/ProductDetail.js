@@ -1,15 +1,16 @@
 import React from 'react';
 import PerfumeDetail from '../components/PerfumeDetail/PerfumeDetail';
-import ProductInformation from '../components/ProductInformation/ProductInformation';
-import CustomizeDivider from '../components/CustomizeDivider/CustomizeDivider';
 import RatingProduct from '../components/RatingProduct/RatingProduct';
 import Comments from '../components/Comments/Comments';
 
 import { Box } from '@mui/material';
+import useProductById from '../api/useProductById';
+import { useParams } from 'react-router-dom';
 
 function ProductDetail() {
-    // get the perfume data passed from navigation
-    const productInformation = JSON.parse(localStorage.getItem('productInfor'));
+    const { id } = useParams();
+    const { data: productData } = useProductById(id);
+    const productInformation = productData?.data?.product;
     return (
         <Box sx={{ mt: 20 }}>
             <PerfumeDetail />

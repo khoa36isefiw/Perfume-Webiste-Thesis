@@ -3,6 +3,7 @@ const generator = require('generate-password');
 require('dotenv').config();
 const User = require('../models/User.model');
 const Product = require('../models/Product.model');
+const Order = require('../models/Order.model');
 const Subscriber = require('../models/Subscriber.model');
 const nodemailer = require('nodemailer');
 const ProductReview = require('../models/ProductReview.model');
@@ -364,16 +365,14 @@ const UserController = {
     },
 
     review: async (req, res) => {
-        const { id, productId } = req.params;
-        const { rating, comment } = req.body;
+        const { userId, productId, orderId, comment, rating } = req.body;
         try {
             const product = await Product.findOne({ _id: productId });
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
             // check condition if user has been bought product
-            const isProductBought = await checkProductBoughtByUser(id, productId);
-            console.log('isProductBought', isProductBought);
+            const isProductBought = await checkProductBoughtByUser(userId, productId);
             if (!isProductBought) {
                 return res.status(400).json({ message: 'You have not bought this product' });
             }
@@ -381,12 +380,23 @@ const UserController = {
             newReview.rating = rating;
             newReview.comment = comment;
             newReview.product = productId;
-            newReview.user = id;
+            newReview.user = userId;
             const savedReview = await newReview.save();
 
+            // Cập nhật isReviewed trong Order
+            const order = await Order.findById(orderId);
+            if (!order) {
+                return res.status(404).json({ message: 'Order not found' });
+            }
+            const item = order.items.find((i) => i.product.toString() === productId);
+            if (item) {
+                item.isReviewed = true;
+                await order.save();
+            }
+
+            // update product numReview and rating
             product.numReviews += 1;
             const reviews = await ProductReview.find({ product: productId });
-
             product.rating =
                 reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
             await product.save();
