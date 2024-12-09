@@ -13,8 +13,6 @@ function ProductDetail() {
     const { LoadingAPI } = useLoadingV2();
     const { id } = useParams();
     const { data: productData, isLoading } = useProductById(id);
-    const productInformation = productData?.data?.product;
-    console.log('productData: ', productData?.data.product);
 
     // reference to comments region
     const commentsRef = useRef();

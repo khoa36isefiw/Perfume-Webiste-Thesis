@@ -11,32 +11,23 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useTranslation } from 'react-i18next';
 import { reviewsAPI } from '../../api/reviewsAPI';
 import { useLocation } from 'react-router-dom';
-import useOrderById from '../../api/useOrderById';
+import useUserReviewsProduct from '../../api/useUserReviewsProduct';
 
 function RatingProduct({ perfumeDetailData }) {
     const location = useLocation();
-    // console.log('location: ', );
     const queryParams = new URLSearchParams(location.search);
     const orderId = queryParams.get('orderId');
-    console.log('orderId: ', orderId);
-    console.log('perfumeDetailData: ', perfumeDetailData);
     const { t, i18n } = useTranslation('translate');
     const reviewInputRef = useRef(null);
-    const [isCommentSubmitted, setIsCommentSubmitted] = useState(false);
+    const [commentRights, setCommentRights] = useState(false);
 
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || '';
+    const { data: userReviews, isLoading } = useUserReviewsProduct(userData?.userId);
+    console.log('userReviews: ', userReviews?.data);
 
     const [ratingValue, setRatingValue] = useState(0);
-    const { data: orderDataById } = useOrderById(orderId);
 
-    const orderByIdData = orderDataById?.data?.items?.filter(
-        (order) => order.product === perfumeDetailData.product._id,
-    );
-    const isReviewed = orderByIdData?.some((item) => item.isReviewed);
-    console.log('isReviewed: ', isReviewed);
-    console.log('orderByIdData: ', orderByIdData);
-
-    console.log('orderDataById: ', orderDataById?.data);
+    console.log('userData: ', userData);
     useEffect(() => {
         if (location?.state?.from === `/${i18n.language}/my-purchase` && reviewInputRef.current) {
             setTimeout(() => {
@@ -59,7 +50,7 @@ function RatingProduct({ perfumeDetailData }) {
 
         const data = {
             userId: userData?.userId,
-            productId: perfumeDetailData?.product._id,
+            productId: perfumeDetailData?._id,
             orderId: orderId,
             rating: ratingValue,
             comment: newComment,
@@ -69,7 +60,7 @@ function RatingProduct({ perfumeDetailData }) {
             const reviewProduct = await reviewsAPI.createReview(data);
 
             if (reviewProduct.status === 200) {
-                setIsCommentSubmitted(true);
+                console.log('reviewProduct: ', reviewProduct);
             }
         }
     };
@@ -272,76 +263,73 @@ function RatingProduct({ perfumeDetailData }) {
                 -> commented --> hide the comment box region: !findUser?.isCommented
                  */}
 
-                {!isReviewed && location?.state?.from === `/${i18n.language}/my-purchase` && (
-                    <Grid item container lg={12}>
-                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                            <CustomizeTypography>
-                                Give our your review about product{' '}
-                                {perfumeDetailData?.product.nameEn}
-                            </CustomizeTypography>
-                        </Grid>
-                        {/* rating region*/}
-                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                            <Rating
-                                name="size-medium"
-                                defaultValue={ratingValue}
-                                sx={{
-                                    '&.MuiRating-root': {
-                                        fontSize: '28px',
-                                    },
-                                }}
-                                // not rating --> emptyIcon
-                                emptyIcon={
-                                    <StarBorderIcon fontSize="inherit" sx={{ color: '#faaf00' }} />
-                                }
-                                onChange={(event, newValue) => {
-                                    setRatingValue(newValue);
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} lg={12}>
-                            <TextField
-                                fullWidth={true}
-                                multiline={true}
-                                maxRows={4}
-                                placeholder="Review our product..."
-                                inputRef={reviewInputRef}
-                                sx={{
-                                    mb: 1,
-                                    '.MuiInputBase-root': {
-                                        width: '400px',
-                                        fontSize: '14px',
-                                        height: '120px',
-                                        color: 'white',
-                                        borderRadius: '12px',
-                                        [mobileScreen]: {
-                                            width: '100%',
-                                        },
-                                    },
-                                    '& .MuiFormHelperText-root': {
-                                        fontSize: '12.5px',
-                                        color: 'red',
-                                        mx: 1,
-                                    },
-                                    '& .MuiOutlinedInput-root': {
-                                        '& fieldset': {
-                                            borderColor: '#333',
-                                        },
-                                        '&:hover fieldset': {
-                                            borderColor: '#333',
-                                        },
-                                        '&.Mui-focused fieldset': {
-                                            borderColor: '#333',
-                                        },
-                                    },
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} lg={2}>
-                            <CustomizeButton textAction={'Publish'} onHandleClick={handleComment} />
-                        </Grid>
+                <Grid item container lg={12}>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                        <CustomizeTypography>
+                            Give our your review about product {perfumeDetailData?.product.nameEn}
+                        </CustomizeTypography>
                     </Grid>
-                )}
+                    {/* rating region*/}
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                        <Rating
+                            name="size-medium"
+                            defaultValue={ratingValue}
+                            sx={{
+                                '&.MuiRating-root': {
+                                    fontSize: '28px',
+                                },
+                            }}
+                            // not rating --> emptyIcon
+                            emptyIcon={
+                                <StarBorderIcon fontSize="inherit" sx={{ color: '#faaf00' }} />
+                            }
+                            onChange={(event, newValue) => {
+                                setRatingValue(newValue);
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12} lg={12}>
+                        <TextField
+                            fullWidth={true}
+                            multiline={true}
+                            maxRows={4}
+                            placeholder="Review our product..."
+                            inputRef={reviewInputRef}
+                            sx={{
+                                mb: 1,
+                                '.MuiInputBase-root': {
+                                    width: '400px',
+                                    fontSize: '14px',
+                                    height: '120px',
+                                    color: 'white',
+                                    borderRadius: '12px',
+                                    [mobileScreen]: {
+                                        width: '100%',
+                                    },
+                                },
+                                '& .MuiFormHelperText-root': {
+                                    fontSize: '12.5px',
+                                    color: 'red',
+                                    mx: 1,
+                                },
+                                '& .MuiOutlinedInput-root': {
+                                    '& fieldset': {
+                                        borderColor: '#333',
+                                    },
+                                    '&:hover fieldset': {
+                                        borderColor: '#333',
+                                    },
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: '#333',
+                                    },
+                                },
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12} lg={2}>
+                        <CustomizeButton textAction={'Publish'} onHandleClick={handleComment} />
+                    </Grid>
+                </Grid>
             </Grid>
         </Container>
     );

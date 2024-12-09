@@ -23,9 +23,15 @@ export const OrderItemV2 = ({ listData, orderId }) => {
                 product?.variants.find((variant) => variant._id === item.variant),
         );
         window.localStorage.setItem('productInfor', JSON.stringify(perfume));
+        // current logic
         navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}?orderId=${orderId}`, {
             state: { from: `/${i18n.language}/my-purchase` },
         });
+
+        // new logic
+        // navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}`, {
+        //     state: { from: `/${i18n.language}/my-purchase`, orderId: orderId },
+        // });
         setTimeout(() => {
             backTop(); // deplay 100ml waiting for navigating
         }, 100);
@@ -105,9 +111,11 @@ export const OrderItemV2 = ({ listData, orderId }) => {
                                 >
                                     <strong>Qty:</strong> {item.quantity}
                                 </CustomizeTypography>
+
                                 <Button
                                     startIcon={<StarIcon />}
                                     sx={{
+                                        visibility: !item.isReviewed ? 'visible' : 'hidden',
                                         padding: '6px 0',
                                         textTransform: 'initial',
                                         fontSize: '14px',
