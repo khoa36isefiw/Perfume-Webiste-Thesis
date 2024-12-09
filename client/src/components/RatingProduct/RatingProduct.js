@@ -14,13 +14,15 @@ import { useLocation } from 'react-router-dom';
 import useUserReviewsProduct from '../../api/useUserReviewsProduct';
 
 function RatingProduct({ perfumeDetailData }) {
-
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const orderId = queryParams.get('orderId');
+    console.log('orderId: ', orderId);
+    console.log('perfumeDetailData: ', perfumeDetailData);
     const { t, i18n } = useTranslation('translate');
     const reviewInputRef = useRef(null);
     const [commentRights, setCommentRights] = useState(false);
+    
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || '';
     const { data: userReviews, isLoading } = useUserReviewsProduct(userData?.userId);
     console.log('userReviews: ', userReviews?.data);
@@ -46,16 +48,17 @@ function RatingProduct({ perfumeDetailData }) {
     const handleComment = async () => {
         const newComment = reviewInputRef.current.value; // value of textfield by ref
 
+        // userId, productId, orderId, comment, rating
+
         const data = {
             userId: userData?.userId,
-            productId: perfumeDetailData?._id,
+            productId: perfumeDetailData?.product._id,
             orderId: orderId,
             rating: ratingValue,
             comment: newComment,
         };
 
         if (newComment && ratingValue) {
-
             const reviewProduct = await reviewsAPI.createReview(data);
 
             if (reviewProduct.status === 200) {
