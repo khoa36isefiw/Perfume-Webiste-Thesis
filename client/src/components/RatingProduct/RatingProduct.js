@@ -14,10 +14,10 @@ import { useLocation } from 'react-router-dom';
 import useUserReviewsProduct from '../../api/useUserReviewsProduct';
 
 function RatingProduct({ perfumeDetailData }) {
-    // lâý data trên thông qua /product/id
-    console.log('perfumeDetailData: ', perfumeDetailData);
 
     const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const orderId = queryParams.get('orderId');
     const { t, i18n } = useTranslation('translate');
     const reviewInputRef = useRef(null);
     const [commentRights, setCommentRights] = useState(false);
@@ -26,6 +26,7 @@ function RatingProduct({ perfumeDetailData }) {
     console.log('userReviews: ', userReviews?.data);
 
     const [ratingValue, setRatingValue] = useState(0);
+
     console.log('userData: ', userData);
     useEffect(() => {
         if (location?.state?.from === `/${i18n.language}/my-purchase` && reviewInputRef.current) {
@@ -45,29 +46,18 @@ function RatingProduct({ perfumeDetailData }) {
     const handleComment = async () => {
         const newComment = reviewInputRef.current.value; // value of textfield by ref
 
-        const timeComment = new Date();
-
-        // create date options with YYYY/MM/DD, AM/PM format
-        const options = {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true, // adds AM/PM to the time format
-        };
-
         const data = {
+            userId: userData?.userId,
+            productId: perfumeDetailData?._id,
+            orderId: orderId,
             rating: ratingValue,
             comment: newComment,
         };
 
         if (newComment && ratingValue) {
-            const reviewProduct = await reviewsAPI.createReview(
-                userData.userId,
-                perfumeDetailData?.product._id,
-                data,
-            );
+
+            const reviewProduct = await reviewsAPI.createReview(data);
+
             if (reviewProduct.status === 200) {
                 console.log('reviewProduct: ', reviewProduct);
             }

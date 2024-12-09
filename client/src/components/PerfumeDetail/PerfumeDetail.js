@@ -35,8 +35,10 @@ function PerfumeDetail({ productData, onHandleClick }) {
 
     // update selectedSize after product data is loaded
     useEffect(() => {
+
         if (productData?.variants?.length > 0) {
             const firstVariant = productData.variants[0];
+
             setSelectedSize({
                 size: firstVariant.size,
                 price: firstVariant.price,
@@ -50,6 +52,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
 
     const handleNext = () => {
         // Check if current image is the last one
+
         if (selectedImage < productData?.imagePath.length - 1) {
             setSelectedImage((prevIndex) => prevIndex + 1); // Move to the next image
         }
@@ -69,7 +72,9 @@ function PerfumeDetail({ productData, onHandleClick }) {
         if (userData) {
             const userId = userData.userId; // id user here
             const mockData = {
+
                 product: productData?._id, // id product here
+
                 variant: selectedSize?.variantIDSelected, // id variant here
                 quantity: 1,
             };
@@ -97,12 +102,14 @@ function PerfumeDetail({ productData, onHandleClick }) {
     const handleSizeSelected = (index) => {
         // setSelectedSize(size);
         setSelectedSize({
+
             size: productData?.variants[index].size,
             price: productData?.variants[index].price,
             priceSale: productData?.variants[index].priceSale,
             variantIDSelected: productData?.variants[index]?._id,
             discount: productData?.variants[index]?.discountPercent,
             numberStock: productData?.variants[index]?.stock,
+
         });
     };
 
@@ -195,8 +202,9 @@ function PerfumeDetail({ productData, onHandleClick }) {
                                 </IconButton>
                                 <Box
                                     component={'img'}
-                                    // src={perfume.perfumeImage}
+                                    // src={perfume.perfumeImage}s
                                     src={productData?.imagePath[selectedImage]}
+
                                     sx={{
                                         // height: '400px',
                                         height: '100%',
@@ -223,7 +231,9 @@ function PerfumeDetail({ productData, onHandleClick }) {
                                             right: '-4%',
                                         },
                                     }}
+
                                     disabled={selectedImage === productData.imagePath.length - 1}
+
                                 >
                                     <ArrowForwardIosIcon
                                         sx={{
@@ -238,7 +248,9 @@ function PerfumeDetail({ productData, onHandleClick }) {
                             </Box>
 
                             <Box sx={{ display: 'flex', overflowX: 'scroll' }}>
+
                                 {productData.imagePath.map((image, index) => (
+
                                     <Box
                                         key={index}
                                         alt="Quick View Image"
@@ -270,11 +282,13 @@ function PerfumeDetail({ productData, onHandleClick }) {
                         {/* product name */}
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
                             {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
+
                             {productData.nameEn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 1 }}>
                             <strong>{t('common.productDetails.brand')}: </strong>
                             <span>{productData ? productData?.brand.nameEn : 'Loading...'}</span>
+
                             {/* <span>Maison Francis Kurkdjian Paris</span> */}
                         </CustomizeTypography>
                         <CustomizeTypography>
@@ -353,7 +367,9 @@ function PerfumeDetail({ productData, onHandleClick }) {
                             />
                             {/* product sold quantity */}
                             <CustomizeTypography sx={{ ml: 1 }}>
+
                                 {t('common.productDetails.sold')} {productData.unitsSold}
+
                             </CustomizeTypography>
                         </Box>
 
@@ -452,7 +468,9 @@ function PerfumeDetail({ productData, onHandleClick }) {
 
                         {/* Product Size */}
                         <Box sx={{ display: 'flex' }}>
+
                             {productData?.variants.map((size, index) => (
+
                                 <Button
                                     key={index}
                                     sx={{
@@ -509,7 +527,9 @@ function PerfumeDetail({ productData, onHandleClick }) {
                 </Grid>
             </Container>
             <CustomizeDivider />
+
             <ProductInformation productInformation={productData} />
+
         </Box>
     );
 }

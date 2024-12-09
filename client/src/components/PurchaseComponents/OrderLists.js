@@ -131,7 +131,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
     return (
         <>
             {/* sample data*/}
-            {ordersListData?.map((order, index) => (
+            {/* {ordersListData?.map((order, index) => (
                 <Box
                     sx={{
                         bgcolor: '#555',
@@ -200,7 +200,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                         </PDFDownloadLink>
                     </Box>
                 </Box>
-            ))}
+            ))} */}
 
             {/* real data */}
             {orderHistory?.map((order, index) => (
@@ -243,7 +243,7 @@ export const OrderLists = ({ ordersListData, orderHistory }) => {
                     </Grid>
 
                     <CustomizeDividerVertical8 />
-                    <OrderItemV2 listData={order.items} />
+                    <OrderItemV2 listData={order.items} orderId={order._id} />
                     <CustomizeDividerVertical8 />
                     <Box
                         sx={{

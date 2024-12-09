@@ -29,7 +29,7 @@ function Comments({ perfumeDetailData, reference }) {
             }}
             ref={reference}
         >
-            <SampleCommentData commentsData={commentsData} />
+            {/* <SampleCommentData commentsData={commentsData} /> */}
             <CommentOnProductData commentsData={reviewData?.data} />
         </Container>
     );
