@@ -32,6 +32,7 @@ function AccountInfo() {
     const userData = JSON.parse(localStorage.getItem('user_data'));
     const [editAccount, setEditAccount] = useState(true);
     const [selectedImage, setSelectedImage] = useState(userData?.imagePath);
+    const [imgData, setImgData] = React.useState();
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
 
     const handleClickEdit = () => {
@@ -54,11 +55,13 @@ function AccountInfo() {
                     ...userData,
                     firstName,
                     lastName,
-                    imagePath: selectedImage,
                     phoneNumber,
                     address,
                 };
-                const updateUserInfor = await userAPI.updateUserProfile(userData.userId, data);
+                const formData = new FormData();
+                Object.keys(data).forEach((key) => formData.append(key, data[key]));
+                formData.append('imagePath', imgData);
+                const updateUserInfor = await userAPI.updateUserProfile(userData.userId, formData);
                 if (updateUserInfor.status === 200) {
                     window.localStorage.setItem('user_data', JSON.stringify(data));
                     setEditAccount(true);
@@ -99,6 +102,7 @@ function AccountInfo() {
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             setSelectedImage(imageUrl);
+            setImgData(file);
         }
     };
 
