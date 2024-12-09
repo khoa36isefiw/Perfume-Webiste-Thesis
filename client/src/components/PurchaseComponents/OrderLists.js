@@ -21,7 +21,7 @@ import generatePDF from 'react-to-pdf';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const OrderLists = ({ ordersListData, orderHistory }) => {
+export const OrderLists = ({ orderHistory }) => {
     const navigate = useNavigate();
     const targetRef = useRef();
     const { t, i18n } = useTranslation('translate');

@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Button } from '@mui/material';
-
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
-
-import { orderHistoryData } from './orderHistoryData';
 
 import useOrderByUser from '../../api/useOrderByUser';
 
@@ -151,7 +148,7 @@ function MyPurchase() {
                     },
                 }}
             >
-                <OrderLists ordersListData={orderHistoryData} orderHistory={filterListOrders} />
+                <OrderLists orderHistory={filterListOrders} />
             </Grid>
         </Grid>
     );
