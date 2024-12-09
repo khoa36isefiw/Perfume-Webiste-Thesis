@@ -10,13 +10,13 @@ import { useTranslation } from 'react-i18next';
 import useReviewOnProduct from '../../api/useReviewOnProduct';
 import { formatDate, formatDateWithTime } from '../FormatDate/formatDate';
 
-function Comments({ perfumeDetailData }) {
+function Comments({ perfumeDetailData, reference }) {
     // const commentsList =
     //     useSelector((state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId);
     const commentsList = [];
     const { t } = useTranslation('translate');
 
-    const { data: reviewData, isLoading } = useReviewOnProduct(perfumeDetailData?._id);
+    const { data: reviewData, isLoading } = useReviewOnProduct(perfumeDetailData?.product._id);
     console.log('reviewData: ', reviewData?.data);
 
     return (
@@ -27,6 +27,7 @@ function Comments({ perfumeDetailData }) {
                     px: 1,
                 },
             }}
+            ref={reference}
         >
             {/* <SampleCommentData commentsData={commentsData} /> */}
             <CommentOnProductData commentsData={reviewData?.data} />
@@ -56,6 +57,7 @@ const ShopResponse = () => {
 };
 
 const SampleCommentData = ({ commentsData }) => {
+    const { t } = useTranslation('translate');
     return (
         <>
             {commentsData.map((comment, index) => (
@@ -102,7 +104,7 @@ const SampleCommentData = ({ commentsData }) => {
                                         },
                                     }}
                                 >
-                                    Đã mua hàng tại Tomtoc Perfumes
+                                    {t('common.review.bought')}
                                 </CustomizeTypography>
                             </Box>
                             {/* stars, rating */}
@@ -137,6 +139,7 @@ const SampleCommentData = ({ commentsData }) => {
 };
 
 const CommentOnProductData = ({ commentsData }) => {
+    const { t } = useTranslation('translate');
     return (
         <>
             {Array.isArray(commentsData) &&
@@ -185,7 +188,7 @@ const CommentOnProductData = ({ commentsData }) => {
                                             },
                                         }}
                                     >
-                                        Đã mua hàng tại Tomtoc Perfumes
+                                        {t('common.review.bought')}
                                     </CustomizeTypography>
                                 </Box>
                                 {/* stars, rating */}

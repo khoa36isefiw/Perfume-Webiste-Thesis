@@ -45,6 +45,9 @@
         "High to Low": "Cao đến Thấp",
         "Name A -> Z": "Tên: A -> Z",
         "Name Z -> A": "Tên: Z -> A",
+        "review": {
+            "bought": "Đã mua hàng tại Tomtoc Perfumes"
+        },
         "notifyMessage": {
             "sub": {
                 "title": "Đăng ký nhận bản tin",
@@ -124,7 +127,7 @@
                 "title": "Thanh toán thành công",
                 "content": "Thanh toán của bạn đã được thực hiện thành công.",
                 "total": "Tổng thanh toán",
-                "number": "Số tham chiếu",
+                "number": "Số điện thoại",
                 "time": "Thời gian thanh toán",
                 "method": "Thanh toán bằng",
                 "name": "Tên người gửi",

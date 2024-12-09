@@ -7,27 +7,24 @@ import { ratingData } from './ratingData';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-    resetAllIsCommented,
-    saveComments,
-} from '../../redux/feature/CommentsManagement/CommentsManagementSlice';
-
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useTranslation } from 'react-i18next';
 import { reviewsAPI } from '../../api/reviewsAPI';
 import { useLocation } from 'react-router-dom';
+import useUserReviewsProduct from '../../api/useUserReviewsProduct';
 
 function RatingProduct({ perfumeDetailData }) {
-    const dispatch = useDispatch();
+
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const orderId = queryParams.get('orderId');
     const { t, i18n } = useTranslation('translate');
     const reviewInputRef = useRef(null);
     const [commentRights, setCommentRights] = useState(false);
-    const userData = JSON.parse(window.localStorage.getItem('user_data'));
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
-    const [comments, setComments] = useState([]);
+    const userData = JSON.parse(window.localStorage.getItem('user_data')) || '';
+    const { data: userReviews, isLoading } = useUserReviewsProduct(userData?.userId);
+    console.log('userReviews: ', userReviews?.data);
+
     const [ratingValue, setRatingValue] = useState(0);
 
     console.log('userData: ', userData);
@@ -46,27 +43,6 @@ function RatingProduct({ perfumeDetailData }) {
         }
     }, [location]);
 
-    // const commentsList = useSelector(
-    //     (state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId
-    // );
-    const commentsList = [];
-
-    // console.log('commentsList: ', commentsList);
-
-    const findUser = commentsList.find((user) => user?.userId === loggedInAccount?.userId);
-    // console.log('findUser: ', findUser);
-
-    const orderHistory = useSelector(
-        // get for each user
-        (state) => state.checkoutManagement.listOrders[loggedInAccount?.userId] || [],
-    );
-
-    // const handleFocusReview = () => {
-    //     if (reviewInputRef.current) {
-    //         reviewInputRef.current.focus();
-    //     }
-    // };
-
     const handleComment = async () => {
         const newComment = reviewInputRef.current.value; // value of textfield by ref
 
@@ -79,28 +55,13 @@ function RatingProduct({ perfumeDetailData }) {
         };
 
         if (newComment && ratingValue) {
+
             const reviewProduct = await reviewsAPI.createReview(data);
+
             if (reviewProduct.status === 200) {
                 console.log('reviewProduct: ', reviewProduct);
             }
         }
-    };
-
-    // console.log('current rights: ', commentRights);
-
-    // returns the length of the list of comments based on the rating number
-    // trả về độ dài của list comments dựa trên rating number
-    const getRatingCount = (ratingNumber) => {
-        // return the list of users based on ratingNumber
-        return commentsList.filter((comment) => comment.ratingValue === ratingNumber).length;
-    };
-
-    // calculating the average rating
-    const calculateAverageRating = () => {
-        if (commentsList.length === 0) return 0; // doesn't have rating
-        // calculate total of rating value from comment list
-        const totalRating = commentsList.reduce((acc, comment) => acc + comment.ratingValue, 0);
-        return (totalRating / commentsList.length).toFixed(1);
     };
 
     return (
@@ -117,7 +78,8 @@ function RatingProduct({ perfumeDetailData }) {
             </CustomizeTypography>
             {/* number of ratings */}
             <CustomizeTypography>
-                2 {t(`common.productDetails.ratingFor`)} {perfumeDetailData?.nameEn}
+                {perfumeDetailData?.product.numReviews} {t(`common.productDetails.ratingFor`)}{' '}
+                {perfumeDetailData?.product.nameEn}
             </CustomizeTypography>
             <Grid container>
                 <Grid
@@ -167,7 +129,7 @@ function RatingProduct({ perfumeDetailData }) {
                                     }}
                                 >
                                     {/* 5.0 */}
-                                    {calculateAverageRating()}
+                                    {perfumeDetailData.product.rating.toFixed(1)}
                                 </CustomizeTypography>
                                 <StarIcon
                                     sx={{
@@ -208,7 +170,14 @@ function RatingProduct({ perfumeDetailData }) {
                     >
                         <Box>
                             {ratingData.map((rating, index) => {
-                                const ratingCount = getRatingCount(rating.numberOfRating);
+                                const isGreaterThanZero =
+                                    perfumeDetailData.reviewData[rating.numberOfRating];
+
+                                console.log(
+                                    `isGreaterThanZero with ${rating.numberOfRating}: `,
+                                    isGreaterThanZero,
+                                );
+
                                 return (
                                     <Box sx={{ display: 'flex', alignItems: 'center' }} key={index}>
                                         <CustomizeTypography>
@@ -233,7 +202,7 @@ function RatingProduct({ perfumeDetailData }) {
                                                 height: '15px',
                                                 borderRadius: '4px',
                                                 bgcolor:
-                                                    ratingCount > 0
+                                                    isGreaterThanZero > 0
                                                         ? theme.palette.text.secondary
                                                         : '#ccc', // rating
 
@@ -256,7 +225,8 @@ function RatingProduct({ perfumeDetailData }) {
                                             }}
                                         />
                                         <CustomizeTypography>
-                                            {ratingCount} {t(`common.productDetails.rate`)}
+                                            {perfumeDetailData.reviewData[rating.numberOfRating]}{' '}
+                                            {t(`common.productDetails.rate`)}
                                         </CustomizeTypography>
                                     </Box>
                                 );
@@ -286,25 +256,16 @@ function RatingProduct({ perfumeDetailData }) {
                         />
                     </Grid>
                 </Grid>
-                {/* {!findUser?.isCommented && commentRights && ( */}
-                {!findUser?.isCommented && commentRights && (
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <CustomizeTypography sx={{ fontSize: '18px', fontWeight: '600', mt: 4 }}>
-                            {t(`common.productDetails.writeComment`)}
-                        </CustomizeTypography>
-                    </Grid>
-                )}
 
                 {/* comment region */}
                 {/*  check if the user has bought product, bought --> can comment
                 -> commented --> hide the comment box region: !findUser?.isCommented
                  */}
-                {/* {!findUser?.isCommented && commentRights && ( */}
 
                 <Grid item container lg={12}>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <CustomizeTypography>
-                            Give our your review about product {perfumeDetailData?.nameEn}
+                            Give our your review about product {perfumeDetailData?.product.nameEn}
                         </CustomizeTypography>
                     </Grid>
                     {/* rating region*/}

@@ -20,7 +20,7 @@ import CustomizeDivider from '../CustomizeDivider/CustomizeDivider';
 import ProductInformation from '../ProductInformation/ProductInformation';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
-function PerfumeDetail() {
+function PerfumeDetail({ productData, onHandleClick }) {
     const { LoadingAPI } = useLoadingV2();
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
 
@@ -30,25 +30,15 @@ function PerfumeDetail() {
     const { t, i18n } = useTranslation('translate');
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
     // const productInformation = JSON.parse(window.localStorage.getItem('productInfor')) || null;
-    const locationPath = location.pathname.split('/');
-    console.log('currentQueryParams: ', location.pathname);
-    console.log('split: ', locationPath[locationPath.length - 1]);
-    console.log();
-
-    const {
-        data: productData,
-        isLoading,
-        error,
-    } = useProductById(locationPath[locationPath.length - 1]);
-
-    console.log('productData: ', productData?.data?.product);
 
     const [selectedSize, setSelectedSize] = useState(null);
 
     // update selectedSize after product data is loaded
     useEffect(() => {
-        if (productData?.data?.product?.variants?.length > 0) {
-            const firstVariant = productData?.data?.product.variants[0];
+
+        if (productData?.variants?.length > 0) {
+            const firstVariant = productData.variants[0];
+
             setSelectedSize({
                 size: firstVariant.size,
                 price: firstVariant.price,
@@ -62,7 +52,8 @@ function PerfumeDetail() {
 
     const handleNext = () => {
         // Check if current image is the last one
-        if (selectedImage < productData?.data?.product?.imagePath?.length - 1) {
+
+        if (selectedImage < productData?.imagePath.length - 1) {
             setSelectedImage((prevIndex) => prevIndex + 1); // Move to the next image
         }
     };
@@ -81,7 +72,9 @@ function PerfumeDetail() {
         if (userData) {
             const userId = userData.userId; // id user here
             const mockData = {
-                product: productData?.data?.product?._id, // id product here
+
+                product: productData?._id, // id product here
+
                 variant: selectedSize?.variantIDSelected, // id variant here
                 quantity: 1,
             };
@@ -109,20 +102,20 @@ function PerfumeDetail() {
     const handleSizeSelected = (index) => {
         // setSelectedSize(size);
         setSelectedSize({
-            size: productData?.data?.product?.variants[index].size,
-            price: productData?.data?.product?.variants[index].price,
-            priceSale: productData?.data?.product?.variants[index].priceSale,
-            variantIDSelected: productData?.data?.product?.variants[index]?._id,
-            discount: productData?.data?.product?.variants[index]?.discountPercent,
-            numberStock: productData?.data?.product?.variants[index]?.stock,
+
+            size: productData?.variants[index].size,
+            price: productData?.variants[index].price,
+            priceSale: productData?.variants[index].priceSale,
+            variantIDSelected: productData?.variants[index]?._id,
+            discount: productData?.variants[index]?.discountPercent,
+            numberStock: productData?.variants[index]?.stock,
+
         });
     };
 
     // console.log('selectedSize: ', selectedSize);
 
-    if (isLoading) {
-        return <LoadingAPI />;
-    }
+    const scrollToDiv = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
     return (
         <Box
@@ -209,8 +202,9 @@ function PerfumeDetail() {
                                 </IconButton>
                                 <Box
                                     component={'img'}
-                                    // src={perfume.perfumeImage}
-                                    src={productData?.data?.product?.imagePath[selectedImage]}
+                                    // src={perfume.perfumeImage}s
+                                    src={productData?.imagePath[selectedImage]}
+
                                     sx={{
                                         // height: '400px',
                                         height: '100%',
@@ -237,10 +231,9 @@ function PerfumeDetail() {
                                             right: '-4%',
                                         },
                                     }}
-                                    disabled={
-                                        selectedImage ===
-                                        productData?.data?.product.imagePath.length - 1
-                                    }
+
+                                    disabled={selectedImage === productData.imagePath.length - 1}
+
                                 >
                                     <ArrowForwardIosIcon
                                         sx={{
@@ -255,7 +248,9 @@ function PerfumeDetail() {
                             </Box>
 
                             <Box sx={{ display: 'flex', overflowX: 'scroll' }}>
-                                {productData?.data?.product.imagePath.map((image, index) => (
+
+                                {productData.imagePath.map((image, index) => (
+
                                     <Box
                                         key={index}
                                         alt="Quick View Image"
@@ -287,15 +282,13 @@ function PerfumeDetail() {
                         {/* product name */}
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
                             {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
-                            {productData?.data?.product.nameEn}
+
+                            {productData.nameEn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 1 }}>
                             <strong>{t('common.productDetails.brand')}: </strong>
-                            <span>
-                                {productData?.data?.product
-                                    ? productData?.data?.product?.brand.nameEn
-                                    : 'Loading...'}
-                            </span>
+                            <span>{productData ? productData?.brand.nameEn : 'Loading...'}</span>
+
                             {/* <span>Maison Francis Kurkdjian Paris</span> */}
                         </CustomizeTypography>
                         <CustomizeTypography>
@@ -318,7 +311,7 @@ function PerfumeDetail() {
                         <CustomizeTypography>
                             {/* Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và
                             tiệc tối đẳng cấp. */}
-                            {productData.data.shortDescription}
+                            {productData.shortDescription}
                         </CustomizeTypography>
                         <Box
                             sx={{
@@ -327,11 +320,14 @@ function PerfumeDetail() {
                                 // justifyContent: 'space-between',
                             }}
                         >
-                            <CustomizeTypography>5.0</CustomizeTypography>
+                            {/* average rating */}
+                            <CustomizeTypography>
+                                {productData.rating.toFixed(1)}
+                            </CustomizeTypography>
 
                             <Rating
                                 readOnly
-                                value={5}
+                                value={productData.rating.toFixed(1)}
                                 // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                 sx={{
                                     fontSize: '18px',
@@ -355,10 +351,10 @@ function PerfumeDetail() {
                                     },
                                 }}
                                 // handle for showing comments and reviews
-                                // onClick={}
+                                onClick={onHandleClick}
                             >
                                 {/* ({commentsList.length > 0 ? commentsList.length : 0}{' '} */}
-                                {t('common.productDetails.rate')} 0
+                                {t('common.productDetails.rate')} {productData.numReviews}
                             </CustomizeTypography>
                             <Box
                                 sx={{
@@ -371,8 +367,9 @@ function PerfumeDetail() {
                             />
                             {/* product sold quantity */}
                             <CustomizeTypography sx={{ ml: 1 }}>
-                                {t('common.productDetails.sold')}{' '}
-                                {productData?.data?.product.unitsSold}
+
+                                {t('common.productDetails.sold')} {productData.unitsSold}
+
                             </CustomizeTypography>
                         </Box>
 
@@ -471,7 +468,9 @@ function PerfumeDetail() {
 
                         {/* Product Size */}
                         <Box sx={{ display: 'flex' }}>
-                            {productData?.data?.product?.variants.map((size, index) => (
+
+                            {productData?.variants.map((size, index) => (
+
                                 <Button
                                     key={index}
                                     sx={{
@@ -528,7 +527,9 @@ function PerfumeDetail() {
                 </Grid>
             </Container>
             <CustomizeDivider />
-            <ProductInformation productInformation={productData?.data?.product} />
+
+            <ProductInformation productInformation={productData} />
+
         </Box>
     );
 }

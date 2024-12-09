@@ -13,6 +13,7 @@ import {
     Tooltip,
     IconButton,
     ListItemText,
+    Paper,
 } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -236,7 +237,13 @@ const AdminAddProduct = () => {
                         <Avatar
                             alt={`Product Image ${index + 1}`}
                             src={image}
-                            sx={{ width: 128, height: 128, marginBottom: 2, borderRadius: 0 }}
+                            sx={{
+                                width: 156,
+                                height: 156,
+                                marginBottom: 2,
+                                borderRadius: 0,
+                                border: '1px solid #d5d5d5',
+                            }}
                         />
                         <Button onClick={() => handleRemoveImage(index)}>Remove</Button>
                     </Box>
@@ -264,6 +271,7 @@ const AdminAddProduct = () => {
             </Button>
 
             {/* select size */}
+            {/* <Paper sx={{ p: 2, maxHeight: '400px', overflow: 'scroll' }}> */}
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <TextField
                     label="Product Name"
@@ -387,6 +395,7 @@ const AdminAddProduct = () => {
                     </Select>
                 </FormControl>
             </Box>
+            {/* </Paper> */}
 
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <AdminButtonDesign
