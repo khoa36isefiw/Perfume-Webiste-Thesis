@@ -24,9 +24,7 @@ export default function AddUsers() {
     // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('image: ', image);
         const userInfor = { avatar: image, name, email, password, address, phoneNumber };
-        console.log('user informmation: ', userInfor);
 
         // Send POST request to add user
         const response = await fetch(

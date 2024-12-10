@@ -52,24 +52,19 @@ function AdminEditBrand() {
         return false;
     };
 
-    console.log('brand name: ', name);
-
     const handleUpdate = async (e) => {
         e.preventDefault();
         if (!checkError()) {
             const brandId = brand?._id;
-            console.log('brandId: ', brandId);
             const updateData = {
                 nameEn: name.value,
                 nameVn: name.value,
                 descriptionEN: description.value,
             };
-            console.log('updateData: ', updateData);
             const updateBrandResponse = await brandApi.updateBrand(brandId, updateData);
 
             // call api to create new user
             if (updateBrandResponse.status === 200) {
-                console.log('updateBrandResponse: ', updateBrandResponse);
                 showNotificationMessage('success', 'Update Brand', 'Cập nhật brand mới thành công');
                 setTimeout(() => {
                     navigate('/admin/manage-brands');

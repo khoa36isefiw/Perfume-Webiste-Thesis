@@ -19,8 +19,6 @@ import useLoading from '../../hooks/useLoading';
 import { useEffect } from 'react';
 import CategoryFilter from '../CategoryFilter/CategoryFilter';
 import { useTranslation } from 'react-i18next';
-import useProductByCategory from '../../api/useProductByCategory';
-import { productAPI } from '../../api/productAPI';
 
 function PerfumesCard() {
     const { t } = useTranslation('translate');
@@ -43,7 +41,6 @@ function PerfumesCard() {
     useEffect(() => {
         mutate(); // render after choose params to filter
     }, [searchQuery, brandFilter, sortingFilter]);
-    // console.log('current data âhiahi: ', products);
 
     // console.log('productDataByCategory: ', productDataByCategory?.data);
     const [productData, setProductData] = useState([]);
@@ -78,7 +75,7 @@ function PerfumesCard() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    console.log('productData:', productData);
+    // console.log('productData:', productData);
 
     return (
         <React.Fragment>

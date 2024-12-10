@@ -22,7 +22,7 @@ function BestSellingProducts() {
     // cut the perfumeData list, just use 5 items in array
     const { data: products } = useLatestProduct();
     const latestProducts = products?.data;
-    console.log('latestProducts: ',latestProducts);
+    // console.log('latestProducts: ', latestProducts);
     const handleNavigateProductDetails = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
         navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}`);
@@ -165,7 +165,7 @@ function BestSellingProducts() {
 
 export default BestSellingProducts;
 
-function CustomizeNextArrow({ onClick }) {
+export function CustomizeNextArrow({ onClick }) {
     return (
         <IconButton
             onClick={onClick}
@@ -182,7 +182,7 @@ function CustomizeNextArrow({ onClick }) {
     );
 }
 
-function CustomizPreviousArrow({ onClick }) {
+export function CustomizPreviousArrow({ onClick }) {
     return (
         <IconButton
             onClick={onClick}
