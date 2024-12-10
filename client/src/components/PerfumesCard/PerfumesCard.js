@@ -19,35 +19,21 @@ import useLoading from '../../hooks/useLoading';
 import { useEffect } from 'react';
 import CategoryFilter from '../CategoryFilter/CategoryFilter';
 import { useTranslation } from 'react-i18next';
+import useProductByCategory from '../../api/useProductByCategory';
+import { productAPI } from '../../api/productAPI';
 
 function PerfumesCard() {
     const { t } = useTranslation('translate');
-    const navigate = useNavigate();
-    const language = window.localStorage.getItem('language');
-    console.log('language222: ', language);
-    const [visibleCount, setVisibleCount] = useState(8);
-
-    const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
-    // const [sortingSelected, setSortingSelected] = useState('');
-    // const [brandSelected, setBrandSelected] = useState('');
-
-    const handleNavigationProductDetail = (perfume) => {
-        // navigate to the product detail page and pass the perfume data as state
-        // navigate(`/${language}/product/${perfume._id}`, { state: { perfume } }); // old playground
-
-        // new playground
-        navigate(`/${language}/${perfume.nameEn}/${perfume._id}`); // new playground
-
-        window.localStorage.setItem('productInfor', JSON.stringify(perfume));
-        backTop();
-    };
-
     const searchQuery = localStorage.getItem('search_query') || null;
-    // JSON.parse(localStorage.getItem('user_data')) || null;
     const brandFilter = JSON.parse(localStorage.getItem('filter')) || null;
     const sortingFilter = JSON.parse(localStorage.getItem('sortBy')) || null;
-    console.log('searchQuery: ', searchQuery);
-
+    const selectedCategory = JSON.parse(window.localStorage.getItem('category')) || '';
+    console.log('selectedCategory: ', selectedCategory);
+    const navigate = useNavigate();
+    const language = window.localStorage.getItem('language');
+    const [visibleCount, setVisibleCount] = useState(8);
+    const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
+    const [cId, setCId] = useState(null);
     const {
         data: products,
         isLoading,
@@ -57,22 +43,42 @@ function PerfumesCard() {
     useEffect(() => {
         mutate(); // render after choose params to filter
     }, [searchQuery, brandFilter, sortingFilter]);
-    console.log('current data âhiahi: ', products);
+    // console.log('current data âhiahi: ', products);
+
+    // console.log('productDataByCategory: ', productDataByCategory?.data);
+    const [productData, setProductData] = useState([]);
+    useEffect(() => {
+        setProductData(products?.data);
+    }, [products?.data]);
+
+    const productFilteredByCategory = cId
+        ? productData?.filter((cId) => cId.category._id === selectedCategory._id)
+        : products?.data;
+
+    const handleNavigationProductDetail = (perfume) => {
+        // new playground
+        navigate(`/${language}/${perfume.nameEn}/${perfume._id}`); // new playground
+        window.localStorage.setItem('productInfor', JSON.stringify(perfume));
+        backTop();
+    };
 
     useEffect(() => {
         const handleScroll = () => {
             // check if it doesn't load all product
-            if (
-                window.innerHeight + window.scrollY >= document.body.offsetHeight &&
-                visibleCount < products?.data?.length
-            ) {
-                setVisibleCount((prev) => prev + 8);
-            }
+            // if (
+            //     //
+            //     window.innerHeight + window.scrollY >= document.body.offsetHeight - 400 &&
+            //     visibleCount < productData?.length
+            // ) {
+            //     setVisibleCount((prev) => prev + 8);
+            // }
         };
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    console.log('productData:', productData);
 
     return (
         <React.Fragment>
@@ -112,12 +118,13 @@ function PerfumesCard() {
                             // sortingSelected={sortingSelected}
                             // setSortingSelected={setSortingSelected}
                         />
-                        <CategoryFilter />
+                        <CategoryFilter setCId={setCId} />
                     </Box>
-                    {products?.data?.length ? (
+                    {productFilteredByCategory?.length > 0 ? (
                         <Grid container spacing={2}>
                             {/* loading product  */}
-                            {products?.data?.slice(0, visibleCount).map(
+                            {/* {products?.data?.slice(0, visibleCount).map( */}
+                            {productFilteredByCategory.map(
                                 (perfume, index) =>
                                     perfume.status !== 'inactive' && (
                                         <Grid item xs={6} sm={4} md={3} lg={3} key={index}>

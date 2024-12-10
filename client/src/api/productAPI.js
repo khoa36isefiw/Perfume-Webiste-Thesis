@@ -18,4 +18,9 @@ export const productAPI = {
         const url = `/products/${id}/delete`;
         return axiosClient.put(url);
     },
+
+    getProductByCategory: (categoryId) => {
+        const url = `/products/category/${categoryId}`;
+        return axiosClient.get(url);
+    },
 };
