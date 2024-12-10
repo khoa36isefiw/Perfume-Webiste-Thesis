@@ -1,0 +1,2944 @@
+[
+    {
+        "_id": "67546c22dccbf06e455c14b0",
+        "nameVn": "Burberry london for women",
+        "nameEn": "Burberry london for women",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733585954/tomtoc%20store/hz8oka1mnm7qx4hprx0z.jpg"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "6754695bdccbf06e455c1468",
+            "nameVn": "Burberry",
+            "nameEn": "Burberry",
+            "descriptionEN": "Burberry",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:23.390Z",
+            "updatedAt": "2024-12-07T15:27:23.390Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67546c22dccbf06e455c14b2",
+                "product": "67546c22dccbf06e455c14b0",
+                "size": "100ml",
+                "priceSale": 1299000,
+                "price": 2050000,
+                "discountPercent": 37,
+                "stock": 96,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 4.5,
+        "numReviews": 2,
+        "unitsSold": 2,
+        "status": "active",
+        "createdAt": "2024-12-07T15:39:14.309Z",
+        "updatedAt": "2024-12-09T07:52:40.254Z",
+        "__v": 1,
+        "minPriceSale": 1299000
+    },
+    {
+        "_id": "67546d00dccbf06e455c14ce",
+        "nameVn": "Calvin Klein CK Eternity For Women",
+        "nameEn": "Calvin Klein CK Eternity For Women",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733586176/tomtoc%20store/b7y1jghdqiczflfif3ua.jpg"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546920dccbf06e455c145c",
+            "nameVn": "Calvin Klein",
+            "nameEn": "Calvin Klein",
+            "descriptionEN": "Calvin Klein",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:24.375Z",
+            "updatedAt": "2024-12-07T15:26:24.375Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67546d00dccbf06e455c14d0",
+                "product": "67546d00dccbf06e455c14ce",
+                "size": "100ml",
+                "priceSale": 990000,
+                "price": 1500000,
+                "discountPercent": 34,
+                "stock": 95,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 4,
+        "numReviews": 2,
+        "unitsSold": 4,
+        "status": "active",
+        "createdAt": "2024-12-07T15:42:56.565Z",
+        "updatedAt": "2024-12-08T17:14:22.113Z",
+        "__v": 1,
+        "minPriceSale": 990000
+    },
+    {
+        "_id": "67546db6dccbf06e455c14f8",
+        "nameVn": "Carolina Herrera 212 Heroes For Her EDP",
+        "nameEn": "Carolina Herrera 212 Heroes For Her EDP",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733586357/tomtoc%20store/xkhouq4pacjhf7capzaz.jpg"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469fbdccbf06e455c14a1",
+            "nameVn": "Carolina Herrera",
+            "nameEn": "Carolina Herrera",
+            "descriptionEN": "Carolina Herrera",
+            "status": "active",
+            "createdAt": "2024-12-07T15:30:03.530Z",
+            "updatedAt": "2024-12-07T15:30:03.530Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67546db6dccbf06e455c14fa",
+                "product": "67546db6dccbf06e455c14f8",
+                "size": "100ml",
+                "priceSale": 3500000,
+                "price": 4800000,
+                "discountPercent": 27,
+                "stock": 100,
+                "__v": 0
+            },
+            {
+                "_id": "67546db6dccbf06e455c14fb",
+                "product": "67546db6dccbf06e455c14f8",
+                "size": "50ml",
+                "priceSale": 1800000,
+                "price": 2500000,
+                "discountPercent": 28,
+                "stock": 98,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 1,
+        "status": "active",
+        "createdAt": "2024-12-07T15:45:58.326Z",
+        "updatedAt": "2024-12-08T15:37:57.816Z",
+        "__v": 1,
+        "minPriceSale": 1800000
+    },
+    {
+        "_id": "67546e63dccbf06e455c152f",
+        "nameVn": "Gucci Bloom Ambrosia Di Fiori EDP Intense",
+        "nameEn": "Gucci Bloom Ambrosia Di Fiori EDP Intense",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733586531/tomtoc%20store/hogq7qxrpuxygt2yr3gb.png"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546931dccbf06e455c145f",
+            "nameVn": "Gucci",
+            "nameEn": "Gucci",
+            "descriptionEN": "Gucci",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:41.117Z",
+            "updatedAt": "2024-12-07T15:26:41.117Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67546e63dccbf06e455c1531",
+                "product": "67546e63dccbf06e455c152f",
+                "size": "100ml",
+                "priceSale": 2280000,
+                "price": 3870000,
+                "discountPercent": 41,
+                "stock": 87,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 3.6666666666666665,
+        "numReviews": 12,
+        "unitsSold": 7,
+        "status": "active",
+        "createdAt": "2024-12-07T15:48:51.568Z",
+        "updatedAt": "2024-12-09T04:54:15.367Z",
+        "__v": 1,
+        "minPriceSale": 2280000
+    },
+    {
+        "_id": "6755dc4dea7da36845f7b885",
+        "nameVn": "Dior Pure Poison EDP",
+        "nameEn": "Dior Pure Poison EDP",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733680209/tomtoc%20store/vjdubec98n6d3r4ccbnu.jpg",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733680209/tomtoc%20store/axb0mohdr5nodoodcsoe.jpg"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546942dccbf06e455c1462",
+            "nameVn": "Dior",
+            "nameEn": "Dior",
+            "descriptionEN": "Dior",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:58.446Z",
+            "updatedAt": "2024-12-07T15:26:58.446Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755dc4dea7da36845f7b887",
+                "product": "6755dc4dea7da36845f7b885",
+                "size": "100ml",
+                "priceSale": 2850000,
+                "price": 3500000,
+                "discountPercent": 19,
+                "stock": 100,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T17:50:05.419Z",
+        "updatedAt": "2024-12-08T17:50:05.596Z",
+        "__v": 1,
+        "minPriceSale": 2850000
+    },
+    {
+        "_id": "6755dc9aea7da36845f7b8a0",
+        "nameVn": "Chanel Coco Noir EDP",
+        "nameEn": "Chanel Coco Noir EDP",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733680285/tomtoc%20store/fdrjp0ojtqrfbrcezela.jpg",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733680285/tomtoc%20store/wtggco7tdr971sul5u6s.jpg"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546950dccbf06e455c1465",
+            "nameVn": "Chanel",
+            "nameEn": "Chanel",
+            "descriptionEN": "Chanel",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:12.310Z",
+            "updatedAt": "2024-12-07T15:27:12.310Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755dc9aea7da36845f7b8a2",
+                "product": "6755dc9aea7da36845f7b8a0",
+                "size": "100ml",
+                "priceSale": 3850000,
+                "price": 4850000,
+                "discountPercent": 21,
+                "stock": 96,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 2,
+        "numReviews": 2,
+        "unitsSold": 2,
+        "status": "active",
+        "createdAt": "2024-12-08T17:51:22.253Z",
+        "updatedAt": "2024-12-09T04:40:24.397Z",
+        "__v": 1,
+        "minPriceSale": 3850000
+    },
+    {
+        "_id": "6755dde8ea7da36845f7b923",
+        "nameVn": "Hermes Kelly Caleche",
+        "nameEn": "Hermes Kelly Caleche",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733680617/tomtoc%20store/rj8ollbi9f1czgprjk6o.jpg",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733680619/tomtoc%20store/pjcqkffdpbz3uh00lgfj.jpg"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469dedccbf06e455c1499",
+            "nameVn": "Hermes",
+            "nameEn": "Hermes",
+            "descriptionEN": "Hermes",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:34.769Z",
+            "updatedAt": "2024-12-07T15:29:34.769Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755dde8ea7da36845f7b925",
+                "product": "6755dde8ea7da36845f7b923",
+                "size": "100ml",
+                "priceSale": 3590000,
+                "price": 3990000,
+                "discountPercent": 10,
+                "stock": 100,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T17:56:56.132Z",
+        "updatedAt": "2024-12-08T17:56:56.239Z",
+        "__v": 1,
+        "minPriceSale": 3590000
+    },
+    {
+        "_id": "6755debcea7da36845f7b9a4",
+        "nameVn": "Moschino Toy 2 Bubble Gum Eau De Toilette",
+        "nameEn": "Moschino Toy 2 Bubble Gum Eau De Toilette",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733680832/tomtoc%20store/tgifg8cfown2syo6getd.jpg"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469d6dccbf06e455c1495",
+            "nameVn": "Moschino",
+            "nameEn": "Moschino",
+            "descriptionEN": "Moschino",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:26.337Z",
+            "updatedAt": "2024-12-07T15:29:26.337Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755debdea7da36845f7b9a6",
+                "product": "6755debcea7da36845f7b9a4",
+                "size": "100ml",
+                "priceSale": 1800000,
+                "price": 2225000,
+                "discountPercent": 19,
+                "stock": 100,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:00:28.948Z",
+        "updatedAt": "2024-12-08T18:00:29.124Z",
+        "__v": 1,
+        "minPriceSale": 1800000
+    },
+    {
+        "_id": "6755df00ea7da36845f7b9bf",
+        "nameVn": "Narciso Rodriguez Narciso Pure Musc For Her EDP",
+        "nameEn": "Narciso Rodriguez Narciso Pure Musc For Her EDP",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733680900/tomtoc%20store/de33d8aylzvbu32yjfir.jpg"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469ebdccbf06e455c149d",
+            "nameVn": "Narciso Rodriguez",
+            "nameEn": "Narciso Rodriguez",
+            "descriptionEN": "Narciso Rodriguez",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:47.826Z",
+            "updatedAt": "2024-12-07T15:29:47.826Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755df00ea7da36845f7b9c1",
+                "product": "6755df00ea7da36845f7b9bf",
+                "size": "100ml",
+                "priceSale": 2350000,
+                "price": 2870000,
+                "discountPercent": 18,
+                "stock": 100,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:01:36.186Z",
+        "updatedAt": "2024-12-08T18:01:36.386Z",
+        "__v": 1,
+        "minPriceSale": 2350000
+    },
+    {
+        "_id": "6755dfd8ea7da36845f7b9fe",
+        "nameVn": "Calvin Klein Euphoria Men Intense",
+        "nameEn": "Calvin Klein Euphoria Men Intense",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733681116/tomtoc%20store/cloedaq4ou67rsujzb6w.jpg"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546920dccbf06e455c145c",
+            "nameVn": "Calvin Klein",
+            "nameEn": "Calvin Klein",
+            "descriptionEN": "Calvin Klein",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:24.375Z",
+            "updatedAt": "2024-12-07T15:26:24.375Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755dfd8ea7da36845f7ba00",
+                "product": "6755dfd8ea7da36845f7b9fe",
+                "size": "100ml",
+                "priceSale": 1250000,
+                "price": 2710000,
+                "discountPercent": 54,
+                "stock": 100,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:05:12.527Z",
+        "updatedAt": "2024-12-08T18:05:12.635Z",
+        "__v": 1,
+        "minPriceSale": 1250000
+    },
+    {
+        "_id": "6755e0f7ea7da36845f7ba25",
+        "nameVn": "A Chant For The Nymph",
+        "nameEn": "A Chant For The Nymph",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733681403/tomtoc%20store/xlrlapogeniqg16ascsx.jpg"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546931dccbf06e455c145f",
+            "nameVn": "Gucci",
+            "nameEn": "Gucci",
+            "descriptionEN": "Gucci",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:41.117Z",
+            "updatedAt": "2024-12-07T15:26:41.117Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e0f7ea7da36845f7ba27",
+                "product": "6755e0f7ea7da36845f7ba25",
+                "size": "100ml",
+                "priceSale": 5889000,
+                "price": 7900000,
+                "discountPercent": 25,
+                "stock": 100,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:09:59.506Z",
+        "updatedAt": "2024-12-08T18:09:59.623Z",
+        "__v": 1,
+        "minPriceSale": 5889000
+    },
+    {
+        "_id": "6755e18fea7da36845f7ba46",
+        "nameVn": "Gucci A Song For The Rose",
+        "nameEn": "Gucci A Song For The Rose",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733681554/tomtoc%20store/bkeji0knbofzitl3mrgt.jpg"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546931dccbf06e455c145f",
+            "nameVn": "Gucci",
+            "nameEn": "Gucci",
+            "descriptionEN": "Gucci",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:41.117Z",
+            "updatedAt": "2024-12-07T15:26:41.117Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e18fea7da36845f7ba48",
+                "product": "6755e18fea7da36845f7ba46",
+                "size": "100ml",
+                "priceSale": 5900000,
+                "price": 7960000,
+                "discountPercent": 26,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:12:31.354Z",
+        "updatedAt": "2024-12-08T18:12:32.614Z",
+        "__v": 1,
+        "minPriceSale": 5900000
+    },
+    {
+        "_id": "6755e2f9ea7da36845f7ba63",
+        "nameVn": "Hortus Sanitatis, Papyrus and Cedarwood",
+        "nameEn": "Hortus Sanitatis, Papyrus and Cedarwood",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733681912/tomtoc%20store/xkdtluxv3hje87pjzpll.jpg"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546931dccbf06e455c145f",
+            "nameVn": "Gucci",
+            "nameEn": "Gucci",
+            "descriptionEN": "Gucci",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:41.117Z",
+            "updatedAt": "2024-12-07T15:26:41.117Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e2f9ea7da36845f7ba65",
+                "product": "6755e2f9ea7da36845f7ba63",
+                "size": "100ml",
+                "priceSale": 6190000,
+                "price": 7200000,
+                "discountPercent": 14,
+                "stock": 100,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:18:33.497Z",
+        "updatedAt": "2024-12-08T18:18:33.618Z",
+        "__v": 1,
+        "minPriceSale": 6190000
+    },
+    {
+        "_id": "6755e389ea7da36845f7ba7c",
+        "nameVn": "Chanel Bleu De Chanel Eau de Parfum",
+        "nameEn": "Chanel Bleu De Chanel Eau de Parfum",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682057/tomtoc%20store/zxos5qlivruzppphd6az.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546950dccbf06e455c1465",
+            "nameVn": "Chanel",
+            "nameEn": "Chanel",
+            "descriptionEN": "Chanel",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:12.310Z",
+            "updatedAt": "2024-12-07T15:27:12.310Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e389ea7da36845f7ba7e",
+                "product": "6755e389ea7da36845f7ba7c",
+                "size": "50ml",
+                "priceSale": 3250000,
+                "price": 3500000,
+                "discountPercent": 7,
+                "stock": 10,
+                "__v": 0
+            },
+            {
+                "_id": "6755e389ea7da36845f7ba7f",
+                "product": "6755e389ea7da36845f7ba7c",
+                "size": "100ml",
+                "priceSale": 4350000,
+                "price": 4350000,
+                "discountPercent": 0,
+                "stock": 1,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:20:57.832Z",
+        "updatedAt": "2024-12-08T18:20:57.955Z",
+        "__v": 1,
+        "minPriceSale": 3250000
+    },
+    {
+        "_id": "6755e410ea7da36845f7baa7",
+        "nameVn": "Calvin Klein Defy Eau de Parfum",
+        "nameEn": "Calvin Klein Defy Eau de Parfum",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682191/tomtoc%20store/tbumid5lkjypkmpmpwb4.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682191/tomtoc%20store/oilaj4ufe0ygvwaneb8r.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546920dccbf06e455c145c",
+            "nameVn": "Calvin Klein",
+            "nameEn": "Calvin Klein",
+            "descriptionEN": "Calvin Klein",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:24.375Z",
+            "updatedAt": "2024-12-07T15:26:24.375Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e410ea7da36845f7baa9",
+                "product": "6755e410ea7da36845f7baa7",
+                "size": "100ml",
+                "priceSale": 2300000,
+                "price": 2760000,
+                "discountPercent": 17,
+                "stock": 5,
+                "__v": 0
+            },
+            {
+                "_id": "6755e410ea7da36845f7baaa",
+                "product": "6755e410ea7da36845f7baa7",
+                "size": "50ml",
+                "priceSale": 1990000,
+                "price": 1990000,
+                "discountPercent": 0,
+                "stock": 2,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:23:12.087Z",
+        "updatedAt": "2024-12-08T18:23:12.301Z",
+        "__v": 1,
+        "minPriceSale": 1990000
+    },
+    {
+        "_id": "6755e528ea7da36845f7baea",
+        "nameVn": "Burberry Hero",
+        "nameEn": "Burberry Hero",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682471/tomtoc%20store/acy5jiui45pxhyrmylvy.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682471/tomtoc%20store/ilcrwnygarlwg38bzo0y.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682470/tomtoc%20store/rrzd3datgeflixsiib1r.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "6754695bdccbf06e455c1468",
+            "nameVn": "Burberry",
+            "nameEn": "Burberry",
+            "descriptionEN": "Burberry",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:23.390Z",
+            "updatedAt": "2024-12-07T15:27:23.390Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e528ea7da36845f7baec",
+                "product": "6755e528ea7da36845f7baea",
+                "size": "100ml",
+                "priceSale": 2850000,
+                "price": 3000000,
+                "discountPercent": 5,
+                "stock": 8,
+                "__v": 0
+            },
+            {
+                "_id": "6755e528ea7da36845f7baed",
+                "product": "6755e528ea7da36845f7baea",
+                "size": "50ml",
+                "priceSale": 2100000,
+                "price": 2300000,
+                "discountPercent": 9,
+                "stock": 2,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 5,
+        "numReviews": 1,
+        "unitsSold": 1,
+        "status": "active",
+        "createdAt": "2024-12-08T18:27:52.082Z",
+        "updatedAt": "2024-12-09T15:25:21.647Z",
+        "__v": 1,
+        "minPriceSale": 2100000
+    },
+    {
+        "_id": "6755e5dbea7da36845f7bb4d",
+        "nameVn": "Calvin Klein My Euphoria Mini Size",
+        "nameEn": "Calvin Klein My Euphoria Mini Size",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682650/tomtoc%20store/r5zw4cbilz2hdzhuc7yp.webp"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546920dccbf06e455c145c",
+            "nameVn": "Calvin Klein",
+            "nameEn": "Calvin Klein",
+            "descriptionEN": "Calvin Klein",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:24.375Z",
+            "updatedAt": "2024-12-07T15:26:24.375Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e5dbea7da36845f7bb4f",
+                "product": "6755e5dbea7da36845f7bb4d",
+                "size": "9ml",
+                "priceSale": 359000,
+                "price": 390000,
+                "discountPercent": 8,
+                "stock": 8,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 1,
+        "status": "active",
+        "createdAt": "2024-12-08T18:30:51.173Z",
+        "updatedAt": "2024-12-09T15:58:04.118Z",
+        "__v": 1,
+        "minPriceSale": 359000
+    },
+    {
+        "_id": "6755e621ea7da36845f7bb5f",
+        "nameVn": "Calvin Klein Euphoria Blush",
+        "nameEn": "Calvin Klein Euphoria Blush",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682721/tomtoc%20store/hhlshxrqqwncrohjhmbs.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682721/tomtoc%20store/hjpixwxbbdstsjugdr3g.webp"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546920dccbf06e455c145c",
+            "nameVn": "Calvin Klein",
+            "nameEn": "Calvin Klein",
+            "descriptionEN": "Calvin Klein",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:24.375Z",
+            "updatedAt": "2024-12-07T15:26:24.375Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e621ea7da36845f7bb61",
+                "product": "6755e621ea7da36845f7bb5f",
+                "size": "100ml",
+                "priceSale": 1450000,
+                "price": 2940000,
+                "discountPercent": 51,
+                "stock": 3,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:32:01.705Z",
+        "updatedAt": "2024-12-08T18:32:01.811Z",
+        "__v": 1,
+        "minPriceSale": 1450000
+    },
+    {
+        "_id": "6755e66cea7da36845f7bb73",
+        "nameVn": "Calvin Klein CK one Shock for him",
+        "nameEn": "Calvin Klein CK one Shock for him",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682795/tomtoc%20store/vzkkmrvtmgdfvji3yjao.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682795/tomtoc%20store/iqmpkdtj6bmoukjxiy7v.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546920dccbf06e455c145c",
+            "nameVn": "Calvin Klein",
+            "nameEn": "Calvin Klein",
+            "descriptionEN": "Calvin Klein",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:24.375Z",
+            "updatedAt": "2024-12-07T15:26:24.375Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e66cea7da36845f7bb75",
+                "product": "6755e66cea7da36845f7bb73",
+                "size": "100ml",
+                "priceSale": 1600000,
+                "price": 1760000,
+                "discountPercent": 9,
+                "stock": 2,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 5,
+        "numReviews": 2,
+        "unitsSold": 2,
+        "status": "active",
+        "createdAt": "2024-12-08T18:33:16.421Z",
+        "updatedAt": "2024-12-09T06:36:57.908Z",
+        "__v": 1,
+        "minPriceSale": 1600000
+    },
+    {
+        "_id": "6755e6d3ea7da36845f7bb8b",
+        "nameVn": "Dior Sauvage Elixir",
+        "nameEn": "Dior Sauvage Elixir",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682898/tomtoc%20store/hkltoadps1ynrq2llqn4.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682898/tomtoc%20store/nvu1h7ya1jpwzrfshbub.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682898/tomtoc%20store/zc6rqe8dyuebfbiz9jmy.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682898/tomtoc%20store/s7ch7jcrckwedr7xjh5i.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546942dccbf06e455c1462",
+            "nameVn": "Dior",
+            "nameEn": "Dior",
+            "descriptionEN": "Dior",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:58.446Z",
+            "updatedAt": "2024-12-07T15:26:58.446Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e6d3ea7da36845f7bb8d",
+                "product": "6755e6d3ea7da36845f7bb8b",
+                "size": "65ml",
+                "priceSale": 3750000,
+                "price": 3850000,
+                "discountPercent": 3,
+                "stock": -1,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 5,
+        "numReviews": 1,
+        "unitsSold": 1,
+        "status": "active",
+        "createdAt": "2024-12-08T18:34:59.086Z",
+        "updatedAt": "2024-12-09T03:56:12.296Z",
+        "__v": 1,
+        "minPriceSale": 3750000
+    },
+    {
+        "_id": "6755e711ea7da36845f7bbad",
+        "nameVn": "Christian Dior Dune",
+        "nameEn": "Christian Dior Dune",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682961/tomtoc%20store/mugtcbpkb3kte2nmtolu.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733682961/tomtoc%20store/zkwizxnyy1exyad3kacy.webp"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546942dccbf06e455c1462",
+            "nameVn": "Dior",
+            "nameEn": "Dior",
+            "descriptionEN": "Dior",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:58.446Z",
+            "updatedAt": "2024-12-07T15:26:58.446Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e711ea7da36845f7bbaf",
+                "product": "6755e711ea7da36845f7bbad",
+                "size": "100ml",
+                "priceSale": 2650000,
+                "price": 2990000,
+                "discountPercent": 11,
+                "stock": 3,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:36:01.857Z",
+        "updatedAt": "2024-12-08T18:36:01.964Z",
+        "__v": 1,
+        "minPriceSale": 2650000
+    },
+    {
+        "_id": "6755e7b9ea7da36845f7bbf0",
+        "nameVn": "Moschino Gold Fresh Couture",
+        "nameEn": "Moschino Gold Fresh Couture",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683127/tomtoc%20store/nizuayy2s76frij9v7eo.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683128/tomtoc%20store/uzn3cx9umsxnnidctfxo.jpg",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683127/tomtoc%20store/yypqdz1000yzlpgkzzdm.jpg"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469d6dccbf06e455c1495",
+            "nameVn": "Moschino",
+            "nameEn": "Moschino",
+            "descriptionEN": "Moschino",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:26.337Z",
+            "updatedAt": "2024-12-07T15:29:26.337Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e7b9ea7da36845f7bbf2",
+                "product": "6755e7b9ea7da36845f7bbf0",
+                "size": "100ml",
+                "priceSale": 1880000,
+                "price": 2380000,
+                "discountPercent": 21,
+                "stock": 2,
+                "__v": 0
+            },
+            {
+                "_id": "6755e7b9ea7da36845f7bbf3",
+                "product": "6755e7b9ea7da36845f7bbf0",
+                "size": "50ml",
+                "priceSale": 1400000,
+                "price": 1780000,
+                "discountPercent": 21,
+                "stock": 4,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:38:49.414Z",
+        "updatedAt": "2024-12-08T18:38:49.849Z",
+        "__v": 1,
+        "minPriceSale": 1400000
+    },
+    {
+        "_id": "6755e809ea7da36845f7bc0e",
+        "nameVn": "Carolina Herrera Bad Boy Cobalt Elixir Mini Size",
+        "nameEn": "Carolina Herrera Bad Boy Cobalt Elixir Mini Size",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683209/tomtoc%20store/aif8s0nfluyixxfqk5tk.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683209/tomtoc%20store/gextd0oidipcyo9j4bwe.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469fbdccbf06e455c14a1",
+            "nameVn": "Carolina Herrera",
+            "nameEn": "Carolina Herrera",
+            "descriptionEN": "Carolina Herrera",
+            "status": "active",
+            "createdAt": "2024-12-07T15:30:03.530Z",
+            "updatedAt": "2024-12-07T15:30:03.530Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e80aea7da36845f7bc10",
+                "product": "6755e809ea7da36845f7bc0e",
+                "size": "9ml",
+                "priceSale": 380000,
+                "price": 380000,
+                "discountPercent": 0,
+                "stock": -1,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 4,
+        "numReviews": 2,
+        "unitsSold": 1,
+        "status": "active",
+        "createdAt": "2024-12-08T18:40:09.962Z",
+        "updatedAt": "2024-12-09T05:33:24.885Z",
+        "__v": 1,
+        "minPriceSale": 380000
+    },
+    {
+        "_id": "6755e85fea7da36845f7bc2b",
+        "nameVn": "Carolina Herrera Very Good Girl Glam",
+        "nameEn": "Carolina Herrera Very Good Girl Glam",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683295/tomtoc%20store/hyluaeg5zbznoubarthr.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683295/tomtoc%20store/jgrdu59naowwmtxz0g8i.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683295/tomtoc%20store/yspk3avoiqestyvge9xt.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683294/tomtoc%20store/u0nrz43dqlh59crt7deo.jpg"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469fbdccbf06e455c14a1",
+            "nameVn": "Carolina Herrera",
+            "nameEn": "Carolina Herrera",
+            "descriptionEN": "Carolina Herrera",
+            "status": "active",
+            "createdAt": "2024-12-07T15:30:03.530Z",
+            "updatedAt": "2024-12-07T15:30:03.530Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e85fea7da36845f7bc2d",
+                "product": "6755e85fea7da36845f7bc2b",
+                "size": "100ml",
+                "priceSale": 3590000,
+                "price": 3990000,
+                "discountPercent": 10,
+                "stock": 5,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:41:35.920Z",
+        "updatedAt": "2024-12-08T18:41:36.035Z",
+        "__v": 1,
+        "minPriceSale": 3590000
+    },
+    {
+        "_id": "6755e91dea7da36845f7bc6a",
+        "nameVn": "Narciso Rodriguez For Her Forever",
+        "nameEn": "Narciso Rodriguez For Her Forever",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683483/tomtoc%20store/odkf5jxkgq8iyfdmmodq.jpg",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683483/tomtoc%20store/kkxvdjlhlkq0vdjubi6q.png",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683484/tomtoc%20store/kkszdkm52cutebnqqrom.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683485/tomtoc%20store/buwllegasyejcyrcxnnw.webp"
+        ],
+        "category": {
+            "_id": "6754698cdccbf06e455c1476",
+            "nameVn": "Nữ",
+            "nameEn": "Nữ",
+            "parent": null,
+            "descriptionEn": "Nữ",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:12.924Z",
+            "updatedAt": "2024-12-07T15:28:12.924Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469ebdccbf06e455c149d",
+            "nameVn": "Narciso Rodriguez",
+            "nameEn": "Narciso Rodriguez",
+            "descriptionEN": "Narciso Rodriguez",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:47.826Z",
+            "updatedAt": "2024-12-07T15:29:47.826Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755e91dea7da36845f7bc6c",
+                "product": "6755e91dea7da36845f7bc6a",
+                "size": "100ml",
+                "priceSale": 3280000,
+                "price": 3650000,
+                "discountPercent": 10,
+                "stock": 10,
+                "__v": 0
+            },
+            {
+                "_id": "6755e91dea7da36845f7bc6d",
+                "product": "6755e91dea7da36845f7bc6a",
+                "size": "27ml",
+                "priceSale": 1800000,
+                "price": 1850000,
+                "discountPercent": 3,
+                "stock": 4,
+                "__v": 0
+            },
+            {
+                "_id": "6755e91dea7da36845f7bc6e",
+                "product": "6755e91dea7da36845f7bc6a",
+                "size": "50ml",
+                "priceSale": 2100000,
+                "price": 2100000,
+                "discountPercent": 0,
+                "stock": 1,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao h�n và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:44:45.792Z",
+        "updatedAt": "2024-12-08T18:44:46.043Z",
+        "__v": 1,
+        "minPriceSale": 1800000
+    },
+    {
+        "_id": "6755ea84ea7da36845f7bd20",
+        "nameVn": "Yves Saint Laurent YSL Y EDP",
+        "nameEn": "Yves Saint Laurent YSL Y EDP",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683841/tomtoc%20store/gsmjx3tzh83zor1yg08w.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683843/tomtoc%20store/bn938kj9epktu1cxqm9u.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733683842/tomtoc%20store/b3op0nmrvk8kcbesfgbj.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "6755e981ea7da36845f7bcab",
+            "nameVn": "YSL",
+            "nameEn": "YSL",
+            "descriptionEN": "YSL",
+            "status": "active",
+            "createdAt": "2024-12-08T18:46:25.258Z",
+            "updatedAt": "2024-12-08T18:46:25.258Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6755ea84ea7da36845f7bd22",
+                "product": "6755ea84ea7da36845f7bd20",
+                "size": "100ml",
+                "priceSale": 2825000,
+                "price": 3200000,
+                "discountPercent": 12,
+                "stock": 2,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-08T18:50:44.151Z",
+        "updatedAt": "2024-12-08T18:50:44.255Z",
+        "__v": 1,
+        "minPriceSale": 2825000
+    },
+    {
+        "_id": "6757005f5848803fed438e33",
+        "nameVn": "Dior Sauvage Eau Forte Parfum",
+        "nameEn": "Dior Sauvage Eau Forte Parfum",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733754974/tomtoc%20store/enomg5o1tl1uqaaigwcu.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733754974/tomtoc%20store/j6z5o6uivcailuyf2zrx.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546942dccbf06e455c1462",
+            "nameVn": "Dior",
+            "nameEn": "Dior",
+            "descriptionEN": "Dior",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:58.446Z",
+            "updatedAt": "2024-12-07T15:26:58.446Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "675700605848803fed438e35",
+                "product": "6757005f5848803fed438e33",
+                "size": "9ml",
+                "priceSale": 480000,
+                "price": 600000,
+                "discountPercent": 20,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T14:36:15.772Z",
+        "updatedAt": "2024-12-09T14:36:16.281Z",
+        "__v": 1,
+        "minPriceSale": 480000
+    },
+    {
+        "_id": "675700cf8f6c63c7fab9763d",
+        "nameVn": "Dior Homme EDT 100ml",
+        "nameEn": "Dior Homme EDT 100ml",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733755087/tomtoc%20store/hu8tiyjwzrsplzexwfpf.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546942dccbf06e455c1462",
+            "nameVn": "Dior",
+            "nameEn": "Dior",
+            "descriptionEN": "Dior",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:58.446Z",
+            "updatedAt": "2024-12-07T15:26:58.446Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "675700cf8f6c63c7fab9763f",
+                "product": "675700cf8f6c63c7fab9763d",
+                "size": "100ml",
+                "priceSale": 2850000,
+                "price": 3600000,
+                "discountPercent": 21,
+                "stock": 1,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T14:38:07.379Z",
+        "updatedAt": "2024-12-09T14:38:07.871Z",
+        "__v": 1,
+        "minPriceSale": 2850000
+    },
+    {
+        "_id": "67570564af4d83e612458754",
+        "nameVn": "Gucci Guilty Love Edition MMXXI EDT",
+        "nameEn": "Gucci Guilty Love Edition MMXXI EDT",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756259/tomtoc%20store/bkqifsxh8nha4y9oavjc.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756259/tomtoc%20store/wku09ggp0lyctkzegvmp.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546931dccbf06e455c145f",
+            "nameVn": "Gucci",
+            "nameEn": "Gucci",
+            "descriptionEN": "Gucci",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:41.117Z",
+            "updatedAt": "2024-12-07T15:26:41.117Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67570564af4d83e612458756",
+                "product": "67570564af4d83e612458754",
+                "size": "100ml",
+                "priceSale": 1750000,
+                "price": 2540000,
+                "discountPercent": 31,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T14:57:40.238Z",
+        "updatedAt": "2024-12-09T14:57:40.759Z",
+        "__v": 1,
+        "minPriceSale": 1750000
+    },
+    {
+        "_id": "675705e4af4d83e612458761",
+        "nameVn": "Yves Saint Laurent YSL La Nuit L'homme Men EDT",
+        "nameEn": "Yves Saint Laurent YSL La Nuit L'homme Men EDT",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756387/tomtoc%20store/qbashnts36dwgjlwfpfi.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756387/tomtoc%20store/x0uxzktgxr7vxdruuhis.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756387/tomtoc%20store/oxdcdvrxksacilpaoshd.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756387/tomtoc%20store/j5aikl4bmx65rlmosgpt.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "6755e981ea7da36845f7bcab",
+            "nameVn": "YSL",
+            "nameEn": "YSL",
+            "descriptionEN": "YSL",
+            "status": "active",
+            "createdAt": "2024-12-08T18:46:25.258Z",
+            "updatedAt": "2024-12-08T18:46:25.258Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "675705e4af4d83e612458763",
+                "product": "675705e4af4d83e612458761",
+                "size": "100ml",
+                "priceSale": 2090000,
+                "price": 2800000,
+                "discountPercent": 25,
+                "stock": 1,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T14:59:48.031Z",
+        "updatedAt": "2024-12-09T14:59:48.507Z",
+        "__v": 1,
+        "minPriceSale": 2090000
+    },
+    {
+        "_id": "67570654abdb64567aaebbcb",
+        "nameVn": "Yves Saint Laurent YSL Y Le Parfum",
+        "nameEn": "Yves Saint Laurent YSL Y Le Parfum",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756499/tomtoc%20store/nrpnsy0v4u50zqab6lh1.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756499/tomtoc%20store/qnuxw7udx2a6eusw6hvy.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756499/tomtoc%20store/vcc9ip5gkqsbvyarwdzp.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "6755e981ea7da36845f7bcab",
+            "nameVn": "YSL",
+            "nameEn": "YSL",
+            "descriptionEN": "YSL",
+            "status": "active",
+            "createdAt": "2024-12-08T18:46:25.258Z",
+            "updatedAt": "2024-12-08T18:46:25.258Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67570654abdb64567aaebbcd",
+                "product": "67570654abdb64567aaebbcb",
+                "size": "100ml",
+                "priceSale": 2590000,
+                "price": 3250000,
+                "discountPercent": 20,
+                "stock": 10,
+                "__v": 0
+            },
+            {
+                "_id": "67570654abdb64567aaebbce",
+                "product": "67570654abdb64567aaebbcb",
+                "size": "65ml",
+                "priceSale": 2090000,
+                "price": 2850000,
+                "discountPercent": 27,
+                "stock": 3,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:01:40.370Z",
+        "updatedAt": "2024-12-09T15:01:40.828Z",
+        "__v": 1,
+        "minPriceSale": 2090000
+    },
+    {
+        "_id": "675706adabdb64567aaebbda",
+        "nameVn": "Terre D'Hermes Eau de Toilette",
+        "nameEn": "Terre D'Hermes Eau de Toilette",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756588/tomtoc%20store/et6oez97zma9ozzt0ol1.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756588/tomtoc%20store/pasxcqusuhububiosoeo.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469dedccbf06e455c1499",
+            "nameVn": "Hermes",
+            "nameEn": "Hermes",
+            "descriptionEN": "Hermes",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:34.769Z",
+            "updatedAt": "2024-12-07T15:29:34.769Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "675706adabdb64567aaebbdc",
+                "product": "675706adabdb64567aaebbda",
+                "size": "100ml",
+                "priceSale": 2090000,
+                "price": 2800000,
+                "discountPercent": 25,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:03:09.262Z",
+        "updatedAt": "2024-12-09T15:03:09.723Z",
+        "__v": 1,
+        "minPriceSale": 2090000
+    },
+    {
+        "_id": "675707386670f96b0151699b",
+        "nameVn": "Moschino Toy Boy Eau De Parfum",
+        "nameEn": "Moschino Toy Boy Eau De Parfum",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756728/tomtoc%20store/fd8fr0ph9z5b1dn21cae.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756728/tomtoc%20store/mpukconpusdvvmfdkzx1.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469d6dccbf06e455c1495",
+            "nameVn": "Moschino",
+            "nameEn": "Moschino",
+            "descriptionEN": "Moschino",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:26.337Z",
+            "updatedAt": "2024-12-07T15:29:26.337Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "675707396670f96b0151699d",
+                "product": "675707386670f96b0151699b",
+                "size": "100ml",
+                "priceSale": 1800000,
+                "price": 2225000,
+                "discountPercent": 19,
+                "stock": 100,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:05:28.990Z",
+        "updatedAt": "2024-12-09T15:05:29.448Z",
+        "__v": 1,
+        "minPriceSale": 1800000
+    },
+    {
+        "_id": "675707fcf6ead649ed6887f0",
+        "nameVn": "Chanel Allure Homme Sport EDT",
+        "nameEn": "Chanel Allure Homme Sport EDT",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756923/tomtoc%20store/rxd8ctik6tq0xwxsxt1x.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756923/tomtoc%20store/qakybnece1pqoilnz0mi.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756923/tomtoc%20store/srpelcv4a4rrmbqae56c.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733756923/tomtoc%20store/sbpvwvgppcpv8dsu8alh.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546950dccbf06e455c1465",
+            "nameVn": "Chanel",
+            "nameEn": "Chanel",
+            "descriptionEN": "Chanel",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:12.310Z",
+            "updatedAt": "2024-12-07T15:27:12.310Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "675707fcf6ead649ed6887f2",
+                "product": "675707fcf6ead649ed6887f0",
+                "size": "100ml",
+                "priceSale": 2940000,
+                "price": 3500000,
+                "discountPercent": 16,
+                "stock": 1,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:08:44.525Z",
+        "updatedAt": "2024-12-09T15:08:45.006Z",
+        "__v": 1,
+        "minPriceSale": 2940000
+    },
+    {
+        "_id": "6757090aabdb64567aaebc0d",
+        "nameVn": "Chanel Allure Homme Sport Superleggera EDP",
+        "nameEn": "Chanel Allure Homme Sport Superleggera EDP",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757194/tomtoc%20store/y0o6ky2eaujpv7eq1y0p.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757194/tomtoc%20store/iafzx4sps3fkldoojexy.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757194/tomtoc%20store/geq8ostwbvjaitkelxnc.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757194/tomtoc%20store/yrmaallua5abggxerz7q.webp"
+        ],
+        "category": {
+            "_id": "6754697edccbf06e455c1470",
+            "nameVn": "Nam",
+            "nameEn": "Nam",
+            "parent": null,
+            "descriptionEn": "Nam",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:58.072Z",
+            "updatedAt": "2024-12-07T15:27:58.072Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546950dccbf06e455c1465",
+            "nameVn": "Chanel",
+            "nameEn": "Chanel",
+            "descriptionEN": "Chanel",
+            "status": "active",
+            "createdAt": "2024-12-07T15:27:12.310Z",
+            "updatedAt": "2024-12-07T15:27:12.310Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "6757090babdb64567aaebc0f",
+                "product": "6757090aabdb64567aaebc0d",
+                "size": "100ml",
+                "priceSale": 3750000,
+                "price": 4800000,
+                "discountPercent": 22,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:13:14.830Z",
+        "updatedAt": "2024-12-09T15:13:15.290Z",
+        "__v": 1,
+        "minPriceSale": 3750000
+    },
+    {
+        "_id": "675709b1f6ead649ed68881a",
+        "nameVn": "Moschino Toy 2 Pearl Eau De Parfum",
+        "nameEn": "Moschino Toy 2 Pearl Eau De Parfum",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757360/tomtoc%20store/a2kjngkraevdvnrpvepc.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757360/tomtoc%20store/wifqnv1p52v8pv07hk0f.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757360/tomtoc%20store/towzzgcack5ehmknpszm.webp"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469d6dccbf06e455c1495",
+            "nameVn": "Moschino",
+            "nameEn": "Moschino",
+            "descriptionEN": "Moschino",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:26.337Z",
+            "updatedAt": "2024-12-07T15:29:26.337Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "675709b1f6ead649ed68881c",
+                "product": "675709b1f6ead649ed68881a",
+                "size": "100ml",
+                "priceSale": 1950000,
+                "price": 2750000,
+                "discountPercent": 29,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:16:01.079Z",
+        "updatedAt": "2024-12-09T15:16:01.555Z",
+        "__v": 1,
+        "minPriceSale": 1950000
+    },
+    {
+        "_id": "675709eaf6ead649ed688826",
+        "nameVn": " Calvin Klein CK One Gold EDT",
+        "nameEn": " Calvin Klein CK One Gold EDT",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757418/tomtoc%20store/p1oyprbdn3ymsk0ejlen.webp"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546920dccbf06e455c145c",
+            "nameVn": "Calvin Klein",
+            "nameEn": "Calvin Klein",
+            "descriptionEN": "Calvin Klein",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:24.375Z",
+            "updatedAt": "2024-12-07T15:26:24.375Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "675709ebf6ead649ed688828",
+                "product": "675709eaf6ead649ed688826",
+                "size": "100ml",
+                "priceSale": 990000,
+                "price": 1250000,
+                "discountPercent": 21,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:16:58.921Z",
+        "updatedAt": "2024-12-09T15:16:59.392Z",
+        "__v": 1,
+        "minPriceSale": 990000
+    },
+    {
+        "_id": "67570a2cf6ead649ed688833",
+        "nameVn": "Calvin Klein CK One Reflections EDT Spray",
+        "nameEn": "Calvin Klein CK One Reflections EDT Spray",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757483/tomtoc%20store/ulfeqsycqiueni1zpwj9.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757483/tomtoc%20store/bbzl3fskqbeppocg9ttu.webp"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546920dccbf06e455c145c",
+            "nameVn": "Calvin Klein",
+            "nameEn": "Calvin Klein",
+            "descriptionEN": "Calvin Klein",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:24.375Z",
+            "updatedAt": "2024-12-07T15:26:24.375Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67570a2cf6ead649ed688835",
+                "product": "67570a2cf6ead649ed688833",
+                "size": "100ml",
+                "priceSale": 1250000,
+                "price": 1850000,
+                "discountPercent": 32,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:18:04.029Z",
+        "updatedAt": "2024-12-09T15:18:04.501Z",
+        "__v": 1,
+        "minPriceSale": 1250000
+    },
+    {
+        "_id": "67570a88b6ec71d3e964369d",
+        "nameVn": " Calvin Klein Ck One Summer Limited Edition EDT",
+        "nameEn": " Calvin Klein Ck One Summer Limited Edition EDT",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757576/tomtoc%20store/tn7uuri9snbwk1owsazm.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757576/tomtoc%20store/u3ine6ikkbpukhn6dcqj.webp"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546920dccbf06e455c145c",
+            "nameVn": "Calvin Klein",
+            "nameEn": "Calvin Klein",
+            "descriptionEN": "Calvin Klein",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:24.375Z",
+            "updatedAt": "2024-12-07T15:26:24.375Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67570a89b6ec71d3e964369f",
+                "product": "67570a88b6ec71d3e964369d",
+                "size": "100ml",
+                "priceSale": 1150000,
+                "price": 1950000,
+                "discountPercent": 41,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:19:36.872Z",
+        "updatedAt": "2024-12-09T15:19:37.351Z",
+        "__v": 1,
+        "minPriceSale": 1150000
+    },
+    {
+        "_id": "67570b02b6ec71d3e96436a8",
+        "nameVn": "Unisex Hermes Un Jardin Sur Le Toit ",
+        "nameEn": "Unisex Hermes Un Jardin Sur Le Toit ",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757697/tomtoc%20store/hbj2bnqmjppw1zdqszeb.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757697/tomtoc%20store/sdr9hxtdibima2qrwdqz.webp"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469dedccbf06e455c1499",
+            "nameVn": "Hermes",
+            "nameEn": "Hermes",
+            "descriptionEN": "Hermes",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:34.769Z",
+            "updatedAt": "2024-12-07T15:29:34.769Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67570b02b6ec71d3e96436aa",
+                "product": "67570b02b6ec71d3e96436a8",
+                "size": "100ml",
+                "priceSale": 2150000,
+                "price": 2300000,
+                "discountPercent": 7,
+                "stock": 1,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:21:38.056Z",
+        "updatedAt": "2024-12-09T15:21:38.541Z",
+        "__v": 1,
+        "minPriceSale": 2150000
+    },
+    {
+        "_id": "67570b626670f96b015169ec",
+        "nameVn": "Hermès Hermessence Vetiver Tonka EDT",
+        "nameEn": "Hermès Hermessence Vetiver Tonka EDT",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757794/tomtoc%20store/zzpt35teijyvwrwan0cm.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757794/tomtoc%20store/plvzrztwf57g0xufjlpu.webp"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469dedccbf06e455c1499",
+            "nameVn": "Hermes",
+            "nameEn": "Hermes",
+            "descriptionEN": "Hermes",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:34.769Z",
+            "updatedAt": "2024-12-07T15:29:34.769Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67570b626670f96b015169ee",
+                "product": "67570b626670f96b015169ec",
+                "size": "100ml",
+                "priceSale": 4890000,
+                "price": 6800000,
+                "discountPercent": 28,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:23:14.565Z",
+        "updatedAt": "2024-12-09T15:23:15.083Z",
+        "__v": 1,
+        "minPriceSale": 4890000
+    },
+    {
+        "_id": "67570babf6ead649ed688860",
+        "nameVn": "Hermès L'ambre Des Merveilles Eau De Parfum",
+        "nameEn": "Hermès L'ambre Des Merveilles Eau De Parfum",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757867/tomtoc%20store/dqluam0niuqn63vdwkxj.webp"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469dedccbf06e455c1499",
+            "nameVn": "Hermes",
+            "nameEn": "Hermes",
+            "descriptionEN": "Hermes",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:34.769Z",
+            "updatedAt": "2024-12-07T15:29:34.769Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67570bacf6ead649ed688862",
+                "product": "67570babf6ead649ed688860",
+                "size": "100ml",
+                "priceSale": 3200000,
+                "price": 3200000,
+                "discountPercent": 0,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:24:27.749Z",
+        "updatedAt": "2024-12-09T15:24:28.268Z",
+        "__v": 1,
+        "minPriceSale": 3200000
+    },
+    {
+        "_id": "67570be9b6ec71d3e96436d7",
+        "nameVn": "Hermes Un Jardin Sur La Lagune EDT",
+        "nameEn": "Hermes Un Jardin Sur La Lagune EDT",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757929/tomtoc%20store/efghzr5o3pdmgeo032wo.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757929/tomtoc%20store/desnbvsfd4h1zbhz337p.webp",
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733757929/tomtoc%20store/pqu2whblww441mzltedg.webp"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "675469dedccbf06e455c1499",
+            "nameVn": "Hermes",
+            "nameEn": "Hermes",
+            "descriptionEN": "Hermes",
+            "status": "active",
+            "createdAt": "2024-12-07T15:29:34.769Z",
+            "updatedAt": "2024-12-07T15:29:34.769Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67570beab6ec71d3e96436d9",
+                "product": "67570be9b6ec71d3e96436d7",
+                "size": "100ml",
+                "priceSale": 2800000,
+                "price": 2800000,
+                "discountPercent": 0,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:25:29.994Z",
+        "updatedAt": "2024-12-09T15:25:30.507Z",
+        "__v": 1,
+        "minPriceSale": 2800000
+    },
+    {
+        "_id": "67570d1cf6ead649ed68887b",
+        "nameVn": "Mini Christian Dior Thé Cachemire",
+        "nameEn": "Mini Christian Dior Thé Cachemire",
+        "imagePath": [
+            "https://res.cloudinary.com/dcg4pmiaf/image/upload/v1733758236/tomtoc%20store/bxh4yej3cv6sb47hbpve.webp"
+        ],
+        "category": {
+            "_id": "675469a8dccbf06e455c147c",
+            "nameVn": "Unisex",
+            "nameEn": "Unisex",
+            "parent": null,
+            "descriptionEn": "Unisex",
+            "status": "active",
+            "createdAt": "2024-12-07T15:28:40.100Z",
+            "updatedAt": "2024-12-07T15:28:40.100Z",
+            "__v": 0
+        },
+        "brand": {
+            "_id": "67546942dccbf06e455c1462",
+            "nameVn": "Dior",
+            "nameEn": "Dior",
+            "descriptionEN": "Dior",
+            "status": "active",
+            "createdAt": "2024-12-07T15:26:58.446Z",
+            "updatedAt": "2024-12-07T15:26:58.446Z",
+            "__v": 0
+        },
+        "variants": [
+            {
+                "_id": "67570d1cf6ead649ed68887d",
+                "product": "67570d1cf6ead649ed68887b",
+                "size": "9ml",
+                "priceSale": 450000,
+                "price": 850000,
+                "discountPercent": 47,
+                "stock": 10,
+                "__v": 0
+            }
+        ],
+        "content": {
+            "origin": "France",
+            "yearOfRelease": "2017",
+            "concentration": "Extrait de Parfum (EDP)",
+            "fragranceGroup": "Oriental Floral",
+            "manufacturer": "Francis Kurkdjian",
+            "shortContent": "Baccarat Rouge 540 Extrait De Parfum by Maison Francis Kurkdjian là một hương thơm thuộc nhóm hương Oriental Floral, được ra mắt vào năm 2017. Đây là phiên bản nồng độ cao hơn và phong phú hơn của Baccarat Rouge 540, do chính Francis Kurkdjian sáng tạo.",
+            "topNotes": "Nghệ tây, Hạnh nhân đắng",
+            "heartNotes": "Hoa nhài Ai Cập, Gỗ tuyết tùng",
+            "baseNotes": "Hương gỗ, 'Hổ phách, Xạ hương",
+            "mainContent": "Baccarat Rouge 540 Extrait De Parfum mở đầu với sự quyến rũ của nghệ tây và hạnh nhân đắng, tạo nên một sự khởi đầu ấm áp và phong phú. Hương giữa là sự kết hợp tinh tế giữa hoa nhài Ai Cập và gỗ tuyết tùng, mang lại sự thanh thoát và sang trọng. Cuối cùng, hương gỗ, hổ phách và xạ hương tạo nên tầng hương cuối ấm áp, sâu lắng và bền bỉ.\n\nBaccarat Rouge 540 Extrait De Parfum mang lại cảm giác sang trọng, quý phái và độc đáo. Hương thơm này rất phù hợp khi sử dụng trong những dịp đặc biệt, tiệc tối hoặc sự kiện đẳng cấp. Nó toát lên sự tự tin và cuốn hút, khiến người sử dụng trở thành tâm điểm chú ý.\n\nThuộc nhóm hương Oriental Floral, Baccarat Rouge 540 Extrait De Parfum phù hợp với những người có gu thẩm mỹ tinh tế, yêu thích sự độc đáo và khác biệt. Họ thường là những người có phong cách riêng biệt, không ngại nổi bật và luôn tìm kiếm sự hoàn hảo. Mùi hương này giúp họ thể hiện sự tự tin và đẳng cấp của mình một cách rõ nét.Sử dụng Baccarat Rouge 540 Extrait De Parfum sẽ giúp bạn xây dựng hình ảnh của một người quý phái, tự tin và đầy sức hút. Đây là mùi hương dành cho những ai muốn để lại ấn tượng mạnh mẽ và khó quên trong mắt người khác.",
+            "longevity": 5,
+            "sillage": 5,
+            "likability": 4
+        },
+        "rating": 0,
+        "numReviews": 0,
+        "unitsSold": 0,
+        "status": "active",
+        "createdAt": "2024-12-09T15:30:36.557Z",
+        "updatedAt": "2024-12-09T15:30:37.075Z",
+        "__v": 1,
+        "minPriceSale": 450000
+    }
+]
