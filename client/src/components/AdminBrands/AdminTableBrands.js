@@ -42,8 +42,6 @@ function AdminTableBrands() {
     const [brandToRemove, setBrandToRemove] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
-    console.log('responsebrands: ', responsebrands);
-
     useEffect(() => {
         setBrands(responsebrands);
     }, [responsebrands]);
@@ -54,14 +52,12 @@ function AdminTableBrands() {
 
     // delete brand
     const handleDeleteBrand = (brandId) => {
-        console.log('brandId id: ', brandId);
         // 1.  open confirm message
         setOpenConfirmMessage(true);
         // 2. store the product information data
         setBrandToRemove({ brandId: brandId });
     };
 
-    console.log('product to remove information: ', brandToRemove);
     // disagree, not delete the products
     const handleConfirmDisagree = () => {
         setOpenConfirmMessage(false);
@@ -69,13 +65,11 @@ function AdminTableBrands() {
     };
 
     const handleConfirmAgree = async () => {
-        console.log('chay vo day');
         if (brandToRemove) {
             const id = brandToRemove.brandId;
             try {
                 // filter products and update rows
                 const deleteResponse = await brandApi.deleteBrand(id);
-                console.log('deleteResponse: ', deleteResponse);
                 mutate();
 
                 if (deleteResponse.status === 200) {
