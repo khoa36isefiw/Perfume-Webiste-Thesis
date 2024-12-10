@@ -112,9 +112,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
 
     // console.log('selectedSize: ', selectedSize);
 
-    const scrollToDiv = (ref) => window.scrollTo(0, ref.current.offsetTop);
-
-    return (
+return (
         <Box
             sx={{
                 mt: 18,

@@ -160,15 +160,12 @@ function PerfumesCard() {
                                                         width: '180px',
                                                         objectFit: 'cover',
                                                         margin: 'auto',
-                                                        // display: 'flex',
-                                                        // alignItems: 'center',
-                                                        // justifyContent: 'center',
-
                                                         [tabletScreen]: {
                                                             mt: 2,
                                                         },
                                                         [mobileScreen]: {
                                                             mt: 2,
+                                                            width: '100%',
                                                         },
                                                     }}
                                                 />
