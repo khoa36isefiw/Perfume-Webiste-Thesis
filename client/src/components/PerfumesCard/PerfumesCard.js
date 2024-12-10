@@ -239,9 +239,7 @@ function PerfumesCard() {
                                                             // mb: 1,
                                                         }}
                                                     >
-                                                        <CustomizeTypography
-                                                            sx={{ mr: '0.5px', mb: 0 }}
-                                                        >
+                                                        <CustomizeTypography sx={{ mr: '0.5px' }}>
                                                             {perfume.rating.toFixed(1)}
                                                         </CustomizeTypography>
                                                         <Rating
@@ -257,16 +255,12 @@ function PerfumesCard() {
                                                                             .main,
                                                                     },
                                                                 mb: 1,
-                                                                [mobileScreen]: {
-                                                                    mb: 0,
-                                                                },
                                                             }}
                                                         />
                                                         {/* number of rating */}
                                                         <CustomizeTypography
                                                             sx={{
                                                                 ml: 2,
-                                                                mb: 0,
                                                             }}
                                                         >
                                                             ({perfume.numReviews})
