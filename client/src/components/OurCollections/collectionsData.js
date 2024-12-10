@@ -37,17 +37,13 @@ export const groupCollection3 = [
         collectionName: 'YSL Treasures Collection',
     },
     {
-        collectionImage:
-            'https://media.istockphoto.com/id/92682250/photo/perfume-bottle-with-crystals.jpg?s=612x612&w=0&k=20&c=EszZxIP7uZloR2zvALSd4uYNaKkl4-Ia01BBiow5Izk=',
-
-        destination: 'Business',
-        collectionName: 'Business Edition Treasures',
+        collectionImage: 'https://i.pinimg.com/736x/dc/83/d4/dc83d438e953b5f0441bab6e10d6ef80.jpg',
+        destination: 'Calvin Klein',
+        // collectionName: 'Calvin Klein Eternity Collection',
     },
     {
-        collectionImage:
-            'https://startupmindset.com/wp-content/uploads/2023/10/front-view-elegant-perfume-colored-flowers-beige-ombre-background-e1695993546527.jpg',
-
-        destination: 'Enery',
-        collectionName: 'Energy - Sweet Collection',
+        collectionImage: 'https://cielparfum.ge/wp-content/uploads/2022/09/terre-dhermes-fasi.jpg',
+        destination: 'Hermes',
+        collectionName: 'Hermes Delights Collection',
     },
 ];

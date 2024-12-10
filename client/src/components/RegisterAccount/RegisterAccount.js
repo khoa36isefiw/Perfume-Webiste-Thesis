@@ -1,7 +1,7 @@
 import { Container, Grid, Box, Tooltip, Typography } from '@mui/material';
 import React, { useRef, useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
+import { TextFieldLogin, TextFieldPassword } from '../TextFieldCustomize/TextFieldCustomize';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import ButtonComponent from '../SignIn/ButtonComponent';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,7 @@ function RegisterAccount() {
 
     const { t, i18n } = useTranslation('translate');
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 
     const [open, setOpen] = useState(false);
 
@@ -52,11 +53,11 @@ function RegisterAccount() {
         const isEmailValid = emailValidation.validateEmail(email);
         const isPasswordValid = passwordValidation.validatePassword(password);
         const isPhoneNumberValid = phoneValidation.validatePhoneNumber(phoneNumber);
-        console.log('isFirstNameValid: ', isFirstNameValid);
-        console.log('isLastNameValid: ', isLastNameValid);
-        console.log('isEmailValid: ', isEmailValid);
-        console.log('isPasswordValid: ', isPasswordValid);
-        console.log('isPhoneNumberValid: ', isPhoneNumberValid);
+        // console.log('isFirstNameValid: ', isFirstNameValid);
+        // console.log('isLastNameValid: ', isLastNameValid);
+        // console.log('isEmailValid: ', isEmailValid);
+        // console.log('isPasswordValid: ', isPasswordValid);
+        // console.log('isPhoneNumberValid: ', isPhoneNumberValid);
 
         if (firstName && lastName && phoneNumber && email && password) {
             if (
@@ -76,7 +77,7 @@ function RegisterAccount() {
                     imagePath: userImage, // default image
                 };
 
-                console.log('registrationData: ', registrationData);
+                // console.log('registrationData: ', registrationData);
 
                 try {
                     const response = await authAPI.registerAccount(registrationData);
@@ -86,6 +87,7 @@ function RegisterAccount() {
                             t('common.notifyMessage.register.regisT'),
                             t('common.notifyMessage.register.regisS'),
                         );
+                        navigate(`/${i18n.language}/sign-in`);
                     } else {
                         showNotificationMessage(
                             'warning',
@@ -127,6 +129,10 @@ function RegisterAccount() {
     const handleNavigateSignIn = () => {
         navigate(`/${i18n.language}/sign-in`);
         backTop();
+    };
+
+    const handleClickShowPassword = () => {
+        setShowCurrentPassword(!showCurrentPassword);
     };
 
     return (
@@ -332,8 +338,10 @@ function RegisterAccount() {
                                         {t('common.register.password')}
                                         <span style={{ color: '#d14949' }}>*</span> :
                                     </CustomizeTypography>
-                                    <TextFieldLogin
-                                        placeholder={t('common.notifyMessage.register.password')}
+                                    <TextFieldPassword
+                                        showPassword={showCurrentPassword}
+                                        onHandleClick={handleClickShowPassword}
+                                        placeholder={t('common.notifyMessage.login.pass')}
                                         fullWidth
                                         inputRef={passwordRef}
                                     />

@@ -1,7 +1,7 @@
 import { Box, Container, Grid } from '@mui/material';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { TextFieldLogin } from '../TextFieldCustomize/TextFieldCustomize';
+import { TextFieldLogin, TextFieldPassword } from '../TextFieldCustomize/TextFieldCustomize';
 import ButtonComponent from './ButtonComponent';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,7 @@ import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 function SignIn() {
     const { t, i18n } = useTranslation('translate');
     const { showNotificationMessage } = useSnackbarMessage();
-
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const navigate = useNavigate();
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
@@ -86,6 +86,10 @@ function SignIn() {
         if (isEnterKey && e.shiftKey === false) {
             handleSignIn();
         }
+    };
+
+    const handleClickShowPassword = () => {
+        setShowCurrentPassword(!showCurrentPassword);
     };
 
     return (
@@ -173,7 +177,9 @@ function SignIn() {
                                     {t('common.signIn.password')}
                                     <span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
-                                <TextFieldLogin
+                                <TextFieldPassword
+                                    showPassword={showCurrentPassword}
+                                    onHandleClick={handleClickShowPassword}
                                     placeholder={t('common.notifyMessage.login.pass')}
                                     fullWidth
                                     inputRef={passwordRef}

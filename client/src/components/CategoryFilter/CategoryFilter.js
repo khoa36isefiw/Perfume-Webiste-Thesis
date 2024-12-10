@@ -17,6 +17,7 @@ function CategoryFilter({ setCId }) {
 
     const handleSelect = (category) => {
         if (categorySelected.nameEn === category.nameEn) {
+            setCategorySelected('');
             window.localStorage.removeItem('category');
             setCId(null);
         } else {
@@ -34,7 +35,6 @@ function CategoryFilter({ setCId }) {
                 Categories
             </CustomizeTypography>
             {categoryData?.data.map((category) => {
-                const isActive = selectedCategory && selectedCategory._id === category._id;
                 return (
                     <Button
                         key={category._id}
@@ -44,8 +44,9 @@ function CategoryFilter({ setCId }) {
                             fontSize: '16px',
                             fontWeight: 'bold',
                             textTransform: 'initial',
-                            color: isActive ? 'black' : 'white',
-                            bgcolor: isActive ? blue[100] : 'transparent',
+                            color: selectedCategory?._id === category._id ? 'black' : 'white',
+                            bgcolor:
+                                selectedCategory?._id === category._id ? blue[100] : 'transparent',
                             '&:hover': {
                                 bgcolor: theme.palette.background.thirth,
                             },
@@ -63,4 +64,4 @@ function CategoryFilter({ setCId }) {
     );
 }
 
-export default React.memo(CategoryFilter);
+export default CategoryFilter;

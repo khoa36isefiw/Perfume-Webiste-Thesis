@@ -107,7 +107,7 @@ function RatingProduct({ perfumeDetailData }) {
                         },
                     }}
                 >
-                    <Grid item xs={12} sm={2} md={3} lg={3}>
+                    <Grid item xs={12} sm={2} md={4} lg={4}>
                         <Box
                             sx={{
                                 textAlign: 'center',
@@ -165,11 +165,10 @@ function RatingProduct({ perfumeDetailData }) {
                         item
                         xs={12}
                         sm={7}
-                        md={6}
-                        lg={6}
+                        md={8}
+                        lg={8}
                         sx={{
                             borderLeft: '1px solid #333',
-                            borderRight: '1px solid #333',
                             p: 1,
                             [mobileScreen]: {
                                 px: 2,
@@ -242,28 +241,6 @@ function RatingProduct({ perfumeDetailData }) {
                                 );
                             })}
                         </Box>
-                    </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                        sm={3}
-                        md={3}
-                        lg={3}
-                        sx={{
-                            height: '100%',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            [mobileScreen]: {
-                                height: '10%',
-                            },
-                        }}
-                    >
-                        <CustomizeButton
-                            textAction={t(`common.productDetails.ratingNow`)}
-                            onHandleClick={'handleFocusReview'}
-                        />
                     </Grid>
                 </Grid>
 
