@@ -1,5 +1,5 @@
 import { Box, Container, Grid } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -25,6 +25,7 @@ function PerfumesCard() {
     const navigate = useNavigate();
     const language = window.localStorage.getItem('language');
     console.log('language222: ', language);
+    const [visibleCount, setVisibleCount] = useState(8);
 
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     // const [sortingSelected, setSortingSelected] = useState('');
@@ -57,6 +58,21 @@ function PerfumesCard() {
         mutate(); // render after choose params to filter
     }, [searchQuery, brandFilter, sortingFilter]);
     console.log('current data âhiahi: ', products);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            // check if it doesn't load all product
+            if (
+                window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+                visibleCount < products?.data?.length
+            ) {
+                setVisibleCount((prev) => prev + 8);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
         <React.Fragment>
@@ -100,7 +116,8 @@ function PerfumesCard() {
                     </Box>
                     {products?.data?.length ? (
                         <Grid container spacing={2}>
-                            {products?.data.map(
+                            {/* loading product  */}
+                            {products?.data?.slice(0, visibleCount).map(
                                 (perfume, index) =>
                                     perfume.status !== 'inactive' && (
                                         <Grid item xs={6} sm={4} md={3} lg={3} key={index}>
