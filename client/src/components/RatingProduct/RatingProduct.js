@@ -27,7 +27,7 @@ function RatingProduct({ perfumeDetailData }) {
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || '';
 
     const [ratingValue, setRatingValue] = useState(0);
-    const { data: orderDataById } = useOrderById(orderId);
+    const { data: orderDataById, mutate } = useOrderById(orderId);
 
     const orderByIdData = orderDataById?.data?.items?.filter(
         (order) => order.product === perfumeDetailData.product._id,
@@ -54,7 +54,7 @@ function RatingProduct({ perfumeDetailData }) {
 
     const handleComment = async () => {
         const newComment = reviewInputRef.current.value; // value of textfield by ref
-
+        setIsCommentSubmitted(true);
         // userId, productId, orderId, comment, rating
 
         const data = {
@@ -69,7 +69,7 @@ function RatingProduct({ perfumeDetailData }) {
             const reviewProduct = await reviewsAPI.createReview(data);
 
             if (reviewProduct.status === 200) {
-                setIsCommentSubmitted(true);
+                mutate();
             }
         }
     };
@@ -338,7 +338,11 @@ function RatingProduct({ perfumeDetailData }) {
                             />
                         </Grid>
                         <Grid item xs={12} lg={2}>
-                            <CustomizeButton textAction={'Publish'} onHandleClick={handleComment} />
+                            <CustomizeButton
+                                disabled={isCommentSubmitted}
+                                textAction={'Publish'}
+                                onHandleClick={handleComment}
+                            />
                         </Grid>
                     </Grid>
                 )}

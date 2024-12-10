@@ -1,12 +1,52 @@
+import { Box, Container, Grid } from '@mui/material';
+import React from 'react';
+
+import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
+import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
+import Rating from '@mui/material/Rating';
+import { useNavigate } from 'react-router-dom';
+import { backTop } from '../goBackTop/goBackTop';
+
+import { converToVND } from '../convertToVND/convertToVND';
+import SortProducts from '../SortProducts/SortProducts';
+import PerfumeBrands from '../PerfumeBrands/PerfumeBrands';
+import EmptyCart from '../EmptyCart/EmptyCart';
+import notFound from '../../assets/images/no-results.png';
+import useProduct from '../../api/useProduct';
+import { ModalDesginV2 } from '../Modal/ModalDesgin';
+import Loading from '../Loading/Loading';
+import useLoading from '../../hooks/useLoading';
+import { useEffect } from 'react';
+import CategoryFilter from '../CategoryFilter/CategoryFilter';
+import { useTranslation } from 'react-i18next';
+
 function PerfumesCard() {
-    
-    
-    const selectedCategory = JSON.parse(window.localStorage.getItem('category')) || '';
-    console.log('selectedCategory: ', selectedCategory);
-    
-    const [visibleCount, setVisibleCount] = useState(8);
-    
-    const [cId, setCId] = useState(null);
+    const { t } = useTranslation('translate');
+    const navigate = useNavigate();
+    const language = window.localStorage.getItem('language');
+    console.log('language222: ', language);
+
+    const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
+    // const [sortingSelected, setSortingSelected] = useState('');
+    // const [brandSelected, setBrandSelected] = useState('');
+
+    const handleNavigationProductDetail = (perfume) => {
+        // navigate to the product detail page and pass the perfume data as state
+        // navigate(`/${language}/product/${perfume._id}`, { state: { perfume } }); // old playground
+
+        // new playground
+        navigate(`/${language}/${perfume.nameEn}/${perfume._id}`); // new playground
+
+        window.localStorage.setItem('productInfor', JSON.stringify(perfume));
+        backTop();
+    };
+
+    const searchQuery = localStorage.getItem('search_query') || null;
+    // JSON.parse(localStorage.getItem('user_data')) || null;
+    const brandFilter = JSON.parse(localStorage.getItem('filter')) || null;
+    const sortingFilter = JSON.parse(localStorage.getItem('sortBy')) || null;
+    console.log('searchQuery: ', searchQuery);
+
     const {
         data: products,
         isLoading,
@@ -16,46 +56,20 @@ function PerfumesCard() {
     useEffect(() => {
         mutate(); // render after choose params to filter
     }, [searchQuery, brandFilter, sortingFilter]);
-    // console.log('current data âhiahi: ', products);
-
-    // console.log('productDataByCategory: ', productDataByCategory?.data);
-    const [productData, setProductData] = useState(products?.data);
-
-
-    useEffect(() => {
-        const handleScroll = () => {
-            // check if it doesn't load all product
-            if (
-                window.innerHeight + window.scrollY >= document.body.offsetHeight &&
-                visibleCount < products?.data?.length
-            ) {
-                setVisibleCount((prev) => prev + 8);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [selectedCategory._id]);
-
-    useEffect(() => {
-        if (selectedCategory !== '') {
-            const fetchData = async () => {
-                const responseData = await productAPI.getProductByCategory(selectedCategory._id);
-                if (responseData) {
-                    console.log('responseData: ', responseData);
-                    setProductData(responseData?.data);
-                }
-            };
-            fetchData();
-        } else {
-            setProductData(products?.data);
-        }
-    }, [selectedCategory, isLoading]);
-    console.log('productData:', productData);
+    console.log('current data âhiahi: ', products);
 
     return (
         <React.Fragment>
-            
+            {isLoading ? (
+                <ModalDesginV2
+                    open={open}
+                    onHandleClose={handleClose}
+                    animateStyle={animateStyle}
+                    setAnimateStyle={setAnimateStyle}
+                >
+                    <Loading />
+                </ModalDesginV2>
+            ) : (
                 <Container
                     sx={{
                         my: theme.spacingAxis.boxVerticalAxis,
@@ -82,13 +96,11 @@ function PerfumesCard() {
                             // sortingSelected={sortingSelected}
                             // setSortingSelected={setSortingSelected}
                         />
-                        <CategoryFilter setCId={setCId} />
+                        <CategoryFilter />
                     </Box>
-                    {productData?.length ? (
+                    {products?.data?.length ? (
                         <Grid container spacing={2}>
-                            {/* loading product  */}
-                            {/* {products?.data?.slice(0, visibleCount).map( */}
-                            {productData.map(
+                            {products?.data.map(
                                 (perfume, index) =>
                                     perfume.status !== 'inactive' && (
                                         <Grid item xs={6} sm={4} md={3} lg={3} key={index}>
@@ -311,9 +323,18 @@ function PerfumesCard() {
                                     ),
                             )}
                         </Grid>
-                    ) 
+                    ) : (
+                        <EmptyCart
+                            imgCart={notFound}
+                            title={t('common.searchNo.title')}
+                            subTitle={t('common.searchNo.content')}
+                            isShowButton={false}
+                        />
+                    )}
                 </Container>
             )}
         </React.Fragment>
     );
 }
+
+export default PerfumesCard;
