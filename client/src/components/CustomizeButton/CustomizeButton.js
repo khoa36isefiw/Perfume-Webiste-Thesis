@@ -3,9 +3,10 @@ import React from 'react';
 import { tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
-function CustomizeButton({ onHandleClick, textAction }) {
+function CustomizeButton({ onHandleClick, textAction, disabled }) {
     return (
         <Button
+            disabled={disabled}
             onClick={onHandleClick}
             variant="contained"
             sx={{
@@ -20,6 +21,11 @@ function CustomizeButton({ onHandleClick, textAction }) {
                 },
                 [tabletScreen]: {
                     fontSize: '13px',
+                },
+                '&.Mui-disabled': {
+                    color: theme.palette.secondaryText,
+                    borderColor: '#ccc',
+                    bgcolor: '#ccc',
                 },
             }}
         >
