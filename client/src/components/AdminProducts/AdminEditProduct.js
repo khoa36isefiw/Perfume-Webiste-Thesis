@@ -23,8 +23,10 @@ import useProductById from '../../api/useProductById';
 
 const AdminEditProduct = () => {
     const { id } = useParams();
+    console.log('id: ', id);
     const { data: productRes } = useProductById(id);
     const productData = productRes?.data;
+    console.log('productData: ', productData);
 
     // Set up local state for editable product information
     const [images, setImages] = useState([]);
@@ -50,11 +52,11 @@ const AdminEditProduct = () => {
 
     useEffect(() => {
         if (productData) {
-            setProductName(productData.nameEn);
-            setCategory(productData.category._id);
-            setBrand(productData.brand._id);
+            setProductName(productData?.product.nameEn);
+            setCategory(productData?.product?.category._id);
+            setBrand(productData?.product.brand._id);
             setSelectedSizes(
-                productData.variants.map((variant) => ({
+                productData?.product.variants.map((variant) => ({
                     _id: variant._id,
                     size: variant.size,
                     price: +variant.price,
@@ -62,8 +64,8 @@ const AdminEditProduct = () => {
                     stock: +variant.stock,
                 })),
             );
-            setImgData(productData.imagePath);
-            setImages(productData.imagePath);
+            setImgData(productData?.product.imagePath);
+            setImages(productData?.product.imagePath);
         }
     }, [productData]);
 
@@ -111,41 +113,74 @@ const AdminEditProduct = () => {
         const checkPriceSale = selectedSizes.some((variant) => variant.priceSale > variant.price);
 
         const checkEmpty = selectedSizes.every(
-            (size) =>
-                size.size !== '' && size.price !== '' && size.priceSale !== '' && size.stock !== '',
+            (size) => size.price === '' && size.priceSale === '' && size.stock === '',
         );
 
+        console.log('checkEmpty: ', checkEmpty);
+
+        const checkEmptyS = selectedSizes.some(
+            (size) => size.price === '' || size.priceSale === '' || size.stock === '',
+        );
+
+        console.log('checkEmptyS: ', checkEmptyS);
+
         // check empty, null
-        if (
-            images.length < 1 &&
-            productName !== '' &&
-            category !== '' &&
-            brand !== '' &&
-            selectedSizes.length > 0 &&
-            checkEmpty
-        ) {
-            if (!checkPriceSale) {
-                const updateResponse = await productAPI.editProduct(productId, data);
-                if (updateResponse.status === 200) {
-                    setShowNotification(true);
-                    setShowAnimation('animate__bounceInRight');
-                    setMessageType('success');
-                    setMessageContent('Update product information successfully!');
-                    setMessageTitle('Edit Product');
-                }
-            } else {
+        // if (
+        //     images.length < 0 &&
+        //     productName !== '' &&
+        //     category !== '' &&
+        //     brand !== '' &&
+        //     !checkEmptyS
+        // ) {
+        //     console.log('checkPriceSale: ', checkPriceSale);
+        //     if (!checkPriceSale) {
+        //         console.log('here');
+        //         const updateResponse = await productAPI.editProduct(productId, data);
+        //         if (updateResponse.status === 200) {
+        //             setShowNotification(true);
+        //             setShowAnimation('animate__bounceInRight');
+        //             setMessageType('success');
+        //             setMessageContent('Update product information successfully!');
+        //             setMessageTitle('Edit Product');
+        //         }
+        //     } else {
+        //         console.log('here2');
+
+        //         setShowNotification(true);
+        //         setShowAnimation('animate__bounceInRight');
+        //         setMessageType('error');
+        //         setMessageTitle('Price Error2');
+        //         setMessageContent('Sale price cannot be greater than the original price!');
+        //     }
+        // } else {
+        //     console.log('here3');
+
+        //     setShowNotification(true);
+        //     setShowAnimation('animate__bounceInRight');
+        //     setMessageType('warning');
+        //     setMessageTitle('Update Product');
+        //     setMessageContent('Please fill product information!');
+        // }
+
+        console.log('checkPriceSale: ', checkPriceSale);
+        if (!checkPriceSale) {
+            console.log('here');
+            const updateResponse = await productAPI.editProduct(productId, data);
+            if (updateResponse.status === 200) {
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
-                setMessageType('error');
-                setMessageTitle('Price Error2');
-                setMessageContent('Sale price cannot be greater than the original price!');
+                setMessageType('success');
+                setMessageContent('Update product information successfully!');
+                setMessageTitle('Edit Product');
             }
         } else {
+            console.log('here2');
+
             setShowNotification(true);
             setShowAnimation('animate__bounceInRight');
-            setMessageType('warning');
-            setMessageTitle('Update Product');
-            setMessageContent('Please fill product information!');
+            setMessageType('error');
+            setMessageTitle('Price Error2');
+            setMessageContent('Sale price cannot be greater than the original price!');
         }
     };
 
@@ -175,21 +210,6 @@ const AdminEditProduct = () => {
 
             return updatedSizes;
         });
-    };
-
-    const handleMenuItemClick = (size) => {
-        const alreadySelected = selectedSizes.some((s) => s.size === size);
-
-        if (alreadySelected) {
-            // remove the size was selected from the list
-            setSelectedSizes(selectedSizes.filter((s) => s.size !== size));
-        } else {
-            // add size to list if it was not chose
-            setSelectedSizes([
-                ...selectedSizes,
-                { size: size, price: '', priceSale: '', stock: '' },
-            ]);
-        }
     };
 
     const handlePriceSaleBlur = (index) => {
@@ -374,7 +394,7 @@ const AdminEditProduct = () => {
                         },
                     }}
                 >
-                    Save Changes
+                    Update Product
                 </Button>
             </Box>
             {showNotification && (
