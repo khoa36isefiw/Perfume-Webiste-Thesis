@@ -112,7 +112,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
 
     // console.log('selectedSize: ', selectedSize);
 
-return (
+    return (
         <Box
             sx={{
                 mt: 18,

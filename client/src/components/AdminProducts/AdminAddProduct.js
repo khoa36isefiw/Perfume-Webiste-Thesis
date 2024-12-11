@@ -25,8 +25,10 @@ import { categoriesAPI } from '../../api/categoriesAPI';
 import { brandApi } from '../../api/brandApi';
 import BackspaceIcon from '@mui/icons-material/Backspace';
 import { contentTemplate } from '../../utils/constants';
+import { useNavigate } from 'react-router-dom';
 
 const AdminAddProduct = () => {
+    const navigate = useNavigate();
     const [images, setImages] = useState([]);
     const [productName, setProductName] = useState('');
     const [brand, setBrand] = useState('');
@@ -111,7 +113,7 @@ const AdminAddProduct = () => {
                 setMessageTitle('Add New Product');
                 setMessageContent('Add new prodcut successfully!');
                 setTimeout(() => {
-                    // navigate('/admin/manage-products');
+                    navigate('/admin/manage-products');
                 }, 2800);
             }
         } else {
