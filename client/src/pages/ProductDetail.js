@@ -18,6 +18,7 @@ import useProductByCategory from '../api/useProductByCategory';
 import { useTranslation } from 'react-i18next';
 import { backTop } from '../components/goBackTop/goBackTop';
 import { converToVND } from '../components/convertToVND/convertToVND';
+import useProductByBrand from '../api/useProductByBrand';
 
 function ProductDetail() {
     const { t, i18n } = useTranslation('translate');
@@ -27,13 +28,11 @@ function ProductDetail() {
     const navigate = useNavigate();
     const { data: productData, isLoading } = useProductById(id);
 
-    const cId = productData?.data?.product?.category?._id;
+    const brandId = productData?.data?.product?.brand?._id;
 
-    const { data: productDataByCategory } = useProductByCategory(cId);
+    const { data: productDataByBrand } = useProductByBrand(brandId);
 
-    const relatedProducts = Array.isArray(productDataByCategory?.data)
-        ? productDataByCategory.data
-        : [];
+    const relatedProducts = Array.isArray(productDataByBrand?.data) ? productDataByBrand.data : [];
     const filteredRelatedProducts = relatedProducts.filter((item) => item._id !== id);
 
     // reference to comments region
