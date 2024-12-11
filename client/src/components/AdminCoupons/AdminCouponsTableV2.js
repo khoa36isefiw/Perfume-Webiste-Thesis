@@ -124,6 +124,8 @@ const CouponsTable = () => {
             row?.status?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()),
     );
 
+    console.log('filteredRows: ', filteredRows);
+
     const handleFilterCoupons = (filter) => {
         setFilterCoupons(filter);
         // setCurrentPage(1);
@@ -290,115 +292,127 @@ const CouponsTable = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {filteredRows
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.orderId}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <TableCell
-                                                    key={column.id}
-                                                    align={column.align}
-                                                    sx={{ fontSize: '13px', textAlign: 'center' }}
-                                                >
-                                                    {/* Render avatar if the column is 'avatar', otherwise display text */}
-                                                    {column.id === 'actions' ? (
-                                                        // Render Edit and Delete buttons in the 'actions' column
-                                                        <>
-                                                            <ActionsButton
-                                                                onHandleClickEdit={() =>
-                                                                    handleEdit(row._id)
-                                                                }
-                                                                onHandleClickDelete={() =>
-                                                                    handleDeleteItem(row._id)
-                                                                }
-                                                            />
-                                                        </>
-                                                    ) : column.id === 'status' ? (
-                                                        row.status === 'active' ? (
-                                                            <Box
-                                                                sx={{
-                                                                    bgcolor: '#bdf5d3',
-                                                                    borderRadius: 1,
-                                                                    boxShadow: 1,
-                                                                    padding: '4px 0',
-                                                                    width: 80,
-                                                                }}
-                                                            >
-                                                                <AdminTypography
+                            {filteredRows.length > 0 ? (
+                                filteredRows
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map((row) => (
+                                        <TableRow
+                                            hover
+                                            role="checkbox"
+                                            tabIndex={-1}
+                                            key={row.orderId}
+                                        >
+                                            {columns.map((column) => {
+                                                const value = row[column.id];
+                                                return (
+                                                    <TableCell
+                                                        key={column.id}
+                                                        align={column.align}
+                                                        sx={{
+                                                            fontSize: '13px',
+                                                            textAlign: 'center',
+                                                        }}
+                                                    >
+                                                        {/* Render avatar if the column is 'avatar', otherwise display text */}
+                                                        {column.id === 'actions' ? (
+                                                            // Render Edit and Delete buttons in the 'actions' column
+                                                            <>
+                                                                <ActionsButton
+                                                                    onHandleClickEdit={() =>
+                                                                        handleEdit(row._id)
+                                                                    }
+                                                                    onHandleClickDelete={() =>
+                                                                        handleDeleteItem(row._id)
+                                                                    }
+                                                                />
+                                                            </>
+                                                        ) : column.id === 'status' ? (
+                                                            row.status === 'active' ? (
+                                                                <Box
                                                                     sx={{
-                                                                        fontSize: '14px',
-                                                                        color: '#187d44',
-                                                                        fontWeight: 'bold',
-                                                                        textAlign: 'center',
+                                                                        bgcolor: '#bdf5d3',
+                                                                        borderRadius: 1,
+                                                                        boxShadow: 1,
+                                                                        padding: '4px 0',
+                                                                        width: 80,
                                                                     }}
                                                                 >
-                                                                    {row.status}
-                                                                </AdminTypography>
-                                                            </Box>
-                                                        ) : row.status === 'inactive' ? (
-                                                            <Box
-                                                                sx={{
-                                                                    bgcolor: '#ffdfe4',
-                                                                    borderRadius: 1,
-                                                                    boxShadow: 1,
-                                                                    padding: '4px 0',
-                                                                    width: 80,
-                                                                }}
-                                                            >
-                                                                <AdminTypography
+                                                                    <AdminTypography
+                                                                        sx={{
+                                                                            fontSize: '14px',
+                                                                            color: '#187d44',
+                                                                            fontWeight: 'bold',
+                                                                            textAlign: 'center',
+                                                                        }}
+                                                                    >
+                                                                        {row.status}
+                                                                    </AdminTypography>
+                                                                </Box>
+                                                            ) : row.status === 'inactive' ? (
+                                                                <Box
                                                                     sx={{
-                                                                        fontSize: '14px',
-                                                                        color: '#f11133',
-                                                                        fontWeight: 'bold',
-                                                                        textAlign: 'center',
+                                                                        bgcolor: '#ffdfe4',
+                                                                        borderRadius: 1,
+                                                                        boxShadow: 1,
+                                                                        padding: '4px 0',
+                                                                        width: 80,
                                                                     }}
                                                                 >
-                                                                    {row.status}
-                                                                </AdminTypography>
-                                                            </Box>
-                                                        ) : (
-                                                            <Box
-                                                                sx={{
-                                                                    bgcolor: grey[200],
+                                                                    <AdminTypography
+                                                                        sx={{
+                                                                            fontSize: '14px',
+                                                                            color: '#f11133',
+                                                                            fontWeight: 'bold',
+                                                                            textAlign: 'center',
+                                                                        }}
+                                                                    >
+                                                                        {row.status}
+                                                                    </AdminTypography>
+                                                                </Box>
+                                                            ) : (
+                                                                <Box
+                                                                    sx={{
+                                                                        bgcolor: grey[200],
 
-                                                                    borderRadius: 1,
-                                                                    boxShadow: 1,
-                                                                    padding: '4px 0',
-                                                                    width: 80,
-                                                                }}
-                                                            >
-                                                                <AdminTypography
-                                                                    sx={{
-                                                                        fontSize: '14px',
-                                                                        color: grey[600],
-                                                                        fontWeight: 'bold',
-                                                                        textAlign: 'center',
+                                                                        borderRadius: 1,
+                                                                        boxShadow: 1,
+                                                                        padding: '4px 0',
+                                                                        width: 80,
                                                                     }}
                                                                 >
-                                                                    {row.status}
-                                                                </AdminTypography>
-                                                            </Box>
-                                                        )
-                                                    ) : column.id === 'startDate' ? (
-                                                        <>
+                                                                    <AdminTypography
+                                                                        sx={{
+                                                                            fontSize: '14px',
+                                                                            color: grey[600],
+                                                                            fontWeight: 'bold',
+                                                                            textAlign: 'center',
+                                                                        }}
+                                                                    >
+                                                                        {row.status}
+                                                                    </AdminTypography>
+                                                                </Box>
+                                                            )
+                                                        ) : column.id === 'startDate' ? (
+                                                            <>
+                                                                <Typography sx={{ fontSize: 12 }}>
+                                                                    {formatDate(row.startDate)}
+                                                                </Typography>
+                                                            </>
+                                                        ) : column.id === 'endDate' ? (
                                                             <Typography sx={{ fontSize: 12 }}>
-                                                                {formatDate(row.startDate)}
+                                                                {formatDate(row.endDate)}
                                                             </Typography>
-                                                        </>
-                                                    ) : column.id === 'endDate' ? (
-                                                        <Typography sx={{ fontSize: 12 }}>
-                                                            {formatDate(row.endDate)}
-                                                        </Typography>
-                                                    ) : (
-                                                        value
-                                                    )}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                ))}
+                                                        ) : (
+                                                            value
+                                                        )}
+                                                    </TableCell>
+                                                );
+                                            })}
+                                        </TableRow>
+                                    ))
+                            ) : (
+                                <Typography>Loading....</Typography>
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>
