@@ -266,7 +266,7 @@ function PerfumesCard() {
                                                             // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                                             sx={{
                                                                 fontSize: '18px',
-                                                                // change border color
+                                                                // change bo    rder color
                                                                 '& .MuiRating-iconEmpty .MuiSvgIcon-root':
                                                                     {
                                                                         color: theme.palette.thirth
