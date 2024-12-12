@@ -27,9 +27,4 @@ export const productAPI = {
         const url = `/products/category/${categoryId}`;
         return axiosClient.get(url);
     },
-
-    getProductById: (id) => {
-        const url = `/products/${id}`;
-        return axiosClient.get(url);
-    },
 };
