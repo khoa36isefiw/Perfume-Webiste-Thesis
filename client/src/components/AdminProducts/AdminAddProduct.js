@@ -213,6 +213,7 @@ const AdminAddProduct = () => {
 
     const handleRemoveImage = (index) => {
         const updatedImages = images.filter((_, i) => i !== index);
+        URL.revokeObjectURL(images[index]);
         setImages(updatedImages);
         setImgData((prevData) => prevData.filter((_, i) => i !== index));
     };
