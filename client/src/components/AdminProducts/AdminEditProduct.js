@@ -20,6 +20,7 @@ import { categoriesAPI } from '../../api/categoriesAPI';
 import { brandApi } from '../../api/brandApi';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import useProductById from '../../api/useProductById';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 
 const AdminEditProduct = () => {
     const { id } = useParams();
@@ -260,8 +261,8 @@ const AdminEditProduct = () => {
             }}
         >
             <AdminButtonBackPage title={'List Products'} />
-            <Typography variant="h4" sx={{ mb: 3 }}>
-                Edit Product: {productData?.nameEn}
+            <Typography variant="h4" sx={{ mb: 3, fontSize: '15px' }}>
+                Edit Product: {productData?.product.nameEn}
             </Typography>
             <Box display="flex" flexWrap="wrap" gap={2} my={2}>
                 {images?.map((image, index) => (
@@ -271,7 +272,13 @@ const AdminEditProduct = () => {
                             src={image}
                             sx={{ width: 128, height: 128, marginBottom: 2, borderRadius: 0 }}
                         />
-                        <Button onClick={() => handleRemoveImage(index)}>Remove</Button>
+                        <Button
+                            startIcon={<DeleteSweepIcon sx={{ fontSize: '24px' }} />}
+                            onClick={() => handleRemoveImage(index)}
+                            sx={{ fontSize: '14px', textTransform: 'initial' }}
+                        >
+                            Remove
+                        </Button>
                     </Box>
                 ))}
             </Box>
