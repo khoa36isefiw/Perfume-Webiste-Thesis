@@ -11,7 +11,11 @@ export const productAPI = {
     },
     editProduct: (id, data) => {
         const url = `/products/${id}`;
-        return axiosClient.put(url, data);
+        return axiosClient.put(url, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
     },
 
     deleteProduct: (id) => {

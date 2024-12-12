@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
     Avatar,
     Box,
@@ -10,28 +10,28 @@ import {
     Select,
     MenuItem,
 } from '@mui/material';
+import isEqual from 'lodash/isEqual';
 import { useLocation, useParams } from 'react-router-dom';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { productAPI } from '../../api/productAPI';
 import useBrand from '../../api/useBrand';
 import useCategory from '../../api/useCategory';
-import { categoriesAPI } from '../../api/categoriesAPI';
-import { brandApi } from '../../api/brandApi';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import useProductById from '../../api/useProductById';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 
 const AdminEditProduct = () => {
     const { id } = useParams();
-    console.log('id: ', id);
-    const { data: productRes } = useProductById(id);
+    const { data: productRes, mutate } = useProductById(id);
     const productData = productRes?.data;
-    console.log('productData: ', productData);
-
+    const productDataRef = useRef(null);
+    const stableProduct = useMemo(() => productData?.product || null, [productData]);
     // Set up local state for editable product information
     const [images, setImages] = useState([]);
-    const [imgData, setImgData] = React.useState([]);
+    const [existingImages, setExistingImages] = useState([]);
+    const [deletedImages, setDeletedImages] = useState([]);
+    const [newImages, setNewImages] = React.useState([]);
     const [productName, setProductName] = useState('');
     const [category, setCategory] = useState('');
     const [brand, setBrand] = useState('');
@@ -52,12 +52,14 @@ const AdminEditProduct = () => {
     const categoryOptions = categories?.data || [];
 
     useEffect(() => {
-        if (productData) {
-            setProductName(productData?.product.nameEn);
-            setCategory(productData?.product?.category._id);
-            setBrand(productData?.product.brand._id);
+        if (isEqual(productDataRef.current, stableProduct)) return;
+        productDataRef.current = stableProduct;
+        if (stableProduct) {
+            setProductName(stableProduct.nameEn);
+            setCategory(stableProduct.category._id);
+            setBrand(stableProduct.brand._id);
             setSelectedSizes(
-                productData?.product.variants.map((variant) => ({
+                stableProduct.variants.map((variant) => ({
                     _id: variant._id,
                     size: variant.size,
                     price: +variant.price,
@@ -65,28 +67,36 @@ const AdminEditProduct = () => {
                     stock: +variant.stock,
                 })),
             );
-            setImgData(productData?.product.imagePath);
-            setImages(productData?.product.imagePath);
+            setImages(stableProduct.imagePath);
+            setExistingImages(stableProduct.imagePath);
         }
-    }, [productData]);
+    }, [stableProduct]);
 
     // Handle file input for image update
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
-        console.log({ files });
         if (files.length > 0) {
             const imageUrls = files?.map((file) => URL.createObjectURL(file));
-            console.log({ imageUrls });
             setImages((prevImages) => [...prevImages, ...imageUrls]);
-            setImgData((prev) => [...prev, ...files]);
+            setNewImages((prev) => [...prev, ...files]);
+        }
+    };
+
+    const handleRemoveImage = (index, isExisting) => {
+        setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+        if (isExisting) {
+            // If the image is an existing one, add it to the deleted list
+            setDeletedImages((prevDeleted) => [...prevDeleted, images[index]]);
+            setExistingImages((prevImages) => prevImages.filter((_, i) => i !== index));
+        } else {
+            URL.revokeObjectURL(images[index]);
+            setNewImages((prevData) =>
+                prevData.filter((_, i) => i !== index - existingImages.length),
+            );
         }
     };
 
     const handleSave = async () => {
-        const getCategoryById = await categoriesAPI.getCategoryById(category);
-        const getBrandById = await brandApi.getBrandById(brand);
-
-        const productId = productData?.productId;
         const variants = selectedSizes?.map((variant) => ({
             _id: variant._id,
             size: variant.size,
@@ -94,80 +104,24 @@ const AdminEditProduct = () => {
             priceSale: +variant.priceSale, // convert to number
             stock: +variant.stock, // convert to number
         }));
-        const data = {
-            variants: variants,
-            nameEn: productName,
-            brand: {
-                _id: brand,
-                nameVn: getBrandById.nameVn,
-                nameEn: getBrandById.nameEn,
-            },
-            category: {
-                _id: category, //category is an ID
-                nameVn: getCategoryById.nameVn,
-                nameEn: getCategoryById.nameEn,
-                parentId: null,
-            },
-        };
-
         //check if price sale is greater than the original price???
         const checkPriceSale = selectedSizes.some((variant) => variant.priceSale > variant.price);
 
-        const checkEmpty = selectedSizes.every(
-            (size) => size.price === '' && size.priceSale === '' && size.stock === '',
-        );
-
-        console.log('checkEmpty: ', checkEmpty);
-
-        const checkEmptyS = selectedSizes.some(
-            (size) => size.price === '' || size.priceSale === '' || size.stock === '',
-        );
-
-        console.log('checkEmptyS: ', checkEmptyS);
-
-        // check empty, null
-        // if (
-        //     images.length < 0 &&
-        //     productName !== '' &&
-        //     category !== '' &&
-        //     brand !== '' &&
-        //     !checkEmptyS
-        // ) {
-        //     console.log('checkPriceSale: ', checkPriceSale);
-        //     if (!checkPriceSale) {
-        //         console.log('here');
-        //         const updateResponse = await productAPI.editProduct(productId, data);
-        //         if (updateResponse.status === 200) {
-        //             setShowNotification(true);
-        //             setShowAnimation('animate__bounceInRight');
-        //             setMessageType('success');
-        //             setMessageContent('Update product information successfully!');
-        //             setMessageTitle('Edit Product');
-        //         }
-        //     } else {
-        //         console.log('here2');
-
-        //         setShowNotification(true);
-        //         setShowAnimation('animate__bounceInRight');
-        //         setMessageType('error');
-        //         setMessageTitle('Price Error2');
-        //         setMessageContent('Sale price cannot be greater than the original price!');
-        //     }
-        // } else {
-        //     console.log('here3');
-
-        //     setShowNotification(true);
-        //     setShowAnimation('animate__bounceInRight');
-        //     setMessageType('warning');
-        //     setMessageTitle('Update Product');
-        //     setMessageContent('Please fill product information!');
-        // }
-
         console.log('checkPriceSale: ', checkPriceSale);
         if (!checkPriceSale) {
-            console.log('here');
-            const updateResponse = await productAPI.editProduct(productId, data);
+            const formData = new FormData();
+            formData.append('nameVn', productName);
+            formData.append('nameEn', productName);
+            formData.append('category', category);
+            formData.append('brand', brand);
+            formData.append('variants', JSON.stringify(variants));
+            newImages.forEach((file) => {
+                formData.append('imagePath', file);
+            });
+            formData.append('deletedImages', JSON.stringify(deletedImages));
+            const updateResponse = await productAPI.editProduct(id, formData);
             if (updateResponse.status === 200) {
+                mutate();
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
                 setMessageType('success');
@@ -175,8 +129,6 @@ const AdminEditProduct = () => {
                 setMessageTitle('Edit Product');
             }
         } else {
-            console.log('here2');
-
             setShowNotification(true);
             setShowAnimation('animate__bounceInRight');
             setMessageType('error');
@@ -241,12 +193,6 @@ const AdminEditProduct = () => {
             return updatedSizes;
         });
     };
-    console.log({ images });
-    const handleRemoveImage = (index) => {
-        const updatedImages = images.filter((_, i) => i !== index);
-        setImages(updatedImages);
-        setImgData((prevData) => prevData.filter((_, i) => i !== index));
-    };
 
     return (
         <Box
@@ -274,8 +220,8 @@ const AdminEditProduct = () => {
                         />
                         <Button
                             startIcon={<DeleteSweepIcon sx={{ fontSize: '24px' }} />}
-                            onClick={() => handleRemoveImage(index)}
                             sx={{ fontSize: '14px', textTransform: 'initial' }}
+                            onClick={() => handleRemoveImage(index, existingImages.includes(image))}
                         >
                             Remove
                         </Button>
@@ -293,6 +239,7 @@ const AdminEditProduct = () => {
                     multiple
                     hidden
                     onChange={handleImageChange}
+                    onClick={(e) => (e.target.value = null)}
                 />
             </Button>
 
