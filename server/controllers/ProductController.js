@@ -1,3 +1,4 @@
+const cloudinary = require('cloudinary').v2;
 const Product = require('../models/Product.model');
 const ProductReview = require('../models/ProductReview.model');
 const Variant = require('../models/Variant.model');
@@ -246,7 +247,12 @@ const ProductController = {
         } catch (error) {
             if (fileData) {
                 for (const file of fileData) {
-                    cloudinary.uploader.destroy(file.filename);
+                    const publicId = ProductController.extractPublicIdFromURL(file.path);
+                    cloudinary.uploader.destroy(publicId, (error, result) => {
+                        if (error) {
+                            console.error(error);
+                        }
+                    });
                 }
             }
             res.status(500).json({ message: error.message });
@@ -255,8 +261,10 @@ const ProductController = {
 
     update: async (req, res) => {
         const { id } = req.params;
-        const { variants, ...rest } = req.body;
-
+        const { variants, deletedImages, ...rest } = req.body;
+        console.log(deletedImages);
+        const variantParse = JSON.parse(variants);
+        const deletedImageURL = JSON.parse(deletedImages);
         const fileData = req.files;
         const imagePaths = fileData?.length > 0 && fileData.map((item) => item.path);
         try {
@@ -265,10 +273,19 @@ const ProductController = {
                 return res.status(404).json({ message: 'Product not found' });
             }
             await Product.updateOne({ _id: id }, { $set: rest });
-            product.imagePath = imagePaths;
-            if (variants?.length) {
+            if (deletedImageURL.length > 0) {
+                for (const image of deletedImageURL) {
+                    const publicId = ProductController.extractPublicIdFromURL(image);
+                    await cloudinary.uploader.destroy(publicId);
+                    product.imagePath = product.imagePath.filter((item) => item !== image);
+                }
+            }
+            if (imagePaths.length > 0) {
+                product.imagePath.push(...imagePaths);
+            }
+            if (variantParse?.length) {
                 const updateVariants = [];
-                for (const variant of variants) {
+                for (const variant of variantParse) {
                     if (variant._id) {
                         await Variant.updateOne(
                             { _id: variant._id },
@@ -322,6 +339,13 @@ const ProductController = {
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
+    },
+
+    extractPublicIdFromURL: (imageURL) => {
+        const urlParts = imageURL.split('/');
+        const fileName = urlParts[urlParts.length - 2] + '/' + urlParts[urlParts.length - 1];
+        const publicId = fileName.split('.')[0];
+        return publicId;
     },
 };
 
