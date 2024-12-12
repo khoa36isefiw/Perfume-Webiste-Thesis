@@ -255,11 +255,11 @@ function PerfumesCard() {
                                                             // justifyContent: 'space-between',
                                                             alignItems: 'center',
                                                             // mb: 1,
+                                                            [mobileScreen]: {
+                                                                flexDirection: 'column',
+                                                            },
                                                         }}
                                                     >
-                                                        <CustomizeTypography sx={{ mr: '0.5px' }}>
-                                                            {perfume.rating.toFixed(1)}
-                                                        </CustomizeTypography>
                                                         <Rating
                                                             readOnly={true}
                                                             value={perfume.rating}
@@ -279,9 +279,12 @@ function PerfumesCard() {
                                                         <CustomizeTypography
                                                             sx={{
                                                                 ml: 2,
+                                                                [mobileScreen]: {
+                                                                    ml: 0,
+                                                                },
                                                             }}
                                                         >
-                                                            ({perfume.numReviews})
+                                                            ({perfume.unitsSold}) đã bán
                                                         </CustomizeTypography>
                                                     </Box>
                                                     <Box
