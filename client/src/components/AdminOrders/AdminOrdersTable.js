@@ -21,18 +21,14 @@ import { useNavigate } from 'react-router-dom';
 import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { mobileScreen, theme } from '../../Theme/Theme';
-import ordersData from '../../data/admin/orders.json';
+
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import useOrders from '../../api/useOrders';
-import { userAPI } from '../../api/userAPI';
+
 import { formatDate } from '../FormatDate/formatDate';
-import { useRef } from 'react';
-import { clearAllListeners } from '@reduxjs/toolkit';
-import useOrdersWithUserData from '../../api/useUsersByIds';
-import useUserById from '../../api/useUserById';
-import useUsersByIds from '../../api/useUsersByIds';
+
 import { converToVND } from '../convertToVND/convertToVND';
-import usePayments from '../../api/usePayments';
+import * as XLSX from 'xlsx';
 
 const columns = [
     { id: '_id', label: 'Order ID', minWidth: 20 },
@@ -111,6 +107,33 @@ export default function AdminOrdersTable() {
         return <Typography>Loading...</Typography>;
     }
 
+    console.log('order: ', rows);
+
+    // export to excel
+    const exportToExcel = () => {
+        // create a new workbook and worksheet
+        const workbook = XLSX.utils.book_new();
+        // const currentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+        const worksheetData = rows.map((order, index) => ({
+            // define column name and get data
+            No: index + 1,
+            ID: order._id,
+            Name: order.user.firstName + '' + order.user.lastName,
+            Total: order.totalPrice,
+            Address: order.address,
+            Date: formatDate(order.createdAt),
+        }));
+
+        // convert JSON data to worksheet
+        const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+
+        // append the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'TableData');
+
+        // export the workbook as an Excel file
+        XLSX.writeFile(workbook, 'Orders Table.xlsx');
+    };
+
     return (
         <Box
             sx={{
@@ -145,6 +168,7 @@ export default function AdminOrdersTable() {
                         fontSize: '14px',
                     }}
                     startIcon={<FileDownloadIcon />}
+                    onClick={exportToExcel}
                 >
                     Export
                 </Button>
