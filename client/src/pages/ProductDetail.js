@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { backTop } from '../components/goBackTop/goBackTop';
 import { converToVND } from '../components/convertToVND/convertToVND';
 import useProductByBrand from '../api/useProductByBrand';
+import RelatedProduct from '../components/RelatedProduct/RelatedProduct';
 
 function ProductDetail() {
     const { t, i18n } = useTranslation('translate');
@@ -33,10 +34,10 @@ function ProductDetail() {
     const { data: productDataByBrand } = useProductByBrand(brandId);
 
     const relatedProducts = Array.isArray(productDataByBrand?.data) ? productDataByBrand.data : [];
-    const filteredRelatedProducts = relatedProducts.filter((item) => item._id !== id);
-    const newArray = filteredRelatedProducts.slice(0, 4);
+    const filteredRelatedProducts = relatedProducts.filter((item) => item._id !== id).slice(0, 4);
+    // const newArray = filteredRelatedProducts.slice(0, 4);
     console.log('filteredRelatedProducts: ', filteredRelatedProducts);
-    console.log('4 filteredRelatedProducts', newArray);
+    // console.log('4 filteredRelatedProducts', newArray);
 
     // reference to comments region
     const commentsRef = useRef();
@@ -89,97 +90,7 @@ function ProductDetail() {
             <RatingProduct perfumeDetailData={productData?.data} />
             <Comments perfumeDetailData={productData?.data} reference={commentsRef} />
             {/* Related product */}
-            <Box mt={10}>
-                <CustomizeTypography
-                    sx={{
-                        textAlign: 'center',
-                        fontSize: '24px',
-                        fontWeight: 'bold',
-                    }}
-                >
-                    {t('common.productDetails.relatedProduct')}
-                </CustomizeTypography>
-                <Box sx={{ mt: 4, mx: 20 }}>
-                    <Slider {...settings}>
-                        {filteredRelatedProducts?.length &&
-                            filteredRelatedProducts.map((perfume, index) => (
-                                <Box
-                                    key={index}
-                                    sx={{
-                                        p: 2,
-                                        width: '180px',
-                                        transition: 'transform 0.3s ease',
-                                        '&:hover': {
-                                            cursor: 'pointer',
-                                            transform: 'translateY(-5px)',
-                                        },
-                                    }}
-                                    onClick={() => handleNavigateProductDetails(perfume)}
-                                >
-                                    <Grid
-                                        container
-                                        sx={{
-                                            background: theme.palette.bestSelling,
-                                            borderRadius: 2,
-                                            height: '350px',
-
-                                            p: 1,
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        <Avatar
-                                            src={perfume?.imagePath[0]}
-                                            sx={{
-                                                borderRadius: 0,
-                                                height: '250px',
-                                                width: '200px',
-                                            }}
-                                        />
-                                        <CustomizeTypography
-                                            textAlign={'center'}
-                                            sx={{
-                                                textAlign: 'center',
-                                                // my: 2,
-
-                                                overflow: 'hidden',
-                                                whiteSpace: 'nowrap',
-                                                textOverflow: 'ellipsis',
-                                                width: '100%',
-                                            }}
-                                        >
-                                            {perfume.nameEn}
-                                        </CustomizeTypography>
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                            }}
-                                        >
-                                            <CustomizeTypography
-                                                sx={{
-                                                    color: theme.palette.secondaryText,
-                                                    fontBold: 'weight',
-                                                }}
-                                            >
-                                                {converToVND(
-                                                    perfume.variants[0].priceSale ||
-                                                        perfume.variants[0].price,
-                                                )}
-                                            </CustomizeTypography>
-                                            <CustomizeTypography sx={{ marginLeft: 1 }}>
-                                                {perfume.variants[0].size}
-                                            </CustomizeTypography>
-                                        </Box>
-                                    </Grid>
-                                </Box>
-                            ))}
-                    </Slider>
-                </Box>
-            </Box>
+            <RelatedProduct data={filteredRelatedProducts} />
         </Box>
     );
 }
