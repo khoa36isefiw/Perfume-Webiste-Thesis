@@ -124,7 +124,7 @@ export default function AdminOrdersTable() {
             Date: formatDate(order.createdAt),
         }));
 
-        // convert JSON data to worksheet
+        // convert JSON data to worksheetp
         const worksheet = XLSX.utils.json_to_sheet(worksheetData);
 
         // append the worksheet to the workbook

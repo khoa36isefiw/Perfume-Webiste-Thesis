@@ -11,7 +11,7 @@ import {
     MenuItem,
 } from '@mui/material';
 import isEqual from 'lodash/isEqual';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { productAPI } from '../../api/productAPI';
@@ -24,6 +24,7 @@ import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 const AdminEditProduct = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const { showNotificationMessage } = useSnackbarMessage();
     const { data: productRes, mutate } = useProductById(id);
     const productData = productRes?.data;
@@ -124,6 +125,7 @@ const AdminEditProduct = () => {
                     'Edit Product',
                     'Update product information successfully!',
                 );
+                navigate('/admin/manage-products');
             }
         } else {
             showNotificationMessage(
