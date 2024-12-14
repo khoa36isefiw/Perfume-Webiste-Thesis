@@ -10,12 +10,9 @@ import Paper from '@mui/material/Paper';
 import { Button, IconButton, InputAdornment, Stack, TextField, TableCell } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
-import UploadIcon from '@mui/icons-material/Upload';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
 import { Link, useNavigate } from 'react-router-dom';
 import useCategory from '../../api/useCategory';
 import { useEffect } from 'react';
@@ -25,11 +22,8 @@ import WarningIcon from '@mui/icons-material/Warning';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
-
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { blue } from '@mui/material/colors';
 import * as XLSX from 'xlsx';
-
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function AdminCategoriesTable() {

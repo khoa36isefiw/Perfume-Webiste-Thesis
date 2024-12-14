@@ -65,6 +65,8 @@ function AdminEditCoupon() {
             }
 
             if (status === 'active') {
+                // split time into an array contain [day, time]
+                // gate the first value --> date in yyyy-mm-dd
                 const currentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
 
                 if (getEndDate < currentDate) {
