@@ -20,9 +20,11 @@ import useCategory from '../../api/useCategory';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import useProductById from '../../api/useProductById';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 const AdminEditProduct = () => {
     const { id } = useParams();
+    const { showNotificationMessage } = useSnackbarMessage();
     const { data: productRes, mutate } = useProductById(id);
     const productData = productRes?.data;
     const productDataRef = useRef(null);
@@ -122,18 +124,20 @@ const AdminEditProduct = () => {
             const updateResponse = await productAPI.editProduct(id, formData);
             if (updateResponse.status === 200) {
                 mutate();
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
-                setMessageType('success');
-                setMessageContent('Update product information successfully!');
-                setMessageTitle('Edit Product');
+                showNotificationMessage(
+                    'success',
+                    'Edit Product',
+                    'Update product information successfully!',
+                );
             }
         } else {
             setShowNotification(true);
             setShowAnimation('animate__bounceInRight');
-            setMessageType('error');
-            setMessageTitle('Price Error2');
-            setMessageContent('Sale price cannot be greater than the original price!');
+            showNotificationMessage(
+                'error',
+                'Price Error2',
+                'Sale price cannot be greater than the original price!',
+            );
         }
     };
 
@@ -150,10 +154,9 @@ const AdminEditProduct = () => {
         // check input for number
         if (isNaN(newValue) || !isFinite(newValue)) {
             setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
-            setMessageType('warning');
-            setMessageTitle('Invalid Input');
-            setMessageContent('Please enter a valid number!');
+
+            showNotificationMessage('warning', 'Invalid Input', 'Please enter a valid number!');
+
             return;
         }
 
@@ -174,9 +177,12 @@ const AdminEditProduct = () => {
             if (priceSale > price) {
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
-                setMessageType('error');
-                setMessageTitle('Price Error');
-                setMessageContent('Sale price cannot be greater than the original price!');
+                showNotificationMessage(
+                    'error',
+                    'Price Error',
+                    'Sale price cannot be greater than the original price!',
+                );
+
                 setDisabledButton(true);
             } else {
                 setDisabledButton(false);
@@ -184,9 +190,8 @@ const AdminEditProduct = () => {
             if (price < 0 || priceSale < 0 || stock < 0) {
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
-                setMessageType('error');
-                setMessageTitle('Price Error');
-                setMessageContent('Number must be greater than 0!');
+                showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
+
                 setDisabledButton(true);
             }
 
@@ -353,23 +358,6 @@ const AdminEditProduct = () => {
                     Update Product
                 </Button>
             </Box>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgContent={messageContent}
-                        msgTitle={messageTitle}
-                        // msgType={'success'}
-                        // msgContent={'Update product information successfully!'}
-                        // msgTitle={'Edit Product'}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Box>
     );
 };
