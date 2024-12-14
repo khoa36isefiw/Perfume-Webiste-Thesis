@@ -13,8 +13,6 @@ const brandSchema = new Schema(
         },
         descriptionVN: String,
         descriptionEN: String,
-        thumbnail: String,
-        path: String,
         status: {
             type: String,
             enum: ['active', 'inactive'],

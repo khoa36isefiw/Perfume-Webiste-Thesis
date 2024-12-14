@@ -1,4 +1,4 @@
-require('./configs/db.config');
+require('./config/db.config');
 const express = require('express');
 const cors = require('cors');
 const route = require('./routes/index.route');

@@ -17,8 +17,6 @@ const categorySchema = new Schema(
         },
         descriptionVn: String,
         descriptionEn: String,
-        thumbnail: String,
-        path: String,
         status: {
             type: String,
             enum: ['active', 'inactive'],
