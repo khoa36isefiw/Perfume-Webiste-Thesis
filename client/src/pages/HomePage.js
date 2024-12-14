@@ -6,11 +6,13 @@ import BestSellingProducts from '../components/BestSellingProducts/BestSellingPr
 import OurCollections from '../components/OurCollections/OurCollections';
 import SaleOff from '../components/SaleOff/SaleOff';
 import LatestArticle from '../components/LatestArticle/LatestArticle';
-import TestSnackbar from './test';
+
+import SnowFalling from '../components/SnowFalling/SnowFalling';
 
 function HomePage() {
     return (
         <div style={{ overflow: 'hidden' }}>
+            <SnowFalling />
             <NewArrivals />
             <WelcomeHomePage />
             <OurValues />

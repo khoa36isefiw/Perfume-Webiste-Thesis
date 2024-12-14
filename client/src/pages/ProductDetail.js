@@ -34,6 +34,9 @@ function ProductDetail() {
 
     const relatedProducts = Array.isArray(productDataByBrand?.data) ? productDataByBrand.data : [];
     const filteredRelatedProducts = relatedProducts.filter((item) => item._id !== id);
+    const newArray = filteredRelatedProducts.slice(0, 4);
+    console.log('filteredRelatedProducts: ', filteredRelatedProducts);
+    console.log('4 filteredRelatedProducts', newArray);
 
     // reference to comments region
     const commentsRef = useRef();

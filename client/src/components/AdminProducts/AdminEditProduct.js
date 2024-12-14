@@ -136,11 +136,6 @@ const AdminEditProduct = () => {
         }
     };
 
-    // handle Close notification
-    const handleCloseNotification = () => {
-        setTimeout(() => {}, 1000);
-    };
-
     const handleSizeFieldChange = (index, field) => (e) => {
         const newValue = e.target.value;
         // check input for number
