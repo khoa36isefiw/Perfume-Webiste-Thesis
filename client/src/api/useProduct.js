@@ -1,13 +1,13 @@
 import useSWR from 'swr';
 import axiosClient from './axiosClient';
 
-export default function useProduct(keyword = null, brand = '', sortBy = '', sortOrder = 'asc') {
+export default function useProduct(keyword = null, brand = null, sortBy = null, sortOrder = 'asc') {
     // method 1:
     // const url = `/products?keyword=${keyword}`;
     // const fetcher = (url) => axiosClient.get(`${url}?keyword=${keyword}`);
 
     // method 2:
-    const url = `/products?`;
+    const url = `/products`;
     const fetcher = (url) =>
         axiosClient.get(url, {
             params: {

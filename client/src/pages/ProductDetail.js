@@ -21,6 +21,7 @@ import { converToVND } from '../components/convertToVND/convertToVND';
 import useProductByBrand from '../api/useProductByBrand';
 import RelatedProduct from '../components/RelatedProduct/RelatedProduct';
 
+
 function ProductDetail() {
     const { t, i18n } = useTranslation('translate');
     const { LoadingAPI } = useLoadingV2();
@@ -35,36 +36,13 @@ function ProductDetail() {
 
     const relatedProducts = Array.isArray(productDataByBrand?.data) ? productDataByBrand.data : [];
     const filteredRelatedProducts = relatedProducts.filter((item) => item._id !== id).slice(0, 4);
-    // const newArray = filteredRelatedProducts.slice(0, 4);
+
     console.log('filteredRelatedProducts: ', filteredRelatedProducts);
     // console.log('4 filteredRelatedProducts', newArray);
 
     // reference to comments region
     const commentsRef = useRef();
-    const settings = {
-        infinite: true,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        nextArrow: <CustomizeNextArrow />,
-        prevArrow: <CustomizPreviousArrow />,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                },
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                },
-            },
-        ],
-    };
+
     // scroll down to component with styles
     const scrollToDiv = () => {
         window.scrollTo({
@@ -72,12 +50,6 @@ function ProductDetail() {
             behavior: 'smooth',
             position: 'center', // in the middle of the screen
         });
-    };
-
-    const handleNavigateProductDetails = (perfume) => {
-        // navigate to the product detail page and pass the perfume data as state
-        navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}`);
-        backTop();
     };
 
     if (isLoading) {
