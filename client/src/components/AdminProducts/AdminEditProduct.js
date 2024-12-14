@@ -41,11 +41,6 @@ const AdminEditProduct = () => {
     const [selectedSizes, setSelectedSizes] = useState([]);
 
     // notifications
-    const [showNotification, setShowNotification] = useState(false);
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    const [messageType, setMessageType] = useState('');
-    const [messageContent, setMessageContent] = useState('');
-    const [messageTitle, setMessageTitle] = useState('');
 
     const { data: brands } = useBrand();
     const brandOptions = brands?.data || [];
@@ -131,8 +126,6 @@ const AdminEditProduct = () => {
                 );
             }
         } else {
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
             showNotificationMessage(
                 'error',
                 'Price Error2',
@@ -143,18 +136,13 @@ const AdminEditProduct = () => {
 
     // handle Close notification
     const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
+        setTimeout(() => {}, 1000);
     };
 
     const handleSizeFieldChange = (index, field) => (e) => {
         const newValue = e.target.value;
         // check input for number
         if (isNaN(newValue) || !isFinite(newValue)) {
-            setShowNotification(true);
-
             showNotificationMessage('warning', 'Invalid Input', 'Please enter a valid number!');
 
             return;
@@ -175,8 +163,6 @@ const AdminEditProduct = () => {
 
             // Kiểm tra điều kiện priceSale > price
             if (priceSale > price) {
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
                 showNotificationMessage(
                     'error',
                     'Price Error',
@@ -188,8 +174,6 @@ const AdminEditProduct = () => {
                 setDisabledButton(false);
             }
             if (price < 0 || priceSale < 0 || stock < 0) {
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
                 showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
 
                 setDisabledButton(true);
