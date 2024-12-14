@@ -13,20 +13,17 @@ import {
     Tooltip,
     IconButton,
     ListItemText,
-    Paper,
 } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { mobileScreen, theme } from '../../Theme/Theme';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import useBrand from '../../api/useBrand';
 import useCategory from '../../api/useCategory';
 import { productAPI } from '../../api/productAPI';
-import { categoriesAPI } from '../../api/categoriesAPI';
-import { brandApi } from '../../api/brandApi';
 import BackspaceIcon from '@mui/icons-material/Backspace';
 import { contentTemplate } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const AdminAddProduct = () => {
     const { showNotificationMessage } = useSnackbarMessage();
@@ -39,12 +36,6 @@ const AdminAddProduct = () => {
     const [disabledButton, setDisabledButton] = useState(false);
     const [imgData, setImgData] = React.useState([]);
     const [content, setContent] = useState(contentTemplate);
-    // notifications
-    const [showNotification, setShowNotification] = useState(false);
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    const [messageType, setMessageType] = useState('');
-    const [messageContent, setMessageContent] = useState('');
-    const [messageTitle, setMessageTitle] = useState('');
 
     const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
 
@@ -73,14 +64,14 @@ const AdminAddProduct = () => {
                     size.price !== '' &&
                     size.priceSale !== '' &&
                     size.stock !== '',
-            )
+            ) &&
+            brand !== '' &&
+            category !== ''
         ) {
             for (let i = 0; i < selectedSizes.length; i++) {
                 console.log(+selectedSizes[i].priceSale);
             }
             if (selectedSizes.every((size) => +size.priceSale - +size.price > 0)) {
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
                 showNotificationMessage(
                     'error',
                     'Price Error',
@@ -111,8 +102,7 @@ const AdminAddProduct = () => {
                 console.log('addProductResponse: ', addProductResponse);
 
                 // successfully added
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
+
                 showNotificationMessage(
                     'success',
                     'Add New Product',
@@ -125,8 +115,7 @@ const AdminAddProduct = () => {
             }
         } else {
             console.log('chay vo day ne');
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
+
             showNotificationMessage(
                 'warning',
                 'Add New Product',
@@ -163,11 +152,8 @@ const AdminAddProduct = () => {
 
         // Kiểm tra nếu giá trị là một số hợp lệ
         if (isNaN(newValue) || !isFinite(newValue)) {
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
-            setMessageType('warning');
-            setMessageTitle('Invalid Input');
-            setMessageContent('Please enter a valid number!');
+            showNotificationMessage('warning', 'Invalid Input', 'Please enter a valid number!');
+
             return;
         }
 
@@ -186,38 +172,25 @@ const AdminAddProduct = () => {
 
             // Kiểm tra điều kiện priceSale > price
             if (+priceSale > +price) {
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
-                setMessageType('error');
-                setMessageTitle('Price Error');
-                setMessageContent('Sale price cannot be greater than the original price!');
+                showNotificationMessage(
+                    'error',
+                    'Price Error',
+                    'Sale price cannot be greater than the original price!',
+                );
+
                 setDisabledButton(true);
             } else {
                 setDisabledButton(false);
             }
 
             if (price < 0 || priceSale < 0 || stock < 0) {
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
-                setMessageType('error');
-                setMessageTitle('Price Error');
-                setMessageContent('Number must be greater than 0!');
+                showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
+
                 setDisabledButton(true);
             }
 
             return updatedSizes;
         });
-    };
-
-    const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
-    };
-
-    const handleCategorySelected = (e) => {
-        setCategory(e.target.value);
     };
 
     const handleRemoveImage = (index) => {
@@ -245,19 +218,42 @@ const AdminAddProduct = () => {
             </Typography>
             <Box display="flex" flexWrap="wrap" gap={2} my={2}>
                 {images.map((image, index) => (
-                    <Box key={index}>
+                    <Box key={index} sx={{ width: 164, height: 164, position: 'relative' }}>
                         <Avatar
                             alt={`Product Image ${index + 1}`}
                             src={image}
                             sx={{
-                                width: 156,
-                                height: 156,
+                                width: 164,
+                                height: 164,
                                 marginBottom: 2,
                                 borderRadius: 0,
                                 border: '1px solid #d5d5d5',
+                                filter: 'drop-shadow(0 0 0.75rem #ccc)',
                             }}
                         />
-                        <Button onClick={() => handleRemoveImage(index)}>Remove</Button>
+                        <Tooltip
+                            title={
+                                <Typography
+                                    sx={{
+                                        fontSize: '13px',
+                                    }}
+                                >
+                                    Remove Image
+                                </Typography>
+                            }
+                        >
+                            <IconButton
+                                sx={{ position: 'absolute', top: 0, right: 0 }}
+                                onClick={() => handleRemoveImage(index)}
+                            >
+                                <CancelIcon
+                                    sx={{
+                                        fontSize: '28px',
+                                        color: theme.palette.notification.inforIcon,
+                                    }}
+                                />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
                 ))}
             </Box>
@@ -351,6 +347,7 @@ const AdminAddProduct = () => {
                             type="number"
                             value={size.price}
                             onChange={handleSizeFieldChange(index, 'price')}
+                            onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
                         />
                         <TextField
@@ -368,6 +365,7 @@ const AdminAddProduct = () => {
                             type="number"
                             value={size.stock}
                             onChange={handleSizeFieldChange(index, 'stock')}
+                            onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
                         />
                     </Box>
@@ -426,20 +424,6 @@ const AdminAddProduct = () => {
                     borderColor={theme.palette.admin.bgColor}
                 />
             </Box>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Box>
     );
 };
