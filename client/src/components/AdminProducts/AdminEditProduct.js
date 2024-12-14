@@ -273,6 +273,7 @@ const AdminEditProduct = () => {
                             type="number"
                             value={size.price}
                             onChange={handleSizeFieldChange(index, 'price')}
+                            onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
                         />
                         <TextField
@@ -290,6 +291,7 @@ const AdminEditProduct = () => {
                             type="number"
                             value={size.stock}
                             onChange={handleSizeFieldChange(index, 'stock')}
+                            onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
                         />
                     </Box>
