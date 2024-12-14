@@ -360,7 +360,7 @@ export default function ProductTable() {
                                                                                     mb: 0,
                                                                                 }}
                                                                             >
-                                                                                Delete Users
+                                                                                Delete Product
                                                                             </CustomizeTypography>
                                                                         }
                                                                     >

@@ -10,7 +10,7 @@ export const useSnackbarMessage = () => {
         enqueueSnackbar(content, {
             variant, // 'success', 'error', 'info', 'warning'
             anchorOrigin: { vertical: 'top', horizontal: 'right' }, // default position
-            autoHideDuration: 3000, // default duration
+            autoHideDuration: 6000, // default duration
             ...options, // allow overriding default options
             content: (key) => (
                 <Box key={key}>

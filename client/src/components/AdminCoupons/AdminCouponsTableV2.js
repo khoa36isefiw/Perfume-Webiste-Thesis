@@ -26,6 +26,7 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import useCoupons from '../../api/useCoupons';
 import useDeleteItem from '../../hooks/useDeleteItem';
 import { couponAPI } from '../../api/couponAPI';
+import EmptyCart from '../EmptyCart/EmptyCart';
 
 const itemsPerPage = 5;
 
@@ -176,7 +177,7 @@ const CouponsTable = () => {
     // };
 
     if (isLoading) {
-        return <Typography>Loading...</Typography>;
+        return <EmptyCart title="Promotions Code" subTitle="There is nothing at here" />;
     }
 
     return (
@@ -411,7 +412,7 @@ const CouponsTable = () => {
                                         </TableRow>
                                     ))
                             ) : (
-                                <Typography>Loading....</Typography>
+                                <></>
                             )}
                         </TableBody>
                     </Table>

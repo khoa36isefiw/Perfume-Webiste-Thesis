@@ -255,18 +255,18 @@ function PerfumesCard() {
                                                             // justifyContent: 'space-between',
                                                             alignItems: 'center',
                                                             // mb: 1,
+                                                            [mobileScreen]: {
+                                                                flexDirection: 'column',
+                                                            },
                                                         }}
                                                     >
-                                                        <CustomizeTypography sx={{ mr: '0.5px' }}>
-                                                            {perfume.rating.toFixed(1)}
-                                                        </CustomizeTypography>
                                                         <Rating
                                                             readOnly={true}
                                                             value={perfume.rating}
                                                             // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                                             sx={{
                                                                 fontSize: '18px',
-                                                                // change border color
+                                                                // change bo    rder color
                                                                 '& .MuiRating-iconEmpty .MuiSvgIcon-root':
                                                                     {
                                                                         color: theme.palette.thirth
@@ -279,9 +279,12 @@ function PerfumesCard() {
                                                         <CustomizeTypography
                                                             sx={{
                                                                 ml: 2,
+                                                                [mobileScreen]: {
+                                                                    ml: 0,
+                                                                },
                                                             }}
                                                         >
-                                                            ({perfume.numReviews})
+                                                            ({perfume.unitsSold}) đã bán
                                                         </CustomizeTypography>
                                                     </Box>
                                                     <Box

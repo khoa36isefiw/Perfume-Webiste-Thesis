@@ -26,8 +26,10 @@ import { brandApi } from '../../api/brandApi';
 import BackspaceIcon from '@mui/icons-material/Backspace';
 import { contentTemplate } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 const AdminAddProduct = () => {
+    const { showNotificationMessage } = useSnackbarMessage();
     const navigate = useNavigate();
     const [images, setImages] = useState([]);
     const [productName, setProductName] = useState('');
@@ -79,9 +81,11 @@ const AdminAddProduct = () => {
             if (selectedSizes.every((size) => +size.priceSale - +size.price > 0)) {
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
-                setMessageType('error');
-                setMessageTitle('Price Error');
-                setMessageContent('Sale price cannot be greater than the original price!');
+                showNotificationMessage(
+                    'error',
+                    'Price Error',
+                    'Sale price cannot be greater than the original price!',
+                );
             } else {
                 const formData = new FormData();
                 formData.append('nameVn', productName);
@@ -109,9 +113,12 @@ const AdminAddProduct = () => {
                 // successfully added
                 setShowNotification(true);
                 setShowAnimation('animate__bounceInRight');
-                setMessageType('success');
-                setMessageTitle('Add New Product');
-                setMessageContent('Add new prodcut successfully!');
+                showNotificationMessage(
+                    'success',
+                    'Add New Product',
+                    'Add new prodcut successfully!',
+                );
+
                 setTimeout(() => {
                     navigate('/admin/manage-products');
                 }, 2800);
@@ -120,9 +127,11 @@ const AdminAddProduct = () => {
             console.log('chay vo day ne');
             setShowNotification(true);
             setShowAnimation('animate__bounceInRight');
-            setMessageType('warning');
-            setMessageTitle('Add New Product');
-            setMessageContent('Please fill product information!');
+            showNotificationMessage(
+                'warning',
+                'Add New Product',
+                'Please fill product information!',
+            );
         }
     };
 

@@ -75,7 +75,7 @@ const cardData = [
     },
 ];
 
-const filterDate = ['Last Day', 'Last Week', 'Last Month', 'Last Year'];
+const filterDate = ['Last Day', 'Last Week', 'Last Month'];
 
 function AdminDashboard() {
     const [anchorEl, setAnchorEl] = useState(null);
