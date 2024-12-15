@@ -4,6 +4,7 @@ import ChatbotImage from '../../assets/images/chatbot.png';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import RemoveIcon from '@mui/icons-material/Remove';
 import SendIcon from '@mui/icons-material/Send';
+import { chatbotAPI } from '../../api/chatbotApi';
 
 function Chatbot() {
     // control chat window visibility
@@ -13,15 +14,15 @@ function Chatbot() {
 
     const toggleChatWindow = () => setIsOpen(!isOpen);
 
-    const handleSend = () => {
+    const handleSend = async () => {
         if (inputValue.trim()) {
             setMessages((prev) => [...prev, { type: 'user', text: inputValue }]);
-            setTimeout(() => {
-                setMessages((prev) => [
-                    ...prev,
-                    { type: 'bot', text: `You said: "${inputValue}"` },
-                ]);
-            }, 1000);
+            // call api to response from chatbot
+            const response = await chatbotAPI.sendMessage(inputValue);
+            console.log('response: ', response);
+            if (response) {
+                setMessages((prev) => [...prev, { type: 'bot', text: response.response }]);
+            }
             setInputValue('');
         }
     };
