@@ -77,25 +77,29 @@ const UserController = {
 
     updateProfile: async (req, res) => {
         try {
-            const id = req.params.id;
+            const { id } = req.params;
             const data = req.body;
-            const fileData = req.files;
-            console.log({ fileData });
-            let imagePath = '';
+            const fileData = req.file;
+            console.log('data', data, req);
+            const user = await User.findById(id);
+            if (!user) {
+                return res.status(404).json({ message: 'User not found!' });
+            }
+            Object.keys(data).forEach((key) => {
+                user[key] = data[key];
+            });
             if (fileData) {
-                imagePath = fileData[0].path;
+                user.imagePath = fileData.path;
             }
-            const user = await User.findOne({ _id: id });
-            if (user) {
-                await User.updateOne({ _id: id }, { $set: { ...data, imagePath } });
-                return res.status(200).json('Cập nhật profile thành công');
-            } else {
-                return res.status(404).json({
-                    message: 'Không tìm thấy user!',
-                });
-            }
+
+            const updatedUser = await user.save();
+
+            return res.status(200).json({
+                message: 'Profile updated successfully',
+                user: updatedUser,
+            });
         } catch (err) {
-            return res.status(500).json(`Có lỗi trong quá trình cập nhật profile :  ${err}`);
+            return res.status(500).json(`Error updating profile: ${err}`);
         }
     },
     recoverPassword: async (email, password) => {
