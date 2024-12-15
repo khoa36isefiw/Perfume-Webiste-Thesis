@@ -111,7 +111,7 @@ function Chatbot() {
                         >
                             Chat with Tomtoc AI
                         </Typography>
-                        <IconButton>
+                        <IconButton onClick={toggleChatWindow}>
                             <RemoveIcon
                                 sx={{
                                     color: '#000',
