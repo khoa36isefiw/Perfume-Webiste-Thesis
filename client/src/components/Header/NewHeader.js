@@ -202,7 +202,7 @@ function NewHeader() {
         const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
         window.localStorage.setItem('language', lng); // set language is selected to local storage
         console.log('newPath: ', newPath);
-// check if reference tới 
+        // check if reference tới
         const newPathWithParams = params.toString() ? `${newPath}?${params.toString()}` : newPath;
         navigate(newPathWithParams);
         setEnLanguage(!enLanguage);

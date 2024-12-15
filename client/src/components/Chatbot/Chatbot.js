@@ -3,6 +3,7 @@ import { Avatar, Box, TextField, Button, Typography, IconButton } from '@mui/mat
 import ChatbotImage from '../../assets/images/chatbot.png';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import RemoveIcon from '@mui/icons-material/Remove';
+import SendIcon from '@mui/icons-material/Send';
 
 function Chatbot() {
     // control chat window visibility
@@ -67,22 +68,23 @@ function Chatbot() {
                 <Box
                     sx={{
                         position: 'fixed',
+                        mb: 1,
                         bottom: '200px',
                         right: '60px',
                         width: '300px',
-                        height: '400px',
+                        height: '450px',
                         border: '1px solid #ccc',
                         borderRadius: 2,
                         backgroundColor: '#fff',
                         display: 'flex',
                         flexDirection: 'column',
                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                        zIndex: 100,
+                        zIndex: 9999,
                         [mobileScreen]: {
                             right: '30px',
                             width: '260px',
                         },
-                        // filter: 'drop-shadow(0 0 0.75rem #ccc)',
+                        filter: 'drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.2))',
                     }}
                 >
                     {/* chat header */}
@@ -90,10 +92,8 @@ function Chatbot() {
                         sx={{
                             backgroundColor: '#ffffff',
                             color: '#000',
-                            padding: '10px',
-                            borderTopLeftRadius: '8px',
-                            borderTopRightRadius: '8px',
-
+                            padding: '4px',
+                            borderRadius: 1,
                             textAlign: 'center',
                             fontWeight: 'bold',
                             borderBottom: '1px solid #ccc',
@@ -102,11 +102,25 @@ function Chatbot() {
                             justifyContent: 'space-between',
                         }}
                     >
-                        <Typography sx={{ fontSize: '14px', flex: 1 }}>
+                        <Typography
+                            sx={{
+                                fontSize: '15px',
+                                flex: 1,
+                                fontWeight: 'bold',
+                            }}
+                        >
                             Chat with Tomtoc AI
                         </Typography>
                         <IconButton>
-                            <RemoveIcon sx={{ color: '#000', fontSize: '24px' }} />
+                            <RemoveIcon
+                                sx={{
+                                    color: '#000',
+                                    fontSize: '28px',
+                                    '&:hover': {
+                                        color: theme.palette.text.secondary,
+                                    },
+                                }}
+                            />
                         </IconButton>
                     </Box>
 
@@ -119,18 +133,21 @@ function Chatbot() {
                             background: '#f6f6f7',
                         }}
                     >
-                        {messages.map((message, index) => (
-                            <Typography
-                                key={index}
-                                sx={{
-                                    textAlign: message.type === 'user' ? 'right' : 'left',
-                                    color: message.type === 'user' ? '#1976d2' : '#555',
-                                    marginBottom: '8px',
-                                }}
-                            >
-                                {message.text}
-                            </Typography>
-                        ))}
+                        {messages.map((message, index) => {
+                            return (
+                                <Typography
+                                    key={index}
+                                    sx={{
+                                        textAlign: message.type === 'user' ? 'right' : 'left',
+                                        color: message.type === 'user' ? '#1976d2' : '#555',
+                                        marginBottom: '8px',
+                                        fontSize: '13.5px',
+                                    }}
+                                >
+                                    {message.text}
+                                </Typography>
+                            );
+                        })}
                     </Box>
 
                     {/* chat input message */}
@@ -138,7 +155,8 @@ function Chatbot() {
                         sx={{
                             display: 'flex',
                             padding: '8px',
-                            borderTop: '1px solid #ccc',
+                            background: '#f6f6f7',
+                            borderRadius: 1,
                         }}
                     >
                         <TextField
@@ -147,11 +165,55 @@ function Chatbot() {
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             onKeyDown={(e) => {
-                                if (e.key === 'Enter') handleSend();
+                                if (e.key === 'Enter') {
+                                    // Prevent default form submission
+                                    e.preventDefault();
+                                    handleSend();
+                                }
                             }}
-                            sx={{ marginRight: '8px' }}
+                            sx={{
+                                marginRight: '8px',
+
+                                // config style of textfield
+                                '.MuiInputBase-root': {
+                                    fontSize: '14px',
+                                    height: '40px',
+                                    borderRadius: 4,
+                                    [mobileScreen]: {
+                                        width: '250px',
+                                    },
+                                },
+
+                                // config focus of textfield
+                                '& .MuiOutlinedInput-root': {
+                                    '& fieldset': {
+                                        border: '1px solid #ccc',
+                                        borderColor: '#333',
+                                    },
+                                    '&:hover fieldset': {
+                                        border: '1px solid #ccc',
+                                        borderColor: '#333',
+                                    },
+                                    '&.Mui-focused fieldset': {
+                                        border: '1px solid #ccc',
+                                        borderColor: '#333',
+                                    },
+                                },
+                            }}
                         />
-                        <Button variant="contained" color="primary" onClick={handleSend}>
+                        <Button
+                            variant="text"
+                            color="primary"
+                            onClick={handleSend}
+                            sx={{
+                                fontSize: '13px',
+                                textTransform: 'capitalize',
+                                '&:hover': {
+                                    bgcolor: 'transparent',
+                                },
+                            }}
+                            endIcon={<SendIcon />}
+                        >
                             Send
                         </Button>
                     </Box>
