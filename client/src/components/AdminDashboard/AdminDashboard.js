@@ -10,16 +10,12 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Tooltip from '@mui/material/Tooltip';
-import { mobileScreen, theme } from '../../Theme/Theme';
-import { backTop } from '../goBackTop/goBackTop';
+import { mobileScreen } from '../../Theme/Theme';
 import RestoreIcon from '@mui/icons-material/Restore';
 import { adminAPI } from '../../api/adminAPI';
-
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
-
 import TopSales from './AdminLineChart';
-import AdminRecentAdded from './AdminRecentAdded';
 import RecentTransactions from './RecentTransactions';
 import TopProductsSale from './TopProductsSale';
 import AdminRecentAddedV2 from './AdminRecentAddedV2';
@@ -85,11 +81,11 @@ function AdminDashboard() {
     const [defaultValue, setDefaultValue] = useState({}); // Set default value as 'Last Day'
     const [selectedCardId, setSelectedCardId] = useState(null);
 
-    console.log('defaultValue: ', defaultValue);
+    // console.log('defaultValue: ', defaultValue);
     const open = Boolean(anchorEl);
     console.log('listData: ', listData);
     useEffect(() => {
-        console.log('at here, chạy vô đây');
+        // console.log('at here, chạy vô đây');
         const fetchData = async () => {
             const userData = await adminAPI.getStatisticUser('day');
             const productData = await adminAPI.getStatisticOrder('day');
@@ -157,7 +153,7 @@ function AdminDashboard() {
             const statisticsResponse = await adminAPI.getStatitics(getPath, timeFrame);
 
             if (statisticsResponse.status === 200) {
-                console.log('Statistics Response:', statisticsResponse);
+                // console.log('Statistics Response:', statisticsResponse);
 
                 // create object to save to local storage
                 const updatedData = {
@@ -173,7 +169,7 @@ function AdminDashboard() {
 
                 localStorage.setItem('dashboard_statistics', JSON.stringify(updatedData));
 
-                console.log('Updated Data:', updatedData);
+                // console.log('Updated Data:', updatedData);
             } else {
                 console.error('Failed to fetch statistics');
             }
@@ -286,15 +282,6 @@ function AdminDashboard() {
                                             justifyContent: 'center',
                                         }}
                                     >
-                                        {/* <AdminTypography
-                                            sx={{
-                                                fontWeight: 'bold',
-                                                color: '#fff',
-                                                textAlign: 'center',
-                                            }}
-                                        >
-                                            + {card.percentage}%
-                                        </AdminTypography> */}
                                         <AdminTypography
                                             sx={{
                                                 ml: 1,
@@ -309,20 +296,6 @@ function AdminDashboard() {
                                                 : defaultValue[card.id]?.timeFrame}
                                         </AdminTypography>
                                     </Box>
-                                    {/* <AdminTypography
-                                        sx={{
-                                            ml: 1,
-                                            fontWeight: 'bold',
-                                            color: '#fff',
-                                            textTransform: 'capitalize',
-                                        }}
-                                    >
-                                        Last{' '}
-                                        {listData && listData[card.id]?.timeFrame
-                                            ? listData[card.id]?.timeFrame
-                                            : defaultValue[card.id]?.timeFrame}
-                                    </AdminTypography> */}
-                                    {/* Use defaultValue here */}
                                 </Box>
                                 <React.Fragment>
                                     <Box

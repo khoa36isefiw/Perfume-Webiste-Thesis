@@ -2,18 +2,20 @@ import React from 'react';
 import NewArrivals from '../components/NewArrivals/NewArrivals';
 import WelcomeHomePage from '../components/WelcomeHomePage/WelcomeHomePage';
 import OurValues from '../components/OurValues/OurValues';
-import BestSellingProducts from '../components/BestSellingProducts/BestSellingProducts';
+import BestSellingProducts from '../components/NewProductsArrivals/NewProductsArrivals';
 import OurCollections from '../components/OurCollections/OurCollections';
 import SaleOff from '../components/SaleOff/SaleOff';
 import LatestArticle from '../components/LatestArticle/LatestArticle';
 
 import SnowFalling from '../components/SnowFalling/SnowFalling';
+import Chatbot from '../components/Chatbot/Chatbot';
 
 function HomePage() {
     return (
         <div style={{ overflow: 'hidden' }}>
             <SnowFalling />
             <NewArrivals />
+
             <WelcomeHomePage />
             <OurValues />
             <BestSellingProducts />

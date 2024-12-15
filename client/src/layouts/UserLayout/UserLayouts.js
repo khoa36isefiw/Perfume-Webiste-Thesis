@@ -7,6 +7,7 @@ import NewHeader from '../../components/Header/NewHeader';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SubscribeModal from '../../components/SubscribeModal/SubscribeModal';
+import Chatbot from '../../components/Chatbot/Chatbot';
 
 function UserLayouts({ children }) {
     const location = useLocation();
@@ -33,6 +34,7 @@ function UserLayouts({ children }) {
             {/* any components call this layout */}
             <Box sx={{ mt: 10 }}>{children}</Box>
             <Divider sx={{ p: '2px', bgcolor: theme.palette.text.secondary, mt: 8, mb: 1 }} />
+            <Chatbot />
             <BackToTop />
             <Footer />
         </Box>

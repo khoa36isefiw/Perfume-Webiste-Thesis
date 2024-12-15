@@ -23,6 +23,7 @@ function App() {
     ];
 
     const userData = JSON.parse(localStorage.getItem('user_data')) || {};
+    console.log('userData: ', userData);
 
     return (
         <Box sx={{ bgcolor: '#000000' }}>
@@ -55,7 +56,7 @@ function App() {
                                 key={route.path}
                                 path={route.path}
                                 element={
-                                    userData.user ? ( // for login
+                                    userData !== null ? ( // for login
                                         <Layout>
                                             <Page />
                                         </Layout>

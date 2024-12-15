@@ -26,10 +26,9 @@ export const ProductInCart = ({
     const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
     const { t } = useTranslation('translate');
     const location = useLocation();
-    console.log('productsList: ', productsList);
+
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
 
-    const dispatch = useDispatch();
     const [productToRemove, setProductToRemove] = useState(null);
     const [openConfirmMessage, setOpenConfirmMessage] = React.useState(false);
     // const [showNotification, setShowNotification] = useState(false);

@@ -5,14 +5,11 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
-import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
-import { quickViewImage } from './perfumeDetailData';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { converToVND } from '../convertToVND/convertToVND';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
+
 import CheckIcon from '@mui/icons-material/Check';
 import { userAPI } from '../../api/userAPI';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { useTranslation } from 'react-i18next';
 import useProductById from '../../api/useProductById';
 import useLoadingV2 from '../../hooks/useLoadingV2';
@@ -110,7 +107,18 @@ function PerfumeDetail({ productData, onHandleClick }) {
         });
     };
 
-    // console.log('selectedSize: ', selectedSize);
+    const handleBuyNow = () => {
+        // return an object
+        const productObjectBuy = productData?.variants.map((size) => ({
+            product: { ...productData },
+            quantity: 1,
+            variant: { ...size },
+        }));
+
+        console.log('productObjectBuy: ', productObjectBuy);
+        window.localStorage.setItem('list_product_selected', JSON.stringify(productObjectBuy));
+        navigate(`/${i18n.language}/checkout`);
+    };
 
     return (
         <Box
@@ -498,15 +506,19 @@ function PerfumeDetail({ productData, onHandleClick }) {
                         </Box>
 
                         <Box sx={{ display: 'flex', alignItems: 'center', my: 2 }}>
+                            {/* Add to cart button */}
                             <CustomizeButtonOutlined
                                 textAction={t('common.productDetails.addToCart')}
                                 onHandleClick={() => handleAddProduct()}
                                 disabled={selectedSize?.numberStock <= 0}
                             />
 
-                            {/* <CustomizeButton textAction={'Add to cart'} /> */}
+                            {/* Buy Now Button */}
                             <Box sx={{ ml: 2 }}>
-                                <CustomizeButton textAction={t('common.productDetails.buyNow')} />
+                                <CustomizeButton
+                                    textAction={t('common.productDetails.buyNow')}
+                                    onHandleClick={handleBuyNow}
+                                />
                             </Box>
                         </Box>
                     </Grid>

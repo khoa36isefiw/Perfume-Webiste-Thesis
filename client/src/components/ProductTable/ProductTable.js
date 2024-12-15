@@ -100,6 +100,8 @@ export default function ProductTable() {
         })),
     );
 
+    console.log('flattenedRows: ', flattenedRows);
+
     // Filter flattened rows based on product name, and brand
     const filteredRows = flattenedRows.filter(
         (row) =>
