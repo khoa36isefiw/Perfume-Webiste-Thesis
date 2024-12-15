@@ -481,6 +481,9 @@ export const ProductInCart = ({
                                             flexDirection: 'column',
                                             alignItems: 'flex-end',
                                             justifyContent: 'center',
+                                            [mobileScreen]: {
+                                                alignItems: 'flex-start',
+                                            },
                                         }}
                                     >
                                         {item.variant?.discountPercent !== 0 ? ( // calculate with discount
