@@ -23,6 +23,7 @@ import EmptyOrders from '../components/EmptyOrders/EmptyOrders';
 import useOrderByUser from '../api/useOrderByUser';
 import { authAPI } from '../api/authAPI';
 import { useTranslation } from 'react-i18next';
+import Chatbot from '../components/Chatbot/Chatbot';
 
 const darkTheme = createTheme({
     palette: {
@@ -290,6 +291,7 @@ const Layout = ({ children }) => {
                 <Grid container item xs={12} sm={8} md={8} lg={9}>
                     <Box sx={{ flexGrow: 1, bgcolor: 'background.default' }}>{children}</Box>
                 </Grid>
+                <Chatbot />
             </Grid>
         </Container>
     );

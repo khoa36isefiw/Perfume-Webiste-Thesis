@@ -8,12 +8,14 @@ import SaleOff from '../components/SaleOff/SaleOff';
 import LatestArticle from '../components/LatestArticle/LatestArticle';
 
 import SnowFalling from '../components/SnowFalling/SnowFalling';
+import Chatbot from '../components/Chatbot/Chatbot';
 
 function HomePage() {
     return (
         <div style={{ overflow: 'hidden' }}>
             <SnowFalling />
             <NewArrivals />
+
             <WelcomeHomePage />
             <OurValues />
             <BestSellingProducts />
