@@ -32,7 +32,7 @@ function AccountInfo() {
 
     const userData = JSON.parse(localStorage.getItem('user_data'));
     console.log('userData: ', userData);
-    const { data: userRes, mutate } = useUserById(userData?._id);
+    const { data: userRes, mutate } = useUserById(userData?.userId);
     const user = userRes?.data;
     const [editAccount, setEditAccount] = useState(true);
     const [selectedImage, setSelectedImage] = useState('');
@@ -67,7 +67,7 @@ function AccountInfo() {
                     (key) => key !== 'imagePath' && formData.append(key, data[key]),
                 );
                 formData.append('imagePath', imgData);
-                const updateUserInfor = await userAPI.updateUserProfile(userData._id, formData);
+                const updateUserInfor = await userAPI.updateUserProfile(userData.userId, formData);
                 if (updateUserInfor.status === 200) {
                     mutate();
                     window.localStorage.setItem(
