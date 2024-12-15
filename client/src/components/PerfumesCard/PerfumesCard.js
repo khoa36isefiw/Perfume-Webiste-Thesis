@@ -278,7 +278,7 @@ function PerfumesCard() {
                                                         {/* number of rating */}
                                                         <CustomizeTypography
                                                             sx={{
-                                                                ml: 2,
+                                                                ml: 1,
                                                                 [mobileScreen]: {
                                                                     ml: 0,
                                                                 },

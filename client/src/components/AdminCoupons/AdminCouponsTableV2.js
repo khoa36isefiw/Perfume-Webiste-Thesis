@@ -27,6 +27,7 @@ import useCoupons from '../../api/useCoupons';
 import useDeleteItem from '../../hooks/useDeleteItem';
 import { couponAPI } from '../../api/couponAPI';
 import EmptyCart from '../EmptyCart/EmptyCart';
+import * as XLSX from 'xlsx';
 
 const itemsPerPage = 5;
 
@@ -55,7 +56,7 @@ const CouponsTable = () => {
     const navigate = useNavigate();
     const { data: couponsData, mutate, isLoading } = useCoupons();
     const responeCouponsData = couponsData?.data || [];
-    const [currentPage, setCurrentPage] = useState(1);
+
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
 
     const [page, setPage] = useState(0);
@@ -63,10 +64,6 @@ const CouponsTable = () => {
     const [rows, setRows] = useState(couponsData?.data || []); // Dynamic user data
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
 
-    // const [showNotification, setShowNotification] = useState(false);
-    // const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    // const [couponToRemove, setCouponToRemove] = useState(null);
-    // const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const {
         showNotification,
         messageType,
@@ -176,6 +173,31 @@ const CouponsTable = () => {
     //     }, 1000);
     // };
 
+    const exportToExcel = () => {
+        // create a new workbook and worksheet
+        const workbook = XLSX.utils.book_new();
+        const worksheetData = filterListCoupons.map((cp, index) => ({
+            // define column name and get data
+            No: index + 1,
+            ID: cp._id,
+            Code: cp.code,
+            Description: cp.description,
+            Quantity: cp.quantity,
+            Status: cp.status,
+            'Start Date': cp.startDate,
+            'End Date': cp.endDate,
+        }));
+
+        // convert JSON data to worksheet
+        const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+
+        // append the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'TableData');
+
+        // export the workbook as an Excel file
+        XLSX.writeFile(workbook, 'Coupons Table.xlsx');
+    };
+
     if (isLoading) {
         return <EmptyCart title="Promotions Code" subTitle="There is nothing at here" />;
     }
@@ -205,6 +227,7 @@ const CouponsTable = () => {
                             fontSize: '14px',
                         }}
                         startIcon={<FileDownloadIcon />}
+                        onClick={exportToExcel}
                     >
                         Export
                     </Button>

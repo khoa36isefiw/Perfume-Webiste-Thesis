@@ -90,19 +90,27 @@ function AdminTableBrands() {
     };
 
     // export to excel
-    // const exportToExcel = async () => {
-    //     // Create a new workbook
-    //     const workbook = XLSX.utils.book_new();
+    const exportToExcel = () => {
+        // create a new workbook and worksheet
+        const workbook = XLSX.utils.book_new();
+        const worksheetData = brands.map((brand, index) => ({
+            // define column name and get data
+            No: index + 1,
+            ID: brand._id,
+            Name: brand.nameEn,
+            Description: brand.descriptionEN,
+            Status: brand.status,
+        }));
 
-    //     // Convert JSON data to worksheet
-    //     const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+        // convert JSON data to worksheet
+        const worksheet = XLSX.utils.json_to_sheet(worksheetData);
 
-    //     // Append the worksheet to the workbook
-    //     XLSX.utils.book_append_sheet(workbook, worksheet, 'brandTable');
+        // append the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'TableData');
 
-    //     // Export the workbook as an Excel file
-    //     XLSX.writeFile(workbook, 'brands Table.xlsx');
-    // };
+        // export the workbook as an Excel file
+        XLSX.writeFile(workbook, 'Brands Table.xlsx');
+    };
 
     const filterBrands = brands.filter(
         (brand) =>
@@ -152,7 +160,7 @@ function AdminTableBrands() {
                                 <Stack spacing={1} direction="row">
                                     <Button
                                         sx={{ fontSize: '1.4rem', textTransform: 'none' }}
-                                        // onClick={exportToExcel}
+                                        onClick={exportToExcel}
                                     >
                                         <DownloadIcon sx={{ mr: 1 }} />
                                         Export

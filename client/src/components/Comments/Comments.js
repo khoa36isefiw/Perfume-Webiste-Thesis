@@ -1,23 +1,44 @@
-import { Avatar, Box, Container, Divider, IconButton, Rating } from '@mui/material';
-import React from 'react';
+import {
+    Avatar,
+    Box,
+    Container,
+    Divider,
+    IconButton,
+    Rating,
+    Button,
+    Typography,
+} from '@mui/material';
+import React, { useState } from 'react';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
-import { commentsData } from './commentsData';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import { useSelector } from 'react-redux';
+
 import { useTranslation } from 'react-i18next';
 import useReviewOnProduct from '../../api/useReviewOnProduct';
-import { formatDate, formatDateWithTime } from '../FormatDate/formatDate';
+import { formatDateWithTime } from '../FormatDate/formatDate';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
 
 function Comments({ perfumeDetailData, reference }) {
-    // const commentsList =
-    //     useSelector((state) => state.commentsManagement.listComments[perfumeDetailData.perfumeID] || [], // get data follow their productId);
-    const commentsList = [];
     const { t } = useTranslation('translate');
-
     const { data: reviewData, isLoading } = useReviewOnProduct(perfumeDetailData?.product._id);
     console.log('reviewData: ', reviewData?.data);
+    const [currentPage, setCurrentPage] = useState(1); // Current page
+    const itemsPerPage = 5; // Number of comments per page
+
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(reviewData?.data.length / itemsPerPage);
+
+    // Get the comments for the current page
+    const currentComments = reviewData?.data.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage,
+    );
+    // Handler for page navigation
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
 
     return (
         <Container
@@ -30,7 +51,98 @@ function Comments({ perfumeDetailData, reference }) {
             ref={reference}
         >
             {/* <SampleCommentData commentsData={commentsData} /> */}
-            <CommentOnProductData commentsData={reviewData?.data} />
+            <CommentOnProductData commentsData={currentComments} />
+
+            {/* Pagination Controls */}
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 2,
+                    mt: 3,
+                }}
+            >
+                {/* Previous Button */}
+                <Button
+                    variant="text"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    startIcon={<SkipPreviousIcon />}
+                    sx={{
+                        cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                        color: theme.palette.background.thirth,
+                        textTransform: 'initial',
+                        fontSize: 12.5,
+                        '&.Mui-disabled': {
+                            color: '#EBEBE4',
+                        },
+                        '&:hover': {
+                            cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                        },
+                    }}
+                >
+                    Prev
+                </Button>
+
+                {/* Page Numbers */}
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <Button
+                        key={index + 1}
+                        variant={currentPage === index + 1 ? 'contained' : 'outlined'}
+                        onClick={() => handlePageChange(index + 1)}
+                        sx={{
+                            borderRadius: '50%',
+                            minWidth: 40,
+                            height: 40,
+                            width: 40,
+                            fontSize: 13,
+                            borderColor: 'white',
+                            color: 'white',
+                            bgcolor:
+                                currentPage === index + 1 ? theme.palette.background.thirth : '',
+                            '&:hover': {
+                                borderColor: 'white',
+                                bgcolor: theme.palette.background.thirth,
+                            },
+                        }}
+                    >
+                        {index + 1}
+                    </Button>
+                ))}
+
+                {/* Next Button */}
+                <Button
+                    variant="text"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    endIcon={<SkipNextIcon />}
+                    sx={{
+                        color: theme.palette.background.thirth,
+                        textTransform: 'initial',
+                        fontSize: 12.5,
+                        '&.Mui-disabled': {
+                            color: '#EBEBE4',
+                        },
+                        '&:hover': {
+                            cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                        },
+                    }}
+                >
+                    Next
+                </Button>
+            </Box>
+
+            {/* Current Page Info */}
+            <Typography
+                sx={{
+                    textAlign: 'center',
+                    mt: 2,
+                    color: 'gray',
+                }}
+            >
+                Page {currentPage} of {totalPages}
+            </Typography>
         </Container>
     );
 }
@@ -53,88 +165,6 @@ const ShopResponse = () => {
             </CustomizeTypography>
             <CustomizeTypography>Cảm ơn bạn đã mua hàng ủng hộ shop!</CustomizeTypography>
         </Box>
-    );
-};
-
-const SampleCommentData = ({ commentsData }) => {
-    const { t } = useTranslation('translate');
-    return (
-        <>
-            {commentsData.map((comment, index) => (
-                <Box key={index} sx={{ display: 'flex', mt: 2 }}>
-                    {/* user image */}
-                    <Avatar alt="user image" src={comment.userImage} />
-                    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                        {/* name */}
-                        <Box sx={{ ml: 2 }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <CustomizeTypography
-                                    sx={{
-                                        fontSize: '16px',
-                                        [ipadProScreen]: {
-                                            width: '120px',
-                                        },
-                                        [tabletScreen]: {
-                                            width: '120px',
-                                        },
-                                        [mobileScreen]: {
-                                            fontSize: '14px',
-                                            width: '100px',
-                                        },
-                                    }}
-                                >
-                                    {comment.userName}
-                                </CustomizeTypography>
-                                <IconButton>
-                                    <VerifiedIcon
-                                        sx={{
-                                            fontSize: '18px',
-                                            color: theme.palette.text.verified,
-                                            mb: 1,
-                                        }}
-                                    />
-                                </IconButton>
-                                <CustomizeTypography
-                                    sx={{
-                                        fontSize: '14px',
-                                        fontStyle: 'italic',
-                                        color: theme.palette.text.verified,
-                                        [mobileScreen]: {
-                                            fontSize: '12px',
-                                        },
-                                    }}
-                                >
-                                    {t('common.review.bought')}
-                                </CustomizeTypography>
-                            </Box>
-                            {/* stars, rating */}
-                            <Rating
-                                readOnly
-                                value={5}
-                                // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
-                                sx={{
-                                    fontSize: '18px',
-                                    // change border color
-                                    '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
-                                        color: theme.palette.thirth.main,
-                                    },
-                                    mb: 1,
-                                }}
-                            />
-                            <CustomizeTypography sx={{ fontSize: '14px', color: '#d9d9d9' }}>
-                                {comment.timeCommented}
-                            </CustomizeTypography>
-                            {/* content */}
-                            <CustomizeTypography>{comment.content}</CustomizeTypography>
-                            <ShopResponse />
-                        </Box>
-                        {index !== commentsData.length - 1 && (
-                            <Divider sx={{ bgcolor: '#fff', my: 1 }} />
-                        )}
-                    </Box>
-                </Box>
-            ))}
-        </>
     );
 };
 

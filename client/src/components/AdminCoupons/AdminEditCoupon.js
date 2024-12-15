@@ -64,6 +64,21 @@ function AdminEditCoupon() {
                 return;
             }
 
+            if (status === 'active') {
+                // split time into an array contain [day, time]
+                // gate the first value --> date in yyyy-mm-dd
+                const currentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+
+                if (getEndDate < currentDate) {
+                    showNotificationMessage(
+                        'error',
+                        'Date Validation Error',
+                        'End date must be today or later for active status.',
+                    );
+                    return;
+                }
+            }
+
             const updateCouponResponse = await couponAPI.updateCoupon(couponData._id, data);
             if (updateCouponResponse.status === 200) {
                 console.log('updateCouponResponse: ', updateCouponResponse);

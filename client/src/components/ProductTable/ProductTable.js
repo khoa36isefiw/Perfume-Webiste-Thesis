@@ -14,7 +14,6 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { blue } from '@mui/material/colors';
-
 import WarningIcon from '@mui/icons-material/Warning';
 import {
     AdminHeadingTypography,
@@ -26,7 +25,6 @@ import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import CategoryIcon from '@mui/icons-material/Category';
-
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import useProduct from '../../api/useProduct';
 import { converToVND } from '../convertToVND/convertToVND';
@@ -35,6 +33,7 @@ import Loading from '../Loading/Loading';
 import useLoading from '../../hooks/useLoading';
 import { productAPI } from '../../api/productAPI';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import * as XLSX from 'xlsx';
 
 const columns = [
     { id: 'image', label: 'Image' },
@@ -90,6 +89,7 @@ export default function ProductTable() {
         row.variants.map((size) => ({
             productId: row._id,
             productName: row.nameEn,
+            category: row.category?.nameEn,
             brand: row.brand?.nameEn,
             size: size.size,
             price: size.price,
@@ -170,6 +170,32 @@ export default function ProductTable() {
             }
         }
     };
+    console.log('flattenedRows: ', flattenedRows);
+
+    const exportToExcel = () => {
+        // create a new workbook and worksheet
+        const workbook = XLSX.utils.book_new();
+        const worksheetData = flattenedRows.map((row, index) => ({
+            // define column name and get data
+            No: index + 1,
+            ID: row.productId,
+            Image: row.image,
+            Name: row.productName,
+            Brand: row.brand,
+            Category: row.category,
+            Quantity: row.stock,
+            Rating: row.ratings,
+        }));
+
+        // convert JSON data to worksheet
+        const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+
+        // append the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'TableData');
+
+        // export the workbook as an Excel file
+        XLSX.writeFile(workbook, 'Products Table.xlsx');
+    };
 
     return (
         <React.Fragment>
@@ -222,6 +248,7 @@ export default function ProductTable() {
                                     fontSize: '14px',
                                 }}
                                 startIcon={<FileDownloadIcon />}
+                                onClick={exportToExcel}
                             >
                                 Export
                             </Button>

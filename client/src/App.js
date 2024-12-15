@@ -1,17 +1,28 @@
 import './App.css'; // reset css at this file
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { privateRoutes, publicRoutes } from './routes/routes';
+import { adminRoutes, privateRoutes, publicRoutes } from './routes/routes';
 import UserLayouts from './layouts/UserLayout/UserLayouts';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import PageNotFound from './components/PageNotFound/PageNotFound';
 
 function App() {
     // default language for the website is English
+    const { t, i18n } = useTranslation();
     useEffect(() => {
         if (window.location.pathname === '/') {
             window.location.replace('/en');
         }
     }, []);
+
+    const allDefinedRoutes = [
+        ...publicRoutes.map((route) => route.path),
+        ...privateRoutes.map((route) => route.path),
+        ...adminRoutes.map((route) => route.path),
+    ];
+
+    const userData = JSON.parse(localStorage.getItem('user_data')) || {};
 
     return (
         <Box sx={{ bgcolor: '#000000' }}>
@@ -40,31 +51,43 @@ function App() {
                         const Layout = route.layout || UserLayouts;
 
                         return (
-                            // <Route
-                            //     key={route.path}
-                            //     path={route.path}
-                            //     element={
-                            //         <Navigate to="/signin" />
-                            //         user.user ? ( // for login
-                            //             <Layout>
-                            //                 <Page />
-                            //             </Layout>
-                            //         ) : (
-                            //             <Navigate to="/signin" />
-                            //         )
-                            //     }
-                            // />
                             <Route
                                 key={route.path}
                                 path={route.path}
                                 element={
-                                    <Layout>
-                                        <Page />
-                                    </Layout>
+                                    userData.user ? ( // for login
+                                        <Layout>
+                                            <Page />
+                                        </Layout>
+                                    ) : (
+                                        <Navigate to={`/${i18n.language}/sign-in`} />
+                                    )
                                 }
                             />
                         );
                     })}
+
+                    {adminRoutes.map((route, index) => {
+                        const Page = route.component;
+                        const Layout = route.layout || UserLayouts;
+                        return (
+                            <Route
+                                key={route.path}
+                                path={route.path}
+                                element={
+                                    userData.role === 1 ? (
+                                        <Layout>
+                                            <Page />
+                                        </Layout>
+                                    ) : (
+                                        <Navigate to="/404" />
+                                    )
+                                }
+                            />
+                        );
+                    })}
+
+                    <Route path="/404" element={<PageNotFound />} />
                 </Routes>
             </Router>
         </Box>
