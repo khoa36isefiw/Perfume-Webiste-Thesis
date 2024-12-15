@@ -89,6 +89,7 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
                 />
             </Box>
 
+            {/* checkout button */}
             <Box sx={{ mb: 1 }}>
                 <CustomizeButtonInCart
                     variant="outlined"
@@ -100,6 +101,7 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
                     onHandleClick={handleCheckout}
                 />
             </Box>
+            {/* continue shopping button */}
             <CustomizeButtonInCart
                 textAction={t('common.shoppingCart.continue')}
                 onHandleClick={() => navigate(`/${i18n.language}/shop`)}

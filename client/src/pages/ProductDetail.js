@@ -39,7 +39,7 @@ function ProductDetail() {
     const relatedProducts = Array.isArray(productDataByBrand?.data) ? productDataByBrand.data : [];
     const filteredRelatedProducts = relatedProducts.filter((item) => item._id !== id).slice(0, 4);
 
-    const highlyRatedList = productSold?.data.sort((a, b) => b.rating - a.rating).slice(0, 4);
+    const highlyRatedList = productSold?.data?.sort((a, b) => b.rating - a.rating).slice(0, 4);
 
     // console.log('4 filteredRelatedProducts', newArray);
 

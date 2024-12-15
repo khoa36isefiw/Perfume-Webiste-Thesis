@@ -35,6 +35,7 @@ function CheckoutInformation() {
     const navigate = useNavigate();
     const location = useLocation();
     const { items } = location.state || { items: [] };
+    // console.log('items:', items);
     const { t, i18n } = useTranslation('translate');
 
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
@@ -47,6 +48,8 @@ function CheckoutInformation() {
     // console.log('userData: ',userData);
     const getListProductSelected =
         JSON.parse(window.localStorage.getItem('list_product_selected')) || [];
+
+    // console.log('getListProductSelected: ', getListProductSelected);
 
     // component parent
     const [promoCode, setPromoCode] = useState('');
@@ -64,9 +67,21 @@ function CheckoutInformation() {
         const promotionCodeApplied = promoCodeApplied?.codeApplied?.code || '';
         console.log('promotionCodeApplied: ', promotionCodeApplied);
         if (email !== '' && address !== '' && phoneNumber !== '') {
-            const response = await paymentAPI.createOrder(
+            const mockData = {
                 userId,
                 items,
+                address,
+                email,
+                phoneNumber,
+                promotionCodeApplied,
+                payment: PAYMENT_METHOD.COD,
+            };
+
+            // console.log('mockData: ', mockData);
+
+            const response = await paymentAPI.createOrder(
+                userId,
+                getListProductSelected,
                 address,
                 email,
                 phoneNumber,
@@ -75,7 +90,7 @@ function CheckoutInformation() {
             );
 
             if (response.data?.order) {
-                console.log('response: ', response);
+                console.log('response: ', response?.data);
                 // remove user cart in local storage
                 window.localStorage.removeItem('list_product_selected');
                 const dataShowInvoice = {
@@ -288,7 +303,7 @@ function CheckoutInformation() {
                             <Box sx={{ mt: 3 }}>
                                 <PayPalButtonsComponents
                                     user={userId}
-                                    items={items}
+                                    items={getListProductSelected}
                                     promotionCode={promoCodeApplied}
                                     address={address}
                                     email={email}
