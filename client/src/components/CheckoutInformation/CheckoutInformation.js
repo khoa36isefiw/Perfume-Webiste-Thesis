@@ -67,46 +67,53 @@ function CheckoutInformation() {
         const promotionCodeApplied = promoCodeApplied?.codeApplied?.code || '';
         console.log('promotionCodeApplied: ', promotionCodeApplied);
         if (email !== '' && address !== '' && phoneNumber !== '') {
-            const mockData = {
-                userId,
-                items,
-                address,
-                email,
-                phoneNumber,
-                promotionCodeApplied,
-                payment: PAYMENT_METHOD.COD,
-            };
-
-            // console.log('mockData: ', mockData);
-
-            const response = await paymentAPI.createOrder(
-                userId,
-                getListProductSelected,
-                address,
-                email,
-                phoneNumber,
-                promotionCodeApplied,
-                PAYMENT_METHOD.COD,
-            );
-
-            if (response.data?.order) {
-                console.log('response: ', response?.data);
-                // remove user cart in local storage
-                window.localStorage.removeItem('list_product_selected');
-                const dataShowInvoice = {
-                    userName: userData[0].firstName + ' ' + userData[0].lastName,
-                    userPhoneNumber: phoneNumber,
-                    userAddress: address,
-                    userPaymentType: 'COD',
-                };
-                showNotificationMessage(
-                    'success',
-                    t('common.notifyMessage.checkout.cT'),
-                    t('common.notifyMessage.checkout.cS'),
+            if (paymentMethod === 'VNPAY') {
+                const response = await paymentAPI.createOrder(
+                    userId,
+                    items,
+                    address,
+                    email,
+                    phoneNumber,
+                    promotionCodeApplied,
+                    PAYMENT_METHOD.VNPAY,
                 );
-                window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
-                window.localStorage.setItem('order_id', JSON.stringify(response.data.order._id)); // store pay_ref Id to local storage
-                navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);
+                if (response.data?.vnpUrl) {
+                    console.log('response: ', response);
+                    window.location.href = response.data.vnpUrl;
+                }
+            } else {
+                const response = await paymentAPI.createOrder(
+                    userId,
+                    getListProductSelected,
+                    address,
+                    email,
+                    phoneNumber,
+                    promotionCodeApplied,
+                    PAYMENT_METHOD.COD,
+                );
+
+                if (response.data?.order) {
+                    console.log('response: ', response?.data);
+                    // remove user cart in local storage
+                    window.localStorage.removeItem('list_product_selected');
+                    const dataShowInvoice = {
+                        userName: userData[0].firstName + ' ' + userData[0].lastName,
+                        userPhoneNumber: phoneNumber,
+                        userAddress: address,
+                        userPaymentType: 'COD',
+                    };
+                    showNotificationMessage(
+                        'success',
+                        t('common.notifyMessage.checkout.cT'),
+                        t('common.notifyMessage.checkout.cS'),
+                    );
+                    window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
+                    window.localStorage.setItem(
+                        'order_id',
+                        JSON.stringify(response.data.order._id),
+                    ); // store pay_ref Id to local storage
+                    navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);
+                }
             }
         } else {
             showNotificationMessage(
@@ -248,7 +255,7 @@ function CheckoutInformation() {
                                     }
                                 />
                                 <FormControlLabel
-                                    value="credit-card"
+                                    value="VNPAY"
                                     control={
                                         <Radio
                                             sx={{
@@ -264,7 +271,7 @@ function CheckoutInformation() {
                                     }
                                     label={
                                         <span style={{ color: 'white', fontSize: '16px' }}>
-                                            {t('common.checkout.card')}
+                                            {t('common.checkout.vnpay')}
                                         </span>
                                     }
                                 />
@@ -292,12 +299,12 @@ function CheckoutInformation() {
                             </RadioGroup>
                         </FormControl>
 
-                        {paymentMethod === 'credit-card' && (
+                        {/* {paymentMethod === 'credit-card' && (
                             // {paymentMethod === 'cod' && (
                             <Box sx={{ mt: 3 }}>
                                 <CreditCard />
                             </Box>
-                        )}
+                        )} */}
                         {paymentMethod === 'paypal' ? (
                             // {paymentMethod === 'cod' && (
                             <Box sx={{ mt: 3 }}>

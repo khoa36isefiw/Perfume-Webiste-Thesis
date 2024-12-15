@@ -13,18 +13,17 @@ function PaymentSuccess() {
     const { t, i18n } = useTranslation('translate');
 
     const currentPaymentData = JSON.parse(window.localStorage.getItem('payment_data')) || null;
-    const orderId = JSON.parse(window.localStorage.getItem('order_id')) || ''; // ref
 
     const [refValue, setRefValue] = React.useState('');
 
     useEffect(() => {
         const currentQueryParams = new URLSearchParams(location.search);
-        // console.log('location.search: ', location.search);
-        setRefValue(currentQueryParams.get('Ref')); // Get the value of 'Ref'
-    }, [location.search]); // Add location.search as a dependency to re-run when the query string changes
+        console.log('currentQueryParams: ', currentQueryParams);
+        setRefValue(currentQueryParams.get('Ref'));
+    }, [location.search]);
     // get payment by id
     const { data: paymentData } = usePaymentByOrderId(refValue);
-    console.log('paymentData response: ', paymentData?.data);
+    // console.log('paymentData response: ', paymentData?.data);
 
     // handle time
     const createdAt = paymentData?.data.createdAt;
@@ -36,30 +35,22 @@ function PaymentSuccess() {
     const options = { timeZone: 'Asia/Ho_Chi_Minh', hour12: false };
     const date = dateObject.toLocaleDateString('en-GB', options); // Format: DD/MM/YYYY
     const time = dateObject.toLocaleTimeString('en-GB', options); // Format: HH:MM:SS
-    console.log(`Date (Vietnam Time): ${date}`); // e.g., "05/11/2024"
-    console.log(`Time (Vietnam Time): ${time}`); // e.g., "12:50:26"
-    console.log('paymentData?.data: ', paymentData?.data);
 
     useEffect(() => {
         const data = paymentData?.data;
         const searchParams = new URLSearchParams(location.search); // get the current search query params
-        // console.log('searchParams: ', searchParams.toString());
-        searchParams.set('Ref', orderId); // if language change --> set id params
-        // split /: chia thành một mảng tách bởi /
-        // '/en/order-invoice' → ['', 'en', 'order-invoice'].
-        // slice(2): remove 2 first of elements in array -->  order-invoice
-        // ghép lại mảng thành một chuỗi, sử dụng / làm dấu phân cách.
+
         const currentPath = location.pathname.split('/').slice(2).join('/');
-        console.log('location.pathname: ', location.pathname);
+
         navigate(`/${i18n.language}/${currentPath}?${searchParams.toString()}`, {
             replace: true,
             state: { data }, // remain state
         });
-    }, [i18n.language, orderId]);
+    }, [i18n.language]);
+
     const amount = Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(
         paymentData?.data?.amount,
     );
-    console.log('amount: ', amount);
 
     return (
         <Box

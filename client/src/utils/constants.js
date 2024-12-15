@@ -1,6 +1,7 @@
 export const PAYMENT_METHOD = {
     COD: 'COD',
     PAYPAL: 'PAYPAL',
+    VNPAY: 'VNPAY',
 };
 
 export const contentTemplate = {
