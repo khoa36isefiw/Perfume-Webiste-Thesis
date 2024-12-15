@@ -3,13 +3,10 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import Slider from 'react-slick';
-
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { perfumeData } from '../PerfumesCard/perfumeData';
 import { converToVND } from '../convertToVND/convertToVND';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
@@ -21,7 +18,7 @@ function BestSellingProducts() {
     const navigate = useNavigate();
     // cut the perfumeData list, just use 5 items in array
     const { data: products } = useLatestProduct();
-    const latestProducts = products?.data;
+    const latestProducts = products?.data.slice(0, 6);
     // console.log('latestProducts: ', latestProducts);
     const handleNavigateProductDetails = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
@@ -116,7 +113,7 @@ function BestSellingProducts() {
                                 >
                                     <Avatar
                                         src={perfume?.imagePath[0]}
-                                        sx={{ borderRadius: 0, height: '250px', width: '200px' }}
+                                        sx={{ borderRadius: 0, height: '250px', width: '100%' }}
                                     />
                                     <CustomizeTypography
                                         textAlign={'center'}
@@ -141,8 +138,8 @@ function BestSellingProducts() {
                                     >
                                         <CustomizeTypography
                                             sx={{
-                                                color: theme.palette.secondaryText,
-                                                fontBold: 'weight',
+                                                color: theme.palette.text.secondary,
+                                                fontWeight: 'bold',
                                             }}
                                         >
                                             {converToVND(
