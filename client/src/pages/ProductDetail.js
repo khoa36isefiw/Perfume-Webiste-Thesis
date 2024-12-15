@@ -20,7 +20,8 @@ import { backTop } from '../components/goBackTop/goBackTop';
 import { converToVND } from '../components/convertToVND/convertToVND';
 import useProductByBrand from '../api/useProductByBrand';
 import RelatedProduct from '../components/RelatedProduct/RelatedProduct';
-
+import useTopProductSold from '../api/useTopProductSold';
+import _ from 'lodash';
 
 function ProductDetail() {
     const { t, i18n } = useTranslation('translate');
@@ -33,11 +34,13 @@ function ProductDetail() {
     const brandId = productData?.data?.product?.brand?._id;
 
     const { data: productDataByBrand } = useProductByBrand(brandId);
+    const { data: productSold } = useTopProductSold();
 
     const relatedProducts = Array.isArray(productDataByBrand?.data) ? productDataByBrand.data : [];
     const filteredRelatedProducts = relatedProducts.filter((item) => item._id !== id).slice(0, 4);
 
-    console.log('filteredRelatedProducts: ', filteredRelatedProducts);
+    const highlyRatedList = productSold?.data.sort((a, b) => b.rating - a.rating).slice(0, 4);
+
     // console.log('4 filteredRelatedProducts', newArray);
 
     // reference to comments region
@@ -62,7 +65,33 @@ function ProductDetail() {
             <RatingProduct perfumeDetailData={productData?.data} />
             <Comments perfumeDetailData={productData?.data} reference={commentsRef} />
             {/* Related product */}
-            <RelatedProduct data={filteredRelatedProducts} />
+            <Box sx={{ mt: 8 }}>
+                <CustomizeTypography
+                    sx={{
+                        textAlign: 'center',
+                        fontSize: '30px',
+                        fontWeight: 'bold',
+                        mb: 2,
+                    }}
+                >
+                    {t('common.productDetails.relatedProduct')}
+                </CustomizeTypography>
+                <RelatedProduct data={filteredRelatedProducts} />
+            </Box>
+            {/* Most Rate */}
+            <Box sx={{ mt: 8 }}>
+                <CustomizeTypography
+                    sx={{
+                        textAlign: 'center',
+                        fontSize: '30px',
+                        fontWeight: 'bold',
+                        mb: 2,
+                    }}
+                >
+                    {i18n.language === 'en' ? 'Highly Rated' : 'Được đánh giá cao'}
+                </CustomizeTypography>
+                <RelatedProduct data={highlyRatedList} />
+            </Box>
         </Box>
     );
 }
