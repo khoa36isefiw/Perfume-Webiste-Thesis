@@ -1,6 +1,7 @@
 const Order = require('../models/Order.model');
 const Product = require('../models/Product.model');
 const Variant = require('../models/Variant.model');
+const Payment = require('../models/Payment.model');
 const { getDateRange } = require('../utils/date');
 
 const OrderController = {
@@ -139,6 +140,44 @@ const OrderController = {
             }
             const order = await newOrder.save();
             res.status(201).json(order);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    cancelOrder: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const order = await Order.findById(id);
+            if (!order) {
+                return res.status(404).json({ message: 'Order not found' });
+            }
+            order.status = 'CANCELLED';
+            await order.save();
+            res.status(200).json({ message: 'Order cancelled' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    completeOrder: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const order = await Order.findById(id);
+            if (!order) {
+                return res.status(404).json({ message: 'Order not found' });
+            }
+            if (order.paymentMethod !== 'COD') {
+                return res.status(400).json({ message: 'Payment method is invalid' });
+            }
+            const payment = await Payment.findOne({ payRef: id });
+            if (payment) {
+                payment.paid = true;
+                await payment.save();
+            }
+            order.status = 'COMPLETED';
+            await order.save();
+            res.status(200).json({ message: 'Order completed' });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
