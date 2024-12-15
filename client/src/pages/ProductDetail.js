@@ -13,7 +13,7 @@ import Slider from 'react-slick';
 import {
     CustomizeNextArrow,
     CustomizPreviousArrow,
-} from '../components/BestSellingProducts/BestSellingProducts';
+} from '../components/NewProductsArrivals/NewProductsArrivals';
 import useProductByCategory from '../api/useProductByCategory';
 import { useTranslation } from 'react-i18next';
 import { backTop } from '../components/goBackTop/goBackTop';

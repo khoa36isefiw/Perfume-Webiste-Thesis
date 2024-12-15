@@ -13,7 +13,7 @@ import { backTop } from '../goBackTop/goBackTop';
 import useLatestProduct from '../../api/useLatestProduct';
 import { useTranslation } from 'react-i18next';
 
-function BestSellingProducts() {
+function NewProductsArrivals() {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     // cut the perfumeData list, just use 5 items in array
@@ -160,7 +160,7 @@ function BestSellingProducts() {
     );
 }
 
-export default BestSellingProducts;
+export default NewProductsArrivals;
 
 export function CustomizeNextArrow({ onClick }) {
     return (
