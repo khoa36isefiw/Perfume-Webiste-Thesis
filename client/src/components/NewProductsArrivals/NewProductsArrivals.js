@@ -119,7 +119,7 @@ function NewProductsArrivals() {
                                         textAlign={'center'}
                                         sx={{
                                             textAlign: 'center',
-                                            // my: 2,
+                                            mt: 2,
 
                                             overflow: 'hidden',
                                             whiteSpace: 'nowrap',
