@@ -18,6 +18,17 @@ export const paymentAPI = {
         return axiosClient.post(url, { paymentId });
     },
 
+    createVnPayPayment: (data = {}) => {
+        const url = '/payments/vnpay/create-payment-url';
+        const tempData = {
+            amount: 100000,
+            orderId: 'ORDER123456',
+            bankCode: 'VNBANK',
+            language: 'vn',
+        };
+        return axiosClient.post(url, tempData);
+    },
+
     getPaymentByPayRef: (payRef) => {
         const url = `/payments/details/${payRef}`;
         return axiosClient.get(url);

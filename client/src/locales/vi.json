@@ -239,6 +239,7 @@
             "title": "Tất cả các giao dịch đều an toàn và được mã hóa",
             "paymentNoti": "Chọn phương thức thanh toán",
             "cod": "Thanh toán khi nhận hàng (COD)",
+            "vnpay": "Thanh toán bằng VNPAY",
             "card": "Thanh toán bằng thẻ tín dụng",
             "paypal": "Thanh toán Paypal",
             "order": "Đặt hàng",
