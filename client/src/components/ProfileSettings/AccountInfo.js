@@ -1,5 +1,5 @@
 import { Avatar, Container, Grid, Tooltip, IconButton, Button, Box } from '@mui/material';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
     CustomizeAccountText,
     CustomizeTypography,
@@ -15,6 +15,7 @@ import useValidationWithRef from '../../hooks/useValidationWithRef';
 import { RequirementV2 } from '../Requirement/RequirementV2';
 import { useTranslation } from 'react-i18next';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import useUserById from '../../api/useUserById';
 
 function AccountInfo() {
     const [open, setOpen] = useState(false);
@@ -30,8 +31,11 @@ function AccountInfo() {
     const { t } = useTranslation('translate');
 
     const userData = JSON.parse(localStorage.getItem('user_data'));
+    console.log('userData: ', userData);
+    const { data: userRes, mutate } = useUserById(userData?._id);
+    const user = userRes?.data;
     const [editAccount, setEditAccount] = useState(true);
-    const [selectedImage, setSelectedImage] = useState(userData?.imagePath);
+    const [selectedImage, setSelectedImage] = useState('');
     const [imgData, setImgData] = React.useState();
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
 
@@ -52,18 +56,24 @@ function AccountInfo() {
         if (firstName && lastName && phoneNumber && address) {
             if (isValidFirstName && isValidLastName && isValidPhoneNumber) {
                 const data = {
-                    ...userData,
+                    // ...userData,
                     firstName,
                     lastName,
                     phoneNumber,
                     address,
                 };
                 const formData = new FormData();
-                Object.keys(data).forEach((key) => formData.append(key, data[key]));
+                Object.keys(data).forEach(
+                    (key) => key !== 'imagePath' && formData.append(key, data[key]),
+                );
                 formData.append('imagePath', imgData);
-                const updateUserInfor = await userAPI.updateUserProfile(userData.userId, formData);
+                const updateUserInfor = await userAPI.updateUserProfile(userData._id, formData);
                 if (updateUserInfor.status === 200) {
-                    window.localStorage.setItem('user_data', JSON.stringify(data));
+                    mutate();
+                    window.localStorage.setItem(
+                        'user_data',
+                        JSON.stringify(updateUserInfor.data.user),
+                    );
                     setEditAccount(true);
                     showNotificationMessage(
                         'success',

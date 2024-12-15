@@ -16,6 +16,10 @@ const ProductBuyer = require('../models/ProductBuyer.model');
 const sortObject = require('../utils/order');
 
 const returnUrl = `${process.env.BASE_URL}/payments/vnpay/return`;
+const vnp_TmnCode = process.env.VNPAY_TMN_CODE;
+const vnp_HashSecret = process.env.VNPAY_HASH_SERECT;
+const vnp_Url = process.env.VNPAY_URL;
+const vnp_Api = process.env.VNPAY_API;
 
 const PaymentController = {
     getAll: async (req, res) => {
@@ -202,12 +206,9 @@ const PaymentController = {
                     req.socket.remoteAddress ||
                     req.connection.socket.remoteAddress;
 
-                let config = require('config');
-
-                let tmnCode = config.get('vnp_TmnCode');
-                let secretKey = config.get('vnp_HashSecret');
-                let vnpUrl = config.get('vnp_Url');
-                // let returnUrl = config.get('vnp_ReturnUrl');
+                let tmnCode = vnp_TmnCode;
+                let secretKey = vnp_HashSecret;
+                let vnpUrl = vnp_Url;
                 let orderId = newOrder._id;
 
                 let locale = 'vn';
@@ -396,9 +397,7 @@ const PaymentController = {
 
         vnp_Params = sortObject(vnp_Params);
 
-        let config = require('config');
-        let tmnCode = config.get('vnp_TmnCode');
-        let secretKey = config.get('vnp_HashSecret');
+        let secretKey = vnp_HashSecret;
 
         let signData = querystring.stringify(vnp_Params, { encode: false });
         let hmac = crypto.createHmac('sha512', secretKey);
