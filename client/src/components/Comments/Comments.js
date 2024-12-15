@@ -54,95 +54,101 @@ function Comments({ perfumeDetailData, reference }) {
             <CommentOnProductData commentsData={currentComments} />
 
             {/* Pagination Controls */}
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: 2,
-                    mt: 3,
-                }}
-            >
-                {/* Previous Button */}
-                <Button
-                    variant="text"
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    startIcon={<SkipPreviousIcon />}
-                    sx={{
-                        cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
-                        color: theme.palette.background.thirth,
-                        textTransform: 'initial',
-                        fontSize: 12.5,
-                        '&.Mui-disabled': {
-                            color: '#EBEBE4',
-                        },
-                        '&:hover': {
-                            cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
-                        },
-                    }}
-                >
-                    Prev
-                </Button>
-
-                {/* Page Numbers */}
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <Button
-                        key={index + 1}
-                        variant={currentPage === index + 1 ? 'contained' : 'outlined'}
-                        onClick={() => handlePageChange(index + 1)}
+            {reviewData?.data.length > 0 && (
+                <>
+                    <Box
                         sx={{
-                            borderRadius: '50%',
-                            minWidth: 40,
-                            height: 40,
-                            width: 40,
-                            fontSize: 13,
-                            borderColor: 'white',
-                            color: 'white',
-                            bgcolor:
-                                currentPage === index + 1 ? theme.palette.background.thirth : '',
-                            '&:hover': {
-                                borderColor: 'white',
-                                bgcolor: theme.palette.background.thirth,
-                            },
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: 2,
+                            mt: 3,
                         }}
                     >
-                        {index + 1}
-                    </Button>
-                ))}
+                        {/* Previous Button */}
+                        <Button
+                            variant="text"
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            startIcon={<SkipPreviousIcon />}
+                            sx={{
+                                cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                                color: theme.palette.background.thirth,
+                                textTransform: 'initial',
+                                fontSize: 12.5,
+                                '&.Mui-disabled': {
+                                    color: '#EBEBE4',
+                                },
+                                '&:hover': {
+                                    cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                                },
+                            }}
+                        >
+                            Prev
+                        </Button>
 
-                {/* Next Button */}
-                <Button
-                    variant="text"
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    endIcon={<SkipNextIcon />}
-                    sx={{
-                        color: theme.palette.background.thirth,
-                        textTransform: 'initial',
-                        fontSize: 12.5,
-                        '&.Mui-disabled': {
-                            color: '#EBEBE4',
-                        },
-                        '&:hover': {
-                            cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
-                        },
-                    }}
-                >
-                    Next
-                </Button>
-            </Box>
+                        {/* Page Numbers */}
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <Button
+                                key={index + 1}
+                                variant={currentPage === index + 1 ? 'contained' : 'outlined'}
+                                onClick={() => handlePageChange(index + 1)}
+                                sx={{
+                                    borderRadius: '50%',
+                                    minWidth: 40,
+                                    height: 40,
+                                    width: 40,
+                                    fontSize: 13,
+                                    borderColor: 'white',
+                                    color: 'white',
+                                    bgcolor:
+                                        currentPage === index + 1
+                                            ? theme.palette.background.thirth
+                                            : '',
+                                    '&:hover': {
+                                        borderColor: 'white',
+                                        bgcolor: theme.palette.background.thirth,
+                                    },
+                                }}
+                            >
+                                {index + 1}
+                            </Button>
+                        ))}
 
-            {/* Current Page Info */}
-            <Typography
-                sx={{
-                    textAlign: 'center',
-                    mt: 2,
-                    color: 'gray',
-                }}
-            >
-                Page {currentPage} of {totalPages}
-            </Typography>
+                        {/* Next Button */}
+                        <Button
+                            variant="text"
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            endIcon={<SkipNextIcon />}
+                            sx={{
+                                color: theme.palette.background.thirth,
+                                textTransform: 'initial',
+                                fontSize: 12.5,
+                                '&.Mui-disabled': {
+                                    color: '#EBEBE4',
+                                },
+                                '&:hover': {
+                                    cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                                },
+                            }}
+                        >
+                            Next
+                        </Button>
+                    </Box>
+
+                    {/* Current Page Info */}
+                    <Typography
+                        sx={{
+                            textAlign: 'center',
+                            mt: 2,
+                            color: 'gray',
+                        }}
+                    >
+                        Page {currentPage} of {totalPages}
+                    </Typography>
+                </>
+            )}
         </Container>
     );
 }
