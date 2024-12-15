@@ -13,4 +13,9 @@ export const couponAPI = {
         const url = `/promotions/${id}`;
         return axiosClient.put(url, data);
     },
+
+    applyCoupon: (code) => {
+        const url = `/promotions/apply`;
+        return axiosClient.post(url, code);
+    },
 };
