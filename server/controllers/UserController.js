@@ -247,19 +247,18 @@ const UserController = {
     },
 
     delete: (req, res) => {
-        User.findOne({ _id: req.params.id })
-            .then((user) => {
-                User.updateOne({ _id: user._id }, req.body)
-                    .then(() => {
-                        res.status(204).json('Xóa người dùng thành công.');
-                    })
-                    .catch((err) => {
-                        res.status(500).json('Có lỗi khi xóa người dùng.');
-                    });
-            })
-            .catch(() => {
-                res.status(404).json('Không tìm thấy người dùng.');
+        const { id } = req.params;
+        const user = User.findOne({ _id: id });
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found',
             });
+        }
+        user.status = 'inactive';
+        user.save();
+        return res.status(200).json({
+            message: 'User deleted successfully',
+        });
     },
 
     destroy: async (req, res) => {
