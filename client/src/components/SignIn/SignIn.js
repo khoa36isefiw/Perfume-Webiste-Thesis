@@ -54,9 +54,15 @@ function SignIn() {
                         t('common.notifyMessage.login.loginT'),
                         t('common.notifyMessage.login.loginS'),
                     );
-                    setTimeout(() => {
+
+                    // for admin
+                    if (loginData?.data.role === 1) {
+                        navigate(`/admin/dashboard`);
+                    } else {
+                        // member
                         navigate(`/${i18n.language}`);
-                    }, 1500);
+                    }
+
                     window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
                 } else {
                     showNotificationMessage(
