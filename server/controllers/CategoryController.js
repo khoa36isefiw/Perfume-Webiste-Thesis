@@ -3,7 +3,7 @@ const Category = require('../models/Category.model');
 const CategoryController = {
     getAll: async (req, res) => {
         try {
-            const categories = await Category.find();
+            const categories = await Category.find({});
             res.status(200).json(categories);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -12,7 +12,7 @@ const CategoryController = {
 
     getParentCategory: async (req, res) => {
         try {
-            const parentCategory = await Category.find({ parent: null });
+            const parentCategory = await Category.find({ parent: null, status: 'active' });
             res.status(200).json(parentCategory);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -21,7 +21,10 @@ const CategoryController = {
 
     getChildByPId: async (req, res) => {
         try {
-            const childrenCategory = await Category.find({ parent: req.params.id });
+            const childrenCategory = await Category.find({
+                parent: req.params.id,
+                status: 'active',
+            });
             res.status(200).json(childrenCategory);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -30,7 +33,7 @@ const CategoryController = {
 
     getById: async (req, res) => {
         try {
-            const category = await Category.findOne({ _id: req.params.id });
+            const category = await Category.findOne({ _id: req.params.id, status: 'active' });
             if (!category) {
                 res.status(404).json({ message: 'Category not found' });
             }
@@ -74,7 +77,8 @@ const CategoryController = {
             if (!category) {
                 res.status(404).json({ message: 'Category not found' });
             }
-            await category.deleteOne({ _id: req.params.id });
+            category.status = 'inactive';
+            await category.save();
             res.status(200).json({ message: 'Category deleted successfully' });
         } catch (error) {
             res.status(500).json({ message: error.message });
