@@ -13,8 +13,7 @@ import UKFlag from '../../assets/images/UK-circle.png';
 import CloseIcon from '@mui/icons-material/Close';
 import { blue } from '@mui/material/colors';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+import { useNavigate } from 'react-router-dom';
 
 function MobileHeader({ setOpenMenu, openMenu }) {
     const { t, i18n } = useTranslation('translate');

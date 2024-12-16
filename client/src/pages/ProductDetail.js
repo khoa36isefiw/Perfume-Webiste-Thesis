@@ -3,7 +3,7 @@ import PerfumeDetail from '../components/PerfumeDetail/PerfumeDetail';
 import RatingProduct from '../components/RatingProduct/RatingProduct';
 import Comments from '../components/Comments/Comments';
 import { theme } from '../Theme/Theme';
-import { Avatar, Box, Grid } from '@mui/material';
+import { Avatar, Box, Container, Grid } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import useProductById from '../api/useProductById';
@@ -65,7 +65,7 @@ function ProductDetail() {
             <RatingProduct perfumeDetailData={productData?.data} />
             <Comments perfumeDetailData={productData?.data} reference={commentsRef} />
             {/* Related product */}
-            <Box sx={{ mt: 8 }}>
+            <Container sx={{ mt: 8 }}>
                 <CustomizeTypography
                     sx={{
                         textAlign: 'center',
@@ -77,9 +77,9 @@ function ProductDetail() {
                     {t('common.productDetails.relatedProduct')}
                 </CustomizeTypography>
                 <RelatedProduct data={filteredRelatedProducts} />
-            </Box>
+            </Container>
             {/* Most Rate */}
-            <Box sx={{ mt: 8 }}>
+            <Container sx={{ mt: 8 }}>
                 <CustomizeTypography
                     sx={{
                         textAlign: 'center',
@@ -91,7 +91,7 @@ function ProductDetail() {
                     {i18n.language === 'en' ? 'Highly Rated' : 'Được đánh giá cao'}
                 </CustomizeTypography>
                 <RelatedProduct data={highlyRatedList} />
-            </Box>
+            </Container>
         </Box>
     );
 }
