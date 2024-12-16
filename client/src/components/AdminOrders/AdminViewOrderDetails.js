@@ -3,7 +3,7 @@ import React from 'react';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { useLocation } from 'react-router-dom';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
-import { CODPayment, PaypalPayment } from './PaymentDesign';
+import { CODPayment, PaypalPayment, VNPayPayment } from './PaymentDesign';
 
 import CallIcon from '@mui/icons-material/Call';
 import { converToVND } from '../convertToVND/convertToVND';
@@ -45,8 +45,10 @@ function AdminViewOrderDetails() {
                                 <Box sx={{ flex: 1 }}>
                                     {orderData.paymentMethod === 'COD' ? (
                                         <CODPayment />
-                                    ) : (
+                                    ) : orderData.paymentMethod === 'PAYPAL' ? (
                                         <PaypalPayment />
+                                    ) : (
+                                        <VNPayPayment />
                                     )}
                                 </Box>
                             </Box>
