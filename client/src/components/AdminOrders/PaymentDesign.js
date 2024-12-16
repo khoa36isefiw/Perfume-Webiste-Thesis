@@ -48,3 +48,34 @@ export const PaypalPayment = () => {
         </Box>
     );
 };
+
+export const VNPayPayment = () => {
+    return (
+        <Box
+            sx={{
+                bgcolor: '#f5f5f5',
+                borderRadius: 2,
+                boxShadow: 1,
+                padding: '4px 8px',
+            }}
+        >
+            <Typography
+                sx={{
+                    fontSize: '13px',
+                    color: '#005baa',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                }}
+            >
+                <span
+                    style={{
+                        color: '#8c131a',
+                    }}
+                >
+                    VN
+                </span>
+                PAY
+            </Typography>
+        </Box>
+    );
+};
