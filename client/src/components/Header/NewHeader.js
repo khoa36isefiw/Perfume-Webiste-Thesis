@@ -337,7 +337,7 @@ function NewHeader() {
                                     placeholder={t('common.header.search')}
                                     sx={{
                                         width: '360px',
-                                        [tabletScreen]: { width: '260px' },
+                                        [tabletScreen]: { width: '260px', mb: 2 },
                                         [mobileScreen]: {
                                             width: '100%',
                                         },
@@ -364,6 +364,7 @@ function NewHeader() {
                                         },
                                         [tabletScreen]: {
                                             mr: 4,
+                                            mb: 2,
                                         },
                                     }}
                                     onClick={() => handleSearch(searchQuery)}
