@@ -36,9 +36,11 @@ export const OrderItemV2 = ({ listData, orderId }) => {
             backTop(); // deplay 100ml waiting for navigating
         }, 100);
     };
+
+    console.log('listData: ', listData);
     return (
         <>
-            {listData.map((item, index) => (
+            {listData.items.map((item, index) => (
                 <Box key={index}>
                     <Box
                         sx={{
@@ -112,26 +114,28 @@ export const OrderItemV2 = ({ listData, orderId }) => {
                                     <strong>Qty:</strong> {item.quantity}
                                 </CustomizeTypography>
 
-                                <Button
-                                    startIcon={<StarIcon />}
-                                    sx={{
-                                        visibility: !item.isReviewed ? 'visible' : 'hidden',
-                                        padding: '6px 0',
-                                        textTransform: 'initial',
-                                        fontSize: '14px',
-                                        fontWeight: 'bold',
-                                        color: theme.palette.text.secondary,
-                                        '&:hover': {
-                                            bgcolor: 'transparent',
-                                        },
-                                        [mobileScreen]: {
-                                            fontSize: '13px',
-                                        },
-                                    }}
-                                    onClick={() => handleRating(item)}
-                                >
-                                    Rate Now
-                                </Button>
+                                {listData.status === 'PAID' && (
+                                    <Button
+                                        startIcon={<StarIcon />}
+                                        sx={{
+                                            visibility: !item.isReviewed ? 'visible' : 'hidden',
+                                            padding: '6px 0',
+                                            textTransform: 'initial',
+                                            fontSize: '14px',
+                                            fontWeight: 'bold',
+                                            color: theme.palette.text.secondary,
+                                            '&:hover': {
+                                                bgcolor: 'transparent',
+                                            },
+                                            [mobileScreen]: {
+                                                fontSize: '13px',
+                                            },
+                                        }}
+                                        onClick={() => handleRating(item)}
+                                    >
+                                        {i18n.language === 'en' ? 'Rate Now' : 'Đánh giá'}
+                                    </Button>
+                                )}
                             </Box>
                         </Box>
                         <Box
@@ -166,7 +170,7 @@ export const OrderItemV2 = ({ listData, orderId }) => {
                             )}
                         </Box>
                     </Box>
-                    {index !== listData.length - 1 && <Divider sx={{ bgcolor: '#ccc', my: 1 }} />}
+                    {index !== listData.items.length - 1 && <Divider sx={{ bgcolor: '#ccc', my: 1 }} />}
                 </Box>
             ))}
         </>
