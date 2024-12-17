@@ -22,12 +22,17 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LockIcon from '@mui/icons-material/Lock';
 import { Button } from '@mui/material';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
+import { useTranslation } from 'react-i18next';
+import { authAPI } from '../../api/authAPI';
 
 export default function AdminAuth() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const userData = JSON.parse(localStorage.getItem('user_data')) || null;
+    const { i18n } = useTranslation();
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+    console.log('userData: ', userData);
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -39,19 +44,32 @@ export default function AdminAuth() {
 
     const handleNavigateProfile = () => {
         setAnchorEl(null);
-        navigate('/profile-settings');
+        navigate(`/${i18n.language}/profile-settings`);
         backTop();
     };
 
     const handleNavigateChangePassword = () => {
         setAnchorEl(null);
-        navigate('/change-password');
+        navigate(`/${i18n.language}/change-password`);
         backTop();
     };
 
-    const handleLogOut = () => {
-        setAnchorEl(null);
-        dispatch(logoutAccount());
+    const handleLogOut = async () => {
+        try {
+            setAnchorEl(null);
+
+            const logout = await authAPI.logout(userData?.email);
+
+            if (logout) {
+                window.localStorage.removeItem('user_data');
+                console.log('Logged out successfully');
+                navigate(`/${i18n.language}`);
+            } else {
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            console.error('An error occurred during logout:', error);
+        }
     };
     return (
         <React.Fragment>
@@ -89,7 +107,7 @@ export default function AdminAuth() {
                                         height: 36,
                                     },
                                 }}
-                                src={loggedInAccount?.userImage}
+                                src={userData?.imagePath}
                                 alt="User Image"
                             />
                         </IconButton>
@@ -125,7 +143,7 @@ export default function AdminAuth() {
                                         fontSize: 14,
                                     }}
                                 >
-                                    @admintomtoc
+                                    {userData?.email}
                                 </AdminTypography>
                             </Box>
                         </Button>
@@ -176,12 +194,12 @@ export default function AdminAuth() {
                 <MenuItem onClick={handleNavigateProfile}>
                     <Avatar
                         sx={{ width: 40, height: 40 }}
-                        src={loggedInAccount?.userImage}
+                        src={userData?.imagePath}
                         alt="User Image"
                     />
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <AdminTypography sx={{ mb: 0, fontSize: '14px', fontWeight: 'bold' }}>
-                            {loggedInAccount?.firstName + ' ' + loggedInAccount?.lastName}
+                            {userData?.firstName + ' ' + userData?.lastName}
                         </AdminTypography>
 
                         <AdminTypography
@@ -196,7 +214,7 @@ export default function AdminAuth() {
                             }}
                         >
                             {/* macbook@gmail.com */}
-                            {loggedInAccount?.email}
+                            {userData?.email}
                         </AdminTypography>
                     </Box>
                 </MenuItem>
