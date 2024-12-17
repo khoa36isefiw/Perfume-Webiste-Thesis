@@ -84,20 +84,23 @@ export default function ProductTable() {
     };
 
     // Flatten rows based on product sizes
-    const flattenedRows = rows?.flatMap((row) =>
-        // row.variants.map((size) => ({
-        row.variants.map((size) => ({
-            productId: row._id,
-            productName: row.nameEn,
-            category: row.category?.nameEn,
-            brand: row.brand?.nameEn,
-            size: size.size,
-            price: size.price,
-            image: row?.imagePath[0],
-            stock: size.stock,
-            ratings: row.rating,
-            variants: [size],
-        })),
+    const flattenedRows = rows?.flatMap(
+        (row) =>
+            // row.variants.map((size) => ({
+            row.category.status === 'active' &&
+            row.brand.status === 'active' &&
+            row.variants.map((size) => ({
+                productId: row._id,
+                productName: row.nameEn,
+                category: row.category?.nameEn,
+                brand: row.brand?.nameEn,
+                size: size.size,
+                price: size.price,
+                image: row?.imagePath[0],
+                stock: size.stock,
+                ratings: row.rating,
+                variants: [size],
+            })),
     );
 
     console.log('flattenedRows: ', flattenedRows);
