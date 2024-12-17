@@ -236,79 +236,103 @@ function AdminCategoriesTable() {
                                 );
 
                                 return (
-                                    <TableRow
-                                        key={category._id}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                        <TableCell
-                                            sx={{ fontSize: '13px' }}
-                                            component="th"
-                                            scope="category"
-                                        >
-                                            {index + 1}
-                                        </TableCell>
-                                        <TableCell sx={{ fontSize: '13px' }} align="left">
-                                            {category.nameEn}
-                                        </TableCell>
-                                        <TableCell sx={{ fontSize: '13px' }} align="left">
-                                            {parent ? (
-                                                <Typography
-                                                    sx={{ textAlign: 'center', fontSize: '12px' }}
-                                                >
-                                                    {parent.nameEn}
-                                                </Typography>
-                                            ) : (
-                                                <Typography
-                                                    sx={{
-                                                        bgcolor: '#d5d5d5',
-                                                        textAlign: 'center',
-                                                        padding: '4px 8px',
-                                                        borderRadius: 1,
-                                                        filter: 'drop-shadow(0 0 1mm #d5d5d5)',
-                                                        fontSize: '12px',
-                                                    }}
-                                                >
-                                                    No Parent
-                                                </Typography>
-                                            )}
-                                        </TableCell>
-                                        <TableCell
-                                            align="left"
-                                            sx={{ maxWidth: '400px', fontSize: '13px' }}
-                                        >
-                                            {category.descriptionEn ? (
-                                                <Typography
-                                                    sx={{ textAlign: 'center', fontSize: '12px' }}
-                                                >
-                                                    {category.descriptionEn}
-                                                </Typography>
-                                            ) : (
-                                                <Typography
-                                                    sx={{
-                                                        bgcolor: '#d5d5d5',
-                                                        textAlign: 'center',
-                                                        padding: '4px 8px',
-                                                        borderRadius: 1,
-                                                        filter: 'drop-shadow(0 0 1mm #d5d5d5)',
-                                                        fontSize: '12px',
-                                                    }}
-                                                >
-                                                    No Description
-                                                </Typography>
-                                            )}
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            <IconButton
-                                                onClick={() => handleDeleteCategory(category._id)}
+                                    <>
+                                        {category.status === 'active' && (
+                                            <TableRow
+                                                key={category._id}
+                                                sx={{
+                                                    '&:last-child td, &:last-child th': {
+                                                        border: 0,
+                                                    },
+                                                }}
                                             >
-                                                <DeleteIcon color="error" fontSize="large" />
-                                            </IconButton>
+                                                <TableCell
+                                                    sx={{ fontSize: '13px' }}
+                                                    component="th"
+                                                    scope="category"
+                                                >
+                                                    {index + 1}
+                                                </TableCell>
+                                                <TableCell sx={{ fontSize: '13px' }} align="left">
+                                                    {category.nameEn}
+                                                </TableCell>
+                                                <TableCell sx={{ fontSize: '13px' }} align="left">
+                                                    {parent ? (
+                                                        <Typography
+                                                            sx={{
+                                                                textAlign: 'center',
+                                                                fontSize: '12px',
+                                                            }}
+                                                        >
+                                                            {parent.nameEn}
+                                                        </Typography>
+                                                    ) : (
+                                                        <Typography
+                                                            sx={{
+                                                                bgcolor: '#d5d5d5',
+                                                                textAlign: 'center',
+                                                                padding: '4px 8px',
+                                                                borderRadius: 1,
+                                                                filter: 'drop-shadow(0 0 1mm #d5d5d5)',
+                                                                fontSize: '12px',
+                                                            }}
+                                                        >
+                                                            No Parent
+                                                        </Typography>
+                                                    )}
+                                                </TableCell>
+                                                <TableCell
+                                                    align="left"
+                                                    sx={{ maxWidth: '400px', fontSize: '13px' }}
+                                                >
+                                                    {category.descriptionEn ? (
+                                                        <Typography
+                                                            sx={{
+                                                                textAlign: 'center',
+                                                                fontSize: '12px',
+                                                            }}
+                                                        >
+                                                            {category.descriptionEn}
+                                                        </Typography>
+                                                    ) : (
+                                                        <Typography
+                                                            sx={{
+                                                                bgcolor: '#d5d5d5',
+                                                                textAlign: 'center',
+                                                                padding: '4px 8px',
+                                                                borderRadius: 1,
+                                                                filter: 'drop-shadow(0 0 1mm #d5d5d5)',
+                                                                fontSize: '12px',
+                                                            }}
+                                                        >
+                                                            No Description
+                                                        </Typography>
+                                                    )}
+                                                </TableCell>
+                                                <TableCell align="center">
+                                                    <IconButton
+                                                        onClick={() =>
+                                                            handleDeleteCategory(category._id)
+                                                        }
+                                                    >
+                                                        <DeleteIcon
+                                                            color="error"
+                                                            fontSize="large"
+                                                        />
+                                                    </IconButton>
 
-                                            <IconButton onClick={() => handleEdit(category)}>
-                                                <EditNoteIcon color="info" fontSize="large" />
-                                            </IconButton>
-                                        </TableCell>
-                                    </TableRow>
+                                                    <IconButton
+                                                        onClick={() => handleEdit(category)}
+                                                    >
+                                                        <EditNoteIcon
+                                                            color="info"
+                                                            fontSize="large"
+                                                        />
+                                                    </IconButton>
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                    </>
                                 );
                             })}
                     </TableBody>
