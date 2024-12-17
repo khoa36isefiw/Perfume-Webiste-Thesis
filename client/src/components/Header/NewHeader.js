@@ -372,94 +372,7 @@ function NewHeader() {
                                     <SearchIcon sx={{ fontSize: '24px', color: 'white' }} />
                                 </IconButton>
                             </Box>
-                            {/* Suggestions Dropdown */}
-                            {/* {showSuggestions && suggestions.length > 0 && (
-                                <Paper
-                                    sx={{
-                                        position: 'absolute',
-                                        top: '50%',
-                                        // width: '50%',
-                                        left: '50%',
-                                        right: '0',
-                                        transform: 'translate(-50%, 0)',
-                                        zIndex: 1,
-                                        // bgcolor: '#616161eb',
-                                    }}
-                                >
-                                    <List>
-                                        {listSuggestions.map((product) => (
-                                            <ListItem
-                                                key={product.id}
-                                                button
-                                                onClick={() => handleSuggestionClick(product)}
-                                            >
-                                                <Avatar
-                                                    src={product.perfumeImage}
-                                                    sx={{
-                                                        borderRadius: 0,
-                                                        height: '80px',
-                                                        width: '80px',
-                                                        objectFit: 'cover',
-                                                    }}
-                                                />
-                                                <Box sx={{ flexDirection: 'column' }}>
-                                                    <CustomizeTypography sx={{ color: '#000' }}>
-                                                        {product.perfumeName}
-                                                    </CustomizeTypography>
-                                                    <Box
-                                                        sx={{
-                                                            display: 'flex',
-                                                            alignItems: 'center',
-                                                            justifyContent: 'space-between',
-                                                        }}
-                                                    >
-                                                        <CustomizeTypography
-                                                            sx={{
-                                                                color: '#000',
-                                                                fontSize: '14px',
-                                                                mr: 2,
-                                                                textDecoration: product.discount
-                                                                    ? 'line-through'
-                                                                    : '',
-                                                            }}
-                                                        >
-                                                            {converToVND(product.perfumePriceVND)}
-                                                        </CustomizeTypography>
-                                                        <CustomizeTypography
-                                                            sx={{
-                                                                fontSize: '14px',
-                                                                color: theme.palette.text.secondary,
-                                                                fontWeight: 'bold',
-                                                            }}
-                                                        >
-                                                            {converToVND(
-                                                                product.perfumePriceDiscount,
-                                                            )}
-                                                        </CustomizeTypography>
-                                                    </Box>
-                                                </Box>
-                                            </ListItem>
-                                        ))}
-                                    </List>
-                                    {suggestions.length - listSuggestions.length > 0 && (
-                                        <CustomizeTypography
-                                            sx={{
-                                                textAlign: 'center',
-                                                color: '#000',
-                                                fontSize: 14,
-                                                '&:hover': {
-                                                    cursor: 'pointer',
-                                                    fontWeight: 'bold',
-                                                    color: theme.palette.text.secondary,
-                                                },
-                                            }}
-                                        >
-                                            Xem thêm {suggestions.length - listSuggestions.length}{' '}
-                                            sản phẩm
-                                        </CustomizeTypography>
-                                    )}
-                                </Paper>
-                            )} */}
+
                             {searchHistory.length > 0 && showSearchHistory && (
                                 <Paper
                                     elevation={3}
@@ -502,7 +415,6 @@ function NewHeader() {
                         <React.Fragment>
                             <Box
                                 sx={{
-                                    [tabletScreen]: { mt: 2 },
                                     [mobileScreen]: {
                                         display: 'none',
                                     },
@@ -515,7 +427,6 @@ function NewHeader() {
                             </Box>
                             <Box
                                 sx={{
-                                    [tabletScreen]: { mt: 2 },
                                     [mobileScreen]: {
                                         display: 'none',
                                     },
@@ -528,10 +439,6 @@ function NewHeader() {
                                     }
                                 />
                             </Box>
-                            {/* <CustomizeButtonOutlined
-                                textAction={'Dashboard'}
-                                onHandleClick={() => navigate('/admin/dashboard')}
-                            /> */}
                         </React.Fragment>
                     )}
 
