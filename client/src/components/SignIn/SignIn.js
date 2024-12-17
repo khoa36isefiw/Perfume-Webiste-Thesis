@@ -46,7 +46,6 @@ function SignIn() {
                             role: loginData.data.role,
                             address: loginData.data.address,
                             phoneNumber: loginData.data.phoneNumber,
-                            role: loginData.data.role,
                         }),
                     );
 
@@ -56,13 +55,8 @@ function SignIn() {
                         t('common.notifyMessage.login.loginS'),
                     );
 
-                    // for admin
-                    if (loginData?.data.role === 1) {
-                        navigate(`/admin/dashboard`);
-                    } else {
-                        // member
-                        navigate(`/${i18n.language}`);
-                    }
+                    // admin,member
+                    navigate(`/${i18n.language}`);
 
                     window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
                 } else {
