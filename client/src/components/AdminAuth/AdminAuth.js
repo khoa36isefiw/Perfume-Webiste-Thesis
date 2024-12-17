@@ -7,14 +7,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import userDefaultAvatar from '../../assets/images/defaultA.png';
-import Logout from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import PasswordIcon from '@mui/icons-material/Password';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
@@ -27,12 +21,9 @@ import { authAPI } from '../../api/authAPI';
 
 export default function AdminAuth() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const { i18n } = useTranslation();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const userData = JSON.parse(localStorage.getItem('user_data')) || null;
-    const { i18n } = useTranslation();
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
-    console.log('userData: ', userData);
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
