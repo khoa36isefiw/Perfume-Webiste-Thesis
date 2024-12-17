@@ -293,11 +293,15 @@ const AdminEditProduct = () => {
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)} // get id of value
                     >
-                        {brandOptions?.map((brand) => (
-                            <MenuItem key={brand._id} value={brand._id}>
-                                {brand.nameEn}
-                            </MenuItem>
-                        ))}
+                        {/* only get all brands are active */}
+                        {brandOptions?.map(
+                            (brand) =>
+                                brand.status === 'active' && (
+                                    <MenuItem key={brand._id} value={brand._id}>
+                                        {brand.nameEn}
+                                    </MenuItem>
+                                ),
+                        )}
                     </Select>
                 </FormControl>
 
@@ -309,11 +313,15 @@ const AdminEditProduct = () => {
                         label="Category"
                         onChange={(e) => setCategory(e.target.value)}
                     >
-                        {categoryOptions?.map((category) => (
-                            <MenuItem key={category._id} value={category._id}>
-                                {category.nameEn}
-                            </MenuItem>
-                        ))}
+                        {/* only get all categories are active */}
+                        {categoryOptions?.map(
+                            (category) =>
+                                category.status === 'active' && (
+                                    <MenuItem key={category._id} value={category._id}>
+                                        {category.nameEn}
+                                    </MenuItem>
+                                ),
+                        )}
                     </Select>
                 </FormControl>
             </Box>
