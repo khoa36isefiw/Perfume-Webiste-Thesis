@@ -381,11 +381,14 @@ const AdminAddProduct = () => {
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)}
                     >
-                        {brandOptions.map((brand) => (
-                            <MenuItem key={brand._id} value={brand._id}>
-                                {brand.nameEn}
-                            </MenuItem>
-                        ))}
+                        {brandOptions.map(
+                            (brand) =>
+                                brand.status === 'active' && (
+                                    <MenuItem key={brand._id} value={brand._id}>
+                                        {brand.nameEn}
+                                    </MenuItem>
+                                ),
+                        )}
                     </Select>
                 </FormControl>
 
@@ -397,11 +400,14 @@ const AdminAddProduct = () => {
                         label="Category"
                         onChange={(e) => setCategory(e.target.value)}
                     >
-                        {categoryOptions.map((category) => (
-                            <MenuItem key={category._id} value={category._id}>
-                                {category.nameEn}
-                            </MenuItem>
-                        ))}
+                        {categoryOptions.map(
+                            (category) =>
+                                category.status === 'active' && (
+                                    <MenuItem key={category._id} value={category._id}>
+                                        {category.nameEn}
+                                    </MenuItem>
+                                ),
+                        )}
                     </Select>
                 </FormControl>
             </Box>

@@ -22,7 +22,7 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 
 function Comments({ perfumeDetailData, reference }) {
     const { t } = useTranslation('translate');
-    const { data: reviewData, isLoading } = useReviewOnProduct(perfumeDetailData?.product._id);
+    const { data: reviewData } = useReviewOnProduct(perfumeDetailData?.product._id);
     console.log('reviewData: ', reviewData?.data);
     const [currentPage, setCurrentPage] = useState(1); // Current page
     const itemsPerPage = 5; // Number of comments per page

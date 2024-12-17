@@ -10,6 +10,12 @@ export const ordersAPI = {
         const url = '/orders/';
         return axiosClient.post(url, data);
     },
+
+    // cancel order
+    cancelOrder: (id) => {
+        const url = `/orders/${id}/cancel`;
+        return axiosClient.post(url);
+    },
 };
 
 // call data nhiều lần swr --> useProduct
