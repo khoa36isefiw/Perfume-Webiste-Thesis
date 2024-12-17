@@ -37,7 +37,7 @@ const AuthController = {
             {
                 id: user.id,
                 email: user.email,
-                isAdmin: user.isAdmin,
+                isAdmin: user.role,
             },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '2h' },
@@ -50,7 +50,7 @@ const AuthController = {
             {
                 id: user.id,
                 email: user.email,
-                isAdmin: user.isAdmin,
+                isAdmin: user.role,
             },
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: '7d' },
