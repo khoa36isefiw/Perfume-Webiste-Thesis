@@ -28,7 +28,9 @@ import useOrders from '../../api/useOrders';
 import { formatDate } from '../FormatDate/formatDate';
 
 import { converToVND } from '../convertToVND/convertToVND';
+import CancelIcon from '@mui/icons-material/Cancel';
 import * as XLSX from 'xlsx';
+import { ordersAPI } from '../../api/ordersAPI';
 
 const columns = [
     { id: '_id', label: 'Order ID', minWidth: 20 },
@@ -42,7 +44,7 @@ const columns = [
         // format: (value) => `${value.street}, ${value.city}`,
     },
     { id: 'totalPrice', label: 'Total', minWidth: 40 },
-    { id: 'userAddress', label: 'Address', minWidth: 40 },
+    { id: 'orderStatus', label: 'Status', minWidth: 40 },
     {
         id: 'orderPaid',
         label: 'Pay',
@@ -132,6 +134,14 @@ export default function AdminOrdersTable() {
 
         // export the workbook as an Excel file
         XLSX.writeFile(workbook, 'Orders Table.xlsx');
+    };
+
+    // cancel
+    const handleCancelOrder = async (orderId) => {
+        const orderResponse = await ordersAPI.cancelOrder(orderId);
+        if (orderResponse.status === 200) {
+            console.log('orderResponse: ', orderResponse?.data);
+        }
     };
 
     return (
@@ -283,6 +293,41 @@ export default function AdminOrdersTable() {
                                                                         />
                                                                     </IconButton>
                                                                 </Tooltip>
+                                                                <Tooltip
+                                                                    title={
+                                                                        <CustomizeTypography
+                                                                            sx={{
+                                                                                fontSize: '13px',
+                                                                                mb: 0,
+                                                                            }}
+                                                                        >
+                                                                            Cancel Order
+                                                                        </CustomizeTypography>
+                                                                    }
+                                                                >
+                                                                    <IconButton
+                                                                        sx={{
+                                                                            bgcolor: '#ffdfe4',
+
+                                                                            borderRadius: '10px',
+                                                                            '&:hover': {
+                                                                                bgcolor: '#ffdfe4',
+                                                                            },
+                                                                        }}
+                                                                        onClick={() =>
+                                                                            handleCancelOrder(
+                                                                                row._id,
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <CancelIcon
+                                                                            sx={{
+                                                                                color: '#f11133',
+                                                                                fontSize: '16px',
+                                                                            }}
+                                                                        />
+                                                                    </IconButton>
+                                                                </Tooltip>
                                                             </>
                                                         ) : column.id === 'userName' ? (
                                                             <Typography
@@ -395,7 +440,45 @@ export default function AdminOrdersTable() {
                                                             <Typography sx={{ fontSize: 12 }}>
                                                                 {converToVND(row?.totalPrice)}
                                                             </Typography>
-                                                        ) : column.format &&
+                                                        ) : column.id === 'orderStatus' ? (
+                                                            <Typography
+                                                                sx={{
+                                                                    flex: 1,
+                                                                    width: '100%',
+                                                                    fontWeight: 'bold',
+                                                                    fontSize: '13px',
+                                                                    textAlign: 'center',
+                                                                    bgcolor:
+                                                                        row?.status === 'PAID'
+                                                                            ? '#ddfbe9'
+                                                                            : row?.status ===
+                                                                              'PENDING_PAYMENT'
+                                                                            ? '#f0ed1f87'
+                                                                            : '#ffdfe4',
+                                                                    color:
+                                                                        row?.status === 'PAID'
+                                                                            ? '#187d44'
+                                                                            : row?.status ===
+                                                                              'PENDING_PAYMENT'
+                                                                            ? '#858424f2'
+                                                                            : '#f11133',
+                                                                    borderRadius: 2,
+                                                                    padding: '4px',
+                                                                    [mobileScreen]: {
+                                                                        fontSize: '13px',
+                                                                        padding: '2px 0',
+                                                                    },
+                                                                }}
+                                                            >
+                                                                {row?.status === 'PAID'
+                                                                    ? 'Paid'
+                                                                    : row?.status ===
+                                                                      'PENDING_PAYMENT'
+                                                                    ? 'Pending'
+                                                                    : 'Cancelled'}
+                                                            </Typography>
+                                                        ) : // <Typography>{row?.status}</Typography>
+                                                        column.format &&
                                                           typeof value === 'object' ? (
                                                             column.format(value)
                                                         ) : (

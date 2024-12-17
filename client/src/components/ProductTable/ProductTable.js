@@ -362,7 +362,7 @@ export default function ProductTable() {
                                                                                     mb: 0,
                                                                                 }}
                                                                             >
-                                                                                Edit Users
+                                                                                Edit Product
                                                                             </CustomizeTypography>
                                                                         }
                                                                     >
