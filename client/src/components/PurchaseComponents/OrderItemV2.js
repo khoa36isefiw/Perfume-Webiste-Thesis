@@ -133,7 +133,7 @@ export const OrderItemV2 = ({ listData, orderId }) => {
                                         }}
                                         onClick={() => handleRating(item)}
                                     >
-                                        {i18n.language === 'en' ? 'Rate Now' : 'Đánh giá'}
+                                        {i18n.language === 'en' ? 'Review' : 'Đánh giá'}
                                     </Button>
                                 )}
                             </Box>
@@ -170,7 +170,9 @@ export const OrderItemV2 = ({ listData, orderId }) => {
                             )}
                         </Box>
                     </Box>
-                    {index !== listData.items.length - 1 && <Divider sx={{ bgcolor: '#ccc', my: 1 }} />}
+                    {index !== listData.items.length - 1 && (
+                        <Divider sx={{ bgcolor: '#ccc', my: 1 }} />
+                    )}
                 </Box>
             ))}
         </>

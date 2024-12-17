@@ -5,17 +5,17 @@ import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Th
 import StarIcon from '@mui/icons-material/Star';
 import { ratingData } from './ratingData';
 import CustomizeButton from '../CustomizeButton/CustomizeButton';
-import { useDispatch, useSelector } from 'react-redux';
-
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useTranslation } from 'react-i18next';
 import { reviewsAPI } from '../../api/reviewsAPI';
 import { useLocation } from 'react-router-dom';
 import useOrderById from '../../api/useOrderById';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
-function RatingProduct({ perfumeDetailData }) {
+function RatingProduct({ perfumeDetailData, mutate }) {
     const location = useLocation();
     // console.log('location: ', );
+    const { showNotificationMessage } = useSnackbarMessage();
     const queryParams = new URLSearchParams(location.search);
     const orderId = queryParams.get('orderId');
     console.log('orderId: ', orderId);
@@ -27,7 +27,7 @@ function RatingProduct({ perfumeDetailData }) {
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || '';
 
     const [ratingValue, setRatingValue] = useState(0);
-    const { data: orderDataById, mutate } = useOrderById(orderId);
+    const { data: orderDataById } = useOrderById(orderId);
 
     const orderByIdData = orderDataById?.data?.items?.filter(
         (order) => order.product === perfumeDetailData.product._id,
@@ -54,7 +54,7 @@ function RatingProduct({ perfumeDetailData }) {
 
     const handleComment = async () => {
         const newComment = reviewInputRef.current.value; // value of textfield by ref
-        setIsCommentSubmitted(true);
+
         // userId, productId, orderId, comment, rating
 
         const data = {
@@ -66,11 +66,18 @@ function RatingProduct({ perfumeDetailData }) {
         };
 
         if (newComment && ratingValue) {
+            setIsCommentSubmitted(true);
             const reviewProduct = await reviewsAPI.createReview(data);
-
             if (reviewProduct.status === 200) {
+                showNotificationMessage(
+                    'success',
+                    'Review Product',
+                    'You have been reviewed product successfully!',
+                );
                 mutate();
             }
+        } else {
+            showNotificationMessage('warning', 'Review Product', 'Quên comment kìa bạn êi');
         }
     };
 
@@ -317,7 +324,7 @@ function RatingProduct({ perfumeDetailData }) {
                         <Grid item xs={12} lg={2}>
                             <CustomizeButton
                                 disabled={isCommentSubmitted}
-                                textAction={'Publish'}
+                                textAction={'Review'}
                                 onHandleClick={handleComment}
                             />
                         </Grid>
