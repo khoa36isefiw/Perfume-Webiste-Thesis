@@ -232,7 +232,16 @@ function SignIn() {
                                 {t('common.signIn.forgot')}
                             </CustomizeTypography>
 
-                            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    gap: 2,
+                                    alignItems: 'center',
+                                    [mobileScreen]: {
+                                        flexDirection: 'column',
+                                    },
+                                }}
+                            >
                                 <ButtonComponent
                                     textAction={t('common.signIn.login')}
                                     onHandleClick={handleSignIn}
