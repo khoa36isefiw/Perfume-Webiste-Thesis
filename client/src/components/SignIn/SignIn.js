@@ -46,6 +46,7 @@ function SignIn() {
                             role: loginData.data.role,
                             address: loginData.data.address,
                             phoneNumber: loginData.data.phoneNumber,
+                            role: loginData.data.role,
                         }),
                     );
 
