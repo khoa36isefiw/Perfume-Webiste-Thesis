@@ -204,6 +204,11 @@ function SignIn() {
                                 alignItems: 'center',
                                 justifyContent: 'flex-end',
                                 p: 2,
+                                [tabletScreen]: {
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                },
                                 [mobileScreen]: {
                                     flexDirection: 'column',
                                     justifyContent: 'center',
@@ -237,6 +242,9 @@ function SignIn() {
                                     display: 'flex',
                                     gap: 2,
                                     alignItems: 'center',
+                                    [tabletScreen]: {
+                                        flexDirection: 'column',
+                                    },
                                     [mobileScreen]: {
                                         flexDirection: 'column',
                                     },
