@@ -175,7 +175,7 @@ const OrderController = {
                 payment.paid = true;
                 await payment.save();
             }
-            order.status = 'COMPLETED';
+            order.status = 'PAID';
             await order.save();
             res.status(200).json({ message: 'Order completed' });
         } catch (error) {
