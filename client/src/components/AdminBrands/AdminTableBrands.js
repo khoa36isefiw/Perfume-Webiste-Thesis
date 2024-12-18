@@ -10,24 +10,17 @@ import Paper from '@mui/material/Paper';
 import { Button, IconButton, InputAdornment, Stack, TextField, TableCell } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
-import UploadIcon from '@mui/icons-material/Upload';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { useEffect } from 'react';
-
 import WarningIcon from '@mui/icons-material/Warning';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
-
 import { blue } from '@mui/material/colors';
 import * as XLSX from 'xlsx';
-
 import useBrand from '../../api/useBrand';
 import { brandApi } from '../../api/brandApi';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
@@ -239,93 +232,86 @@ function AdminTableBrands() {
                                         // );
 
                                         return (
-                                            <TableRow
-                                                key={brand._id}
-                                                sx={{
-                                                    '&:last-child td, &:last-child th': {
-                                                        border: 0,
-                                                    },
-                                                }}
-                                            >
-                                                <TableCell
-                                                    sx={{ fontSize: '13px' }}
-                                                    component="th"
-                                                    scope="brand"
-                                                >
-                                                    {index + 1}
-                                                </TableCell>
-                                                <TableCell sx={{ fontSize: '13px' }} align="left">
-                                                    {brand.nameEn}
-                                                </TableCell>
-                                                {/* <TableCell sx={{ fontSize: '13px' }} align="left">
-                                {parent ? (
-                                    <Typography
-                                        sx={{ textAlign: 'center', fontSize: '12px' }}
-                                    >
-                                        {parent.nameEn}
-                                    </Typography>
-                                ) : (
-                                    <Typography
-                                        sx={{
-                                            bgcolor: '#d5d5d5',
-                                            textAlign: 'center',
-                                            padding: '4px 8px',
-                                            borderRadius: 1,
-                                            filter: 'drop-shadow(0 0 1mm #d5d5d5)',
-                                            fontSize: '12px',
-                                        }}
-                                    >
-                                        No Parent
-                                    </Typography>
-                                )}
-                            </TableCell> */}
-                                                <TableCell
-                                                    align="left"
-                                                    sx={{ maxWidth: '400px', fontSize: '13px' }}
-                                                >
-                                                    {brand.descriptionEN ? (
-                                                        <Typography
-                                                            sx={{
-                                                                textAlign: 'center',
-                                                                fontSize: '12px',
-                                                            }}
-                                                        >
-                                                            {brand.descriptionEN}
-                                                        </Typography>
-                                                    ) : (
-                                                        <Typography
-                                                            sx={{
-                                                                bgcolor: '#d5d5d5',
-                                                                textAlign: 'center',
-                                                                padding: '4px 8px',
-                                                                borderRadius: 1,
-                                                                filter: 'drop-shadow(0 0 1mm #d5d5d5)',
-                                                                fontSize: '12px',
-                                                            }}
-                                                        >
-                                                            No Description
-                                                        </Typography>
-                                                    )}
-                                                </TableCell>
-
-                                                <TableCell align="center">
-                                                    <IconButton
-                                                        onClick={() => handleDeleteBrand(brand._id)}
+                                            <>
+                                                {brand.status === 'active' && (
+                                                    <TableRow
+                                                        key={brand._id}
+                                                        sx={{
+                                                            '&:last-child td, &:last-child th': {
+                                                                border: 0,
+                                                            },
+                                                        }}
                                                     >
-                                                        <DeleteIcon
-                                                            color="error"
-                                                            fontSize="large"
-                                                        />
-                                                    </IconButton>
+                                                        <TableCell
+                                                            sx={{ fontSize: '13px' }}
+                                                            component="th"
+                                                            scope="brand"
+                                                        >
+                                                            {index + 1}
+                                                        </TableCell>
+                                                        <TableCell
+                                                            sx={{ fontSize: '13px' }}
+                                                            align="left"
+                                                        >
+                                                            {brand.nameEn}
+                                                        </TableCell>
 
-                                                    <IconButton onClick={() => handleEdit(brand)}>
-                                                        <EditNoteIcon
-                                                            color="info"
-                                                            fontSize="large"
-                                                        />
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
+                                                        <TableCell
+                                                            align="left"
+                                                            sx={{
+                                                                maxWidth: '400px',
+                                                                fontSize: '13px',
+                                                            }}
+                                                        >
+                                                            {brand.descriptionEN ? (
+                                                                <Typography
+                                                                    sx={{
+                                                                        textAlign: 'center',
+                                                                        fontSize: '12px',
+                                                                    }}
+                                                                >
+                                                                    {brand.descriptionEN}
+                                                                </Typography>
+                                                            ) : (
+                                                                <Typography
+                                                                    sx={{
+                                                                        bgcolor: '#d5d5d5',
+                                                                        textAlign: 'center',
+                                                                        padding: '4px 8px',
+                                                                        borderRadius: 1,
+                                                                        filter: 'drop-shadow(0 0 1mm #d5d5d5)',
+                                                                        fontSize: '12px',
+                                                                    }}
+                                                                >
+                                                                    No Description
+                                                                </Typography>
+                                                            )}
+                                                        </TableCell>
+
+                                                        <TableCell align="center">
+                                                            <IconButton
+                                                                onClick={() =>
+                                                                    handleDeleteBrand(brand._id)
+                                                                }
+                                                            >
+                                                                <DeleteIcon
+                                                                    color="error"
+                                                                    fontSize="large"
+                                                                />
+                                                            </IconButton>
+
+                                                            <IconButton
+                                                                onClick={() => handleEdit(brand)}
+                                                            >
+                                                                <EditNoteIcon
+                                                                    color="info"
+                                                                    fontSize="large"
+                                                                />
+                                                            </IconButton>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                )}
+                                            </>
                                         );
                                     })}
                             </TableBody>

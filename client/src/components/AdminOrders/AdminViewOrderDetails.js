@@ -1,22 +1,37 @@
-import { Avatar, Box, Divider, Grid } from '@mui/material';
+import { Avatar, Box, Button, Divider, Grid, Typography } from '@mui/material';
 import React from 'react';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
-import { CODPayment, PaypalPayment } from './PaymentDesign';
+import { CODPayment, PaypalPayment, VNPayPayment } from './PaymentDesign';
 
 import CallIcon from '@mui/icons-material/Call';
 import { converToVND } from '../convertToVND/convertToVND';
 import { formatDate } from '../FormatDate/formatDate';
 import { ipadProScreen, mobileScreen, tabletScreen } from '../../Theme/Theme';
+import { ordersAPI } from '../../api/ordersAPI';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 const orderTitle = ['Photo', 'Name', 'Quantity', 'Size', 'Price', 'Total'];
 
 function AdminViewOrderDetails() {
     const location = useLocation();
+    const navigate = useNavigate();
+    const { showNotificationMessage } = useSnackbarMessage();
     const { orderData } = location.state || {};
-    console.log('orderData', orderData);
 
+    // console.log('orderData', orderData);
+    const handleCancelOrder = async () => {
+        const orderResponse = await ordersAPI.cancelOrder(orderData?._id);
+        if (orderResponse.status === 200) {
+            showNotificationMessage(
+                'success',
+                'Cancel Order',
+                'Order has been cancelled successfully!',
+            );
+            navigate('/admin/manage-orders');
+        }
+    };
     return (
         <Box
             sx={{
@@ -28,9 +43,39 @@ function AdminViewOrderDetails() {
             }}
         >
             <AdminButtonBackPage title={'List Orders'} />
+
             <Box>
                 <Grid container spacing={4}>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'flex-end',
+                                justifyContent: 'flex-end',
+                            }}
+                        >
+                            {orderData?.status !== 'CANCELLED' && (
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{
+                                        mb: 1,
+                                        padding: '8px 10px',
+                                        borderRadius: 2,
+                                        bgcolor: '#ffdfe4',
+                                        color: '#f11133',
+                                        textTransform: 'initial',
+                                        fontSize: '13px',
+                                        '&:hover': {
+                                            bgcolor: '#ffdfe4',
+                                        },
+                                    }}
+                                    onClick={handleCancelOrder}
+                                >
+                                    Cancel Order
+                                </Button>
+                            )}
+                        </Box>
                         <Box sx={{ bgcolor: '#fff', borderRadius: 3, p: 2 }}>
                             <Box
                                 sx={{
@@ -45,9 +90,46 @@ function AdminViewOrderDetails() {
                                 <Box sx={{ flex: 1 }}>
                                     {orderData.paymentMethod === 'COD' ? (
                                         <CODPayment />
-                                    ) : (
+                                    ) : orderData.paymentMethod === 'PAYPAL' ? (
                                         <PaypalPayment />
+                                    ) : (
+                                        <VNPayPayment />
                                     )}
+
+                                    <Typography
+                                        sx={{
+                                            mt: 1,
+                                            width: '100%',
+                                            fontWeight: 'bold',
+                                            fontSize: '13px',
+                                            textAlign: 'center',
+                                            boxShadow: 1,
+                                            bgcolor:
+                                                orderData?.status === 'PAID'
+                                                    ? '#ddfbe9'
+                                                    : orderData?.status === 'PENDING_PAYMENT'
+                                                    ? '#f0ed1f87'
+                                                    : '#ffdfe4',
+                                            color:
+                                                orderData?.status === 'PAID'
+                                                    ? '#187d44'
+                                                    : orderData?.status === 'PENDING_PAYMENT'
+                                                    ? '#858424f2'
+                                                    : '#f11133',
+                                            borderRadius: 2,
+                                            padding: '4px',
+                                            [mobileScreen]: {
+                                                fontSize: '13px',
+                                                padding: '2px 0',
+                                            },
+                                        }}
+                                    >
+                                        {orderData?.status === 'PAID'
+                                            ? 'Paid'
+                                            : orderData?.status === 'PENDING_PAYMENT'
+                                            ? 'Pending'
+                                            : 'Cancelled'}
+                                    </Typography>
                                 </Box>
                             </Box>
                             {/* user image */}
@@ -58,32 +140,7 @@ function AdminViewOrderDetails() {
                                     sx={{ height: 128, width: 128 }}
                                 />
                             </Box>
-                            {/* <Box
-                                sx={{
-                                    my: 4,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
 
-                                    [tabletScreen]: {
-                                        // flexDirection: 'column',
-                                        flexWrap: 'wrap',
-                                        alignItems: 'start',
-                                    },
-                                    [mobileScreen]: {
-                                        flexDirection: 'column',
-                                        alignItems: 'start',
-                                    },
-                                }}
-                            >
-                                <UserInfor
-                                    title={'Order Created at'}
-                                    content={formatDate(orderData.createdAt)}
-                                />
-                                <UserInfor title={'Name'} content={orderData.userName} />
-                                <UserInfor title={'Email'} content={orderData.userEmail} />
-                                <UserInfor title={'Contact No'} content={orderData.userPhone} />
-                            </Box> */}
                             <Box
                                 sx={{
                                     my: 4,

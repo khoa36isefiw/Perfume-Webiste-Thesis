@@ -58,6 +58,7 @@ function AdminSidebar() {
     const navigate = useNavigate();
     const location = useLocation();
     const [activeButton, setActiveButton] = useState('Dashboard');
+    const userData = JSON.parse(localStorage.getItem('user_data')) || null;
     const handleChooseSidebar = (buttonText) => {
         setActiveButton(buttonText.sidebarText);
         window.localStorage.setItem('admin_titlle', buttonText.sidebarText);
@@ -97,7 +98,7 @@ function AdminSidebar() {
                             fontWeight: 'bold',
                         }}
                     >
-                        Luna Kei
+                        {userData?.firstName + ' ' + userData?.lastName}
                     </AdminTypography>
                     <AdminTypography sx={{ fontSize: 13, color: '#6c757d', fontWeight: '500' }}>
                         Admin Tomtoc

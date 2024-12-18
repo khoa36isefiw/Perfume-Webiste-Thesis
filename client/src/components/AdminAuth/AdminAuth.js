@@ -7,14 +7,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import userDefaultAvatar from '../../assets/images/defaultA.png';
-import Logout from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import PasswordIcon from '@mui/icons-material/Password';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
@@ -22,12 +16,14 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LockIcon from '@mui/icons-material/Lock';
 import { Button } from '@mui/material';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
+import { useTranslation } from 'react-i18next';
+import { authAPI } from '../../api/authAPI';
 
 export default function AdminAuth() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const { i18n } = useTranslation();
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+    const userData = JSON.parse(localStorage.getItem('user_data')) || null;
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -39,19 +35,32 @@ export default function AdminAuth() {
 
     const handleNavigateProfile = () => {
         setAnchorEl(null);
-        navigate('/profile-settings');
+        navigate(`/${i18n.language}/profile-settings`);
         backTop();
     };
 
     const handleNavigateChangePassword = () => {
         setAnchorEl(null);
-        navigate('/change-password');
+        navigate(`/${i18n.language}/change-password`);
         backTop();
     };
 
-    const handleLogOut = () => {
-        setAnchorEl(null);
-        dispatch(logoutAccount());
+    const handleLogOut = async () => {
+        try {
+            setAnchorEl(null);
+
+            const logout = await authAPI.logout(userData?.email);
+
+            if (logout) {
+                window.localStorage.removeItem('user_data');
+                console.log('Logged out successfully');
+                navigate(`/${i18n.language}`);
+            } else {
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            console.error('An error occurred during logout:', error);
+        }
     };
     return (
         <React.Fragment>
@@ -89,7 +98,7 @@ export default function AdminAuth() {
                                         height: 36,
                                     },
                                 }}
-                                src={loggedInAccount?.userImage}
+                                src={userData?.imagePath}
                                 alt="User Image"
                             />
                         </IconButton>
@@ -125,7 +134,7 @@ export default function AdminAuth() {
                                         fontSize: 14,
                                     }}
                                 >
-                                    @admintomtoc
+                                    {userData?.email}
                                 </AdminTypography>
                             </Box>
                         </Button>
@@ -176,12 +185,12 @@ export default function AdminAuth() {
                 <MenuItem onClick={handleNavigateProfile}>
                     <Avatar
                         sx={{ width: 40, height: 40 }}
-                        src={loggedInAccount?.userImage}
+                        src={userData?.imagePath}
                         alt="User Image"
                     />
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <AdminTypography sx={{ mb: 0, fontSize: '14px', fontWeight: 'bold' }}>
-                            {loggedInAccount?.firstName + ' ' + loggedInAccount?.lastName}
+                            {userData?.firstName + ' ' + userData?.lastName}
                         </AdminTypography>
 
                         <AdminTypography
@@ -196,7 +205,7 @@ export default function AdminAuth() {
                             }}
                         >
                             {/* macbook@gmail.com */}
-                            {loggedInAccount?.email}
+                            {userData?.email}
                         </AdminTypography>
                     </Box>
                 </MenuItem>

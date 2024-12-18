@@ -31,11 +31,28 @@ const PromotionController = {
 
     create: async (req, res) => {
         try {
-            const { discount } = req.body;
+            const { discount, code, startDate, endDate, quantity, ...rest } = req.body;
+            const promotionExists = await Promotion.findOne({ code: code });
+            if (promotionExists) {
+                return res.status(400).json({ message: 'Promotion code already exists' });
+            }
             if (discount < 0 || discount > 100) {
                 return res.status(400).json({ message: 'Discount must be between 0 and 100' });
             }
-            const promotion = await Promotion.create(req.body);
+            if (startDate > endDate) {
+                return res.status(400).json({ message: 'Start date must be before end date' });
+            }
+            if (quantity <= 0) {
+                return res.status(400).json({ message: 'Quantity must be greater than 0' });
+            }
+            const promotion = await Promotion.create({
+                discount,
+                code,
+                startDate,
+                endDate,
+                quantity,
+                ...rest,
+            });
 
             emailEvent.emit('sendEmail', {
                 subject: 'New Promotion Code!',

@@ -21,10 +21,10 @@ function RelatedProduct({ data }) {
     };
 
     return (
-        <Container sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%' }}>
             <Grid container spacing={4}>
                 {data?.map((perfume) => (
-                    <Grid item xs={6} sm={6} md={3} lg={3} key={perfume._id}>
+                    <Grid item xs={6} sm={4} md={3} lg={3} key={perfume._id}>
                         <Box
                             key={perfume._id}
                             sx={{
@@ -228,7 +228,7 @@ function RelatedProduct({ data }) {
                     </Grid>
                 ))}
             </Grid>
-        </Container>
+        </Box>
     );
 }
 

@@ -36,28 +36,34 @@ function CategoryFilter({ setCId }) {
             </CustomizeTypography>
             {categoryData?.data.map((category) => {
                 return (
-                    <Button
-                        key={category._id}
-                        sx={{
-                            py: 1,
-                            borderRadius: '8px',
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            textTransform: 'initial',
-                            color: selectedCategory?._id === category._id ? 'black' : 'white',
-                            bgcolor:
-                                selectedCategory?._id === category._id ? blue[100] : 'transparent',
-                            '&:hover': {
-                                bgcolor: theme.palette.background.thirth,
-                            },
-                            [tabletScreen]: {
-                                fontSize: '13px',
-                            },
-                        }}
-                        onClick={() => handleSelect(category)}
-                    >
-                        {i18n.language === 'en' ? category.nameEn : category.nameVn}
-                    </Button>
+                    <>
+                        {category.status === 'active' && (
+                            <Button
+                                key={category._id}
+                                sx={{
+                                    py: 1,
+                                    borderRadius: '8px',
+                                    fontSize: '16px',
+                                    fontWeight: 'bold',
+                                    textTransform: 'initial',
+                                    color:
+                                        selectedCategory?._id === category._id
+                                            ? theme.palette.text.secondary
+                                            : 'white',
+
+                                    '&:hover': {
+                                        bgcolor: theme.palette.background.thirth,
+                                    },
+                                    [tabletScreen]: {
+                                        fontSize: '13px',
+                                    },
+                                }}
+                                onClick={() => handleSelect(category)}
+                            >
+                                {i18n.language === 'en' ? category.nameEn : category.nameVn}
+                            </Button>
+                        )}
+                    </>
                 );
             })}
         </Box>

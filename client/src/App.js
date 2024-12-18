@@ -76,7 +76,7 @@ function App() {
                                 key={route.path}
                                 path={route.path}
                                 element={
-                                    userData.role === 1 ? (
+                                    userData?.role === 1 ? (
                                         <Layout>
                                             <Page />
                                         </Layout>
