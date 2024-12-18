@@ -28,6 +28,7 @@ import useDeleteItem from '../../hooks/useDeleteItem';
 import { couponAPI } from '../../api/couponAPI';
 import EmptyCart from '../EmptyCart/EmptyCart';
 import * as XLSX from 'xlsx';
+import { useDispatch, useSelector } from 'react-redux';
 
 const itemsPerPage = 5;
 
@@ -54,6 +55,9 @@ const columns = [
 
 const CouponsTable = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const couponData = useSelector((state) => state.couponsManagement.listCoupons);
+    console.log('Data receving....: ', couponData);
     const { data: couponsData, mutate, isLoading } = useCoupons();
     const responeCouponsData = couponsData?.data || [];
 
