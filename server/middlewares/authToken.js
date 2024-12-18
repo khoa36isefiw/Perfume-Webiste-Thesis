@@ -21,7 +21,7 @@ const authToken = {
 
     verifyTokenAdmin(req, res, next) {
         authToken.authenticationToken(req, res, () => {
-            if (req.user.role === 1) {
+            if (req.user?.role === 1) {
                 next();
             } else {
                 res.status(403).json('You are not allowed to this action!');
