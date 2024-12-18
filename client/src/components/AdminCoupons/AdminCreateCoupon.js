@@ -87,6 +87,13 @@ const AdminCreateCoupon = () => {
             }
             const newCouponResponse = await couponAPI.createCoupon(data);
             dispatch(createNewCoupon({ data: data }));
+            if (newCouponResponse?.data.message.includes('duplicate key')) {
+                setShowNotification(true);
+                setShowAnimation('animate__bounceInRight');
+                setMessageType('warning');
+                setMessageContent('Code exists, please try another code!');
+                setMessageTitle('Create new coupon');
+            }
             if (newCouponResponse.status === 201) {
                 console.log('newCouponResponse: ', newCouponResponse);
                 setShowNotification(true);
