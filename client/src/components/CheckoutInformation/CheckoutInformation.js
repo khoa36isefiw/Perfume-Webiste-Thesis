@@ -11,7 +11,7 @@ import {
     Button,
 } from '@mui/material';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import CreditCard from '../CreditCard/CreditCard';
+
 import { mobileScreen, theme } from '../../Theme/Theme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import { PayPalButton } from 'react-paypal-button-v2';
@@ -299,12 +299,6 @@ function CheckoutInformation() {
                             </RadioGroup>
                         </FormControl>
 
-                        {/* {paymentMethod === 'credit-card' && (
-                            // {paymentMethod === 'cod' && (
-                            <Box sx={{ mt: 3 }}>
-                                <CreditCard />
-                            </Box>
-                        )} */}
                         {paymentMethod === 'paypal' ? (
                             // {paymentMethod === 'cod' && (
                             <Box sx={{ mt: 3 }}>

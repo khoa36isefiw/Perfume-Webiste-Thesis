@@ -55,13 +55,6 @@ function PerfumesCard() {
         ? productData?.filter((cId) => cId.category._id === selectedCategory._id)
         : products?.data;
 
-    const handleNavigationProductDetail = (perfume) => {
-        // new playground
-        navigate(`/${language}/${perfume.nameEn}/${perfume._id}`); // new playground
-        window.localStorage.setItem('productInfor', JSON.stringify(perfume));
-        backTop();
-    };
-
     useEffect(() => {
         const handleScroll = () => {
             // check if it doesn't load all product

@@ -1,22 +1,18 @@
-import { Box, Button, Checkbox, Container, Divider, Grid } from '@mui/material';
+import { Button, Container, Divider, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import CartTotal from './CartTotal';
 import TotalPriceInCart from './TotalPriceInCart';
 import EmptyCart from '../EmptyCart/EmptyCart';
-import EmptyOrders from '../EmptyOrders/EmptyOrders';
-import Check from '@mui/icons-material/Check';
 import useUserById from '../../api/useUserById';
 import { ProductInCart } from './ProductInCart';
 import { useTranslation } from 'react-i18next';
 
 function Cart() {
     const navigate = useNavigate();
-    const productAdded = useSelector((state) => state.cartManagement.productInfor);
+
     const [priceChange, setPriceChange] = useState(false);
     const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId;
     const { data, mutate, isLoading, error } = useUserById(userId);

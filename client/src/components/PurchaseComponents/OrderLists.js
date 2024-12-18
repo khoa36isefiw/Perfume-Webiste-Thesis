@@ -137,8 +137,9 @@ export const OrderLists = ({ orderHistory }) => {
 
                     <CustomizeDividerVertical8 />
                     {/* show purchased product information, review button */}
-                    <OrderItemV2 listData={order.items} orderId={order._id} />
-                    
+                    {/* <OrderItemV2 listData={order.items} orderId={order._id} /> */}
+                    <OrderItemV2 listData={order} orderId={order._id} />
+
                     {/* total amount, preview button, download file as PDF file */}
                     <CustomizeDividerVertical8 />
                     <Box

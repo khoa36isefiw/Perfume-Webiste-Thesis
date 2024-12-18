@@ -54,9 +54,10 @@ function SignIn() {
                         t('common.notifyMessage.login.loginT'),
                         t('common.notifyMessage.login.loginS'),
                     );
-                    setTimeout(() => {
-                        navigate(`/${i18n.language}`);
-                    }, 1500);
+
+                    // admin,member
+                    navigate(`/${i18n.language}`);
+
                     window.localStorage.setItem('bottom_nav_number', JSON.stringify(0));
                 } else {
                     showNotificationMessage(
@@ -198,6 +199,11 @@ function SignIn() {
                                 alignItems: 'center',
                                 justifyContent: 'flex-end',
                                 p: 2,
+                                [tabletScreen]: {
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                },
                                 [mobileScreen]: {
                                     flexDirection: 'column',
                                     justifyContent: 'center',
@@ -226,7 +232,19 @@ function SignIn() {
                                 {t('common.signIn.forgot')}
                             </CustomizeTypography>
 
-                            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    gap: 2,
+                                    alignItems: 'center',
+                                    [tabletScreen]: {
+                                        flexDirection: 'column',
+                                    },
+                                    [mobileScreen]: {
+                                        flexDirection: 'column',
+                                    },
+                                }}
+                            >
                                 <ButtonComponent
                                     textAction={t('common.signIn.login')}
                                     onHandleClick={handleSignIn}

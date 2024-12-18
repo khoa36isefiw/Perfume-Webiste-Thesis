@@ -2,22 +2,16 @@ import React, { useRef } from 'react';
 import PerfumeDetail from '../components/PerfumeDetail/PerfumeDetail';
 import RatingProduct from '../components/RatingProduct/RatingProduct';
 import Comments from '../components/Comments/Comments';
-import { theme } from '../Theme/Theme';
-import { Avatar, Box, Container, Grid } from '@mui/material';
+
+import { Box, Container } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import useProductById from '../api/useProductById';
 import useLoadingV2 from '../hooks/useLoadingV2';
 import { CustomizeTypography } from '../components/CustomizeTypography/CustomizeTypography';
-import Slider from 'react-slick';
-import {
-    CustomizeNextArrow,
-    CustomizPreviousArrow,
-} from '../components/NewProductsArrivals/NewProductsArrivals';
-import useProductByCategory from '../api/useProductByCategory';
+
 import { useTranslation } from 'react-i18next';
-import { backTop } from '../components/goBackTop/goBackTop';
-import { converToVND } from '../components/convertToVND/convertToVND';
+
 import useProductByBrand from '../api/useProductByBrand';
 import RelatedProduct from '../components/RelatedProduct/RelatedProduct';
 import useTopProductSold from '../api/useTopProductSold';
@@ -29,7 +23,7 @@ function ProductDetail() {
     const { id } = useParams();
 
     const navigate = useNavigate();
-    const { data: productData, isLoading } = useProductById(id);
+    const { data: productData, isLoading, mutate } = useProductById(id);
 
     const brandId = productData?.data?.product?.brand?._id;
 
@@ -62,7 +56,7 @@ function ProductDetail() {
     return (
         <Box sx={{ mt: 20 }}>
             <PerfumeDetail productData={productData?.data.product} onHandleClick={scrollToDiv} />
-            <RatingProduct perfumeDetailData={productData?.data} />
+            <RatingProduct perfumeDetailData={productData?.data} mutate={mutate} />
             <Comments perfumeDetailData={productData?.data} reference={commentsRef} />
             {/* Related product */}
             <Container sx={{ mt: 8 }}>
