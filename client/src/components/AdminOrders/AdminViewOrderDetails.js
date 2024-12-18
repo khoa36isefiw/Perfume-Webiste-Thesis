@@ -20,7 +20,7 @@ function AdminViewOrderDetails() {
     const { showNotificationMessage } = useSnackbarMessage();
     const { orderData } = location.state || {};
 
-    console.log('orderData', orderData);
+    // console.log('orderData', orderData);
     const handleCancelOrder = async () => {
         const orderResponse = await ordersAPI.cancelOrder(orderData?._id);
         if (orderResponse.status === 200) {

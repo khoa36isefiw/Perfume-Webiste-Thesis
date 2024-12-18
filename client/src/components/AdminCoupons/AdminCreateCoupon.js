@@ -86,6 +86,7 @@ const AdminCreateCoupon = () => {
                 return;
             }
             const newCouponResponse = await couponAPI.createCoupon(data);
+            dispatch(createNewCoupon({ data: data }));
             if (newCouponResponse.status === 201) {
                 console.log('newCouponResponse: ', newCouponResponse);
                 setShowNotification(true);

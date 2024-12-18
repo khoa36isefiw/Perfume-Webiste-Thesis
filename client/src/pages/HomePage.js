@@ -8,9 +8,12 @@ import SaleOff from '../components/SaleOff/SaleOff';
 import LatestArticle from '../components/LatestArticle/LatestArticle';
 
 import SnowFalling from '../components/SnowFalling/SnowFalling';
-import Chatbot from '../components/Chatbot/Chatbot';
 
 function HomePage() {
+    React.useEffect(() => {
+        console.log('Effect runs after every render');
+    });
+
     return (
         <div style={{ overflow: 'hidden' }}>
             <SnowFalling />
