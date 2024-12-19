@@ -36,7 +36,6 @@ const AdminAddProduct = () => {
     const [selectedSizes, setSelectedSizes] = useState([]);
     const [disabledButton, setDisabledButton] = useState(false);
     const [imgData, setImgData] = React.useState([]);
-    const [content, setContent] = useState(contentTemplate);
 
     const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
 
@@ -84,7 +83,7 @@ const AdminAddProduct = () => {
                 formData.append('nameEn', productName);
                 formData.append('category', category);
                 formData.append('brand', brand);
-                formData.append('content', JSON.stringify(content));
+                formData.append('content', JSON.stringify(contentTemplate));
                 formData.append(
                     'variants',
                     JSON.stringify(
