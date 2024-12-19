@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -64,7 +64,7 @@ export default function AdminOrdersTable() {
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
     const { data: ordersData, isLoading } = useOrders();
     const [rows, setRows] = useState([]); // Dynamic user data
-    
+
     if (ordersData?.data && rows !== ordersData?.data) {
         setRows(ordersData?.data);
     }
@@ -299,7 +299,7 @@ export default function AdminOrdersTable() {
                                                                         />
                                                                     </IconButton>
                                                                 </Tooltip>
-                                                                <Tooltip
+                                                                {/* <Tooltip
                                                                     title={
                                                                         <CustomizeTypography
                                                                             sx={{
@@ -333,7 +333,7 @@ export default function AdminOrdersTable() {
                                                                             }}
                                                                         />
                                                                     </IconButton>
-                                                                </Tooltip>
+                                                                </Tooltip> */}
                                                             </>
                                                         ) : column.id === 'userName' ? (
                                                             <Typography
