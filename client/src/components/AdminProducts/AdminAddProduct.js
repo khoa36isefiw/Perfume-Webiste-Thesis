@@ -24,6 +24,7 @@ import { contentTemplate } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
 
 const AdminAddProduct = () => {
     const { showNotificationMessage } = useSnackbarMessage();
@@ -281,21 +282,34 @@ const AdminAddProduct = () => {
             {/* select size */}
             {/* <Paper sx={{ p: 2, maxHeight: '400px', overflow: 'scroll' }}> */}
             <Box sx={{ display: 'flex', gap: 4 }}>
-                <TextField
+                <AdminInputStyles
                     label="Product Name"
                     fullWidth
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
-                    sx={{ mb: 2 }}
                 />
+
                 <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="size-select-label">Size</InputLabel>
+                    <InputLabel
+                        id="size-select-label"
+                        sx={{
+                            '.MuiInputLabel-root': {
+                                fontSize: '13px',
+                                height: 99,
+                            },
+                        }}
+                    >
+                        Size
+                    </InputLabel>
                     <Select
                         labelId="size-select-label"
                         multiple
                         value={selectedSizes.map((size) => size.size)}
                         label="Size"
                         renderValue={(selected) => selected.join(', ')}
+                        sx={{
+                            fontSize: '13px',
+                        }}
                     >
                         {sizeOptions.map((size) => (
                             <MenuItem
@@ -348,7 +362,9 @@ const AdminAddProduct = () => {
                             value={size.price}
                             onChange={handleSizeFieldChange(index, 'price')}
                             onBlur={() => handlePriceSaleBlur(index)}
-                            sx={{ mb: 2 }}
+                            sx={{
+                                mb: 2,
+                            }}
                         />
                         <TextField
                             label="Price Sale"
