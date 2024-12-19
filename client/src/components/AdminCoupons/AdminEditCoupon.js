@@ -3,14 +3,12 @@ import { Box, MenuItem, Select, TextField, Typography, FormControl, Grid } from 
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
-
 import { useDispatch } from 'react-redux';
 import { updateCoupon } from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { AdminButtonDesign } from './AdminCreateCoupon';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+
 import { couponAPI } from '../../api/couponAPI';
 import { grey } from '@mui/material/colors';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
@@ -80,12 +78,18 @@ function AdminEditCoupon() {
             }
 
             const updateCouponResponse = await couponAPI.updateCoupon(couponData._id, data);
+            if (updateCouponResponse?.data.message.includes('duplicated code')) {
+                showNotificationMessage(
+                    'warning',
+                    'Promotion Code exists',
+                    'Code exists try to change another name!',
+                );
+            }
             if (updateCouponResponse.status === 200) {
                 console.log('updateCouponResponse: ', updateCouponResponse);
                 showNotificationMessage('success', 'Update coupon', 'Update  coupon successfully');
-                setTimeout(() => {
-                    navigate('/admin/manage-coupons/');
-                }, 2800);
+
+                navigate('/admin/manage-coupons/');
             }
         } else {
             showNotificationMessage(
