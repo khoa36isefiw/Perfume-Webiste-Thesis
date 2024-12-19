@@ -29,15 +29,15 @@ function AdminTableBrands() {
     const navigate = useNavigate();
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const { data: brandsData, isLoading, mutate } = useBrand();
-    const responsebrands = brandsData?.data || [];
-    const [brands, setBrands] = useState(responsebrands);
+
+    const [brands, setBrands] = useState([]);
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const [brandToRemove, setBrandToRemove] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
-    useEffect(() => {
-        setBrands(responsebrands);
-    }, [responsebrands]);
+    if (brandsData?.data && brands !== brandsData?.data) {
+        setBrands(brandsData?.data);
+    }
 
     const handleEdit = (brand) => {
         navigate(`/admin/manage-brands/edit/${brand._id}`, { state: { brand } });

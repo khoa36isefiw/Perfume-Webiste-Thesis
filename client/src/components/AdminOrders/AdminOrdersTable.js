@@ -64,12 +64,10 @@ export default function AdminOrdersTable() {
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
     const { data: ordersData, isLoading } = useOrders();
     const [rows, setRows] = useState([]); // Dynamic user data
-
-    useEffect(() => {
-        if (ordersData && ordersData?.data) {
-            setRows(ordersData?.data);
-        }
-    }, [ordersData?.data]);
+    
+    if (ordersData?.data && rows !== ordersData?.data) {
+        setRows(ordersData?.data);
+    }
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {

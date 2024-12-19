@@ -29,24 +29,23 @@ import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 function AdminCategoriesTable() {
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const { data: categoriesData, mutate } = useCategory();
-    const responseCategories = categoriesData?.data || [];
     const { data: parentCategoriesData } = useParentCategory();
-    const responseParentCategories = parentCategoriesData?.data || [];
-    const [categories, setCategories] = useState(responseCategories);
-    const [parentCategory, setParentCategory] = useState(responseParentCategories);
+    const [categories, setCategories] = useState([]);
+    const [parentCategory, setParentCategory] = useState([]);
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const [categoryToRemove, setCategoryToRemove] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
     const navigate = useNavigate();
 
-    useEffect(() => {
+    // get data
+    if (categoriesData?.data && categories !== categoriesData?.data) {
         setCategories(categoriesData?.data);
-    }, [categoriesData?.data]);
+    }
 
-    useEffect(() => {
-        setParentCategory(responseParentCategories);
-    }, [responseParentCategories]);
+    if (parentCategoriesData?.data && parentCategory !== parentCategoriesData?.data) {
+        setParentCategory(parentCategoriesData?.data);
+    }
 
     const handleEdit = (category) => {
         navigate(`/admin/manage-categories/edit/${category._id}`, { state: { category } });
@@ -106,7 +105,7 @@ function AdminCategoriesTable() {
 
         // Fetch parent category names asynchronously
         const worksheetData = await Promise.all(
-            responseCategories.map(async (category, index) => {
+            parentCategory.map(async (category, index) => {
                 console.log('category.parent: ', category.parent);
                 const parentCategory = await categoriesAPI.getCategoryById(category.parent);
 
