@@ -15,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { Link, useNavigate } from 'react-router-dom';
 import useCategory from '../../api/useCategory';
-import { useEffect } from 'react';
+
 import { categoriesAPI } from '../../api/categoriesAPI';
 import useParentCategory from '../../api/useParentCategory';
 import WarningIcon from '@mui/icons-material/Warning';
@@ -44,6 +44,7 @@ function AdminCategoriesTable() {
     }
 
     if (parentCategoriesData?.data && parentCategory !== parentCategoriesData?.data) {
+        console.log('parentCategoriesData: ', parentCategoriesData?.data);
         setParentCategory(parentCategoriesData?.data);
     }
 
@@ -99,37 +100,28 @@ function AdminCategoriesTable() {
     };
 
     // export to excel
-    const exportToExcel = async () => {
-        // Create a new workbook
+    const exportToExcel = () => {
+        // create a new workbook and worksheet
         const workbook = XLSX.utils.book_new();
-
-        // Fetch parent category names asynchronously
-        const worksheetData = await Promise.all(
-            parentCategory.map(async (category, index) => {
-                console.log('category.parent: ', category.parent);
-                const parentCategory = await categoriesAPI.getCategoryById(category.parent);
-
-                console.log('parentCategory', parentCategory);
-                return {
-                    // Define column names and get data
-                    No: index + 1,
-                    ID: category._id,
-                    'Category Name': category.nameEn,
-                    'Parent Category':
-                        parentCategory.status === 200 ? parentCategory?.data?.nameEn : 'N/A',
-                    Description: category.descriptionEn,
-                };
-            }),
+        const worksheetData = categories.map((row, index) =>
+            parentCategory.map((pCategory) => ({
+                // define column name and get data
+                No: index + 1,
+                ID: row._id,
+                Name: row.nameEn,
+                Description: row.descriptionEn,
+                Parent: pCategory.nameEn,
+            })),
         );
 
-        // Convert JSON data to worksheet
+        // convert JSON data to worksheet
         const worksheet = XLSX.utils.json_to_sheet(worksheetData);
 
-        // Append the worksheet to the workbook
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'CategoryTable');
+        // append the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'TableData');
 
-        // Export the workbook as an Excel file
-        XLSX.writeFile(workbook, 'Categories Table.xlsx');
+        // export the workbook as an Excel file
+        XLSX.writeFile(workbook, 'Category Table.xlsx');
     };
 
     const filterCategories = categories?.filter(
