@@ -205,6 +205,7 @@ function NewHeader() {
         console.log('newPath: ', newPath);
 
         // Update state from with the new language
+        // check state from which location?
         const updatedState = location.state
             ? {
                   ...location.state,

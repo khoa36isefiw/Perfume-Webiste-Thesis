@@ -68,6 +68,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
         // add to cart, when users moving to cart --> get user byID get all information
         if (userData) {
             const userId = userData.userId; // id user here
+            console.log('userId: ', userId);
             const mockData = {
                 product: productData?._id, // id product here
 
@@ -76,7 +77,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
             };
             const result = await userAPI.addProductToCart(userId, mockData);
             // console.log('product information: ', result.data);
-            if (result) {
+            if (result.status === 200) {
                 showNotificationMessage(
                     'success',
                     `${t('common.notifyMessage.addToCart.title')}`,
