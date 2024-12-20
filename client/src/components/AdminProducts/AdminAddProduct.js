@@ -5,7 +5,6 @@ import {
     Button,
     MenuItem,
     Select,
-    TextField,
     Typography,
     InputLabel,
     FormControl,
@@ -289,17 +288,7 @@ const AdminAddProduct = () => {
                 />
 
                 <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel
-                        id="size-select-label"
-                        sx={{
-                            '.MuiInputLabel-root': {
-                                fontSize: '13px',
-                                height: 99,
-                            },
-                        }}
-                    >
-                        Size
-                    </InputLabel>
+                    <InputLabel id="size-select-label">Size</InputLabel>
                     <Select
                         labelId="size-select-label"
                         multiple
@@ -315,9 +304,18 @@ const AdminAddProduct = () => {
                                 key={size}
                                 value={size}
                                 onClick={() => handleMenuItemClick(size)}
+                                sx={{
+                                    '&.MuiMenuItem-root': {
+                                        fontSize: '13px',
+                                    },
+                                }}
                             >
                                 <Checkbox checked={selectedSizes.some((s) => s.size === size)} />
-                                <ListItemText primary={size} />
+                                <ListItemText
+                                    primary={
+                                        <Typography sx={{ fontSize: '13px' }}>{size}</Typography>
+                                    }
+                                />
                             </MenuItem>
                         ))}
                     </Select>
@@ -354,7 +352,7 @@ const AdminAddProduct = () => {
                         </Tooltip>
                     </Box>
                     <Box sx={{ display: 'flex', gap: 4 }}>
-                        <TextField
+                        <AdminInputStyles
                             label="Price"
                             fullWidth
                             type="number"
@@ -365,7 +363,7 @@ const AdminAddProduct = () => {
                                 mb: 2,
                             }}
                         />
-                        <TextField
+                        <AdminInputStyles
                             label="Price Sale"
                             fullWidth
                             type="number"
@@ -374,7 +372,7 @@ const AdminAddProduct = () => {
                             onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
                         />
-                        <TextField
+                        <AdminInputStyles
                             label="Stock"
                             fullWidth
                             type="number"
@@ -395,11 +393,18 @@ const AdminAddProduct = () => {
                         value={brand}
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)}
+                        sx={{ fontSize: '13px' }}
                     >
                         {brandOptions.map(
                             (brand) =>
                                 brand.status === 'active' && (
-                                    <MenuItem key={brand._id} value={brand._id}>
+                                    <MenuItem
+                                        key={brand._id}
+                                        value={brand._id}
+                                        sx={{
+                                            fontSize: '13px',
+                                        }}
+                                    >
                                         {brand.nameEn}
                                     </MenuItem>
                                 ),
@@ -414,11 +419,18 @@ const AdminAddProduct = () => {
                         value={category}
                         label="Category"
                         onChange={(e) => setCategory(e.target.value)}
+                        sx={{ fontSize: '13px' }}
                     >
                         {categoryOptions.map(
                             (category) =>
                                 category.status === 'active' && (
-                                    <MenuItem key={category._id} value={category._id}>
+                                    <MenuItem
+                                        key={category._id}
+                                        value={category._id}
+                                        sx={{
+                                            fontSize: '13px',
+                                        }}
+                                    >
                                         {category.nameEn}
                                     </MenuItem>
                                 ),

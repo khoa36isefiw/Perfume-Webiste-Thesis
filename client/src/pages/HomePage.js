@@ -18,7 +18,6 @@ function HomePage() {
         <div style={{ overflow: 'hidden' }}>
             <SnowFalling />
             <NewArrivals />
-
             <WelcomeHomePage />
             <OurValues />
             <BestSellingProducts />
