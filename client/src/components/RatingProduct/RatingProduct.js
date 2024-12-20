@@ -30,7 +30,7 @@ function RatingProduct({ perfumeDetailData, mutate }) {
     const { data: orderDataById } = useOrderById(orderId);
 
     const orderByIdData = orderDataById?.data?.items?.filter(
-        (order) => order.product === perfumeDetailData.product._id,
+        (order) => order.product === perfumeDetailData?.product._id,
     );
     const isReviewed = orderByIdData?.some((item) => item.isReviewed);
     console.log('isReviewed: ', isReviewed);
@@ -146,7 +146,7 @@ function RatingProduct({ perfumeDetailData, mutate }) {
                                     }}
                                 >
                                     {/* 5.0 */}
-                                    {perfumeDetailData.product.rating.toFixed(1)}
+                                    {perfumeDetailData?.product.rating.toFixed(1)}
                                 </CustomizeTypography>
                                 <StarIcon
                                     sx={{
@@ -187,7 +187,7 @@ function RatingProduct({ perfumeDetailData, mutate }) {
                         <Box>
                             {ratingData.map((rating, index) => {
                                 const isGreaterThanZero =
-                                    perfumeDetailData.reviewData[rating.numberOfRating];
+                                    perfumeDetailData?.reviewData[rating.numberOfRating];
 
                                 console.log(
                                     `isGreaterThanZero with ${rating.numberOfRating}: `,
@@ -241,7 +241,7 @@ function RatingProduct({ perfumeDetailData, mutate }) {
                                             }}
                                         />
                                         <CustomizeTypography>
-                                            {perfumeDetailData.reviewData[rating.numberOfRating]}{' '}
+                                            {perfumeDetailData?.reviewData[rating.numberOfRating]}{' '}
                                             {t(`common.productDetails.rate`)}
                                         </CustomizeTypography>
                                     </Box>

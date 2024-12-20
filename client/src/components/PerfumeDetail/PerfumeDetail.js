@@ -233,7 +233,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
                                             right: '-4%',
                                         },
                                     }}
-                                    disabled={selectedImage === productData.imagePath.length - 1}
+                                    disabled={selectedImage === productData?.imagePath.length - 1}
                                 >
                                     <ArrowForwardIosIcon
                                         sx={{
@@ -248,7 +248,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
                             </Box>
 
                             <Box sx={{ display: 'flex', overflowX: 'scroll' }}>
-                                {productData.imagePath.map((image, index) => (
+                                {productData?.imagePath.map((image, index) => (
                                     <Box
                                         key={index}
                                         alt="Quick View Image"
@@ -281,7 +281,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
                         <CustomizeTypography sx={{ mb: 1, fontSize: '20px', fontWeight: 'bold' }}>
                             {/* Maison Francis Kurkdjian Paris Baccarat Rouge 540 Extrait De Parfum */}
 
-                            {productData.nameEn}
+                            {productData?.nameEn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mb: 1 }}>
                             <strong>{t('common.productDetails.brand')}: </strong>
@@ -309,7 +309,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
                         <CustomizeTypography>
                             {/* Hương thơm sang trọng và độc đáo, lý tưởng cho những dịp đặc biệt và
                             tiệc tối đẳng cấp. */}
-                            {productData.shortDescription}
+                            {productData?.shortDescription}
                         </CustomizeTypography>
                         <Box
                             sx={{
@@ -320,12 +320,12 @@ function PerfumeDetail({ productData, onHandleClick }) {
                         >
                             {/* average rating */}
                             <CustomizeTypography>
-                                {productData.rating.toFixed(1)}
+                                {productData?.rating.toFixed(1)}
                             </CustomizeTypography>
 
                             <Rating
                                 readOnly
-                                value={productData.rating.toFixed(1)}
+                                value={productData?.rating.toFixed(1)}
                                 // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                 sx={{
                                     fontSize: '18px',
@@ -352,7 +352,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
                                 onClick={onHandleClick}
                             >
                                 {/* ({commentsList.length > 0 ? commentsList.length : 0}{' '} */}
-                                {t('common.productDetails.rate')} {productData.numReviews}
+                                {t('common.productDetails.rate')} {productData?.numReviews}
                             </CustomizeTypography>
                             <Box
                                 sx={{
@@ -365,7 +365,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
                             />
                             {/* product sold quantity */}
                             <CustomizeTypography sx={{ ml: 1 }}>
-                                {t('common.productDetails.sold')} {productData.unitsSold}
+                                {t('common.productDetails.sold')} {productData?.unitsSold}
                             </CustomizeTypography>
                         </Box>
 
