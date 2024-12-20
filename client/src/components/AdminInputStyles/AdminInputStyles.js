@@ -1,6 +1,6 @@
 import { TextField, styled } from '@mui/material';
 
-export const AdminInputStyles = styled(TextField)(({}) => ({
+export const AdminInputStyles = styled(TextField)(() => ({
     mb: 2,
     // for label
     '.MuiInputLabel-root': {
