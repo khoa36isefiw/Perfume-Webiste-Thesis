@@ -30,6 +30,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useEffect } from 'react';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import DeliveryAnimation from '../DeliveryAnimation/DeliveryAnimation';
 
 function CheckoutInformation() {
     const navigate = useNavigate();
@@ -48,7 +49,6 @@ function CheckoutInformation() {
     // console.log('userData: ',userData);
     const getListProductSelected =
         JSON.parse(window.localStorage.getItem('list_product_selected')) || [];
-
     // console.log('getListProductSelected: ', getListProductSelected);
 
     // component parent
@@ -58,8 +58,12 @@ function CheckoutInformation() {
         codeApplied: null,
     });
     const [paymentMethod, setPaymentMethod] = useState('cod'); // Default payment method
-
     const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId;
+
+    // test animation
+    const [isCheckingOut, setIsCheckingOut] = useState(false);
+    const [animation, setAnimation] = useState(false);
+
     console.log('userId: ', userId);
 
     console.log('promoCode:', promoCode);
@@ -107,12 +111,20 @@ function CheckoutInformation() {
                         t('common.notifyMessage.checkout.cT'),
                         t('common.notifyMessage.checkout.cS'),
                     );
+                    // animation
+                    setAnimation(true);
+                    // checkout checking
+                    setIsCheckingOut(true);
+                    setTimeout(() => {
+                        setAnimation(false);
+                        setIsCheckingOut(false);
+                        navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);
+                    }, 3000);
                     window.localStorage.setItem('payment_data', JSON.stringify(dataShowInvoice));
                     window.localStorage.setItem(
                         'order_id',
                         JSON.stringify(response.data.order._id),
                     ); // store pay_ref Id to local storage
-                    navigate(`/${i18n.language}/success?Ref=${response.data.order._id}`);
                 }
             }
         } else {
@@ -125,10 +137,14 @@ function CheckoutInformation() {
     };
 
     useEffect(() => {
-        if (getListProductSelected.length === 0) {
+        if (!isCheckingOut && getListProductSelected.length === 0) {
             navigate(`/${i18n.language}/shop`);
         }
-    }, [getListProductSelected]);
+    }, [getListProductSelected, isCheckingOut]);
+    if (animation) {
+        console.log('chay vo day');
+        return <DeliveryAnimation />;
+    }
 
     return (
         <Container
@@ -140,6 +156,7 @@ function CheckoutInformation() {
                 },
             }}
         >
+            {/* <DeliveryAnimation /> */}
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                     <Button
