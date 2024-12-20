@@ -48,7 +48,7 @@ const columns = [
     { id: 'actions', label: 'Actions' },
 ];
 
-export default function ProductTable() {
+export default function AdminProductTable() {
     const navigate = useNavigate();
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const { data: products, isLoading, mutate } = useProduct();
@@ -301,6 +301,9 @@ export default function ProductTable() {
                                         <Search />
                                     </InputAdornment>
                                 ),
+                                style: {
+                                    fontSize: '14px',
+                                },
                             }}
                         />
                     </Box>

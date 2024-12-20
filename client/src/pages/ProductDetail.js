@@ -23,7 +23,9 @@ function ProductDetail() {
     const { id } = useParams();
 
     const navigate = useNavigate();
+    // call product by id
     const { data: productData, isLoading, mutate } = useProductById(id);
+    console.log('productData: ', productData);
 
     const brandId = productData?.data?.product?.brand?._id;
 
