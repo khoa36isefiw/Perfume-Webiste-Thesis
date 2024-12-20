@@ -31,7 +31,7 @@ import AdminCoupon from '../pages/AdminCoupon';
 import AdminCreateCoupon from '../components/AdminCoupons/AdminCreateCoupon';
 import AdminEditCoupon from '../components/AdminCoupons/AdminEditCoupon';
 import AdminCategoriesPage from '../pages/AdminCategoriesPage';
-import AddCategory from '../components/AdminCategories/AddCategory';
+import AddCategory from '../components/AdminCategories/AdminAddCategory';
 import AdminEditCategory from '../components/AdminCategories/AdminEditCategory';
 import PaymentSuccess from '../components/PaymentSuccess/PaymentSuccess';
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -21,12 +21,9 @@ import { useNavigate } from 'react-router-dom';
 import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { mobileScreen, theme } from '../../Theme/Theme';
-
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import useOrders from '../../api/useOrders';
-
 import { formatDate } from '../FormatDate/formatDate';
-
 import { converToVND } from '../convertToVND/convertToVND';
 import CancelIcon from '@mui/icons-material/Cancel';
 import * as XLSX from 'xlsx';
@@ -65,11 +62,9 @@ export default function AdminOrdersTable() {
     const { data: ordersData, isLoading } = useOrders();
     const [rows, setRows] = useState([]); // Dynamic user data
 
-    useEffect(() => {
-        if (ordersData && ordersData?.data) {
-            setRows(ordersData?.data);
-        }
-    }, [ordersData?.data]);
+    if (ordersData?.data && rows !== ordersData?.data) {
+        setRows(ordersData?.data);
+    }
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -301,7 +296,7 @@ export default function AdminOrdersTable() {
                                                                         />
                                                                     </IconButton>
                                                                 </Tooltip>
-                                                                <Tooltip
+                                                                {/* <Tooltip
                                                                     title={
                                                                         <CustomizeTypography
                                                                             sx={{
@@ -335,7 +330,7 @@ export default function AdminOrdersTable() {
                                                                             }}
                                                                         />
                                                                     </IconButton>
-                                                                </Tooltip>
+                                                                </Tooltip> */}
                                                             </>
                                                         ) : column.id === 'userName' ? (
                                                             <Typography

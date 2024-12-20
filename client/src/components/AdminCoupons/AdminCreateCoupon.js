@@ -16,13 +16,15 @@ import { AdminTypography } from '../CustomizeTypography/CustomizeTypography';
 import { grey } from '@mui/material/colors';
 import { useDispatch } from 'react-redux';
 import { createNewCoupon } from '../../redux/feature/adminCouponsManagement/adminCouponsManagementSlice';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
+
 import { useNavigate } from 'react-router-dom';
 import { couponAPI } from '../../api/couponAPI';
+import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 const AdminCreateCoupon = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { showNotificationMessage } = useSnackbarMessage();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     // get the current date time follow yyyy-mm-dd format
@@ -39,19 +41,9 @@ const AdminCreateCoupon = () => {
 
     console.log('getCurrentDate: ', getCurrentDate);
 
-    // show message
-    const [showNotification, setShowNotification] = useState(false);
-    const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
-    const [messageType, setMessageType] = useState('');
-    const [messageContent, setMessageContent] = useState('');
-    const [messageTitle, setMessageTitle] = useState('');
-
     console.log('status: ', status);
     // item for menu
     const statusOptions = ['active', 'inactive', 'expired'];
-    const generateRandomCouponId = () => {
-        return 'COUPON-' + Math.random().toString(36).substring(2, 10).toUpperCase();
-    };
 
     // Handle form submission
     const handleCreateNewCoupon = async () => {
@@ -78,56 +70,45 @@ const AdminCreateCoupon = () => {
             getEndDate !== ''
         ) {
             if (getCurrentDate > getEndDate) {
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
-                setMessageType('error');
-                setMessageContent('Start date must be less than end date.');
-                setMessageTitle('Date Validation Error');
+                showNotificationMessage(
+                    'error',
+                    'Date Validation Error',
+                    'Start date must be less than end date.',
+                );
                 return;
             }
             const newCouponResponse = await couponAPI.createCoupon(data);
             dispatch(createNewCoupon({ data: data }));
-            if (newCouponResponse?.data.message.includes('duplicate key')) {
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
-                setMessageType('warning');
-                setMessageContent('Code exists, please try another code!');
-                setMessageTitle('Create new coupon');
+            if (newCouponResponse?.data.message.includes('code already exists')) {
+                showNotificationMessage(
+                    'warning',
+                    'Create new coupon',
+                    'Code exists, please try another code!',
+                );
             }
             if (newCouponResponse.status === 201) {
                 console.log('newCouponResponse: ', newCouponResponse);
-                setShowNotification(true);
-                setShowAnimation('animate__bounceInRight');
-                setMessageType('success');
-                setMessageContent('Create new coupon successfully');
-                setMessageTitle('Create new coupon');
-                setTimeout(() => {
-                    navigate('/admin/manage-coupons/');
-                }, 2800);
+                showNotificationMessage(
+                    'success',
+                    'Create new coupon',
+                    'Create new coupon successfully',
+                );
+                navigate('/admin/manage-coupons');
             }
         } else {
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
-            setMessageType('warning');
-            setMessageContent('Please fill information of coupon!');
-            setMessageTitle('Create new coupon');
+            showNotificationMessage(
+                'warning',
+                'Create new coupon',
+                'Please fill information of coupon!',
+            );
         }
-    };
-
-    const handleCloseNotification = () => {
-        setShowAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 1000);
     };
 
     const handlePriceSaleBlur = () => {
         if (quantity < 0 || discount < 0 || discount >= 100) {
-            setShowNotification(true);
-            setShowAnimation('animate__bounceInRight');
-            setMessageType('error');
-            setMessageTitle('Create Promotions');
-            setMessageContent(
+            showNotificationMessage(
+                'error',
+                'Create Promotions',
                 discount > 100
                     ? 'Number must be greater than 0!'
                     : 'Discount number must be less or equal than 100!',
@@ -163,11 +144,21 @@ const AdminCreateCoupon = () => {
                         fullWidth
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AdminTypography>Coupon Code</AdminTypography>
-                    <TextField fullWidth value={code} onChange={(e) => setCode(e.target.value)} />
+                    <TextField
+                        fullWidth
+                        value={code}
+                        onChange={(e) => setCode(e.target.value)}
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
+                    />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={6} lg={6}>
@@ -178,6 +169,9 @@ const AdminCreateCoupon = () => {
                         onChange={(e) => setDiscount(e.target.value)}
                         type="number"
                         onBlur={handlePriceSaleBlur}
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
@@ -188,13 +182,16 @@ const AdminCreateCoupon = () => {
                         onChange={(e) => setQuantity(e.target.value)}
                         type="number"
                         onBlur={handlePriceSaleBlur}
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
                     />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                     {/* Brand Dropdown */}
                     <AdminTypography>Coupon Status</AdminTypography>
-                    <FormControl fullWidth sx={{ mb: 2, height: 40 }}>
+                    <FormControl fullWidth sx={{ mb: 2, height: 30 }}>
                         <Select
                             labelId="brand-select-label"
                             value={status}
@@ -202,38 +199,20 @@ const AdminCreateCoupon = () => {
                         >
                             {statusOptions.map((option) => (
                                 <MenuItem key={option} value={option}>
-                                    <Box
+                                    <AdminTypography
                                         sx={{
-                                            // bgcolor: '#ffdfe4',
-                                            // color: '#f11133',
-                                            bgcolor:
+                                            fontSize: '14px',
+                                            color:
                                                 option === 'active'
-                                                    ? '#bdf5d3'
+                                                    ? '#187d44'
                                                     : option === 'inactive'
-                                                    ? '#ffdfe4'
-                                                    : grey[300],
-                                            borderRadius: 2,
-                                            boxShadow: 1,
-                                            padding: '4px 0',
-                                            width: 80,
+                                                    ? '#f11133'
+                                                    : grey[600],
+                                            fontWeight: 'bold',
                                         }}
                                     >
-                                        <AdminTypography
-                                            sx={{
-                                                fontSize: '14px',
-                                                color:
-                                                    option === 'Active'
-                                                        ? '#187d44'
-                                                        : option === 'Unactive'
-                                                        ? '#f11133'
-                                                        : grey[600],
-                                                fontWeight: 'bold',
-                                                textAlign: 'center',
-                                            }}
-                                        >
-                                            {option}
-                                        </AdminTypography>
-                                    </Box>
+                                        {option}
+                                    </AdminTypography>
                                 </MenuItem>
                             ))}
                         </Select>
@@ -252,6 +231,12 @@ const AdminCreateCoupon = () => {
                         fullWidth
                         InputLabelProps={{
                             shrink: true,
+                            style: { fontSize: '1.4rem' },
+                        }}
+                        sx={{
+                            '.MuiInputBase-root ': {
+                                fontSize: '14px',
+                            },
                         }}
                     />
                 </Grid>
@@ -265,6 +250,12 @@ const AdminCreateCoupon = () => {
                         onChange={(e) => setGetEndDate(new Date(e.target.value).toISOString())} // Set to ISO format
                         InputLabelProps={{
                             shrink: true,
+                            style: { fontSize: '1.4rem' },
+                        }}
+                        sx={{
+                            '.MuiInputBase-root ': {
+                                fontSize: '14px',
+                            },
                         }}
                     />
                 </Grid>
@@ -289,20 +280,6 @@ const AdminCreateCoupon = () => {
                     borderColor={theme.palette.admin.bgColor}
                 />
             </Box>
-            {showNotification && (
-                <Box
-                    sx={{ position: 'fixed', top: '5%', right: '1%', zIndex: 9999999 }}
-                    className={`animate__animated ${showAnimation}`}
-                >
-                    <NotificationMessage
-                        msgType={messageType}
-                        msgTitle={messageTitle}
-                        msgContent={messageContent}
-                        autoHideDuration={3000} // Auto-hide after 5 seconds
-                        onClose={handleCloseNotification}
-                    />
-                </Box>
-            )}
         </Box>
     );
 };

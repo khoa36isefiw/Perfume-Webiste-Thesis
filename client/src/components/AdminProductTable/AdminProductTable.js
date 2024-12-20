@@ -48,10 +48,11 @@ const columns = [
     { id: 'actions', label: 'Actions' },
 ];
 
-export default function ProductTable() {
+export default function AdminProductTable() {
     const navigate = useNavigate();
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const { data: products, isLoading, mutate } = useProduct();
+    console.log('products: ', products?.data);
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -60,12 +61,9 @@ export default function ProductTable() {
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
 
     const [productToRemove, setProductToRemove] = useState(null);
-
-    useEffect(() => {
-        if (products && products?.data) {
-            setRows(products?.data);
-        }
-    }, [products?.data]);
+    if (products?.data && rows !== products.data) {
+        setRows(products.data);
+    }
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -84,24 +82,26 @@ export default function ProductTable() {
     };
 
     // Flatten rows based on product sizes
-    const flattenedRows = rows?.flatMap(
-        (row) =>
-            // row.variants.map((size) => ({
-            row.category.status === 'active' &&
-            row.brand.status === 'active' &&
-            row.variants.map((size) => ({
-                productId: row._id,
-                productName: row.nameEn,
-                category: row.category?.nameEn,
-                brand: row.brand?.nameEn,
-                size: size.size,
-                price: size.price,
-                image: row?.imagePath[0],
-                stock: size.stock,
-                ratings: row.rating,
-                variants: [size],
-            })),
-    );
+    const flattenedRows =
+        Array.isArray(rows) &&
+        rows?.flatMap(
+            (row) =>
+                // row.variants.map((size) => ({
+                row.category.status === 'active' &&
+                row.brand.status === 'active' &&
+                row.variants.map((size) => ({
+                    productId: row._id,
+                    productName: row.nameEn,
+                    category: row.category?.nameEn,
+                    brand: row.brand?.nameEn,
+                    size: size.size,
+                    price: size.price,
+                    image: row?.imagePath[0],
+                    stock: size.stock,
+                    ratings: row.rating,
+                    variants: [size],
+                })),
+        );
 
     console.log('flattenedRows: ', flattenedRows);
 
@@ -301,6 +301,9 @@ export default function ProductTable() {
                                         <Search />
                                     </InputAdornment>
                                 ),
+                                style: {
+                                    fontSize: '14px',
+                                },
                             }}
                         />
                     </Box>

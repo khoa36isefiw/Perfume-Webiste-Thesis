@@ -10,6 +10,7 @@ import { converToVND } from '../convertToVND/convertToVND';
 import { useTranslation } from 'react-i18next';
 import useCoupons from '../../api/useCoupons';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import { couponAPI } from '../../api/couponAPI';
 
 function CartTotal({
     productsList,
@@ -27,43 +28,86 @@ function CartTotal({
 
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     console.log('promoCodeApplied: ', promoCodeApplied);
-    const handleApplyPromoCode = () => {
-        const codeApplied = listCodes?.data.find((code) => code.code === promoCode);
-        console.log('codeApplied: ', codeApplied);
+    // const handleApplyPromoCode = () => {
+    //     const codeApplied = listCodes?.data.find((code) => code.code === promoCode);
+    //     console.log('codeApplied: ', codeApplied);
 
-        if (codeApplied) {
-            // setPromoCode(promoCode);
-            setPromoCodeApplied({
-                isApplied: true,
-                codeApplied: codeApplied,
-            });
+    //     if (codeApplied) {
+    //         // setPromoCode(promoCode);
+    // setPromoCodeApplied({
+    //     isApplied: true,
+    //     codeApplied: codeApplied,
+    // });
 
-            if (i18n.language === 'vi') {
-                showNotificationMessage(
-                    'success',
-                    'Mã khuyến mại',
-                    `Bạn sẽ được giảm giá ${codeApplied?.discount}% trên tổng giá.`,
-                );
-            } else {
-                showNotificationMessage(
-                    'success',
-                    'Promo Code',
-                    `You will get ${codeApplied?.discount}% off the total price.`,
-                );
+    //         if (i18n.language === 'vi') {
+    //             showNotificationMessage(
+    //                 'success',
+    //                 'Mã khuyến mại',
+    //                 `Bạn sẽ được giảm giá ${codeApplied?.discount}% trên tổng giá.`,
+    //             );
+    //         } else {
+    //             showNotificationMessage(
+    //                 'success',
+    //                 'Promo Code',
+    //                 `You will get ${codeApplied?.discount}% off the total price.`,
+    //             );
+    //         }
+    //     } else {
+    //         // invalid promo code
+    //         setPromoCode('');
+    //         setPromoCodeApplied({
+    //             isApplied: false,
+    //             codeApplied: null,
+    //         });
+
+    //         showNotificationMessage(
+    //             'warning',
+    //             t('common.notifyMessage.checkout.promoTitle'),
+    //             t('common.notifyMessage.checkout.promoContent'),
+    //         );
+    //     }
+    // };
+
+    console.log('promoCOde', promoCode);
+
+    const handleApplyPromoCode = async () => {
+        const applyResponse = await couponAPI.applyCoupon({ code: promoCode });
+        if (applyResponse) {
+            console.log('applyResponse: ', applyResponse?.data?.message);
+            switch (applyResponse?.data?.message) {
+                case 'Promotion not found':
+                    showNotificationMessage(
+                        'error',
+                        'Apply Promotion Code',
+                        `This promotion code does not exist`,
+                    );
+                    break;
+                case 'Promotion is out of stock':
+                    showNotificationMessage(
+                        'error',
+                        'Apply Promotion Code',
+                        `This promotion code runs out of stock`,
+                    );
+                    break;
+
+                case 'Promotion applied successfully':
+                    setPromoCodeApplied({
+                        isApplied: true,
+                        codeApplied: applyResponse?.data?.promotion,
+                    });
+                    showNotificationMessage(
+                        'success',
+                        'Apply Promotion Code',
+                        `Bạn sẽ được giảm giá ${applyResponse?.data?.promotion?.discount}% trên tổng giá.`,
+                    );
+                    break;
+                default:
+                    showNotificationMessage(
+                        'warning',
+                        'Apply Promotion Code',
+                        `This promotion code has expired`,
+                    );
             }
-        } else {
-            // invalid promo code
-            setPromoCode('');
-            setPromoCodeApplied({
-                isApplied: false,
-                codeApplied: null,
-            });
-
-            showNotificationMessage(
-                'warning',
-                t('common.notifyMessage.checkout.promoTitle'),
-                t('common.notifyMessage.checkout.promoContent'),
-            );
         }
     };
 
@@ -133,6 +177,8 @@ function CartTotal({
                 {/* If you have a Promo Code you will get 5% off */}
                 {t('common.checkout.discount.discountNoti')}
             </CustomizeTypography>
+
+            {/* button apply code */}
             <Box
                 sx={{
                     py: 1,

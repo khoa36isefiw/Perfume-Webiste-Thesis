@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { categoriesAPI } from '../../api/categoriesAPI';
 import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
 
-function AddCategory() {
+function AdminAddCategory() {
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const [name, setName] = React.useState({
         value: '',
@@ -85,7 +86,11 @@ function AddCategory() {
                 showNotificationMessage('error', 'Create Category', 'Tạo category thất bại');
             }
         } else {
-            showNotificationMessage('error', 'Create Category', 'Vui lòng kiểm tra các trường đã nhập');
+            showNotificationMessage(
+                'error',
+                'Create Category',
+                'Vui lòng kiểm tra các trường đã nhập',
+            );
         }
     };
     const handleBack = () => {
@@ -111,7 +116,7 @@ function AddCategory() {
                 <form onSubmit={handleCreate}>
                     <Grid container spacing={4}>
                         <Grid item xs={12} sm={6} md={6} lg={6}>
-                            <TextField
+                            <AdminInputStyles
                                 label="Category Name"
                                 required
                                 fullWidth
@@ -124,7 +129,7 @@ function AddCategory() {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6} lg={6}>
-                            <TextField
+                            <AdminInputStyles
                                 sx={{ width: '100%' }}
                                 label="Description"
                                 required
@@ -141,7 +146,7 @@ function AddCategory() {
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} lg={12}>
                             {categories?.length > 0 && (
-                                <TextField
+                                <AdminInputStyles
                                     fullWidth
                                     select
                                     value={selectedCategoryId}
@@ -162,7 +167,7 @@ function AddCategory() {
                                         </MenuItem>
                                     ))}{' '}
                                     *
-                                </TextField>
+                                </AdminInputStyles>
                             )}
                         </Grid>
                     </Grid>
@@ -180,4 +185,4 @@ function AddCategory() {
     );
 }
 
-export default AddCategory;
+export default AdminAddCategory;

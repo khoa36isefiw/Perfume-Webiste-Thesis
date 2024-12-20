@@ -30,7 +30,7 @@ function RatingProduct({ perfumeDetailData, mutate }) {
     const { data: orderDataById } = useOrderById(orderId);
 
     const orderByIdData = orderDataById?.data?.items?.filter(
-        (order) => order.product === perfumeDetailData.product._id,
+        (order) => order.product === perfumeDetailData?.product._id,
     );
     const isReviewed = orderByIdData?.some((item) => item.isReviewed);
     console.log('isReviewed: ', isReviewed);
@@ -59,7 +59,7 @@ function RatingProduct({ perfumeDetailData, mutate }) {
 
         const data = {
             userId: userData?.userId,
-            productId: perfumeDetailData?.product._id,
+            productId: perfumeDetailData?.product?._id,
             orderId: orderId,
             rating: ratingValue,
             comment: newComment,
@@ -68,7 +68,7 @@ function RatingProduct({ perfumeDetailData, mutate }) {
         if (newComment && ratingValue) {
             setIsCommentSubmitted(true);
             const reviewProduct = await reviewsAPI.createReview(data);
-            if (reviewProduct.status === 200) {
+            if (reviewProduct?.status === 200) {
                 showNotificationMessage(
                     'success',
                     'Review Product',
@@ -95,8 +95,8 @@ function RatingProduct({ perfumeDetailData, mutate }) {
             </CustomizeTypography>
             {/* number of ratings */}
             <CustomizeTypography>
-                {perfumeDetailData?.product.numReviews} {t(`common.productDetails.ratingFor`)}{' '}
-                {perfumeDetailData?.product.nameEn}
+                {perfumeDetailData?.product?.numReviews} {t(`common.productDetails.ratingFor`)}{' '}
+                {perfumeDetailData?.product?.nameEn}
             </CustomizeTypography>
             <Grid container>
                 <Grid
@@ -146,7 +146,7 @@ function RatingProduct({ perfumeDetailData, mutate }) {
                                     }}
                                 >
                                     {/* 5.0 */}
-                                    {perfumeDetailData.product.rating.toFixed(1)}
+                                    {perfumeDetailData?.product?.rating.toFixed(1)}
                                 </CustomizeTypography>
                                 <StarIcon
                                     sx={{
@@ -185,12 +185,12 @@ function RatingProduct({ perfumeDetailData, mutate }) {
                         }}
                     >
                         <Box>
-                            {ratingData.map((rating, index) => {
+                            {ratingData?.map((rating, index) => {
                                 const isGreaterThanZero =
-                                    perfumeDetailData.reviewData[rating.numberOfRating];
+                                    perfumeDetailData?.reviewData[rating?.numberOfRating];
 
                                 console.log(
-                                    `isGreaterThanZero with ${rating.numberOfRating}: `,
+                                    `isGreaterThanZero with ${rating?.numberOfRating}: `,
                                     isGreaterThanZero,
                                 );
 
@@ -241,7 +241,7 @@ function RatingProduct({ perfumeDetailData, mutate }) {
                                             }}
                                         />
                                         <CustomizeTypography>
-                                            {perfumeDetailData.reviewData[rating.numberOfRating]}{' '}
+                                            {perfumeDetailData?.reviewData[rating.numberOfRating]}{' '}
                                             {t(`common.productDetails.rate`)}
                                         </CustomizeTypography>
                                     </Box>
@@ -255,13 +255,13 @@ function RatingProduct({ perfumeDetailData, mutate }) {
                 {/*  check if the user has bought product, bought --> can comment
                 -> commented --> hide the comment box region: !findUser?.isCommented
                  */}
-
-                {!isReviewed && location?.state?.from === `/${i18n.language}/my-purchase` && (
-                    <Grid item container lg={12}>
+                {/* {!isReviewed && location?.state?.from === `/${i18n.language}/my-purchase` && ( */}
+                {!isReviewed && location?.state?.from?.includes('/my-purchase') && (
+                    <Grid item container lg={12} sx={{ mt: 4 }}>
                         <Grid item xs={12} sm={12} md={12} lg={12}>
                             <CustomizeTypography>
                                 Give our your review about product{' '}
-                                {perfumeDetailData?.product.nameEn}
+                                {perfumeDetailData?.product?.nameEn}
                             </CustomizeTypography>
                         </Grid>
                         {/* rating region*/}
@@ -288,7 +288,7 @@ function RatingProduct({ perfumeDetailData, mutate }) {
                                 fullWidth={true}
                                 multiline={true}
                                 maxRows={4}
-                                placeholder="Review our product..."
+                                placeholder="Review our product?..."
                                 inputRef={reviewInputRef}
                                 sx={{
                                     mb: 1,

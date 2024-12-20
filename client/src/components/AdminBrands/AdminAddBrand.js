@@ -8,6 +8,7 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { brandApi } from '../../api/brandApi';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
 
 function AdminAddBrand() {
     const [name, setName] = React.useState({
@@ -97,7 +98,7 @@ function AdminAddBrand() {
                 <form onSubmit={handleCreate}>
                     <Grid container spacing={4}>
                         <Grid item xs={12} sm={6} md={6} lg={6}>
-                            <TextField
+                            <AdminInputStyles
                                 label="Brand Name"
                                 required
                                 fullWidth
@@ -107,10 +108,15 @@ function AdminAddBrand() {
                                 placeholder="Enter Brand Name"
                                 onBlur={validateName}
                                 onChange={(e) => setName({ ...name, value: e.target.value })}
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: '1.4rem',
+                                    },
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6} lg={6}>
-                            <TextField
+                            <AdminInputStyles
                                 sx={{ width: '100%' }}
                                 label="Description"
                                 required
@@ -123,6 +129,11 @@ function AdminAddBrand() {
                                 onChange={(e) =>
                                     setDescription({ ...description, value: e.target.value })
                                 }
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: '1.4rem',
+                                    },
+                                }}
                             />
                         </Grid>
                     </Grid>

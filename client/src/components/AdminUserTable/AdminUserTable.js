@@ -56,11 +56,9 @@ export default function UserTable() {
     const [messageContent, setMessageContent] = useState('');
     const [messageTitle, setMessageTitle] = useState('');
 
-    useEffect(() => {
-        if (users && users.data) {
-            setRows(users.data);
-        }
-    }, [users]);
+    if (users?.data && rows !== users?.data) {
+        setRows(users?.data);
+    }
 
     // // Fetch the data from an API
 

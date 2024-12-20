@@ -8,6 +8,7 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { brandApi } from '../../api/brandApi';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
 
 function AdminEditBrand() {
     const location = useLocation();
@@ -98,7 +99,7 @@ function AdminEditBrand() {
                 <form onSubmit={handleUpdate}>
                     <Grid container spacing={4}>
                         <Grid item xs={12} sm={6} md={6} lg={6}>
-                            <TextField
+                            <AdminInputStyles
                                 label="Brand Name"
                                 required
                                 fullWidth
@@ -111,7 +112,7 @@ function AdminEditBrand() {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6} lg={6}>
-                            <TextField
+                            <AdminInputStyles
                                 sx={{ width: '100%' }}
                                 label="Description"
                                 required

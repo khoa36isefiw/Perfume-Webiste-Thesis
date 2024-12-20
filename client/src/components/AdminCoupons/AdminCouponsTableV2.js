@@ -59,13 +59,12 @@ const CouponsTable = () => {
     const couponData = useSelector((state) => state.couponsManagement.listCoupons);
     console.log('Data receving....: ', couponData);
     const { data: couponsData, mutate, isLoading } = useCoupons();
-    const responeCouponsData = couponsData?.data || [];
 
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [rows, setRows] = useState(couponsData?.data || []); // Dynamic user data
+
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
 
     const {
@@ -82,23 +81,18 @@ const CouponsTable = () => {
         handleDeleteItem,
     } = useDeleteItem(couponAPI.deleteCoupon, mutate, 'promotions');
     // const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
-    const [listCoupons, setListCoupons] = useState(responeCouponsData);
-    useEffect(() => {
-        setListCoupons(responeCouponsData);
-    }, [couponsData?.data]);
-    console.log('listCoupons: ', listCoupons);
+    const [listCoupons, setListCoupons] = useState([]);
+
+    // get data
+    if (couponsData?.data && listCoupons !== couponsData?.data) {
+        setListCoupons(couponsData?.data);
+    }
 
     const filters = ['All Coupons', 'active', 'inactive', 'expired'];
     const filterListCoupons =
         filterCoupons !== 'All Coupons'
             ? listCoupons?.filter((list) => list.status === filterCoupons)
             : listCoupons;
-
-    useEffect(() => {
-        if (couponsData?.data && couponsData) {
-            setRows(couponsData?.data);
-        }
-    }, [couponsData]);
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -268,12 +262,15 @@ const CouponsTable = () => {
                     sx={{ marginBottom: 2 }}
                     onChange={handleSearch}
                     value={searchTerm}
+                    // modified input styles for textfield
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
                                 <Search />
                             </InputAdornment>
                         ),
+
+                        style: { fontSize: '1.4rem', color: '#000', borderRadius: 8 },
                     }}
                 />
             </Box>

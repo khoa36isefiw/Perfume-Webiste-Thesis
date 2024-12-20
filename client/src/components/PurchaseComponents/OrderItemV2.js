@@ -19,19 +19,16 @@ export const OrderItemV2 = ({ listData, orderId }) => {
     const handleRating = (item) => {
         const perfume = products?.data?.find(
             (product) =>
-                product._id === item.product &&
-                product?.variants.find((variant) => variant._id === item.variant),
+                product?._id === item.product &&
+                product?.variants.find((variant) => variant?._id === item.variant),
         );
+        console.log('perfume:', perfume);
         window.localStorage.setItem('productInfor', JSON.stringify(perfume));
         // current logic
-        navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}?orderId=${orderId}`, {
+        navigate(`/${i18n.language}/${perfume?.nameEn}/${perfume?._id}?orderId=${orderId}`, {
             state: { from: `/${i18n.language}/my-purchase` },
         });
 
-        // new logic
-        // navigate(`/${i18n.language}/${perfume.nameEn}/${perfume._id}`, {
-        //     state: { from: `/${i18n.language}/my-purchase`, orderId: orderId },
-        // });
         setTimeout(() => {
             backTop(); // deplay 100ml waiting for navigating
         }, 100);

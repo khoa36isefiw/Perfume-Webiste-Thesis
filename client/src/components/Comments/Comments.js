@@ -21,20 +21,20 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 
 function Comments({ perfumeDetailData, reference }) {
+    console.log('perfumeDetailData: ', perfumeDetailData);
     const { t } = useTranslation('translate');
-    const { data: reviewData } = useReviewOnProduct(perfumeDetailData?.product._id);
+    const { data: reviewData, isLoading } = useReviewOnProduct(perfumeDetailData?.product?._id);
     console.log('reviewData: ', reviewData?.data);
     const [currentPage, setCurrentPage] = useState(1); // Current page
     const itemsPerPage = 5; // Number of comments per page
 
     // Calculate the total number of pages
     const totalPages = Math.ceil(reviewData?.data.length / itemsPerPage);
+    const currentComments =
+        !isLoading && Array.isArray(reviewData?.data)
+            ? reviewData?.data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+            : [];
 
-    // Get the comments for the current page
-    const currentComments = reviewData?.data.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage,
-    );
     // Handler for page navigation
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
