@@ -158,16 +158,29 @@ function AdminEditCoupon() {
                         fullWidth
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AdminTypography>Coupon Code</AdminTypography>
-                    <TextField fullWidth value={code} onChange={(e) => setCode(e.target.value)} />
+                    <TextField
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
+                        fullWidth
+                        value={code}
+                        onChange={(e) => setCode(e.target.value)}
+                    />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AdminTypography>Coupon Discount</AdminTypography>
                     <TextField
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
                         fullWidth
                         value={discount}
                         onChange={(e) => setDiscount(e.target.value)}
@@ -177,6 +190,9 @@ function AdminEditCoupon() {
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AdminTypography>Coupon Quantity</AdminTypography>
                     <TextField
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
                         fullWidth
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
@@ -195,36 +211,20 @@ function AdminEditCoupon() {
                         >
                             {statusOptions.map((option) => (
                                 <MenuItem key={option} value={option}>
-                                    <Box
+                                    <AdminTypography
                                         sx={{
-                                            bgcolor:
+                                            fontSize: '14px',
+                                            color:
                                                 option === 'active'
-                                                    ? '#bdf5d3'
+                                                    ? '#187d44'
                                                     : option === 'inactive'
-                                                    ? '#ffdfe4'
-                                                    : grey[300],
-                                            borderRadius: 1,
-                                            boxShadow: 1,
-                                            padding: '2px 0',
-                                            width: 80,
+                                                    ? '#f11133'
+                                                    : grey[600],
+                                            fontWeight: 'bold',
                                         }}
                                     >
-                                        <AdminTypography
-                                            sx={{
-                                                fontSize: '14px',
-                                                color:
-                                                    option === 'active'
-                                                        ? '#187d44'
-                                                        : option === 'inactive'
-                                                        ? '#f11133'
-                                                        : grey[600],
-                                                fontWeight: 'bold',
-                                                textAlign: 'center',
-                                            }}
-                                        >
-                                            {option}
-                                        </AdminTypography>
-                                    </Box>
+                                        {option}
+                                    </AdminTypography>
                                 </MenuItem>
                             ))}
                         </Select>
@@ -241,6 +241,12 @@ function AdminEditCoupon() {
                         fullWidth
                         InputLabelProps={{
                             shrink: true,
+                            style: { fontSize: '1.4rem' },
+                        }}
+                        sx={{
+                            '.MuiInputBase-root ': {
+                                fontSize: '14px',
+                            },
                         }}
                         onBlur={handleDateBlur}
                     />
@@ -255,6 +261,12 @@ function AdminEditCoupon() {
                         fullWidth
                         InputLabelProps={{
                             shrink: true,
+                            style: { fontSize: '1.4rem' },
+                        }}
+                        sx={{
+                            '.MuiInputBase-root ': {
+                                fontSize: '14px',
+                            },
                         }}
                         onBlur={handleDateBlur}
                     />

@@ -83,7 +83,7 @@ const CouponsTable = () => {
     // const listCoupons = useSelector((state) => state.couponsManagement.listCoupons);
     const [listCoupons, setListCoupons] = useState([]);
 
-    // get data 
+    // get data
     if (couponsData?.data && listCoupons !== couponsData?.data) {
         setListCoupons(couponsData?.data);
     }
@@ -262,12 +262,15 @@ const CouponsTable = () => {
                     sx={{ marginBottom: 2 }}
                     onChange={handleSearch}
                     value={searchTerm}
+                    // modified input styles for textfield
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
                                 <Search />
                             </InputAdornment>
                         ),
+
+                        style: { fontSize: '1.4rem', color: '#000', borderRadius: 8 },
                     }}
                 />
             </Box>

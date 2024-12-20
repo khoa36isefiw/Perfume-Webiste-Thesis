@@ -144,11 +144,21 @@ const AdminCreateCoupon = () => {
                         fullWidth
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AdminTypography>Coupon Code</AdminTypography>
-                    <TextField fullWidth value={code} onChange={(e) => setCode(e.target.value)} />
+                    <TextField
+                        fullWidth
+                        value={code}
+                        onChange={(e) => setCode(e.target.value)}
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
+                    />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={6} lg={6}>
@@ -159,6 +169,9 @@ const AdminCreateCoupon = () => {
                         onChange={(e) => setDiscount(e.target.value)}
                         type="number"
                         onBlur={handlePriceSaleBlur}
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
@@ -169,13 +182,16 @@ const AdminCreateCoupon = () => {
                         onChange={(e) => setQuantity(e.target.value)}
                         type="number"
                         onBlur={handlePriceSaleBlur}
+                        InputProps={{
+                            style: { fontSize: '1.4rem', color: '#000' },
+                        }}
                     />
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                     {/* Brand Dropdown */}
                     <AdminTypography>Coupon Status</AdminTypography>
-                    <FormControl fullWidth sx={{ mb: 2, height: 40 }}>
+                    <FormControl fullWidth sx={{ mb: 2, height: 30 }}>
                         <Select
                             labelId="brand-select-label"
                             value={status}
@@ -183,38 +199,20 @@ const AdminCreateCoupon = () => {
                         >
                             {statusOptions.map((option) => (
                                 <MenuItem key={option} value={option}>
-                                    <Box
+                                    <AdminTypography
                                         sx={{
-                                            // bgcolor: '#ffdfe4',
-                                            // color: '#f11133',
-                                            bgcolor:
+                                            fontSize: '14px',
+                                            color:
                                                 option === 'active'
-                                                    ? '#bdf5d3'
+                                                    ? '#187d44'
                                                     : option === 'inactive'
-                                                    ? '#ffdfe4'
-                                                    : grey[300],
-                                            borderRadius: 2,
-                                            boxShadow: 1,
-                                            padding: '4px 0',
-                                            width: 80,
+                                                    ? '#f11133'
+                                                    : grey[600],
+                                            fontWeight: 'bold',
                                         }}
                                     >
-                                        <AdminTypography
-                                            sx={{
-                                                fontSize: '14px',
-                                                color:
-                                                    option === 'Active'
-                                                        ? '#187d44'
-                                                        : option === 'Unactive'
-                                                        ? '#f11133'
-                                                        : grey[600],
-                                                fontWeight: 'bold',
-                                                textAlign: 'center',
-                                            }}
-                                        >
-                                            {option}
-                                        </AdminTypography>
-                                    </Box>
+                                        {option}
+                                    </AdminTypography>
                                 </MenuItem>
                             ))}
                         </Select>
@@ -233,6 +231,12 @@ const AdminCreateCoupon = () => {
                         fullWidth
                         InputLabelProps={{
                             shrink: true,
+                            style: { fontSize: '1.4rem' },
+                        }}
+                        sx={{
+                            '.MuiInputBase-root ': {
+                                fontSize: '14px',
+                            },
                         }}
                     />
                 </Grid>
@@ -246,6 +250,12 @@ const AdminCreateCoupon = () => {
                         onChange={(e) => setGetEndDate(new Date(e.target.value).toISOString())} // Set to ISO format
                         InputLabelProps={{
                             shrink: true,
+                            style: { fontSize: '1.4rem' },
+                        }}
+                        sx={{
+                            '.MuiInputBase-root ': {
+                                fontSize: '14px',
+                            },
                         }}
                     />
                 </Grid>
