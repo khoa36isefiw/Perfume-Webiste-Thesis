@@ -66,6 +66,7 @@ function PaymentSuccess() {
                 borderTopLeftRadius: '24px',
                 borderTopRightRadius: '24px',
             }}
+            className="animate__animated animate__fadeIn"
         >
             <Box
                 sx={{
