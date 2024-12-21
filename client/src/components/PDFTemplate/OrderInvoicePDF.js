@@ -151,11 +151,7 @@ export const OrderInvoicePDF = () => {
             >
                 <Button
                     startIcon={<ArrowBackIos />}
-                    onClick={() => {
-                        window.history.back(-1);
-                        // delay of 100 milliseconds to ensure backTop runs after navigation
-                        setTimeout(backTop, 100);
-                    }}
+                    onClick={() => navigate(`/${i18n.language}/my-purchase`)}
                     sx={{
                         color: '#fff',
                         fontSize: '18px',
@@ -476,9 +472,17 @@ export const OrderInvoicePDF = () => {
                             }}
                         >
                             {orderData?.data?.items?.map((item) => (
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <Avatar src={item.image[0]} sx={{ height: 50, width: 50 }} />
-                                    <Box sx={{ flex: 1 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                                    <Avatar
+                                        src={item.image[0]}
+                                        sx={{
+                                            height: 50,
+                                            width: 50,
+                                            borderRadius: 0,
+                                            border: '1px solid #ccc',
+                                        }}
+                                    />
+                                    <Box sx={{ flex: 1, ml: 1 }}>
                                         <CustomizeTypography sx={{ color: '#595959', mb: 0 }}>
                                             {item.productName}
                                         </CustomizeTypography>
