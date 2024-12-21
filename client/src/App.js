@@ -4,93 +4,89 @@ import { Box } from '@mui/material';
 import { adminRoutes, privateRoutes, publicRoutes } from './routes/routes';
 import UserLayouts from './layouts/UserLayout/UserLayouts';
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import PageNotFound from './components/PageNotFound/PageNotFound';
+import { useAuth } from './contexts/authContext';
+import useLoadingV2 from './hooks/useLoadingV2';
 
 function App() {
+    const { role, loggedIn, loading } = useAuth();
+    const { LoadingAPI } = useLoadingV2();
+    console.log('role: ', role, loggedIn);
     // default language for the website is English
-    const { t, i18n } = useTranslation();
     useEffect(() => {
         if (window.location.pathname === '/') {
             window.location.replace('/en');
         }
     }, []);
 
-    const allDefinedRoutes = [
-        ...publicRoutes.map((route) => route.path),
-        ...privateRoutes.map((route) => route.path),
-        ...adminRoutes.map((route) => route.path),
-    ];
-
-    const userData = JSON.parse(localStorage.getItem('user_data')) || {};
-    console.log('userData: ', userData);
+    if (loading) {
+        return <LoadingAPI />;
+    }
 
     return (
         <Box sx={{ bgcolor: '#000000' }}>
-            <Router>
-                <Routes>
-                    {/* for guest --> not to login into system*/}
-                    {publicRoutes.map((route, index) => {
-                        const Page = route.component;
-                        const Layout = route.layout || UserLayouts;
-                        return (
-                            <Route
-                                key={route.path}
-                                path={route.path}
-                                element={
+            <Routes>
+                {/* for guest --> not to login into system*/}
+                {publicRoutes.map((route, index) => {
+                    const Page = route.component;
+                    const Layout = route.layout || UserLayouts;
+                    return (
+                        <Route
+                            key={route.path}
+                            path={route.path}
+                            element={
+                                <Layout>
+                                    <Page />
+                                </Layout>
+                            }
+                        />
+                    );
+                })}
+
+                {/* for authenticated  */}
+                {privateRoutes.map((route, index) => {
+                    const Page = route.component;
+                    const Layout = route.layout || UserLayouts;
+
+                    return (
+                        <Route
+                            key={route.path}
+                            path={route.path}
+                            element={
+                                loggedIn ? (
                                     <Layout>
                                         <Page />
                                     </Layout>
-                                }
-                            />
-                        );
-                    })}
+                                ) : (
+                                    <Navigate to="/404" />
+                                )
+                            }
+                        />
+                    );
+                })}
 
-                    {/* for authenticated  */}
-                    {privateRoutes.map((route, index) => {
-                        const Page = route.component;
-                        const Layout = route.layout || UserLayouts;
+                {adminRoutes.map((route, index) => {
+                    const Page = route.component;
+                    const Layout = route.layout || UserLayouts;
+                    return (
+                        <Route
+                            key={route.path}
+                            path={route.path}
+                            element={
+                                loggedIn && role === 1 ? (
+                                    <Layout>
+                                        <Page />
+                                    </Layout>
+                                ) : (
+                                    <Navigate to="/404" />
+                                )
+                            }
+                        />
+                    );
+                })}
 
-                        return (
-                            <Route
-                                key={route.path}
-                                path={route.path}
-                                element={
-                                    userData !== null ? ( // for login
-                                        <Layout>
-                                            <Page />
-                                        </Layout>
-                                    ) : (
-                                        <Navigate to={`/${i18n.language}/sign-in`} />
-                                    )
-                                }
-                            />
-                        );
-                    })}
-
-                    {adminRoutes.map((route, index) => {
-                        const Page = route.component;
-                        const Layout = route.layout || UserLayouts;
-                        return (
-                            <Route
-                                key={route.path}
-                                path={route.path}
-                                element={
-                                    userData?.role === 1 ? (
-                                        <Layout>
-                                            <Page />
-                                        </Layout>
-                                    ) : (
-                                        <Navigate to="/404" />
-                                    )
-                                }
-                            />
-                        );
-                    })}
-
-                    <Route path="/404" element={<PageNotFound />} />
-                </Routes>
-            </Router>
+                <Route path="/404" element={<PageNotFound />} />
+            </Routes>
         </Box>
     );
 }

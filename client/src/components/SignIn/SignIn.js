@@ -48,6 +48,7 @@ function SignIn() {
                             phoneNumber: loginData.data.phoneNumber,
                         }),
                     );
+                    window.localStorage.setItem('token', loginData.data.accessToken);
 
                     showNotificationMessage(
                         'success',

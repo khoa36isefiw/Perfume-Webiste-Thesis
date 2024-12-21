@@ -40,7 +40,7 @@ const AuthController = {
                 isAdmin: user.role,
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '2h' },
+            { expiresIn: '24h' },
         );
         return accessToken;
     },

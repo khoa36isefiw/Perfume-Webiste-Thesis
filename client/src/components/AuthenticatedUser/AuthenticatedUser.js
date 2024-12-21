@@ -22,6 +22,7 @@ import { backTop } from '../goBackTop/goBackTop';
 import { authAPI } from '../../api/authAPI';
 import { theme } from '../../Theme/Theme';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../contexts/authContext';
 
 export default function AuthenticatedUser() {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function AuthenticatedUser() {
     const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
     const userData = JSON.parse(localStorage.getItem('user_data')) || null;
     const { t, i18n } = useTranslation('translate');
-
+    const { role } = useAuth();
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -70,6 +71,7 @@ export default function AuthenticatedUser() {
 
             if (logout) {
                 window.localStorage.removeItem('user_data');
+                window.localStorage.removeItem('token');
                 console.log('Logged out successfully');
                 // navigate('/');
                 navigate(`/${i18n.language}`);
@@ -253,7 +255,7 @@ export default function AuthenticatedUser() {
                         </CustomizeTypography>
                     </Box>
                 </MenuItem>
-                {userData.role === 1 && (
+                {role === 1 && (
                     <MenuItem onClick={handleNavigateDashboard}>
                         <Box
                             sx={{
