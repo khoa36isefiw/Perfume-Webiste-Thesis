@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container, Grid } from '@mui/material';
+import { Avatar, Box, Button, Container, Grid, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
@@ -17,6 +17,8 @@ import { useTranslation } from 'react-i18next';
 import { userAPI } from '../../api/userAPI';
 
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import Hotline from '../Hotline/Hotline';
+import { Support, SupportAgent } from '@mui/icons-material';
 
 function Footer() {
     const [email, setEmail] = React.useState('');
@@ -249,6 +251,35 @@ function Footer() {
                         </Grid>
                     </Grid>
                 </Grid>
+
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            fontSize: '20px',
+                            fontWeight: 'bold',
+                            color: theme.palette.secondaryText,
+                            textAlign: 'center',
+                            mr: 2,
+                            [mobileScreen]: {
+                                fontSize: theme.fontSize.mobile.heading,
+                                textAlign: 'center',
+                            },
+                        }}
+                    >
+                        Hotline
+                    </Typography>
+
+                    <SupportAgent sx={{ fontSize: '28px', color: theme.palette.secondaryText }} />
+                    <CustomizeTypography sx={{ mb: 0, textAlign: 'center', fontSize: '18px' }}>
+                        <span style={{ marginLeft: '18px' }}>08 372-227-64 | 0938-775-001</span>
+                    </CustomizeTypography>
+                </Box>
             </Container>
             <Copyrights />
         </Box>

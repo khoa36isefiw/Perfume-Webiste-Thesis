@@ -30,27 +30,27 @@ function ProductInformation({ productInformation }) {
                         <CustomizeProductDescriptionText
                             title={t('common.productDetails.Origin')}
                             // get value through key
-                            text={productInformation.content.origin}
+                            text={productInformation?.content.origin}
                         />
                         <CustomizeProductDescriptionText
                             title={t('common.productDetails.year')}
                             // get value through key
-                            text={productInformation.content.yearOfRelease}
+                            text={productInformation?.content.yearOfRelease}
                         />
                         <CustomizeProductDescriptionText
                             title={t('common.productDetails.Concentration')}
                             // get value through key
-                            text={productInformation.content.concentration}
+                            text={productInformation?.content.concentration}
                         />
                         <CustomizeProductDescriptionText
                             title={t(`common.productDetails.${'Fragrance group'}`)}
                             // get value through key
-                            text={productInformation.content.fragranceGroup}
+                            text={productInformation?.content.fragranceGroup}
                         />
                         <CustomizeProductDescriptionText
                             title={t(`common.productDetails.${'Manufacturer'}`)}
                             // get value through key
-                            text={productInformation.content.manufacturer}
+                            text={productInformation?.content.manufacturer}
                         />
 
                         <CustomizeTypography
@@ -96,7 +96,7 @@ function ProductInformation({ productInformation }) {
                                     {t(`common.productDetails.${`Fragrance lasting`}`)}:{' '}
                                 </strong>
                             </span>
-                            {productInformation.content?.likability}/5
+                            {productInformation?.content?.likability}/5
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             <span style={{ color: theme.palette.text.primary }}>
@@ -104,13 +104,13 @@ function ProductInformation({ productInformation }) {
                                     {t(`common.productDetails.${`Fragrance diffusion`}`)}:{' '}
                                 </strong>
                             </span>
-                            {productInformation.content?.longevity}/5
+                            {productInformation?.content?.longevity}/5
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             <span style={{ color: theme.palette.text.primary }}>
                                 <strong>{t(`common.productDetails.${`Nose pleasing`}`)}: </strong>
                             </span>
-                            {productInformation.content?.likability}/5
+                            {productInformation?.content?.likability}/5
                         </CustomizeTypography>
                     </Box>
                 </Grid>

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PerfumeDetail from '../components/PerfumeDetail/PerfumeDetail';
 import RatingProduct from '../components/RatingProduct/RatingProduct';
 import Comments from '../components/Comments/Comments';
@@ -23,9 +23,22 @@ function ProductDetail() {
     const { id } = useParams();
 
     const navigate = useNavigate();
+    // call product by id
     const { data: productData, isLoading, mutate } = useProductById(id);
+    const [test, setTest] = React.useState();
+    console.log('productData: ', productData);
 
+    useEffect(() => {
+        if (productData?.status === 404) {
+            navigate('/404');
+            setTest([]);
+        } else {
+            setTest(productData?.data);
+        }
+    }, [productData?.status]);
     const brandId = productData?.data?.product?.brand?._id;
+
+    console.log('test2222: ', test);
 
     const { data: productDataByBrand } = useProductByBrand(brandId);
     const { data: productSold } = useTopProductSold();
@@ -55,9 +68,9 @@ function ProductDetail() {
 
     return (
         <Box sx={{ mt: 20 }}>
-            <PerfumeDetail productData={productData?.data.product} onHandleClick={scrollToDiv} />
-            <RatingProduct perfumeDetailData={productData?.data} mutate={mutate} />
-            <Comments perfumeDetailData={productData?.data} reference={commentsRef} />
+            <PerfumeDetail productData={test?.product} onHandleClick={scrollToDiv} />
+            <RatingProduct perfumeDetailData={test} mutate={mutate} />
+            <Comments perfumeDetailData={test} reference={commentsRef} />
             {/* Related product */}
             <Container sx={{ mt: 8 }}>
                 <CustomizeTypography

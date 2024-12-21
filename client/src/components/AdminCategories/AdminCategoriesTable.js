@@ -15,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { Link, useNavigate } from 'react-router-dom';
 import useCategory from '../../api/useCategory';
-import { useEffect } from 'react';
+
 import { categoriesAPI } from '../../api/categoriesAPI';
 import useParentCategory from '../../api/useParentCategory';
 import WarningIcon from '@mui/icons-material/Warning';
@@ -29,24 +29,24 @@ import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 function AdminCategoriesTable() {
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const { data: categoriesData, mutate } = useCategory();
-    const responseCategories = categoriesData?.data || [];
     const { data: parentCategoriesData } = useParentCategory();
-    const responseParentCategories = parentCategoriesData?.data || [];
-    const [categories, setCategories] = useState(responseCategories);
-    const [parentCategory, setParentCategory] = useState(responseParentCategories);
+    const [categories, setCategories] = useState([]);
+    const [parentCategory, setParentCategory] = useState([]);
     const [openConfirmMessage, setOpenConfirmMessage] = useState(false);
     const [categoryToRemove, setCategoryToRemove] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
     const navigate = useNavigate();
 
-    useEffect(() => {
+    // get data
+    if (categoriesData?.data && categories !== categoriesData?.data) {
         setCategories(categoriesData?.data);
-    }, [categoriesData?.data]);
+    }
 
-    useEffect(() => {
-        setParentCategory(responseParentCategories);
-    }, [responseParentCategories]);
+    if (parentCategoriesData?.data && parentCategory !== parentCategoriesData?.data) {
+        console.log('parentCategoriesData: ', parentCategoriesData?.data);
+        setParentCategory(parentCategoriesData?.data);
+    }
 
     const handleEdit = (category) => {
         navigate(`/admin/manage-categories/edit/${category._id}`, { state: { category } });
@@ -100,37 +100,28 @@ function AdminCategoriesTable() {
     };
 
     // export to excel
-    const exportToExcel = async () => {
-        // Create a new workbook
+    const exportToExcel = () => {
+        // create a new workbook and worksheet
         const workbook = XLSX.utils.book_new();
-
-        // Fetch parent category names asynchronously
-        const worksheetData = await Promise.all(
-            responseCategories.map(async (category, index) => {
-                console.log('category.parent: ', category.parent);
-                const parentCategory = await categoriesAPI.getCategoryById(category.parent);
-
-                console.log('parentCategory', parentCategory);
-                return {
-                    // Define column names and get data
-                    No: index + 1,
-                    ID: category._id,
-                    'Category Name': category.nameEn,
-                    'Parent Category':
-                        parentCategory.status === 200 ? parentCategory?.data?.nameEn : 'N/A',
-                    Description: category.descriptionEn,
-                };
-            }),
+        const worksheetData = categories.map((row, index) =>
+            parentCategory.map((pCategory) => ({
+                // define column name and get data
+                No: index + 1,
+                ID: row._id,
+                Name: row.nameEn,
+                Description: row.descriptionEn,
+                Parent: pCategory.nameEn,
+            })),
         );
 
-        // Convert JSON data to worksheet
+        // convert JSON data to worksheet
         const worksheet = XLSX.utils.json_to_sheet(worksheetData);
 
-        // Append the worksheet to the workbook
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'CategoryTable');
+        // append the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'TableData');
 
-        // Export the workbook as an Excel file
-        XLSX.writeFile(workbook, 'Categories Table.xlsx');
+        // export the workbook as an Excel file
+        XLSX.writeFile(workbook, 'Category Table.xlsx');
     };
 
     const filterCategories = categories?.filter(

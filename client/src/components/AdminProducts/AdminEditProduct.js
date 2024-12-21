@@ -21,6 +21,7 @@ import { mobileScreen, theme } from '../../Theme/Theme';
 import useProductById from '../../api/useProductById';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
 
 const AdminEditProduct = () => {
     const { id } = useParams();
@@ -230,7 +231,7 @@ const AdminEditProduct = () => {
             </Button>
 
             <Box sx={{ display: 'flex', gap: 4 }}>
-                <TextField
+                <AdminInputStyles
                     label="Product Name"
                     fullWidth
                     value={productName}
@@ -253,7 +254,7 @@ const AdminEditProduct = () => {
                         </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', gap: 4 }}>
-                        <TextField
+                        <AdminInputStyles
                             label="Price"
                             fullWidth
                             type="number"
@@ -262,7 +263,7 @@ const AdminEditProduct = () => {
                             onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
                         />
-                        <TextField
+                        <AdminInputStyles
                             label="Price Sale"
                             fullWidth
                             type="number"
@@ -271,7 +272,7 @@ const AdminEditProduct = () => {
                             onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
                         />
-                        <TextField
+                        <AdminInputStyles
                             label="Stock"
                             fullWidth
                             type="number"
@@ -292,12 +293,17 @@ const AdminEditProduct = () => {
                         value={brand}
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)} // get id of value
+                        sx={{ fontSize: '13px' }}
                     >
                         {/* only get all brands are active */}
                         {brandOptions?.map(
                             (brand) =>
                                 brand.status === 'active' && (
-                                    <MenuItem key={brand._id} value={brand._id}>
+                                    <MenuItem
+                                        key={brand._id}
+                                        value={brand._id}
+                                        sx={{ fontSize: '13px' }}
+                                    >
                                         {brand.nameEn}
                                     </MenuItem>
                                 ),
@@ -312,12 +318,17 @@ const AdminEditProduct = () => {
                         value={category}
                         label="Category"
                         onChange={(e) => setCategory(e.target.value)}
+                        sx={{ fontSize: '13px' }}
                     >
                         {/* only get all categories are active */}
                         {categoryOptions?.map(
                             (category) =>
                                 category.status === 'active' && (
-                                    <MenuItem key={category._id} value={category._id}>
+                                    <MenuItem
+                                        key={category._id}
+                                        value={category._id}
+                                        sx={{ fontSize: '13px' }}
+                                    >
                                         {category.nameEn}
                                     </MenuItem>
                                 ),

@@ -5,6 +5,7 @@ import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
 import { groupCollection1, groupCollection2, groupCollection3 } from './collectionsData';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { backTop } from '../goBackTop/goBackTop';
 
 function OurCollections() {
     const [isMobile, setIsMobile] = useState(false);
@@ -31,7 +32,7 @@ function OurCollections() {
         // remove the old brand and add new brand selected
         currentQueryParams.set('brand', brand.destination);
         console.log('currentQueryParams.toString(): ', currentQueryParams.toString());
-
+        backTop();
         // update url
         navigate(`/${i18n.language}/shop?${currentQueryParams.toString()}`);
     };

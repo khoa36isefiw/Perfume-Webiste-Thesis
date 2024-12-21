@@ -1,6 +1,7 @@
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import CategoryIcon from '@mui/icons-material/Category';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+
 import { theme } from '../../Theme/Theme';
 
 export const missionsData = [

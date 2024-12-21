@@ -5,7 +5,6 @@ import {
     Button,
     MenuItem,
     Select,
-    TextField,
     Typography,
     InputLabel,
     FormControl,
@@ -24,6 +23,7 @@ import { contentTemplate } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
 
 const AdminAddProduct = () => {
     const { showNotificationMessage } = useSnackbarMessage();
@@ -35,7 +35,6 @@ const AdminAddProduct = () => {
     const [selectedSizes, setSelectedSizes] = useState([]);
     const [disabledButton, setDisabledButton] = useState(false);
     const [imgData, setImgData] = React.useState([]);
-    const [content, setContent] = useState(contentTemplate);
 
     const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
 
@@ -83,7 +82,7 @@ const AdminAddProduct = () => {
                 formData.append('nameEn', productName);
                 formData.append('category', category);
                 formData.append('brand', brand);
-                formData.append('content', JSON.stringify(content));
+                formData.append('content', JSON.stringify(contentTemplate));
                 formData.append(
                     'variants',
                     JSON.stringify(
@@ -281,13 +280,13 @@ const AdminAddProduct = () => {
             {/* select size */}
             {/* <Paper sx={{ p: 2, maxHeight: '400px', overflow: 'scroll' }}> */}
             <Box sx={{ display: 'flex', gap: 4 }}>
-                <TextField
+                <AdminInputStyles
                     label="Product Name"
                     fullWidth
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
-                    sx={{ mb: 2 }}
                 />
+
                 <FormControl fullWidth sx={{ mb: 2 }}>
                     <InputLabel id="size-select-label">Size</InputLabel>
                     <Select
@@ -296,15 +295,27 @@ const AdminAddProduct = () => {
                         value={selectedSizes.map((size) => size.size)}
                         label="Size"
                         renderValue={(selected) => selected.join(', ')}
+                        sx={{
+                            fontSize: '13px',
+                        }}
                     >
                         {sizeOptions.map((size) => (
                             <MenuItem
                                 key={size}
                                 value={size}
                                 onClick={() => handleMenuItemClick(size)}
+                                sx={{
+                                    '&.MuiMenuItem-root': {
+                                        fontSize: '13px',
+                                    },
+                                }}
                             >
                                 <Checkbox checked={selectedSizes.some((s) => s.size === size)} />
-                                <ListItemText primary={size} />
+                                <ListItemText
+                                    primary={
+                                        <Typography sx={{ fontSize: '13px' }}>{size}</Typography>
+                                    }
+                                />
                             </MenuItem>
                         ))}
                     </Select>
@@ -341,16 +352,18 @@ const AdminAddProduct = () => {
                         </Tooltip>
                     </Box>
                     <Box sx={{ display: 'flex', gap: 4 }}>
-                        <TextField
+                        <AdminInputStyles
                             label="Price"
                             fullWidth
                             type="number"
                             value={size.price}
                             onChange={handleSizeFieldChange(index, 'price')}
                             onBlur={() => handlePriceSaleBlur(index)}
-                            sx={{ mb: 2 }}
+                            sx={{
+                                mb: 2,
+                            }}
                         />
-                        <TextField
+                        <AdminInputStyles
                             label="Price Sale"
                             fullWidth
                             type="number"
@@ -359,7 +372,7 @@ const AdminAddProduct = () => {
                             onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
                         />
-                        <TextField
+                        <AdminInputStyles
                             label="Stock"
                             fullWidth
                             type="number"
@@ -380,11 +393,18 @@ const AdminAddProduct = () => {
                         value={brand}
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)}
+                        sx={{ fontSize: '13px' }}
                     >
                         {brandOptions.map(
                             (brand) =>
                                 brand.status === 'active' && (
-                                    <MenuItem key={brand._id} value={brand._id}>
+                                    <MenuItem
+                                        key={brand._id}
+                                        value={brand._id}
+                                        sx={{
+                                            fontSize: '13px',
+                                        }}
+                                    >
                                         {brand.nameEn}
                                     </MenuItem>
                                 ),
@@ -399,11 +419,18 @@ const AdminAddProduct = () => {
                         value={category}
                         label="Category"
                         onChange={(e) => setCategory(e.target.value)}
+                        sx={{ fontSize: '13px' }}
                     >
                         {categoryOptions.map(
                             (category) =>
                                 category.status === 'active' && (
-                                    <MenuItem key={category._id} value={category._id}>
+                                    <MenuItem
+                                        key={category._id}
+                                        value={category._id}
+                                        sx={{
+                                            fontSize: '13px',
+                                        }}
+                                    >
                                         {category.nameEn}
                                     </MenuItem>
                                 ),

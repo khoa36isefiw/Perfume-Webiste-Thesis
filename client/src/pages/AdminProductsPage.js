@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react';
-import ProductTable from '../components/ProductTable/ProductTable';
+import ProductTable from '../components/AdminProductTable/AdminProductTable';
 
 function AdminProducts() {
     return (

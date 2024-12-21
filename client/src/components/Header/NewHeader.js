@@ -199,12 +199,25 @@ function NewHeader() {
         const params = new URLSearchParams(location.search); // get current query string params
         const currentPath = window.location.pathname;
 
+        // replace language in path
         const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
         window.localStorage.setItem('language', lng); // set language is selected to local storage
         console.log('newPath: ', newPath);
+
+        // Update state from with the new language
+        // check state from which location?
+        const updatedState = location.state
+            ? {
+                  ...location.state,
+                  from: location.state.from.replace(`/${i18n.language}`, `/${lng}`),
+              }
+            : null;
+        console.log('updatedState: ', updatedState);
+
         // check if reference tới
+        // Construct new path with params
         const newPathWithParams = params.toString() ? `${newPath}?${params.toString()}` : newPath;
-        navigate(newPathWithParams);
+        navigate(newPathWithParams, { state: updatedState }); // Pass updated state
         setEnLanguage(!enLanguage);
         i18n.changeLanguage(lng);
     };

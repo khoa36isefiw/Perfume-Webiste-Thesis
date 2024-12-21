@@ -9,7 +9,6 @@ import {
     TextField,
     Grid,
 } from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
@@ -17,8 +16,9 @@ import { AdminButtonDesign } from '../AdminCoupons/AdminCreateCoupon';
 import { theme } from '../../Theme/Theme';
 import useCategory from '../../api/useCategory';
 import { categoriesAPI } from '../../api/categoriesAPI';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
+
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
 
 function AdminEditCategory() {
     const location = useLocation();
@@ -40,22 +40,6 @@ function AdminEditCategory() {
     const [selectedCategoryId, setSelectedCategoryId] = React.useState(category?._id);
 
     const navigate = useNavigate();
-
-    const fetchAllParentCategory = async () => {
-        const listCategory = 'await categoryService.getAllParentCategory()';
-        // setCategories(listCategory);
-    };
-    const fetchCategoryByParentId = async (id) => {
-        const listCategory = 'await categoryService.getChildCategoryByPId(id)';
-        // setSubCategories(listCategory);
-    };
-
-    React.useEffect(() => {
-        fetchAllParentCategory();
-    }, []);
-    React.useEffect(() => {
-        fetchCategoryByParentId(selectedCategoryId);
-    }, [selectedCategoryId]);
 
     const validateName = () => {
         if (name.value.trim() === '') {
@@ -121,7 +105,7 @@ function AdminEditCategory() {
                         <form onSubmit={handleUpdateCategory}>
                             <Grid container spacing={4}>
                                 <Grid item xs={12} sm={6} md={6} lg={6}>
-                                    <TextField
+                                    <AdminInputStyles
                                         label="Category Name"
                                         required
                                         fullWidth
@@ -136,7 +120,7 @@ function AdminEditCategory() {
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={6} lg={6}>
-                                    <TextField
+                                    <AdminInputStyles
                                         sx={{ width: '100%' }}
                                         label="Description"
                                         required
@@ -156,7 +140,7 @@ function AdminEditCategory() {
                                 </Grid>
                                 <Grid item xs={12} sm={12} md={12} lg={12}>
                                     {categories.length > 0 && (
-                                        <TextField
+                                        <AdminInputStyles
                                             fullWidth
                                             select
                                             value={selectedCategoryId}
@@ -177,7 +161,7 @@ function AdminEditCategory() {
                                                 </MenuItem>
                                             ))}{' '}
                                             *
-                                        </TextField>
+                                        </AdminInputStyles>
                                     )}
                                 </Grid>
                             </Grid>
