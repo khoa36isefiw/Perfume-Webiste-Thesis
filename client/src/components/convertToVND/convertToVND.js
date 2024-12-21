@@ -1,4 +1,7 @@
 export const converToVND = (price) => {
+    if (price === undefined) {
+        return;
+    }
     return price.toLocaleString('it-IT', {
         style: 'currency',
         currency: 'VND',
