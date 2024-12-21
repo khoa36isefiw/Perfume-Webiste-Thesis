@@ -9,10 +9,12 @@ import { unstable_createMuiStrictModeTheme } from '@mui/material/styles';
 import { theme } from './Theme/Theme';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import { BrowserRouter as Router } from 'react-router-dom';
 import i18n from './i18n';
 import { SnackbarProvider } from 'notistack';
 import { I18nextProvider } from 'react-i18next';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { AuthProvider } from './contexts/authContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -37,7 +39,11 @@ root.render(
                     <Provider store={store}>
                         <ThemeProvider theme={mergeTheme}>
                             <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-                                <App />
+                                <Router>
+                                    <AuthProvider>
+                                        <App />
+                                    </AuthProvider>
+                                </Router>
                             </GoogleOAuthProvider>
                         </ThemeProvider>
                     </Provider>

@@ -30,6 +30,7 @@ function GoogleAuthButton({ isLogin }) {
                         address: response.data.address,
                     }),
                 );
+                window.localStorage.setItem('token', response.data.accessToken);
 
                 showNotificationMessage('success', 'Login', 'Login successfully!');
                 setTimeout(() => {

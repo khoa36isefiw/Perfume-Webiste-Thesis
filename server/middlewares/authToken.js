@@ -9,7 +9,7 @@ const authToken = {
             const token = authorizationHeader.split(' ')[1];
             if (!token) res.status(401).json('Unauthorized error!');
             jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-                console.log(user);
+                console.log({ user });
                 if (err) res.status(403).json('Forbidden action!');
                 req.user = user;
                 next();
@@ -21,7 +21,7 @@ const authToken = {
 
     verifyTokenAdmin(req, res, next) {
         authToken.authenticationToken(req, res, () => {
-            if (req.user?.role === 1) {
+            if (req.user?.isAdmin === 1) {
                 next();
             } else {
                 res.status(403).json('You are not allowed to this action!');

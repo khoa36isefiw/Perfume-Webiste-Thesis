@@ -8,11 +8,11 @@ const paymentController = require('../controllers/PaymentController');
 const authToken = require('../middlewares/authToken');
 
 router.get('/user', authToken.verifyTokenAdmin, userController.statisticUser);
-router.get('/order', authToken.verifyTokenAdmin, orderController.statisticOrder);
-router.get('/product', authToken.verifyTokenAdmin, productController.statisticProduct);
-router.get('/review', authToken.verifyTokenAdmin, reviewController.statisticReview);
+router.get('/order', orderController.statisticOrder);
+router.get('/product', productController.statisticProduct);
+router.get('/review', reviewController.statisticReview);
 router.get('/revenue', authToken.verifyTokenAdmin, orderController.statisticRevenue);
 router.get('/recent-transaction', authToken.verifyTokenAdmin, paymentController.getLatestPayments);
-router.get('/recent-product', authToken.verifyTokenAdmin, productController.getLatest);
-router.get('/top-product-sold', authToken.verifyTokenAdmin, productController.getTopProductSold);
+router.get('/recent-product', productController.getLatest);
+router.get('/top-product-sold', productController.getTopProductSold);
 module.exports = router;
