@@ -209,7 +209,7 @@ function NewHeader() {
         const updatedState = location.state
             ? {
                   ...location.state,
-                  from: location.state.from.replace(`/${i18n.language}`, `/${lng}`),
+                  from: location.state.from?.replace(`/${i18n.language}`, `/${lng}`),
               }
             : null;
         console.log('updatedState: ', updatedState);

@@ -22,7 +22,7 @@ export const OrderItemV2 = ({ listData, orderId }) => {
                 product?._id === item.product &&
                 product?.variants.find((variant) => variant?._id === item.variant),
         );
-        console.log('perfume:', perfume);
+        // console.log('perfume:', perfume);
         window.localStorage.setItem('productInfor', JSON.stringify(perfume));
         // current logic
         navigate(`/${i18n.language}/${perfume?.nameEn}/${perfume?._id}?orderId=${orderId}`, {
@@ -34,7 +34,7 @@ export const OrderItemV2 = ({ listData, orderId }) => {
         }, 100);
     };
 
-    console.log('listData: ', listData);
+    // console.log('listData: ', listData);
     return (
         <>
             {listData.items.map((item, index) => (
