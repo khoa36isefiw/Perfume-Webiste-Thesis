@@ -259,7 +259,7 @@ function AdminCategoriesTable() {
                                                         <Typography
                                                             sx={{
                                                                 textAlign: 'center',
-                                                                fontSize: '12px',
+                                                                fontSize: '14px',
                                                             }}
                                                         >
                                                             {parent.nameEn}
@@ -272,7 +272,7 @@ function AdminCategoriesTable() {
                                                                 padding: '4px 8px',
                                                                 borderRadius: 1,
                                                                 filter: 'drop-shadow(0 0 1mm #d5d5d5)',
-                                                                fontSize: '12px',
+                                                                fontSize: '14px',
                                                             }}
                                                         >
                                                             No Parent
@@ -287,7 +287,7 @@ function AdminCategoriesTable() {
                                                         <Typography
                                                             sx={{
                                                                 textAlign: 'center',
-                                                                fontSize: '12px',
+                                                                fontSize: '14px',
                                                             }}
                                                         >
                                                             {category.descriptionEn}
@@ -300,7 +300,7 @@ function AdminCategoriesTable() {
                                                                 padding: '4px 8px',
                                                                 borderRadius: 1,
                                                                 filter: 'drop-shadow(0 0 1mm #d5d5d5)',
-                                                                fontSize: '12px',
+                                                                fontSize: '14px',
                                                             }}
                                                         >
                                                             No Description

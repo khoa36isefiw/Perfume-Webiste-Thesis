@@ -266,7 +266,7 @@ export default function UserTable() {
                                                 style={{ minWidth: column.minWidth }}
                                                 sx={{
                                                     bgcolor: blue[200],
-                                                    fontSize: '13px',
+                                                    fontSize: '14px',
                                                 }}
                                             >
                                                 {column.label}
@@ -294,7 +294,7 @@ export default function UserTable() {
                                                         <TableCell
                                                             key={column.id}
                                                             align={column.align}
-                                                            sx={{ fontSize: '13px' }}
+                                                            sx={{ fontSize: '14px' }}
                                                         >
                                                             {/* Render avatar if the column is 'avatar', otherwise display text */}
                                                             {column.id === 'avatar' ? (
@@ -318,7 +318,7 @@ export default function UserTable() {
                                                                             <CustomizeTypography
                                                                                 sx={{
                                                                                     fontSize:
-                                                                                        '13px',
+                                                                                        '14px',
                                                                                     mb: 0,
                                                                                 }}
                                                                             >
@@ -348,7 +348,7 @@ export default function UserTable() {
                                                                 column.format(value)
                                                             ) : column.id === 'name' ? (
                                                                 <Typography
-                                                                    sx={{ fontSize: '13px' }}
+                                                                    sx={{ fontSize: '14px' }}
                                                                 >
                                                                     {row.firstName} {row.lastName}
                                                                 </Typography>

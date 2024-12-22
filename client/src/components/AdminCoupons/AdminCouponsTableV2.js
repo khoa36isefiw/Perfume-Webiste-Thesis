@@ -329,7 +329,7 @@ const CouponsTable = () => {
                                                         key={column.id}
                                                         align={column.align}
                                                         sx={{
-                                                            fontSize: '13px',
+                                                            fontSize: '14px',
                                                             textAlign: 'center',
                                                         }}
                                                     >
@@ -414,12 +414,12 @@ const CouponsTable = () => {
                                                             )
                                                         ) : column.id === 'startDate' ? (
                                                             <>
-                                                                <Typography sx={{ fontSize: 12 }}>
+                                                                <Typography sx={{ fontSize: 14 }}>
                                                                     {formatDate(row.startDate)}
                                                                 </Typography>
                                                             </>
                                                         ) : column.id === 'endDate' ? (
-                                                            <Typography sx={{ fontSize: 12 }}>
+                                                            <Typography sx={{ fontSize: 14 }}>
                                                                 {formatDate(row.endDate)}
                                                             </Typography>
                                                         ) : (

@@ -243,14 +243,14 @@ function AdminTableBrands() {
                                                         }}
                                                     >
                                                         <TableCell
-                                                            sx={{ fontSize: '13px' }}
+                                                            sx={{ fontSize: '14px' }}
                                                             component="th"
                                                             scope="brand"
                                                         >
                                                             {index + 1}
                                                         </TableCell>
                                                         <TableCell
-                                                            sx={{ fontSize: '13px' }}
+                                                            sx={{ fontSize: '14px' }}
                                                             align="left"
                                                         >
                                                             {brand.nameEn}
@@ -260,7 +260,7 @@ function AdminTableBrands() {
                                                             align="left"
                                                             sx={{
                                                                 maxWidth: '400px',
-                                                                fontSize: '13px',
+                                                                fontSize: '14px',
                                                             }}
                                                         >
                                                             {brand.descriptionEN ? (
@@ -280,7 +280,7 @@ function AdminTableBrands() {
                                                                         padding: '4px 8px',
                                                                         borderRadius: 1,
                                                                         filter: 'drop-shadow(0 0 1mm #d5d5d5)',
-                                                                        fontSize: '12px',
+                                                                        fontSize: '14px',
                                                                     }}
                                                                 >
                                                                     No Description
