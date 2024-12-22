@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -29,18 +29,15 @@ const columns = [
 ];
 
 export default function AdminRecentAddedV2() {
-    const { data: products, isLoading, mutate } = useProduct();
+    const { data: products, isLoading } = useProduct();
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [rows, setRows] = useState([]); // Dynamic user data
-    const [searchTerm, setSearchTerm] = useState(''); // Search term state
 
-    useEffect(() => {
-        if (products && products?.data) {
-            setRows(products?.data);
-        }
-    }, [products?.data]);
+    if (products?.data && rows !== products?.data) {
+        setRows(products?.data);
+    }
 
     // Handle page change for pagination
     const handleChangePage = (event, newPage) => {
@@ -51,11 +48,6 @@ export default function AdminRecentAddedV2() {
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(event.target.value);
         setPage(0);
-    };
-
-    // Handle search input change
-    const handleSearch = (event) => {
-        setSearchTerm(event.target.value.toLowerCase());
     };
 
     // Flatten rows based on product sizes
@@ -75,16 +67,6 @@ export default function AdminRecentAddedV2() {
             variants: [size],
         })),
     );
-
-    // Filter flattened rows based on product name, and brand
-
-    const filteredRows = flattenedRows.filter(
-        (row) =>
-            row?.productName?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
-            row?.brand?.toLowerCase().includes(searchTerm?.toLowerCase()),
-    );
-
-    // console.log('filteredRows: ', filteredRows);
 
     return (
         <React.Fragment>
@@ -137,7 +119,7 @@ export default function AdminRecentAddedV2() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {filteredRows
+                                    {flattenedRows
                                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                         .map((row) => (
                                             <TableRow
@@ -195,7 +177,7 @@ export default function AdminRecentAddedV2() {
                         <TablePagination
                             rowsPerPageOptions={[10, 25, 100]}
                             component="div"
-                            count={filteredRows.length}
+                            count={flattenedRows.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             onPageChange={handleChangePage}

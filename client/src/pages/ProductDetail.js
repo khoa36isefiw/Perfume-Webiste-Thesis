@@ -15,7 +15,6 @@ import { useTranslation } from 'react-i18next';
 import useProductByBrand from '../api/useProductByBrand';
 import RelatedProduct from '../components/RelatedProduct/RelatedProduct';
 import useTopProductSold from '../api/useTopProductSold';
-import _ from 'lodash';
 
 function ProductDetail() {
     const { t, i18n } = useTranslation('translate');

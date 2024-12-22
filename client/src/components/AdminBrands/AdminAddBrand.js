@@ -1,11 +1,9 @@
 import React from 'react';
-import { Box, Typography, MenuItem, Button, TextField, Grid } from '@mui/material';
+import { Box, Typography, Button, Grid } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import { useNavigate } from 'react-router-dom';
-import { categoriesAPI } from '../../api/categoriesAPI';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+
 import { brandApi } from '../../api/brandApi';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';

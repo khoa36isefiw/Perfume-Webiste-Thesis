@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -28,9 +28,7 @@ import useDeleteItem from '../../hooks/useDeleteItem';
 import { couponAPI } from '../../api/couponAPI';
 import EmptyCart from '../EmptyCart/EmptyCart';
 import * as XLSX from 'xlsx';
-import { useDispatch, useSelector } from 'react-redux';
-
-const itemsPerPage = 5;
+import { useSelector } from 'react-redux';
 
 const columns = [
     { id: 'code', label: 'Coupon Code', minWidth: 20 },
@@ -55,7 +53,7 @@ const columns = [
 
 const CouponsTable = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+
     const couponData = useSelector((state) => state.couponsManagement.listCoupons);
     console.log('Data receving....: ', couponData);
     const { data: couponsData, mutate, isLoading } = useCoupons();
@@ -74,7 +72,7 @@ const CouponsTable = () => {
         messageContent,
         openConfirmMessage,
         showAnimation,
-        openDeleteConfirmation,
+
         handleCloseNotification,
         handleConfirmDisagree,
         handleConfirmAgree,
@@ -283,7 +281,7 @@ const CouponsTable = () => {
                         sx={{
                             margin: 0.5,
                             fontSize: '14px',
-                            textTransform: 'initial',
+
                             mb: 2,
                             borderRadius: 5,
                             textTransform: 'capitalize',

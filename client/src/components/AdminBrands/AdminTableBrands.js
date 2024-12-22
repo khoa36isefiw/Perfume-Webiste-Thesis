@@ -14,7 +14,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+
 import WarningIcon from '@mui/icons-material/Warning';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -146,7 +146,7 @@ function AdminTableBrands() {
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'space-between',
-                                    alignItems: 'center',
+
                                     marginBottom: '16px',
                                 }}
                             >

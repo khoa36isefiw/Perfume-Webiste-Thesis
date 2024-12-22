@@ -1,5 +1,3 @@
-import axiosClient from './axiosClient';
-
 export const chatbotAPI = {
     sendMessage: async (message) => {
         try {

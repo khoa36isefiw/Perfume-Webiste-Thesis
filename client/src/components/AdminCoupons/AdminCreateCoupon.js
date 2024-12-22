@@ -8,7 +8,6 @@ import {
     Typography,
     FormControl,
     Grid,
-    useMediaQuery,
 } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
@@ -25,7 +24,6 @@ const AdminCreateCoupon = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { showNotificationMessage } = useSnackbarMessage();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     // get the current date time follow yyyy-mm-dd format
     // let currentDate = new Date().toLocaleString('en-CA').slice(0, 10);

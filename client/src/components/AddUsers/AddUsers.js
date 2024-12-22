@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TextField, Button, Paper, Box, Avatar } from '@mui/material';
+import { Button, Box, Avatar } from '@mui/material';
 import { ArrowBackIos } from '@mui/icons-material';
 import { theme } from '../../Theme/Theme';
 import { AdminHeadingTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -24,7 +24,6 @@ export default function AddUsers() {
     // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const userInfor = { avatar: image, name, email, password, address, phoneNumber };
 
         // Send POST request to add user
         const response = await fetch(
