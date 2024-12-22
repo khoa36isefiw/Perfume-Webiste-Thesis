@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, Typography, MenuItem, Grid } from '@mui/material';
 
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -10,59 +10,27 @@ import { categoriesAPI } from '../../api/categoriesAPI';
 
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
-import { getId } from '../../utils/getIdByLocation';
-import useCategoryById from '../../api/useCategoryById';
 
 function AdminEditCategory() {
-    const navigate = useNavigate();
     const location = useLocation();
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
-    const categoryId = getId(location); // get category id from location
-    const { data: categoryData, isLoading } = useCategoryById(categoryId); // get data of category by id
-    const { data: categoriesData } = useCategory();
-    console.log('categoryId: ', categoryId);
-    console.log('categoryData: ', categoryData?.data);
-
+    const { category } = location.state || [];
+    const { data: categoriesData, isLoading } = useCategory();
+    const responeCategoriesData = categoriesData?.data || [];
+    console.log('categoriesData: ', categoriesData?.data);
+    console.log('category: ', category);
     const [name, setName] = React.useState({
-        value: '',
+        value: category?.nameEn || '',
         message: '',
     });
-
+    const [categories, setCategories] = React.useState(responeCategoriesData);
     const [description, setDescription] = React.useState({
-        value: '',
+        value: category?.descriptionEn || '',
         message: '',
     });
-    const [selectedCategoryId, setSelectedCategoryId] = React.useState({
-        value: '',
-        message: '',
-    });
+    const [selectedCategoryId, setSelectedCategoryId] = React.useState(category?._id);
 
-    const [categories, setCategories] = React.useState(null);
-
-    console.log('before selectedCategoryId: ', selectedCategoryId);
-    useEffect(() => {
-        if (categoryData) {
-            console.log('chay vo day');
-            setName({
-                ...name,
-                value: categoryData?.data?.nameEn,
-            });
-            setDescription({
-                ...description,
-                value: categoryData?.data?.descriptionEn,
-            });
-            setSelectedCategoryId({
-                ...selectedCategoryId,
-                value:
-                    categoryData?.data?.parent !== ''
-                        ? categoryData?.data?.parent
-                        : categoryData?.data?._id,
-            });
-            setCategories(categoryData?.data);
-        }
-        console.log('after selectedCategoryId: ', selectedCategoryId);
-        console.log('categories: ', categories);
-    }, [categoryData]);
+    const navigate = useNavigate();
 
     const validateName = () => {
         if (name.value.trim() === '') {
@@ -85,25 +53,21 @@ function AdminEditCategory() {
     };
 
     const handleSelectedCategory = (e) => {
-        const selectedCategory = e.target.value;
-        console.log('Selected Category ID:', selectedCategory);
-
-        setSelectedCategoryId({
-            ...selectedCategoryId,
-            value: selectedCategory,
-        });
+        console.log(selectedCategoryId);
+        setSelectedCategoryId(e.target.value);
     };
 
     const handleUpdateCategory = async () => {
-        if (name.value !== '' && description.value !== '') {
+        const getCategoryById = await categoriesAPI.getCategoryById(selectedCategoryId);
+        console.log('getCategoryById: ', getCategoryById);
+        if (getCategoryById !== '' && name.value !== '' && description.value !== '') {
             const data = {
                 nameVn: name.value,
                 nameEn: name.value,
-                parent: selectedCategoryId.value,
+                parent: getCategoryById.data.parent,
                 descriptionEn: description.value,
             };
-            const editResponse = await categoriesAPI.updateCategory(categoryData?.data?._id, data);
-            console.log('editResponse: ', editResponse?.data);
+            const editResponse = await categoriesAPI.updateCategory(category?._id, data);
             if (editResponse.status === 200) {
                 showNotificationMessage('success', 'Edit Category', 'Edit Category Successfully');
                 setTimeout(() => {
@@ -166,11 +130,11 @@ function AdminEditCategory() {
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                                    {categoriesData?.data && (
+                                    {categories.length > 0 && (
                                         <AdminInputStyles
                                             fullWidth
                                             select
-                                            value={selectedCategoryId?.value}
+                                            value={selectedCategoryId}
                                             onChange={handleSelectedCategory}
                                             label="Select Category"
                                             sx={{ fontSize: '14px' }}
@@ -178,19 +142,19 @@ function AdminEditCategory() {
                                             <MenuItem value="" sx={{ fontSize: '14px' }}>
                                                 <em>None</em>
                                             </MenuItem>
-                                            {categoriesData?.data.length > 0 &&
-                                                categoriesData?.data.map(
-                                                    (category) =>
-                                                        category.status === 'active' && (
-                                                            <MenuItem
-                                                                key={category._id}
-                                                                value={category._id}
-                                                                sx={{ fontSize: '14px' }}
-                                                            >
-                                                                {category.nameEn}
-                                                            </MenuItem>
-                                                        ),
-                                                )}
+                                            {categories.map(
+                                                (category) =>
+                                                    category.status === 'active' && (
+                                                        <MenuItem
+                                                            key={category._id}
+                                                            value={category._id}
+                                                            sx={{ fontSize: '14px' }}
+                                                        >
+                                                            {category.nameEn}
+                                                        </MenuItem>
+                                                    ),
+                                            )}
+                                            *
                                         </AdminInputStyles>
                                     )}
                                 </Grid>

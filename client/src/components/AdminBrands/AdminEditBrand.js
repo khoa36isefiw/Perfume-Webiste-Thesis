@@ -1,28 +1,44 @@
-import React from 'react';
-import { Box, Typography, Button, TextField, Grid } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Box, Typography, Button, Grid } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 import { brandApi } from '../../api/brandApi';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
+import { getId } from '../../utils/getIdByLocation';
+import useBrandById from '../../api/useBrandById';
 
 function AdminEditBrand() {
     const location = useLocation();
-    const { brand } = location.state || [];
+    const brandId = getId(location);
+    const { data: brandData, isLoading } = useBrandById(brandId);
+
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const [name, setName] = React.useState({
-        value: brand?.nameEn || '',
+        value: '',
         message: '',
     });
 
     const [description, setDescription] = React.useState({
-        value: brand?.descriptionEN || '',
+        // value: brand?.descriptionEN || '',
+        value: '',
         message: '',
     });
+
+    useEffect(() => {
+        if (brandData) {
+            setName({
+                ...name,
+                value: brandData?.data?.nameEn,
+            });
+            setDescription({
+                ...description,
+                value: brandData?.data?.descriptionEN,
+            });
+        }
+    }, [brandData]);
 
     const navigate = useNavigate();
 
@@ -56,7 +72,7 @@ function AdminEditBrand() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         if (!checkError()) {
-            const brandId = brand?._id;
+            const brandId = brandData?.data?._id;
             const updateData = {
                 nameEn: name.value,
                 nameVn: name.value,

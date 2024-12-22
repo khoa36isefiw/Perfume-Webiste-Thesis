@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, MenuItem, Select, TextField, Typography, FormControl, Grid } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
@@ -12,22 +12,47 @@ import { AdminButtonDesign } from './AdminCreateCoupon';
 import { couponAPI } from '../../api/couponAPI';
 import { grey } from '@mui/material/colors';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import useLoadingV2 from '../../hooks/useLoadingV2';
+import { getId } from '../../utils/getIdByLocation';
+import useCouponById from '../../api/useCouponById';
 
 function AdminEditCoupon() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { LoadingAPI } = useLoadingV2();
     const location = useLocation();
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
+    const couponId = getId(location);
+    const { data: couponData, isLoading } = useCouponById(couponId);
+    console.log('couponData: ', couponData);
 
-    const { couponData } = location.state || {};
-    const [quantity, setQuantity] = useState(couponData.quantity);
-    const [code, setCode] = useState(couponData.code);
-    const [status, setStatus] = useState(couponData.status);
-    const [description, setDescription] = useState(couponData.description);
-    const [discount, setDiscount] = useState(couponData.discount);
-    const [getCurrentDate, setGetCurrentDate] = useState(couponData.startDate);
-    const [getEndDate, setGetEndDate] = useState(couponData.endDate);
+    const [quantity, setQuantity] = useState(null);
+    const [code, setCode] = useState('');
+    const [status, setStatus] = useState('');
+    const [description, setDescription] = useState('');
+    const [discount, setDiscount] = useState(null);
+    const [getCurrentDate, setGetCurrentDate] = useState(null);
+    const [getEndDate, setGetEndDate] = useState(null);
     const [disabledButton, setDisabledButton] = useState(false);
+
+    // push data to state from api
+    useEffect(() => {
+        console.log('chay vo day');
+        if (couponData) {
+            console.log('chay vo day nữa nè');
+            setQuantity(couponData?.data?.quantity || 0);
+            setCode(couponData?.data?.code || '');
+            setStatus(couponData?.data?.status || '');
+            setDescription(couponData?.data?.description || '');
+            setDiscount(couponData?.data?.discount || 0);
+            setGetCurrentDate(couponData?.data?.startDate.slice(0, 10) || null);
+            setGetEndDate(couponData?.data?.endDate || null);
+        }
+    }, [couponData]);
+
+    if (isLoading) {
+        return <LoadingAPI />;
+    }
 
     const statusOptions = ['active', 'inactive', 'expired'];
     // Handle form submission
@@ -77,7 +102,7 @@ function AdminEditCoupon() {
                 }
             }
 
-            const updateCouponResponse = await couponAPI.updateCoupon(couponData._id, data);
+            const updateCouponResponse = await couponAPI.updateCoupon(couponData?.data?._id, data);
             if (updateCouponResponse?.data.message.includes('duplicated code')) {
                 showNotificationMessage(
                     'warning',
@@ -99,7 +124,7 @@ function AdminEditCoupon() {
             );
         }
 
-        dispatch(updateCoupon({ couponId: couponData._id, data: data }));
+        dispatch(updateCoupon({ couponId: couponData?.data?._id, data: data }));
     };
 
     const handleNumberBlur = () => {
@@ -236,7 +261,8 @@ function AdminEditCoupon() {
                     <TextField
                         id="date"
                         type="date"
-                        defaultValue={getCurrentDate?.slice(0, 10)} // Show only the date part
+                        // defaultValue={getCurrentDate?.slice(0, 10)} // Show only the date part
+                        value={getCurrentDate?.slice(0, 10)} // Show only the date part
                         onChange={(e) => setGetCurrentDate(new Date(e.target.value).toISOString())} // Set to ISO format
                         fullWidth
                         InputLabelProps={{
@@ -256,7 +282,8 @@ function AdminEditCoupon() {
                     <TextField
                         id="date"
                         type="date"
-                        defaultValue={getEndDate?.slice(0, 10)} // Show only the date part
+                        // defaultValue={getEndDate?.slice(0, 10)} // Show only the date part
+                        value={getEndDate?.slice(0, 10)} // Show only the date part
                         onChange={(e) => setGetEndDate(new Date(e.target.value).toISOString())} // Set to ISO format
                         fullWidth
                         InputLabelProps={{

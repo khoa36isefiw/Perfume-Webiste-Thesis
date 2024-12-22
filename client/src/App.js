@@ -1,5 +1,5 @@
 import './App.css'; // reset css at this file
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { adminRoutes, privateRoutes, publicRoutes } from './routes/routes';
 import UserLayouts from './layouts/UserLayout/UserLayouts';

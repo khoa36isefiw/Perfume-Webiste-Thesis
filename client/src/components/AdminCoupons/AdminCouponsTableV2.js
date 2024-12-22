@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -26,11 +26,10 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import useCoupons from '../../api/useCoupons';
 import useDeleteItem from '../../hooks/useDeleteItem';
 import { couponAPI } from '../../api/couponAPI';
-import EmptyCart from '../EmptyCart/EmptyCart';
-import * as XLSX from 'xlsx';
-import { useDispatch, useSelector } from 'react-redux';
 
-const itemsPerPage = 5;
+import * as XLSX from 'xlsx';
+import { useSelector } from 'react-redux';
+import useLoadingV2 from '../../hooks/useLoadingV2';
 
 const columns = [
     { id: 'code', label: 'Coupon Code', minWidth: 20 },
@@ -55,10 +54,10 @@ const columns = [
 
 const CouponsTable = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const { LoadingAPI } = useLoadingV2;
     const couponData = useSelector((state) => state.couponsManagement.listCoupons);
     console.log('Data receving....: ', couponData);
-    const { data: couponsData, mutate, isLoading } = useCoupons();
+    const { data: couponsData, mutate } = useCoupons();
 
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
 
@@ -74,7 +73,7 @@ const CouponsTable = () => {
         messageContent,
         openConfirmMessage,
         showAnimation,
-        openDeleteConfirmation,
+
         handleCloseNotification,
         handleConfirmDisagree,
         handleConfirmAgree,
@@ -196,10 +195,6 @@ const CouponsTable = () => {
         XLSX.writeFile(workbook, 'Coupons Table.xlsx');
     };
 
-    if (isLoading) {
-        return <EmptyCart title="Promotions Code" subTitle="There is nothing at here" />;
-    }
-
     return (
         <Box
             sx={{
@@ -283,7 +278,7 @@ const CouponsTable = () => {
                         sx={{
                             margin: 0.5,
                             fontSize: '14px',
-                            textTransform: 'initial',
+
                             mb: 2,
                             borderRadius: 5,
                             textTransform: 'capitalize',
@@ -334,7 +329,7 @@ const CouponsTable = () => {
                                                         key={column.id}
                                                         align={column.align}
                                                         sx={{
-                                                            fontSize: '13px',
+                                                            fontSize: '14px',
                                                             textAlign: 'center',
                                                         }}
                                                     >
@@ -419,12 +414,12 @@ const CouponsTable = () => {
                                                             )
                                                         ) : column.id === 'startDate' ? (
                                                             <>
-                                                                <Typography sx={{ fontSize: 12 }}>
+                                                                <Typography sx={{ fontSize: 14 }}>
                                                                     {formatDate(row.startDate)}
                                                                 </Typography>
                                                             </>
                                                         ) : column.id === 'endDate' ? (
-                                                            <Typography sx={{ fontSize: 12 }}>
+                                                            <Typography sx={{ fontSize: 14 }}>
                                                                 {formatDate(row.endDate)}
                                                             </Typography>
                                                         ) : (

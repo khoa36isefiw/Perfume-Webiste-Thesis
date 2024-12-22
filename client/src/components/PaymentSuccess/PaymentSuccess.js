@@ -12,8 +12,6 @@ function PaymentSuccess() {
     const location = useLocation();
     const { t, i18n } = useTranslation('translate');
 
-    const currentPaymentData = JSON.parse(window.localStorage.getItem('payment_data')) || null;
-
     const [refValue, setRefValue] = React.useState('');
 
     useEffect(() => {
@@ -139,7 +137,7 @@ function PaymentSuccess() {
                                 {t('common.payment.success.number')}
                             </CustomizeTypography>
                             <CustomizeTypography sx={{ mb: 0, fontSize: '14px' }}>
-                                {currentPaymentData?.userPhoneNumber}
+                                {paymentData?.data?.order?.phoneNumber}
                             </CustomizeTypography>
                         </Box>
                     </Grid>

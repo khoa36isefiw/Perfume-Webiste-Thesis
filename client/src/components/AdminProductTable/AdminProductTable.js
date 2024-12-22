@@ -318,7 +318,7 @@ export default function AdminProductTable() {
                                                 key={column.id}
                                                 align={column.align}
                                                 style={{ minWidth: column.minWidth }}
-                                                sx={{ bgcolor: blue[200], fontSize: '13px' }}
+                                                sx={{ bgcolor: blue[200], fontSize: '14px' }}
                                             >
                                                 {column.label}
                                             </TableCell>
@@ -341,7 +341,7 @@ export default function AdminProductTable() {
                                                         <TableCell
                                                             key={column.id}
                                                             align={column.align}
-                                                            sx={{ fontSize: '13px' }}
+                                                            sx={{ fontSize: '14px' }}
                                                         >
                                                             {/* Render avatar if the column is 'avatar', otherwise display text */}
                                                             {column.id === 'image' ? (

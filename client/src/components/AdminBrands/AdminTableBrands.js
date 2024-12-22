@@ -14,7 +14,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+
 import WarningIcon from '@mui/icons-material/Warning';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import { AdminTypography, CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -146,7 +146,7 @@ function AdminTableBrands() {
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'space-between',
-                                    alignItems: 'center',
+
                                     marginBottom: '16px',
                                 }}
                             >
@@ -243,14 +243,14 @@ function AdminTableBrands() {
                                                         }}
                                                     >
                                                         <TableCell
-                                                            sx={{ fontSize: '13px' }}
+                                                            sx={{ fontSize: '14px' }}
                                                             component="th"
                                                             scope="brand"
                                                         >
                                                             {index + 1}
                                                         </TableCell>
                                                         <TableCell
-                                                            sx={{ fontSize: '13px' }}
+                                                            sx={{ fontSize: '14px' }}
                                                             align="left"
                                                         >
                                                             {brand.nameEn}
@@ -260,7 +260,7 @@ function AdminTableBrands() {
                                                             align="left"
                                                             sx={{
                                                                 maxWidth: '400px',
-                                                                fontSize: '13px',
+                                                                fontSize: '14px',
                                                             }}
                                                         >
                                                             {brand.descriptionEN ? (
@@ -280,7 +280,7 @@ function AdminTableBrands() {
                                                                         padding: '4px 8px',
                                                                         borderRadius: 1,
                                                                         filter: 'drop-shadow(0 0 1mm #d5d5d5)',
-                                                                        fontSize: '12px',
+                                                                        fontSize: '14px',
                                                                     }}
                                                                 >
                                                                     No Description
