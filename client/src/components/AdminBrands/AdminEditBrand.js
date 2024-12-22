@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography, Button, Grid } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
@@ -7,20 +7,38 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { brandApi } from '../../api/brandApi';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
+import { getId } from '../../utils/getIdByLocation';
+import useBrandById from '../../api/useBrandById';
 
 function AdminEditBrand() {
     const location = useLocation();
+    const brandId = getId(location);
+    const { data: brandData, isLoading } = useBrandById(brandId);
     const { brand } = location.state || [];
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const [name, setName] = React.useState({
-        value: brand?.nameEn || '',
+        value: '',
         message: '',
     });
 
     const [description, setDescription] = React.useState({
-        value: brand?.descriptionEN || '',
+        // value: brand?.descriptionEN || '',
+        value: '',
         message: '',
     });
+
+    useEffect(() => {
+        if (brandData) {
+            setName({
+                ...name,
+                value: brandData?.data?.nameEn,
+            });
+            setDescription({
+                ...description,
+                value: brandData?.data?.descriptionEN,
+            });
+        }
+    }, [brandData]);
 
     const navigate = useNavigate();
 
