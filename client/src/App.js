@@ -7,11 +7,13 @@ import { useEffect } from 'react';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import { useAuth } from './contexts/authContext';
 import useLoadingV2 from './hooks/useLoadingV2';
+import { useTranslation } from 'react-i18next';
 
 function App() {
+    const { i18n } = useTranslation();
     const { role, loggedIn, loading } = useAuth();
     const { LoadingAPI } = useLoadingV2();
-    console.log('role: ', role, loggedIn);
+
     // default language for the website is English
     useEffect(() => {
         if (window.location.pathname === '/') {
@@ -58,7 +60,7 @@ function App() {
                                         <Page />
                                     </Layout>
                                 ) : (
-                                    <Navigate to="/404" />
+                                    <Navigate to={`/${i18n.language}/sign-in`} />
                                 )
                             }
                         />
@@ -73,7 +75,7 @@ function App() {
                             key={route.path}
                             path={route.path}
                             element={
-                                loggedIn && role === 1 ? (
+                                role === 1 ? (
                                     <Layout>
                                         <Page />
                                     </Layout>
