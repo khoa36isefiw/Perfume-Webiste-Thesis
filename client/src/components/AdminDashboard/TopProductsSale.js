@@ -11,7 +11,7 @@ import { mobileScreen } from '../../Theme/Theme';
 const dataTitleTable = ['Name', 'Price', 'Units Sold'];
 
 function TopProductsSale() {
-    const { data: productSold, isLoading } = useTopProductSold();
+    const { data: productSold } = useTopProductSold();
 
     const [topProductSold, setTopProductSold] = useState([]);
 
@@ -28,7 +28,7 @@ function TopProductsSale() {
             });
             setTopProductSold(listUsers);
         }
-    }, [productSold?.data]);
+    }, [productSold]);
     // console.log('topProductSold: ', topProductSold);
 
     return (

@@ -45,7 +45,7 @@ function MobileHeader({ setOpenMenu, openMenu }) {
         const savedLanguage = window.localStorage.getItem('language') || 'en';
         i18n.changeLanguage(savedLanguage); // Set the language for i18n
         setEnLanguage(savedLanguage === 'en'); // Update local state
-    }, []);
+    }, [i18n]);
 
     const handleChangeLanguage = (lng) => {
         const currentPath = window.location.pathname;

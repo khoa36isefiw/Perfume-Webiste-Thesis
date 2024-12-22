@@ -3,7 +3,7 @@ import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { mobileScreen, theme } from '../../Theme/Theme';
-import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
+
 import { useTranslation } from 'react-i18next';
 
 function Hotline() {

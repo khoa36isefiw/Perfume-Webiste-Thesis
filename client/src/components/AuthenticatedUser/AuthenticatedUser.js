@@ -7,7 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import userDefaultAvatar from '../../assets/images/defaultA.png';
+
 import Logout from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
@@ -15,8 +15,7 @@ import PasswordIcon from '@mui/icons-material/Password';
 
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutAccount } from '../../redux/feature/AccountManagement/AccountManagementSlice';
+
 import { useNavigate } from 'react-router-dom';
 import { backTop } from '../goBackTop/goBackTop';
 import { authAPI } from '../../api/authAPI';
@@ -26,9 +25,9 @@ import { useAuth } from '../../contexts/authContext';
 
 export default function AuthenticatedUser() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const loggedInAccount = useSelector((state) => state.accountManagement.loggedInAccount);
+
     const userData = JSON.parse(localStorage.getItem('user_data')) || null;
     const { t, i18n } = useTranslation('translate');
     const { role } = useAuth();
@@ -87,7 +86,6 @@ export default function AuthenticatedUser() {
         <React.Fragment>
             <Box
                 sx={{
-                    display: 'flex',
                     alignItems: 'center',
                     textAlign: 'center',
                     display: userData !== null ? 'block' : 'none',

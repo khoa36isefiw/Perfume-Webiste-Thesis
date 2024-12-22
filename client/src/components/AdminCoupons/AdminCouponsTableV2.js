@@ -29,7 +29,6 @@ import { couponAPI } from '../../api/couponAPI';
 
 import * as XLSX from 'xlsx';
 import { useSelector } from 'react-redux';
-import useLoadingV2 from '../../hooks/useLoadingV2';
 
 const columns = [
     { id: 'code', label: 'Coupon Code', minWidth: 20 },
@@ -54,7 +53,7 @@ const columns = [
 
 const CouponsTable = () => {
     const navigate = useNavigate();
-    const { LoadingAPI } = useLoadingV2;
+
     const couponData = useSelector((state) => state.couponsManagement.listCoupons);
     console.log('Data receving....: ', couponData);
     const { data: couponsData, mutate } = useCoupons();

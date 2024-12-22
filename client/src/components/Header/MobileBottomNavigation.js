@@ -18,7 +18,7 @@ export default function MobileBottomNavigation() {
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0); // Track selected icon
     const userData = JSON.parse(window.localStorage.getItem('user_data')); // get data of user who logged into the system
-    const { t, i18n } = useTranslation('translate');
+    const { i18n } = useTranslation('translate');
 
     const currentValue = JSON.parse(localStorage.getItem('bottom_nav_number'));
 

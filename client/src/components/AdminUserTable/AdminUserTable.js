@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Table from '@mui/material/Table';
@@ -20,7 +20,7 @@ import {
     AdminTypography,
     CustomizeTypography,
 } from '../CustomizeTypography/CustomizeTypography';
-import { useNavigate } from 'react-router-dom';
+
 import { Box, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -37,8 +37,7 @@ import * as XLSX from 'xlsx';
 
 // Component to render the table with dynamic data
 export default function UserTable() {
-    const navigate = useNavigate();
-    const { data: users, mutate, isLoading, error } = useUsers();
+    const { data: users, mutate, isLoading } = useUsers();
 
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [page, setPage] = useState(0);
@@ -383,7 +382,6 @@ export default function UserTable() {
                                     fontSize: '13px',
                                 },
 
-                                '.MuiSvgIcon-root': { fontSize: '14px' },
                                 '.MuiSelect-icon': {
                                     fontSize: '24px',
                                 },

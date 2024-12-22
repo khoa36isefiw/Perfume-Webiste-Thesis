@@ -10,8 +10,8 @@ function CategoryFilter({ setCId }) {
     const [categorySelected, setCategorySelected] = useState(
         JSON.parse(window.localStorage.getItem('category')) || '',
     );
-    const { data: categoryData, isLoading, mutate } = useCategory();
-    const { t, i18n } = useTranslation('translate');
+    const { data: categoryData } = useCategory();
+    const { i18n } = useTranslation('translate');
 
     const selectedCategory = JSON.parse(window.localStorage.getItem('category'));
 

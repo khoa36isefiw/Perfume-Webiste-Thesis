@@ -25,10 +25,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import useOrders from '../../api/useOrders';
 import { formatDate } from '../FormatDate/formatDate';
 import { converToVND } from '../convertToVND/convertToVND';
-import CancelIcon from '@mui/icons-material/Cancel';
+// import CancelIcon from '@mui/icons-material/Cancel';
 import * as XLSX from 'xlsx';
-import { ordersAPI } from '../../api/ordersAPI';
-import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+
+
 
 const columns = [
     { id: '_id', label: 'Order ID', minWidth: 20 },
@@ -57,7 +57,7 @@ export default function AdminOrdersTable() {
     const navigate = useNavigate();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const { showNotificationMessage } = useSnackbarMessage();
+
     const [searchTerm, setSearchTerm] = useState(''); // Search term state
     const { data: ordersData, isLoading } = useOrders();
     const [rows, setRows] = useState([]); // Dynamic user data
@@ -133,19 +133,19 @@ export default function AdminOrdersTable() {
     };
 
     // cancel
-    const handleCancelOrder = async (orderId) => {
-        const orderResponse = await ordersAPI.cancelOrder(orderId);
-        if (orderResponse.status === 200) {
-            if (orderResponse.status === 200) {
-                showNotificationMessage(
-                    'success',
-                    'Cancel Order',
-                    'Order has been cancelled successfully!',
-                );
-                navigate('/admin/manage-orders');
-            }
-        }
-    };
+    // const handleCancelOrder = async (orderId) => {
+    //     const orderResponse = await ordersAPI.cancelOrder(orderId);
+    //     if (orderResponse.status === 200) {
+    //         if (orderResponse.status === 200) {
+    //             showNotificationMessage(
+    //                 'success',
+    //                 'Cancel Order',
+    //                 'Order has been cancelled successfully!',
+    //             );
+    //             navigate('/admin/manage-orders');
+    //         }
+    //     }
+    // };
 
     return (
         <Box

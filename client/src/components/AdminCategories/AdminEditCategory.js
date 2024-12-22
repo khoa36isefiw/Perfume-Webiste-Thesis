@@ -37,8 +37,6 @@ function AdminEditCategory() {
         message: '',
     });
 
-    const [categories, setCategories] = React.useState(null);
-
     console.log('before selectedCategoryId: ', selectedCategoryId);
     useEffect(() => {
         if (categoryData) {
@@ -58,11 +56,17 @@ function AdminEditCategory() {
                         ? categoryData?.data?.parent
                         : categoryData?.data?._id,
             });
-            setCategories(categoryData?.data);
         }
-        console.log('after selectedCategoryId: ', selectedCategoryId);
-        console.log('categories: ', categories);
-    }, [categoryData]);
+    }, [
+        name,
+        description,
+        selectedCategoryId,
+        categoryData,
+        setSelectedCategoryId,
+
+        setName,
+        setDescription,
+    ]);
 
     const validateName = () => {
         if (name.value.trim() === '') {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
     Box,
     Container,
@@ -17,7 +17,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import { PayPalButton } from 'react-paypal-button-v2';
 import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonInCart';
 
-import { useDispatch } from 'react-redux';
 import CartTotal from '../Cart/CartTotal';
 import { converToVND } from '../convertToVND/convertToVND';
 import { CustomizeDividerVertical } from '../CustomizeDivider/CustomizeDivider';
@@ -47,8 +46,11 @@ function CheckoutInformation() {
     const [address, setAddress] = useState(userData[0]?.address || '');
 
     // console.log('userData: ',userData);
-    const getListProductSelected =
-        JSON.parse(window.localStorage.getItem('list_product_selected')) || [];
+    // use useMemo to avoid recalculating on every render
+    const getListProductSelected = useMemo(() => {
+        return JSON.parse(window.localStorage.getItem('list_product_selected')) || [];
+    }, []);
+
     // console.log('getListProductSelected: ', getListProductSelected);
 
     // component parent
@@ -142,7 +144,7 @@ function CheckoutInformation() {
         if (!isCheckingOut && getListProductSelected.length === 0) {
             navigate(`/${i18n.language}/shop`);
         }
-    }, [getListProductSelected, isCheckingOut]);
+    }, [getListProductSelected, isCheckingOut, navigate, i18n]);
     if (animation) {
         console.log('chay vo day');
         return <DeliveryAnimation />;
