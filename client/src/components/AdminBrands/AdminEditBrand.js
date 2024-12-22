@@ -14,7 +14,7 @@ function AdminEditBrand() {
     const location = useLocation();
     const brandId = getId(location);
     const { data: brandData, isLoading } = useBrandById(brandId);
-    const { brand } = location.state || [];
+
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const [name, setName] = React.useState({
         value: '',
@@ -72,7 +72,7 @@ function AdminEditBrand() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         if (!checkError()) {
-            const brandId = brand?._id;
+            const brandId = brandData?.data?._id;
             const updateData = {
                 nameEn: name.value,
                 nameVn: name.value,

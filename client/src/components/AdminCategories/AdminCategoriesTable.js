@@ -25,10 +25,12 @@ import { mobileScreen, theme } from '../../Theme/Theme';
 import { blue } from '@mui/material/colors';
 import * as XLSX from 'xlsx';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import useLoadingV2 from '../../hooks/useLoadingV2';
 
 function AdminCategoriesTable() {
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
-    const { data: categoriesData, mutate } = useCategory();
+    const { LoadingAPI } = useLoadingV2();
+    const { data: categoriesData, mutate, isLoading } = useCategory();
     const { data: parentCategoriesData } = useParentCategory();
     const [categories, setCategories] = useState([]);
     const [parentCategory, setParentCategory] = useState([]);
@@ -129,6 +131,11 @@ function AdminCategoriesTable() {
             cate?.nameEn?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
             cate?.descriptionEn?.toLowerCase().includes(searchTerm?.toLowerCase()),
     );
+
+    // loading...
+    if (isLoading) {
+        return <LoadingAPI />;
+    }
 
     return (
         <Box sx={{ height: '100vh', mr: 8, [mobileScreen]: { mr: 0 } }}>
