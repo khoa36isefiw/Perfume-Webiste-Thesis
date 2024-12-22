@@ -4,8 +4,10 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import CustomizeTitle from '../CustomizeTitle/CustomizeTitle';
+import { useTranslation } from 'react-i18next';
 
 function Hotline() {
+    const { i18n } = useTranslation();
     return (
         <>
             <Box
@@ -37,11 +39,15 @@ function Hotline() {
                 <SupportAgentIcon sx={{ fontSize: '46px', color: theme.palette.secondaryText }} />
             </Box>
             <CustomizeTypography sx={{ mb: 0, textAlign: 'center', fontSize: '20px' }}>
-                <strong style={{ fontSize: '24px' }}>Call Us:</strong>
+                <strong style={{ fontSize: '24px' }}>
+                    {i18n.language === 'en' ? 'Call Us' : 'Gọi chúng tôi'}:
+                </strong>
                 <span style={{ marginLeft: '18px' }}>08 372-227-64 | 0938-775-001</span>
             </CustomizeTypography>
             <CustomizeTypography sx={{ mb: 0, textAlign: 'center', fontSize: '20px' }}>
-                Ho Chi Minh City University of Technology and Education
+                {i18n.language === 'en'
+                    ? ' Ho Chi Minh City University of Technology and Education'
+                    : 'Trường Đại Học Sư Phạm Kỹ Thuật Thành phố Hồ Chí Minh'}
             </CustomizeTypography>
         </>
     );
