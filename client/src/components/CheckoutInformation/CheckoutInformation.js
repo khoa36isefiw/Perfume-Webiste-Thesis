@@ -81,6 +81,8 @@ function CheckoutInformation() {
                     promotionCodeApplied,
                     PAYMENT_METHOD.VNPAY,
                 );
+
+                console.log('response vnpay:', response);
                 if (response.data?.vnpUrl) {
                     console.log('response: ', response);
                     window.location.href = response.data.vnpUrl;

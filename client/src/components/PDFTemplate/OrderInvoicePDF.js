@@ -50,25 +50,6 @@ export const OrderInvoicePDF = () => {
     const orderId = params.get('id');
     const { data: orderData, isLoading } = useOrderById(orderId);
     console.log('orderData: ', orderData);
-    const { order } = location.state || {};
-    const orderInfor = JSON.parse(window.localStorage.getItem('orderInvoice')) || [];
-    // console.log('orderData?.data?: ', orderData?.data?);
-    const userData = JSON.parse(window.localStorage.getItem('user_data')) || [];
-    // useEffect(() => {
-    //     const searchParams = new URLSearchParams(location.search); // get the current search query params
-    //     // console.log('searchParams: ', searchParams.toString());
-    //     searchParams.set('id', orderData?.data?._id); // if language change --> set id params
-    //     // split /: chia thành một mảng tách bởi /
-    //     // '/en/order-invoice' → ['', 'en', 'order-invoice'].
-    //     // slice(2): remove 2 first of elements in array -->  order-invoice
-    //     // ghép lại mảng thành một chuỗi, sử dụng / làm dấu phân cách.
-    //     const currentPath = location.pathname.split('/').slice(2).join('/');
-    //     console.log('location.pathname: ', location.pathname);
-    //     navigate(`/${i18n.language}/${currentPath}?${searchParams.toString()}`, {
-    //         replace: true,
-    //         state: { order }, // remain state
-    //     });
-    // }, [i18n.language]);
 
     const targetRef = useRef();
     // Calculate subtotal

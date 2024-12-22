@@ -26,9 +26,10 @@ import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import useCoupons from '../../api/useCoupons';
 import useDeleteItem from '../../hooks/useDeleteItem';
 import { couponAPI } from '../../api/couponAPI';
-import EmptyCart from '../EmptyCart/EmptyCart';
+
 import * as XLSX from 'xlsx';
 import { useSelector } from 'react-redux';
+import useLoadingV2 from '../../hooks/useLoadingV2';
 
 const columns = [
     { id: 'code', label: 'Coupon Code', minWidth: 20 },
@@ -53,10 +54,10 @@ const columns = [
 
 const CouponsTable = () => {
     const navigate = useNavigate();
-
+    const { LoadingAPI } = useLoadingV2;
     const couponData = useSelector((state) => state.couponsManagement.listCoupons);
     console.log('Data receving....: ', couponData);
-    const { data: couponsData, mutate, isLoading } = useCoupons();
+    const { data: couponsData, mutate } = useCoupons();
 
     const [filterCoupons, setFilterCoupons] = useState('All Coupons');
 
@@ -193,10 +194,6 @@ const CouponsTable = () => {
         // export the workbook as an Excel file
         XLSX.writeFile(workbook, 'Coupons Table.xlsx');
     };
-
-    if (isLoading) {
-        return <EmptyCart title="Promotions Code" subTitle="There is nothing at here" />;
-    }
 
     return (
         <Box
