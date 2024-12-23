@@ -152,6 +152,9 @@ const OrderController = {
             if (!order) {
                 return res.status(404).json({ message: 'Order not found' });
             }
+            if (order.status === 'PAID' || order.status === 'CANCELLED') {
+                return res.status(400).json({ message: 'Order is invalid' });
+            }
             order.status = 'CANCELLED';
             await order.save();
             res.status(200).json({ message: 'Order cancelled' });
