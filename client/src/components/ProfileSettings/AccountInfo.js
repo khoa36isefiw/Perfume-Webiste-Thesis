@@ -59,15 +59,25 @@ function AccountInfo() {
         const isFNameValid = validateName(firstName);
         const isLNameValid = validateName(lastName);
         const isPhoneValid = validatePhoneNumber(phoneNumber);
-        console.log('isPhoneValid: ', isPhoneValid);
+        const isAddressValid = validateRequired(address);
 
         // Cập nhật lỗi vào state
         const newFormErrors = {
-            fname: !isFNameValid ? state.message : '',
-            lname: !isLNameValid ? state.message : '',
+            fname: {
+                message: isFNameValid.message,
+                status: isFNameValid.isValid,
+            },
+            lname: {
+                message: isLNameValid.message,
+                status: isLNameValid.isValid,
+            },
             phone: {
                 message: isPhoneValid.message,
                 status: isPhoneValid.isValid,
+            },
+            address: {
+                message: isAddressValid.message,
+                status: isAddressValid.isValid,
             },
         };
 
@@ -292,8 +302,7 @@ function AccountInfo() {
                         placeholder="Muhammad"
                         defaultValue={userData?.firstName}
                         inputRef={firstNameRef}
-                        // error={formErrors.fname !== ''}
-                        // helperText={formErrors.fname}
+                        helperText={formErrors.fname.message}
                     />
                 </Grid>
             </Grid>
@@ -319,6 +328,7 @@ function AccountInfo() {
                         // use default value to get value of ref input
                         defaultValue={userData?.lastName}
                         inputRef={lastNameRef}
+                        helperText={formErrors.lname.message}
                     />
                 </Grid>
             </Grid>
@@ -344,12 +354,8 @@ function AccountInfo() {
                         // use default value to get value of ref input
                         defaultValue={userData?.phoneNumber}
                         inputRef={phoneNumberRef}
-                        error={!formErrors.phone.status}
-                        helperText={
-                            <Typography sx={{ color: 'red' }}>
-                                {formErrors.phone.message}
-                            </Typography>
-                        }
+                        // error={!formErrors.phone.status}
+                        helperText={formErrors.phone.message}
                     />
                 </Grid>
             </Grid>
@@ -374,6 +380,7 @@ function AccountInfo() {
                         // use default value to get value of ref input
                         defaultValue={userData?.address}
                         inputRef={addressRef}
+                        helperText={formErrors.address.message}
                     />
                 </Grid>
             </Grid>

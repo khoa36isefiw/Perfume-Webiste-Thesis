@@ -13,21 +13,27 @@ const useValidationWithRef = () => {
     };
 
     const validateName = (input) => {
-        const specialCharRegex = /[!@#$%^&*()?":{}|<>`~]/;
-        const isValidName = specialCharRegex.test(input.toLowerCase());
+        const specialCharRegex = /[!@#$%^&*()?":{}|<>`~]/; // check special characters
+        const numberRegex = /\d/; // check numbers
         if (input === '') {
             return {
                 message: 'This field is required.',
                 isValid: false,
             };
-            return false;
         }
-        if (isValidName) {
+        if (specialCharRegex.test(input)) {
             return {
-                message: 'Not contain number or special characters in Name.',
+                message: 'Name cannot contain special characters.',
                 isValid: false,
             };
-            return false;
+        }
+        if (numberRegex.test(input)) {
+            // exist a number
+
+            return {
+                message: 'Name cannot contain numbers.',
+                isValid: false,
+            };
         }
 
         return { isValid: true, message: '' };
@@ -39,7 +45,6 @@ const useValidationWithRef = () => {
                 message: 'Please enter an email address.',
                 isValid: false,
             };
-            return false;
         }
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         const isValidEmail = emailRegex.test(input.toLowerCase());
@@ -50,13 +55,11 @@ const useValidationWithRef = () => {
                 message: 'Invalid email address.',
                 isValid: false,
             };
-            return false;
         } else if (!isGmail) {
             return {
                 message: 'Email must be a Gmail address.',
                 isValid: false,
             };
-            return false;
         }
 
         return { isValid: true, message: '' };
