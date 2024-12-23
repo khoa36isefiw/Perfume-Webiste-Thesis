@@ -28,8 +28,6 @@ import { converToVND } from '../convertToVND/convertToVND';
 // import CancelIcon from '@mui/icons-material/Cancel';
 import * as XLSX from 'xlsx';
 
-
-
 const columns = [
     { id: '_id', label: 'Order ID', minWidth: 20 },
 
@@ -89,7 +87,8 @@ export default function AdminOrdersTable() {
             row?.user.firstName?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
             row?.user.lastName?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
             row?.paymentMethod?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
-            row?.orderDate?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()),
+            row?.orderDate?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            row?.status?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()),
     );
 
     console.log('filteredRows: ', filteredRows);
