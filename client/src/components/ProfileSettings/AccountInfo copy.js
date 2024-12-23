@@ -18,7 +18,14 @@ import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import useUserById from '../../api/useUserById';
 
 function AccountInfo() {
-    const { validateName, validateRequired, validatePhoneNumber } = useValidationWithRef();
+    const {
+        state,
+        validateName,
+        validateRequired,
+        validateEmail,
+        validatePassword,
+        validatePhoneNumber,
+    } = useValidationWithRef();
     const [open, setOpen] = useState(false); // open requirement dialog
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
@@ -27,10 +34,10 @@ function AccountInfo() {
 
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const [formErrors, setFormErrors] = useState({
-        fname: { message: '', status: false },
-        lname: { message: '', status: false },
-        phone: { message: '', status: false },
-        address: { message: '', status: false },
+        fname: '',
+        lname: '',
+        phone: '',
+        address: '',
     });
 
     const { t } = useTranslation('translate');
@@ -57,26 +64,14 @@ function AccountInfo() {
         const isFNameValid = validateName(firstName);
         const isLNameValid = validateName(lastName);
         const isPhoneValid = validatePhoneNumber(phoneNumber);
-        const isAddressValid = validateRequired(address);
+        console.log('isPhoneValid: ', isPhoneValid);
+        console.log('isPhoneValid.message: ', isPhoneValid.message);
 
         // Cập nhật lỗi vào state
         const newFormErrors = {
-            fname: {
-                message: isFNameValid.message,
-                status: isFNameValid.isValid,
-            },
-            lname: {
-                message: isLNameValid.message,
-                status: isLNameValid.isValid,
-            },
-            phone: {
-                message: isPhoneValid.message,
-                status: isPhoneValid.isValid,
-            },
-            address: {
-                message: isAddressValid.message,
-                status: isAddressValid.isValid,
-            },
+            fname: !isFNameValid ? state.message : '',
+            lname: !isLNameValid ? state.message : '',
+            phone: isPhoneValid.isValid === false ? isPhoneValid.message : '',
         };
 
         setFormErrors(newFormErrors);
@@ -300,7 +295,8 @@ function AccountInfo() {
                         placeholder="Muhammad"
                         defaultValue={userData?.firstName}
                         inputRef={firstNameRef}
-                        helperText={formErrors.fname.message}
+                        error={formErrors.fname !== ''}
+                        helperText={formErrors.fname}
                     />
                 </Grid>
             </Grid>
@@ -326,7 +322,6 @@ function AccountInfo() {
                         // use default value to get value of ref input
                         defaultValue={userData?.lastName}
                         inputRef={lastNameRef}
-                        helperText={formErrors.lname.message}
                     />
                 </Grid>
             </Grid>
@@ -352,8 +347,9 @@ function AccountInfo() {
                         // use default value to get value of ref input
                         defaultValue={userData?.phoneNumber}
                         inputRef={phoneNumberRef}
-                        // error={!formErrors.phone.status}
-                        helperText={formErrors.phone.message}
+                        helperText={
+                            <Typography sx={{ color: 'red' }}>{formErrors.phone}</Typography>
+                        }
                     />
                 </Grid>
             </Grid>
@@ -378,7 +374,6 @@ function AccountInfo() {
                         // use default value to get value of ref input
                         defaultValue={userData?.address}
                         inputRef={addressRef}
-                        helperText={formErrors.address.message}
                     />
                 </Grid>
             </Grid>

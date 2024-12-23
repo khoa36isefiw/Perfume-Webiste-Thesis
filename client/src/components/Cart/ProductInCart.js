@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 import { mobileScreen, theme } from '../../Theme/Theme';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useDispatch } from 'react-redux';
+
 import { converToVND } from '../convertToVND/convertToVND';
 import ConfirmMessage from '../ConfirmMessage/ConfirmMessage';
 import WarningIcon from '@mui/icons-material/Warning';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
+
 import { userAPI } from '../../api/userAPI';
-import { useLocation } from 'react-router-dom';
+
 import { red } from '@mui/material/colors';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
+
 import { useTranslation } from 'react-i18next';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
@@ -23,9 +23,8 @@ export const ProductInCart = ({
     mutate,
 }) => {
     // get userId from local storage
-    const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))._id;
     const { t } = useTranslation('translate');
-    const location = useLocation();
 
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
 
@@ -35,7 +34,6 @@ export const ProductInCart = ({
     // const [showAnimation, setShowAnimation] = useState('animate__bounceInRight');
     const [pQuantity, setPQuantity] = useState(0);
     const [productToUpdate, setProductToUpdate] = useState(null);
-    const [isLoadingAPI, setIsLoadingAPI] = useState(false);
 
     // open the confirm dialog message and save the products are removed
     const handleRemoveProductInCart = (productId, productSizeId) => {
@@ -55,7 +53,6 @@ export const ProductInCart = ({
     const handleConfirmAgree = async () => {
         // click agree button actions
         if (productToRemove) {
-            setIsLoadingAPI(true);
             const dataToRemove = {
                 // product, variant
                 product: productToRemove.productId,
@@ -65,7 +62,6 @@ export const ProductInCart = ({
             const removeProduct = await userAPI.removeProductFromCart(userId, dataToRemove);
 
             if (removeProduct.status === 200) {
-                setIsLoadingAPI(false);
                 // window.location.reload();
                 showNotificationMessage(
                     'success',
@@ -235,7 +231,6 @@ export const ProductInCart = ({
                                     )}
                                     onChange={(e) => handleSelectProduct(e.target.checked, item)}
                                     sx={{
-                                        mr: 2,
                                         visibility:
                                             item?.variant?.stock <= 0 ? 'hidden' : 'visible',
                                         '& .MuiSvgIcon-root': { fontSize: 22 },

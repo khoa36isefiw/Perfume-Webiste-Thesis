@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
 
 import { CustomizeDividerV2 } from '../CustomizeDividerV2/CustomizeDividerV2';
@@ -19,7 +19,7 @@ function CartTotal({
     promoCodeApplied,
     setPromoCodeApplied,
 }) {
-    const { t, i18n } = useTranslation('translate');
+    const { t } = useTranslation('translate');
     const { data: listCodes } = useCoupons();
     console.log('listCodes: ', listCodes?.data);
     // get from parent

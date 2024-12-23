@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Box, Typography, MenuItem, Grid } from '@mui/material';
 
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -37,8 +37,6 @@ function AdminEditCategory() {
         message: '',
     });
 
-    const [categories, setCategories] = React.useState(null);
-
     console.log('before selectedCategoryId: ', selectedCategoryId);
     useEffect(() => {
         if (categoryData) {
@@ -58,11 +56,9 @@ function AdminEditCategory() {
                         ? categoryData?.data?.parent
                         : categoryData?.data?._id,
             });
-            setCategories(categoryData?.data);
         }
-        console.log('after selectedCategoryId: ', selectedCategoryId);
-        console.log('categories: ', categories);
-    }, [categoryData]);
+        console.log('selectedCategoryId: ', selectedCategoryId);
+    }, [categoryData, setName, setDescription, setSelectedCategoryId]);
 
     const validateName = () => {
         if (name.value.trim() === '') {
@@ -117,6 +113,12 @@ function AdminEditCategory() {
         }
     };
 
+    const activeCategories = useMemo(() => {
+        return categoriesData?.data?.filter((category) => category.status === 'active') || [];
+    }, [categoriesData]);
+
+    console.log('activeCategories: ', activeCategories);
+
     return (
         <React.Fragment>
             {isLoading ? (
@@ -166,7 +168,8 @@ function AdminEditCategory() {
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                                    {categoriesData?.data && (
+                                    {/* {categoriesData?.data && ( */}
+                                    {activeCategories && (
                                         <AdminInputStyles
                                             fullWidth
                                             select
@@ -178,8 +181,10 @@ function AdminEditCategory() {
                                             <MenuItem value="" sx={{ fontSize: '14px' }}>
                                                 <em>None</em>
                                             </MenuItem>
-                                            {categoriesData?.data.length > 0 &&
-                                                categoriesData?.data.map(
+                                            {/* {categoriesData?.data.length > 0 &&
+                                                categoriesData?.data.map( */}
+                                            {activeCategories.length > 0 &&
+                                                activeCategories.map(
                                                     (category) =>
                                                         category.status === 'active' && (
                                                             <MenuItem

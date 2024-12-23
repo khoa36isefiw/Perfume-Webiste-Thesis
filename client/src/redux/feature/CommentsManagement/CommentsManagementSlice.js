@@ -45,7 +45,7 @@ export const commentsManagementSlice = createSlice({
             const existingComments = state.listComments[productId] || [];
 
             // Tìm xem người dùng đã có bình luận nào trước đó không
-            const userIndex = existingComments.findIndex((comment) => comment.userId === userId);
+            const userIndex = existingComments.findIndex((comment) => comment._id === userId);
 
             // Nếu người dùng đã có bình luận trước đó
             if (userIndex !== -1) {
@@ -76,9 +76,7 @@ export const commentsManagementSlice = createSlice({
             productIds.forEach((productId) => {
                 // Tìm kiếm comment của người dùng hiện tại trong productId đã cho
                 const existingComments = state.listComments[productId] || [];
-                const userIndex = existingComments.findIndex(
-                    (comment) => comment.userId === userId,
-                );
+                const userIndex = existingComments.findIndex((comment) => comment._id === userId);
 
                 // Nếu comment của người dùng tồn tại, set isCommented về false
                 if (userIndex !== -1) {
@@ -104,7 +102,7 @@ export const commentsManagementSlice = createSlice({
 
                 // Reset trạng thái isCommented về false cho tất cả bình luận của userId
                 existingComments.forEach((comment) => {
-                    if (comment.userId === userId) {
+                    if (comment._id === userId) {
                         comment.isCommented = false; // Reset trạng thái
                     }
                 });

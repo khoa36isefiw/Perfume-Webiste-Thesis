@@ -8,7 +8,6 @@ import { CustomizeButtonInCart } from '../CustomizeButtonInCart/CustomizeButtonI
 import { SummaryRowInCart } from './SummaryRowInCart';
 import { converToVND } from '../convertToVND/convertToVND';
 import { useTranslation } from 'react-i18next';
-import useShowNotificationMessage from '../../hooks/useShowNotificationMessage';
 
 function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, priceChange }) {
     // console.log('productsList: ', productsList);
@@ -20,7 +19,7 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
     useEffect(() => {
         setTotalSubtotal(JSON.parse(window.localStorage.getItem('current_price')) || 0);
         setPriceChange(false);
-    }, [productsList, priceChange]);
+    }, [productsList, priceChange, setPriceChange]);
 
     const calculateTotal = useCallback(() => {
         const selectedProductMap = new Map(

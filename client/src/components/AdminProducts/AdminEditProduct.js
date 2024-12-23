@@ -3,7 +3,6 @@ import {
     Avatar,
     Box,
     Button,
-    TextField,
     Typography,
     FormControl,
     InputLabel,
@@ -11,9 +10,8 @@ import {
     MenuItem,
 } from '@mui/material';
 import isEqual from 'lodash/isEqual';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
-import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import { productAPI } from '../../api/productAPI';
 import useBrand from '../../api/useBrand';
 import useCategory from '../../api/useCategory';

@@ -14,8 +14,8 @@ function Cart() {
     const navigate = useNavigate();
 
     const [priceChange, setPriceChange] = useState(false);
-    const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId;
-    const { data, mutate, isLoading, error } = useUserById(userId);
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))?._id;
+    const { data, mutate } = useUserById(userId);
     const { t, i18n } = useTranslation('translate');
 
     const [selectedProducts, setSelectedProducts] = useState([]);

@@ -12,7 +12,7 @@ import { mobileScreen } from '../../Theme/Theme';
 const dataTitleTable = ['Name', 'Date', 'Amount', 'Status'];
 
 function RecentTransactions() {
-    const { data: recentTransactions, isLoading } = useRecentTransation();
+    const { data: recentTransactions } = useRecentTransation();
     // console.log('recentTransactions: ', recentTransactions?.data);
     const [transactions, setTransactions] = useState([]);
     //return an array object
@@ -30,7 +30,7 @@ function RecentTransactions() {
             });
             setTransactions(listUsers);
         }
-    }, [recentTransactions?.data]);
+    }, [recentTransactions]);
 
     // console.log('listUsers: ', transactions);
     return (

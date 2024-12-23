@@ -1,23 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Box, Container, Grid } from '@mui/material';
 import { CustomizeAccountText } from '../CustomizeTypography/CustomizeTypography';
 import { TextFieldPassword } from '../TextFieldCustomize/TextFieldCustomize';
 import { theme } from '../../Theme/Theme';
 import { CustomizeHoverButtonV2 } from '../CustomizeButton/CustomizeButton';
 import { CustomizeDividerVertical8 } from '../CustomizeDivider/CustomizeDivider';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { authAPI } from '../../api/authAPI';
 import { userAPI } from '../../api/userAPI';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import useValidationWithRef from '../../hooks/useValidationWithRef';
+import { useBlur } from '../../hooks/useBlur';
 
 // current password --> cho tự nhập --> check với password login
 // nếu oke --> cho nhảy sang step đổi mật khẩu
 function ChangePassword() {
     const navigate = useNavigate();
+    const { formErrors, onHandleBlur } = useBlur();
+    const { validatePassword, validateConfirmPassword } = useValidationWithRef();
 
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const currentPasswordRef = useRef();
     const newPasswordRef = useRef();
@@ -44,12 +48,14 @@ function ChangePassword() {
     // handle for showing change password
     const handleNextStep = async () => {
         const currentPassword = currentPasswordRef.current.value.trim();
+        const isCurrentValid = validatePassword(currentPassword);
+
         const data = {
             email: userData.email,
             password: currentPassword,
         };
 
-        if (currentPassword) {
+        if (formErrors.currentPassword.status) {
             try {
                 const loginData = await authAPI.login(data);
                 if (loginData.status === 200) {
@@ -85,11 +91,31 @@ function ChangePassword() {
         }
     };
 
+    console.log('formErrors: ', formErrors);
+
     const handleChangePassword = async () => {
         const newPassword = newPasswordRef.current.value.trim();
         const confirmPassword = confirmPasswordRef.current.value.trim();
-        console.log('userData.userId: ', userData.userId);
-        if (newPassword && confirmPassword) {
+
+        // text for new password and confirm password
+        const isNewValid = validatePassword(newPassword);
+        const isNewConfirmValid = validateConfirmPassword(confirmPassword, newPassword);
+
+        const newFormErrors = {
+            newPass: {
+                message: isNewValid.message,
+                status: isNewValid.isValid,
+            },
+            confirmPass: {
+                message: isNewConfirmValid.message,
+                status: isNewConfirmValid.isValid,
+            },
+        };
+
+        // setFormErrors(newFormErrors);
+
+        console.log('userData._id: ', userData._id);
+        if (formErrors.newPassword.status && formErrors.newPassword.status) {
             if (newPassword === confirmPassword) {
                 const data = {
                     // password, newPassword
@@ -99,7 +125,7 @@ function ChangePassword() {
                 };
 
                 try {
-                    const response = await userAPI.changePassword(userData.userId, data);
+                    const response = await userAPI.changePassword(userData._id, data);
                     if (response) {
                         showNotificationMessage(
                             'success',
@@ -107,7 +133,7 @@ function ChangePassword() {
                             `${t('common.notifyMessage.changePassword.changeS')}`,
                         );
                         setTimeout(() => {
-                            navigate('/');
+                            navigate(`/${i18n.language}`);
                         }, 2500);
                     }
                 } catch (error) {
@@ -180,6 +206,15 @@ function ChangePassword() {
                                 onHandleClick={handleClickShowCurrentPassword}
                                 defaultValue={loggedInAccount?.password}
                                 inputRef={currentPasswordRef}
+                                helperText={formErrors?.currentPassword?.message}
+                                onBlur={(e) =>
+                                    onHandleBlur(
+                                        'currentPassword',
+                                        e.target.value,
+                                        validatePassword,
+                                    )
+                                }
+                                error={!formErrors?.currentPassword?.status}
                             />
                         </Grid>
                     </Grid>
@@ -213,6 +248,11 @@ function ChangePassword() {
                                 placeholder={t('common.notifyMessage.changePassword.changeNew')}
                                 onHandleClick={handleClickShowNewPassword}
                                 inputRef={newPasswordRef}
+                                helperText={formErrors?.newPassword?.message}
+                                onBlur={(e) =>
+                                    onHandleBlur('newPassword', e.target.value, validatePassword)
+                                }
+                                error={!formErrors?.newPassword?.status}
                             />
                             {/* <TextFieldLogin fullWidth placeholder="Muhammad" /> */}
                         </Grid>
@@ -237,6 +277,16 @@ function ChangePassword() {
                                 placeholder={t('common.notifyMessage.changePassword.changeCNew')}
                                 onHandleClick={handleClickConfirmNewPassword}
                                 inputRef={confirmPasswordRef}
+                                helperText={formErrors?.newCPassword?.message}
+                                error={!formErrors?.newCPassword?.status}
+                                onBlur={(e) =>
+                                    onHandleBlur(
+                                        'newCPassword',
+                                        e.target.value,
+                                        validateConfirmPassword,
+                                        newPasswordRef.current.value.trim(),
+                                    )
+                                }
                             />
                         </Grid>
                     </Grid>

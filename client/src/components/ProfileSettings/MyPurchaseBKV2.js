@@ -527,7 +527,7 @@ function OrderLists({ orderHistory }) {
 }
 
 function MyPurchase() {
-    const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId || null;
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))?._id || null;
     const { data: orders, isLoading, error } = useOrderByUser(userId);
 
     const filterOrdersList = [

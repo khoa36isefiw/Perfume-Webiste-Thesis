@@ -67,7 +67,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
     const handleAddProduct = async () => {
         // add to cart, when users moving to cart --> get user byID get all information
         if (userData) {
-            const userId = userData.userId; // id user here
+            const userId = userData._id; // id user here
             console.log('userId: ', userId);
             const mockData = {
                 product: productData?._id, // id product here

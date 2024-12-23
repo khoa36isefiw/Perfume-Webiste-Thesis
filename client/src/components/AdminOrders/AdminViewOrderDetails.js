@@ -8,7 +8,7 @@ import { CODPayment, PaypalPayment, VNPayPayment } from './PaymentDesign';
 import CallIcon from '@mui/icons-material/Call';
 import { converToVND } from '../convertToVND/convertToVND';
 import { formatDate } from '../FormatDate/formatDate';
-import { ipadProScreen, mobileScreen, tabletScreen } from '../../Theme/Theme';
+import {  mobileScreen, tabletScreen } from '../../Theme/Theme';
 import { ordersAPI } from '../../api/ordersAPI';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 

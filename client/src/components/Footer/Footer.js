@@ -17,8 +17,8 @@ import { useTranslation } from 'react-i18next';
 import { userAPI } from '../../api/userAPI';
 
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
-import Hotline from '../Hotline/Hotline';
-import { Support, SupportAgent } from '@mui/icons-material';
+
+import { SupportAgent } from '@mui/icons-material';
 
 function Footer() {
     const [email, setEmail] = React.useState('');
@@ -40,7 +40,7 @@ function Footer() {
     useEffect(() => {
         // prevent change to default language
         i18n.changeLanguage(language); // Set the language for i18n
-    }, []);
+    }, [i18n, language]);
 
     const handleSubcribe = async () => {
         const response = await userAPI.subscribe({ email });

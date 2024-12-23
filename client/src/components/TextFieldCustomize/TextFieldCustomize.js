@@ -130,11 +130,13 @@ export const TextFieldLogin = ({
     defaultValue,
     error,
     helperText,
+    onBlur,
 }) => {
     return (
         <TextField
             inputRef={inputRef}
             error={error}
+            onBlur={onBlur}
             helperText={helperText}
             disabled={disabled}
             variant="outlined"
@@ -183,10 +185,16 @@ export const TextFieldPassword = ({
     onHandleClick,
     defaultValue,
     inputRef,
+    helperText,
+    onBlur,
+    error,
 }) => {
     return (
         <TextField
             variant="outlined"
+            helperText={helperText}
+            onBlur={onBlur}
+            error={error}
             fullWidth
             placeholder={placeholder}
             value={inputValue}

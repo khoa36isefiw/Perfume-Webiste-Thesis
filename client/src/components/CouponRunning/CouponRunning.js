@@ -29,7 +29,7 @@ function CouponRunning() {
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
                 width: '100%',
-                bgcolor: 'primary.light',
+
                 py: 1,
                 position: 'relative',
                 bgcolor: '#ccc',

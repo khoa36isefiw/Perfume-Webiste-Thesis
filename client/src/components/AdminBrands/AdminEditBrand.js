@@ -13,7 +13,7 @@ import useBrandById from '../../api/useBrandById';
 function AdminEditBrand() {
     const location = useLocation();
     const brandId = getId(location);
-    const { data: brandData, isLoading } = useBrandById(brandId);
+    const { data: brandData } = useBrandById(brandId);
 
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const [name, setName] = React.useState({
@@ -38,7 +38,7 @@ function AdminEditBrand() {
                 value: brandData?.data?.descriptionEN,
             });
         }
-    }, [brandData]);
+    }, [brandData, setName, setDescription, name, description]);
 
     const navigate = useNavigate();
 
