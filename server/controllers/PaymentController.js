@@ -403,27 +403,31 @@ const PaymentController = {
         let hmac = crypto.createHmac('sha512', secretKey);
         let signed = hmac.update(new Buffer(signData, 'utf-8')).digest('hex');
         let vnp_OrderInfo = vnp_Params['vnp_OrderInfo'];
-        if (secureHash === signed) {
-            if (vnp_Params['vnp_ResponseCode'] == '00') {
-                // save payment result to db
-                await Payment.findOneAndUpdate(
-                    { payRef: vnp_OrderInfo },
-                    { paid: true, details: JSON.stringify(vnp_Params) },
-                );
+        try {
+            if (secureHash === signed) {
+                if (vnp_Params['vnp_ResponseCode'] == '00') {
+                    // save payment result to db
+                    await Payment.findOneAndUpdate(
+                        { payRef: vnp_OrderInfo },
+                        { paid: true, details: JSON.stringify(vnp_Params) },
+                    );
 
-                const updatedOrder = await Order.findOneAndUpdate(
-                    { _id: vnp_OrderInfo },
-                    { status: 'PAID' },
-                );
-                for (const item of updatedOrder.items) {
-                    await ProductBuyer.create({
-                        user: updatedOrder.user,
-                        product: item.product,
-                    });
+                    const updatedOrder = await Order.findOneAndUpdate(
+                        { _id: vnp_OrderInfo },
+                        { status: 'PAID' },
+                    );
+                    for (const item of updatedOrder.items) {
+                        await ProductBuyer.create({
+                            user: updatedOrder.user,
+                            product: item.product,
+                        });
+                    }
+                    res.redirect(`${process.env.CLIENT_URL}/en/success?Ref=${vnp_OrderInfo}`);
                 }
-                res.redirect(`${process.env.CLIENT_URL}/en/success?Ref=${vnp_OrderInfo}`);
+            } else {
+                res.redirect(`${process.env.CLIENT_URL}/en/cancel??Ref=${vnp_OrderInfo}`);
             }
-        } else {
+        } catch (error) {
             res.redirect(`${process.env.CLIENT_URL}/en/cancel??Ref=${vnp_OrderInfo}`);
         }
     },
