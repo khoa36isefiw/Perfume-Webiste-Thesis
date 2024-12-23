@@ -183,10 +183,14 @@ export const TextFieldPassword = ({
     onHandleClick,
     defaultValue,
     inputRef,
+    helperText,
+    onBlur,
 }) => {
     return (
         <TextField
             variant="outlined"
+            helperText={helperText}
+            onBlur={onBlur}
             fullWidth
             placeholder={placeholder}
             value={inputValue}

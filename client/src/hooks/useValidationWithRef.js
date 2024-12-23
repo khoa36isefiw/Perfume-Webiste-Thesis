@@ -71,17 +71,45 @@ const useValidationWithRef = () => {
                 message: 'Please enter a password.',
                 isValid: false,
             };
-            return false;
         }
         if (input.length < 6) {
             return {
                 message: 'Password must be at least 6 characters.',
                 isValid: false,
             };
-            return false;
         }
 
         return { isValid: true, message: '' };
+    };
+
+    const validateConfirmPassword = (input, cPassword) => {
+        const trimmedPassword = String(cPassword).trim();
+        const trimmedConfirmPassword = input.trim();
+
+        if (input === '') {
+            return {
+                message: 'Please enter confirm password.',
+                isValid: false,
+            };
+        }
+        if (input.length < 6) {
+            return {
+                message: 'Password must be at least 6 characters.',
+                isValid: false,
+            };
+        }
+
+        if (trimmedConfirmPassword !== trimmedPassword) {
+            return {
+                isValid: false,
+                message: 'Passwords do not match.',
+            };
+        }
+
+        return {
+            isValid: true,
+            message: '',
+        };
     };
 
     const validatePhoneNumber = (input) => {
@@ -132,6 +160,7 @@ const useValidationWithRef = () => {
         validateRequired,
         validateEmail,
         validatePassword,
+        validateConfirmPassword,
         validatePhoneNumber,
     };
 };

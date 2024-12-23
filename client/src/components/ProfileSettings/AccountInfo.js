@@ -18,8 +18,7 @@ import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import useUserById from '../../api/useUserById';
 
 function AccountInfo() {
-    const { validateName, validateRequired, validateEmail, validatePassword, validatePhoneNumber } =
-        useValidationWithRef();
+    const { validateName, validateRequired, validatePhoneNumber } = useValidationWithRef();
     const [open, setOpen] = useState(false); // open requirement dialog
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
@@ -33,7 +32,6 @@ function AccountInfo() {
         phone: { message: '', status: false },
         address: { message: '', status: false },
     });
-    console.log('formErrors: ', formErrors);
 
     const { t } = useTranslation('translate');
 
