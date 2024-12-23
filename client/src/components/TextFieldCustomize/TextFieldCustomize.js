@@ -130,11 +130,13 @@ export const TextFieldLogin = ({
     defaultValue,
     error,
     helperText,
+    onBlur,
 }) => {
     return (
         <TextField
             inputRef={inputRef}
             error={error}
+            onBlur={onBlur}
             helperText={helperText}
             disabled={disabled}
             variant="outlined"

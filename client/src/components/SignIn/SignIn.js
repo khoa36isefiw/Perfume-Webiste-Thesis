@@ -10,8 +10,12 @@ import { authAPI } from '../../api/authAPI';
 import { useTranslation } from 'react-i18next';
 import GoogleAuthButton from '../GoogleLoginButton/GoogleLoginButton';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import { useBlur } from '../../hooks/useBlur';
+import useValidationWithRef from '../../hooks/useValidationWithRef';
 
 function SignIn() {
+    const { formErrors, onHandleBlur } = useBlur();
+    const { validateRequired, validateEmail } = useValidationWithRef();
     const { t, i18n } = useTranslation('translate');
     const { showNotificationMessage } = useSnackbarMessage();
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -27,7 +31,7 @@ function SignIn() {
             email,
             password,
         };
-        if (email && password) {
+        if (formErrors?.email?.status && formErrors?.password?.status) {
             try {
                 const loginData = await authAPI.login(data);
                 // console.log('request: ', loginData);
@@ -154,7 +158,15 @@ function SignIn() {
                                 >
                                     E-mail<span style={{ color: '#d14949' }}>*</span> :
                                 </CustomizeTypography>
-                                <TextFieldLogin placeholder="Email" fullWidth inputRef={emailRef} />
+                                <TextFieldLogin
+                                    placeholder="Email"
+                                    fullWidth
+                                    inputRef={emailRef}
+                                    helperText={formErrors?.email?.message}
+                                    onBlur={(e) =>
+                                        onHandleBlur('email', e.target.value, validateEmail)
+                                    }
+                                />
                             </Grid>
                             <Grid item xs={12} sm={6} lg={6}>
                                 <CustomizeTypography
@@ -173,6 +185,10 @@ function SignIn() {
                                     fullWidth
                                     inputRef={passwordRef}
                                     onHandleKeyDown={handleKeyEnterLogin}
+                                    helperText={formErrors?.password?.message}
+                                    onBlur={(e) =>
+                                        onHandleBlur('password', e.target.value, validateRequired)
+                                    }
                                 />
                             </Grid>
                         </Grid>
