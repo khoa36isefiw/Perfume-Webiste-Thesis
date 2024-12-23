@@ -195,31 +195,68 @@ function NewHeader() {
     }, []);
 
     // change language
+    // const handleChangeLanguage = (lng) => {
+    //     const params = new URLSearchParams(location.search); // get current query string params
+    //     const currentPath = window.location.pathname;
+
+    //     // replace language in path
+    //     const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
+    //     window.localStorage.setItem('language', lng); // set language is selected to local storage
+    //     console.log('newPath: ', newPath);
+
+    //     // Update state from with the new language
+    //     // check state from which location?
+    //     const updatedState = location.state
+    //         ? {
+    //               ...location.state,
+    //               from: location.state.from?.replace(`/${i18n.language}`, `/${lng}`),
+    //           }
+    //         : null;
+    //     console.log('updatedState: ', updatedState);
+
+    //     // check if reference tới
+    //     // Construct new path with params
+    //     const newPathWithParams = params.toString() ? `${newPath}?${params.toString()}` : newPath;
+    //     navigate(newPathWithParams, { state: updatedState }); // Pass updated state
+    //     setEnLanguage(!enLanguage);
+    //     i18n.changeLanguage(lng);
+    // };
+
     const handleChangeLanguage = (lng) => {
-        const params = new URLSearchParams(location.search); // get current query string params
+        const params = new URLSearchParams(location.search); // Get current query string params
         const currentPath = window.location.pathname;
 
-        // replace language in path
+        // Replace language in path
         const newPath = currentPath.replace(`/${i18n.language}`, `/${lng}`);
-        window.localStorage.setItem('language', lng); // set language is selected to local storage
-        console.log('newPath: ', newPath);
+        window.localStorage.setItem('language', lng); // Set selected language in local storage
+        // console.log('newPath: ', newPath);
 
-        // Update state from with the new language
-        // check state from which location?
+        // Check if the location is from 'my-purchase' path
+        const isFromMyPurchase = location.state?.from?.includes('my-purchase');
+
+        // Construct updated state for language change
         const updatedState = location.state
             ? {
                   ...location.state,
                   from: location.state.from?.replace(`/${i18n.language}`, `/${lng}`),
               }
             : null;
-        console.log('updatedState: ', updatedState);
+        // console.log('updatedState: ', updatedState);
 
-        // check if reference tới
         // Construct new path with params
         const newPathWithParams = params.toString() ? `${newPath}?${params.toString()}` : newPath;
-        navigate(newPathWithParams, { state: updatedState }); // Pass updated state
-        setEnLanguage(!enLanguage);
+
+        if (isFromMyPurchase) {
+            // If coming from 'my-purchase', use navigate to go to product detail
+            navigate(newPathWithParams, { state: updatedState });
+        } else {
+            // Otherwise, just update the URL without navigating
+            window.history.replaceState(updatedState, '', newPathWithParams);
+        }
+
+        // Change the language
         i18n.changeLanguage(lng);
+        setEnLanguage(!enLanguage); // Toggle language state
     };
 
     const handleBackHome = () => {
