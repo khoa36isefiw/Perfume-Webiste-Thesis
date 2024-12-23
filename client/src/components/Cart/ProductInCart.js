@@ -23,7 +23,7 @@ export const ProductInCart = ({
     mutate,
 }) => {
     // get userId from local storage
-    const userId = JSON.parse(window.localStorage.getItem('user_data')).userId;
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))._id;
     const { t } = useTranslation('translate');
 
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification

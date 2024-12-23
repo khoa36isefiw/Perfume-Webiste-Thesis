@@ -7,6 +7,7 @@ const useValidation = (initialState) => {
         isShow: initialState.isShow || false,
     });
 
+    // for field name
     const validateRequired = () => {
         //  trường hợp có kí tự đặc biệt
         // const specialCharRegex = /[!@#$%^&*(),.?":{}|<>`~]/;

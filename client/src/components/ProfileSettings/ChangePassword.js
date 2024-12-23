@@ -88,7 +88,7 @@ function ChangePassword() {
     const handleChangePassword = async () => {
         const newPassword = newPasswordRef.current.value.trim();
         const confirmPassword = confirmPasswordRef.current.value.trim();
-        console.log('userData.userId: ', userData.userId);
+        console.log('userData._id: ', userData._id);
         if (newPassword && confirmPassword) {
             if (newPassword === confirmPassword) {
                 const data = {
@@ -99,7 +99,7 @@ function ChangePassword() {
                 };
 
                 try {
-                    const response = await userAPI.changePassword(userData.userId, data);
+                    const response = await userAPI.changePassword(userData._id, data);
                     if (response) {
                         showNotificationMessage(
                             'success',

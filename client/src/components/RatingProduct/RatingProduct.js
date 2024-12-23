@@ -58,7 +58,7 @@ function RatingProduct({ perfumeDetailData, mutate }) {
         // userId, productId, orderId, comment, rating
 
         const data = {
-            userId: userData?.userId,
+            userId: userData?._id,
             productId: perfumeDetailData?.product?._id,
             orderId: orderId,
             rating: ratingValue,

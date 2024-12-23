@@ -34,20 +34,7 @@ function SignIn() {
                 console.log('response Sign In: ', loginData);
                 if (loginData.status === 200) {
                     // store all user data in localStorage as a JSON string
-                    window.localStorage.setItem(
-                        'user_data',
-                        JSON.stringify({
-                            userId: loginData.data._id,
-                            imagePath: loginData.data.imagePath,
-                            email: loginData.data.email,
-                            // Add any other data you want to store
-                            firstName: loginData.data.firstName,
-                            lastName: loginData.data.lastName,
-                            role: loginData.data.role,
-                            address: loginData.data.address,
-                            phoneNumber: loginData.data.phoneNumber,
-                        }),
-                    );
+                    window.localStorage.setItem('user_data', JSON.stringify(loginData?.data));
                     window.localStorage.setItem('token', loginData.data.accessToken);
 
                     showNotificationMessage(

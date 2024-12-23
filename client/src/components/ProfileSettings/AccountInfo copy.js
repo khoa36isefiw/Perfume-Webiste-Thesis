@@ -34,12 +34,11 @@ function AccountInfo() {
 
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const [formErrors, setFormErrors] = useState({
-        fname: { message: '', status: false },
-        lname: { message: '', status: false },
-        phone: { message: '', status: false },
-        address: { message: '', status: false },
+        fname: '',
+        lname: '',
+        phone: '',
+        address: '',
     });
-    console.log('formErrors: ', formErrors);
 
     const { t } = useTranslation('translate');
 
@@ -66,15 +65,13 @@ function AccountInfo() {
         const isLNameValid = validateName(lastName);
         const isPhoneValid = validatePhoneNumber(phoneNumber);
         console.log('isPhoneValid: ', isPhoneValid);
+        console.log('isPhoneValid.message: ', isPhoneValid.message);
 
         // Cập nhật lỗi vào state
         const newFormErrors = {
             fname: !isFNameValid ? state.message : '',
             lname: !isLNameValid ? state.message : '',
-            phone: {
-                message: isPhoneValid.message,
-                status: isPhoneValid.isValid,
-            },
+            phone: isPhoneValid.isValid === false ? isPhoneValid.message : '',
         };
 
         setFormErrors(newFormErrors);
@@ -298,8 +295,8 @@ function AccountInfo() {
                         placeholder="Muhammad"
                         defaultValue={userData?.firstName}
                         inputRef={firstNameRef}
-                        // error={formErrors.fname !== ''}
-                        // helperText={formErrors.fname}
+                        error={formErrors.fname !== ''}
+                        helperText={formErrors.fname}
                     />
                 </Grid>
             </Grid>
@@ -350,11 +347,8 @@ function AccountInfo() {
                         // use default value to get value of ref input
                         defaultValue={userData?.phoneNumber}
                         inputRef={phoneNumberRef}
-                        error={!formErrors.phone.status}
                         helperText={
-                            <Typography sx={{ color: 'red' }}>
-                                {formErrors.phone.message}
-                            </Typography>
+                            <Typography sx={{ color: 'red' }}>{formErrors.phone}</Typography>
                         }
                     />
                 </Grid>

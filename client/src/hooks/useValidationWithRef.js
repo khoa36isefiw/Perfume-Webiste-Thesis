@@ -89,20 +89,46 @@ const useValidationWithRef = () => {
     };
 
     const validatePhoneNumber = (input) => {
-        // Check for exactly 10 digits and no special characters
-        // start: 0
-        // second: is 3,5,7,8,9
-        let validPhone = input.match(/^(0[3|5|7|8|9])[0-9]{8}$/);
-
-        if (!validPhone) {
-            setState({
-                ...state,
-                message: 'Số Điện Chỉ Có 10 Số và Không Chứa Ký Tự Đặc Biệt!',
-            });
-            return false;
+        // Kiểm tra chuỗi không rỗng
+        if (input.trim() === '') {
+            return { isValid: false, message: 'This field is required.' };
         }
-        setState({ message: '', isValid: true });
-        return true;
+
+        // Kiểm tra bắt đầu bằng 0
+        if (!input.startsWith('0')) {
+            return {
+                isValid: false,
+                message: 'Số điện thoại phải bắt đầu bằng 0.',
+            };
+        }
+
+        // Kiểm tra ký tự thứ 2 phải là 3, 5, 7, 8 hoặc 9
+        const validSecondChar = /^[0][35789]/.test(input);
+        if (!validSecondChar) {
+            return {
+                isValid: false,
+                message: 'Ký tự thứ 2 phải là 3, 5, 7, 8 hoặc 9.',
+            };
+        }
+
+        // Kiểm tra độ dài đủ 10 số
+        if (input.length !== 10) {
+            return {
+                isValid: false,
+                message: 'Số điện thoại phải có đúng 10 số.',
+            };
+        }
+
+        // Kiểm tra chỉ chứa số
+        const onlyDigits = /^[0-9]+$/.test(input);
+        if (!onlyDigits) {
+            return {
+                isValid: false,
+                message: 'Số điện thoại chỉ chứa số.',
+            };
+        }
+
+        return { isValid: true, message: '' };
     };
 
     return {

@@ -8,7 +8,7 @@ import { converToVND } from '../convertToVND/convertToVND';
 
 function PaymentSuccess() {
     const navigate = useNavigate();
-    const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId || null;
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))?._id || null;
     console.log('userid: ', userId);
     const currentPaymentData = JSON.parse(window.localStorage.getItem('payment_data')) || null;
     const { data: orders } = useOrderByUser(userId);

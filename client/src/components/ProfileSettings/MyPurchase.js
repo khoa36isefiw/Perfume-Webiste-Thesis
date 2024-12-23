@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 function MyPurchase() {
     const { t } = useTranslation('translate');
-    const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId || null;
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))?._id || null;
     const { data: orders } = useOrderByUser(userId);
 
     const filterOrdersList = [

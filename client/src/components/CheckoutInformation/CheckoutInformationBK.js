@@ -59,7 +59,7 @@ function CheckoutInformation() {
     });
     const [paymentMethod, setPaymentMethod] = useState('cod'); // Default payment method
 
-    const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId;
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))?._id;
     console.log('userId: ', userId);
 
     console.log('promoCode:', promoCode);

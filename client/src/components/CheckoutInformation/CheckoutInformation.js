@@ -60,7 +60,7 @@ function CheckoutInformation() {
         codeApplied: null,
     });
     const [paymentMethod, setPaymentMethod] = useState('cod'); // Default payment method
-    const userId = JSON.parse(window.localStorage.getItem('user_data'))?.userId;
+    const userId = JSON.parse(window.localStorage.getItem('user_data'))?._id;
 
     // test animation
     const [isCheckingOut, setIsCheckingOut] = useState(false);
