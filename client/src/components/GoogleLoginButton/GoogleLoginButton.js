@@ -17,19 +17,7 @@ function GoogleAuthButton({ isLogin }) {
             console.log('Login successful', response);
             if (response.status === 200) {
                 // store all user data in localStorage as a JSON string
-                window.localStorage.setItem(
-                    'user_data',
-                    JSON.stringify({
-                        userId: response.data._id,
-                        imagePath: response.data.imagePath,
-                        email: response.data.email,
-                        // Add any other data you want to store
-                        firstName: response.data.firstName,
-                        lastName: response.data.lastName,
-                        role: response.data.role,
-                        address: response.data.address,
-                    }),
-                );
+                window.localStorage.setItem('user_data', JSON.stringify(response?.data));
                 window.localStorage.setItem('token', response.data.accessToken);
 
                 showNotificationMessage('success', 'Login', 'Login successfully!');

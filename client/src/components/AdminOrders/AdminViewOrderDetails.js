@@ -8,7 +8,7 @@ import { CODPayment, PaypalPayment, VNPayPayment } from './PaymentDesign';
 import CallIcon from '@mui/icons-material/Call';
 import { converToVND } from '../convertToVND/convertToVND';
 import { formatDate } from '../FormatDate/formatDate';
-import {  mobileScreen, tabletScreen } from '../../Theme/Theme';
+import { mobileScreen, tabletScreen } from '../../Theme/Theme';
 import { ordersAPI } from '../../api/ordersAPI';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
@@ -20,7 +20,7 @@ function AdminViewOrderDetails() {
     const { showNotificationMessage } = useSnackbarMessage();
     const { orderData } = location.state || {};
 
-    // console.log('orderData', orderData);
+    console.log('orderData', orderData);
     const handleCancelOrder = async () => {
         const orderResponse = await ordersAPI.cancelOrder(orderData?._id);
         if (orderResponse.status === 200) {
@@ -54,7 +54,7 @@ function AdminViewOrderDetails() {
                                 justifyContent: 'flex-end',
                             }}
                         >
-                            {orderData?.status !== 'CANCELLED' && (
+                            {orderData?.status !== 'CANCELLED' && orderData?.status !== 'PAID' && (
                                 <Button
                                     variant="contained"
                                     color="primary"
