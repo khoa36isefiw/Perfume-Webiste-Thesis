@@ -1,50 +1,44 @@
 import { useState } from 'react';
 
 const useValidationWithRef = () => {
-    const [state, setState] = useState({
-        message: '',
-        isValid: true,
-    });
-
     const validateRequired = (input) => {
         if (input === '') {
-            setState({
+            return {
                 message: 'This field is required.',
                 isValid: false,
-            });
-            return false;
+            };
         }
-        setState({ message: '', isValid: true });
-        return true;
+
+        return { isValid: true, message: '' };
     };
 
     const validateName = (input) => {
         const specialCharRegex = /[!@#$%^&*()?":{}|<>`~]/;
         const isValidName = specialCharRegex.test(input.toLowerCase());
         if (input === '') {
-            setState({
+            return {
                 message: 'This field is required.',
                 isValid: false,
-            });
+            };
             return false;
         }
         if (isValidName) {
-            setState({
+            return {
                 message: 'Not contain number or special characters in Name.',
                 isValid: false,
-            });
+            };
             return false;
         }
-        setState({ message: '', isValid: true });
-        return true;
+
+        return { isValid: true, message: '' };
     };
 
     const validateEmail = (input) => {
         if (input === '') {
-            setState({
+            return {
                 message: 'Please enter an email address.',
                 isValid: false,
-            });
+            };
             return false;
         }
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -52,40 +46,39 @@ const useValidationWithRef = () => {
         const isGmail = input.toLowerCase().endsWith('@gmail.com');
 
         if (!isValidEmail) {
-            setState({
+            return {
                 message: 'Invalid email address.',
                 isValid: false,
-            });
+            };
             return false;
         } else if (!isGmail) {
-            setState({
+            return {
                 message: 'Email must be a Gmail address.',
                 isValid: false,
-            });
+            };
             return false;
         }
 
-        setState({ message: '', isValid: true });
-        return true;
+        return { isValid: true, message: '' };
     };
 
     const validatePassword = (input) => {
         if (input === '') {
-            setState({
+            return {
                 message: 'Please enter a password.',
                 isValid: false,
-            });
+            };
             return false;
         }
         if (input.length < 6) {
-            setState({
+            return {
                 message: 'Password must be at least 6 characters.',
                 isValid: false,
-            });
+            };
             return false;
         }
-        setState({ message: '', isValid: true });
-        return true;
+
+        return { isValid: true, message: '' };
     };
 
     const validatePhoneNumber = (input) => {
@@ -132,7 +125,6 @@ const useValidationWithRef = () => {
     };
 
     return {
-        state,
         validateName,
         validateRequired,
         validateEmail,

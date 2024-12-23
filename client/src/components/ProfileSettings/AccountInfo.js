@@ -18,14 +18,8 @@ import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import useUserById from '../../api/useUserById';
 
 function AccountInfo() {
-    const {
-        state,
-        validateName,
-        validateRequired,
-        validateEmail,
-        validatePassword,
-        validatePhoneNumber,
-    } = useValidationWithRef();
+    const { validateName, validateRequired, validateEmail, validatePassword, validatePhoneNumber } =
+        useValidationWithRef();
     const [open, setOpen] = useState(false); // open requirement dialog
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
