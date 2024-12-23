@@ -185,12 +185,14 @@ export const TextFieldPassword = ({
     inputRef,
     helperText,
     onBlur,
+    error,
 }) => {
     return (
         <TextField
             variant="outlined"
             helperText={helperText}
             onBlur={onBlur}
+            error={error}
             fullWidth
             placeholder={placeholder}
             value={inputValue}

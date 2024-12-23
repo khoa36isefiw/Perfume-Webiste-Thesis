@@ -20,20 +20,7 @@ function ChangePassword() {
     const navigate = useNavigate();
     const { formErrors, onHandleBlur } = useBlur();
     const { validatePassword, validateConfirmPassword } = useValidationWithRef();
-    // const [formErrors, setFormErrors] = useState({
-    //     currentPassword: {
-    //         message: '',
-    //         status: false,
-    //     },
-    //     newPass: {
-    //         message: '',
-    //         status: false,
-    //     },
-    //     confirmPass: {
-    //         message: '',
-    //         status: false,
-    //     },
-    // });
+
     const { t, i18n } = useTranslation('translate');
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const currentPasswordRef = useRef();
@@ -105,18 +92,6 @@ function ChangePassword() {
     };
 
     console.log('formErrors: ', formErrors);
-
-    // const handleBlur = (field, value) => {
-    //     // field is key object
-    //     const validationResult = validatePassword(value);
-    //     setFormErrors((prevErrors) => ({
-    //         ...prevErrors,
-    //         [field]: {
-    //             message: validationResult.message,
-    //             status: validationResult.isValid,
-    //         },
-    //     }));
-    // };
 
     const handleChangePassword = async () => {
         const newPassword = newPasswordRef.current.value.trim();
@@ -239,6 +214,7 @@ function ChangePassword() {
                                         validatePassword,
                                     )
                                 }
+                                error={!formErrors?.currentPassword?.status}
                             />
                         </Grid>
                     </Grid>
@@ -276,6 +252,7 @@ function ChangePassword() {
                                 onBlur={(e) =>
                                     onHandleBlur('newPassword', e.target.value, validatePassword)
                                 }
+                                error={!formErrors?.newPassword?.status}
                             />
                             {/* <TextFieldLogin fullWidth placeholder="Muhammad" /> */}
                         </Grid>
@@ -301,6 +278,7 @@ function ChangePassword() {
                                 onHandleClick={handleClickConfirmNewPassword}
                                 inputRef={confirmPasswordRef}
                                 helperText={formErrors?.newCPassword?.message}
+                                error={!formErrors?.newCPassword?.status}
                                 onBlur={(e) =>
                                     onHandleBlur(
                                         'newCPassword',

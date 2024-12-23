@@ -3,6 +3,9 @@ import { useState } from 'react';
 export const useBlur = () => {
     const [formErrors, setFormErrors] = useState({});
 
+    // field is a key of object formErrors
+    // formErrors object include: {keyName: {
+    // message:'', status: boolean}}
     const onHandleBlur = (field, value, onHandleValidate, cPassword = null) => {
         const validationResult =
             cPassword !== null
