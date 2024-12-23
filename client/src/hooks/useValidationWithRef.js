@@ -46,18 +46,46 @@ const useValidationWithRef = () => {
                 isValid: false,
             };
         }
+
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         const isValidEmail = emailRegex.test(input.toLowerCase());
         const isGmail = input.toLowerCase().endsWith('@gmail.com');
+        const startsWithUnderscore = /^_/.test(input); // cant start with _id@gmail.com
+        const endsWithUnderscoreBeforeAt = /_@gmail\.com$/.test(input); // can not _@gmail.com
+
+        const startsWithNumber = /^[0-9]/.test(input); // cant start with a number (0 -9)
+
+        if (startsWithNumber) {
+            return {
+                message: 'Email cannot start with a number.',
+                isValid: false,
+            };
+        }
+
+        if (startsWithUnderscore) {
+            return {
+                message: 'Email cannot start with an underscore.',
+                isValid: false,
+            };
+        }
+
+        if (endsWithUnderscoreBeforeAt) {
+            return {
+                message: 'Email cannot contain an underscore directly before the @ symbol.',
+                isValid: false,
+            };
+        }
 
         if (!isValidEmail) {
             return {
                 message: 'Invalid email address.',
                 isValid: false,
             };
-        } else if (!isGmail) {
+        }
+
+        if (!isGmail) {
             return {
-                message: 'Email must be a Gmail address.',
+                message: 'Email must be a @gmail address.',
                 isValid: false,
             };
         }
