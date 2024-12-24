@@ -30,8 +30,12 @@ import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import DeliveryAnimation from '../DeliveryAnimation/DeliveryAnimation';
+import { useBlur } from '../../hooks/useBlur';
+import useValidationWithRef from '../../hooks/useValidationWithRef';
 
 function CheckoutInformation() {
+    const { formErrors, onHandleBlur } = useBlur();
+    const { validateRequired, validateEmail, validatePhoneNumber } = useValidationWithRef();
     const navigate = useNavigate();
     const location = useLocation();
     const { items } = location.state || { items: [] };
@@ -213,12 +217,18 @@ function CheckoutInformation() {
                             placeholder={t('common.checkout.infor.name')}
                             value={email}
                             onHandleChange={(e) => setEmail(e.target.value)} // if value is changed
+                            onBlur={(e) => onHandleBlur('email', e.target.value, validateEmail)}
+                            helperText={formErrors?.email?.message}
                         />
                         <CustomizeCheckoutInput
                             // placeholder="Nhập số điện thoại"
                             placeholder={t('common.checkout.infor.phone')}
                             value={phoneNumber}
                             onHandleChange={(e) => setphoneNumber(e.target.value)} // if value is changed
+                            onBlur={(e) =>
+                                onHandleBlur('phone', e.target.value, validatePhoneNumber)
+                            }
+                            helperText={formErrors?.phone?.message}
                         />
 
                         <CustomizeCheckoutInput
@@ -226,6 +236,10 @@ function CheckoutInformation() {
                             placeholder={t('common.checkout.infor.address')}
                             value={address}
                             onHandleChange={(e) => setAddress(e.target.value)} // if value is changed
+                            onBlur={(e) =>
+                                onHandleBlur('address', e.target.value, validateRequired)
+                            }
+                            helperText={formErrors?.address?.message}
                         />
                     </Box>
                     {/* Thanh toán */}

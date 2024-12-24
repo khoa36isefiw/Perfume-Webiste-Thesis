@@ -235,8 +235,9 @@ function NewHeader() {
         const isFromMyPurchase = location.state?.from?.includes('my-purchase');
 
         // Construct updated state for language change
-        const updatedState = location.state
-            ? {
+        const updatedState = location.state // check if data or something is passed from ??
+            ? // example: from my-purchase
+              {
                   ...location.state,
                   from: location.state.from?.replace(`/${i18n.language}`, `/${lng}`),
               }
