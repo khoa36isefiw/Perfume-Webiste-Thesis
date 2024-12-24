@@ -93,17 +93,6 @@ function RegisterAccount() {
                     'Email exists, Please try another email2!',
                 );
             }
-            // } else {
-            //     setOpen(true);
-            //     setTimeout(() => {
-            //         setOpen(false);
-            //     }, 6000);
-            //     showNotificationMessage(
-            //         'warning',
-            //         t('common.notifyMessage.register.regisT'),
-            //         t('common.notifyMessage.register.regisFI'),
-            //     );
-            // }
         } else {
             setOpen(true);
             setTimeout(() => {
