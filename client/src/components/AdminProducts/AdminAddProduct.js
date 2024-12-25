@@ -12,6 +12,8 @@ import {
     Tooltip,
     IconButton,
     ListItemText,
+    InputBase,
+    TextField,
 } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -23,7 +25,7 @@ import { contentTemplate } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
+import { AdminInputStyles, AdminTextAreaStyles } from '../AdminInputStyles/AdminInputStyles';
 import { useBlur } from '../../hooks/useBlur';
 import useValidationWithRef from '../../hooks/useValidationWithRef';
 
@@ -41,6 +43,27 @@ const AdminAddProduct = () => {
     const [selectedSizes, setSelectedSizes] = useState([]);
     const [disabledButton, setDisabledButton] = useState(false);
     const [imgData, setImgData] = React.useState([]);
+    const [content, setContent] = useState({
+        originEn: '',
+        originVn: 'It',
+        yearOfRelease: '',
+        concentration: '',
+        fragranceGroup: '',
+        manufacturer: '',
+        shortContentEn: '',
+        shortContentVn: '',
+        topNotesEn: '',
+        heartNotesEn: '',
+        baseNotesEn: '',
+        topNotesVn: '',
+        heartNotesVn: '',
+        baseNotesVn: '',
+        mainContentEn: '',
+        mainContentVn: '',
+        longevity: '',
+        sillage: '',
+        likability: '',
+    });
 
     const sizeOptions = ['9ml', '25ml', '27ml', '50ml', '65ml', '100ml'];
 
@@ -88,7 +111,7 @@ const AdminAddProduct = () => {
                 formData.append('nameEn', productName);
                 formData.append('category', category);
                 formData.append('brand', brand);
-                formData.append('content', JSON.stringify(contentTemplate));
+                formData.append('content', JSON.stringify(content));
                 formData.append(
                     'variants',
                     JSON.stringify(
@@ -298,7 +321,14 @@ const AdminAddProduct = () => {
         setImgData((prevData) => prevData.filter((_, i) => i !== index));
     };
 
-    console.log('formErrors: ', formErrors);
+    const handleChange = (field) => (e) => {
+        setContent((prev) => ({
+            ...prev,
+            [field]: e.target.value,
+        }));
+    };
+
+    console.log('content: ', content);
 
     return (
         <Box
@@ -553,6 +583,479 @@ const AdminAddProduct = () => {
                     </Box>
                 </Box>
             ))}
+
+            <Box sx={{ display: 'flex', gap: 4, mb: 2 }}>
+                {/* origin */}
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Origin"
+                    fullWidth
+                    value={content.originEn}
+                    onChange={handleChange('originEn')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+                {/* origin */}
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Year of manufacture"
+                    fullWidth
+                    value={content.yearOfRelease}
+                    onChange={handleChange('yearOfRelease')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+            </Box>
+
+            <Box sx={{ display: 'flex', gap: 4, mb: 2 }}>
+                {/* origin */}
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Concentration"
+                    fullWidth
+                    value={content.concentration}
+                    onChange={handleChange('concentration')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+                {/* origin */}
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Fragrance group"
+                    fullWidth
+                    value={content.fragranceGroup}
+                    onChange={handleChange('fragranceGroup')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Manufacturer"
+                    fullWidth
+                    value={content.manufacturer}
+                    onChange={handleChange('manufacturer')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+            </Box>
+
+            {/* short description */}
+            <Box sx={{ display: 'flex', gap: 4, mb: 2 }}>
+                {/* origin */}
+                <AdminTextAreaStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Short Description"
+                    fullWidth
+                    value={content.shortContentEn}
+                    multiline
+                    rows={4}
+                    onChange={handleChange('shortContentEn')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+            </Box>
+
+            {/* short description */}
+            <Box sx={{ display: 'flex', gap: 4, mb: 2 }}>
+                {/* origin */}
+                <AdminTextAreaStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Short Description Vietnamese"
+                    fullWidth
+                    value={content.shortContentVn}
+                    multiline
+                    rows={4}
+                    onChange={handleChange('shortContentVn')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+            </Box>
+
+            {/* Notes */}
+            <Box sx={{ display: 'flex', gap: 4, mb: 2 }}>
+                {/* origin */}
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Top Note"
+                    fullWidth
+                    value={content.topNotesEn}
+                    onChange={handleChange('topNotesEn')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+                {/* origin */}
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Heart Note"
+                    fullWidth
+                    value={content.heartNotesEn}
+                    onChange={handleChange('heartNotesEn')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Base Note"
+                    fullWidth
+                    value={content.baseNotesEn}
+                    onChange={handleChange('baseNotesEn')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+            </Box>
+            <Box sx={{ display: 'flex', gap: 4, mb: 2 }}>
+                {/* origin */}
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Top Note Vietnamese"
+                    fullWidth
+                    value={content.topNotesVn}
+                    onChange={handleChange('topNotesVn')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+                {/* origin */}
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Heart Note Vietnamese"
+                    fullWidth
+                    value={content.heartNotesVn}
+                    onChange={handleChange('heartNotesVn')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Base Note Vietnamese"
+                    fullWidth
+                    value={content.baseNotesVn}
+                    onChange={handleChange('baseNotesVn')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+            </Box>
+
+            {/* Main description */}
+            <Box sx={{ display: 'flex', gap: 4, mb: 2 }}>
+                <AdminTextAreaStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Main Description"
+                    fullWidth
+                    multiline
+                    rows={4}
+                    value={content.mainContentEn}
+                    onChange={handleChange('mainContentEn')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+            </Box>
+
+            <Box sx={{ display: 'flex', gap: 4, mb: 2 }}>
+                <AdminTextAreaStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Main Description Vietnamese"
+                    fullWidth
+                    multiline
+                    rows={4}
+                    value={content.mainContentVn}
+                    onChange={handleChange('mainContentVn')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+            </Box>
+
+            {/* Ranking */}
+
+            <Box sx={{ display: 'flex', gap: 4, mb: 2 }}>
+                {/* origin */}
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Fragrance lasting"
+                    fullWidth
+                    type="number"
+                    value={content.longevity}
+                    onChange={handleChange('longevity')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+                {/* origin */}
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Fragrance diffusion"
+                    fullWidth
+                    type="number"
+                    value={content.sillage}
+                    onChange={handleChange('sillage')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+
+                <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
+                    label="Nose pleasing"
+                    fullWidth
+                    type="number"
+                    value={content.likability}
+                    onChange={handleChange('likability')}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
+                />
+            </Box>
 
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <FormControl
