@@ -259,7 +259,9 @@ const AdminEditProduct = () => {
                             value={size.price}
                             onChange={handleSizeFieldChange(index, 'price')}
                             onBlur={() => handlePriceSaleBlur(index)}
-                            sx={{ mb: 2 }}
+                            sx={{
+                                mb: 2,
+                            }}
                         />
                         <AdminInputStyles
                             label="Price Sale"
@@ -285,7 +287,9 @@ const AdminEditProduct = () => {
 
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="brand-select-label">Brand</InputLabel>
+                    <InputLabel id="brand-select-label" sx={{ fontSize: '14px' }}>
+                        Brand
+                    </InputLabel>
                     <Select
                         labelId="brand-select-label"
                         value={brand}
@@ -310,13 +314,15 @@ const AdminEditProduct = () => {
                 </FormControl>
 
                 <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="category-select-label">Category</InputLabel>
+                    <InputLabel id="category-select-label" sx={{ fontSize: '14px' }}>
+                        Category
+                    </InputLabel>
                     <Select
                         labelId="category-select-label"
                         value={category}
                         label="Category"
                         onChange={(e) => setCategory(e.target.value)}
-                        sx={{ fontSize: '13px' }}
+                        sx={{ fontSize: '14px' }}
                     >
                         {/* only get all categories are active */}
                         {categoryOptions?.map(
