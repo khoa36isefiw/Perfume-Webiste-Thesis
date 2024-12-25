@@ -172,7 +172,7 @@ export default function AuthenticatedUser() {
                                 textOverflow: 'ellipsis',
                             }}
                         >
-                            {userData?.firstName + ' ' + userData?.lastName}
+                            {[userData?.firstName, userData?.lastName].filter(Boolean).join(' ')}
                         </CustomizeTypography>
 
                         <CustomizeTypography

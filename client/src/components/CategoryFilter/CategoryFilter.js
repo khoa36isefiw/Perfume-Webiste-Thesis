@@ -34,7 +34,7 @@ function CategoryFilter({ setCId }) {
             >
                 Categories
             </CustomizeTypography>
-            {categoryData?.data.map((category) => {
+            {categoryData?.data?.map((category) => {
                 return (
                     <>
                         {category.status === 'active' && (
