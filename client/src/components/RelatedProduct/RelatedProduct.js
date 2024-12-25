@@ -156,7 +156,8 @@ function RelatedProduct({ data }) {
                                 >
                                     <Rating
                                         readOnly={true}
-                                        value={perfume.rating}
+                                        // value={+perfume?.rating.toFixed(1)}
+                                        value={+perfume?.rating.toFixed(1)}
                                         // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                         sx={{
                                             fontSize: '18px',

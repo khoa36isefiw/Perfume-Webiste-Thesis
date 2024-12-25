@@ -214,7 +214,6 @@ function ChangePassword() {
                                         validatePassword,
                                     )
                                 }
-                                error={!formErrors?.currentPassword?.status}
                             />
                         </Grid>
                     </Grid>
