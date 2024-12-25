@@ -1,4 +1,4 @@
-import { Box, Button, Container, Divider, Grid, IconButton, Rating } from '@mui/material';
+import { Box, Button, Container, Grid, IconButton, Rating } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/CustomizeButton';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -11,7 +11,7 @@ import { converToVND } from '../convertToVND/convertToVND';
 import CheckIcon from '@mui/icons-material/Check';
 import { userAPI } from '../../api/userAPI';
 import { useTranslation } from 'react-i18next';
-import useProductById from '../../api/useProductById';
+
 import useLoadingV2 from '../../hooks/useLoadingV2';
 import CustomizeDivider from '../CustomizeDivider/CustomizeDivider';
 import ProductInformation from '../ProductInformation/ProductInformation';
@@ -158,31 +158,6 @@ function PerfumeDetail({ productData, onHandleClick }) {
                                     justifyContent: 'center',
                                 }}
                             >
-                                {/* discount must !== 0 */}
-                                {/* {selectedSize?.discount !== 0 && (
-                                    <Box
-                                        sx={{
-                                            position: 'absolute',
-                                            top: '10%',
-                                            left: '10%',
-                                            height: '30px',
-                                            width: '60px',
-                                            // bgcolor: 'red',
-                                            backgroundImage: `linear-gradient(-60deg, #b31217 0%, #e52d27 100%)`,
-                                            borderRadius: '8px',
-                                            fontSize: '14px',
-                                            color: '#fff',
-                                            fontWeight: 'bold',
-                                            textAlign: 'center',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        - {selectedSize?.discount}%
-                                    </Box>
-                                )} */}
-
                                 <IconButton
                                     onClick={handlePrevious}
                                     sx={{
@@ -326,7 +301,7 @@ function PerfumeDetail({ productData, onHandleClick }) {
 
                             <Rating
                                 readOnly
-                                value={productData?.rating.toFixed(1)}
+                                value={+productData?.rating.toFixed(1)}
                                 // MuiRating-root MuiRating-sizeMedium css-1qqgbpl-MuiRating-root
                                 sx={{
                                     fontSize: '18px',
