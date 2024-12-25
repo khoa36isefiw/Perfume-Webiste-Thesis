@@ -31,7 +31,7 @@ const AdminAddProduct = () => {
     const { showNotificationMessage } = useSnackbarMessage();
     const { formErrors, onHandleBlur } = useBlur();
     const { validateRequired, validateNumber } = useValidationWithRef();
-    const [fakeErrors, setFakeErrors] = useState(null);
+    const [fakeErrors, setFakeErrors] = useState([]);
     const navigate = useNavigate();
     const [images, setImages] = useState([]);
     const [productName, setProductName] = useState('');
@@ -169,10 +169,101 @@ const AdminAddProduct = () => {
         });
     };
 
+    console.log('selectedSizes: ', selectedSizes);
+
+    // const handlePriceSaleBlur = (index) => {
+    //     setSelectedSizes((prevSizes) => {
+    //         const updatedSizes = [...prevSizes];
+    //         const { price, priceSale, stock } = updatedSizes[index];
+
+    //         const errors = { ...fakeErrors };
+    //         // Kiểm tra điều kiện priceSale > price
+    //         if (+priceSale > +price) {
+    //             showNotificationMessage(
+    //                 'error',
+    //                 'Price Error',
+    //                 'Sale price cannot be greater than the original price!',
+    //             );
+
+    //             setDisabledButton(true);
+    //         } else {
+    //             setDisabledButton(false);
+    //         }
+
+    //         if (price < 0 || priceSale < 0 || stock < 0) {
+    //             showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
+
+    //             setDisabledButton(true);
+    //         }
+
+    //         if (price === '') {
+    //             showNotificationMessage('error', 'Price Input', 'Please enter these fields');
+    //             setDisabledButton(true);
+    //             setFakeErrors((prevErr) => {
+    //                 const updatedErrors = { ...prevErr };
+    //                 updatedErrors[index] = {
+    //                     ...updatedErrors[index], // Giữ các lỗi trước đó cho phần tử tại index này
+    //                     price: 'This field required!', // Cập nhật lỗi cho trường price
+    //                 };
+    //                 return updatedErrors;
+    //             });
+    //         } else if (priceSale === '') {
+    //             showNotificationMessage('error', 'Price Input', 'Please enter these fields');
+    //             setDisabledButton(true);
+    //             setFakeErrors((prevErr) => {
+    //                 const updatedErrors = { ...prevErr };
+    //                 updatedErrors[index] = {
+    //                     ...updatedErrors[index], // Giữ các lỗi trước đó cho phần tử tại index này
+    //                     priceSale: 'This field required!', // Cập nhật lỗi cho trường priceSale
+    //                 };
+    //                 return updatedErrors;
+    //             });
+    //         }
+
+    //         return updatedSizes;
+    //     });
+    // };
+
+    const handlePriceBlur = (index) => {
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            const { price } = updatedSizes[index];
+
+            const errors = { ...fakeErrors };
+
+            // Kiểm tra nếu price rỗng
+            if (price === '') {
+                showNotificationMessage('error', 'Price Input', 'Please enter these fields');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    price: 'This field required!',
+                };
+            } else if (price < 0) {
+                showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    price: 'Number must be greater than 0!',
+                };
+            } else {
+                // Xóa lỗi nếu price hợp lệ
+                if (errors[index]?.price) {
+                    delete errors[index].price;
+                }
+            }
+
+            setFakeErrors(errors);
+            return updatedSizes;
+        });
+    };
+
     const handlePriceSaleBlur = (index) => {
         setSelectedSizes((prevSizes) => {
             const updatedSizes = [...prevSizes];
-            const { price, priceSale, stock } = updatedSizes[index];
+            const { price, priceSale } = updatedSizes[index];
+
+            const errors = { ...fakeErrors };
 
             // Kiểm tra điều kiện priceSale > price
             if (+priceSale > +price) {
@@ -181,18 +272,68 @@ const AdminAddProduct = () => {
                     'Price Error',
                     'Sale price cannot be greater than the original price!',
                 );
-
                 setDisabledButton(true);
             } else {
                 setDisabledButton(false);
             }
 
-            if (price < 0 || priceSale < 0 || stock < 0) {
-                showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
-
+            // Kiểm tra nếu priceSale rỗng
+            if (priceSale === '') {
+                showNotificationMessage('error', 'Price Input', 'Please enter these fields');
                 setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    priceSale: 'This field required!',
+                };
+            } else if (priceSale < 0) {
+                showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    priceSale: 'Number must be greater than 0!',
+                };
+            } else {
+                // Xóa lỗi nếu priceSale hợp lệ
+                if (errors[index]?.priceSale) {
+                    delete errors[index].priceSale;
+                }
             }
 
+            setFakeErrors(errors);
+            return updatedSizes;
+        });
+    };
+
+    const handleStockBlur = (index) => {
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            const { stock } = updatedSizes[index];
+
+            const errors = { ...fakeErrors };
+
+            // Kiểm tra nếu stock rỗng hoặc < 0
+            if (stock === '') {
+                showNotificationMessage('error', 'Stock Input', 'Please enter these fields');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    stock: 'This field required!',
+                };
+            } else if (stock < 0) {
+                showNotificationMessage('error', 'Stock Error', 'Number must be greater than 0!');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    stock: 'Number must be greater than 0!',
+                };
+            } else {
+                // Xóa lỗi nếu stock hợp lệ
+                if (errors[index]?.stock) {
+                    delete errors[index].stock;
+                }
+            }
+
+            setFakeErrors(errors);
             return updatedSizes;
         });
     };
@@ -203,7 +344,9 @@ const AdminAddProduct = () => {
         setImages(updatedImages);
         setImgData((prevData) => prevData.filter((_, i) => i !== index));
     };
-    console.log({ images });
+
+    console.log('fakeErrors: ', fakeErrors);
+
     return (
         <Box
             sx={{
@@ -404,10 +547,17 @@ const AdminAddProduct = () => {
                             type="number"
                             value={size.price}
                             onChange={handleSizeFieldChange(index, 'price')}
-                            onBlur={() => handlePriceSaleBlur(index)}
-                            sx={{
-                                mb: 2,
-                            }}
+                            onBlur={() => handlePriceBlur(index)}
+                            sx={{ mb: 2 }}
+                            helperText={
+                                fakeErrors[index]?.price && (
+                                    <Typography
+                                        sx={{ fontSize: '12px', color: 'red', fontWeight: 'bold' }}
+                                    >
+                                        {fakeErrors[index].price}
+                                    </Typography>
+                                )
+                            }
                         />
                         <AdminInputStyles
                             label="Price Sale"
@@ -417,6 +567,15 @@ const AdminAddProduct = () => {
                             onChange={handleSizeFieldChange(index, 'priceSale')}
                             onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
+                            helperText={
+                                fakeErrors[index]?.priceSale && (
+                                    <Typography
+                                        sx={{ fontSize: '12px', color: 'red', fontWeight: 'bold' }}
+                                    >
+                                        {fakeErrors[index].priceSale}
+                                    </Typography>
+                                )
+                            }
                         />
                         <AdminInputStyles
                             label="Stock"
@@ -424,8 +583,17 @@ const AdminAddProduct = () => {
                             type="number"
                             value={size.stock}
                             onChange={handleSizeFieldChange(index, 'stock')}
-                            onBlur={() => handlePriceSaleBlur(index)}
+                            onBlur={() => handleStockBlur(index)}
                             sx={{ mb: 2 }}
+                            helperText={
+                                fakeErrors[index]?.stock && (
+                                    <Typography
+                                        sx={{ fontSize: '12px', color: 'red', fontWeight: 'bold' }}
+                                    >
+                                        {fakeErrors[index].stock}
+                                    </Typography>
+                                )
+                            }
                         />
                     </Box>
                 </Box>
