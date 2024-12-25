@@ -80,7 +80,6 @@ const UserController = {
             const { id } = req.params;
             const data = req.body;
             const fileData = req.file;
-            console.log('data', data, req);
             const user = await User.findById(id);
             if (!user) {
                 return res.status(404).json({ message: 'User not found!' });
