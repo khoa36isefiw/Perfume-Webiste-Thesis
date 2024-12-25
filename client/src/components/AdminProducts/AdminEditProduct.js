@@ -19,7 +19,11 @@ import { mobileScreen, theme } from '../../Theme/Theme';
 import useProductById from '../../api/useProductById';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
-import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
+import {
+    AdminAreaInput,
+    AdminInputStyles,
+    AdminNormalInput,
+} from '../AdminInputStyles/AdminInputStyles';
 import { useBlur } from '../../hooks/useBlur';
 import useValidationWithRef from '../../hooks/useValidationWithRef';
 
@@ -42,6 +46,28 @@ const AdminEditProduct = () => {
     const [productName, setProductName] = useState('');
     const [category, setCategory] = useState('');
     const [brand, setBrand] = useState('');
+    const [content, setContent] = useState({
+        originEn: '',
+        originVn: 'It',
+        yearOfRelease: '',
+        concentration: '',
+        fragranceGroup: '',
+        manufacturer: '',
+        shortContentEn: '',
+        shortContentVn: '',
+        topNotesEn: '',
+        heartNotesEn: '',
+        baseNotesEn: '',
+        topNotesVn: '',
+        heartNotesVn: '',
+        baseNotesVn: '',
+        mainContentEn: '',
+        mainContentVn: '',
+        longevity: '',
+        sillage: '',
+        likability: '',
+    });
+
     const [disabledButton, setDisabledButton] = useState(false);
     const [selectedSizes, setSelectedSizes] = useState([]);
 
@@ -71,6 +97,7 @@ const AdminEditProduct = () => {
             );
             setImages(stableProduct.imagePath);
             setExistingImages(stableProduct.imagePath);
+            setContent(stableProduct.content);
         }
     }, [stableProduct]);
 
@@ -116,6 +143,7 @@ const AdminEditProduct = () => {
             formData.append('nameEn', productName);
             formData.append('category', category);
             formData.append('brand', brand);
+            formData.append('content', JSON.stringify(content));
             formData.append('variants', JSON.stringify(variants));
             newImages.forEach((file) => {
                 formData.append('imagePath', file);
@@ -129,7 +157,7 @@ const AdminEditProduct = () => {
                     'Edit Product',
                     'Update product information successfully!',
                 );
-                navigate('/admin/manage-products');
+                // navigate('/admin/manage-products');
             }
         } else {
             showNotificationMessage(
@@ -306,6 +334,13 @@ const AdminEditProduct = () => {
     //     });
     // };
 
+    const handleChange = (field) => (e) => {
+        setContent((prev) => ({
+            ...prev,
+            [field]: e.target.value,
+        }));
+    };
+
     return (
         <Box
             sx={{
@@ -378,7 +413,7 @@ const AdminEditProduct = () => {
             </Box>
 
             {selectedSizes?.map((size, index) => (
-                <Box key={size.size} sx={{ mb: 3 }}>
+                <Box key={size.size} sx={{ mb: 2 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <Typography
                             key={size.size}
@@ -448,6 +483,151 @@ const AdminEditProduct = () => {
                     </Box>
                 </Box>
             ))}
+            <Box sx={{ display: 'flex', gap: 4 }}>
+                <AdminNormalInput
+                    label={'Origin'}
+                    type={'text'}
+                    value={content.originEn}
+                    onHandleChange={handleChange('originEn')}
+                    onHandleBlur={''}
+                />
+                <AdminNormalInput
+                    label={'Year of manufacture'}
+                    type={'text'}
+                    value={content.yearOfRelease}
+                    onHandleChange={handleChange('yearOfRelease')}
+                    onHandleBlur={''}
+                />
+            </Box>
+
+            <Box sx={{ display: 'flex', gap: 4 }}>
+                <AdminNormalInput
+                    label={'Concentration'}
+                    type={'text'}
+                    value={content.concentration}
+                    onHandleChange={handleChange('concentration')}
+                    onHandleBlur={''}
+                />
+                <AdminNormalInput
+                    label={'Fragrance group'}
+                    type={'text'}
+                    value={content.fragranceGroup}
+                    onHandleChange={handleChange('fragranceGroup')}
+                    onHandleBlur={''}
+                />
+                <AdminNormalInput
+                    label={'Manufacturer'}
+                    type={'text'}
+                    value={content.manufacturer}
+                    onHandleChange={handleChange('manufacturer')}
+                    onHandleBlur={''}
+                />
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <AdminAreaInput
+                    label={'Short Description'}
+                    type={'number'}
+                    value={content.shortContentEn}
+                    onHandleChange={handleChange('shortContentEn')}
+                    onHandleBlur={''}
+                />
+                <AdminAreaInput
+                    label={'Short Description Vietnamese'}
+                    type={'number'}
+                    value={content.shortContentVn}
+                    onHandleChange={handleChange('shortContentVn')}
+                    onHandleBlur={''}
+                />
+            </Box>
+
+            <Box sx={{ display: 'flex', gap: 4 }}>
+                <AdminNormalInput
+                    label={'Top Note'}
+                    type={'text'}
+                    value={content.topNotesEn}
+                    onHandleChange={handleChange('topNotesEn')}
+                    onHandleBlur={''}
+                />
+                <AdminNormalInput
+                    label={'Heart Note'}
+                    type={'text'}
+                    value={content.heartNotesEn}
+                    onHandleChange={handleChange('heartNotesEn')}
+                    onHandleBlur={''}
+                />
+                <AdminNormalInput
+                    label={'Base Note'}
+                    type={'text'}
+                    value={content.baseNotesEn}
+                    onHandleChange={handleChange('baseNotesEn')}
+                    onHandleBlur={''}
+                />
+            </Box>
+
+            <Box sx={{ display: 'flex', gap: 4 }}>
+                <AdminNormalInput
+                    label={'Top Note Vietnamese'}
+                    type={'text'}
+                    value={content.topNotesVn}
+                    onHandleChange={handleChange('topNotesVn')}
+                    onHandleBlur={''}
+                />
+                <AdminNormalInput
+                    label={'Heart Note Vietnamese'}
+                    type={'text'}
+                    value={content.heartNotesVn}
+                    onHandleChange={handleChange('heartNotesVn')}
+                    onHandleBlur={''}
+                />
+                <AdminNormalInput
+                    label={'Base Note Vietnamese'}
+                    type={'text'}
+                    value={content.baseNotesVn}
+                    onHandleChange={handleChange('baseNotesVn')}
+                    onHandleBlur={''}
+                />
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <AdminAreaInput
+                    label={'Main Description'}
+                    type={'number'}
+                    value={content.mainContentEn}
+                    onHandleChange={handleChange('mainContentEn')}
+                    onHandleBlur={''}
+                />
+                <AdminAreaInput
+                    label={'Main Description Vietnamese'}
+                    type={'number'}
+                    value={content.mainContentVn}
+                    onHandleChange={handleChange('mainContentVn')}
+                    onHandleBlur={''}
+                />
+            </Box>
+
+            <Box sx={{ display: 'flex', gap: 4 }}>
+                <AdminNormalInput
+                    label={'Fragrance lasting'}
+                    type={'number'}
+                    value={content.longevity}
+                    onHandleChange={handleChange('longevity')}
+                    onHandleBlur={''}
+                />
+                <AdminNormalInput
+                    label={'Fragrance diffusion'}
+                    type={'number'}
+                    value={content.sillage}
+                    onHandleChange={handleChange('sillage')}
+                    onHandleBlur={''}
+                />
+                <AdminNormalInput
+                    label={'Nose pleasing'}
+                    type={'number'}
+                    value={content.likability}
+                    onHandleChange={handleChange('likability')}
+                    onHandleBlur={''}
+                />
+            </Box>
 
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <FormControl fullWidth sx={{ mb: 2 }}>
