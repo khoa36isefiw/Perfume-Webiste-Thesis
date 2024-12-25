@@ -93,7 +93,7 @@ function AccountInfo() {
                 Object.keys(data).forEach(
                     (key) => key !== 'imagePath' && formData.append(key, data[key]),
                 );
-                formData.append('imagePath', imgData);
+                if (imgData) formData.append('imagePath', imgData);
                 const updateUserInfor = await userAPI.updateUserProfile(userData._id, formData);
                 if (updateUserInfor.status === 200) {
                     mutate();
