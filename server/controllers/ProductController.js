@@ -240,7 +240,13 @@ const ProductController = {
 
             emailEvent.emit('sendEmail', {
                 subject: 'New Product Available!',
-                content: `Check out our new product: ${nameEn}. Visit our website for more details!`,
+                content: `
+                <h1>Exciting News!</h1>
+                <p>We are thrilled to announce the arrival of a new product: <strong>${nameEn}</strong>.</p>
+                <p>Description: ${descriptionEn}</p>
+                <p>Check it out on our website for more details and special offers!</p>
+                <p>Thank you for being a valued subscriber!</p>
+            `,
             });
 
             res.status(201).json(result);
