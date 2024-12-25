@@ -21,14 +21,12 @@ import CustomizeButton, { CustomizeButtonOutlined } from '../CustomizeButton/Cus
 import { TextFieldCustomizeV2 } from '../TextFieldCustomize/TextFieldCustomize';
 import MobileBottomNavigation from './MobileBottomNavigation';
 import { perfumeData } from '../PerfumesCard/perfumeData';
-import { converToVND } from '../convertToVND/convertToVND';
 import { backTop } from '../goBackTop/goBackTop';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import useUserById from '../../api/useUserById';
 import CouponRunning from '../CouponRunning/CouponRunning';
 import VNFlag from '../../assets/images/VN-circle.png';
 import UKFlag from '../../assets/images/UK-circle.png';
-
 import { useTranslation } from 'react-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
 import MobileHeader from './MobileHeader';
@@ -44,7 +42,6 @@ function NewHeader() {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 739);
     const [activeHeader, setActiveHeader] = useState('');
     const [openMenu, setOpenMenu] = useState(false);
-    const listSuggestions = suggestions.slice(0, 4); // just show 4 product items to UI
 
     // save keyword is searched by user
     const [searchHistory, setSearchHistory] = useState(
@@ -61,7 +58,7 @@ function NewHeader() {
 
     const [enLanguage, setEnLanguage] = useState(false);
 
-    const { data: products, mutate, isLoading, error } = useUserById(userData?._id);
+    const { data: products } = useUserById(userData?._id);
 
     // data
     const headerData = [
@@ -101,9 +98,14 @@ function NewHeader() {
 
     // define logic for header location, when reload the page
     useEffect(() => {
-        const currentPath = location.pathname; // get the current location path
+        const currentPath = window.location.pathname; // get the current location path
+        console.log('currentPath: ', currentPath);
         // check, if the current Path is the same as header.header Link
-        const currentHeader = headerData.find((header) => header.headerLink === currentPath);
+        const currentHeader = headerData.find(
+            (header) =>
+                header.headerLink === `/${i18n.language}${currentPath.replace(/\/(en|vi)/, '')}`,
+        );
+        console.log('currentHeader: ', currentHeader);
         setActiveHeader(
             currentHeader
                 ? i18n.language === 'en'
@@ -111,7 +113,7 @@ function NewHeader() {
                     : currentHeader.headerTextVi
                 : '',
         );
-    }, [location.pathname, i18n.language]);
+    }, [location.pathname, i18n.language, headerData]);
 
     const handleHeaderClick = (header) => {
         setActiveHeader(i18n.language === 'en' ? header.headerText : header.headerTextVi);
@@ -275,9 +277,6 @@ function NewHeader() {
     // handle for searching with search history
     const handleSearchFocus = () => {
         setShowSearchHistory(true);
-        // if (searchQuery === null) {
-        //     setShowSearchHistory(true);
-        // }
     };
     const handleSearchBlur = () => {
         // Handle blur with delay - hide history after losing focus
