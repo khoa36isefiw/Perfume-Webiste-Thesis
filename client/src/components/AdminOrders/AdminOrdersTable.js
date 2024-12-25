@@ -118,6 +118,8 @@ export default function AdminOrdersTable() {
             Name: order.user.firstName + '' + order.user.lastName,
             Total: order.totalPrice,
             Address: order.address,
+            Status: order.status,
+            'Payment Method': order.paymentMethod,
             Date: formatDate(order.createdAt),
         }));
 
