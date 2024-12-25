@@ -261,9 +261,10 @@ const ProductController = {
 
     update: async (req, res) => {
         const { id } = req.params;
-        const { variants, deletedImages, ...rest } = req.body;
+        const { variants, content, deletedImages, ...rest } = req.body;
         console.log(deletedImages);
         const variantParse = JSON.parse(variants);
+        const contentParse = JSON.parse(content);
         const deletedImageURL = JSON.parse(deletedImages);
         const fileData = req.files;
         const imagePaths = fileData?.length > 0 && fileData.map((item) => item.path);
@@ -272,7 +273,7 @@ const ProductController = {
             if (!product) {
                 return res.status(404).json({ message: 'Product not found' });
             }
-            await Product.updateOne({ _id: id }, { $set: rest });
+            await Product.updateOne({ _id: id }, { $set: { content: contentParse, ...rest } });
             if (deletedImageURL.length > 0) {
                 for (const image of deletedImageURL) {
                     const publicId = ProductController.extractPublicIdFromURL(image);
