@@ -29,10 +29,10 @@ function Comments({ perfumeDetailData, reference }) {
     const itemsPerPage = 5; // Number of comments per page
 
     // Calculate the total number of pages
-    const totalPages = Math.ceil(reviewData?.data.length / itemsPerPage);
+    const totalPages = Math.ceil(reviewData?.data?.length / itemsPerPage);
     const currentComments =
         !isLoading && Array.isArray(reviewData?.data)
-            ? reviewData?.data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+            ? reviewData?.data?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
             : [];
 
     // Handler for page navigation
@@ -54,7 +54,7 @@ function Comments({ perfumeDetailData, reference }) {
             <CommentOnProductData commentsData={currentComments} />
 
             {/* Pagination Controls */}
-            {reviewData?.data.length > 0 && (
+            {reviewData?.data?.length > 0 && (
                 <>
                     <Box
                         sx={{

@@ -87,7 +87,7 @@ function AdminCategoriesTable() {
                         'Xóa category thành công',
                     );
                     // re-update to list
-                    const updatedCategories = categories.filter((category) => category._id !== id);
+                    const updatedCategories = categories.filter((category) => category?._id !== id);
                     setCategories(updatedCategories);
                     setOpenConfirmMessage(false);
                     setCategoryToRemove(null);
