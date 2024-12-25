@@ -26,3 +26,8 @@ DEVELOP AN E-COMMERCE WEBSITE TO SELL PERFUME USING MERN STACK
     chức năng tự làm: thì nó được viết như thế nào?
 -   nếu xài services hay api?
 -   kết quả: thì là đề tài làm được, tìm hiểu công nghệ nào, cài đặt chức năng gì?
+
+
+
+
+### KLTN

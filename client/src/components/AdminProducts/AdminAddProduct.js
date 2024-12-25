@@ -24,9 +24,14 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
+import { useBlur } from '../../hooks/useBlur';
+import useValidationWithRef from '../../hooks/useValidationWithRef';
 
 const AdminAddProduct = () => {
     const { showNotificationMessage } = useSnackbarMessage();
+    const { formErrors, onHandleBlur } = useBlur();
+    const { validateRequired, validateNumber } = useValidationWithRef();
+    const [fakeErrors, setFakeErrors] = useState(null);
     const navigate = useNavigate();
     const [images, setImages] = useState([]);
     const [productName, setProductName] = useState('');
@@ -280,10 +285,27 @@ const AdminAddProduct = () => {
             {/* <Paper sx={{ p: 2, maxHeight: '400px', overflow: 'scroll' }}> */}
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
                     label="Product Name"
                     fullWidth
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
                 />
 
                 {/* select size */}
@@ -313,6 +335,7 @@ const AdminAddProduct = () => {
                         label="Size"
                         renderValue={(selected) => selected.join(', ')}
                         sx={{ fontSize: '13px' }}
+                        onClose={() => onHandleBlur('size', selectedSizes, validateRequired)} // Xử lý onBlur
                     >
                         {sizeOptions.map((size) => (
                             <MenuItem
@@ -332,6 +355,16 @@ const AdminAddProduct = () => {
                             </MenuItem>
                         ))}
                     </Select>
+                    <Typography
+                        sx={{
+                            fontSize: '12px',
+                            color: 'red',
+                            fontWeight: 'bold',
+                            ml: '14px',
+                        }}
+                    >
+                        {formErrors?.size?.message}
+                    </Typography>
                 </FormControl>
             </Box>
 
@@ -425,6 +458,7 @@ const AdminAddProduct = () => {
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)}
                         sx={{ fontSize: '13px' }}
+                        onClose={() => onHandleBlur('brand', brand, validateRequired)} // Xử lý onBlur
                     >
                         {brandOptions.map(
                             (brand) =>
@@ -441,6 +475,16 @@ const AdminAddProduct = () => {
                                 ),
                         )}
                     </Select>
+                    <Typography
+                        sx={{
+                            fontSize: '12px',
+                            color: 'red',
+                            fontWeight: 'bold',
+                            ml: '14px',
+                        }}
+                    >
+                        {formErrors?.brand?.message}
+                    </Typography>
                 </FormControl>
 
                 <FormControl fullWidth sx={{ mb: 2 }}>
@@ -464,6 +508,7 @@ const AdminAddProduct = () => {
                         label="Category"
                         onChange={(e) => setCategory(e.target.value)}
                         sx={{ fontSize: '13px' }}
+                        onClose={() => onHandleBlur('category', brand, validateRequired)} // Xử lý onBlur
                     >
                         {categoryOptions.map(
                             (category) =>
@@ -480,6 +525,16 @@ const AdminAddProduct = () => {
                                 ),
                         )}
                     </Select>
+                    <Typography
+                        sx={{
+                            fontSize: '12px',
+                            color: 'red',
+                            fontWeight: 'bold',
+                            ml: '14px',
+                        }}
+                    >
+                        {formErrors?.category?.message}
+                    </Typography>
                 </FormControl>
             </Box>
             {/* </Paper> */}
