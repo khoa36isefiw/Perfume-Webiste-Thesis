@@ -1,5 +1,5 @@
-import { Box, Container, Grid } from '@mui/material';
-import React, { useState } from 'react';
+import { Box, Grid } from '@mui/material';
+import React from 'react';
 
 import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
 import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
@@ -11,7 +11,7 @@ import { converToVND } from '../convertToVND/convertToVND';
 import { useTranslation } from 'react-i18next';
 
 function RelatedProduct({ data }) {
-    const { t, i18n } = useTranslation('translate');
+    const { i18n } = useTranslation('translate');
     const navigate = useNavigate();
 
     const handleNavigateProductDetails = (perfume) => {
