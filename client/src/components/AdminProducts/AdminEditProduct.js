@@ -157,7 +157,7 @@ const AdminEditProduct = () => {
                     'Edit Product',
                     'Update product information successfully!',
                 );
-                navigate('/admin/manage-products');
+                // navigate('/admin/manage-products');
             }
         } else {
             showNotificationMessage(

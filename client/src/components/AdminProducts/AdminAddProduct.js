@@ -130,16 +130,44 @@ const AdminAddProduct = () => {
                 console.log('addProductResponse: ', addProductResponse);
 
                 // successfully added
+                if (addProductResponse.status === 201) {
+                    showNotificationMessage(
+                        'success',
+                        'Add New Product',
+                        'Add new prodcut successfully!',
+                    );
+                    setProductName('');
+                    setBrand('');
+                    setCategory('');
+                    setSelectedSizes([]);
+                    setImgData([]);
+                    setImages([]);
+                    setContent({
+                        originEn: '',
+                        originVn: 'It',
+                        yearOfRelease: '',
+                        concentration: '',
+                        fragranceGroup: '',
+                        manufacturer: '',
+                        shortContentEn: '',
+                        shortContentVn: '',
+                        topNotesEn: '',
+                        heartNotesEn: '',
+                        baseNotesEn: '',
+                        topNotesVn: '',
+                        heartNotesVn: '',
+                        baseNotesVn: '',
+                        mainContentEn: '',
+                        mainContentVn: '',
+                        longevity: '',
+                        sillage: '',
+                        likability: '',
+                    });
+                }
 
-                showNotificationMessage(
-                    'success',
-                    'Add New Product',
-                    'Add new prodcut successfully!',
-                );
-
-                setTimeout(() => {
-                    navigate('/admin/manage-products');
-                }, 2800);
+                // setTimeout(() => {
+                //     navigate('/admin/manage-products');
+                // }, 2800);
             }
         } else {
             console.log('chay vo day ne');
