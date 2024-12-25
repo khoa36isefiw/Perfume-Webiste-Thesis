@@ -136,6 +136,7 @@ const ProductController = {
 
             const products = await Product.find({
                 createdAt: { $gte: startDate, $lt: endDate },
+                status: 'active',
             });
 
             res.status(200).json(products.length);
@@ -177,10 +178,18 @@ const ProductController = {
     getByCategoryId: async (req, res) => {
         try {
             const { categoryId } = req.params;
-            const products = await Product.find({ category: categoryId, status: 'active' })
+            const subcategories = await Category.find({ parent: categoryId });
+
+            const categoryIds = [categoryId, ...subcategories.map((sub) => sub._id)];
+
+            const products = await Product.find({
+                category: { $in: categoryIds },
+                status: 'active',
+            })
                 .populate('variants')
                 .populate('category')
                 .populate('brand');
+
             res.status(200).json(products);
         } catch (error) {
             res.status(500).json({ message: error.message });
