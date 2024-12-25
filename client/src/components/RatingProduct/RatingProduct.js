@@ -33,10 +33,10 @@ function RatingProduct({ perfumeDetailData, mutate }) {
         (order) => order.product === perfumeDetailData?.product._id,
     );
     const isReviewed = orderByIdData?.some((item) => item.isReviewed);
-    console.log('isReviewed: ', isReviewed);
-    console.log('orderByIdData: ', orderByIdData);
+    // console.log('isReviewed: ', isReviewed);
+    // console.log('orderByIdData: ', orderByIdData);
 
-    console.log('orderDataById: ', orderDataById?.data);
+    // console.log('orderDataById: ', orderDataById?.data);
     useEffect(() => {
         if (location?.state?.from === `/${i18n.language}/my-purchase` && reviewInputRef.current) {
             setTimeout(() => {

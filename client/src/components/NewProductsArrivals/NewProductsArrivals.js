@@ -18,7 +18,7 @@ function NewProductsArrivals() {
     const navigate = useNavigate();
     // cut the perfumeData list, just use 5 items in array
     const { data: products } = useLatestProduct();
-    const latestProducts = products?.data.slice(0, 6);
+    const latestProducts = products?.data?.slice(0, 6);
     // console.log('latestProducts: ', latestProducts);
     const handleNavigateProductDetails = (perfume) => {
         // navigate to the product detail page and pass the perfume data as state
