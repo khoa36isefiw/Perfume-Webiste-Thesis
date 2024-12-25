@@ -60,11 +60,12 @@ const CategoryController = {
 
     update: async (req, res) => {
         try {
+            const { name, descriptionEn, parent } = req.body;
             const category = await Category.findOne({ _id: req.params.id });
             if (!category) {
                 res.status(404).json({ message: 'Category not found' });
             }
-            await category.updateOne(req.body);
+            await category.updateOne({ name, descriptionEn, parent: parent || null });
             res.status(200).json(category);
         } catch (error) {
             res.status(500).json({ message: error.message });
