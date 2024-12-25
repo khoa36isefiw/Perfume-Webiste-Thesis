@@ -52,7 +52,11 @@ function PerfumesCard() {
     }, [products?.data]);
 
     const productFilteredByCategory = cId
-        ? productData?.filter((cId) => cId.category._id === selectedCategory._id)
+        ? productData?.filter(
+              (cId) =>
+                  cId.category._id === selectedCategory._id ||
+                  cId.category.parent === selectedCategory._id,
+          )
         : products?.data;
 
     useEffect(() => {

@@ -181,7 +181,7 @@ const ProductController = {
             const subcategories = await Category.find({ parent: categoryId });
 
             const categoryIds = [categoryId, ...subcategories.map((sub) => sub._id)];
-
+            console.log({ categoryIds });
             const products = await Product.find({
                 category: { $in: categoryIds },
                 status: 'active',
