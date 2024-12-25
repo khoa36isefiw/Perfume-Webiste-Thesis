@@ -29,7 +29,7 @@ emailEvent.on('sendEmail', async ({ subject, content }) => {
             from: `"TOMTOC PERFURMS 👻" <${process.env.EMAIL_USER}>`,
             to: emailList,
             subject,
-            text: content,
+            html: content,
         };
 
         await transporter.sendMail(mailOptions);

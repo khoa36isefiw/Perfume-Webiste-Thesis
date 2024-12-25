@@ -251,8 +251,8 @@ const ProductController = {
                 subject: 'New Product Available!',
                 content: `
                 <h1>Exciting News!</h1>
-                <p>We are thrilled to announce the arrival of a new product: <strong>${nameEn}</strong>.</p>
-                <p>Description: ${descriptionEn}</p>
+                <p>We are thrilled to announce the arrival of a new product: <strong>${savedProduct.nameEn}</strong>.</p>
+                <p>Description: ${savedProduct.shortDescriptionEn}</p>
                 <p>Check it out on our website for more details and special offers!</p>
                 <p>Thank you for being a valued subscriber!</p>
             `,
