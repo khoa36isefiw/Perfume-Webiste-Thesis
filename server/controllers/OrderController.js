@@ -1,3 +1,5 @@
+require('dotenv').config();
+const nodemailer = require('nodemailer');
 const Order = require('../models/Order.model');
 const Product = require('../models/Product.model');
 const Variant = require('../models/Variant.model');
@@ -148,12 +150,38 @@ const OrderController = {
     cancelOrder: async (req, res) => {
         try {
             const { id } = req.params;
-            const order = await Order.findById(id);
+            const order = await Order.findById(id).populate('user');
             if (!order) {
                 return res.status(404).json({ message: 'Order not found' });
             }
             if (order.status === 'PAID' || order.status === 'CANCELLED') {
                 return res.status(400).json({ message: 'Order is invalid' });
+            }
+            // send mail to user
+            if (order.user.email) {
+                const transporter = nodemailer.createTransport({
+                    host: 'smtp.gmail.com',
+                    port: 465,
+                    secure: true,
+                    auth: {
+                        user: process.env.EMAIL_USER,
+                        pass: process.env.EMAIL_PASSWORD,
+                    },
+                });
+
+                await transporter.sendMail({
+                    from: `"TOMTOC PERFURMS 👻" <${process.env.EMAIL_USER}>`, // sender address
+                    to: order.user.email, // list of receivers
+                    subject: `Your order has been cancelled #${order._id}`, // Subject line
+                    text: '', // plain text body
+                    html: `<p>Dear Customer,</p>
+                           <p>We regret to inform you that your order <b>#${order._id}</b> has been cancelled.</p>
+                           <p>If you have any questions, feel free to contact our support team.</p>
+                           <p>Thank you for your understanding.</p>
+                           <p>Best regards,<br/>TOMTOC PERFURMS</p>`, // html body
+                });
+            } else {
+                console.log('No email to send');
             }
             order.status = 'CANCELLED';
             await order.save();
