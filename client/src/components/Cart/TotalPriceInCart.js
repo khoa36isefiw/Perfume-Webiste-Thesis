@@ -23,21 +23,21 @@ function TotalPriceInCart({ productsList, selectedProducts, setPriceChange, pric
 
     const calculateTotal = useCallback(() => {
         const selectedProductMap = new Map(
-            selectedProducts.map((p) => [`${p.product._id}-${p.variant._id}`, p]),
+            selectedProducts.map((p) => [`${p.product?._id}-${p.variant?._id}`, p]),
         );
 
         let total = 0;
         productsList.forEach((productItem) => {
-            const key = `${productItem.product._id}-${productItem.variant._id}`;
+            const key = `${productItem?.product?._id}-${productItem?.variant?._id}`;
             const product = selectedProductMap.get(key);
             console.log('product information: ', product);
 
             if (product) {
                 total +=
-                    productItem.quantity *
-                    (product.variant.discountPercent !== 0
-                        ? product.variant.priceSale
-                        : productItem.variant.price);
+                    productItem?.quantity *
+                    (product?.variant?.discountPercent !== 0
+                        ? product?.variant?.priceSale
+                        : productItem?.variant?.price);
             }
         });
 

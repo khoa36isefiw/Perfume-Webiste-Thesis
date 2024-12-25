@@ -55,8 +55,8 @@ export const ProductInCart = ({
         if (productToRemove) {
             const dataToRemove = {
                 // product, variant
-                product: productToRemove.productId,
-                variant: productToRemove.productSizeId,
+                product: productToRemove?.productId,
+                variant: productToRemove?.productSizeId,
             };
 
             const removeProduct = await userAPI.removeProductFromCart(userId, dataToRemove);
@@ -82,9 +82,9 @@ export const ProductInCart = ({
     const handleSelectProduct = (isChecked, product) => {
         const check = selectedProducts?.findIndex(
             (item) =>
-                item.variant._id === product.variant._id &&
-                item.product._id === product.product._id &&
-                item.variant.stock > 0,
+                item?.variant?._id === product?.variant?._id &&
+                item?.product?._id === product?.product?._id &&
+                item?.variant?.stock > 0,
         );
 
         // if !== -1 --> exists --> checked --> remove from list
@@ -92,8 +92,8 @@ export const ProductInCart = ({
             setSelectedProducts((prev) =>
                 prev.filter(
                     (item) =>
-                        item.product._id !== product.product._id ||
-                        item.variant._id !== product.variant._id,
+                        item?.product?._id !== product?.product?._id ||
+                        item?.variant?._id !== product?.variant?._id,
                 ),
             );
         } else {
@@ -105,7 +105,7 @@ export const ProductInCart = ({
     };
     console.log('list selected product: ', selectedProducts);
     // filter list products by stock > 0.
-    const getListProductIsStock = productsList.filter((product) => product.variant?.stock > 0);
+    const getListProductIsStock = productsList.filter((product) => product?.variant?.stock > 0);
     const handleSelectAll = (isChecked) => {
         if (isChecked) {
             setSelectedProducts(getListProductIsStock);
@@ -120,14 +120,14 @@ export const ProductInCart = ({
         const updatedProductsList = [...productsList];
         const productToUpdate = updatedProductsList.find(
             // find product is selected to update product quantity
-            (product) => product.product._id === pId && product.variant._id === vId,
+            (product) => product?.product?._id === pId && product?.variant?._id === vId,
         );
         const checkStockStatus = updatedProductsList.some(
             // find product is selected to update product quantity
             (product) =>
-                product.product._id === pId &&
-                product.variant._id === vId &&
-                product.variant.stock - newQuantity >= 0, // check if the current quantity is greater than the number of products in stock
+                product?.product?._id === pId &&
+                product?.variant?._id === vId &&
+                product?.variant?.stock - newQuantity >= 0, // check if the current quantity is greater than the number of products in stock
         );
         console.log('product is updated information status: ', checkStockStatus);
         console.log('productToUpdate: ', productToUpdate);
@@ -154,12 +154,12 @@ export const ProductInCart = ({
                 productsList.forEach((productItem) => {
                     const product = selectedProducts.find(
                         (p) =>
-                            p.productId === productItem.product._id &&
-                            p.variantId === productItem.variant._id,
+                            p.productId === productItem?.product?._id &&
+                            p.variantId === productItem?.variant?._id,
                     );
 
                     if (product) {
-                        const price = productItem.quantity * productItem.variant.price;
+                        const price = productItem?.quantity * productItem?.variant?.price;
                         total += price;
                     }
                 });
@@ -226,8 +226,8 @@ export const ProductInCart = ({
                                 <Checkbox
                                     checked={selectedProducts.some(
                                         (selectedItem) =>
-                                            selectedItem?.product._id === item.product._id &&
-                                            selectedItem?.variant._id === item.variant._id,
+                                            selectedItem?.product?._id === item?.product?._id &&
+                                            selectedItem?.variant?._id === item?.variant?._id,
                                     )}
                                     onChange={(e) => handleSelectProduct(e.target.checked, item)}
                                     sx={{
@@ -256,7 +256,7 @@ export const ProductInCart = ({
                                     }}
                                 >
                                     <Box
-                                        src={item.product?.imagePath[0]}
+                                        src={item?.product?.imagePath[0]}
                                         component="img"
                                         sx={{
                                             borderRadius: 1,
@@ -296,7 +296,7 @@ export const ProductInCart = ({
                                                 },
                                             }}
                                         >
-                                            {item.product?.nameEn}
+                                            {item?.product?.nameEn}
                                         </CustomizeTypography>
                                         {/* price and stocks status */}
                                         <CustomizeTypography
@@ -317,22 +317,22 @@ export const ProductInCart = ({
                                             <span
                                                 style={{
                                                     textDecoration:
-                                                        item.variant?.discountPercent !== 0
+                                                        item?.variant?.discountPercent !== 0
                                                             ? 'line-through'
                                                             : null,
                                                     color:
-                                                        item.variant?.discountPercent !== 0
+                                                        item?.variant?.discountPercent !== 0
                                                             ? '#ccc'
                                                             : '#fff',
                                                 }}
                                             >
-                                                {converToVND(item.variant?.price)}
+                                                {converToVND(item?.variant?.price)}
                                             </span>
 
                                             <Box
                                                 sx={{
                                                     display:
-                                                        item.variant?.discountPercent !== 0
+                                                        item?.variant?.discountPercent !== 0
                                                             ? 'block'
                                                             : 'none',
                                                     width: '5px',
@@ -345,9 +345,9 @@ export const ProductInCart = ({
                                                 }}
                                             />
 
-                                            {item.variant?.discountPercent !== 0 && (
+                                            {item?.variant?.discountPercent !== 0 && (
                                                 <span style={{ color: red[600] }}>
-                                                    {converToVND(item.variant?.priceSale)}
+                                                    {converToVND(item?.variant?.priceSale)}
                                                 </span>
                                             )}
                                         </CustomizeTypography>
@@ -376,7 +376,7 @@ export const ProductInCart = ({
                                                 },
                                             }}
                                         >
-                                            {item.variant.size}
+                                            {item?.variant?.size}
                                         </CustomizeTypography>
 
                                         {/* increase quantity */}
@@ -410,7 +410,7 @@ export const ProductInCart = ({
                                                 }}
                                                 onClick={() =>
                                                     handleUpdateQuantity(
-                                                        item?.product._id,
+                                                        item?.product?._id,
                                                         item?.variant?._id,
                                                         item?.quantity - 1,
                                                     )
@@ -430,12 +430,12 @@ export const ProductInCart = ({
                                                     // Check if the productId and variantId match the updated product,
                                                     // otherwise render the original quantity
                                                     productToUpdate &&
-                                                    item?.product._id ===
-                                                        productToUpdate.product._id &&
+                                                    item?.product?._id ===
+                                                        productToUpdate?.product?._id &&
                                                     item?.variant._id ===
-                                                        productToUpdate.variant._id
+                                                        productToUpdate?.variant?._id
                                                         ? pQuantity
-                                                        : item.quantity
+                                                        : item?.quantity
                                                 }
                                             </CustomizeTypography>
                                             <Button
@@ -446,7 +446,7 @@ export const ProductInCart = ({
                                                     minWidth: 0,
                                                     color: theme.palette.text.secondary,
                                                     cursor:
-                                                        item?.variant.stock <= 0
+                                                        item?.variant?.stock <= 0
                                                             ? 'not-allowed'
                                                             : 'pointer',
                                                     mb: 0,
@@ -459,7 +459,7 @@ export const ProductInCart = ({
                                                 }}
                                                 onClick={() =>
                                                     handleUpdateQuantity(
-                                                        item?.product._id,
+                                                        item?.product?._id,
                                                         item?.variant?._id,
                                                         item?.quantity + 1,
                                                     )
@@ -481,7 +481,7 @@ export const ProductInCart = ({
                                             },
                                         }}
                                     >
-                                        {item.variant?.discountPercent !== 0 ? ( // calculate with discount
+                                        {item?.variant?.discountPercent !== 0 ? ( // calculate with discount
                                             <CustomizeTypography
                                                 sx={{
                                                     mb: 0,
@@ -492,7 +492,7 @@ export const ProductInCart = ({
                                                 }}
                                             >
                                                 {converToVND(
-                                                    item.quantity * item?.variant.priceSale,
+                                                    item?.quantity * item?.variant?.priceSale,
                                                 )}
                                             </CustomizeTypography>
                                         ) : (
@@ -505,15 +505,15 @@ export const ProductInCart = ({
                                                     },
                                                 }}
                                             >
-                                                {converToVND(item.quantity * item?.variant.price)}
+                                                {converToVND(item?.quantity * item?.variant?.price)}
                                             </CustomizeTypography>
                                         )}
 
                                         <Button
                                             onClick={() =>
                                                 handleRemoveProductInCart(
-                                                    item.product?._id,
-                                                    item.variant?._id,
+                                                    item?.product?._id,
+                                                    item?.variant?._id,
                                                 )
                                             }
                                             startIcon={
@@ -552,7 +552,7 @@ export const ProductInCart = ({
                             </Box>
                         </Box>
 
-                        {index !== productsList.length - 1 && (
+                        {index !== productsList?.length - 1 && (
                             <Divider sx={{ bgcolor: '#333', my: 2 }} />
                         )}
                     </Box>
