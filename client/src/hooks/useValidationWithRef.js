@@ -1,6 +1,29 @@
 const useValidationWithRef = () => {
     const validateRequired = (input) => {
-        if (input === '' || input.length === 0) {
+        if (input === '') {
+            return {
+                message: 'This field is required.',
+                isValid: false,
+            };
+        }
+
+        return { isValid: true, message: '' };
+    };
+    const validateSelect = (input) => {
+        if (!input || input === '') {
+            return {
+                message: 'This field is required.',
+                isValid: false,
+            };
+        }
+        return {
+            isValid: true,
+            message: '',
+        };
+    };
+
+    const validateArray = (input) => {
+        if (input.length === 0) {
             return {
                 message: 'This field is required.',
                 isValid: false,
@@ -201,6 +224,8 @@ const useValidationWithRef = () => {
         validateConfirmPassword,
         validatePhoneNumber,
         validateNumber,
+        validateArray,
+        validateSelect,
     };
 };
 

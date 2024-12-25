@@ -30,7 +30,8 @@ import useValidationWithRef from '../../hooks/useValidationWithRef';
 const AdminAddProduct = () => {
     const { showNotificationMessage } = useSnackbarMessage();
     const { formErrors, onHandleBlur } = useBlur();
-    const { validateRequired, validateNumber } = useValidationWithRef();
+    const { validateRequired, validateArray, validateNumber, validateSelect } =
+        useValidationWithRef();
     const [fakeErrors, setFakeErrors] = useState([]);
     const navigate = useNavigate();
     const [images, setImages] = useState([]);
@@ -171,59 +172,6 @@ const AdminAddProduct = () => {
 
     console.log('selectedSizes: ', selectedSizes);
 
-    // const handlePriceSaleBlur = (index) => {
-    //     setSelectedSizes((prevSizes) => {
-    //         const updatedSizes = [...prevSizes];
-    //         const { price, priceSale, stock } = updatedSizes[index];
-
-    //         const errors = { ...fakeErrors };
-    //         // Kiểm tra điều kiện priceSale > price
-    //         if (+priceSale > +price) {
-    //             showNotificationMessage(
-    //                 'error',
-    //                 'Price Error',
-    //                 'Sale price cannot be greater than the original price!',
-    //             );
-
-    //             setDisabledButton(true);
-    //         } else {
-    //             setDisabledButton(false);
-    //         }
-
-    //         if (price < 0 || priceSale < 0 || stock < 0) {
-    //             showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
-
-    //             setDisabledButton(true);
-    //         }
-
-    //         if (price === '') {
-    //             showNotificationMessage('error', 'Price Input', 'Please enter these fields');
-    //             setDisabledButton(true);
-    //             setFakeErrors((prevErr) => {
-    //                 const updatedErrors = { ...prevErr };
-    //                 updatedErrors[index] = {
-    //                     ...updatedErrors[index], // Giữ các lỗi trước đó cho phần tử tại index này
-    //                     price: 'This field required!', // Cập nhật lỗi cho trường price
-    //                 };
-    //                 return updatedErrors;
-    //             });
-    //         } else if (priceSale === '') {
-    //             showNotificationMessage('error', 'Price Input', 'Please enter these fields');
-    //             setDisabledButton(true);
-    //             setFakeErrors((prevErr) => {
-    //                 const updatedErrors = { ...prevErr };
-    //                 updatedErrors[index] = {
-    //                     ...updatedErrors[index], // Giữ các lỗi trước đó cho phần tử tại index này
-    //                     priceSale: 'This field required!', // Cập nhật lỗi cho trường priceSale
-    //                 };
-    //                 return updatedErrors;
-    //             });
-    //         }
-
-    //         return updatedSizes;
-    //     });
-    // };
-
     const handlePriceBlur = (index) => {
         setSelectedSizes((prevSizes) => {
             const updatedSizes = [...prevSizes];
@@ -292,6 +240,11 @@ const AdminAddProduct = () => {
                     ...errors[index],
                     priceSale: 'Number must be greater than 0!',
                 };
+            } else if (+priceSale > +price) {
+                errors[index] = {
+                    ...errors[index],
+                    priceSale: 'Price sale cannot be greater than the original price!',
+                };
             } else {
                 // Xóa lỗi nếu priceSale hợp lệ
                 if (errors[index]?.priceSale) {
@@ -345,7 +298,7 @@ const AdminAddProduct = () => {
         setImgData((prevData) => prevData.filter((_, i) => i !== index));
     };
 
-    console.log('fakeErrors: ', fakeErrors);
+    console.log('formErrors: ', formErrors);
 
     return (
         <Box
@@ -478,7 +431,7 @@ const AdminAddProduct = () => {
                         label="Size"
                         renderValue={(selected) => selected.join(', ')}
                         sx={{ fontSize: '13px' }}
-                        onClose={() => onHandleBlur('size', selectedSizes, validateRequired)} // Xử lý onBlur
+                        onClose={() => onHandleBlur('size', selectedSizes, validateArray)} // Xử lý onBlur
                     >
                         {sizeOptions.map((size) => (
                             <MenuItem
@@ -498,16 +451,18 @@ const AdminAddProduct = () => {
                             </MenuItem>
                         ))}
                     </Select>
-                    <Typography
-                        sx={{
-                            fontSize: '12px',
-                            color: 'red',
-                            fontWeight: 'bold',
-                            ml: '14px',
-                        }}
-                    >
-                        {formErrors?.size?.message}
-                    </Typography>
+                    {selectedSizes.length === 0 && (
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                                ml: '14px',
+                            }}
+                        >
+                            {formErrors?.size?.message}
+                        </Typography>
+                    )}
                 </FormControl>
             </Box>
 
@@ -626,33 +581,38 @@ const AdminAddProduct = () => {
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)}
                         sx={{ fontSize: '13px' }}
-                        onClose={() => onHandleBlur('brand', brand, validateRequired)} // Xử lý onBlur
+                        onClose={(e) => {
+                            onHandleBlur('brand', e.target.value, validateSelect); // Truyền giá trị ban đầu
+                        }}
                     >
                         {brandOptions.map(
-                            (brand) =>
-                                brand.status === 'active' && (
+                            (brandOption) =>
+                                brandOption.status === 'active' && (
                                     <MenuItem
-                                        key={brand._id}
-                                        value={brand._id}
+                                        key={brandOption._id}
+                                        value={brandOption._id}
                                         sx={{
                                             fontSize: '13px',
                                         }}
                                     >
-                                        {brand.nameEn}
+                                        {brandOption.nameEn}
                                     </MenuItem>
                                 ),
                         )}
                     </Select>
-                    <Typography
-                        sx={{
-                            fontSize: '12px',
-                            color: 'red',
-                            fontWeight: 'bold',
-                            ml: '14px',
-                        }}
-                    >
-                        {formErrors?.brand?.message}
-                    </Typography>
+
+                    {brand === '' && (
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                                ml: '14px',
+                            }}
+                        >
+                            {formErrors?.brand?.message}
+                        </Typography>
+                    )}
                 </FormControl>
 
                 <FormControl fullWidth sx={{ mb: 2 }}>
@@ -676,7 +636,7 @@ const AdminAddProduct = () => {
                         label="Category"
                         onChange={(e) => setCategory(e.target.value)}
                         sx={{ fontSize: '13px' }}
-                        onClose={() => onHandleBlur('category', brand, validateRequired)} // Xử lý onBlur
+                        onClose={(e) => onHandleBlur('category', e.target.value, validateSelect)} // Xử lý onBlur
                     >
                         {categoryOptions.map(
                             (category) =>
@@ -693,16 +653,18 @@ const AdminAddProduct = () => {
                                 ),
                         )}
                     </Select>
-                    <Typography
-                        sx={{
-                            fontSize: '12px',
-                            color: 'red',
-                            fontWeight: 'bold',
-                            ml: '14px',
-                        }}
-                    >
-                        {formErrors?.category?.message}
-                    </Typography>
+                    {category === '' && (
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                                ml: '14px',
+                            }}
+                        >
+                            {formErrors?.category?.message}
+                        </Typography>
+                    )}
                 </FormControl>
             </Box>
             {/* </Paper> */}
