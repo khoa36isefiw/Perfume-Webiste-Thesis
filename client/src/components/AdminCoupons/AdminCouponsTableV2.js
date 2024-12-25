@@ -112,7 +112,8 @@ const CouponsTable = () => {
     // Filter rows based on search term
     const filteredRows = filterListCoupons.filter(
         (row) =>
-            row?.code?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
+            (row.status !== 'inactive' &&
+                row?.code?.toLowerCase().includes(searchTerm?.toLocaleLowerCase())) ||
             row?.description?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()) ||
             row?.discount === +searchTerm ||
             row?.status?.toLowerCase().includes(searchTerm?.toLocaleLowerCase()),

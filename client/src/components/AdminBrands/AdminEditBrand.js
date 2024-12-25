@@ -38,7 +38,7 @@ function AdminEditBrand() {
                 value: brandData?.data?.descriptionEN,
             });
         }
-    }, [brandData, setName, setDescription, name, description]);
+    }, [brandData]);
 
     const navigate = useNavigate();
 

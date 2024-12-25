@@ -77,7 +77,7 @@ const AdminCreateCoupon = () => {
             }
             const newCouponResponse = await couponAPI.createCoupon(data);
             dispatch(createNewCoupon({ data: data }));
-            if (newCouponResponse?.data.message.includes('code already exists')) {
+            if (newCouponResponse?.data?.message === 'Promotion code already exists') {
                 showNotificationMessage(
                     'warning',
                     'Create new coupon',
