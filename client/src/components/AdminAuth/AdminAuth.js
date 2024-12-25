@@ -190,7 +190,7 @@ export default function AdminAuth() {
                     />
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <AdminTypography sx={{ mb: 0, fontSize: '14px', fontWeight: 'bold' }}>
-                            {userData?.firstName + ' ' + userData?.lastName}
+                            {[userData?.firstName, userData?.lastName].filter(Boolean).join(' ')}
                         </AdminTypography>
 
                         <AdminTypography

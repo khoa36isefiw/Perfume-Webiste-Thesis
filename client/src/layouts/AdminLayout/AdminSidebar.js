@@ -1,6 +1,5 @@
 import { Avatar, Box, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import useAvatar from '../../assets/images/defaultA.png';
 import { AdminTypography } from '../../components/CustomizeTypography/CustomizeTypography';
 import { theme } from '../../Theme/Theme';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
@@ -89,7 +88,7 @@ function AdminSidebar() {
                     px: 1,
                 }}
             >
-                <Avatar src={useAvatar} sx={{ height: 56, width: 56 }} />
+                <Avatar src={userData?.imagePath} sx={{ height: 56, width: 56 }} />
                 <Box sx={{ ml: 1 }}>
                     <AdminTypography
                         sx={{
@@ -98,8 +97,9 @@ function AdminSidebar() {
                             fontWeight: 'bold',
                         }}
                     >
-                        {userData?.firstName + ' ' + userData?.lastName}
+                        {[userData?.firstName, userData?.lastName].filter(Boolean).join(' ')}
                     </AdminTypography>
+
                     <AdminTypography sx={{ fontSize: 13, color: '#6c757d', fontWeight: '500' }}>
                         Admin Tomtoc
                     </AdminTypography>
