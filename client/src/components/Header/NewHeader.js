@@ -101,9 +101,9 @@ function NewHeader() {
         const currentPath = window.location.pathname; // get the current location path
         console.log('currentPath: ', currentPath);
         // check, if the current Path is the same as header.header Link
-        const currentHeader = headerData.find(
-            (header) =>
-                header.headerLink === `/${i18n.language}${currentPath.replace(/\/(en|vi)/, '')}`,
+        const currentHeader = headerData.find((header) =>
+            // header.headerLink === `/${i18n.language}${currentPath.replace(/\/(en|vi)/, '')}`,
+            header.headerLink?.includes(currentPath),
         );
         console.log('currentHeader: ', currentHeader);
         setActiveHeader(
