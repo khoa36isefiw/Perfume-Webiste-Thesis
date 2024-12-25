@@ -277,7 +277,6 @@ const AdminAddProduct = () => {
                 />
             </Button>
 
-            {/* select size */}
             {/* <Paper sx={{ p: 2, maxHeight: '400px', overflow: 'scroll' }}> */}
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <AdminInputStyles
@@ -287,17 +286,33 @@ const AdminAddProduct = () => {
                     onChange={(e) => setProductName(e.target.value)}
                 />
 
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="size-select-label">Size</InputLabel>
+                {/* select size */}
+                <FormControl
+                    fullWidth
+                    sx={{
+                        mb: 2,
+                    }}
+                >
+                    <InputLabel
+                        id="brand-select-label"
+                        sx={{
+                            fontSize: '14px',
+                            '&.MuiFormLabel-root': {
+                                fontSize: '14px',
+                            },
+                            '&.MuiInputLabel-root': {
+                                fontSize: '14px',
+                            },
+                        }}
+                    >
+                        Size
+                    </InputLabel>
                     <Select
-                        labelId="size-select-label"
-                        multiple
+                        labelId="brand-select-label"
                         value={selectedSizes.map((size) => size.size)}
                         label="Size"
                         renderValue={(selected) => selected.join(', ')}
-                        sx={{
-                            fontSize: '13px',
-                        }}
+                        sx={{ fontSize: '13px' }}
                     >
                         {sizeOptions.map((size) => (
                             <MenuItem
@@ -305,15 +320,13 @@ const AdminAddProduct = () => {
                                 value={size}
                                 onClick={() => handleMenuItemClick(size)}
                                 sx={{
-                                    '&.MuiMenuItem-root': {
-                                        fontSize: '13px',
-                                    },
+                                    fontSize: '14px',
                                 }}
                             >
                                 <Checkbox checked={selectedSizes.some((s) => s.size === size)} />
                                 <ListItemText
                                     primary={
-                                        <Typography sx={{ fontSize: '13px' }}>{size}</Typography>
+                                        <Typography sx={{ fontSize: '14px' }}>{size}</Typography>
                                     }
                                 />
                             </MenuItem>
@@ -386,8 +399,26 @@ const AdminAddProduct = () => {
             ))}
 
             <Box sx={{ display: 'flex', gap: 4 }}>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="brand-select-label">Brand</InputLabel>
+                <FormControl
+                    fullWidth
+                    sx={{
+                        mb: 2,
+                    }}
+                >
+                    <InputLabel
+                        id="brand-select-label"
+                        sx={{
+                            fontSize: '14px',
+                            '&.MuiFormLabel-root': {
+                                fontSize: '14px',
+                            },
+                            '&.MuiInputLabel-root': {
+                                fontSize: '14px',
+                            },
+                        }}
+                    >
+                        Brand
+                    </InputLabel>
                     <Select
                         labelId="brand-select-label"
                         value={brand}
@@ -413,7 +444,20 @@ const AdminAddProduct = () => {
                 </FormControl>
 
                 <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="category-select-label">Category</InputLabel>
+                    <InputLabel
+                        id="category-select-label"
+                        sx={{
+                            fontSize: '14px',
+                            '&.MuiFormLabel-root': {
+                                fontSize: '14px',
+                            },
+                            '&.MuiInputLabel-root': {
+                                fontSize: '14px',
+                            },
+                        }}
+                    >
+                        Category
+                    </InputLabel>
                     <Select
                         labelId="category-select-label"
                         value={category}

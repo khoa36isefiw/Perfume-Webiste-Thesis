@@ -176,7 +176,9 @@ function AdminEditCategory() {
                                             value={selectedCategoryId?.value}
                                             onChange={handleSelectedCategory}
                                             label="Select Category"
-                                            sx={{ fontSize: '14px' }}
+                                            sx={{
+                                                fontSize: '14px',
+                                            }}
                                         >
                                             <MenuItem value="" sx={{ fontSize: '14px' }}>
                                                 <em>None</em>
