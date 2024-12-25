@@ -54,7 +54,7 @@ export default function AdminAuth() {
             if (logout) {
                 window.localStorage.removeItem('user_data');
                 console.log('Logged out successfully');
-                navigate(`/${i18n.language}`);
+                navigate(`/${i18n.language}/sign-in`);
             } else {
                 console.error('Logout failed');
             }

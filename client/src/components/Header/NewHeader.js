@@ -30,11 +30,13 @@ import UKFlag from '../../assets/images/UK-circle.png';
 import { useTranslation } from 'react-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
 import MobileHeader from './MobileHeader';
+import { useAuth } from '../../contexts/authContext';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 function NewHeader() {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation('translate');
-
+    const { role } = useAuth();
     const location = useLocation();
     const [searchQuery, setSearchQuery] = useState(localStorage.getItem('search_query') || ''); // prevent lost data when reload the page
     const [suggestions, setSuggestions] = useState([]);
@@ -673,6 +675,29 @@ function NewHeader() {
                                 </IconButton>
                             </Badge>
                         </Tooltip>
+                        {role === 1 && (
+                            <Tooltip
+                                title={
+                                    <Typography
+                                        sx={{
+                                            fontSize: '13px',
+                                            mb: 0,
+                                        }}
+                                    >
+                                        {i18n.language === 'en'
+                                            ? 'Admin Dashboard'
+                                            : 'Trang Quản Lý'}
+                                    </Typography>
+                                }
+                            >
+                                <IconButton
+                                    onClick={() => navigate('/admin/dashboard')}
+                                    sx={{ ml: 1 }}
+                                >
+                                    <DashboardIcon sx={{ fontSize: '24px', color: 'white' }} />
+                                </IconButton>
+                            </Tooltip>
+                        )}
                     </Box>
                 </Box>
 

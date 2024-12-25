@@ -149,6 +149,8 @@ function AccountInfo() {
         fileInputRef.current.click();
     };
 
+    console.log('imgData: ', imgData);
+
     return (
         <Container
             sx={{

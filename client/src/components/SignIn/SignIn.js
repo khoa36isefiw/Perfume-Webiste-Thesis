@@ -41,11 +41,11 @@ function SignIn() {
                     window.localStorage.setItem('user_data', JSON.stringify(loginData?.data));
                     window.localStorage.setItem('token', loginData.data.accessToken);
 
-                    showNotificationMessage(
-                        'success',
-                        t('common.notifyMessage.login.loginT'),
-                        t('common.notifyMessage.login.loginS'),
-                    );
+                    // showNotificationMessage(
+                    //     'success',
+                    //     t('common.notifyMessage.login.loginT'),
+                    //     t('common.notifyMessage.login.loginS'),
+                    // );
 
                     // admin,member
                     navigate(`/${i18n.language}`);

@@ -73,7 +73,7 @@ export default function AuthenticatedUser() {
                 window.localStorage.removeItem('token');
                 console.log('Logged out successfully');
                 // navigate('/');
-                navigate(`/${i18n.language}`);
+                navigate(`/${i18n.language}/sign-in`);
             } else {
                 console.error('Logout failed');
             }
