@@ -48,7 +48,6 @@ function ChangePassword() {
     // handle for showing change password
     const handleNextStep = async () => {
         const currentPassword = currentPasswordRef.current.value.trim();
-        const isCurrentValid = validatePassword(currentPassword);
 
         const data = {
             email: userData.email,
@@ -98,21 +97,6 @@ function ChangePassword() {
         const confirmPassword = confirmPasswordRef.current.value.trim();
 
         // text for new password and confirm password
-        const isNewValid = validatePassword(newPassword);
-        const isNewConfirmValid = validateConfirmPassword(confirmPassword, newPassword);
-
-        const newFormErrors = {
-            newPass: {
-                message: isNewValid.message,
-                status: isNewValid.isValid,
-            },
-            confirmPass: {
-                message: isNewConfirmValid.message,
-                status: isNewConfirmValid.isValid,
-            },
-        };
-
-        // setFormErrors(newFormErrors);
 
         console.log('userData._id: ', userData._id);
         if (formErrors.newPassword.status && formErrors.newPassword.status) {

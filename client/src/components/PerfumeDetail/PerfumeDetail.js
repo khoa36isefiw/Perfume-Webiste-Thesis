@@ -5,25 +5,21 @@ import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { converToVND } from '../convertToVND/convertToVND';
 
 import CheckIcon from '@mui/icons-material/Check';
 import { userAPI } from '../../api/userAPI';
 import { useTranslation } from 'react-i18next';
 
-import useLoadingV2 from '../../hooks/useLoadingV2';
 import CustomizeDivider from '../CustomizeDivider/CustomizeDivider';
 import ProductInformation from '../ProductInformation/ProductInformation';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 
 function PerfumeDetail({ productData, onHandleClick }) {
     console.log('productData: ', productData);
-    const { LoadingAPI } = useLoadingV2();
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
-
     const navigate = useNavigate();
-    const location = useLocation();
     const [selectedImage, setSelectedImage] = React.useState(0);
     const { t, i18n } = useTranslation('translate');
     const userData = JSON.parse(window.localStorage.getItem('user_data')) || null;
