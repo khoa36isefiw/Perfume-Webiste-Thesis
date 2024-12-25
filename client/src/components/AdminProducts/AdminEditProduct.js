@@ -20,10 +20,15 @@ import useProductById from '../../api/useProductById';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
+import { useBlur } from '../../hooks/useBlur';
+import useValidationWithRef from '../../hooks/useValidationWithRef';
 
 const AdminEditProduct = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { formErrors, onHandleBlur } = useBlur();
+    const { validateRequired, validateSelect } = useValidationWithRef();
+    const [fakeErrors, setFakeErrors] = useState([]);
     const { showNotificationMessage } = useSnackbarMessage();
     const { data: productRes, mutate } = useProductById(id);
     const productData = productRes?.data;
@@ -152,32 +157,154 @@ const AdminEditProduct = () => {
         });
     };
 
+    const handlePriceBlur = (index) => {
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            const { price } = updatedSizes[index];
+
+            const errors = { ...fakeErrors };
+
+            // Kiểm tra nếu price rỗng
+            if (price === '') {
+                showNotificationMessage('error', 'Price Input', 'Please enter these fields');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    price: 'This field required!',
+                };
+            } else if (price < 0) {
+                showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    price: 'Number must be greater than 0!',
+                };
+            } else {
+                // Xóa lỗi nếu price hợp lệ
+                if (errors[index]?.price) {
+                    delete errors[index].price;
+                }
+                setDisabledButton(false);
+            }
+
+            setFakeErrors(errors);
+            return updatedSizes;
+        });
+    };
+
     const handlePriceSaleBlur = (index) => {
         setSelectedSizes((prevSizes) => {
             const updatedSizes = [...prevSizes];
-            const { price, priceSale, stock } = updatedSizes[index];
+            const { price, priceSale } = updatedSizes[index];
+
+            const errors = { ...fakeErrors };
 
             // Kiểm tra điều kiện priceSale > price
-            if (priceSale > price) {
+            if (+priceSale > +price) {
                 showNotificationMessage(
                     'error',
                     'Price Error',
                     'Sale price cannot be greater than the original price!',
                 );
-
                 setDisabledButton(true);
             } else {
                 setDisabledButton(false);
             }
-            if (price < 0 || priceSale < 0 || stock < 0) {
-                showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
 
+            // Kiểm tra nếu priceSale rỗng
+            if (priceSale === '') {
+                showNotificationMessage('error', 'Price Input', 'Please enter these fields');
                 setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    priceSale: 'This field required!',
+                };
+            } else if (priceSale < 0) {
+                showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    priceSale: 'Number must be greater than 0!',
+                };
+            } else if (+priceSale > +price) {
+                errors[index] = {
+                    ...errors[index],
+                    priceSale: 'Price sale cannot be greater than the original price!',
+                };
+            } else {
+                // Xóa lỗi nếu priceSale hợp lệ
+                if (errors[index]?.priceSale) {
+                    delete errors[index].priceSale;
+                }
+                setDisabledButton(false);
             }
 
+            setFakeErrors(errors);
             return updatedSizes;
         });
     };
+
+    const handleStockBlur = (index) => {
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            const { stock } = updatedSizes[index];
+
+            const errors = { ...fakeErrors };
+
+            // Kiểm tra nếu stock rỗng hoặc < 0
+            if (stock === '') {
+                showNotificationMessage('error', 'Stock Input', 'Please enter these fields');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    stock: 'This field required!',
+                };
+            } else if (stock < 0) {
+                showNotificationMessage('error', 'Stock Error', 'Number must be greater than 0!');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    stock: 'Number must be greater than 0!',
+                };
+            } else {
+                // Xóa lỗi nếu stock hợp lệ
+                if (errors[index]?.stock) {
+                    delete errors[index].stock;
+                }
+                setDisabledButton(false);
+            }
+
+            setFakeErrors(errors);
+            return updatedSizes;
+        });
+    };
+
+    // const handlePriceSaleBlur = (index) => {
+    //     setSelectedSizes((prevSizes) => {
+    //         const updatedSizes = [...prevSizes];
+    //         const { price, priceSale, stock } = updatedSizes[index];
+
+    //         // Kiểm tra điều kiện priceSale > price
+    //         if (priceSale > price) {
+    //             showNotificationMessage(
+    //                 'error',
+    //                 'Price Error',
+    //                 'Sale price cannot be greater than the original price!',
+    //             );
+
+    //             setDisabledButton(true);
+    //         } else {
+    //             setDisabledButton(false);
+    //         }
+    //         if (price < 0 || priceSale < 0 || stock < 0) {
+    //             showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
+
+    //             setDisabledButton(true);
+    //         }
+
+    //         return updatedSizes;
+    //     });
+    // };
 
     return (
         <Box
@@ -235,6 +362,18 @@ const AdminEditProduct = () => {
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
                     sx={{ mb: 2 }}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
                 />
             </Box>
 
@@ -258,8 +397,17 @@ const AdminEditProduct = () => {
                             type="number"
                             value={size.price}
                             onChange={handleSizeFieldChange(index, 'price')}
-                            onBlur={() => handlePriceSaleBlur(index)}
+                            onBlur={() => handlePriceBlur(index)}
                             sx={{ mb: 2 }}
+                            helperText={
+                                fakeErrors[index]?.price && (
+                                    <Typography
+                                        sx={{ fontSize: '12px', color: 'red', fontWeight: 'bold' }}
+                                    >
+                                        {fakeErrors[index].price}
+                                    </Typography>
+                                )
+                            }
                         />
                         <AdminInputStyles
                             label="Price Sale"
@@ -269,6 +417,15 @@ const AdminEditProduct = () => {
                             onChange={handleSizeFieldChange(index, 'priceSale')}
                             onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
+                            helperText={
+                                fakeErrors[index]?.priceSale && (
+                                    <Typography
+                                        sx={{ fontSize: '12px', color: 'red', fontWeight: 'bold' }}
+                                    >
+                                        {fakeErrors[index].priceSale}
+                                    </Typography>
+                                )
+                            }
                         />
                         <AdminInputStyles
                             label="Stock"
@@ -276,8 +433,17 @@ const AdminEditProduct = () => {
                             type="number"
                             value={size.stock}
                             onChange={handleSizeFieldChange(index, 'stock')}
-                            onBlur={() => handlePriceSaleBlur(index)}
+                            onBlur={() => handleStockBlur(index)}
                             sx={{ mb: 2 }}
+                            helperText={
+                                fakeErrors[index]?.stock && (
+                                    <Typography
+                                        sx={{ fontSize: '12px', color: 'red', fontWeight: 'bold' }}
+                                    >
+                                        {fakeErrors[index].stock}
+                                    </Typography>
+                                )
+                            }
                         />
                     </Box>
                 </Box>
@@ -285,13 +451,18 @@ const AdminEditProduct = () => {
 
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="brand-select-label">Brand</InputLabel>
+                    <InputLabel id="brand-select-label" sx={{ fontSize: '14px' }}>
+                        Brand
+                    </InputLabel>
                     <Select
                         labelId="brand-select-label"
                         value={brand}
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)} // get id of value
                         sx={{ fontSize: '13px' }}
+                        onClose={(e) => {
+                            onHandleBlur('brand', e.target.value, validateSelect); // Truyền giá trị ban đầu
+                        }}
                     >
                         {/* only get all brands are active */}
                         {brandOptions?.map(
@@ -307,16 +478,31 @@ const AdminEditProduct = () => {
                                 ),
                         )}
                     </Select>
+                    {brand === '' && (
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                                ml: '14px',
+                            }}
+                        >
+                            {formErrors?.brand?.message}
+                        </Typography>
+                    )}
                 </FormControl>
 
                 <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="category-select-label">Category</InputLabel>
+                    <InputLabel id="category-select-label" sx={{ fontSize: '14px' }}>
+                        Category
+                    </InputLabel>
                     <Select
                         labelId="category-select-label"
                         value={category}
                         label="Category"
                         onChange={(e) => setCategory(e.target.value)}
-                        sx={{ fontSize: '13px' }}
+                        sx={{ fontSize: '14px' }}
+                        onClose={(e) => onHandleBlur('category', e.target.value, validateSelect)} // Xử lý onBlur
                     >
                         {/* only get all categories are active */}
                         {categoryOptions?.map(
@@ -332,6 +518,18 @@ const AdminEditProduct = () => {
                                 ),
                         )}
                     </Select>
+                    {category === '' && (
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                                ml: '14px',
+                            }}
+                        >
+                            {formErrors?.category?.message}
+                        </Typography>
+                    )}
                 </FormControl>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>

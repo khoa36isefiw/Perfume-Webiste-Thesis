@@ -232,7 +232,7 @@
         },
 
         "checkout": {
-            "backCart": "Quay lại Giỏ hàng",
+            "backCart": "Quay lại",
             "address": "Địa chỉ thanh toán và giao hàng",
             "qty": "Số lượng",
             "checkout": "Thanh toán",

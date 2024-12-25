@@ -24,9 +24,15 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { AdminInputStyles } from '../AdminInputStyles/AdminInputStyles';
+import { useBlur } from '../../hooks/useBlur';
+import useValidationWithRef from '../../hooks/useValidationWithRef';
 
 const AdminAddProduct = () => {
     const { showNotificationMessage } = useSnackbarMessage();
+    const { formErrors, onHandleBlur } = useBlur();
+    const { validateRequired, validateArray, validateNumber, validateSelect } =
+        useValidationWithRef();
+    const [fakeErrors, setFakeErrors] = useState([]);
     const navigate = useNavigate();
     const [images, setImages] = useState([]);
     const [productName, setProductName] = useState('');
@@ -164,10 +170,48 @@ const AdminAddProduct = () => {
         });
     };
 
+    console.log('selectedSizes: ', selectedSizes);
+
+    const handlePriceBlur = (index) => {
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            const { price } = updatedSizes[index];
+
+            const errors = { ...fakeErrors };
+
+            // Kiểm tra nếu price rỗng
+            if (price === '') {
+                showNotificationMessage('error', 'Price Input', 'Please enter these fields');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    price: 'This field required!',
+                };
+            } else if (price < 0) {
+                showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    price: 'Number must be greater than 0!',
+                };
+            } else {
+                // Xóa lỗi nếu price hợp lệ
+                if (errors[index]?.price) {
+                    delete errors[index].price;
+                }
+            }
+
+            setFakeErrors(errors);
+            return updatedSizes;
+        });
+    };
+
     const handlePriceSaleBlur = (index) => {
         setSelectedSizes((prevSizes) => {
             const updatedSizes = [...prevSizes];
-            const { price, priceSale, stock } = updatedSizes[index];
+            const { price, priceSale } = updatedSizes[index];
+
+            const errors = { ...fakeErrors };
 
             // Kiểm tra điều kiện priceSale > price
             if (+priceSale > +price) {
@@ -176,18 +220,73 @@ const AdminAddProduct = () => {
                     'Price Error',
                     'Sale price cannot be greater than the original price!',
                 );
-
                 setDisabledButton(true);
             } else {
                 setDisabledButton(false);
             }
 
-            if (price < 0 || priceSale < 0 || stock < 0) {
-                showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
-
+            // Kiểm tra nếu priceSale rỗng
+            if (priceSale === '') {
+                showNotificationMessage('error', 'Price Input', 'Please enter these fields');
                 setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    priceSale: 'This field required!',
+                };
+            } else if (priceSale < 0) {
+                showNotificationMessage('error', 'Price Error', 'Number must be greater than 0!');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    priceSale: 'Number must be greater than 0!',
+                };
+            } else if (+priceSale > +price) {
+                errors[index] = {
+                    ...errors[index],
+                    priceSale: 'Price sale cannot be greater than the original price!',
+                };
+            } else {
+                // Xóa lỗi nếu priceSale hợp lệ
+                if (errors[index]?.priceSale) {
+                    delete errors[index].priceSale;
+                }
             }
 
+            setFakeErrors(errors);
+            return updatedSizes;
+        });
+    };
+
+    const handleStockBlur = (index) => {
+        setSelectedSizes((prevSizes) => {
+            const updatedSizes = [...prevSizes];
+            const { stock } = updatedSizes[index];
+
+            const errors = { ...fakeErrors };
+
+            // Kiểm tra nếu stock rỗng hoặc < 0
+            if (stock === '') {
+                showNotificationMessage('error', 'Stock Input', 'Please enter these fields');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    stock: 'This field required!',
+                };
+            } else if (stock < 0) {
+                showNotificationMessage('error', 'Stock Error', 'Number must be greater than 0!');
+                setDisabledButton(true);
+                errors[index] = {
+                    ...errors[index],
+                    stock: 'Number must be greater than 0!',
+                };
+            } else {
+                // Xóa lỗi nếu stock hợp lệ
+                if (errors[index]?.stock) {
+                    delete errors[index].stock;
+                }
+            }
+
+            setFakeErrors(errors);
             return updatedSizes;
         });
     };
@@ -198,7 +297,9 @@ const AdminAddProduct = () => {
         setImages(updatedImages);
         setImgData((prevData) => prevData.filter((_, i) => i !== index));
     };
-    console.log({ images });
+
+    console.log('formErrors: ', formErrors);
+
     return (
         <Box
             sx={{
@@ -277,27 +378,60 @@ const AdminAddProduct = () => {
                 />
             </Button>
 
-            {/* select size */}
             {/* <Paper sx={{ p: 2, maxHeight: '400px', overflow: 'scroll' }}> */}
             <Box sx={{ display: 'flex', gap: 4 }}>
                 <AdminInputStyles
+                    sx={{
+                        '&.MuiFormHelperText-root': {
+                            marginLeft: 0,
+                        },
+                    }}
                     label="Product Name"
                     fullWidth
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
+                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
+                    helperText={
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formErrors?.pName?.message}
+                        </Typography>
+                    }
                 />
 
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="size-select-label">Size</InputLabel>
+                {/* select size */}
+                <FormControl
+                    fullWidth
+                    sx={{
+                        mb: 2,
+                    }}
+                >
+                    <InputLabel
+                        id="brand-select-label"
+                        sx={{
+                            fontSize: '14px',
+                            '&.MuiFormLabel-root': {
+                                fontSize: '14px',
+                            },
+                            '&.MuiInputLabel-root': {
+                                fontSize: '14px',
+                            },
+                        }}
+                    >
+                        Size
+                    </InputLabel>
                     <Select
-                        labelId="size-select-label"
-                        multiple
+                        labelId="brand-select-label"
                         value={selectedSizes.map((size) => size.size)}
                         label="Size"
                         renderValue={(selected) => selected.join(', ')}
-                        sx={{
-                            fontSize: '13px',
-                        }}
+                        sx={{ fontSize: '13px' }}
+                        onClose={() => onHandleBlur('size', selectedSizes, validateArray)} // Xử lý onBlur
                     >
                         {sizeOptions.map((size) => (
                             <MenuItem
@@ -305,20 +439,30 @@ const AdminAddProduct = () => {
                                 value={size}
                                 onClick={() => handleMenuItemClick(size)}
                                 sx={{
-                                    '&.MuiMenuItem-root': {
-                                        fontSize: '13px',
-                                    },
+                                    fontSize: '14px',
                                 }}
                             >
                                 <Checkbox checked={selectedSizes.some((s) => s.size === size)} />
                                 <ListItemText
                                     primary={
-                                        <Typography sx={{ fontSize: '13px' }}>{size}</Typography>
+                                        <Typography sx={{ fontSize: '14px' }}>{size}</Typography>
                                     }
                                 />
                             </MenuItem>
                         ))}
                     </Select>
+                    {selectedSizes.length === 0 && (
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                                ml: '14px',
+                            }}
+                        >
+                            {formErrors?.size?.message}
+                        </Typography>
+                    )}
                 </FormControl>
             </Box>
 
@@ -358,10 +502,17 @@ const AdminAddProduct = () => {
                             type="number"
                             value={size.price}
                             onChange={handleSizeFieldChange(index, 'price')}
-                            onBlur={() => handlePriceSaleBlur(index)}
-                            sx={{
-                                mb: 2,
-                            }}
+                            onBlur={() => handlePriceBlur(index)}
+                            sx={{ mb: 2 }}
+                            helperText={
+                                fakeErrors[index]?.price && (
+                                    <Typography
+                                        sx={{ fontSize: '12px', color: 'red', fontWeight: 'bold' }}
+                                    >
+                                        {fakeErrors[index].price}
+                                    </Typography>
+                                )
+                            }
                         />
                         <AdminInputStyles
                             label="Price Sale"
@@ -371,6 +522,15 @@ const AdminAddProduct = () => {
                             onChange={handleSizeFieldChange(index, 'priceSale')}
                             onBlur={() => handlePriceSaleBlur(index)}
                             sx={{ mb: 2 }}
+                            helperText={
+                                fakeErrors[index]?.priceSale && (
+                                    <Typography
+                                        sx={{ fontSize: '12px', color: 'red', fontWeight: 'bold' }}
+                                    >
+                                        {fakeErrors[index].priceSale}
+                                    </Typography>
+                                )
+                            }
                         />
                         <AdminInputStyles
                             label="Stock"
@@ -378,48 +538,105 @@ const AdminAddProduct = () => {
                             type="number"
                             value={size.stock}
                             onChange={handleSizeFieldChange(index, 'stock')}
-                            onBlur={() => handlePriceSaleBlur(index)}
+                            onBlur={() => handleStockBlur(index)}
                             sx={{ mb: 2 }}
+                            helperText={
+                                fakeErrors[index]?.stock && (
+                                    <Typography
+                                        sx={{ fontSize: '12px', color: 'red', fontWeight: 'bold' }}
+                                    >
+                                        {fakeErrors[index].stock}
+                                    </Typography>
+                                )
+                            }
                         />
                     </Box>
                 </Box>
             ))}
 
             <Box sx={{ display: 'flex', gap: 4 }}>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="brand-select-label">Brand</InputLabel>
+                <FormControl
+                    fullWidth
+                    sx={{
+                        mb: 2,
+                    }}
+                >
+                    <InputLabel
+                        id="brand-select-label"
+                        sx={{
+                            fontSize: '14px',
+                            '&.MuiFormLabel-root': {
+                                fontSize: '14px',
+                            },
+                            '&.MuiInputLabel-root': {
+                                fontSize: '14px',
+                            },
+                        }}
+                    >
+                        Brand
+                    </InputLabel>
                     <Select
                         labelId="brand-select-label"
                         value={brand}
                         label="Brand"
                         onChange={(e) => setBrand(e.target.value)}
                         sx={{ fontSize: '13px' }}
+                        onClose={(e) => {
+                            onHandleBlur('brand', e.target.value, validateSelect); // Truyền giá trị ban đầu
+                        }}
                     >
                         {brandOptions.map(
-                            (brand) =>
-                                brand.status === 'active' && (
+                            (brandOption) =>
+                                brandOption.status === 'active' && (
                                     <MenuItem
-                                        key={brand._id}
-                                        value={brand._id}
+                                        key={brandOption._id}
+                                        value={brandOption._id}
                                         sx={{
                                             fontSize: '13px',
                                         }}
                                     >
-                                        {brand.nameEn}
+                                        {brandOption.nameEn}
                                     </MenuItem>
                                 ),
                         )}
                     </Select>
+
+                    {brand === '' && (
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                                ml: '14px',
+                            }}
+                        >
+                            {formErrors?.brand?.message}
+                        </Typography>
+                    )}
                 </FormControl>
 
                 <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel id="category-select-label">Category</InputLabel>
+                    <InputLabel
+                        id="category-select-label"
+                        sx={{
+                            fontSize: '14px',
+                            '&.MuiFormLabel-root': {
+                                fontSize: '14px',
+                            },
+                            '&.MuiInputLabel-root': {
+                                fontSize: '14px',
+                            },
+                        }}
+                    >
+                        Category
+                    </InputLabel>
                     <Select
                         labelId="category-select-label"
                         value={category}
                         label="Category"
                         onChange={(e) => setCategory(e.target.value)}
                         sx={{ fontSize: '13px' }}
+                        onClose={(e) => onHandleBlur('category', e.target.value, validateSelect)} // Xử lý onBlur
                     >
                         {categoryOptions.map(
                             (category) =>
@@ -436,6 +653,18 @@ const AdminAddProduct = () => {
                                 ),
                         )}
                     </Select>
+                    {category === '' && (
+                        <Typography
+                            sx={{
+                                fontSize: '12px',
+                                color: 'red',
+                                fontWeight: 'bold',
+                                ml: '14px',
+                            }}
+                        >
+                            {formErrors?.category?.message}
+                        </Typography>
+                    )}
                 </FormControl>
             </Box>
             {/* </Paper> */}

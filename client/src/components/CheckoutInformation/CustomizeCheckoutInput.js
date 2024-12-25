@@ -1,8 +1,16 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-export const CustomizeCheckoutInput = ({ placeholder, value, onHandleChange }) => {
+export const CustomizeCheckoutInput = ({
+    placeholder,
+    value,
+    onHandleChange,
+    onBlur,
+    helperText,
+}) => {
     return (
         <TextField
+            onBlur={onBlur}
+            helperText={helperText}
             value={value}
             placeholder={placeholder}
             onChange={onHandleChange}

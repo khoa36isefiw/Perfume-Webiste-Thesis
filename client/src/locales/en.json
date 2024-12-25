@@ -410,7 +410,7 @@
             }
         },
         "checkout": {
-            "backCart": "Back to Cart",
+            "backCart": "Back",
             "address": "Billing and shipping address",
             "qty": "Quantity",
             "checkout": "Checkout",

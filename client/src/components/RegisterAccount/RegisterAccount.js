@@ -11,9 +11,13 @@ import useValidationWithRef from '../../hooks/useValidationWithRef';
 import { RequirementV2 } from '../Requirement/RequirementV2';
 import { useTranslation } from 'react-i18next';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import { useBlur } from '../../hooks/useBlur';
 
 function RegisterAccount() {
     const navigate = useNavigate();
+    const { formErrors, onHandleBlur } = useBlur();
+    const { validateName, validateEmail, validatePassword, validatePhoneNumber } =
+        useValidationWithRef();
 
     const { t, i18n } = useTranslation('translate');
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
@@ -28,13 +32,6 @@ function RegisterAccount() {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
 
-    // check input validation
-    const firstNameValidation = useValidationWithRef();
-    const lastNameValidation = useValidationWithRef();
-    const phoneValidation = useValidationWithRef();
-    const emailValidation = useValidationWithRef();
-    const passwordValidation = useValidationWithRef();
-
     //create user with api
     const handleRegisterAccount = async () => {
         // get value of first name input
@@ -47,70 +44,53 @@ function RegisterAccount() {
         const email = emailRef.current.value.trim();
         const password = passwordRef.current.value.trim();
 
-        // check information from user input
-        const isFirstNameValid = firstNameValidation?.validateName(firstName);
-        const isLastNameValid = lastNameValidation.validateName(lastName);
-        const isEmailValid = emailValidation.validateEmail(email);
-        const isPasswordValid = passwordValidation.validatePassword(password);
-        const isPhoneNumberValid = phoneValidation.validatePhoneNumber(phoneNumber);
-        // console.log('isFirstNameValid: ', isFirstNameValid);
-        // console.log('isLastNameValid: ', isLastNameValid);
-        // console.log('isEmailValid: ', isEmailValid);
-        // console.log('isPasswordValid: ', isPasswordValid);
-        // console.log('isPhoneNumberValid: ', isPhoneNumberValid);
+        if (
+            formErrors.fname.status &&
+            formErrors.lname.status &&
+            formErrors.phone.status &&
+            formErrors.email.status &&
+            formErrors.password.status
+        ) {
+            // if (
+            //     isFirstNameValid &&
+            //     isLastNameValid &&
+            //     isEmailValid &&
+            //     isPasswordValid &&
+            //     isPhoneNumberValid
+            // ) {
+            const registrationData = {
+                email,
+                password,
+                firstName,
+                lastName,
 
-        if (firstName && lastName && phoneNumber && email && password) {
-            if (
-                isFirstNameValid &&
-                isLastNameValid &&
-                isEmailValid &&
-                isPasswordValid &&
-                isPhoneNumberValid
-            ) {
-                const registrationData = {
-                    email,
-                    password,
-                    firstName,
-                    lastName,
+                phoneNumber: phoneNumber,
+                imagePath: userImage, // default image
+            };
 
-                    phoneNumber: phoneNumber,
-                    imagePath: userImage, // default image
-                };
+            // console.log('registrationData: ', registrationData);
 
-                // console.log('registrationData: ', registrationData);
-
-                try {
-                    const response = await authAPI.registerAccount(registrationData);
-                    if (response.status === 200) {
-                        showNotificationMessage(
-                            'success',
-                            t('common.notifyMessage.register.regisT'),
-                            t('common.notifyMessage.register.regisS'),
-                        );
-                        navigate(`/${i18n.language}/sign-in`);
-                    } else {
-                        showNotificationMessage(
-                            'warning',
-                            t('common.notifyMessage.register.regisT'),
-                            t('common.notifyMessage.register.regisEE'),
-                        );
-                    }
-                } catch (error) {
+            try {
+                const response = await authAPI.registerAccount(registrationData);
+                if (response.status === 200) {
+                    showNotificationMessage(
+                        'success',
+                        t('common.notifyMessage.register.regisT'),
+                        t('common.notifyMessage.register.regisS'),
+                    );
+                    navigate(`/${i18n.language}/sign-in`);
+                } else {
                     showNotificationMessage(
                         'warning',
                         t('common.notifyMessage.register.regisT'),
-                        'Email exists, Please try another email2!',
+                        t('common.notifyMessage.register.regisEE'),
                     );
                 }
-            } else {
-                setOpen(true);
-                setTimeout(() => {
-                    setOpen(false);
-                }, 6000);
+            } catch (error) {
                 showNotificationMessage(
                     'warning',
                     t('common.notifyMessage.register.regisT'),
-                    t('common.notifyMessage.register.regisFI'),
+                    'Email exists, Please try another email2!',
                 );
             }
         } else {
@@ -243,6 +223,14 @@ function RegisterAccount() {
                                     placeholder={t('common.notifyMessage.register.fName')}
                                     fullWidth
                                     inputRef={firstNameRef}
+                                    helperText={formErrors?.fname?.message}
+                                    onBlur={() =>
+                                        onHandleBlur(
+                                            'fname',
+                                            firstNameRef.current.value.trim(),
+                                            validateName,
+                                        )
+                                    }
                                 />
                             </Grid>
                             <Grid
@@ -264,6 +252,14 @@ function RegisterAccount() {
                                     placeholder={t('common.notifyMessage.register.lName')}
                                     fullWidth
                                     inputRef={lastNameRef}
+                                    helperText={formErrors?.lname?.message}
+                                    onBlur={() =>
+                                        onHandleBlur(
+                                            'lname',
+                                            lastNameRef.current.value.trim(),
+                                            validateName,
+                                        )
+                                    }
                                 />
                             </Grid>
                             <Grid
@@ -285,6 +281,14 @@ function RegisterAccount() {
                                     placeholder={t('common.notifyMessage.register.phone')}
                                     fullWidth
                                     inputRef={phoneRef}
+                                    helperText={formErrors?.phone?.message}
+                                    onBlur={() =>
+                                        onHandleBlur(
+                                            'phone',
+                                            phoneRef.current.value.trim(),
+                                            validatePhoneNumber,
+                                        )
+                                    }
                                 />
                             </Grid>
                         </Grid>
@@ -317,6 +321,14 @@ function RegisterAccount() {
                                         placeholder="E-mail"
                                         fullWidth
                                         inputRef={emailRef}
+                                        helperText={formErrors?.email?.message}
+                                        onBlur={() =>
+                                            onHandleBlur(
+                                                'email',
+                                                emailRef.current.value.trim(),
+                                                validateEmail,
+                                            )
+                                        }
                                     />
                                 </Grid>
 
@@ -344,6 +356,14 @@ function RegisterAccount() {
                                         placeholder={t('common.notifyMessage.login.pass')}
                                         fullWidth
                                         inputRef={passwordRef}
+                                        helperText={formErrors?.password?.message}
+                                        onBlur={() =>
+                                            onHandleBlur(
+                                                'password',
+                                                passwordRef.current.value.trim(),
+                                                validatePassword,
+                                            )
+                                        }
                                     />
                                 </Grid>
                             </Grid>

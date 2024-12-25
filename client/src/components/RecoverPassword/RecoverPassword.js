@@ -10,9 +10,13 @@ import { userAPI } from '../../api/userAPI';
 import { useTranslation } from 'react-i18next';
 
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
+import { useBlur } from '../../hooks/useBlur';
+import useValidationWithRef from '../../hooks/useValidationWithRef';
 
 function RecoverPassword() {
     const navigate = useNavigate();
+    const { formErrors, onHandleBlur } = useBlur();
+    const { validateEmail } = useValidationWithRef();
     const { t, i18n } = useTranslation('translate');
     const { showNotificationMessage } = useSnackbarMessage(); // multiple notification
     const emailRef = useRef(null);
@@ -20,7 +24,7 @@ function RecoverPassword() {
     const handleSubmitResetPassword = async () => {
         const email = emailRef.current.value.trim(); // get value from input
         console.log('email: ', email);
-        if (email) {
+        if (formErrors.email.status) {
             // if user types email
             const sendNewPassword = await userAPI.sendNewPassword(email);
             try {
@@ -135,6 +139,14 @@ function RecoverPassword() {
                                         placeholder="Email"
                                         fullWidth={true}
                                         inputRef={emailRef}
+                                        helperText={formErrors?.email?.message}
+                                        onBlur={() =>
+                                            onHandleBlur(
+                                                'email',
+                                                emailRef.current.value.trim(),
+                                                validateEmail,
+                                            )
+                                        }
                                     />
                                 </Grid>
                             </Grid>
