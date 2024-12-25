@@ -8,7 +8,7 @@ import { theme } from '../../Theme/Theme';
 import { useTranslation } from 'react-i18next';
 
 function ProductInformation({ productInformation }) {
-    const { t } = useTranslation('translate');
+    const { t, i18n } = useTranslation('translate');
     // get the perfume data passed from navigation
     if (productInformation === null) return 'Loading...';
     return (
@@ -30,7 +30,7 @@ function ProductInformation({ productInformation }) {
                         <CustomizeProductDescriptionText
                             title={t('common.productDetails.Origin')}
                             // get value through key
-                            text={productInformation?.content.origin}
+                            text={productInformation?.content.originEn}
                         />
                         <CustomizeProductDescriptionText
                             title={t('common.productDetails.year')}
@@ -64,30 +64,40 @@ function ProductInformation({ productInformation }) {
                             {t(`common.productDetails.${'pDes'}`)}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            {t('common.productDetails.content.c1')}
+                            {i18n.language === 'en'
+                                ? productInformation?.content.shortContentEn
+                                : productInformation?.content.shortContentVn}
                         </CustomizeTypography>
 
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             <span style={{ color: theme.palette.text.primary }}>
                                 <strong>{t(`common.productDetails.topNote`)}: </strong>
                             </span>
-                            {t(`common.productDetails.n1`)}
+                            {i18n.language === 'en'
+                                ? productInformation?.content.topNotesEn
+                                : productInformation?.content.topNotesVn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             <span style={{ color: theme.palette.text.primary }}>
                                 <strong>{t('common.productDetails.heartNote')}: </strong>
                             </span>
-                            {t(`common.productDetails.n2`)}
+                            {i18n.language === 'en'
+                                ? productInformation?.content.heartNotesEn
+                                : productInformation?.content.heartNotesVn}
                         </CustomizeTypography>
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
                             <span style={{ color: theme.palette.text.primary }}>
                                 <strong>{t(`common.productDetails.basesNote`)}: </strong>
                             </span>
-                            {t(`common.productDetails.n3`)}
+                            {i18n.language === 'en'
+                                ? productInformation?.content.baseNotesEn
+                                : productInformation?.content.baseNotesVn}
                         </CustomizeTypography>
 
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
-                            {t('common.productDetails.content.c2')}
+                            {i18n.language === 'en'
+                                ? productInformation?.content.mainContentEn
+                                : productInformation?.content.mainContentVn}
                         </CustomizeTypography>
 
                         <CustomizeTypography sx={{ mt: 2, textAlign: 'justify' }}>
