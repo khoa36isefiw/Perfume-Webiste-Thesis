@@ -37,7 +37,7 @@ function ProductDetail() {
     }, [productData?.status]);
     const brandId = productData?.data?.product?.brand?._id;
 
-    console.log('test2222: ', test);
+    // console.log('test2222: ', test);
 
     const { data: productDataByBrand } = useProductByBrand(brandId);
     const { data: productSold } = useTopProductSold();

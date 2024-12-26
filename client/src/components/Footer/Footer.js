@@ -257,25 +257,38 @@ function Footer() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        [mobileScreen]: {
+                            flexDirection: 'column',
+                        },
                     }}
                 >
-                    <Typography
+                    <Box
                         sx={{
-                            fontSize: '20px',
-                            fontWeight: 'bold',
-                            color: theme.palette.secondaryText,
-                            textAlign: 'center',
-                            mr: 2,
-                            [mobileScreen]: {
-                                fontSize: theme.fontSize.mobile.heading,
-                                textAlign: 'center',
-                            },
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
                         }}
                     >
-                        Hotline
-                    </Typography>
+                        <Typography
+                            sx={{
+                                fontSize: '20px',
+                                fontWeight: 'bold',
+                                color: theme.palette.secondaryText,
+                                textAlign: 'center',
+                                mr: 2,
+                                [mobileScreen]: {
+                                    fontSize: theme.fontSize.mobile.heading,
+                                    textAlign: 'center',
+                                },
+                            }}
+                        >
+                            Hotline
+                        </Typography>
 
-                    <SupportAgent sx={{ fontSize: '28px', color: theme.palette.secondaryText }} />
+                        <SupportAgent
+                            sx={{ fontSize: '28px', color: theme.palette.secondaryText }}
+                        />
+                    </Box>
                     <CustomizeTypography sx={{ mb: 0, textAlign: 'center', fontSize: '18px' }}>
                         <span style={{ marginLeft: '18px' }}>08 372-227-64 | 0938-775-001</span>
                     </CustomizeTypography>
