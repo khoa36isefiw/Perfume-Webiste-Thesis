@@ -94,7 +94,26 @@ const AdminAddProduct = () => {
                     size.stock !== '',
             ) &&
             brand !== '' &&
-            category !== ''
+            category !== '' &&
+            content.originVn !== '' &&
+            content.originEn !== '' &&
+            content.yearOfRelease !== '' &&
+            content.concentration !== '' &&
+            content.fragranceGroup !== '' &&
+            content.manufacturer !== '' &&
+            content.shortContentEn !== '' &&
+            content.shortContentVn !== '' &&
+            content.topNotesEn !== '' &&
+            content.heartNotesEn !== '' &&
+            content.baseNotesEn !== '' &&
+            content.topNotesVn !== '' &&
+            content.heartNotesVn !== '' &&
+            content.baseNotesVn !== '' &&
+            content.mainContentEn !== '' &&
+            content.mainContentVn !== '' &&
+            content.longevity !== '' &&
+            content.sillage !== '' &&
+            content.likability !== ''
         ) {
             for (let i = 0; i < selectedSizes.length; i++) {
                 console.log(+selectedSizes[i].priceSale);
@@ -357,6 +376,31 @@ const AdminAddProduct = () => {
     };
 
     console.log('content: ', content);
+
+    const handleOnBlurMixed = (field, value) => {
+        const numericValue = +value; // Parse the value to a float
+        console.log('numericValue', numericValue); // Log the type for debugging
+
+        // Check if the value is a valid number and within the range [1, 5]
+        if (numericValue < 1 || numericValue > 5) {
+            // If invalid, disable the button and show a notification
+            setDisabledButton(true);
+            showNotificationMessage(
+                'warning',
+                'Rating',
+                `${field} must be a valid number between 1 and 5`,
+            );
+
+            // Reset the invalid field's value
+            setContent((prev) => ({
+                ...prev,
+                [field]: '', // Clear the field
+            }));
+        } else {
+            // If valid, enable the button
+            setDisabledButton(false);
+        }
+    };
 
     return (
         <Box
@@ -1020,18 +1064,7 @@ const AdminAddProduct = () => {
                     type="number"
                     value={content.longevity}
                     onChange={handleChange('longevity')}
-                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
-                    helperText={
-                        <Typography
-                            sx={{
-                                fontSize: '12px',
-                                color: 'red',
-                                fontWeight: 'bold',
-                            }}
-                        >
-                            {formErrors?.pName?.message}
-                        </Typography>
-                    }
+                    onBlur={(e) => handleOnBlurMixed('longevity', e.target.value)}
                 />
                 {/* origin */}
                 <AdminInputStyles
@@ -1045,18 +1078,7 @@ const AdminAddProduct = () => {
                     type="number"
                     value={content.sillage}
                     onChange={handleChange('sillage')}
-                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
-                    helperText={
-                        <Typography
-                            sx={{
-                                fontSize: '12px',
-                                color: 'red',
-                                fontWeight: 'bold',
-                            }}
-                        >
-                            {formErrors?.pName?.message}
-                        </Typography>
-                    }
+                    onBlur={(e) => handleOnBlurMixed('sillage', e.target.value)}
                 />
 
                 <AdminInputStyles
@@ -1070,18 +1092,7 @@ const AdminAddProduct = () => {
                     type="number"
                     value={content.likability}
                     onChange={handleChange('likability')}
-                    onBlur={(e) => onHandleBlur('pName', e.target.value, validateRequired)}
-                    helperText={
-                        <Typography
-                            sx={{
-                                fontSize: '12px',
-                                color: 'red',
-                                fontWeight: 'bold',
-                            }}
-                        >
-                            {formErrors?.pName?.message}
-                        </Typography>
-                    }
+                    onBlur={(e) => handleOnBlurMixed('likability', e.target.value)}
                 />
             </Box>
 

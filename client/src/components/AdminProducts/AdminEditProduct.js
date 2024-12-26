@@ -137,34 +137,69 @@ const AdminEditProduct = () => {
         const checkPriceSale = selectedSizes.some((variant) => variant.priceSale > variant.price);
 
         console.log('checkPriceSale: ', checkPriceSale);
-        if (!checkPriceSale) {
-            const formData = new FormData();
-            formData.append('nameVn', productName);
-            formData.append('nameEn', productName);
-            formData.append('category', category);
-            formData.append('brand', brand);
-            formData.append('content', JSON.stringify(content));
-            formData.append('variants', JSON.stringify(variants));
-            newImages.forEach((file) => {
-                formData.append('imagePath', file);
-            });
-            formData.append('deletedImages', JSON.stringify(deletedImages));
-            const updateResponse = await productAPI.editProduct(id, formData);
-            if (updateResponse.status === 200) {
-                mutate();
+        if (
+            productName !== '' &&
+            selectedSizes.length > 0 &&
+            selectedSizes.every(
+                (size) =>
+                    size.size !== '' &&
+                    size.price !== '' &&
+                    size.priceSale !== '' &&
+                    size.stock !== '',
+            ) &&
+            brand !== '' &&
+            category !== '' &&
+            content.originVn !== '' &&
+            content.originEn !== '' &&
+            content.yearOfRelease !== '' &&
+            content.concentration !== '' &&
+            content.fragranceGroup !== '' &&
+            content.manufacturer !== '' &&
+            content.shortContentEn !== '' &&
+            content.shortContentVn !== '' &&
+            content.topNotesEn !== '' &&
+            content.heartNotesEn !== '' &&
+            content.baseNotesEn !== '' &&
+            content.topNotesVn !== '' &&
+            content.heartNotesVn !== '' &&
+            content.baseNotesVn !== '' &&
+            content.mainContentEn !== '' &&
+            content.mainContentVn !== '' &&
+            content.longevity !== '' &&
+            content.sillage !== '' &&
+            content.likability !== ''
+        ) {
+            if (!checkPriceSale) {
+                const formData = new FormData();
+                formData.append('nameVn', productName);
+                formData.append('nameEn', productName);
+                formData.append('category', category);
+                formData.append('brand', brand);
+                formData.append('content', JSON.stringify(content));
+                formData.append('variants', JSON.stringify(variants));
+                newImages.forEach((file) => {
+                    formData.append('imagePath', file);
+                });
+                formData.append('deletedImages', JSON.stringify(deletedImages));
+                const updateResponse = await productAPI.editProduct(id, formData);
+                if (updateResponse.status === 200) {
+                    mutate();
+                    showNotificationMessage(
+                        'success',
+                        'Edit Product',
+                        'Update product information successfully!',
+                    );
+                    // navigate('/admin/manage-products');
+                }
+            } else {
                 showNotificationMessage(
-                    'success',
-                    'Edit Product',
-                    'Update product information successfully!',
+                    'error',
+                    'Price Error2',
+                    'Sale price cannot be greater than the original price!',
                 );
-                // navigate('/admin/manage-products');
             }
         } else {
-            showNotificationMessage(
-                'error',
-                'Price Error2',
-                'Sale price cannot be greater than the original price!',
-            );
+            showNotificationMessage('error', 'Update Product', 'Fill Product Ìnormation!');
         }
     };
 
@@ -305,6 +340,31 @@ const AdminEditProduct = () => {
             setFakeErrors(errors);
             return updatedSizes;
         });
+    };
+
+    const handleOnBlurMixed = (field, value) => {
+        const numericValue = +value; // Parse the value to a float
+        console.log('numericValue', numericValue); // Log the type for debugging
+
+        // Check if the value is a valid number and within the range [1, 5]
+        if (numericValue < 1 || numericValue > 5) {
+            // If invalid, disable the button and show a notification
+            setDisabledButton(true);
+            showNotificationMessage(
+                'warning',
+                'Rating',
+                `${field} must be a valid number between 1 and 5`,
+            );
+
+            // Reset the invalid field's value
+            setContent((prev) => ({
+                ...prev,
+                [field]: '', // Clear the field
+            }));
+        } else {
+            // If valid, enable the button
+            setDisabledButton(false);
+        }
     };
 
     // const handlePriceSaleBlur = (index) => {
@@ -611,21 +671,21 @@ const AdminEditProduct = () => {
                     type={'number'}
                     value={content.longevity}
                     onHandleChange={handleChange('longevity')}
-                    onHandleBlur={''}
+                    onHandleBlur={(e) => handleOnBlurMixed('longevity', e.target.value)}
                 />
                 <AdminNormalInput
                     label={'Fragrance diffusion'}
                     type={'number'}
                     value={content.sillage}
                     onHandleChange={handleChange('sillage')}
-                    onHandleBlur={''}
+                    onHandleBlur={(e) => handleOnBlurMixed('sillage', e.target.value)}
                 />
                 <AdminNormalInput
                     label={'Nose pleasing'}
                     type={'number'}
                     value={content.likability}
                     onHandleChange={handleChange('likability')}
-                    onHandleBlur={''}
+                    onHandleBlur={(e) => handleOnBlurMixed('likability', e.target.value)}
                 />
             </Box>
 
