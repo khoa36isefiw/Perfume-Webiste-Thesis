@@ -108,7 +108,7 @@ function MobileHeader({ setOpenMenu, openMenu }) {
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            cauthursor: 'pointer',
+                            cursor: 'pointer',
                             mr: 1,
                         }}
                         onClick={() => {
