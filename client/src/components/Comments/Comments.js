@@ -19,12 +19,13 @@ import useReviewOnProduct from '../../api/useReviewOnProduct';
 import { formatDateWithTime } from '../FormatDate/formatDate';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
+import Loading from '../Loading/Loading';
 
 function Comments({ perfumeDetailData, reference }) {
     console.log('perfumeDetailData: ', perfumeDetailData);
 
     const { data: reviewData, isLoading } = useReviewOnProduct(perfumeDetailData?.product?._id);
-    console.log('reviewData: ', reviewData?.data);
+
     const [currentPage, setCurrentPage] = useState(1); // Current page
     const itemsPerPage = 5; // Number of comments per page
 
@@ -39,6 +40,9 @@ function Comments({ perfumeDetailData, reference }) {
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
+    if (isLoading) {
+        return <Loading />;
+    }
 
     return (
         <Container
