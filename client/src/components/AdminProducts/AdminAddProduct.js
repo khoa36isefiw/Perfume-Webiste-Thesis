@@ -12,8 +12,6 @@ import {
     Tooltip,
     IconButton,
     ListItemText,
-    InputBase,
-    TextField,
 } from '@mui/material';
 import AdminButtonBackPage from '../AdminButtonBackPage/AdminButtonBackPage';
 import { mobileScreen, theme } from '../../Theme/Theme';
@@ -21,8 +19,6 @@ import useBrand from '../../api/useBrand';
 import useCategory from '../../api/useCategory';
 import { productAPI } from '../../api/productAPI';
 import BackspaceIcon from '@mui/icons-material/Backspace';
-import { contentTemplate } from '../../utils/constants';
-import { useNavigate } from 'react-router-dom';
 import { useSnackbarMessage } from '../../hooks/useSnackbarMessage';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { AdminInputStyles, AdminTextAreaStyles } from '../AdminInputStyles/AdminInputStyles';
@@ -32,10 +28,9 @@ import useValidationWithRef from '../../hooks/useValidationWithRef';
 const AdminAddProduct = () => {
     const { showNotificationMessage } = useSnackbarMessage();
     const { formErrors, onHandleBlur } = useBlur();
-    const { validateRequired, validateArray, validateNumber, validateSelect } =
-        useValidationWithRef();
+    const { validateRequired, validateArray, validateSelect } = useValidationWithRef();
     const [fakeErrors, setFakeErrors] = useState([]);
-    const navigate = useNavigate();
+
     const [images, setImages] = useState([]);
     const [productName, setProductName] = useState('');
     const [brand, setBrand] = useState('');
