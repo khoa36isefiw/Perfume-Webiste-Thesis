@@ -1,13 +1,7 @@
-import { Box, Button, Container, Grid } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import React, { useState } from 'react';
+import { mobileScreen, theme } from '../../Theme/Theme';
 
-import { ipadProScreen, mobileScreen, tabletScreen, theme } from '../../Theme/Theme';
-import { CustomizeTypography } from '../CustomizeTypography/CustomizeTypography';
-import Rating from '@mui/material/Rating';
-import { useNavigate } from 'react-router-dom';
-import { backTop } from '../goBackTop/goBackTop';
-
-import { converToVND } from '../convertToVND/convertToVND';
 import SortProducts from '../SortProducts/SortProducts';
 import PerfumeBrands from '../PerfumeBrands/PerfumeBrands';
 import EmptyCart from '../EmptyCart/EmptyCart';
@@ -30,8 +24,7 @@ function PerfumesCard() {
     const sortingFilter = JSON.parse(localStorage.getItem('sortBy')) || null;
     const selectedCategory = JSON.parse(window.localStorage.getItem('category')) || '';
     console.log('selectedCategory: ', selectedCategory);
-    const navigate = useNavigate();
-    const language = window.localStorage.getItem('language');
+
     const [visibleCount, setVisibleCount] = useState(8);
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [cId, setCId] = useState(null);
@@ -39,11 +32,10 @@ function PerfumesCard() {
         data: products,
         isLoading,
         mutate,
-        error,
     } = useProduct(searchQuery, brandFilter, sortingFilter?.sortBy, sortingFilter?.sortType);
     useEffect(() => {
         mutate(); // render after choose params to filter
-    }, [searchQuery, brandFilter, sortingFilter]);
+    }, [searchQuery, brandFilter, sortingFilter, mutate]);
 
     // console.log('productDataByCategory: ', productDataByCategory?.data);
     const [productData, setProductData] = useState([]);
@@ -59,27 +51,12 @@ function PerfumesCard() {
           )
         : products?.data;
 
-    useEffect(() => {
-        const handleScroll = () => {
-            // check if it doesn't load all product
-            // if (
-            //     //
-            //     window.innerHeight + window.scrollY >= document.body.offsetHeight - 400 &&
-            //     visibleCount < productData?.length
-            // ) {
-            //     setVisibleCount((prev) => prev + 8);
-            // }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    // console.log('productData:', productData);
-
     const handleLoadMore = () => {
         setVisibleCount((prevCount) => prevCount + 8);
     };
+
+    // const checkLocalStorage = typeof window.localStorage !== 'undefined';
+    // console.log('checkLocalStorage: ', checkLocalStorage);
 
     return (
         <React.Fragment>
