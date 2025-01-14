@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import React, { useState } from 'react';
 import { mobileScreen, theme } from '../../Theme/Theme';
-import { useNavigate } from 'react-router-dom';
+
 import SortProducts from '../SortProducts/SortProducts';
 import PerfumeBrands from '../PerfumeBrands/PerfumeBrands';
 import EmptyCart from '../EmptyCart/EmptyCart';
@@ -24,7 +24,7 @@ function PerfumesCard() {
     const sortingFilter = JSON.parse(localStorage.getItem('sortBy')) || null;
     const selectedCategory = JSON.parse(window.localStorage.getItem('category')) || '';
     console.log('selectedCategory: ', selectedCategory);
-    const navigate = useNavigate();
+
     const [visibleCount, setVisibleCount] = useState(8);
     const { open, animateStyle, handleClose, setAnimateStyle } = useLoading();
     const [cId, setCId] = useState(null);
@@ -32,11 +32,10 @@ function PerfumesCard() {
         data: products,
         isLoading,
         mutate,
-        error,
     } = useProduct(searchQuery, brandFilter, sortingFilter?.sortBy, sortingFilter?.sortType);
     useEffect(() => {
         mutate(); // render after choose params to filter
-    }, [searchQuery, brandFilter, sortingFilter]);
+    }, [searchQuery, brandFilter, sortingFilter, mutate]);
 
     // console.log('productDataByCategory: ', productDataByCategory?.data);
     const [productData, setProductData] = useState([]);
